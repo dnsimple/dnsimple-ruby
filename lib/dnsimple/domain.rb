@@ -42,6 +42,8 @@ module DNSimple #:nodoc:
       pp response if Client.debug?
       if response.code == 201
         return Domain.new(response["domain"])
+      elsif response.code == 401
+        raise RuntimeError, "Authentication failed"
       else
         raise DNSimple::Error.new(name, response["errors"])
       end

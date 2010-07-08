@@ -4,4 +4,11 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'dnsimple'
 require 'dnsimple/cli'
 
-DNSimple::CLI.new
+command = ARGV.shift
+
+cli = DNSimple::CLI.new
+begin
+  cli.execute(command, ARGV)
+rescue DNSimple::CommandNotFound => e
+  puts e.message
+end
