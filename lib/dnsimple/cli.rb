@@ -11,10 +11,16 @@ module DNSimple
       Client.credentials(credentials['username'], credentials['password'])
     end
 
-    def execute(command_name, args)
+    def execute(command_name, args, options={})
       command = commands[command_name]
       if command
-        command.new.execute(args)
+        begin
+          command.new.execute(args, options)
+        rescue DNSimple::Error => e
+          puts "An error occurred: #{e.message}"
+        rescue RuntimeError => e
+          puts "An error occurred: #{e.message}"
+        end
       else
         raise CommandNotFound, "Unknown command: #{command_name}"
       end
@@ -22,7 +28,8 @@ module DNSimple
 
     def commands
       {
-        'create' => DNSimple::Commands::Create
+        'create' => DNSimple::Commands::CreateDomain,
+        'delete' => DNSimple::Commands::DeleteDomain,
       }
     end
 
@@ -33,4 +40,5 @@ module DNSimple
   end
 end
 
-require 'dnsimple/commands/create'
+require 'dnsimple/commands/create_domain'
+require 'dnsimple/commands/delete_domain'

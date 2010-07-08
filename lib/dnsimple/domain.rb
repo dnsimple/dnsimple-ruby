@@ -53,9 +53,16 @@ module DNSimple #:nodoc:
       options = {}
       options.merge!({:basic_auth => Client.credentials})
       response = self.get("/domains/#{id}.json", options)
-      pp response; pp response.body if Client.debug?
-      if response.code == 200
+      if Client.debug?
+        pp response; pp response.body
+      end
+      case response.code
+      when 200
         return Domain.new(response["domain"])
+      when 401
+        raise RuntimeError, "Authentication failed"
+      when 404
+        raise RuntimeError, "Could not find domain #{id}"
       else
         raise DNSimple::Error.new(name, response["errors"])
       end
