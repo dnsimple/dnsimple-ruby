@@ -31,6 +31,7 @@ module DNSimple #:nodoc:
       options.merge!({:basic_auth => Client.credentials})
       self.class.delete("/domains/#{id}.json", options)
     end
+    alias :destroy :delete
 
     # Create the domain with the given name in DNSimple. This
     # method returns a Domain instance if the name is created
@@ -39,32 +40,52 @@ module DNSimple #:nodoc:
       options = {:query => {:domain => {:name => name}}}
       options.merge!({:basic_auth => Client.credentials})
       response = self.post('/domains.json', options)
+      
       pp response if Client.debug?
-      if response.code == 201
+      
+      case response.code
+      when 201
         return Domain.new(response["domain"])
-      elsif response.code == 401
+      when 401
         raise RuntimeError, "Authentication failed"
       else
         raise DNSimple::Error.new(name, response["errors"])
       end
     end
 
-    def self.find(id)
+    def self.find(id_or_name)
       options = {}
       options.merge!({:basic_auth => Client.credentials})
-      response = self.get("/domains/#{id}.json", options)
-      if Client.debug?
-        pp response; pp response.body
-      end
+      response = self.get("/domains/#{id_or_name}.json", options)
+      
+      pp response if Client.debug?
+      
       case response.code
       when 200
         return Domain.new(response["domain"])
       when 401
         raise RuntimeError, "Authentication failed"
       when 404
-        raise RuntimeError, "Could not find domain #{id}"
+        raise RuntimeError, "Could not find domain #{id_or_name}"
       else
         raise DNSimple::Error.new(name, response["errors"])
+      end
+    end
+
+    def self.all
+      options = {}
+      options.merge!({:basic_auth => Client.credentials})
+      response = self.get("/domains.json", options)
+      
+      pp response if Client.debug?
+
+      case response.code
+      when 200
+        response.map { |r| Domain.new(r["domain"]) }
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise RuntimeError, "Error: #{response.code}"
       end
     end
   end

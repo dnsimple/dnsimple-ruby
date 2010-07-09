@@ -1,29 +1,3 @@
 #!/usr/bin/env ruby
 
-$:.unshift(File.dirname(__FILE__) + '/../lib')
-require 'dnsimple'
-require 'dnsimple/cli'
-
-global = OptionParser.new do |opts|
-  
-end
-
-subcommands = { 
-  'create' => OptionParser.new do |opts|
-     opts.on("--template [ARG]") do |opt|
-       puts "Template: #{opt}"
-     end
-   end,
-   # ...
-   'baz' => OptionParser.new do |opts|
-     # ...
-   end
- }
-
-
-cli = DNSimple::CLI.new
-begin
-  cli.execute(command, ARGV)
-rescue DNSimple::CommandNotFound => e
-  puts e.message
-end
+require File.dirname(__FILE__) + '/dnsimple'

@@ -18,17 +18,20 @@ subcommands = {
        options[:template] = opt 
      end
    end,
-   'delete' => OptionParser.new do |opts|
-   end
 }
 
 global.order!
 command = ARGV.shift
-subcommands[command].order!
+if command.nil?
+  puts "You must specify a command"
+else
+  options_parser = subcommands[command]
+  options_parser.order! if options_parser
 
-cli = DNSimple::CLI.new
-begin
-  cli.execute(command, ARGV, options)
-rescue DNSimple::CommandNotFound => e
-  puts e.message
+  cli = DNSimple::CLI.new
+  begin
+    cli.execute(command, ARGV, options)
+  rescue DNSimple::CommandNotFound => e
+    puts e.message
+  end
 end
