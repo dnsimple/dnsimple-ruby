@@ -16,6 +16,9 @@ module DNSimple #:nodoc:
     # When the domain was last update in DNSimple
     attr_accessor :updated_at
 
+    # The current known name server status
+    attr_accessor :name_server_status
+
     #:nodoc:
     def initialize(attributes)
       attributes.each do |key, value|
@@ -26,8 +29,7 @@ module DNSimple #:nodoc:
 
     # Delete the domain from DNSimple. WARNING: this cannot
     # be undone.
-    def delete
-      options = {}
+    def delete(options={})
       options.merge!({:basic_auth => Client.credentials})
       self.class.delete("/domains/#{id}.json", options)
     end
@@ -36,9 +38,12 @@ module DNSimple #:nodoc:
     # Create the domain with the given name in DNSimple. This
     # method returns a Domain instance if the name is created
     # and raises 
-    def self.create(name)
-      options = {:query => {:domain => {:name => name}}}
+    def self.create(name, options={})
+      domain_hash = {:name => name}
+      
+      options.merge!({:query => {:domain => domain_hash}})
       options.merge!({:basic_auth => Client.credentials})
+
       response = self.post('/domains.json', options)
       
       pp response if Client.debug?
@@ -53,8 +58,7 @@ module DNSimple #:nodoc:
       end
     end
 
-    def self.find(id_or_name)
-      options = {}
+    def self.find(id_or_name, options={})
       options.merge!({:basic_auth => Client.credentials})
       response = self.get("/domains/#{id_or_name}.json", options)
       
@@ -72,8 +76,7 @@ module DNSimple #:nodoc:
       end
     end
 
-    def self.all
-      options = {}
+    def self.all(options={})
       options.merge!({:basic_auth => Client.credentials})
       response = self.get("/domains.json", options)
       

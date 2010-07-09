@@ -33,7 +33,8 @@ module DNSimple
         'describe' => DNSimple::Commands::DescribeDomain,
         'list' => DNSimple::Commands::ListDomains,
         
-        'record:create' => DNSimple::Commands::CreateRecord
+        'record:create' => DNSimple::Commands::CreateRecord,
+        'record:list' => DNSimple::Commands::ListRecords
       }
     end
 
@@ -49,3 +50,4 @@ require 'dnsimple/commands/delete_domain'
 require 'dnsimple/commands/describe_domain'
 require 'dnsimple/commands/list_domains'
 require 'dnsimple/commands/create_record'
+require 'dnsimple/commands/list_records'

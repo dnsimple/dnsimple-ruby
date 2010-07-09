@@ -7,6 +7,7 @@ module DNSimple
         puts "Domain #{domain.name}:"
         puts "\tID: #{domain.id}"
         puts "\tCreated: #{domain.created_at}"
+        puts "\tName Server Status: #{domain.name_server_status}"
       end
     end
   end
