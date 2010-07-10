@@ -35,6 +35,12 @@ module DNSimple #:nodoc:
     end
     alias :destroy :delete
 
+    def apply(template_name, options={})
+      template = DNSimple::Template.find(template_name)
+      options.merge!({:basic_auth => Client.credentials})
+      self.class.post("/domains/#{id}/templates/#{template.id}/apply", options)
+    end
+
     # Create the domain with the given name in DNSimple. This
     # method returns a Domain instance if the name is created
     # and raises 
@@ -72,7 +78,7 @@ module DNSimple #:nodoc:
       when 404
         raise RuntimeError, "Could not find domain #{id_or_name}"
       else
-        raise DNSimple::Error.new(name, response["errors"])
+        raise DNSimple::Error.new(id_or_name, response["errors"])
       end
     end
 

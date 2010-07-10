@@ -44,4 +44,18 @@ describe DNSimple::Domain do
       domains.map { |d| d.name }.should include(*@domains.map { |d| d.name })
     end
   end
+
+  describe "applying templates" do
+    before do
+      @domain = DNSimple::Domain.create("testdomain.com")
+    end
+    after do
+      @domain.delete
+    end
+    it "applies a named template" do
+      DNSimple::Record.all(@domain.name).should be_empty
+      @domain.apply("googleapps")
+      DNSimple::Record.all(@domain.name).should_not be_empty
+    end
+  end
 end

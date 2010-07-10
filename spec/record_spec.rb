@@ -4,17 +4,18 @@ describe DNSimple::Record do
   before do
     #DNSimple::Client.debug = true 
     DNSimple::Client.credentials('anthonyeden@gmail.com', 'letmein')
+    @domain = DNSimple::Domain.create("testdomain.com")
+  end
+
+  after do
+    @domain.delete
   end
 
   describe "a new record" do
     before do
-      @domain = DNSimple::Domain.create("testdomain.com")
-      @record = DNSimple::Record.create("testdomain.com", "", "A", "1.2.3.4", :ttl => 600)
+      @record = DNSimple::Record.create(@domain.name, "", "A", "1.2.3.4", :ttl => 600)
     end
-    after do
-      #@record.delete
-      @domain.delete
-    end
+
     it "has specific attributes" do 
       @record.name.should eql("")
       @record.record_type.should eql("A")
@@ -34,16 +35,13 @@ describe DNSimple::Record do
 
   describe ".all" do
     before do
-      @domain = DNSimple::Domain.create("testdomain.com")
       @records = []
       
       @records << DNSimple::Record.create("testdomain.com", "", "A", "4.5.6.7")
       @records << DNSimple::Record.create("testdomain.com", "www", "CNAME", "testdomain.com")
       @records << DNSimple::Record.create("testdomain.com", "", "MX", "mail.foo.com", :prio => 10)
     end
-    after do
-      @domain.destroy
-    end
+    
     it "returns a list of records" do
       records = DNSimple::Record.all(@domain.name)
       records.should_not be_empty

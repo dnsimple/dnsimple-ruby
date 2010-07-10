@@ -6,7 +6,10 @@ module DNSimple
         records = Record.all(domain_name)
         puts "Found #{records.length} records for #{domain_name}"
         records.each do |record|
-          puts "\t#{record.name}.#{record.domain.name} (#{record.record_type})-> #{record.content} (ttl:#{record.ttl},id:#{record.id})"
+          extra = ["ttl:#{record.ttl}", "id:#{record.id}"]
+          extra << "prio:#{record.prio}" if record.record_type == "MX"
+          extra = "(#{extra.join(', ')})"
+          puts "\t#{record.name}.#{record.domain.name} (#{record.record_type})-> #{record.content} #{extra}"
         end
       end
     end

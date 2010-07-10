@@ -29,12 +29,15 @@ module DNSimple
     def commands
       {
         'create' => DNSimple::Commands::CreateDomain,
-        'delete' => DNSimple::Commands::DeleteDomain,
         'describe' => DNSimple::Commands::DescribeDomain,
         'list' => DNSimple::Commands::ListDomains,
+        'delete' => DNSimple::Commands::DeleteDomain,
+        'clear' => DNSimple::Commands::ClearDomain,
+        'apply' => DNSimple::Commands::ApplyTemplate,
         
         'record:create' => DNSimple::Commands::CreateRecord,
-        'record:list' => DNSimple::Commands::ListRecords
+        'record:list' => DNSimple::Commands::ListRecords,
+        'record:delete' => DNSimple::Commands::DeleteRecord,
       }
     end
 
@@ -46,8 +49,12 @@ module DNSimple
 end
 
 require 'dnsimple/commands/create_domain'
-require 'dnsimple/commands/delete_domain'
 require 'dnsimple/commands/describe_domain'
 require 'dnsimple/commands/list_domains'
+require 'dnsimple/commands/delete_domain'
+require 'dnsimple/commands/clear_domain'
+require 'dnsimple/commands/apply_template'
+
 require 'dnsimple/commands/create_record'
 require 'dnsimple/commands/list_records'
+require 'dnsimple/commands/delete_record'

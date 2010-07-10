@@ -15,6 +15,8 @@ module DNSimple
 
     attr_accessor :ttl
 
+    attr_accessor :prio
+
     #:nodoc:
     def initialize(attributes)
       attributes.each do |key, value|

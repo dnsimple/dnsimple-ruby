@@ -3,10 +3,8 @@ module DNSimple
     class CreateDomain
       def execute(args, options={})
         name = args.shift
-
-        Domain.create(name) 
-
-        puts "Created #{name}"
+        domain = Domain.create(name) 
+        puts "Created #{domain.name}"
       end
     end
   end

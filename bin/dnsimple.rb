@@ -18,6 +18,11 @@ subcommands = {
        options[:template] = opt 
      end
    end,
+  'record:create' => OptionParser.new do |opts|
+     opts.on("--prio [ARG]") do |prio|
+       options[:prio] = prio 
+     end
+  end,
 }
 
 global.order!
