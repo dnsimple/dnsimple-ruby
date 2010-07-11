@@ -1,6 +1,6 @@
 A Ruby wrapper for the DNSimple API.
 
-== Credentials ==
+== Credentials
 
 Create a file in your home directory called .dnsimple
 
