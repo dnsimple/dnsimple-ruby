@@ -6,6 +6,7 @@ Create a file in your home directory called .dnsimple
 
 In this file add the following:
 
+<pre>
 username: YOUR_USERNAME
 password: YOUR_PASSWORD
-
+</pre>
