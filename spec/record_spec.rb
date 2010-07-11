@@ -2,8 +2,6 @@ require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe DNSimple::Record do
   before do
-    #DNSimple::Client.debug = true 
-    DNSimple::Client.credentials('anthonyeden@gmail.com', 'letmein')
     @domain = DNSimple::Domain.create("testdomain.com")
   end
 

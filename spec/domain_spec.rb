@@ -1,10 +1,6 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe DNSimple::Domain do
-  before do
-    #DNSimple::Client.debug = true 
-    DNSimple::Client.credentials('anthonyeden@gmail.com', 'letmein')
-  end
 
   describe "a new domain" do
     before do

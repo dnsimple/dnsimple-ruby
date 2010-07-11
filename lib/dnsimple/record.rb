@@ -1,7 +1,6 @@
 module DNSimple
   class Record
     include HTTParty
-    base_uri 'http://localhost:3000/'
 
     attr_accessor :id
 
@@ -27,7 +26,7 @@ module DNSimple
     
     def delete(options={})
       options.merge!({:basic_auth => Client.credentials})
-      self.class.delete("/domains/#{domain.id}/records/#{id}.json", options)
+      self.class.delete("#{Client.base_uri}/domains/#{domain.id}/records/#{id}.json", options)
     end
     alias :destroy :delete
 
@@ -41,7 +40,7 @@ module DNSimple
       options.merge!({:query => {:record => record_hash}})
       options.merge!({:basic_auth => Client.credentials})
 
-      response = self.post("/domains/#{domain.id}/records.json", options) 
+      response = self.post("#{Client.base_uri}/domains/#{domain.id}/records.json", options) 
 
       pp response if Client.debug?
 
@@ -58,7 +57,7 @@ module DNSimple
     def self.find(domain_name, id, options={})
       domain = Domain.find(domain_name)
       options.merge!({:basic_auth => Client.credentials})
-      response = self.get("/domains/#{domain.id}/records/#{id}", options)
+      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records/#{id}", options)
 
       pp response if Client.debug?
 
@@ -77,7 +76,7 @@ module DNSimple
     def self.all(domain_name, options={})
       domain = Domain.find(domain_name)
       options.merge!({:basic_auth => Client.credentials})
-      response = self.get("/domains/#{domain.id}/records.json", options)
+      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records.json", options)
 
       pp response if Client.debug?
 

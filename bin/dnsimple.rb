@@ -4,12 +4,22 @@ $:.unshift(File.dirname(__FILE__) + '/../lib')
 require 'dnsimple'
 require 'dnsimple/cli'
 
+cli = DNSimple::CLI.new
+
 require 'optparse'
 
 options = {}
 
 global = OptionParser.new do |opts|
-  
+  opts.on("-s", "--site [ARG]") do |site|
+    DNSimple::Client.base_uri site
+  end
+  opts.on("-u", "--username [ARG]") do |username|
+    DNSimple::Client.username = username
+  end
+  opts.on("-p", "--password [ARG]") do |password|
+    DNSimple::Client.password = password
+  end
 end
 
 subcommands = { 
@@ -32,8 +42,6 @@ if command.nil?
 else
   options_parser = subcommands[command]
   options_parser.order! if options_parser
-
-  cli = DNSimple::CLI.new
   begin
     cli.execute(command, ARGV, options)
   rescue DNSimple::CommandNotFound => e

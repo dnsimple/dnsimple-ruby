@@ -2,7 +2,6 @@ module DNSimple #:nodoc:
   # Class representing a single domain in DNSimple.
   class Domain
     include HTTParty
-    base_uri 'http://localhost:3000/'
 
     # The domain ID in DNSimple
     attr_accessor :id
@@ -31,14 +30,14 @@ module DNSimple #:nodoc:
     # be undone.
     def delete(options={})
       options.merge!({:basic_auth => Client.credentials})
-      self.class.delete("/domains/#{id}.json", options)
+      self.class.delete("#{Client.base_uri}/domains/#{id}.json", options)
     end
     alias :destroy :delete
 
     def apply(template_name, options={})
       template = DNSimple::Template.find(template_name)
       options.merge!({:basic_auth => Client.credentials})
-      self.class.post("/domains/#{id}/templates/#{template.id}/apply", options)
+      self.class.post("#{Client.base_uri}/domains/#{id}/templates/#{template.id}/apply", options)
     end
 
     # Create the domain with the given name in DNSimple. This
@@ -50,7 +49,7 @@ module DNSimple #:nodoc:
       options.merge!({:query => {:domain => domain_hash}})
       options.merge!({:basic_auth => Client.credentials})
 
-      response = self.post('/domains.json', options)
+      response = self.post("#{Client.base_uri}/domains.json", options)
       
       pp response if Client.debug?
       
@@ -66,7 +65,7 @@ module DNSimple #:nodoc:
 
     def self.find(id_or_name, options={})
       options.merge!({:basic_auth => Client.credentials})
-      response = self.get("/domains/#{id_or_name}.json", options)
+      response = self.get("#{Client.base_uri}/domains/#{id_or_name}.json", options)
       
       pp response if Client.debug?
       
@@ -84,7 +83,7 @@ module DNSimple #:nodoc:
 
     def self.all(options={})
       options.merge!({:basic_auth => Client.credentials})
-      response = self.get("/domains.json", options)
+      response = self.get("#{Client.base_uri}/domains.json", options)
       
       pp response if Client.debug?
 

@@ -1,0 +1,6 @@
+Before running the DNSimple Ruby Client specifications, you must create a file in your home directory called .dnsimple.localhost and include the following:
+
+username: YOUR_USERNAME
+password: YOUR_PASSWORD
+
+

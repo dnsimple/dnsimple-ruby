@@ -1,7 +1,6 @@
 module DNSimple
   class Template
     include HTTParty
-    base_uri 'http://localhost:3000/'
 
     # The template ID in DNSimple
     attr_accessor :id
@@ -25,7 +24,7 @@ module DNSimple
 
     def self.find(id_or_short_name, options={})
       options.merge!({:basic_auth => Client.credentials})
-      response = self.get("/templates/#{id_or_short_name}.json", options)
+      response = self.get("#{Client.base_uri}/templates/#{id_or_short_name}.json", options)
       
       pp response if Client.debug?
       
