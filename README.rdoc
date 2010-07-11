@@ -9,3 +9,18 @@ In this file add the following:
     username: YOUR_USERNAME
     password: YOUR_PASSWORD
 
+== Commands
+
+The following commands are available for domains:
+
+* dnsimple list
+* dnsimple describe domain.com
+* dnsimple create domain.com
+* dnsimple delete domain.com
+* dnsimple apply domain.com template_short_name
+
+The following commands are available for records:
+
+* dnsimple record:create [--prio=priority] domain.com name type content [ttl]
+* dnsimple record:list domain.com
+* dnsimple record:delete domain.com record_id
