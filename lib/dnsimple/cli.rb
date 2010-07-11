@@ -8,7 +8,8 @@ module DNSimple
   class CLI
     def initialize
       credentials = load_credentials
-      Client.credentials(credentials['username'], credentials['password'])
+      Client.username = credentials['username']
+      Client.password = credentials['password']
     end
 
     def execute(command_name, args, options={})

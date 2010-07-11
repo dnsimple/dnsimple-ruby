@@ -7,28 +7,32 @@ module DNSimple
       @debug = debug
     end
 
+    def self.username
+      @@username
+    end
+
     def self.username=(username)
-      self.credentials[:username] = username
+      @@username = username
+    end
+
+    def self.password
+      @@password
     end
 
     def self.password=(password)
-      self.credentials[:password] = password
+      @@password = password
     end
 
-    def self.credentials(username=nil, password=nil)
-      @credentials ||= {}
-      @credentials = {:username => username, :password => password} if username && password
-      @credentials
+    def self.credentials
+      {:username => self.username, :password => self.password}
     end
 
-    def self.base_uri(site=nil) 
-      self.base_uri = site if site
-      @@base_uri ||= "http://localhost:3000"
+    def self.base_uri
+      @@base_uri ||= "http://dnsimple.com"
     end
 
     def self.base_uri=(base_uri)
       @@base_uri = base_uri.gsub(/\/$/, '')
-      puts "Using #{@@base_uri}"
     end
   end
 end

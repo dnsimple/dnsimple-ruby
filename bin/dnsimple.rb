@@ -12,7 +12,7 @@ options = {}
 
 global = OptionParser.new do |opts|
   opts.on("-s", "--site [ARG]") do |site|
-    DNSimple::Client.base_uri site
+    DNSimple::Client.base_uri = site
   end
   opts.on("-u", "--username [ARG]") do |username|
     DNSimple::Client.username = username
