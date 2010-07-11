@@ -1,11 +1,12 @@
 A Ruby wrapper for the DNSimple API.
 
-== Credentials
+h2. Credentials
 
 Create a file in your home directory called .dnsimple
 
 In this file add the following:
 
-    username: YOUR_USERNAME
-    password: YOUR_PASSWORD
+bc.username: YOUR_USERNAME
+password: YOUR_PASSWORD
+bc.
 
