@@ -1,5 +1,9 @@
 A Ruby wrapper for the DNSimple API.
 
+h2. Installation
+
+<pre><code>[sudo] gem install dnsimple-ruby</code></pre>
+
 h2. Credentials
 
 Create a file in your home directory called .dnsimple
@@ -10,6 +14,10 @@ In this file add the following:
   password: YOUR_PASSWORD
 
 h2. Commands
+
+For help:
+
+* dnsimple help
 
 The following commands are available for domains:
 
