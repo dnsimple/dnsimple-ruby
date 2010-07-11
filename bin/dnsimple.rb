@@ -8,6 +8,42 @@ cli = DNSimple::CLI.new
 
 require 'optparse'
 
+def usage
+  $stderr.puts <<EOF
+
+This is a command line tool for DNSimple. More information about DNSimple can
+be found at http://dnsimple.com/
+
+Before using this tool you should create a file called .dnsimple in your home 
+directory and add the following to that file:
+
+username: YOUR_USERNAME
+password: YOUR_PASSWORD
+
+== Commands
+
+All commands are executed as dnsimple [options] command [command-options] args
+
+
+The following commands are available:
+
+help                                    # show this usage
+
+list                                    # List all domains
+
+describe domain.com                     # Describe the given domain
+create domain.com                       # Add the given domain
+delete domain.com                       # Delete the given domain
+apply domain.com template_short_name    # Apply a template to the domain
+
+record:create [--prio=priority] \\
+  domain.com name type content [ttl]    # Create the DNS record on the domain
+record:list domain.com                  # List all records for the domain
+record:delete domain.com record_id      # Delete the given domain
+
+EOF
+end
+
 options = {}
 
 global = OptionParser.new do |opts|
@@ -37,8 +73,8 @@ subcommands = {
 
 global.order!
 command = ARGV.shift
-if command.nil?
-  puts "You must specify a command"
+if command.nil? || command == 'help'
+  usage
 else
   options_parser = subcommands[command]
   options_parser.order! if options_parser
