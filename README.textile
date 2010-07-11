@@ -10,8 +10,10 @@ Create a file in your home directory called .dnsimple
 
 In this file add the following:
 
-  username: YOUR_USERNAME
-  password: YOUR_PASSWORD
+<pre><code>
+username: YOUR_USERNAME
+password: YOUR_PASSWORD
+</code></pre>
 
 h2. Commands
 
