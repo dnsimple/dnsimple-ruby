@@ -67,4 +67,4 @@ Sample:
 
 The complete RDoc for the wrapper classes can be found here: 
 
-  http://rdoc.info/projects/aetrion/dnsimple-ruby
+  "http://rdoc.info/projects/aetrion/dnsimple-ruby":http://rdoc.info/projects/aetrion/dnsimple-ruby
