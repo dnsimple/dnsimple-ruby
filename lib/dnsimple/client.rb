@@ -28,7 +28,7 @@ module DNSimple
     end
 
     def self.base_uri
-      @@base_uri ||= "http://dnsimple.com"
+      @@base_uri ||= "https://dnsimple.com"
     end
 
     def self.base_uri=(base_uri)
