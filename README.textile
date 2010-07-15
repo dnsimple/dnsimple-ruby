@@ -1,6 +1,6 @@
 A Ruby command line utility and wrapper for the DNSimple API.
 
-DNSimple is a hosted DNS service that can be found at http://dnsimple.com/
+DNSimple is a hosted DNS service that can be found at "http://dnsimple.com/":http://dnsimple.com/
 
 h2. Installation
 
