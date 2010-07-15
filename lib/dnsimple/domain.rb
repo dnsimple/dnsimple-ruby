@@ -37,7 +37,7 @@ module DNSimple #:nodoc:
     def apply(template_name, options={})
       template = DNSimple::Template.find(template_name)
       options.merge!({:basic_auth => Client.credentials})
-      self.class.post("#{Client.base_uri}/domains/#{id}/templates/#{template.id}/apply", options)
+      self.class.post("#{Client.base_uri}/domains/#{id}/templates/#{template.id}/apply.json", options)
     end
 
     # Create the domain with the given name in DNSimple. This
@@ -46,7 +46,7 @@ module DNSimple #:nodoc:
     def self.create(name, options={})
       domain_hash = {:name => name}
       
-      options.merge!({:query => {:domain => domain_hash}})
+      options.merge!({:body => {:domain => domain_hash}})
       options.merge!({:basic_auth => Client.credentials})
 
       response = self.post("#{Client.base_uri}/domains.json", options)
