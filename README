@@ -11,6 +11,14 @@ password: YOUR_PASSWORD
 
 == Commands
 
+There are two ways to interact with the DNSimple Ruby wrapper. The first is
+to use the command line utility that is included. The commands available 
+are as follows:
+
+For help:
+
+* dnsimple help
+
 The following commands are available for domains:
 
 * dnsimple list
@@ -24,3 +32,32 @@ The following commands are available for records:
 * dnsimple record:create [--prio=priority] domain.com name type content [ttl]
 * dnsimple record:list domain.com
 * dnsimple record:delete domain.com record_id
+
+== Wrapper Classes
+
+In addition to the command line utility you may also use the included Ruby
+classes directly in your Ruby applications.
+
+Sample:
+
+  require 'rubygems'
+  require 'dnsimple'
+  
+  DNSimple::Client.username = 'YOUR_USERNAME'
+  DNSimple::Client.password = 'YOUR_PASSWORD'
+
+  puts "Domains..."
+  Domain.all.each do |domain|
+    puts "  #{domain.name}"
+  end
+
+  domain = Domain.find("example.com")
+  domain.apply("template") # applies a standard or custom template to the domain
+
+  domain = Domain.create("newdomain.com")
+  puts "Added #{domain.name}"
+  domain.delete # removes from DNSimple
+
+The complete RDoc for the wrapper classes can be found here: 
+
+  http://rdoc.info/projects/aetrion/dnsimple-ruby
