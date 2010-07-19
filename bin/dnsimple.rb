@@ -27,7 +27,8 @@ All commands are executed as dnsimple [options] command [command-options] args
 
 The following commands are available:
 
-help                                    # show this usage
+help                                    # Show this usage
+info                                    # Show your account information
 
 list                                    # List all domains
 
