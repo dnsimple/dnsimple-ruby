@@ -4,6 +4,7 @@ require 'httparty'
 
 require 'dnsimple/client'
 require 'dnsimple/error'
+require 'dnsimple/user'
 require 'dnsimple/domain'
 require 'dnsimple/record'
 require 'dnsimple/template'

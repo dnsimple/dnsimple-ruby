@@ -29,6 +29,8 @@ module DNSimple
 
     def commands
       {
+        'info' => DNSimple::Commands::DescribeUser,
+
         'create' => DNSimple::Commands::CreateDomain,
         'describe' => DNSimple::Commands::DescribeDomain,
         'list' => DNSimple::Commands::ListDomains,
@@ -49,6 +51,7 @@ module DNSimple
   end
 end
 
+require 'dnsimple/commands/describe_user'
 require 'dnsimple/commands/create_domain'
 require 'dnsimple/commands/describe_domain'
 require 'dnsimple/commands/list_domains'
