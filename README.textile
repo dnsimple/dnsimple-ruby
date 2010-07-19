@@ -54,6 +54,9 @@ Sample:
   DNSimple::Client.username = 'YOUR_USERNAME'
   DNSimple::Client.password = 'YOUR_PASSWORD'
 
+  user = User.me
+  puts "#{user.domain_count} domains"
+
   puts "Domains..."
   Domain.all.each do |domain|
     puts "  #{domain.name}"
