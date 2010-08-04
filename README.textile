@@ -16,11 +16,16 @@ In this file add the following:
 password: YOUR_PASSWORD
 </code></pre>
 
+Alternatively you can pass the credentials via command-line arguments, as in:
+
+<pre><code>dnsimple -u username -p password list</code></pre>
+
 h2. Commands
 
 There are two ways to interact with the DNSimple Ruby wrapper. The first is
-to use the command line utility that is included. The commands available 
-are as follows:
+to use the command line utility that is included.
+
+The commands available are as follows:
 
 For help:
 
