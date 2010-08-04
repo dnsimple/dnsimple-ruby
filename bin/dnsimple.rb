@@ -20,6 +20,10 @@ directory and add the following to that file:
 username: YOUR_USERNAME
 password: YOUR_PASSWORD
 
+Alternatively you can pass the credentials via command-line arguments, as in:
+
+dnsimple -u username -p password command
+
 == Commands
 
 All commands are executed as dnsimple [options] command [command-options] args
