@@ -21,6 +21,14 @@ module DNSimple
         self.send(m, value) if self.respond_to?(m)
       end
     end
+    
+    # Delete the template from DNSimple. WARNING: this cannot
+    # be undone.
+    def delete(options={})
+      options.merge!({:basic_auth => Client.credentials})
+      self.class.delete("#{Client.base_uri}/templates/#{id}.json", options)
+    end
+    alias :destroy :delete
 
     def self.create(name, short_name, description=nil, options={})
       template_hash = {
