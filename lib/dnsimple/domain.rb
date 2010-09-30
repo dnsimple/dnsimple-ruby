@@ -42,7 +42,7 @@ module DNSimple #:nodoc:
 
     # Create the domain with the given name in DNSimple. This
     # method returns a Domain instance if the name is created
-    # and raises 
+    # and raises an error otherwise.
     def self.create(name, options={})
       domain_hash = {:name => name}
       
@@ -50,6 +50,34 @@ module DNSimple #:nodoc:
       options.merge!({:basic_auth => Client.credentials})
 
       response = self.post("#{Client.base_uri}/domains.json", options)
+      
+      pp response if Client.debug?
+      
+      case response.code
+      when 201
+        return Domain.new(response["domain"])
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise DNSimple::Error.new(name, response["errors"])
+      end
+    end
+
+    def self.register(name, registrant={}, extended_attributes={}, options={})
+      body = {:domain => {:name => name}}
+
+      if registrant[:id]
+        body[:domain][:registrant_id] = registrant[:id]
+      else
+        body.merge!(:contact => registrant)
+      end
+
+      body.merge!(:extended_attribute => extended_attributes)
+      
+      options.merge!({:body => body})
+      options.merge!({:basic_auth => Client.credentials})
+
+      response = self.post("#{Client.base_uri}/domain_registrations.json", options)
       
       pp response if Client.debug?
       

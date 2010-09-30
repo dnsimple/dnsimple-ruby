@@ -25,6 +25,35 @@ describe DNSimple::Domain do
     end
   end
 
+  context "registration" do
+    describe "a new domain" do
+      context "with an existing contact" do
+        let(:name) { "testdomain-#{Time.now.to_i}.net" }
+        let(:registrant) { Hash.new(:id => 4) }
+        it "can be registered" do
+          domain = DNSimple::Domain.register(name, registrant)
+          domain.name.should eql(name)
+        end
+      end
+      context "with a new registrant contact" do
+        let(:name) { "testdomain-#{Time.now.to_i}.net" }
+        it "can be registered" do
+          registrant = {
+            :first_name => 'John',
+            :last_name => 'Smith',
+            :address1 => '123 SW 1st Street',
+            :city => 'Miami',
+            :state_or_province => 'FL',
+            :country => 'US',
+            :postal_code => '33143'
+          }
+          domain = DNSimple::Domain.register(name, registrant)
+          domain.name.should eql(name)
+        end
+      end
+    end
+  end
+
   describe ".all" do
     before do
       @domains = []

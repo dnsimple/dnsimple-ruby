@@ -32,6 +32,7 @@ module DNSimple
         'info' => DNSimple::Commands::DescribeUser,
 
         'create' => DNSimple::Commands::CreateDomain,
+        'register' => DNSimple::Commands::RegisterDomain,
         'describe' => DNSimple::Commands::DescribeDomain,
         'list' => DNSimple::Commands::ListDomains,
         'delete' => DNSimple::Commands::DeleteDomain,
@@ -55,6 +56,7 @@ end
 
 require 'dnsimple/commands/describe_user'
 require 'dnsimple/commands/create_domain'
+require 'dnsimple/commands/register_domain'
 require 'dnsimple/commands/describe_domain'
 require 'dnsimple/commands/list_domains'
 require 'dnsimple/commands/delete_domain'

@@ -72,6 +72,11 @@ subcommands = {
        options[:template] = opt 
      end
    end,
+  'register' => OptionParser.new do |opts|
+     opts.on("--template [ARG]") do |opt|
+       options[:template] = opt
+     end
+  end,
   'record:create' => OptionParser.new do |opts|
      opts.on("--prio [ARG]") do |prio|
        options[:prio] = prio 
