@@ -39,5 +39,21 @@ module DNSimple
         raise DNSimple::Error.new(id_or_short_name, response["errors"])
       end
     end
+
+    def self.all(options={})
+      options.merge!({:basic_auth => Client.credentials})
+      response = self.get("#{Client.base_uri}/templates.json", options)
+
+      pp response if Client.debug?
+
+      case response.code
+      when 200
+        response.map { |r| Template.new(r["dns_template"]) }
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise RuntimeError, "Error: #{response.code}"
+      end
+    end
   end
 end
