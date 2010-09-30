@@ -16,6 +16,8 @@ The following commands are available for domains:
 * dnsimple list
 * dnsimple describe domain.com
 * dnsimple create domain.com
+* dnsimple register domain.com registrant_id
+* dnsimple transfer domain.com registrant_id [authinfo]
 * dnsimple delete domain.com
 * dnsimple apply domain.com template_short_name
 
@@ -24,3 +26,49 @@ The following commands are available for records:
 * dnsimple record:create [--prio=priority] domain.com name type content [ttl]
 * dnsimple record:list domain.com
 * dnsimple record:delete domain.com record_id
+
+The following commands are available for custom templates:
+
+* dnsimple template:list
+* dnsimple template:create name short_name [description]
+* dnsimple template:delete short_name
+* dnsimple template:list_records short_name
+* dnsimple template:add_record short_name name type content [ttl] [prio]
+* dnsimple template:delete_record short_name template_record_id
+
+
+Please note that domain registration and transfer can only be done through the API for domains that do not require extended attributes. A future version of the API will add support for extended attributes.
+
+== Wrapper Classes
+
+In addition to the command line utility you may also use the included Ruby
+classes directly in your Ruby applications.
+
+Sample:
+
+<pre><code>
+  require 'rubygems'
+  require 'dnsimple'
+  
+  DNSimple::Client.username = 'YOUR_USERNAME'
+  DNSimple::Client.password = 'YOUR_PASSWORD'
+
+  user = User.me
+  puts "#{user.domain_count} domains"
+
+  puts "Domains..."
+  Domain.all.each do |domain|
+    puts "  #{domain.name}"
+  end
+
+  domain = Domain.find("example.com")
+  domain.apply("template") # applies a standard or custom template to the domain
+
+  domain = Domain.create("newdomain.com")
+  puts "Added #{domain.name}"
+  domain.delete # removes from DNSimple
+</pre></code>
+
+The complete RDoc for the wrapper classes can be found here: 
+
+  "http://rdoc.info/projects/aetrion/dnsimple-ruby":http://rdoc.info/projects/aetrion/dnsimple-ruby
