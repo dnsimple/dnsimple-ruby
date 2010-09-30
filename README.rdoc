@@ -46,7 +46,6 @@ classes directly in your Ruby applications.
 
 Sample:
 
-<pre><code>
   require 'rubygems'
   require 'dnsimple'
   
@@ -67,7 +66,6 @@ Sample:
   domain = Domain.create("newdomain.com")
   puts "Added #{domain.name}"
   domain.delete # removes from DNSimple
-</pre></code>
 
 The complete RDoc for the wrapper classes can be found here: 
 
