@@ -32,6 +32,30 @@ module DNSimple #:nodoc:
       end
     end
 
+    def self.create(short_name, name, record_type, content, options={})
+      template = Template.find(short_name)
+
+      record_hash = {:name => name, :record_type => record_type, :content => content}
+      record_hash[:ttl] = options.delete(:ttl) || 3600
+      record_hash[:prio] = options.delete(:prio) || ''
+
+      options.merge!({:query => {:dns_template_record => record_hash}})
+      options.merge!({:basic_auth => Client.credentials})
+
+      response = self.post("#{Client.base_uri}/templates/#{template.id}/template_records.json", options)
+
+      pp response if Client.debug?
+
+      case response.code
+      when 201
+        return TemplateRecord.new({:template => template}.merge(response["dns_template_record"]))
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise DNSimple::Error.new("#{name}", response["errors"])
+      end
+    end
+
     # Get all of the template records for the template with the
     # given short name.
     def self.all(short_name, options={})
