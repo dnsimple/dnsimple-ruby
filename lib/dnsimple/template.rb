@@ -22,6 +22,30 @@ module DNSimple
       end
     end
 
+    def self.create(name, short_name, description=nil, options={})
+      template_hash = {
+        :name => name, 
+        :short_name => short_name,
+        :description => description
+      }
+
+      options.merge!(:body => {:dns_template => template_hash})
+      options.merge!({:basic_auth => Client.credentials})
+
+      response = self.post("#{Client.base_uri}/templates.json", options)
+
+      pp response if Client.debug?
+
+      case response.code
+      when 201
+        return Template.new(response["dns_template"])
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise DNSimple::Error.new(name, response["errors"])
+      end
+    end
+
     def self.find(id_or_short_name, options={})
       options.merge!({:basic_auth => Client.credentials})
       response = self.get("#{Client.base_uri}/templates/#{id_or_short_name}.json", options)
