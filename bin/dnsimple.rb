@@ -37,7 +37,12 @@ info                                    # Show your account information
 list                                    # List all domains
 
 describe domain.com                     # Describe the given domain
-create domain.com                       # Add the given domain
+create [--template=short_name] \\
+  domain.com                            # Add the given domain
+register [--template=short_name] \\ 
+  domain.com registrant_id              # Register the given domain with DNSimple
+transfer domain.com registrant_id \\
+  [authinfo]                            # Transfer the given domain into DNSimple
 delete domain.com                       # Delete the given domain
 apply domain.com template_short_name    # Apply a template to the domain
 
