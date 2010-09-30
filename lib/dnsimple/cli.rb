@@ -48,7 +48,7 @@ module DNSimple
         'template:list' => DNSimple::Commands::ListTemplates,
         'template:delete' => DNSimple::Commands::DeleteTemplate,
 
-        'template:records' => DNSimple::Commands::ListTemplateRecords,
+        'template:list_records' => DNSimple::Commands::ListTemplateRecords,
         'template:add_record' => DNSimple::Commands::AddTemplateRecord,
         'template:delete_record' => DNSimple::Commands::DeleteTemplateRecord,
       }

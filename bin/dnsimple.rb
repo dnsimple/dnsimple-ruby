@@ -34,22 +34,28 @@ The following commands are available:
 help                                    # Show this usage
 info                                    # Show your account information
 
-list                                    # List all domains
+list                                                        # List all domains
+describe domain.com                                         # Describe the given domain
+create [--template=short_name] domain.com                   # Add the given domain
+register [--template=short_name] domain.com registrant_id   # Register the given domain with DNSimple
+transfer domain.com registrant_id [authinfo]                # Transfer the given domain into DNSimple
+delete domain.com                                           # Delete the given domain
+apply domain.com template_short_name                        # Apply a template to the domain
 
-describe domain.com                     # Describe the given domain
-create [--template=short_name] \\
-  domain.com                            # Add the given domain
-register [--template=short_name] \\ 
-  domain.com registrant_id              # Register the given domain with DNSimple
-transfer domain.com registrant_id \\
-  [authinfo]                            # Transfer the given domain into DNSimple
-delete domain.com                       # Delete the given domain
-apply domain.com template_short_name    # Apply a template to the domain
+record:create [--prio=priority] domain.com name type \\
+  content [ttl]                                             # Create the DNS record on the domain
+record:list domain.com                                      # List all records for the domain
+record:delete domain.com record_id                          # Delete the given domain
 
-record:create [--prio=priority] \\
-  domain.com name type content [ttl]    # Create the DNS record on the domain
-record:list domain.com                  # List all records for the domain
-record:delete domain.com record_id      # Delete the given domain
+template:create name short_name [description]               # Create a template
+template:list                                               # List all templates
+template:delete short_name                                  # Delete the given template
+
+template:list_records short_name                            # List all of the records for a template
+template:add_record [--prio=priority] short_name name \\ 
+  type content [ttl]                                        # Add a template record to the given template
+template:delete_record short_name template_record_id        # Delete the given template record
+
 
 EOF
 end
@@ -73,19 +79,24 @@ end
 
 subcommands = { 
   'create' => OptionParser.new do |opts|
-     opts.on("--template [ARG]") do |opt|
-       options[:template] = opt 
-     end
-   end,
+    opts.on("--template [ARG]") do |opt|
+      options[:template] = opt 
+    end
+  end,
   'register' => OptionParser.new do |opts|
-     opts.on("--template [ARG]") do |opt|
-       options[:template] = opt
-     end
+    opts.on("--template [ARG]") do |opt|
+      options[:template] = opt
+    end
   end,
   'record:create' => OptionParser.new do |opts|
-     opts.on("--prio [ARG]") do |prio|
-       options[:prio] = prio 
-     end
+    opts.on("--prio [ARG]") do |prio|
+      options[:prio] = prio 
+    end
+  end,
+  'template:add_record' => OptionParser.new do |opts|
+    opts.on("--prio [ARG]") do |prio|
+      options[:prio] = prio
+    end
   end,
 }
 
