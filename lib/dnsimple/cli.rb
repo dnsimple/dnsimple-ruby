@@ -46,6 +46,7 @@ module DNSimple
 
         'template:create' => DNSimple::Commands::CreateTemplate,
         'template:list' => DNSimple::Commands::ListTemplates,
+        'template:records' => DNSimple::Commands::ListTemplateRecords,
       }
     end
 
@@ -72,3 +73,4 @@ require 'dnsimple/commands/delete_record'
 
 require 'dnsimple/commands/create_template'
 require 'dnsimple/commands/list_templates'
+require 'dnsimple/commands/list_template_records'
