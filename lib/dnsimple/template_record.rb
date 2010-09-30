@@ -32,6 +32,12 @@ module DNSimple #:nodoc:
       end
     end
 
+    def delete(options={})
+      options.merge!(:basic_auth => Client.credentials)
+      self.class.delete("#{Client.base_uri}/templates/#{template.id}/template_records/#{id}.json", options)
+    end
+    alias :destroy :delete
+
     def self.create(short_name, name, record_type, content, options={})
       template = Template.find(short_name)
 
@@ -53,6 +59,23 @@ module DNSimple #:nodoc:
         raise RuntimeError, "Authentication failed"
       else
         raise DNSimple::Error.new("#{name}", response["errors"])
+      end
+    end
+
+    def self.find(short_name, id, options={})
+      template = Template.find(short_name)
+      options.merge!(:basic_auth => Client.credentials)
+      response = self.get("#{Client.base_uri}/templates/#{template.id}/template_records/#{id}.json", options)
+
+      pp response if Client.debug?
+
+      case response.code
+      when 200
+        return TemplateRecord.new({:template => template}.merge(response["dns_template_record"]))
+      when 401
+        raise RuntimeError, "Authentication failed"
+      when 404
+        raise RuntimeError, "Could not find template record #{id} for template #{short_name}"
       end
     end
 
