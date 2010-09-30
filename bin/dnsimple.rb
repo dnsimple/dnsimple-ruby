@@ -61,6 +61,9 @@ global = OptionParser.new do |opts|
   opts.on("-p", "--password [ARG]") do |password|
     DNSimple::Client.password = password
   end
+  opts.on("-d") do
+    DNSimple::Client.debug = true
+  end
 end
 
 subcommands = { 
