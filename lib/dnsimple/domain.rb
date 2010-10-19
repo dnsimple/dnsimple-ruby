@@ -34,6 +34,8 @@ module DNSimple #:nodoc:
     end
     alias :destroy :delete
 
+    # Apply the given named template to the domain. This will add
+    # all of the records in the template to the domain.
     def apply(template_name, options={})
       template = DNSimple::Template.find(template_name)
       options.merge!({:basic_auth => Client.credentials})
