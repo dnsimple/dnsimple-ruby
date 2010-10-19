@@ -46,8 +46,10 @@ The following commands are available for managing contacts:
 * dnsimple contact:update id [name:value name:value ...]
 * dnsimple contact:delete id
 
-The contact name/value pairs are: 
- 
+=== Contact Attributes
+
+The contact attributes that can be used in the name:value pairs are:
+
 * first_name
 * last_name
 * organization_name (optional)
