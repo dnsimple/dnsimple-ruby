@@ -29,7 +29,7 @@ module DNSimple #:nodoc:
     attr_accessor :city
 
     # The state or province name
-    attr_accessor :state_or_province
+    attr_accessor :state_province
 
     # The contact postal code
     attr_accessor :postal_code
@@ -38,7 +38,7 @@ module DNSimple #:nodoc:
     attr_accessor :country
 
     # The contact email address
-    attr_accessor :email
+    attr_accessor :email_address
 
     # The contact phone number
     attr_accessor :phone
@@ -67,10 +67,48 @@ module DNSimple #:nodoc:
       [first_name, last_name].join(' ')
     end
 
+    def save(options={})
+      contact_hash = {}
+      %w(first_name last_name organization_name job_title address1 address2 city
+      state_province postal_code country email_address phone phone_ext fax).each do |attribute|
+        contact_hash[Contact.resolve(attribute)] = self.send(attribute)
+      end
+
+      options.merge!({:basic_auth => Client.credentials})
+      options.merge!({:body => {:contact => contact_hash}})
+      
+      response = self.class.put("#{Client.base_uri}/contacts/#{id}.json", options)
+
+      pp response if Client.debug?
+
+      case response.code
+      when 200
+        return self
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise RuntimeError, "Failed to update contact: #{response.inspect}"
+      end
+    end
+
     # Delete the contact from DNSimple. WARNING: this cannot be undone.
     def delete(options={})
       options.merge!({:basic_auth => Client.credentials})
       self.class.delete("#{Client.base_uri}/contacts/#{id}.json", options)
+    end
+
+    # Map an aliased field name to it's real name. For example, if you
+    # pass "first" it will be resolved to "first_name", "email" is resolved
+    # to "email_address" and so on.
+    def self.resolve(name)
+      aliases = {
+          'first' => 'first_name',
+          'last' => 'last_name',
+          'state' => 'state_province',
+          'province' => 'state_province',
+          'email' => 'email_address',
+      }
+      aliases[name] || name
     end
 
     # Create the contact with the given attributes in DNSimple.
@@ -99,9 +137,9 @@ module DNSimple #:nodoc:
     def self.find(id, options={})
       options.merge!({:basic_auth => Client.credentials})
       response = self.get("#{Client.base_uri}/contacts/#{id}.json", options)
-      
+
       pp response if Client.debug?
-      
+
       case response.code
       when 200
         return Contact.new(response["contact"])
@@ -117,7 +155,7 @@ module DNSimple #:nodoc:
     def self.all(options={})
       options.merge!({:basic_auth => Client.credentials})
       response = self.get("#{Client.base_uri}/contacts.json", options)
-      
+
       pp response if Client.debug?
 
       case response.code

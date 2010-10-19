@@ -13,10 +13,10 @@ module DNSimple
         puts "\tAddress 1: #{contact.address1}"
         puts "\tAddress 2: #{contact.address2}"
         puts "\tCity: #{contact.city}"
-        puts "\tState or Province: #{contact.state_or_province}"
+        puts "\tState or Province: #{contact.state_province}"
         puts "\tPostal Code: #{contact.postal_code}"
         puts "\tCountry: #{contact.country}"
-        puts "\tEmail: #{contact.email}"
+        puts "\tEmail: #{contact.email_address}"
         puts "\tPhone: #{contact.phone}"
         puts "\tPhone Ext: #{contact.phone_ext}" unless contact.phone_ext.blank?
       end

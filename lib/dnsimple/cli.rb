@@ -55,6 +55,7 @@ module DNSimple
         'contact:create' => DNSimple::Commands::CreateContact,
         'contact:list' => DNSimple::Commands::ListContacts,
         'contact:describe' => DNSimple::Commands::DescribeContact,
+        'contact:update' => DNSimple::Commands::UpdateContact,
         'contact:delete' => DNSimple::Commands::DeleteContact,
       }
     end
@@ -90,4 +91,5 @@ require 'dnsimple/commands/delete_template_record'
 require 'dnsimple/commands/create_contact'
 require 'dnsimple/commands/list_contacts'
 require 'dnsimple/commands/describe_contact'
+require 'dnsimple/commands/update_contact'
 require 'dnsimple/commands/delete_contact'
