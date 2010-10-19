@@ -51,6 +51,11 @@ module DNSimple
         'template:list_records' => DNSimple::Commands::ListTemplateRecords,
         'template:add_record' => DNSimple::Commands::AddTemplateRecord,
         'template:delete_record' => DNSimple::Commands::DeleteTemplateRecord,
+
+        'contact:create' => DNSimple::Commands::CreateContact,
+        'contact:list' => DNSimple::Commands::ListContacts,
+        'contact:describe' => DNSimple::Commands::DescribeContact,
+        'contact:delete' => DNSimple::Commands::DeleteContact,
       }
     end
 
@@ -81,3 +86,8 @@ require 'dnsimple/commands/delete_template'
 require 'dnsimple/commands/list_template_records'
 require 'dnsimple/commands/add_template_record'
 require 'dnsimple/commands/delete_template_record'
+
+require 'dnsimple/commands/create_contact'
+require 'dnsimple/commands/list_contacts'
+require 'dnsimple/commands/describe_contact'
+require 'dnsimple/commands/delete_contact'
