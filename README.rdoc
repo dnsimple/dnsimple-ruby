@@ -9,6 +9,11 @@ In this file add the following:
     username: YOUR_USERNAME
     password: YOUR_PASSWORD
 
+Alternatively you can pass the credentials via command-line arguments, as in:
+
+    dnsimple -u username -p password command
+
+
 == Commands
 
 The following commands are available for domains:
