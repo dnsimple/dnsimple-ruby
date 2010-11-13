@@ -36,10 +36,35 @@ module DNSimple #:nodoc:
 
     # Apply the given named template to the domain. This will add
     # all of the records in the template to the domain.
-    def apply(template_name, options={})
-      template = DNSimple::Template.find(template_name)
+    def apply(template, options={})
+      template = resolve_template(template)
       options.merge!({:basic_auth => Client.credentials})
       self.class.post("#{Client.base_uri}/domains/#{id}/templates/#{template.id}/apply.json", options)
+    end
+
+    def resolve_template(template)
+      case template
+      when DNSimple::Template
+        template
+      else
+        DNSimple::Template.find(template)
+      end
+    end
+
+    def self.check(name, options={})
+      options.merge!(:basic_auth => Client.credentials)
+      response = self.get("#{Client.base_uri}/domains/#{name}/check.json", options)
+      pp response if Client.debug?
+      case response.code
+      when 200
+        "registered"
+      when 401
+        raise RuntimeError, "Authentication failed"
+      when 404
+        "available"
+      else
+        raise "Error: #{response.code}" 
+      end
     end
 
     # Create the domain with the given name in DNSimple. This

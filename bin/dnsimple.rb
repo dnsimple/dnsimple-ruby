@@ -35,6 +35,7 @@ help                                    # Show this usage
 info                                    # Show your account information
 
 list                                                        # List all domains
+check domain.com                                            # Check if a domain is available (for registration)
 describe domain.com                                         # Describe the given domain
 create [--template=short_name] domain.com                   # Add the given domain
 register [--template=short_name] domain.com registrant_id   # Register the given domain with DNSimple

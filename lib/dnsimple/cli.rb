@@ -31,6 +31,7 @@ module DNSimple
       {
         'info' => DNSimple::Commands::DescribeUser,
 
+        'check' => DNSimple::Commands::CheckDomain,
         'create' => DNSimple::Commands::CreateDomain,
         'register' => DNSimple::Commands::RegisterDomain,
         'transfer' => DNSimple::Commands::TransferDomain,
@@ -68,6 +69,7 @@ module DNSimple
 end
 
 require 'dnsimple/commands/describe_user'
+require 'dnsimple/commands/check_domain'
 require 'dnsimple/commands/create_domain'
 require 'dnsimple/commands/register_domain'
 require 'dnsimple/commands/transfer_domain'
