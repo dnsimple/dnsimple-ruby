@@ -55,9 +55,8 @@ module DNSimple #:nodoc:
     # Find the extended attributes for the given TLD
     def self.find(tld, options={})
       options.merge!({:basic_auth => Client.credentials})
-      options.merge!({:headers => {'Accept' => 'application/json'}})
       
-      response = self.get("#{Client.base_uri}/extended_attributes/#{tld}", options)
+      response = self.get("#{Client.base_uri}/extended_attributes/#{tld}.json", options)
 
       pp response if Client.debug?
 
