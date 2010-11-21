@@ -7,7 +7,13 @@ module DNSimple
         authinfo = args.shift unless args.empty?
         authinfo ||= ''
 
-        transfer_order = TransferOrder.create(name, authinfo, registrant)
+        extended_attributes = {}
+        args.each do |arg|
+          n, v = arg.split(":")
+          extended_attributes[n] = v
+        end
+
+        transfer_order = TransferOrder.create(name, authinfo, registrant, extended_attributes)
         puts "Transfer order issued for #{name}"
       end
     end

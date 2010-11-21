@@ -4,7 +4,14 @@ module DNSimple
       def execute(args, options={})
         name = args.shift
         registrant = {:id => args.shift}
-        domain = Domain.register(name, registrant)
+
+        extended_attributes = {}
+        args.each do |arg|
+          n, v = arg.split(":")
+          extended_attributes[n] = v
+        end
+
+        domain = Domain.register(name, registrant, extended_attributes)
         puts "Registered #{domain.name}"
 
         if template = options.delete(:template)
