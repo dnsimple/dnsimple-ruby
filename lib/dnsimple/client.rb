@@ -8,6 +8,7 @@ module DNSimple
     end
 
     def self.username
+      raise RuntimeError, "You must set your username first: DNSimple::Client.username = 'username'" unless defined?(@@username)
       @@username
     end
 
@@ -16,6 +17,7 @@ module DNSimple
     end
 
     def self.password
+      raise RuntimeError, "You must set your password first: DNSimple::Client.password = 'password'" unless defined?(@@password)
       @@password
     end
 
@@ -33,6 +35,13 @@ module DNSimple
 
     def self.base_uri=(base_uri)
       @@base_uri = base_uri.gsub(/\/$/, '')
+    end
+
+    def self.load_credentials(path='~/.dnsimple')
+      credentials = YAML.load(File.new(File.expand_path(path)))
+      self.username = credentials['username']
+      self.password = credentials['password']
+      "Credentials loaded from #{path}" 
     end
   end
 end
