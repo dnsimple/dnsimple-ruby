@@ -6,4 +6,5 @@ group :development do
   gem 'rake'
   gem 'jeweler'
   gem 'rspec', '>= 2.0.0'
+  gem 'ruby-debug'
 end
