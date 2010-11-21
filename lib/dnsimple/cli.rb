@@ -58,6 +58,8 @@ module DNSimple
         'contact:describe' => DNSimple::Commands::DescribeContact,
         'contact:update' => DNSimple::Commands::UpdateContact,
         'contact:delete' => DNSimple::Commands::DeleteContact,
+
+        'extended-attributes:list' => DNSimple::Commands::ListExtendedAttributes
       }
     end
 
@@ -95,3 +97,5 @@ require 'dnsimple/commands/list_contacts'
 require 'dnsimple/commands/describe_contact'
 require 'dnsimple/commands/update_contact'
 require 'dnsimple/commands/delete_contact'
+
+require 'dnsimple/commands/list_extended_attributes'
