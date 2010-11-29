@@ -41,13 +41,16 @@ create [--template=short_name] domain.com                   # Add the given doma
 register [--template=short_name] domain.com registrant_id \ # Register the given domain with DNSimple
   [[name:value] [name:value]]                               # name:value pairs can be given for extended attributes
 transfer domain.com registrant_id [authinfo] \              # Transfer the given domain into DNSimple
-  [[name:value] [name:value]]                               # name:value pairs can be given for extended attributes
+  [[name:value] [name:value] ...]                           # name:value pairs can be given for extended attributes
 delete domain.com                                           # Delete the given domain
 apply domain.com template_short_name                        # Apply a template to the domain
 
+record:describe domain.com record_id                        # Describe the given record
 record:create [--prio=priority] domain.com name type \\
   content [ttl]                                             # Create the DNS record on the domain
 record:list domain.com                                      # List all records for the domain
+record:update domain.com record_id \                        # Update a specific record
+  [[name:value] [name:value] ...]                           # name:value pairs are given for updateable attributes
 record:delete domain.com record_id                          # Delete the given domain
 
 template:create name short_name [description]               # Create a template
@@ -60,59 +63,66 @@ template:add_record [--prio=priority] short_name name \\
 template:delete_record short_name template_record_id        # Delete the given template record
 
 
+Please see the DNSimple documentation at https://dnsimple.com/documentation/api for additional
+information on the commands that are available to DNSimple customers.
+
 EOF
 end
 
-options = {}
+if $0.split("/").last == 'dnsimple'
 
-global = OptionParser.new do |opts|
-  opts.on("-s", "--site [ARG]") do |site|
-    DNSimple::Client.base_uri = site
-  end
-  opts.on("-u", "--username [ARG]") do |username|
-    DNSimple::Client.username = username
-  end
-  opts.on("-p", "--password [ARG]") do |password|
-    DNSimple::Client.password = password
-  end
-  opts.on("-d") do
-    DNSimple::Client.debug = true
-  end
-end
+  options = {}
 
-subcommands = { 
-  'create' => OptionParser.new do |opts|
-    opts.on("--template [ARG]") do |opt|
-      options[:template] = opt 
+  global = OptionParser.new do |opts|
+    opts.on("-s", "--site [ARG]") do |site|
+      DNSimple::Client.base_uri = site
     end
-  end,
-  'register' => OptionParser.new do |opts|
-    opts.on("--template [ARG]") do |opt|
-      options[:template] = opt
+    opts.on("-u", "--username [ARG]") do |username|
+      DNSimple::Client.username = username
     end
-  end,
-  'record:create' => OptionParser.new do |opts|
-    opts.on("--prio [ARG]") do |prio|
-      options[:prio] = prio 
+    opts.on("-p", "--password [ARG]") do |password|
+      DNSimple::Client.password = password
     end
-  end,
-  'template:add_record' => OptionParser.new do |opts|
-    opts.on("--prio [ARG]") do |prio|
-      options[:prio] = prio
+    opts.on("-d") do
+      DNSimple::Client.debug = true
     end
-  end,
-}
-
-global.order!
-command = ARGV.shift
-if command.nil? || command == 'help'
-  usage
-else
-  options_parser = subcommands[command]
-  options_parser.order! if options_parser
-  begin
-    cli.execute(command, ARGV, options)
-  rescue DNSimple::CommandNotFound => e
-    puts e.message
   end
+
+  subcommands = { 
+    'create' => OptionParser.new do |opts|
+      opts.on("--template [ARG]") do |opt|
+        options[:template] = opt 
+      end
+    end,
+    'register' => OptionParser.new do |opts|
+      opts.on("--template [ARG]") do |opt|
+        options[:template] = opt
+      end
+    end,
+    'record:create' => OptionParser.new do |opts|
+      opts.on("--prio [ARG]") do |prio|
+        options[:prio] = prio 
+      end
+    end,
+    'template:add_record' => OptionParser.new do |opts|
+      opts.on("--prio [ARG]") do |prio|
+        options[:prio] = prio
+      end
+    end,
+  }
+
+  global.order!
+  command = ARGV.shift
+  if command.nil? || command == 'help'
+    usage
+  else
+    options_parser = subcommands[command]
+    options_parser.order! if options_parser
+    begin
+      cli.execute(command, ARGV, options)
+    rescue DNSimple::CommandNotFound => e
+      puts e.message
+    end
+  end
+
 end

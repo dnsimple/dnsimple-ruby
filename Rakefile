@@ -25,6 +25,7 @@ begin
     gemspec.homepage = "http://github.com/aetrion/dnsimple-ruby"
     gemspec.authors = ["Anthony Eden"]
     gemspec.add_dependency "httparty"
+    gemspec.executables = 'dnsimple'
   end
 rescue LoadError
   puts "Jeweler not available. Install it with: gem install jeweler"

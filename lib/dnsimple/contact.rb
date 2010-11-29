@@ -96,17 +96,18 @@ module DNSimple #:nodoc:
       options.merge!({:basic_auth => Client.credentials})
       self.class.delete("#{Client.base_uri}/contacts/#{id}.json", options)
     end
+    alias :destroy :delete
 
     # Map an aliased field name to it's real name. For example, if you
     # pass "first" it will be resolved to "first_name", "email" is resolved
     # to "email_address" and so on.
     def self.resolve(name)
       aliases = {
-          'first' => 'first_name',
-          'last' => 'last_name',
-          'state' => 'state_province',
-          'province' => 'state_province',
-          'email' => 'email_address',
+        'first' => 'first_name',
+        'last' => 'last_name',
+        'state' => 'state_province',
+        'province' => 'state_province',
+        'email' => 'email_address',
       }
       aliases[name] || name
     end

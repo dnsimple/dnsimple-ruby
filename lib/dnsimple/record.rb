@@ -23,12 +23,47 @@ module DNSimple
         self.send(m, value) if self.respond_to?(m)
       end
     end
+
+    def fqdn
+      [name, domain.name].delete_if { |v| v.blank? }.join(".")
+    end
+
+    def save(options={})
+      record_hash = {}
+      %w(name content ttl prio).each do |attribute|
+        record_hash[Record.resolve(attribute)] = self.send(attribute)
+      end
+
+      options.merge!(:basic_auth => Client.credentials)
+      options.merge!(:body => {:record => record_hash})
+
+      response = self.class.put("#{Client.base_uri}/domains/#{domain.id}/records/#{id}.json", options)
+
+      pp response if Client.debug?
+
+      case response.code
+      when 200
+        return self
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise RuntimeError, "Failed to update record: #{response.inspect}" 
+      end
+    end
     
     def delete(options={})
       options.merge!({:basic_auth => Client.credentials})
       self.class.delete("#{Client.base_uri}/domains/#{domain.id}/records/#{id}.json", options)
     end
     alias :destroy :delete
+
+    def self.resolve(name)
+      aliases = {
+        'priority' => 'prio',
+        'time-to-live' => 'ttl'
+      }
+      aliases[name] || name
+    end
 
     def self.create(domain_name, name, record_type, content, options={})
       domain = Domain.find(domain_name)
@@ -57,7 +92,7 @@ module DNSimple
     def self.find(domain_name, id, options={})
       domain = Domain.find(domain_name)
       options.merge!({:basic_auth => Client.credentials})
-      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records/#{id}", options)
+      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records/#{id}.json", options)
 
       pp response if Client.debug?
 
