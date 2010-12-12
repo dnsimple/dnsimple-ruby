@@ -3,7 +3,9 @@ module DNSimple
     def initialize(domain, messages)
       @domain = domain
       @messages = messages
-      super "An error occurred: #{messages.join('. ')}"
+      super "An error occurred: #{messages}"
     end
   end
+
+  class RecordExists < Error; end
 end
