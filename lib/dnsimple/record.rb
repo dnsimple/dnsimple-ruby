@@ -84,6 +84,8 @@ module DNSimple
         return Record.new({:domain => domain}.merge(response["record"]))
       when 401
         raise RuntimeError, "Authentication failed"
+      when 406
+        raise DNSimple::RecordExists.new("#{name}.#{domain_name}", response["errors"])
       else
         raise DNSimple::Error.new("#{name}.#{domain_name}", response["errors"])
       end
