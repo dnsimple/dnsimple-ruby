@@ -32,17 +32,19 @@ All commands are executed as dnsimple [options] command [command-options] args
 The following commands are available:
 
 help                                    # Show this usage
+
 info                                    # Show your account information
 
-list                                                        # List all domains
 check domain.com                                            # Check if a domain is available (for registration)
-describe domain.com                                         # Describe the given domain
 create [--template=short_name] domain.com                   # Add the given domain
 register [--template=short_name] domain.com registrant_id \ # Register the given domain with DNSimple
   [[name:value] [name:value]]                               # name:value pairs can be given for extended attributes
 transfer domain.com registrant_id [authinfo] \              # Transfer the given domain into DNSimple
   [[name:value] [name:value] ...]                           # name:value pairs can be given for extended attributes
+describe domain.com                                         # Describe the given domain
+list                                                        # List all domains
 delete domain.com                                           # Delete the given domain
+clear domain.com                                            # Remove all records from the domain 
 apply domain.com template_short_name                        # Apply a template to the domain
 
 record:describe domain.com record_id                        # Describe the given record
@@ -61,6 +63,14 @@ template:list_records short_name                            # List all of the re
 template:add_record [--prio=priority] short_name name \\ 
   type content [ttl]                                        # Add a template record to the given template
 template:delete_record short_name template_record_id        # Delete the given template record
+
+contact:create [[name:value [name:value] ...]               # Create a contact
+contact:list                                                # List all contacts
+contact:describe contact_id                                 # Describe the given contact
+contact:update contact_id [[name:value] [name:value] ...]   # Update the given contact
+contact:delete contact_id                                   # Delete the given contact
+
+extended-attributes:list tld                                # List all extended attributes for the given TLD
 
 
 Please see the DNSimple documentation at https://dnsimple.com/documentation/api for additional
