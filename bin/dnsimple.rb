@@ -72,6 +72,8 @@ contact:delete contact_id                                   # Delete the given c
 
 extended-attributes:list tld                                # List all extended attributes for the given TLD
 
+service:list                                                # List all supported services
+
 
 Please see the DNSimple documentation at https://dnsimple.com/documentation/api for additional
 information on the commands that are available to DNSimple customers.
