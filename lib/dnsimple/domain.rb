@@ -118,6 +118,8 @@ module DNSimple #:nodoc:
       end
     end
 
+    # Find a specific domain in the account either by the numeric ID
+    # or by the fully-qualified domain name.
     def self.find(id_or_name, options={})
       options.merge!({:basic_auth => Client.credentials})
       response = self.get("#{Client.base_uri}/domains/#{id_or_name}.json", options)
@@ -136,6 +138,7 @@ module DNSimple #:nodoc:
       end
     end
 
+    # Get all domains for the account.
     def self.all(options={})
       options.merge!({:basic_auth => Client.credentials})
       response = self.get("#{Client.base_uri}/domains.json", options)
