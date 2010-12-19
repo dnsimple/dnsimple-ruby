@@ -63,7 +63,13 @@ module DNSimple
 
         'extended-attributes:list' => DNSimple::Commands::ListExtendedAttributes,
 
-        'service:list' => DNSimple::Commands::ListServices
+        'service:list' => DNSimple::Commands::ListServices,
+        'service:describe' => DNSimple::Commands::DescribeService,
+
+        'service:applied' => DNSimple::Commands::ListAppliedServices,
+        'service:available' => DNSimple::Commands::ListAvailableServices,
+        'service:add' => DNSimple::Commands::AddService,
+        'service:remove' => DNSimple::Commands::RemoveService
       }
     end
 
@@ -107,3 +113,9 @@ require 'dnsimple/commands/delete_contact'
 require 'dnsimple/commands/list_extended_attributes'
 
 require 'dnsimple/commands/list_services'
+require 'dnsimple/commands/describe_service'
+
+require 'dnsimple/commands/list_available_services'
+require 'dnsimple/commands/list_applied_services'
+require 'dnsimple/commands/add_service'
+require 'dnsimple/commands/remove_service'

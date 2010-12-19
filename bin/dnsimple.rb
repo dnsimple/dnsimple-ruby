@@ -73,6 +73,12 @@ contact:delete contact_id                                   # Delete the given c
 extended-attributes:list tld                                # List all extended attributes for the given TLD
 
 service:list                                                # List all supported services
+service:describe short_name                                 # Describe a specific service
+
+service:applied domain.com                                  # List all of the services applied to the domain
+service:available domain.com                                # List all of the services available for the domain
+service:add domain.com short_name                           # Add the service to the domain
+service:remove domain.com short_name                        # Remove the service from the domain
 
 
 Please see the DNSimple documentation at https://dnsimple.com/documentation/api for additional

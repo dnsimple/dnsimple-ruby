@@ -42,6 +42,7 @@ module DNSimple #:nodoc:
       self.class.post("#{Client.base_uri}/domains/#{id}/templates/#{template.id}/apply.json", options)
     end
 
+    #:nodoc:
     def resolve_template(template)
       case template
       when DNSimple::Template
@@ -51,6 +52,64 @@ module DNSimple #:nodoc:
       end
     end
 
+    def applied_services(options={})
+      options.merge!({:basic_auth => Client.credentials})
+      response = self.class.get("#{Client.base_uri}/domains/#{id}/applied_services.json", options)
+      pp response if Client.debug?
+      case response.code
+      when 200
+        response.map { |r| Service.new(r["service"]) }
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise RuntimeError, "Error: #{response.code}"
+      end
+    end
+
+    def available_services(options={})
+      options.merge!({:basic_auth => Client.credentials})
+      response = self.class.get("#{Client.base_uri}/domains/#{id}/available_services.json", options)
+      pp response if Client.debug?
+      case response.code
+      when 200
+        response.map { |r| Service.new(r["service"]) }
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise RuntimeError, "Error: #{response.code}"
+      end
+    end
+
+    def add_service(id_or_short_name, options={})
+      options.merge!(:basic_auth => Client.credentials)
+      options.merge!(:body => {:service => {:id => id_or_short_name}})
+      response = self.class.post("#{Client.base_uri}/domains/#{name}/applied_services.json", options)
+      pp response if Client.debug?
+      case response.code
+      when 200
+        true
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise "Error: #{response.code}"
+      end
+    end
+
+    def remove_service(id, options={})
+      options.merge!(:basic_auth => Client.credentials)
+      response = self.class.delete("#{Client.base_uri}/domains/#{name}/applied_services/#{id}.json", options)
+      pp response if Client.debug?
+      case response.code
+      when 200
+        true
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise "Error: #{response.code}"
+      end
+    end
+
+    # Check the availability of a name
     def self.check(name, options={})
       options.merge!(:basic_auth => Client.credentials)
       response = self.get("#{Client.base_uri}/domains/#{name}/check.json", options)
