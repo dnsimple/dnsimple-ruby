@@ -29,17 +29,17 @@ module DNSimple #:nodoc:
     # Delete the domain from DNSimple. WARNING: this cannot
     # be undone.
     def delete(options={})
-      options.merge!({:basic_auth => Client.credentials})
-      self.class.delete("#{Client.base_uri}/domains/#{id}.json", options)
+      options.merge!(standard_options)
+      self.class.delete("#{Client.base_uri}/domains/#{id}", options)
     end
     alias :destroy :delete
 
     # Apply the given named template to the domain. This will add
     # all of the records in the template to the domain.
     def apply(template, options={})
+      options.merge!(standard_options)
       template = resolve_template(template)
-      options.merge!({:basic_auth => Client.credentials})
-      self.class.post("#{Client.base_uri}/domains/#{id}/templates/#{template.id}/apply.json", options)
+      self.class.post("#{Client.base_uri}/domains/#{id}/templates/#{template.id}/apply", options)
     end
 
     #:nodoc:
@@ -53,8 +53,8 @@ module DNSimple #:nodoc:
     end
 
     def applied_services(options={})
-      options.merge!({:basic_auth => Client.credentials})
-      response = self.class.get("#{Client.base_uri}/domains/#{id}/applied_services.json", options)
+      options.merge!(standard_options)
+      response = self.class.get("#{Client.base_uri}/domains/#{id}/applied_services", options)
       pp response if Client.debug?
       case response.code
       when 200
@@ -67,8 +67,8 @@ module DNSimple #:nodoc:
     end
 
     def available_services(options={})
-      options.merge!({:basic_auth => Client.credentials})
-      response = self.class.get("#{Client.base_uri}/domains/#{id}/available_services.json", options)
+      options.merge!(standard_options)
+      response = self.class.get("#{Client.base_uri}/domains/#{id}/available_services", options)
       pp response if Client.debug?
       case response.code
       when 200
@@ -81,9 +81,9 @@ module DNSimple #:nodoc:
     end
 
     def add_service(id_or_short_name, options={})
-      options.merge!(:basic_auth => Client.credentials)
+      options.merge!(standard_options)
       options.merge!(:body => {:service => {:id => id_or_short_name}})
-      response = self.class.post("#{Client.base_uri}/domains/#{name}/applied_services.json", options)
+      response = self.class.post("#{Client.base_uri}/domains/#{name}/applied_services", options)
       pp response if Client.debug?
       case response.code
       when 200
@@ -96,8 +96,8 @@ module DNSimple #:nodoc:
     end
 
     def remove_service(id, options={})
-      options.merge!(:basic_auth => Client.credentials)
-      response = self.class.delete("#{Client.base_uri}/domains/#{name}/applied_services/#{id}.json", options)
+      options.merge!(standard_options)
+      response = self.class.delete("#{Client.base_uri}/domains/#{name}/applied_services/#{id}", options)
       pp response if Client.debug?
       case response.code
       when 200
@@ -111,8 +111,8 @@ module DNSimple #:nodoc:
 
     # Check the availability of a name
     def self.check(name, options={})
-      options.merge!(:basic_auth => Client.credentials)
-      response = self.get("#{Client.base_uri}/domains/#{name}/check.json", options)
+      options.merge!(standard_options)
+      response = self.get("#{Client.base_uri}/domains/#{name}/check", options)
       pp response if Client.debug?
       case response.code
       when 200
@@ -130,12 +130,12 @@ module DNSimple #:nodoc:
     # method returns a Domain instance if the name is created
     # and raises an error otherwise.
     def self.create(name, options={})
-      domain_hash = {:name => name}
-      
-      options.merge!({:body => {:domain => domain_hash}})
-      options.merge!({:basic_auth => Client.credentials})
+      options.merge!(standard_options)
 
-      response = self.post("#{Client.base_uri}/domains.json", options)
+      domain_hash = {:name => name}
+      options.merge!({:body => {:domain => domain_hash}})
+
+      response = self.post("#{Client.base_uri}/domains", options)
       
       pp response if Client.debug?
       
@@ -150,20 +150,18 @@ module DNSimple #:nodoc:
     end
 
     def self.register(name, registrant={}, extended_attributes={}, options={})
-      body = {:domain => {:name => name}}
+      options.merge!(standard_options)
 
+      body = {:domain => {:name => name}}
       if registrant[:id]
         body[:domain][:registrant_id] = registrant[:id]
       else
         body.merge!(:contact => registrant)
       end
-
       body.merge!(:extended_attribute => extended_attributes)
-      
       options.merge!({:body => body})
-      options.merge!({:basic_auth => Client.credentials})
-
-      response = self.post("#{Client.base_uri}/domain_registrations.json", options)
+      
+      response = self.post("#{Client.base_uri}/domain_registrations", options)
       
       pp response if Client.debug?
       
@@ -180,7 +178,7 @@ module DNSimple #:nodoc:
     # Find a specific domain in the account either by the numeric ID
     # or by the fully-qualified domain name.
     def self.find(id_or_name, options={})
-      options.merge!({:basic_auth => Client.credentials, :format => :json, :headers => {'Accept' => 'application/json'}})
+      options.merge!(standard_options)
       response = self.get("#{Client.base_uri}/domains/#{id_or_name}", options)
       
       pp response if Client.debug?
@@ -199,8 +197,8 @@ module DNSimple #:nodoc:
 
     # Get all domains for the account.
     def self.all(options={})
-      options.merge!({:basic_auth => Client.credentials})
-      response = self.get("#{Client.base_uri}/domains.json", options)
+      options.merge!(standard_options)
+      response = self.get("#{Client.base_uri}/domains", options)
       
       pp response if Client.debug?
 
@@ -212,6 +210,10 @@ module DNSimple #:nodoc:
       else
         raise RuntimeError, "Error: #{response.code}"
       end
+    end
+
+    def self.standard_options
+      {:basic_auth => Client.credentials, :format => :json, :headers => {'Accept' => 'application/json'}}
     end
   end
 end
