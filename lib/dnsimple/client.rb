@@ -43,5 +43,9 @@ module DNSimple
       self.password = credentials['password']
       "Credentials loaded from #{path}" 
     end
+
+    def self.standard_options
+      {:basic_auth => credentials, :format => :json, :headers => {'Accept' => 'application/json'}}
+    end
   end
 end

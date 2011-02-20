@@ -212,8 +212,8 @@ module DNSimple #:nodoc:
       end
     end
 
-    def self.standard_options
-      {:basic_auth => Client.credentials, :format => :json, :headers => {'Accept' => 'application/json'}}
+    def standard_options
+      DNSimple::Client.standard_options
     end
   end
 end
