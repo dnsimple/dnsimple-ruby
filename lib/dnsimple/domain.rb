@@ -212,6 +212,9 @@ module DNSimple #:nodoc:
       end
     end
 
+    def self.standard_options
+      DNSimple::Client.standard_options
+    end
     def standard_options
       DNSimple::Client.standard_options
     end
