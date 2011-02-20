@@ -180,7 +180,7 @@ module DNSimple #:nodoc:
     # Find a specific domain in the account either by the numeric ID
     # or by the fully-qualified domain name.
     def self.find(id_or_name, options={})
-      options.merge!({:basic_auth => Client.credentials, :format => :json})
+      options.merge!({:basic_auth => Client.credentials, :format => :json, :headers => {'Accept' => 'application/json'}})
       response = self.get("#{Client.base_uri}/domains/#{id_or_name}", options)
       
       pp response if Client.debug?
