@@ -7,4 +7,6 @@ group :development do
   gem 'jeweler'
   gem 'rspec', '>= 2.0.0'
   gem 'ruby-debug'
+  gem 'cucumber'
+  gem 'aruba'
 end
