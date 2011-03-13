@@ -70,6 +70,7 @@ module DNSimple
       
       record_hash = {:name => name, :record_type => record_type, :content => content}
       record_hash[:ttl] = options.delete(:ttl) || 3600
+      record_hash[:prio] = options.delete(:priority)
       record_hash[:prio] = options.delete(:prio) || ''
 
       options.merge!({:query => {:record => record_hash}})
