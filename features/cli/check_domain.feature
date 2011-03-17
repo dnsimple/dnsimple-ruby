@@ -1,6 +1,6 @@
 Feature: check a domain with the CLI
   As a user
-  In order to check a domain
+  In order to check if a domain is available for registration
   I should be able to use the CLI to check domains
 
   @announce-cmd

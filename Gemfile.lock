@@ -1,11 +1,18 @@
+GIT
+  remote: git://github.com/aeden/aruba.git
+  revision: 12aceec29c23bcfc9932fcdf03611e994f9a13fb
+  specs:
+    aruba (0.3.3)
+      childprocess (~> 0.1.7)
+      cucumber (~> 0.10)
+      rspec (~> 2.5)
+
 GEM
   remote: http://rubygems.org/
   specs:
-    aruba (0.2.7)
-      background_process
-      cucumber (~> 0.10.0)
-    background_process (1.2)
     builder (3.0.0)
+    childprocess (0.1.7)
+      ffi (~> 0.6.3)
     columnize (0.3.2)
     crack (0.1.8)
     cucumber (0.10.0)
@@ -15,26 +22,28 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     diff-lcs (1.1.2)
+    ffi (0.6.3)
+      rake (>= 0.8.7)
     gherkin (2.3.4)
       json (~> 1.4.6)
     git (1.2.5)
-    httparty (0.6.1)
+    httparty (0.7.4)
       crack (= 0.1.8)
-    jeweler (1.5.1)
+    jeweler (1.5.2)
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
     json (1.4.6)
     linecache (0.43)
     rake (0.8.7)
-    rspec (2.1.0)
-      rspec-core (~> 2.1.0)
-      rspec-expectations (~> 2.1.0)
-      rspec-mocks (~> 2.1.0)
-    rspec-core (2.1.0)
-    rspec-expectations (2.1.0)
+    rspec (2.5.0)
+      rspec-core (~> 2.5.0)
+      rspec-expectations (~> 2.5.0)
+      rspec-mocks (~> 2.5.0)
+    rspec-core (2.5.1)
+    rspec-expectations (2.5.0)
       diff-lcs (~> 1.1.2)
-    rspec-mocks (2.1.0)
+    rspec-mocks (2.5.0)
     ruby-debug (0.10.4)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.4.0)
@@ -46,7 +55,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aruba
+  aruba!
   cucumber
   httparty
   jeweler
