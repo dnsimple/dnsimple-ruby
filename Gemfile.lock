@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/aeden/aruba.git
-  revision: 12aceec29c23bcfc9932fcdf03611e994f9a13fb
+  revision: cff8218
   specs:
     aruba (0.3.3)
       childprocess (~> 0.1.7)
