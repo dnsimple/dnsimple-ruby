@@ -1,18 +1,13 @@
-GIT
-  remote: git://github.com/aeden/aruba.git
-  revision: cff8218
-  specs:
-    aruba (0.3.3)
-      childprocess (~> 0.1.7)
-      cucumber (~> 0.10)
-      rspec (~> 2.5)
-
 GEM
   remote: http://rubygems.org/
   specs:
+    aruba (0.3.5)
+      childprocess (>= 0.1.7)
+      cucumber (>= 0.10.0)
+      rspec (>= 2.5.0)
     builder (3.0.0)
-    childprocess (0.1.7)
-      ffi (~> 0.6.3)
+    childprocess (0.1.8)
+      ffi (~> 1.0.6)
     columnize (0.3.2)
     crack (0.1.8)
     cucumber (0.10.0)
@@ -22,7 +17,7 @@ GEM
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
     diff-lcs (1.1.2)
-    ffi (0.6.3)
+    ffi (1.0.7)
       rake (>= 0.8.7)
     gherkin (2.3.4)
       json (~> 1.4.6)
@@ -55,7 +50,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aruba!
+  aruba
   cucumber
   httparty
   jeweler

@@ -8,6 +8,6 @@ group :development do
   gem 'rspec', '>= 2.0.0'
   gem 'ruby-debug'
   gem 'cucumber'
-  gem 'aruba', :git => 'git://github.com/aeden/aruba.git'
+  gem 'aruba'
   gem 'ruby-debug'
 end
