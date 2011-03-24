@@ -8,6 +8,20 @@ When /^I run `(.*)` with a in\-addr\.arpa domain$/ do |cmd|
   steps %Q(When I run `#{cmd} #{@domain_name}`)
 end
 
+When /^I run `dnsimple delete` with a domain I created$/ do
+  steps %Q(
+    When I run `dnsimple create` with a new domain
+  )
+  steps %Q(
+    And I run `dnsimple delete #{@domain_name}`
+  ) 
+end
+
 Then /^the output should show that the domain was created$/ do
   steps %Q(Then the output should contain "Created #{@domain_name}")
 end
+
+Then /^the output should show that the domain was deleted$/ do
+  steps %Q(Then the output should contain "Deleted #{@domain_name}")
+end
+

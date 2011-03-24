@@ -9,4 +9,5 @@ group :development do
   gem 'ruby-debug'
   gem 'cucumber'
   gem 'aruba', :git => 'git://github.com/aeden/aruba.git'
+  gem 'ruby-debug'
 end
