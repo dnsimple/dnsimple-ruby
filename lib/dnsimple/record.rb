@@ -34,7 +34,7 @@ module DNSimple
         record_hash[Record.resolve(attribute)] = self.send(attribute)
       end
 
-      options.merge!(:basic_auth => Client.credentials)
+      options.merge!(DNSimple::Client.standard_options)
       options.merge!(:body => {:record => record_hash})
 
       response = self.class.put("#{Client.base_uri}/domains/#{domain.id}/records/#{id}.json", options)
@@ -52,8 +52,8 @@ module DNSimple
     end
     
     def delete(options={})
-      options.merge!({:basic_auth => Client.credentials})
-      self.class.delete("#{Client.base_uri}/domains/#{domain.id}/records/#{id}.json", options)
+      options.merge!(DNSimple::Client.standard_options)
+      self.class.delete("#{Client.base_uri}/domains/#{domain.id}/records/#{id}", options)
     end
     alias :destroy :delete
 
@@ -72,11 +72,11 @@ module DNSimple
       record_hash[:ttl] = options.delete(:ttl) || 3600
       record_hash[:prio] = options.delete(:priority)
       record_hash[:prio] = options.delete(:prio) || ''
-
+      
+      options.merge!(DNSimple::Client.standard_options)
       options.merge!({:query => {:record => record_hash}})
-      options.merge!({:basic_auth => Client.credentials})
 
-      response = self.post("#{Client.base_uri}/domains/#{domain.id}/records.json", options) 
+      response = self.post("#{Client.base_uri}/domains/#{domain.id}/records", options) 
 
       pp response if Client.debug?
 
@@ -94,8 +94,8 @@ module DNSimple
 
     def self.find(domain_name, id, options={})
       domain = Domain.find(domain_name)
-      options.merge!({:basic_auth => Client.credentials})
-      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records/#{id}.json", options)
+      options.merge!(DNSimple::Client.standard_options)
+      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records/#{id}", options)
 
       pp response if Client.debug?
 
@@ -113,8 +113,8 @@ module DNSimple
 
     def self.all(domain_name, options={})
       domain = Domain.find(domain_name)
-      options.merge!({:basic_auth => Client.credentials})
-      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records.json", options)
+      options.merge!(DNSimple::Client.standard_options)
+      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records", options)
 
       pp response if Client.debug?
 
