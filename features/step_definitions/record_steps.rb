@@ -30,3 +30,9 @@ Then /^the output should show that the record was deleted$/ do
   steps %Q(Then the output should contain "Deleted #{@record_id} from #{@domain_name}")
 end
 
+Then /^I the domain should have (\d+) records$/ do |n|
+  steps %Q(
+    When I run `dnsimple record:list #{@domain_name}`
+    Then the output should contain "Found #{n} records for #{@domain_name}"
+  )
+end

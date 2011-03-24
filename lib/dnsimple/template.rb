@@ -25,12 +25,13 @@ module DNSimple
     # Delete the template from DNSimple. WARNING: this cannot
     # be undone.
     def delete(options={})
-      options.merge!({:basic_auth => Client.credentials})
-      self.class.delete("#{Client.base_uri}/templates/#{id}.json", options)
+      options.merge!(DNSimple::Client.standard_options)
+      self.class.delete("#{Client.base_uri}/templates/#{id}", options)
     end
     alias :destroy :delete
 
     def self.create(name, short_name, description=nil, options={})
+      options.merge!(DNSimple::Client.standard_options)
       template_hash = {
         :name => name, 
         :short_name => short_name,
@@ -38,9 +39,8 @@ module DNSimple
       }
 
       options.merge!(:body => {:dns_template => template_hash})
-      options.merge!({:basic_auth => Client.credentials})
 
-      response = self.post("#{Client.base_uri}/templates.json", options)
+      response = self.post("#{Client.base_uri}/templates", options)
 
       pp response if Client.debug?
 
@@ -55,8 +55,8 @@ module DNSimple
     end
 
     def self.find(id_or_short_name, options={})
-      options.merge!({:basic_auth => Client.credentials})
-      response = self.get("#{Client.base_uri}/templates/#{id_or_short_name}.json", options)
+      options.merge!(DNSimple::Client.standard_options)
+      response = self.get("#{Client.base_uri}/templates/#{id_or_short_name}", options)
       
       pp response if Client.debug?
       
@@ -73,8 +73,8 @@ module DNSimple
     end
 
     def self.all(options={})
-      options.merge!({:basic_auth => Client.credentials})
-      response = self.get("#{Client.base_uri}/templates.json", options)
+      options.merge!(DNSimple::Client.standard_options)
+      response = self.get("#{Client.base_uri}/templates", options)
 
       pp response if Client.debug?
 
