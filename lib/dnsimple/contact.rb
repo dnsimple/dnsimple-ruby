@@ -74,10 +74,10 @@ module DNSimple #:nodoc:
         contact_hash[Contact.resolve(attribute)] = self.send(attribute)
       end
 
-      options.merge!({:basic_auth => Client.credentials})
+      options.merge!(DNSimple::Client.standard_options_with_credentials)
       options.merge!({:body => {:contact => contact_hash}})
       
-      response = self.class.put("#{Client.base_uri}/contacts/#{id}.json", options)
+      response = self.class.put("#{Client.base_uri}/contacts/#{id}", options)
 
       pp response if Client.debug?
 

@@ -45,7 +45,11 @@ module DNSimple
     end
 
     def self.standard_options
-      {:basic_auth => credentials, :format => :json, :headers => {'Accept' => 'application/json'}}
+      {:format => :json, :headers => {'Accept' => 'application/json'}}
+    end
+
+    def self.standard_options_with_credentials
+      standard_options.merge({:basic_auth => credentials})
     end
   end
 end
