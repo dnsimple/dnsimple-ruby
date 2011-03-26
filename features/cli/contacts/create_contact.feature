@@ -6,5 +6,5 @@ Feature: create a contact with the CLI
   @announce-cmd
   Scenario:
     Given I have set up my credentials
-    When I run `dnsimple contact:create first_name:John last_name:Smith address1:"Example Road" city:Anytown state:Florida postal_code:12345 country:US email:john.smith@example.com phone:12225051122 label:test-contact`
+    When I run `dnsimple contact:create first:John last:Smith address1:"Example Road" city:Anytown state:Florida postal_code:12345 country:US email:john.smith@example.com phone:12225051122 label:test-contact`
     Then the output should contain "Created contact John Smith"

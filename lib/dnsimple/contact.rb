@@ -112,11 +112,19 @@ module DNSimple #:nodoc:
       aliases[name] || name
     end
 
+    def self.resolve_attributes(attributes)
+      resolved_attributes = {}
+      attributes.each do |k, v|
+        resolved_attributes[resolve(k)] = v
+      end
+      resolved_attributes
+    end
+
     # Create the contact with the given attributes in DNSimple.
     # This method returns a Contact instance of the contact is created
     # and raises an error otherwise.
     def self.create(attributes, options={})
-      contact_hash = attributes
+      contact_hash = resolve_attributes(attributes)
 
       options.merge!({:body => {:contact => contact_hash}})
       options.merge!({:basic_auth => Client.credentials})
