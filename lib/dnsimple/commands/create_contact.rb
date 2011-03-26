@@ -14,7 +14,7 @@ module DNSimple
         end
 
         contact = Contact.create(attributes, options)
-        puts "Created #{contact.name} (id: #{contact.id})"
+        puts "Created contact #{contact.name} (id: #{contact.id})"
       end
     end
   end
