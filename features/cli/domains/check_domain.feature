@@ -6,5 +6,5 @@ Feature: check a domain with the CLI
   @announce-cmd
   Scenario:
     Given I have set up my credentials
-    When I run "dnsimple check domain.com"
+    When I run `dnsimple check domain.com`
     Then the output should contain "Check domain result for domain.com: registered"
