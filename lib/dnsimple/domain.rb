@@ -30,7 +30,7 @@ module DNSimple #:nodoc:
     # be undone.
     def delete(options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      self.class.delete("#{Client.base_uri}/domains/#{id}", options)
+      self.class.delete("#{DNSimple::Client.base_uri}/domains/#{id}", options)
     end
     alias :destroy :delete
 
@@ -39,7 +39,7 @@ module DNSimple #:nodoc:
     def apply(template, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
       template = resolve_template(template)
-      self.class.post("#{Client.base_uri}/domains/#{id}/templates/#{template.id}/apply", options)
+      self.class.post("#{DNSimple::Client.base_uri}/domains/#{id}/templates/#{template.id}/apply", options)
     end
 
     #:nodoc:
@@ -55,10 +55,10 @@ module DNSimple #:nodoc:
     def applied_services(options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
       response = self.class.get("#{Client.base_uri}/domains/#{id}/applied_services", options)
-      pp response if Client.debug?
+      pp response if DNSimple::Client.debug?
       case response.code
       when 200
-        response.map { |r| Service.new(r["service"]) }
+        response.map { |r| DNSimple::Service.new(r["service"]) }
       when 401
         raise RuntimeError, "Authentication failed"
       else
@@ -68,11 +68,11 @@ module DNSimple #:nodoc:
 
     def available_services(options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.class.get("#{Client.base_uri}/domains/#{id}/available_services", options)
-      pp response if Client.debug?
+      response = self.class.get("#{DNSimple::Client.base_uri}/domains/#{id}/available_services", options)
+      pp response if DNSimple::Client.debug?
       case response.code
       when 200
-        response.map { |r| Service.new(r["service"]) }
+        response.map { |r| DNSimple::Service.new(r["service"]) }
       when 401
         raise RuntimeError, "Authentication failed"
       else
@@ -83,8 +83,8 @@ module DNSimple #:nodoc:
     def add_service(id_or_short_name, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
       options.merge!(:body => {:service => {:id => id_or_short_name}})
-      response = self.class.post("#{Client.base_uri}/domains/#{name}/applied_services", options)
-      pp response if Client.debug?
+      response = self.class.post("#{DNSimple::Client.base_uri}/domains/#{name}/applied_services", options)
+      pp response if DNSimple::Client.debug?
       case response.code
       when 200
         true
@@ -97,8 +97,8 @@ module DNSimple #:nodoc:
 
     def remove_service(id, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.class.delete("#{Client.base_uri}/domains/#{name}/applied_services/#{id}", options)
-      pp response if Client.debug?
+      response = self.class.delete("#{DNSimple::Client.base_uri}/domains/#{name}/applied_services/#{id}", options)
+      pp response if DNSimple::Client.debug?
       case response.code
       when 200
         true
@@ -112,8 +112,8 @@ module DNSimple #:nodoc:
     # Check the availability of a name
     def self.check(name, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.get("#{Client.base_uri}/domains/#{name}/check", options)
-      pp response if Client.debug?
+      response = self.get("#{DNSimple::Client.base_uri}/domains/#{name}/check", options)
+      pp response if DNSimple::Client.debug?
       case response.code
       when 200
         "registered"
@@ -135,13 +135,13 @@ module DNSimple #:nodoc:
       domain_hash = {:name => name}
       options.merge!({:body => {:domain => domain_hash}})
 
-      response = self.post("#{Client.base_uri}/domains", options)
+      response = self.post("#{DNSimple::Client.base_uri}/domains", options)
       
-      pp response if Client.debug?
+      pp response if DNSimple::Client.debug?
       
       case response.code
       when 201
-        return Domain.new(response["domain"])
+        return DNSimple::Domain.new(response["domain"])
       when 401
         raise RuntimeError, "Authentication failed"
       else
@@ -161,13 +161,13 @@ module DNSimple #:nodoc:
       body.merge!(:extended_attribute => extended_attributes)
       options.merge!({:body => body})
       
-      response = self.post("#{Client.base_uri}/domain_registrations", options)
+      response = self.post("#{DNSimple::Client.base_uri}/domain_registrations", options)
       
-      pp response if Client.debug?
+      pp response if DNSimple::Client.debug?
       
       case response.code
       when 201
-        return Domain.new(response["domain"])
+        return DNSimple::Domain.new(response["domain"])
       when 401
         raise RuntimeError, "Authentication failed"
       else
@@ -179,13 +179,13 @@ module DNSimple #:nodoc:
     # or by the fully-qualified domain name.
     def self.find(id_or_name, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.get("#{Client.base_uri}/domains/#{id_or_name}", options)
+      response = self.get("#{DNSimple::Client.base_uri}/domains/#{id_or_name}", options)
       
-      pp response if Client.debug?
+      pp response if DNSimple::Client.debug?
       
       case response.code
       when 200
-        return Domain.new(response["domain"])
+        return DNSimple::Domain.new(response["domain"])
       when 401
         raise RuntimeError, "Authentication failed"
       when 404
@@ -198,13 +198,13 @@ module DNSimple #:nodoc:
     # Get all domains for the account.
     def self.all(options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.get("#{Client.base_uri}/domains", options)
+      response = self.get("#{DNSimple::Client.base_uri}/domains", options)
       
-      pp response if Client.debug?
+      pp response if DNSimple::Client.debug?
 
       case response.code
       when 200
-        response.map { |r| Domain.new(r["domain"]) }
+        response.map { |r| DNSimple::Domain.new(r["domain"]) }
       when 401
         raise RuntimeError, "Authentication failed"
       else
