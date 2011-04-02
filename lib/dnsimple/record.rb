@@ -31,15 +31,15 @@ module DNSimple
     def save(options={})
       record_hash = {}
       %w(name content ttl prio).each do |attribute|
-        record_hash[Record.resolve(attribute)] = self.send(attribute)
+        record_hash[DNSimple::Record.resolve(attribute)] = self.send(attribute)
       end
 
       options.merge!(DNSimple::Client.standard_options_with_credentials)
       options.merge!(:body => {:record => record_hash})
 
-      response = self.class.put("#{Client.base_uri}/domains/#{domain.id}/records/#{id}.json", options)
+      response = self.class.put("#{DNSimple::Client.base_uri}/domains/#{domain.id}/records/#{id}.json", options)
 
-      pp response if Client.debug?
+      pp response if DNSimple::Client.debug?
 
       case response.code
       when 200
@@ -53,7 +53,7 @@ module DNSimple
     
     def delete(options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      self.class.delete("#{Client.base_uri}/domains/#{domain.id}/records/#{id}", options)
+      self.class.delete("#{DNSimple::Client.base_uri}/domains/#{domain.id}/records/#{id}", options)
     end
     alias :destroy :delete
 
@@ -66,7 +66,7 @@ module DNSimple
     end
 
     def self.create(domain_name, name, record_type, content, options={})
-      domain = Domain.find(domain_name)
+      domain = DNSimple::Domain.find(domain_name)
       
       record_hash = {:name => name, :record_type => record_type, :content => content}
       record_hash[:ttl] = options.delete(:ttl) || 3600
@@ -76,13 +76,13 @@ module DNSimple
       options.merge!(DNSimple::Client.standard_options_with_credentials)
       options.merge!({:query => {:record => record_hash}})
 
-      response = self.post("#{Client.base_uri}/domains/#{domain.id}/records", options) 
+      response = self.post("#{DNSimple::Client.base_uri}/domains/#{domain.id}/records", options) 
 
-      pp response if Client.debug?
+      pp response if DNSimple::Client.debug?
 
       case response.code
       when 201
-        return Record.new({:domain => domain}.merge(response["record"]))
+        return DNSimple::Record.new({:domain => domain}.merge(response["record"]))
       when 401
         raise RuntimeError, "Authentication failed"
       when 406
@@ -93,15 +93,15 @@ module DNSimple
     end
 
     def self.find(domain_name, id, options={})
-      domain = Domain.find(domain_name)
+      domain = DNSimple::Domain.find(domain_name)
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records/#{id}", options)
+      response = self.get("#{DNSimple::Client.base_uri}/domains/#{domain.id}/records/#{id}", options)
 
-      pp response if Client.debug?
+      pp response if DNSimple::Client.debug?
 
       case response.code
       when 200
-        return Record.new({:domain => domain}.merge(response["record"]))
+        return DNSimple::Record.new({:domain => domain}.merge(response["record"]))
       when 401
         raise RuntimeError, "Authentication failed"
       when 404
@@ -112,15 +112,15 @@ module DNSimple
     end
 
     def self.all(domain_name, options={})
-      domain = Domain.find(domain_name)
+      domain = DNSimple::Domain.find(domain_name)
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.get("#{Client.base_uri}/domains/#{domain.id}/records", options)
+      response = self.get("#{DNSimple::Client.base_uri}/domains/#{domain.id}/records", options)
 
-      pp response if Client.debug?
+      pp response if DNSimple::Client.debug?
 
       case response.code
       when 200
-        response.map { |r| Record.new({:domain => domain}.merge(r["record"])) }
+        response.map { |r| DNSimple::Record.new({:domain => domain}.merge(r["record"])) }
       when 401
         raise RuntimeError, "Authentication failed"
       else
