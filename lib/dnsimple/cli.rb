@@ -6,13 +6,9 @@ module DNSimple
   end
 
   class CLI
-    def initialize
-      credentials = load_credentials
-      Client.username = credentials['username']
-      Client.password = credentials['password']
-    end
 
     def execute(command_name, args, options={})
+      DNSimple::Client.load_credentials_if_necessary
       command = commands[command_name]
       if command
         begin
@@ -71,11 +67,6 @@ module DNSimple
         'service:add' => DNSimple::Commands::AddService,
         'service:remove' => DNSimple::Commands::RemoveService
       }
-    end
-
-    private
-    def load_credentials
-      YAML.load(File.new(File.expand_path('~/.dnsimple')))
     end
   end
 end

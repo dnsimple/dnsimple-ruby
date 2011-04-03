@@ -101,6 +101,9 @@ if $0.split("/").last == 'dnsimple'
     opts.on("-p", "--password [ARG]") do |password|
       DNSimple::Client.password = password
     end
+    opts.on("-c", "--credentials [ARG]") do |credentials|
+      DNSimple::Client.load_credentials(credentials)
+    end
     opts.on("-d") do
       DNSimple::Client.debug = true
     end

@@ -37,11 +37,21 @@ module DNSimple
       @@base_uri = base_uri.gsub(/\/$/, '')
     end
 
+    def self.load_credentials_if_necessary
+      load_credentials unless credentials_loaded?
+    end
+
     def self.load_credentials(path='~/.dnsimple')
       credentials = YAML.load(File.new(File.expand_path(path)))
       self.username = credentials['username']
       self.password = credentials['password']
+      self.base_uri = credentials['site']
+      @@credentials_loaded = true
       "Credentials loaded from #{path}" 
+    end
+
+    def self.credentials_loaded?
+      @@credentials_loaded ||= false
     end
 
     def self.standard_options
