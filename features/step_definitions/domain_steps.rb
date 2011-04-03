@@ -25,3 +25,8 @@ Then /^the output should show that the domain was deleted$/ do
   steps %Q(Then the output should contain "Deleted #{@domain_name}")
 end
 
+Then /^the output should show that the domain was registered$/ do
+  steps %Q(Then the output should contain "Registered #{@domain_name}")
+end
+
+

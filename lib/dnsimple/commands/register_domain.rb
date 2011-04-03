@@ -3,7 +3,16 @@ module DNSimple
     class RegisterDomain
       def execute(args, options={})
         name = args.shift
-        registrant = {:id => args.shift}
+        registrant = nil
+
+        registrant_id_or_attribute = args.shift
+        if registrant_id_or_attribute
+          if registrant_id_or_attribute =~ /^\d+$/
+            registrant = {:id => registrant_id_or_attribute}
+          else
+            args.unshift(registrant_id_or_attribute)
+          end
+        end
 
         extended_attributes = {}
         args.each do |arg|

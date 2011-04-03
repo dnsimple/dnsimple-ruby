@@ -153,10 +153,12 @@ module DNSimple #:nodoc:
       options.merge!(DNSimple::Client.standard_options_with_credentials)
 
       body = {:domain => {:name => name}}
-      if registrant[:id]
-        body[:domain][:registrant_id] = registrant[:id]
-      else
-        body.merge!(:contact => registrant)
+      if registrant
+        if registrant[:id]
+          body[:domain][:registrant_id] = registrant[:id]
+        else
+          body.merge!(:contact => registrant)
+        end
       end
       body.merge!(:extended_attribute => extended_attributes)
       options.merge!({:body => body})
