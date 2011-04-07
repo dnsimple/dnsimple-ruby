@@ -34,7 +34,7 @@ module DNSimple
     end
 
     def self.base_uri=(base_uri)
-      @@base_uri = base_uri.gsub(/\/$/, '')
+      @@base_uri = base_uri ? base_uri.gsub(/\/$/, '') : nil
     end
 
     def self.load_credentials_if_necessary
