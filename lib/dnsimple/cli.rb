@@ -65,7 +65,9 @@ module DNSimple
         'service:applied' => DNSimple::Commands::ListAppliedServices,
         'service:available' => DNSimple::Commands::ListAvailableServices,
         'service:add' => DNSimple::Commands::AddService,
-        'service:remove' => DNSimple::Commands::RemoveService
+        'service:remove' => DNSimple::Commands::RemoveService,
+
+        'certificate:purchase' => DNSimple::Commands::PurchaseCertificate
       }
     end
   end
@@ -110,3 +112,5 @@ require 'dnsimple/commands/list_available_services'
 require 'dnsimple/commands/list_applied_services'
 require 'dnsimple/commands/add_service'
 require 'dnsimple/commands/remove_service'
+
+require 'dnsimple/commands/purchase_certificate'

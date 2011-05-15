@@ -149,6 +149,7 @@ module DNSimple #:nodoc:
       end
     end
 
+    # Purchase a domain name.
     def self.register(name, registrant={}, extended_attributes={}, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
 
