@@ -45,7 +45,8 @@ describe DNSimple::Domain do
             :city => 'Miami',
             :state_or_province => 'FL',
             :country => 'US',
-            :postal_code => '33143'
+            :postal_code => '33143',
+            :phone => '321 555 1212'
           }
           domain = DNSimple::Domain.register(name, registrant)
           domain.name.should eql(name)
