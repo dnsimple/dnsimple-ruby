@@ -1,28 +1,21 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe DNSimple::Record do
-  before do
-    @domain = DNSimple::Domain.create("testdomain.com")
-  end
-
-  after do
-    @domain.delete
-  end
-
-  describe "a new record" do
-    before do
-      @record = DNSimple::Record.create(@domain.name, "", "A", "1.2.3.4", :ttl => 600)
-    end
-
+  describe "creating a new record" do
+    use_vcr_cassette
     it "has specific attributes" do 
-      @record.name.should eql("")
-      @record.record_type.should eql("A")
-      @record.content.should eql("1.2.3.4")
-      @record.ttl.should eql(600)
-      @record.id.should_not be_nil
+      record = DNSimple::Record.create('testdomain.com', "", "A", "1.2.3.4", :ttl => 600)
+      record.name.should eql("")
+      record.record_type.should eql("A")
+      record.content.should eql("1.2.3.4")
+      record.ttl.should eql(600)
+      record.id.should_not be_nil
     end
+  end
+  describe "find a record" do
+    use_vcr_cassette
     it "can be found by id" do
-      record = DNSimple::Record.find(@domain.name, @record.id)
+      record = DNSimple::Record.find('testdomain.com', 193)
       record.name.should eql("")
       record.record_type.should eql("A")
       record.content.should eql("1.2.3.4")
@@ -32,6 +25,7 @@ describe DNSimple::Record do
   end
 
   describe ".all" do
+    use_vcr_cassette
     before do
       @records = []
       
@@ -41,7 +35,7 @@ describe DNSimple::Record do
     end
     
     it "returns a list of records" do
-      records = DNSimple::Record.all(@domain.name)
+      records = DNSimple::Record.all('testdomain.com')
       records.should_not be_empty
       records.length.should eql(@records.length)
     end

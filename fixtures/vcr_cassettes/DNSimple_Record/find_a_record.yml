@@ -1,0 +1,91 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/testdomain.com
+    body: 
+    headers: 
+      accept: 
+      - application/json
+      authorization: 
+      - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      access-control-allow-headers: 
+      - Authorization
+      x-dnsimple-api-version: 
+      - 1.0.0
+      etag: 
+      - "\"3b0419b984d57a56633b5454b1f8a1d5\""
+      access-control-allow-methods: 
+      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
+      access-control-allow-origin: 
+      - "*"
+      content-type: 
+      - application/json; charset=utf-8
+      x-runtime: 
+      - "0.478968"
+      date: 
+      - Sun, 22 May 2011 20:59:51 GMT
+      server: 
+      - nginx/1.0.2
+      set-cookie: 
+      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlN2FiMTZlNDY1NmRiMjg2NzU2Y2NiN2U3NzdhOWZmM2VJIg5yZXR1cm5fdG8GOwBGIhwvZG9tYWlucy90ZXN0ZG9tYWluLmNvbUkiFXVzZXJfY3JlZGVudGlhbHMGOwBGSSIBgDhjN2RlMjhiNDYyZjRhYjUzMzEwMzVkNWIzZTNkNGRlNWMyNDQ1NTU1NjNiMGEzOTE1YWM4OTgyZDlmMGFkYzRiNGI4OTA1MzVkZDJjNjA0MjI0NTM1NGE5NTRiOGNkNzczYjE3N2Q3ODA0OGU0ZTk4OGQ1Y2MzNDYwZTBhOTNmBjsAVEkiGHVzZXJfY3JlZGVudGlhbHNfaWQGOwBGaQc%3D--c55b618661e517b643e1a0822fc1f93ec03b177a; path=/; HttpOnly
+      cache-control: 
+      - max-age=0, private, must-revalidate
+      status: 
+      - 200 OK
+      transfer-encoding: 
+      - chunked
+    body: "{\"domain\":{\"created_at\":\"2011-05-22T18:40:47Z\",\"expires_at\":null,\"id\":141,\"lockable\":true,\"name\":\"testdomain.com\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T20:58:17Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":14}}"
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/141/records/193
+    body: 
+    headers: 
+      accept: 
+      - application/json
+      authorization: 
+      - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      access-control-allow-headers: 
+      - Authorization
+      x-dnsimple-api-version: 
+      - 1.0.0
+      etag: 
+      - "\"923b04d81bd4e86149b420852f2a6b14\""
+      access-control-allow-methods: 
+      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
+      access-control-allow-origin: 
+      - "*"
+      content-type: 
+      - application/json; charset=utf-8
+      x-runtime: 
+      - "0.237190"
+      date: 
+      - Sun, 22 May 2011 20:59:52 GMT
+      server: 
+      - nginx/1.0.2
+      set-cookie: 
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlMDUxYzg5MmNlNjE5Njc5MzQ4ZmE1MzZhNzk3OWM0NWJJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkH--46258707ee461fd1b9c888077fc15e59bd586b87; path=/; HttpOnly
+      cache-control: 
+      - max-age=0, private, must-revalidate
+      status: 
+      - 200 OK
+      transfer-encoding: 
+      - chunked
+    body: "{\"record\":{\"content\":\"1.2.3.4\",\"created_at\":\"2011-05-22T20:58:13Z\",\"domain_id\":141,\"domain_service_id\":null,\"id\":193,\"name\":\"\",\"pdns_identifier\":\"391\",\"prio\":null,\"record_type\":\"A\",\"special_type\":null,\"ttl\":600,\"updated_at\":\"2011-05-22T20:58:16Z\"}}"
+    http_version: "1.1"
