@@ -1,0 +1,46 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domain_registrations
+    body: domain[registrant_id]=4&domain[name]=testdomain-1306090402.net
+    headers: 
+      accept: 
+      - application/json
+      authorization: 
+      - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 201
+      message: Created
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      access-control-allow-headers: 
+      - Authorization
+      x-dnsimple-api-version: 
+      - 1.0.0
+      location: 
+      - /domains/143
+      access-control-allow-methods: 
+      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
+      access-control-allow-origin: 
+      - "*"
+      content-type: 
+      - application/json; charset=utf-8
+      x-runtime: 
+      - "11.273003"
+      date: 
+      - Sun, 22 May 2011 18:53:34 GMT
+      server: 
+      - nginx/1.0.2
+      set-cookie: 
+      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlMDY0NGJjODNkY2FjYzI3MDBkYTc4MjJlOTY2ZDIxMThJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkHSSIJbmFtZQY7AEZJIh50ZXN0ZG9tYWluLTEzMDYwOTA0MDIubmV0BjsAVA%3D%3D--19039087f1d72e48160415d545eebd9304ff7ce6; path=/; HttpOnly
+      cache-control: 
+      - no-cache
+      status: 
+      - 201 Created
+      transfer-encoding: 
+      - chunked
+    body: "{\"domain\":{\"created_at\":\"2011-05-22T18:53:30Z\",\"expires_at\":\"5/22/2012 2:53:00 PM\",\"id\":143,\"last_enom_order_id\":\"157715709\",\"lockable\":true,\"name\":\"testdomain.net\",\"name_server_status\":\"unknown\",\"pdns_identifier\":null,\"real_time\":true,\"registrant_id\":2,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T18:53:34Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}}"
+    http_version: "1.1"

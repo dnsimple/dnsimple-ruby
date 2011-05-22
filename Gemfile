@@ -10,4 +10,6 @@ group :development do
   gem 'cucumber'
   gem 'aruba'
   gem 'ruby-debug'
+  gem 'fakeweb'
+  gem 'vcr'
 end
