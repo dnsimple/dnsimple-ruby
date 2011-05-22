@@ -158,7 +158,7 @@ module DNSimple #:nodoc:
         if registrant[:id]
           body[:domain][:registrant_id] = registrant[:id]
         else
-          body.merge!(:contact => registrant)
+          body.merge!(:contact => Contact.resolve_attributes(registrant))
         end
       end
       body.merge!(:extended_attribute => extended_attributes)
