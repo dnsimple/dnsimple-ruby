@@ -62,6 +62,7 @@ module DNSimple #:nodoc:
 
       case response.code
       when 200
+        return [] unless response
         response.map { |r| ExtendedAttribute.new(r) }
       when 401
         raise RuntimeError, "Authentication failed"
