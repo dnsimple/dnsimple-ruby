@@ -1,0 +1,44 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/contacts.json
+    body: contact[first_name]=John&contact[country]=US&contact[last_name]=Doe&contact[email_address]=john.doe%40example.com&contact[address1]=1%20SW%201st%20Street&contact[phone]=305%20111%202222&contact[city]=Miami&contact[state_province]=FL&contact[postal_code]=33143
+    headers: 
+      authorization: 
+      - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 201
+      message: Created
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      access-control-allow-headers: 
+      - Authorization
+      x-dnsimple-api-version: 
+      - 1.0.0
+      location: 
+      - /contacts/32
+      access-control-allow-methods: 
+      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
+      access-control-allow-origin: 
+      - "*"
+      content-type: 
+      - application/json; charset=utf-8
+      x-runtime: 
+      - "0.012567"
+      date: 
+      - Sun, 22 May 2011 18:58:40 GMT
+      server: 
+      - nginx/1.0.2
+      set-cookie: 
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlMDUwOGQ1YTRlMWYzZjhiNmQ0ZDQxMDM4YTU3NDg4YTlJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkH--2534981ffa8a467be0f2ae42e656c6ae28141fb7; path=/; HttpOnly
+      cache-control: 
+      - no-cache
+      status: 
+      - 201 Created
+      transfer-encoding: 
+      - chunked
+    body: "{\"contact\":{\"address1\":\"1 SW 1st Street\",\"address2\":null,\"city\":\"Miami\",\"country\":\"US\",\"created_at\":\"2011-05-22T18:58:40Z\",\"email_address\":\"john.doe@example.com\",\"fax\":null,\"first_name\":\"John\",\"id\":32,\"job_title\":null,\"label\":null,\"last_name\":\"Doe\",\"organization_name\":null,\"phone\":\"305 111 2222\",\"phone_ext\":null,\"postal_code\":\"33143\",\"state_province\":\"FL\",\"updated_at\":\"2011-05-22T18:58:40Z\",\"user_id\":2}}"
+    http_version: "1.1"

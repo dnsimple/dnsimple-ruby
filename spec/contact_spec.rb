@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe DNSimple::Contact do
+  
   describe "a new contact" do
+    use_vcr_cassette
+
     let(:contact_attributes) {
       {
         :first_name => 'John',
@@ -15,18 +18,18 @@ describe DNSimple::Contact do
         :phone => '305 111 2222'
       }
     }
-    before do
-      @contact = DNSimple::Contact.create(contact_attributes)
-    end
-    after do
-      @contact.delete
-    end
     it "has specific attributes" do
-      @contact.first_name.should eql(contact_attributes[:first_name])
-      @contact.id.should_not be_nil
+      contact = DNSimple::Contact.create(contact_attributes)
+      contact.first_name.should eql(contact_attributes[:first_name])
+      contact.id.should_not be_nil
     end
+  end
+
+  describe "an existing contact" do
+    use_vcr_cassette
     it "can be found by id" do
-      contact = DNSimple::Contact.find(@contact.id)
+      contact = DNSimple::Contact.find(32)
+      contact.should_not be_nil
     end
   end
 end
