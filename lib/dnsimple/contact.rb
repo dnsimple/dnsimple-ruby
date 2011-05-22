@@ -107,9 +107,10 @@ module DNSimple #:nodoc:
         'last' => 'last_name',
         'state' => 'state_province',
         'province' => 'state_province',
+        'state_or_province' => 'state_province',
         'email' => 'email_address',
       }
-      aliases[name] || name
+      aliases[name.to_s] || name
     end
 
     def self.resolve_attributes(attributes)
