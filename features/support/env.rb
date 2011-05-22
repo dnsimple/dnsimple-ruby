@@ -1,7 +1,10 @@
 require 'aruba/cucumber'
+$:.unshift('lib')
+require 'dnsimple'
 
 Before do
   @aruba_timeout_seconds = 30
+  ENV['DNSIMPLE_CONFIG'] = '~/.dnsimple.test'
 end
 
 After do |scenario|

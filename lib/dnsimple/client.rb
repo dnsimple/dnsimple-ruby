@@ -41,7 +41,11 @@ module DNSimple
       load_credentials unless credentials_loaded?
     end
 
-    def self.load_credentials(path='~/.dnsimple')
+    def self.config_path
+      ENV['DNSIMPLE_CONFIG'] || '~/.dnsimple'
+    end
+
+    def self.load_credentials(path=config_path)
       credentials = YAML.load(File.new(File.expand_path(path)))
       self.username = credentials['username']
       self.password = credentials['password']
