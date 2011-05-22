@@ -1,0 +1,42 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/extended_attributes/com.json
+    body: 
+    headers: 
+      authorization: 
+      - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ua-compatible: 
+      - IE=Edge,chrome=1
+      access-control-allow-headers: 
+      - Authorization
+      x-dnsimple-api-version: 
+      - 1.0.0
+      etag: 
+      - "\"d751713988987e9331980363e24189ce\""
+      access-control-allow-methods: 
+      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
+      access-control-allow-origin: 
+      - "*"
+      content-type: 
+      - application/json; charset=utf-8
+      x-runtime: 
+      - "0.997032"
+      date: 
+      - Sun, 22 May 2011 20:54:37 GMT
+      server: 
+      - nginx/1.0.2
+      cache-control: 
+      - max-age=0, private, must-revalidate
+      status: 
+      - 200 OK
+      transfer-encoding: 
+      - chunked
+    body: "[]"
+    http_version: "1.1"
