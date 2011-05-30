@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/contacts/32.json
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/contacts/32.json
     body: 
     headers: 
       authorization: 

@@ -1,9 +1,12 @@
 require 'vcr'
+require 'cgi'
 require 'lib/dnsimple'
 
 VCR.config do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.stub_with :fakeweb
+  c.filter_sensitive_data("<USERNAME>") { CGI::escape(DNSimple::Client.username) }
+  c.filter_sensitive_data("<PASSWORD>") { CGI::escape(DNSimple::Client.password) }
 end
 
 RSpec.configure do |c|

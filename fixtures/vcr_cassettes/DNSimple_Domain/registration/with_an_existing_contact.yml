@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domain_registrations
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domain_registrations
     body: domain[registrant_id]=4&domain[name]=testdomain-1306090402.net
     headers: 
       accept: 

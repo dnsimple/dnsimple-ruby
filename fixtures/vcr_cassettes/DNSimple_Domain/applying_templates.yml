@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/testdomain.com
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/testdomain.com
     body: 
     headers: 
       accept: 
@@ -47,7 +47,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/testdomain.com
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/testdomain.com
     body: 
     headers: 
       accept: 
@@ -92,7 +92,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/141/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/141/records
     body: 
     headers: 
       accept: 
@@ -137,7 +137,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/templates/googleapps
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/templates/googleapps
     body: 
     headers: 
       accept: 
@@ -182,7 +182,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/141/templates/3/apply
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/141/templates/3/apply
     body: 
     headers: 
       accept: 
@@ -227,7 +227,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/testdomain.com
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/testdomain.com
     body: 
     headers: 
       accept: 
@@ -272,7 +272,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/141/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/141/records
     body: 
     headers: 
       accept: 

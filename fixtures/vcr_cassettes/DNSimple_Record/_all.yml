@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/testdomain.com
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/testdomain.com
     body: 
     headers: 
       accept: 
@@ -47,7 +47,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/155/records?record[content]=4.5.6.7&record[ttl]=3600&record[prio]=&record[name]=&record[record_type]=A
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/155/records?record[content]=4.5.6.7&record[ttl]=3600&record[prio]=&record[name]=&record[record_type]=A
     body: 
     headers: 
       accept: 
@@ -92,7 +92,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/testdomain.com
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/testdomain.com
     body: 
     headers: 
       accept: 
@@ -137,7 +137,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/155/records?record[content]=testdomain.com&record[ttl]=3600&record[prio]=&record[name]=www&record[record_type]=CNAME
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/155/records?record[content]=testdomain.com&record[ttl]=3600&record[prio]=&record[name]=www&record[record_type]=CNAME
     body: 
     headers: 
       accept: 
@@ -182,7 +182,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/testdomain.com
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/testdomain.com
     body: 
     headers: 
       accept: 
@@ -227,7 +227,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/155/records?record[content]=mail.foo.com&record[ttl]=3600&record[prio]=10&record[name]=&record[record_type]=MX
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/155/records?record[content]=mail.foo.com&record[ttl]=3600&record[prio]=10&record[name]=&record[record_type]=MX
     body: 
     headers: 
       accept: 
@@ -272,7 +272,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/testdomain.com
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/testdomain.com
     body: 
     headers: 
       accept: 
@@ -317,7 +317,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://anthonyeden%40gmail.com:letmein@test.dnsimple.com:443/domains/155/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/155/records
     body: 
     headers: 
       accept: 
