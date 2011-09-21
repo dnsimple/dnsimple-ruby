@@ -60,7 +60,7 @@ module DNSimple
     end
 
     def self.credentials_loaded?
-      (@@credentials_loaded ||= false) or (defined?(@@username) and defined?(password))
+      (@@credentials_loaded ||= false) or (defined?(@@username) and defined?(@@password))
     end
 
     def self.standard_options
