@@ -1,2 +1,1 @@
-rvm use ruby-1.8.7-p249
-rvm gemset use dnsimple-ruby
+rvm use ruby-1.8.7@dnsimple-ruby --create
