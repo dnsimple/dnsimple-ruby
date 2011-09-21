@@ -46,16 +46,21 @@ module DNSimple
     end
 
     def self.load_credentials(path=config_path)
-      credentials = YAML.load(File.new(File.expand_path(path)))
-      self.username = credentials['username']
-      self.password = credentials['password']
-      self.base_uri = credentials['site']
-      @@credentials_loaded = true
-      "Credentials loaded from #{path}" 
+      begin
+        credentials = YAML.load(File.new(File.expand_path(path)))
+        self.username = credentials['username']
+        self.password = credentials['password']
+        self.base_uri = credentials['site']
+        @@credentials_loaded = true
+        "Credentials loaded from #{path}" 
+      rescue
+        puts "Error loading your credentials: #{$!.message}"
+        exit 1
+      end
     end
 
     def self.credentials_loaded?
-      @@credentials_loaded ||= false
+      (@@credentials_loaded ||= false) or (defined?(@@username) and defined?(password))
     end
 
     def self.standard_options
