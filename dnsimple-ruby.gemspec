@@ -4,15 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{dnsimple-ruby}
+  s.name = "dnsimple-ruby"
   s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Anthony Eden"]
-  s.date = %q{2011-02-20}
-  s.default_executable = %q{dnsimple}
-  s.description = %q{A ruby wrapper for the DNSimple API that also includes a command-line client.}
-  s.email = %q{anthony.eden@dnsimple.com}
+  s.date = "2011-11-03"
+  s.description = "A ruby wrapper for the DNSimple API that also includes a command-line client."
+  s.email = "anthony.eden@dnsimple.com"
   s.executables = ["dnsimple"]
   s.extra_rdoc_files = [
     "LICENSE",
@@ -33,7 +32,43 @@ Gem::Specification.new do |s|
     "VERSION",
     "bin/dnsimple",
     "bin/dnsimple.rb",
+    "dnsimple-ruby.gemspec",
+    "features/README",
+    "features/cli/certificates/purchase_certificate.feature",
+    "features/cli/contacts/create_contact.feature",
+    "features/cli/domains/check_domain.feature",
+    "features/cli/domains/create_domain.feature",
+    "features/cli/domains/delete_domain.feature",
+    "features/cli/domains/register_domain.feature",
+    "features/cli/records/create_ptr_record.feature",
+    "features/cli/records/create_record.feature",
+    "features/cli/records/delete_record.feature",
+    "features/cli/templates/apply_template.feature",
+    "features/step_definitions/certificate_steps.rb",
+    "features/step_definitions/cli_steps.rb",
+    "features/step_definitions/domain_steps.rb",
+    "features/step_definitions/record_steps.rb",
+    "features/step_definitions/template_steps.rb",
+    "features/support/env.rb",
+    "fixtures/vcr_cassettes/DNSimple_Contact/a_new_contact.yml",
+    "fixtures/vcr_cassettes/DNSimple_Contact/an_existing_contact.yml",
+    "fixtures/vcr_cassettes/DNSimple_Domain/_all.yml",
+    "fixtures/vcr_cassettes/DNSimple_Domain/applying_templates.yml",
+    "fixtures/vcr_cassettes/DNSimple_Domain/creating_a_new_domain.yml",
+    "fixtures/vcr_cassettes/DNSimple_Domain/finding_an_existing_domain.yml",
+    "fixtures/vcr_cassettes/DNSimple_Domain/finding_an_existing_domain/by_id.yml",
+    "fixtures/vcr_cassettes/DNSimple_Domain/finding_an_existing_domain/by_name.yml",
+    "fixtures/vcr_cassettes/DNSimple_Domain/registration/with_a_new_registrant_contact.yml",
+    "fixtures/vcr_cassettes/DNSimple_Domain/registration/with_an_existing_contact.yml",
+    "fixtures/vcr_cassettes/DNSimple_ExtendedAttribute/list_extended_attributes/for_ca.yml",
+    "fixtures/vcr_cassettes/DNSimple_ExtendedAttribute/list_extended_attributes/for_com.yml",
+    "fixtures/vcr_cassettes/DNSimple_Record/_all.yml",
+    "fixtures/vcr_cassettes/DNSimple_Record/creating_a_new_record.yml",
+    "fixtures/vcr_cassettes/DNSimple_Record/find_a_record.yml",
+    "fixtures/vcr_cassettes/DNSimple_Template/a_template.yml",
+    "fixtures/vcr_cassettes/DNSimple_User/_me.yml",
     "lib/dnsimple.rb",
+    "lib/dnsimple/certificate.rb",
     "lib/dnsimple/cli.rb",
     "lib/dnsimple/client.rb",
     "lib/dnsimple/commands/add_service.rb",
@@ -64,6 +99,7 @@ Gem::Specification.new do |s|
     "lib/dnsimple/commands/list_services.rb",
     "lib/dnsimple/commands/list_template_records.rb",
     "lib/dnsimple/commands/list_templates.rb",
+    "lib/dnsimple/commands/purchase_certificate.rb",
     "lib/dnsimple/commands/register_domain.rb",
     "lib/dnsimple/commands/remove_service.rb",
     "lib/dnsimple/commands/transfer_domain.rb",
@@ -80,20 +116,24 @@ Gem::Specification.new do |s|
     "lib/dnsimple/transfer_order.rb",
     "lib/dnsimple/user.rb",
     "spec/README",
+    "spec/certificate_spec.rb",
     "spec/contact_spec.rb",
     "spec/domain_spec.rb",
+    "spec/extended_attributes_spec.rb",
     "spec/record_spec.rb",
     "spec/spec_helper.rb",
     "spec/template_spec.rb",
     "spec/user_spec.rb"
   ]
-  s.homepage = %q{http://github.com/aetrion/dnsimple-ruby}
+  s.homepage = "http://github.com/aetrion/dnsimple-ruby"
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
-  s.summary = %q{A ruby wrapper for the DNSimple API}
+  s.rubygems_version = "1.8.10"
+  s.summary = "A ruby wrapper for the DNSimple API"
   s.test_files = [
+    "spec/certificate_spec.rb",
     "spec/contact_spec.rb",
     "spec/domain_spec.rb",
+    "spec/extended_attributes_spec.rb",
     "spec/record_spec.rb",
     "spec/spec_helper.rb",
     "spec/template_spec.rb",
@@ -101,7 +141,6 @@ Gem::Specification.new do |s|
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
@@ -110,6 +149,11 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 2.0.0"])
       s.add_development_dependency(%q<ruby-debug>, [">= 0"])
+      s.add_development_dependency(%q<cucumber>, [">= 0"])
+      s.add_development_dependency(%q<aruba>, [">= 0"])
+      s.add_development_dependency(%q<ruby-debug>, [">= 0"])
+      s.add_development_dependency(%q<fakeweb>, [">= 0"])
+      s.add_development_dependency(%q<vcr>, [">= 0"])
       s.add_runtime_dependency(%q<httparty>, [">= 0"])
     else
       s.add_dependency(%q<httparty>, [">= 0"])
@@ -117,6 +161,11 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 2.0.0"])
       s.add_dependency(%q<ruby-debug>, [">= 0"])
+      s.add_dependency(%q<cucumber>, [">= 0"])
+      s.add_dependency(%q<aruba>, [">= 0"])
+      s.add_dependency(%q<ruby-debug>, [">= 0"])
+      s.add_dependency(%q<fakeweb>, [">= 0"])
+      s.add_dependency(%q<vcr>, [">= 0"])
       s.add_dependency(%q<httparty>, [">= 0"])
     end
   else
@@ -125,6 +174,11 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 2.0.0"])
     s.add_dependency(%q<ruby-debug>, [">= 0"])
+    s.add_dependency(%q<cucumber>, [">= 0"])
+    s.add_dependency(%q<aruba>, [">= 0"])
+    s.add_dependency(%q<ruby-debug>, [">= 0"])
+    s.add_dependency(%q<fakeweb>, [">= 0"])
+    s.add_dependency(%q<vcr>, [">= 0"])
     s.add_dependency(%q<httparty>, [">= 0"])
   end
 end
