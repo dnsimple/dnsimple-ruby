@@ -1,6 +1,10 @@
 require 'pp'
 require 'httparty'
 
+module DNSimple
+  BLANK_REGEX = /\S+/
+end
+
 require 'dnsimple/client'
 require 'dnsimple/error'
 require 'dnsimple/user'

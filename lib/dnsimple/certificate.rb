@@ -26,7 +26,7 @@ module DNSimple #:nodoc:
     end
 
     def fqdn
-      [name, domain.name].delete_if { |p| p !~ /\S+/ }.join(".")
+      [name, domain.name].delete_if { |p| p !~ DNSimple::BLANK_REGEX }.join(".")
     end
 
     def self.purchase(domain_name, name, options={})

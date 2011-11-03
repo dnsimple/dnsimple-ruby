@@ -1,6 +1,20 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe DNSimple::Record do
+
+  let(:domain) { DNSimple::Domain.new(:name => 'example.com') }
+
+  describe "#fqdn" do
+    it "joins the name and domain name" do
+      record = DNSimple::Record.new(:name => 'www', :domain => domain)
+      record.fqdn.should eq('www.example.com')
+    end
+    it "strips a blank name" do
+      record = DNSimple::Record.new(:name => '', :domain => domain)
+      record.fqdn.should eq('example.com')
+    end
+  end
+
   describe "creating a new record" do
     use_vcr_cassette
     it "has specific attributes" do 

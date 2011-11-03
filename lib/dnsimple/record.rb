@@ -25,7 +25,7 @@ module DNSimple
     end
 
     def fqdn
-      [name, domain.name].delete_if { |v| v.blank? }.join(".")
+      [name, domain.name].delete_if { |v| v !~ DNSimple::BLANK_REGEX }.join(".")
     end
 
     def save(options={})
