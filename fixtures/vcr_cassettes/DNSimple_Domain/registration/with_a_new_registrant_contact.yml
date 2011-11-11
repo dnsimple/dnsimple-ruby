@@ -2,8 +2,8 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domain_registrations
-    body: domain[name]=testdomain-1306090283.net&contact[phone]=321%20555%201212&contact[state_province]=FL&contact[address1]=123%20SW%201st%20Street&contact[city]=Miami&contact[country]=US&contact[first_name]=John&contact[postal_code]=33143&contact[last_name]=Smith
+    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domain_registrations
+    body: domain[name]=dnsimple-example-1321042288.com&contact[last_name]=Smith&contact[state_province]=FL&contact[phone]=321%20555%201212&contact[address1]=123%20SW%201st%20Street&contact[city]=Miami&contact[country]=US&contact[first_name]=John&contact[postal_code]=33143
     headers: 
       accept: 
       - application/json
@@ -15,32 +15,30 @@
       message: Created
     headers: 
       x-ua-compatible: 
-      - IE=Edge,chrome=1
+      - IE=Edge
       access-control-allow-headers: 
-      - Authorization
+      - Authorization,Accepts,Content-Type
       x-dnsimple-api-version: 
       - 1.0.0
       location: 
-      - /domains/142
+      - http://localhost:3000/domains/dnsimple-example-1321042288.com
       access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
-      access-control-allow-origin: 
-      - "*"
+      - OPTIONS
       content-type: 
       - application/json; charset=utf-8
-      x-runtime: 
-      - "10.839024"
+      access-control-allow-origin: 
+      - "*"
       date: 
-      - Sun, 22 May 2011 18:51:34 GMT
+      - Fri, 11 Nov 2011 20:12:00 GMT
       server: 
-      - nginx/1.0.2
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      x-runtime: 
+      - "32.052851"
+      content-length: 
+      - "531"
       set-cookie: 
-      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlOTExZjRkZWFjNjRjZjA4N2U1ZGMzZTI2YzA0ZDJkNDBJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkHSSIJbmFtZQY7AEZJIh50ZXN0ZG9tYWluLTEzMDYwOTAyODMubmV0BjsAVA%3D%3D--d4da7bde08216ce5b9b46933cded61359cee2268; path=/; HttpOnly
+      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlMmIxNzg4ODcxYmM0ODgwMWY5ZDcxYTUxM2Y2NThhZTdJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkGSSIJbmFtZQY7AEZJIiRkbnNpbXBsZS1leGFtcGxlLTEzMjEwNDIyODguY29tBjsAVA%3D%3D--e314feed5f06252ed43bc76f7a38dcf564468e4f; path=/; HttpOnly
       cache-control: 
       - no-cache
-      status: 
-      - 201 Created
-      transfer-encoding: 
-      - chunked
-    body: "{\"domain\":{\"created_at\":\"2011-05-22T18:51:30Z\",\"expires_at\":\"5/22/2012 2:51:00 PM\",\"id\":142,\"last_enom_order_id\":\"157715708\",\"lockable\":true,\"name\":\"testdomain.net\",\"name_server_status\":\"unknown\",\"pdns_identifier\":null,\"real_time\":true,\"registrant_id\":30,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T18:51:34Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}}"
+    body: "{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:11:34Z\",\"expires_at\":\"11/11/2012 12:11:00 PM\",\"id\":41,\"last_enom_order_id\":\"157773080\",\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"dnsimple-example-1321042288.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":\"2012-11-11T12:11:00Z\",\"pdns_identifier\":null,\"real_time\":true,\"registrant_id\":3,\"registration_status\":\"registered\",\"state\":\"registered\",\"updated_at\":\"2011-11-11T20:12:00Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}}"
     http_version: "1.1"

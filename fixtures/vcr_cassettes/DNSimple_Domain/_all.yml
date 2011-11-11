@@ -2,8 +2,8 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains
-    body: domain[name]=testdomain0.com
+    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains
+    body: domain[name]=example0.com
     headers: 
       accept: 
       - application/json
@@ -15,40 +15,38 @@
       message: Created
     headers: 
       x-ua-compatible: 
-      - IE=Edge,chrome=1
+      - IE=Edge
       access-control-allow-headers: 
-      - Authorization
+      - Authorization,Accepts,Content-Type
       x-dnsimple-api-version: 
       - 1.0.0
       location: 
-      - /domains/144
+      - http://localhost:3000/domains/example0.com
       access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
-      access-control-allow-origin: 
-      - "*"
+      - OPTIONS
       content-type: 
       - application/json; charset=utf-8
-      x-runtime: 
-      - "1.425659"
+      access-control-allow-origin: 
+      - "*"
       date: 
-      - Sun, 22 May 2011 18:55:21 GMT
+      - Fri, 11 Nov 2011 20:13:05 GMT
       server: 
-      - nginx/1.0.2
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      x-runtime: 
+      - "5.103398"
+      content-length: 
+      - "413"
       set-cookie: 
-      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlYjllMjBhM2EyZDEwNDk0OTVlNGZmMzIxNzVkYjU0ZjNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkH--32600317c2c4e230df777b8dfd7529b26cf2af2a; path=/; HttpOnly
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlMWJiOTg2ZWU2ZTdkYTkzMDFmOTRhODAwOGY2MzIxMjRJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--f054d6190541c9e7551cf14f746ac29150a64a5a; path=/; HttpOnly
       cache-control: 
       - no-cache
-      status: 
-      - 201 Created
-      transfer-encoding: 
-      - chunked
-    body: "{\"domain\":{\"created_at\":\"2011-05-22T18:55:19Z\",\"expires_at\":null,\"id\":144,\"lockable\":true,\"name\":\"testdomain0.com\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T18:55:19Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}}"
+    body: "{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:13:01Z\",\"expires_at\":null,\"id\":42,\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"example0.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":null,\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"state\":\"hosted\",\"updated_at\":\"2011-11-11T20:13:01Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}}"
     http_version: "1.1"
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains
-    body: domain[name]=testdomain1.com
+    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains
+    body: domain[name]=example1.com
     headers: 
       accept: 
       - application/json
@@ -60,84 +58,37 @@
       message: Created
     headers: 
       x-ua-compatible: 
-      - IE=Edge,chrome=1
+      - IE=Edge
       access-control-allow-headers: 
-      - Authorization
+      - Authorization,Accepts,Content-Type
       x-dnsimple-api-version: 
       - 1.0.0
       location: 
-      - /domains/145
+      - http://localhost:3000/domains/example1.com
       access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
-      access-control-allow-origin: 
-      - "*"
+      - OPTIONS
       content-type: 
       - application/json; charset=utf-8
-      x-runtime: 
-      - "1.268965"
-      date: 
-      - Sun, 22 May 2011 18:55:22 GMT
-      server: 
-      - nginx/1.0.2
-      set-cookie: 
-      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlYTVlOTA1ZmMzYmJhN2YwMTMzM2Q3MGFkMzZlY2VkOWVJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkH--e6a2a32288c1e98e3e70bd6c9c71ab33e47e223b; path=/; HttpOnly
-      cache-control: 
-      - no-cache
-      status: 
-      - 201 Created
-      transfer-encoding: 
-      - chunked
-    body: "{\"domain\":{\"created_at\":\"2011-05-22T18:55:21Z\",\"expires_at\":null,\"id\":145,\"lockable\":true,\"name\":\"testdomain1.com\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T18:55:21Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}}"
-    http_version: "1.1"
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
-    method: :post
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains
-    body: domain[name]=testdomain2.com
-    headers: 
-      accept: 
-      - application/json
-      authorization: 
-      - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
-      code: 201
-      message: Created
-    headers: 
-      x-ua-compatible: 
-      - IE=Edge,chrome=1
-      access-control-allow-headers: 
-      - Authorization
-      x-dnsimple-api-version: 
-      - 1.0.0
-      location: 
-      - /domains/146
-      access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
       access-control-allow-origin: 
       - "*"
-      content-type: 
-      - application/json; charset=utf-8
-      x-runtime: 
-      - "1.241919"
       date: 
-      - Sun, 22 May 2011 18:55:25 GMT
+      - Fri, 11 Nov 2011 20:13:11 GMT
       server: 
-      - nginx/1.0.2
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      x-runtime: 
+      - "6.008554"
+      content-length: 
+      - "413"
       set-cookie: 
-      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlZTM4OTU0ZWUwYzdlNDM0MTM4MWNjMTE4MTViZGQ0YTNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkH--ffeab98c6b2b076fbf17bfe7d524e4e98a93aa4c; path=/; HttpOnly
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlOTA1OTE0NTdjNTQ0OTMwYTZkZmNhYzc2YjVmNzRlOWRJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--a0b803488b056619e9c9a90b7d3d94d63d3bd27b; path=/; HttpOnly
       cache-control: 
       - no-cache
-      status: 
-      - 201 Created
-      transfer-encoding: 
-      - chunked
-    body: "{\"domain\":{\"created_at\":\"2011-05-22T18:55:24Z\",\"expires_at\":null,\"id\":146,\"lockable\":true,\"name\":\"testdomain2.com\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T18:55:24Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}}"
+    body: "{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:13:06Z\",\"expires_at\":null,\"id\":43,\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"example1.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":null,\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"state\":\"hosted\",\"updated_at\":\"2011-11-11T20:13:06Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}}"
     http_version: "1.1"
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains
+    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains
     body: 
     headers: 
       accept: 
@@ -150,32 +101,30 @@
       message: OK
     headers: 
       x-ua-compatible: 
-      - IE=Edge,chrome=1
+      - IE=Edge
       access-control-allow-headers: 
-      - Authorization
+      - Authorization,Accepts,Content-Type
       x-dnsimple-api-version: 
       - 1.0.0
       etag: 
-      - "\"05aa52ec15cf5e3ebf83d6eb475be0a3\""
+      - "\"e20ab09f44139d8c9a7cb836af8412de\""
       access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
-      access-control-allow-origin: 
-      - "*"
+      - OPTIONS
       content-type: 
       - application/json; charset=utf-8
-      x-runtime: 
-      - "0.053866"
+      access-control-allow-origin: 
+      - "*"
       date: 
-      - Sun, 22 May 2011 18:55:26 GMT
+      - Fri, 11 Nov 2011 20:13:12 GMT
       server: 
-      - nginx/1.0.2
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      x-runtime: 
+      - "0.710570"
+      content-length: 
+      - "2194"
       set-cookie: 
-      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlMjMxYjBlYjUwNGU4Mjg1NjllMjFlODc0NmVjZTM1NWNJIg5yZXR1cm5fdG8GOwBGIg0vZG9tYWluc0kiFXVzZXJfY3JlZGVudGlhbHMGOwBGSSIBgDhjN2RlMjhiNDYyZjRhYjUzMzEwMzVkNWIzZTNkNGRlNWMyNDQ1NTU1NjNiMGEzOTE1YWM4OTgyZDlmMGFkYzRiNGI4OTA1MzVkZDJjNjA0MjI0NTM1NGE5NTRiOGNkNzczYjE3N2Q3ODA0OGU0ZTk4OGQ1Y2MzNDYwZTBhOTNmBjsAVEkiGHVzZXJfY3JlZGVudGlhbHNfaWQGOwBGaQc%3D--2c7ccd54b66c7d705773ede0502b1aff762a663c; path=/; HttpOnly
+      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlZTQ3NTM4OWMyZTI2NTYyY2Q3YzIyYzk1ZjRkMDYyYjJJIg5yZXR1cm5fdG8GOwBGSSINL2RvbWFpbnMGOwBGSSIVdXNlcl9jcmVkZW50aWFscwY7AEZJIgGANWMyNGU2MzhmMDYxZGVkZjdmOWEzYmI2NzE3YmY1MTI5YmZlMGI3Yzg4OThmZGU1YTZhMzRjMWQ5MDllMjJjZTZiMzE3ODM0ZWU3ZmNkZGI5ZWI0Nzg3YWI2ZTAzNWNhNGZhMmJmNDFlZGMyYjljMWRhMDc2MGQ3YzM4Zjc2NTgGOwBUSSIYdXNlcl9jcmVkZW50aWFsc19pZAY7AEZpBg%3D%3D--bc44fcfe069cfcad0aa4bdee121f273b6ba6fd25; path=/; HttpOnly
       cache-control: 
       - max-age=0, private, must-revalidate
-      status: 
-      - 200 OK
-      transfer-encoding: 
-      - chunked
-    body: "[{\"domain\":{\"created_at\":\"2011-05-22T16:26:21Z\",\"expires_at\":\"5/22/2012 12:26:00 PM\",\"id\":81,\"lockable\":true,\"name\":\"cli-test-1306081574.com\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":2,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T18:10:32Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T16:29:48Z\",\"expires_at\":\"5/22/2012 12:29:00 PM\",\"id\":86,\"lockable\":true,\"name\":\"cli-test-1306081781.com\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":2,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T18:10:32Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T18:55:19Z\",\"expires_at\":null,\"id\":144,\"lockable\":true,\"name\":\"testdomain0.com\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T18:55:25Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T15:10:53Z\",\"expires_at\":\"5/22/2012 11:10:00 AM\",\"id\":14,\"lockable\":true,\"name\":\"testdomain-1306077040.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":1,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T16:10:14Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T15:31:56Z\",\"expires_at\":\"5/22/2012 11:31:00 AM\",\"id\":25,\"lockable\":true,\"name\":\"testdomain-1306078307.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":1,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T16:10:15Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T15:37:22Z\",\"expires_at\":\"5/22/2012 11:37:00 AM\",\"id\":36,\"lockable\":true,\"name\":\"testdomain-1306078636.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":1,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T16:10:16Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T15:39:21Z\",\"expires_at\":\"5/22/2012 11:39:00 AM\",\"id\":47,\"lockable\":true,\"name\":\"testdomain-1306078754.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":1,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T16:10:17Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T15:41:09Z\",\"expires_at\":\"5/22/2012 11:41:00 AM\",\"id\":55,\"lockable\":true,\"name\":\"testdomain-1306078860.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":1,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T16:10:17Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T15:41:23Z\",\"expires_at\":\"5/22/2012 11:41:00 AM\",\"id\":56,\"lockable\":true,\"name\":\"testdomain-1306078875.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":9,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T16:10:18Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T15:53:24Z\",\"expires_at\":\"5/22/2012 11:53:00 AM\",\"id\":74,\"lockable\":true,\"name\":\"testdomain-1306079596.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":1,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T16:10:19Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T15:53:35Z\",\"expires_at\":\"5/22/2012 11:53:00 AM\",\"id\":75,\"lockable\":true,\"name\":\"testdomain-1306079608.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":12,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T16:10:20Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T16:58:09Z\",\"expires_at\":\"5/22/2012 12:58:00 PM\",\"id\":117,\"lockable\":true,\"name\":\"testdomain-1306083481.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":1,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T18:10:33Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T16:58:21Z\",\"expires_at\":\"5/22/2012 12:58:00 PM\",\"id\":118,\"lockable\":true,\"name\":\"testdomain-1306083494.net\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":21,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T18:10:34Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T18:51:30Z\",\"expires_at\":\"5/22/2012 2:51:00 PM\",\"id\":142,\"lockable\":true,\"name\":\"testdomain-1306090283.net\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":30,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T18:51:37Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T18:53:30Z\",\"expires_at\":\"5/22/2012 2:53:00 PM\",\"id\":143,\"lockable\":true,\"name\":\"testdomain-1306090402.net\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":2,\"registration_status\":\"registered\",\"updated_at\":\"2011-05-22T18:53:34Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T18:55:21Z\",\"expires_at\":null,\"id\":145,\"lockable\":true,\"name\":\"testdomain1.com\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T18:55:21Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T18:55:24Z\",\"expires_at\":null,\"id\":146,\"lockable\":true,\"name\":\"testdomain2.com\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T18:55:24Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"created_at\":\"2011-05-22T18:40:47Z\",\"expires_at\":null,\"id\":141,\"lockable\":true,\"name\":\"testdomain.com\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T18:40:51Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}}]"
+    body: "[{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:10:46Z\",\"expires_at\":\"11/11/2012 12:10:00 PM\",\"id\":40,\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"dnsimple-example-1321042237.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":\"2012-11-11T12:10:00Z\",\"real_time\":true,\"registrant_id\":1,\"registration_status\":\"registered\",\"state\":\"registered\",\"updated_at\":\"2011-11-11T20:11:09Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:11:34Z\",\"expires_at\":\"11/11/2012 12:11:00 PM\",\"id\":41,\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"dnsimple-example-1321042288.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":\"2012-11-11T12:11:00Z\",\"real_time\":true,\"registrant_id\":3,\"registration_status\":\"registered\",\"state\":\"registered\",\"updated_at\":\"2011-11-11T20:12:00Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:05:07Z\",\"expires_at\":null,\"id\":39,\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"example.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":null,\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"state\":\"hosted\",\"updated_at\":\"2011-11-11T20:05:07Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:13:01Z\",\"expires_at\":null,\"id\":42,\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"example0.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":null,\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"state\":\"hosted\",\"updated_at\":\"2011-11-11T20:13:01Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}},{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:13:06Z\",\"expires_at\":null,\"id\":43,\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"example1.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":null,\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"state\":\"hosted\",\"updated_at\":\"2011-11-11T20:13:06Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}}]"
     http_version: "1.1"

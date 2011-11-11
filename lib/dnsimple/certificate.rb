@@ -29,17 +29,25 @@ module DNSimple #:nodoc:
       [name, domain.name].delete_if { |p| p !~ DNSimple::BLANK_REGEX }.join(".")
     end
 
-    def self.purchase(domain_name, name, options={})
-      domain = DNSimple::Domain.find(domain_name)
+    def submit
 
+    end
+
+    # Purchase a certificate under the given domain with the given name. The 
+    # name will be appended to the domain name, and thus should only be the 
+    # subdomain part.
+    #
+    # Example: DNSimple::Certificate.purchase(domain, 'www', contact)
+    def self.purchase(domain, name, contact, options={})
       certificate_hash = {
-        :name => name
+        :name => name,
+        :contact_id => contact.id
       }
 
       options.merge!(DNSimple::Client.standard_options_with_credentials)
       options.merge!({:body => {:certificate => certificate_hash}})
       
-      response = self.post("#{DNSimple::Client.base_uri}/domains/#{domain.id}/certificates", options) 
+      response = self.post("#{DNSimple::Client.base_uri}/domains/#{domain.name}/certificates", options) 
 
       pp response if DNSimple::Client.debug?
 
@@ -49,10 +57,28 @@ module DNSimple #:nodoc:
       when 401
         raise RuntimeError, "Authentication failed"
       when 406
-        raise DNSimple::CertificateExists.new("#{name}.#{domain_name}", response["errors"])
+        raise DNSimple::CertificateExists.new("#{name}.#{domain.name}", response["errors"])
       else
-        raise DNSimple::Error.new("#{name}.#{domain_name}", response["errors"])
+        raise DNSimple::Error.new("#{name}.#{domain.name}", response["errors"])
       end
     end
+
+    def self.all(domain, options={})
+      options.merge!(DNSimple::Client.standard_options_with_credentials)
+
+      response = self.get("#{DNSimple::Client.base_uri}/domains/#{domain.name}/certificates", options) 
+
+      pp response if DNSimple::Client.debug?
+
+      case response.code
+      when 200
+        response.map { |r| DNSimple::Certificate.new({:domain => domain}.merge(r["certificate"])) }
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise DNSimple::Error.new("#{name}.#{domain.name} list certificates error", response["errors"])
+      end
+    end
+
   end
 end

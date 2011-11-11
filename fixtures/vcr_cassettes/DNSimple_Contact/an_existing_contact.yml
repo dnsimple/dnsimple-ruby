@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/contacts/32.json
+    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/contacts/1.json
     body: 
     headers: 
       authorization: 
@@ -13,32 +13,30 @@
       message: OK
     headers: 
       x-ua-compatible: 
-      - IE=Edge,chrome=1
+      - IE=Edge
       access-control-allow-headers: 
-      - Authorization
+      - Authorization,Accepts,Content-Type
       x-dnsimple-api-version: 
       - 1.0.0
       etag: 
-      - "\"23aba24d88e7354793e00f6b9ab09c21\""
+      - "\"e311cdfc85cf816f955c96e6777b2960\""
       access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
-      access-control-allow-origin: 
-      - "*"
+      - OPTIONS
       content-type: 
       - application/json; charset=utf-8
-      x-runtime: 
-      - "0.014863"
+      access-control-allow-origin: 
+      - "*"
       date: 
-      - Sun, 22 May 2011 19:00:38 GMT
+      - Fri, 11 Nov 2011 20:34:48 GMT
       server: 
-      - nginx/1.0.2
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      x-runtime: 
+      - "0.435917"
+      content-length: 
+      - "401"
       set-cookie: 
-      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlMzkyYTM3OTk4MGJmZDQ2YmUzY2M2ODE2NDllMGM2NzhJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkH--e732e70bb1665b1d3f20ac86b9bf863a49be3769; path=/; HttpOnly
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlNjI1ZTcwODA3NzhjMzY2NDBmMzA4YzExOTQzZWZlYjNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--62ec9088d88ee5b5446a9e75637b33ef10ec8aed; path=/; HttpOnly
       cache-control: 
       - max-age=0, private, must-revalidate
-      status: 
-      - 200 OK
-      transfer-encoding: 
-      - chunked
-    body: "{\"contact\":{\"address1\":\"1 SW 1st Street\",\"address2\":null,\"city\":\"Miami\",\"country\":\"US\",\"created_at\":\"2011-05-22T18:58:40Z\",\"email_address\":\"john.doe@example.com\",\"fax\":null,\"first_name\":\"John\",\"id\":32,\"job_title\":null,\"label\":null,\"last_name\":\"Doe\",\"organization_name\":null,\"phone\":\"305 111 2222\",\"phone_ext\":null,\"postal_code\":\"33143\",\"state_province\":\"FL\",\"updated_at\":\"2011-05-22T18:58:40Z\",\"user_id\":2}}"
+    body: "{\"contact\":{\"address1\":\"2045 Corey Rd\",\"address2\":\"\",\"city\":\"Malabar\",\"country\":\"US\",\"created_at\":\"2011-10-16T16:46:55Z\",\"email_address\":\"anthonyeden@gmail.com\",\"fax\":\"\",\"first_name\":\"Anthony\",\"id\":1,\"job_title\":\"\",\"label\":\"\",\"last_name\":\"Eden\",\"organization_name\":\"\",\"phone\":\"321 505 0025\",\"phone_ext\":null,\"postal_code\":\"32950\",\"state_province\":\"FL\",\"updated_at\":\"2011-10-16T16:46:55Z\",\"user_id\":1}}"
     http_version: "1.1"

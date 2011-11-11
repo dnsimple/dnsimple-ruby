@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/testdomain.com
+    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com
     body: 
     headers: 
       accept: 
@@ -15,32 +15,30 @@
       message: OK
     headers: 
       x-ua-compatible: 
-      - IE=Edge,chrome=1
+      - IE=Edge
       access-control-allow-headers: 
-      - Authorization
+      - Authorization,Accepts,Content-Type
       x-dnsimple-api-version: 
       - 1.0.0
       etag: 
-      - "\"40fbb4db6924a5c6e1d913296632b709\""
+      - "\"24f073eea7b01a97c81f7582b82bed62\""
       access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
-      access-control-allow-origin: 
-      - "*"
+      - OPTIONS
       content-type: 
       - application/json; charset=utf-8
-      x-runtime: 
-      - "0.017518"
+      access-control-allow-origin: 
+      - "*"
       date: 
-      - Sun, 22 May 2011 18:44:13 GMT
+      - Fri, 11 Nov 2011 20:07:04 GMT
       server: 
-      - nginx/1.0.2
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      x-runtime: 
+      - "0.750983"
+      content-length: 
+      - "412"
       set-cookie: 
-      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlZjg2NzNjOTdlNmMzZDE0MmY2N2ExN2JmYjY0MzdkMDZJIg5yZXR1cm5fdG8GOwBGIhwvZG9tYWlucy90ZXN0ZG9tYWluLmNvbUkiFXVzZXJfY3JlZGVudGlhbHMGOwBGSSIBgDhjN2RlMjhiNDYyZjRhYjUzMzEwMzVkNWIzZTNkNGRlNWMyNDQ1NTU1NjNiMGEzOTE1YWM4OTgyZDlmMGFkYzRiNGI4OTA1MzVkZDJjNjA0MjI0NTM1NGE5NTRiOGNkNzczYjE3N2Q3ODA0OGU0ZTk4OGQ1Y2MzNDYwZTBhOTNmBjsAVEkiGHVzZXJfY3JlZGVudGlhbHNfaWQGOwBGaQc%3D--d27aa73046b6797f941b268d97b9f9981313bd2f; path=/; HttpOnly
+      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlYWE0MWY3YTU3MGUwYzI4Njg5MjY4M2EzOTI1NGIxZTNJIg5yZXR1cm5fdG8GOwBGSSIZL2RvbWFpbnMvZXhhbXBsZS5jb20GOwBGSSIVdXNlcl9jcmVkZW50aWFscwY7AEZJIgGANWMyNGU2MzhmMDYxZGVkZjdmOWEzYmI2NzE3YmY1MTI5YmZlMGI3Yzg4OThmZGU1YTZhMzRjMWQ5MDllMjJjZTZiMzE3ODM0ZWU3ZmNkZGI5ZWI0Nzg3YWI2ZTAzNWNhNGZhMmJmNDFlZGMyYjljMWRhMDc2MGQ3YzM4Zjc2NTgGOwBUSSIYdXNlcl9jcmVkZW50aWFsc19pZAY7AEZpBg%3D%3D--bf2ced8c665b5c9e93ec8a2e94d0db86a960235c; path=/; HttpOnly
       cache-control: 
       - max-age=0, private, must-revalidate
-      status: 
-      - 200 OK
-      transfer-encoding: 
-      - chunked
-    body: "{\"domain\":{\"created_at\":\"2011-05-22T18:40:47Z\",\"expires_at\":null,\"id\":141,\"lockable\":true,\"name\":\"testdomain.com\",\"name_server_status\":\"unknown\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T18:40:51Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":0}}"
+    body: "{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:05:07Z\",\"expires_at\":null,\"id\":39,\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"example.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":null,\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"state\":\"hosted\",\"updated_at\":\"2011-11-11T20:05:07Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}}"
     http_version: "1.1"

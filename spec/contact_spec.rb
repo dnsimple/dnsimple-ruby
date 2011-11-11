@@ -28,7 +28,7 @@ describe DNSimple::Contact do
   describe "an existing contact" do
     use_vcr_cassette
     it "can be found by id" do
-      contact = DNSimple::Contact.find(32)
+      contact = DNSimple::Contact.find(1)
       contact.should_not be_nil
     end
   end

@@ -2,7 +2,7 @@
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
     method: :get
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/users/me.json
+    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/users/me.json
     body: 
     headers: 
       authorization: 
@@ -13,32 +13,30 @@
       message: OK
     headers: 
       x-ua-compatible: 
-      - IE=Edge,chrome=1
+      - IE=Edge
       access-control-allow-headers: 
-      - Authorization
+      - Authorization,Accepts,Content-Type
       x-dnsimple-api-version: 
       - 1.0.0
       etag: 
-      - "\"e4d5d4d9cb9dc76feeade806f3bd7279\""
+      - "\"3aec1a878ad478216d54579f95258697\""
       access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
-      access-control-allow-origin: 
-      - "*"
+      - OPTIONS
       content-type: 
       - application/json; charset=utf-8
-      x-runtime: 
-      - "0.265082"
+      access-control-allow-origin: 
+      - "*"
       date: 
-      - Sun, 22 May 2011 17:22:11 GMT
+      - Fri, 11 Nov 2011 20:33:01 GMT
       server: 
-      - nginx/1.0.2
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      x-runtime: 
+      - "5.589996"
+      content-length: 
+      - "325"
       set-cookie: 
-      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlMWU2YmZlM2RiMTYzYjVjMGU3MDkxNmJkNDQ2YzY1ODZJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkH--bf86feb7fc8ebc12478b58fb30b6da5a6c95ed01; path=/; HttpOnly
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlZTBlZTI5ZGMzYmNkZDgxY2QzMjZmMTQwZWEwOTdmMDVJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--ec4d0fa610542fdbeb1dca4838d8b4bb91e8597a; path=/; HttpOnly
       cache-control: 
       - max-age=0, private, must-revalidate
-      status: 
-      - 200 OK
-      transfer-encoding: 
-      - chunked
-    body: "{\"user\":{\"access_code\":null,\"created_at\":\"2011-05-02T06:56:12Z\",\"default_contact_id\":2,\"email\":\"anthonyeden@gmail.com\",\"failed_login_count\":0,\"first_name\":null,\"id\":2,\"last_name\":null,\"login_count\":4,\"referral_token\":\"95cbf1f2231c8b\",\"style\":\"dark\",\"updated_at\":\"2011-05-22T17:22:11Z\",\"domain_count\":14,\"domain_limit\":500}}"
+    body: "{\"user\":{\"access_code\":null,\"created_at\":\"2011-09-25T09:11:23Z\",\"default_contact_id\":null,\"email\":\"anthonyeden@gmail.com\",\"failed_login_count\":0,\"first_name\":null,\"id\":1,\"last_name\":null,\"login_count\":2,\"referral_token\":\"a93b6fa7c98483\",\"style\":\"light\",\"updated_at\":\"2011-11-11T20:32:56Z\",\"domain_count\":5,\"domain_limit\":10}}"
     http_version: "1.1"

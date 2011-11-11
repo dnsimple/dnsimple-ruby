@@ -10,6 +10,7 @@ VCR.config do |c|
 end
 
 RSpec.configure do |c|
+  c.mock_framework = :mocha
   c.extend VCR::RSpec::Macros
 end
 

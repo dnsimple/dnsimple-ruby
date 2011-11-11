@@ -1,11 +1,14 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe DNSimple::Domain do
+  let(:domain_name) { "example.com" }
+  let(:contact_id) { 1 }
+
   describe "creating a new domain" do
     use_vcr_cassette
     it "has specific attributes" do 
-      @domain = DNSimple::Domain.create("testdomain.com")
-      @domain.name.should eql("testdomain.com")
+      @domain = DNSimple::Domain.create(domain_name)
+      @domain.name.should eql(domain_name)
       @domain.id.should_not be_nil
     end
   end
@@ -13,33 +16,34 @@ describe DNSimple::Domain do
     context "by id" do
       use_vcr_cassette
       it "can be found" do
-        domain = DNSimple::Domain.find(141)
-        domain.name.should eql("testdomain.com")
+        domain = DNSimple::Domain.find(39)
+        domain.name.should eql(domain_name)
         domain.id.should_not be_nil
       end
     end
     context "by name" do
       use_vcr_cassette
       it "can be found" do
-        domain = DNSimple::Domain.find("testdomain.com")
-        domain.name.should eql("testdomain.com")
+        domain = DNSimple::Domain.find(domain_name)
+        domain.name.should eql(domain_name)
         domain.id.should_not be_nil
       end
     end
   end
 
   context "registration" do
-    let(:name) { "testdomain.net" }
 
     context "with an existing contact" do
+      let(:domain_name) { "dnsimple-example-1321042237.com" }
       use_vcr_cassette
       it "can be registered" do
-        domain = DNSimple::Domain.register(name, {:id => 4})
-        domain.name.should eql(name)
+        domain = DNSimple::Domain.register(domain_name, {:id => contact_id})
+        domain.name.should eql(domain_name)
       end
     end
     
     context "with a new registrant contact" do
+      let(:domain_name) { "dnsimple-example-1321042288.com" }
       use_vcr_cassette
       it "can be registered" do
         registrant = {
@@ -52,8 +56,8 @@ describe DNSimple::Domain do
           :postal_code => '33143',
           :phone => '321 555 1212'
         }
-        domain = DNSimple::Domain.register(name, registrant)
-        domain.name.should eql(name)
+        domain = DNSimple::Domain.register(domain_name, registrant)
+        domain.name.should eql(domain_name)
       end
     end
   end
@@ -62,8 +66,8 @@ describe DNSimple::Domain do
     use_vcr_cassette
     before do
       @domains = []
-      3.times do |n|
-        @domains << DNSimple::Domain.create("testdomain#{n}.com")
+      2.times do |n|
+        @domains << DNSimple::Domain.create("example#{n}.com")
       end
     end
     it "returns a list of domains" do
@@ -74,13 +78,11 @@ describe DNSimple::Domain do
 
   describe "applying templates" do
     use_vcr_cassette
-    before do
-      @domain = DNSimple::Domain.find("testdomain.com")
-    end
+    let(:domain) { DNSimple::Domain.find("example.com") }
     it "applies a named template" do
-      DNSimple::Record.all(@domain.name).should be_empty
-      @domain.apply("googleapps")
-      DNSimple::Record.all(@domain.name).should_not be_empty
+      DNSimple::Record.all(domain).should be_empty
+      domain.apply("googleapps")
+      DNSimple::Record.all(domain).should_not be_empty
     end
   end
 end

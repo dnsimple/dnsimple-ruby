@@ -65,18 +65,16 @@ module DNSimple
       aliases[name] || name
     end
 
-    def self.create(domain_name, name, record_type, content, options={})
-      domain = DNSimple::Domain.find(domain_name)
-      
+    def self.create(domain, name, record_type, content, options={})
       record_hash = {:name => name, :record_type => record_type, :content => content}
       record_hash[:ttl] = options.delete(:ttl) || 3600
       record_hash[:prio] = options.delete(:priority)
       record_hash[:prio] = options.delete(:prio) || ''
       
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      options.merge!({:query => {:record => record_hash}})
+      options.merge!({:body => {:record => record_hash}})
 
-      response = self.post("#{DNSimple::Client.base_uri}/domains/#{domain.id}/records", options) 
+      response = self.post("#{DNSimple::Client.base_uri}/domains/#{domain.name}/records", options) 
 
       pp response if DNSimple::Client.debug?
 
@@ -86,16 +84,15 @@ module DNSimple
       when 401
         raise RuntimeError, "Authentication failed"
       when 406
-        raise DNSimple::RecordExists.new("#{name}.#{domain_name}", response["errors"])
+        raise DNSimple::RecordExists.new("#{name}.#{domain.name}", response["errors"])
       else
-        raise DNSimple::Error.new("#{name}.#{domain_name}", response["errors"])
+        raise DNSimple::Error.new("#{name}.#{domain.name}", response["errors"])
       end
     end
 
-    def self.find(domain_name, id, options={})
-      domain = DNSimple::Domain.find(domain_name)
+    def self.find(domain, id, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.get("#{DNSimple::Client.base_uri}/domains/#{domain.id}/records/#{id}", options)
+      response = self.get("#{DNSimple::Client.base_uri}/domains/#{domain.name}/records/#{id}", options)
 
       pp response if DNSimple::Client.debug?
 
@@ -105,16 +102,15 @@ module DNSimple
       when 401
         raise RuntimeError, "Authentication failed"
       when 404
-        raise RuntimeError, "Could not find record #{id} for domain #{domain_name}"
+        raise RuntimeError, "Could not find record #{id} for domain #{domain.name}"
       else
-        raise DNSimple::Error.new("#{domain_name}/#{id}", response["errors"])
+        raise DNSimple::Error.new("#{domain.name}/#{id}", response["errors"])
       end
     end
 
-    def self.all(domain_name, options={})
-      domain = DNSimple::Domain.find(domain_name)
+    def self.all(domain, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.get("#{DNSimple::Client.base_uri}/domains/#{domain.id}/records", options)
+      response = self.get("#{DNSimple::Client.base_uri}/domains/#{domain.name}/records", options)
 
       pp response if DNSimple::Client.debug?
 

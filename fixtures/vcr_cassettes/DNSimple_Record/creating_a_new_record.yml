@@ -1,54 +1,9 @@
 --- 
 - !ruby/struct:VCR::HTTPInteraction 
   request: !ruby/struct:VCR::Request 
-    method: :get
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/testdomain.com
-    body: 
-    headers: 
-      accept: 
-      - application/json
-      authorization: 
-      - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
-      code: 200
-      message: OK
-    headers: 
-      x-ua-compatible: 
-      - IE=Edge,chrome=1
-      access-control-allow-headers: 
-      - Authorization
-      x-dnsimple-api-version: 
-      - 1.0.0
-      etag: 
-      - "\"a8559b2c4cd72b14d06e3074cb55827f\""
-      access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
-      access-control-allow-origin: 
-      - "*"
-      content-type: 
-      - application/json; charset=utf-8
-      x-runtime: 
-      - "0.505668"
-      date: 
-      - Sun, 22 May 2011 20:58:12 GMT
-      server: 
-      - nginx/1.0.2
-      set-cookie: 
-      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlMGY1Zjk2M2M0Y2NlYjc2ZGE3MjI4OTk1NDk4Mzk5Y2VJIg5yZXR1cm5fdG8GOwBGIhwvZG9tYWlucy90ZXN0ZG9tYWluLmNvbUkiFXVzZXJfY3JlZGVudGlhbHMGOwBGSSIBgDhjN2RlMjhiNDYyZjRhYjUzMzEwMzVkNWIzZTNkNGRlNWMyNDQ1NTU1NjNiMGEzOTE1YWM4OTgyZDlmMGFkYzRiNGI4OTA1MzVkZDJjNjA0MjI0NTM1NGE5NTRiOGNkNzczYjE3N2Q3ODA0OGU0ZTk4OGQ1Y2MzNDYwZTBhOTNmBjsAVEkiGHVzZXJfY3JlZGVudGlhbHNfaWQGOwBGaQc%3D--1af6b213e14b2afa15f656d47a2f3c131a2c6710; path=/; HttpOnly
-      cache-control: 
-      - max-age=0, private, must-revalidate
-      status: 
-      - 200 OK
-      transfer-encoding: 
-      - chunked
-    body: "{\"domain\":{\"created_at\":\"2011-05-22T18:40:47Z\",\"expires_at\":null,\"id\":141,\"lockable\":true,\"name\":\"testdomain.com\",\"name_server_status\":\"inactive\",\"real_time\":true,\"registrant_id\":null,\"registration_status\":\"hosted\",\"updated_at\":\"2011-05-22T20:10:29Z\",\"user_id\":2,\"uses_external_name_servers\":null,\"record_count\":13}}"
-    http_version: "1.1"
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
     method: :post
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com:443/domains/141/records?record[content]=1.2.3.4&record[prio]=&record[ttl]=600&record[name]=&record[record_type]=A
-    body: 
+    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/records
+    body: record[ttl]=600&record[prio]=&record[record_type]=A&record[name]=&record[content]=1.2.3.4
     headers: 
       accept: 
       - application/json
@@ -60,32 +15,30 @@
       message: Created
     headers: 
       x-ua-compatible: 
-      - IE=Edge,chrome=1
+      - IE=Edge
       access-control-allow-headers: 
-      - Authorization
+      - Authorization,Accepts,Content-Type
       x-dnsimple-api-version: 
       - 1.0.0
       location: 
-      - /domains/141/records/193
+      - http://localhost:3000/domains/example.com/records/70
       access-control-allow-methods: 
-      - "[\"GET\", \"POST\", \"PUT\", \"DELETE\"]"
-      access-control-allow-origin: 
-      - "*"
+      - OPTIONS
       content-type: 
       - application/json; charset=utf-8
-      x-runtime: 
-      - "0.530016"
+      access-control-allow-origin: 
+      - "*"
       date: 
-      - Sun, 22 May 2011 20:58:13 GMT
+      - Fri, 11 Nov 2011 20:22:26 GMT
       server: 
-      - nginx/1.0.2
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      x-runtime: 
+      - "0.804759"
+      content-length: 
+      - "245"
       set-cookie: 
-      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlM2VlNDRhMTVhM2ZlNGEwY2MwZDIyOGJiNzU3ZWQyMjBJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA4YzdkZTI4YjQ2MmY0YWI1MzMxMDM1ZDViM2UzZDRkZTVjMjQ0NTU1NTYzYjBhMzkxNWFjODk4MmQ5ZjBhZGM0YjRiODkwNTM1ZGQyYzYwNDIyNDUzNTRhOTU0YjhjZDc3M2IxNzdkNzgwNDhlNGU5ODhkNWNjMzQ2MGUwYTkzZgY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkH--a9cbf902ea81f9a2df4b211d55b01b119cf67607; path=/; HttpOnly
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlOGZlNTcwZDdlNzdjZGRkZmZjMzIxZjYzNzQwZGM4YjZJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--436bfd6056d83bfaa12a0017bfaefa3eb2cd22ac; path=/; HttpOnly
       cache-control: 
       - no-cache
-      status: 
-      - 201 Created
-      transfer-encoding: 
-      - chunked
-    body: "{\"record\":{\"content\":\"1.2.3.4\",\"created_at\":\"2011-05-22T20:58:13Z\",\"domain_id\":141,\"domain_service_id\":null,\"id\":193,\"name\":\"\",\"pdns_identifier\":null,\"prio\":null,\"record_type\":\"A\",\"special_type\":null,\"ttl\":600,\"updated_at\":\"2011-05-22T20:58:13Z\"}}"
+    body: "{\"record\":{\"content\":\"1.2.3.4\",\"created_at\":\"2011-11-11T20:22:26Z\",\"domain_id\":39,\"domain_service_id\":null,\"id\":70,\"name\":\"\",\"pdns_identifier\":null,\"prio\":null,\"record_type\":\"A\",\"special_type\":null,\"ttl\":600,\"updated_at\":\"2011-11-11T20:22:26Z\"}}"
     http_version: "1.1"

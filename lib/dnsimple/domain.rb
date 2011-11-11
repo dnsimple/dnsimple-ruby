@@ -30,7 +30,7 @@ module DNSimple #:nodoc:
     # be undone.
     def delete(options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      self.class.delete("#{DNSimple::Client.base_uri}/domains/#{id}", options)
+      self.class.delete("#{DNSimple::Client.base_uri}/domains/#{name}", options)
     end
     alias :destroy :delete
 
@@ -38,8 +38,9 @@ module DNSimple #:nodoc:
     # all of the records in the template to the domain.
     def apply(template, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
+      options.merge!(:body => {})
       template = resolve_template(template)
-      self.class.post("#{DNSimple::Client.base_uri}/domains/#{id}/templates/#{template.id}/apply", options)
+      self.class.post("#{DNSimple::Client.base_uri}/domains/#{name}/templates/#{template.id}/apply", options)
     end
 
     #:nodoc:
@@ -54,7 +55,7 @@ module DNSimple #:nodoc:
 
     def applied_services(options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.class.get("#{Client.base_uri}/domains/#{id}/applied_services", options)
+      response = self.class.get("#{Client.base_uri}/domains/#{name}/applied_services", options)
       pp response if DNSimple::Client.debug?
       case response.code
       when 200
@@ -68,7 +69,7 @@ module DNSimple #:nodoc:
 
     def available_services(options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
-      response = self.class.get("#{DNSimple::Client.base_uri}/domains/#{id}/available_services", options)
+      response = self.class.get("#{DNSimple::Client.base_uri}/domains/#{name}/available_services", options)
       pp response if DNSimple::Client.debug?
       case response.code
       when 200
