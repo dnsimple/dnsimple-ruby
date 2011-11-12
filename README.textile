@@ -66,10 +66,23 @@ The following commands are available for managing contacts:
 * dnsimple contact:update id [name:value name:value ...]
 * dnsimple contact:delete id
 
+To list all extended attributes for a given TLD:
+
+* dnsimple extended-attributes:list tld 
+
+The following commands are available for listing services and adding and removing them from domains
+
+* service:list
+* service:describe short_name
+* service:applied domain.com
+* service:available domain.com
+* service:add domain.com short_name
+* service:remove domain.com short_name
+
 The following commands are available for purchasing certificates:
 
 * dnsimple certificate:purchase domain.com name
-* dnsimple certificate:submit id
+* dnsimple certificate:submit domain.com id approver_email
 
 h3. Contact Attributes
 
