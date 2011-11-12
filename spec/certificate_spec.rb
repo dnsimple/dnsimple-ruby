@@ -37,9 +37,9 @@ describe DNSimple::Certificate do
 
   describe "#submit" do
     use_vcr_cassette
-    let(:certificate) { DNSimple::Certificate.new(:id => 1) }
+    let(:certificate) { DNSimple::Certificate.new(:id => 1, :domain => domain) }
     it "submits a certificate for purchase" do
-      certificate.submit
+      certificate.submit("admin@example.com")
     end
   end
 

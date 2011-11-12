@@ -25,12 +25,28 @@ module DNSimple #:nodoc:
       end
     end
 
+    # Get the fully-qualified domain name for the certificate. This is the
+    # domain.name joined with the certificate name, separated by a period.
     def fqdn
       [name, domain.name].delete_if { |p| p !~ DNSimple::BLANK_REGEX }.join(".")
     end
 
-    def submit
+    def submit(approver_email, options={})
+      options.merge!(DNSimple::Client.standard_options_with_credentials)
+      options.merge!(:body => {:certificate => {:approver_email => approver_email}})
 
+      response = self.class.put("#{DNSimple::Client.base_uri}/domains/#{domain.name}/certificates/#{id}/submit", options) 
+
+      pp response if DNSimple::Client.debug?
+
+      case response.code
+      when 200
+        return DNSimple::Certificate.new({:domain => domain}.merge(response["certificate"]))
+      when 401
+        raise RuntimeError, "Authentication failed"
+      else
+        raise DNSimple::Error.new("#{name}.#{domain.name}", response["errors"])
+      end
     end
 
     # Purchase a certificate under the given domain with the given name. The 
@@ -63,6 +79,7 @@ module DNSimple #:nodoc:
       end
     end
 
+    # Get an array of all certificates for the given domain.
     def self.all(domain, options={})
       options.merge!(DNSimple::Client.standard_options_with_credentials)
 
