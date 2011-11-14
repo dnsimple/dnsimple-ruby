@@ -14,7 +14,7 @@ RSpec.configure do |c|
   c.extend VCR::RSpec::Macros
 end
 
-config = YAML.load(File.new(File.expand_path('~/.dnsimple.test')))
+config = YAML.load(File.new(File.expand_path('~/.dnsimple.local')))
 
 DNSimple::Client.base_uri = config['site'] || "https://test.dnsimple.com/" 
 DNSimple::Client.username = config['username']
