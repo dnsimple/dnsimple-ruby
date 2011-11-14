@@ -27,6 +27,7 @@ module DNSimple
         puts
         puts "#{certificate.private_key}"
         puts 
+        puts "#{certificate.ssl_certificate}"
       end
     end
   end
