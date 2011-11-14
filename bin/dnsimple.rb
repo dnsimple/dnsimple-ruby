@@ -80,7 +80,9 @@ service:available domain.com                                # List all of the se
 service:add domain.com short_name                           # Add the service to the domain
 service:remove domain.com short_name                        # Remove the service from the domain
 
-certificate:purchase domain.com name                        # Purchase a certificate
+certificate:list domain.com                                 # List all certificates for a domain
+certificate:describe domain.com id                          # Get a specific certificate for a domain
+certificate:purchase domain.com name contact_id             # Purchase a certificate
 certificate:submit domain.com id approver_email             # Submit a certificate for processing
 
 Please see the DNSimple documentation at https://dnsimple.com/documentation/api for additional

@@ -33,11 +33,11 @@ module DNSimple
       when 200
         return User.new(response["user"])
       when 401
-        raise RuntimeError, "Authentication failed"
+        raise DNSimple::AuthenticationFailed, "Authentication failed"
       when 404
-        raise RuntimeError, "Could not find user"
+        raise DNSimple::UserNotFound, "Could not find user"
       else
-        raise RuntimeError, "Error: #{response.code} #{response.message}"
+        raise DNSimple::Error, "Error: #{response.code} #{response.message}"
       end
     end
   end

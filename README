@@ -58,7 +58,7 @@ The following commands are available for managing contacts:
 
 The following commands are available for purchasing certificates:
 
-* dnsimple certificate:purchase domain.com name
+* dnsimple certificate:purchase domain.com name contact_id
 * dnsimple certificate:submit id
 
 The contact name/value pairs are: 

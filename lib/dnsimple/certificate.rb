@@ -1,4 +1,7 @@
 module DNSimple #:nodoc:
+  # Represents an SSL certificate that has been purchased. The certificate
+  # must also be submitted using the #submit method before the Certificate
+  # Authority will issue a signed certificate.
   class Certificate
     include HTTParty
     #debug_output $stdout
@@ -10,12 +13,38 @@ module DNSimple #:nodoc:
 
     # The subdomain on the certificate
     attr_accessor :name
+    
+    # The private key, if DNSimple generated the Certificate Signing Request
+    attr_accessor :private_key
+
+    # The SSL certificate, if it has been issued by the Certificate Authority
+    attr_accessor :ssl_certificate
+
+    # The Certificate Signing Request
+    attr_accessor :csr
+
+    # The Certificate status
+    attr_accessor :certificate_status
+    
+    # The date the Certificate order was placed
+    attr_accessor :order_date
+
+    # The date the Certificate will expire
+    attr_accessor :expiration_date
+
+    # The approver email address
+    attr_accessor :approver_email
+
+    # An array of all emails that can be used to approve the certificate
+    attr_accessor :available_approver_emails
 
     # When the certificate was purchased
     attr_accessor :created_at
 
     # When the certificate was last updated
     attr_accessor :updated_at
+
+    
 
     #:nodoc:
     def initialize(attributes)
@@ -32,6 +61,8 @@ module DNSimple #:nodoc:
     end
 
     def submit(approver_email, options={})
+      raise DNSimple::Error, "Approver email is required" unless approver_email
+
       options.merge!(DNSimple::Client.standard_options_with_credentials)
       options.merge!(:body => {:certificate => {:approver_email => approver_email}})
 
@@ -43,9 +74,9 @@ module DNSimple #:nodoc:
       when 200
         return DNSimple::Certificate.new({:domain => domain}.merge(response["certificate"]))
       when 401
-        raise RuntimeError, "Authentication failed"
+        raise DNSimple::AuthenticationFailed, "Authentication failed"
       else
-        raise DNSimple::Error.new("#{name}.#{domain.name}", response["errors"])
+        raise DNSimple::Error.new("Error submitting certificate: #{response["errors"]}")
       end
     end
 
@@ -54,6 +85,13 @@ module DNSimple #:nodoc:
     # subdomain part.
     #
     # Example: DNSimple::Certificate.purchase(domain, 'www', contact)
+    #
+    # Please note that by invoking this method DNSimple will immediately charge
+    # your credit card on file at DNSimple for the full certificate price.
+    #
+    # For wildcard certificates an asterisk must appear in the name.
+    #
+    # Example: DNSimple::Certificate.purchase(domain, '*', contact)
     def self.purchase(domain, name, contact, options={})
       certificate_hash = {
         :name => name,
@@ -71,7 +109,7 @@ module DNSimple #:nodoc:
       when 201
         return DNSimple::Certificate.new({:domain => domain}.merge(response["certificate"]))
       when 401
-        raise RuntimeError, "Authentication failed"
+        raise DNSimple::AuthenticationFailed, "Authentication failed"
       when 406
         raise DNSimple::CertificateExists.new("#{name}.#{domain.name}", response["errors"])
       else
@@ -91,11 +129,30 @@ module DNSimple #:nodoc:
       when 200
         response.map { |r| DNSimple::Certificate.new({:domain => domain}.merge(r["certificate"])) }
       when 401
-        raise RuntimeError, "Authentication failed"
+        raise DNSimple::AuthenticationFailed, "Authentication failed"
       else
-        raise DNSimple::Error.new("#{name}.#{domain.name} list certificates error", response["errors"])
+        raise DNSimple::Error.new("List certificates error: #{response["errors"]}")
       end
     end
 
+    # Find a specific certificate for the given domain.
+    def self.find(domain, certificate_id, options={})
+      options.merge!(DNSimple::Client.standard_options_with_credentials)
+
+      response = self.get("#{DNSimple::Client.base_uri}/domains/#{domain.name}/certificates/#{certificate_id}", options) 
+
+      pp response if DNSimple::Client.debug?
+
+      case response.code
+      when 200
+        DNSimple::Certificate.new({:domain => domain}.merge(response["certificate"]))
+      when 401
+        raise DNSimple::AuthenticationFailed, "Authentication failed"
+      when 404
+        raise DNSimple::CertificateNotFound, "Could not find certificate #{certificate_id} for domain #{domain.name}"
+      else
+        raise DNSimple::Error.new("Find certificate error: #{response["errors"]}")
+      end
+    end
   end
 end
