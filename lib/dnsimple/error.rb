@@ -1,8 +1,5 @@
 module DNSimple
   class Error < StandardError
-    def initialize(message)
-      super(message)
-    end
   end
 
   class DomainError < DNSimple::Error
@@ -13,7 +10,11 @@ module DNSimple
     end
   end
 
-  class RecordExists < DomainError; end
+  class RecordExists < DomainError
+    def initialize(domain, message)
+      super(domain, message)
+    end
+  end
 
   class AuthenticationFailed < DNSimple::Error; end
 
