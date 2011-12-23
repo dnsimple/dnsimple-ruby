@@ -45,9 +45,9 @@ module DNSimple
       when 200
         return self
       when 401
-        raise RuntimeError, "Authentication failed"
+        raise DNSimple::AuthenticationFailed
       else
-        raise RuntimeError, "Failed to update record: #{response.inspect}" 
+        raise DNSimple::Error, "Failed to update record: #{response.inspect}" 
       end
     end
     
@@ -82,11 +82,11 @@ module DNSimple
       when 201
         return DNSimple::Record.new({:domain => domain}.merge(response["record"]))
       when 401
-        raise RuntimeError, "Authentication failed"
+        raise DNSimple::AuthenticationFailed
       when 406
         raise DNSimple::RecordExists.new("#{name}.#{domain.name}", response["errors"])
       else
-        raise DNSimple::Error.new("#{name}.#{domain.name}", response["errors"])
+        raise DNSimple::Error, "Failed to create #{name}.#{domain.name}: #{response["errors"]}"
       end
     end
 
@@ -100,11 +100,11 @@ module DNSimple
       when 200
         return DNSimple::Record.new({:domain => domain}.merge(response["record"]))
       when 401
-        raise RuntimeError, "Authentication failed"
+        raise DNSimple::AuthenticationFailed
       when 404
-        raise RuntimeError, "Could not find record #{id} for domain #{domain.name}"
+        raise DNSimple::RecordNotFound, "Could not find record #{id} for domain #{domain.name}"
       else
-        raise DNSimple::Error.new("#{domain.name}/#{id}", response["errors"])
+        raise DNSimple::Error, "Failed to find domain #{domain.name}/#{id}: #{response["errors"]}"
       end
     end
 
@@ -118,9 +118,9 @@ module DNSimple
       when 200
         response.map { |r| DNSimple::Record.new({:domain => domain}.merge(r["record"])) }
       when 401
-        raise RuntimeError, "Authentication failed"
+        raise DNSimple::AuthenticationFailed, "Authentication failed"
       else
-        raise RuntimeError, "Error: #{response.code}"
+        raise DNSimple::Error, "Error listing domains: #{response.code}"
       end
     end
 

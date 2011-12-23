@@ -16,7 +16,13 @@ module DNSimple
     end
   end
 
-  class AuthenticationFailed < DNSimple::Error; end
+  class RecordNotFound < DNSimple::Error; end
+
+  class AuthenticationFailed < DNSimple::Error
+    def initialize(message="Authentication failed")
+      super(message)
+    end
+  end
 
   class UserNotFound < DNSimple::Error; end
 
