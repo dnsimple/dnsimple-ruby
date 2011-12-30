@@ -1,6 +1,8 @@
-require 'vcr'
 require 'cgi'
-require 'lib/dnsimple'
+require 'rubygems'
+require 'bundler'
+
+Bundler.require :default, :development
 
 VCR.config do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
