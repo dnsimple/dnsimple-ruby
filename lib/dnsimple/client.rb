@@ -1,6 +1,4 @@
 class DNSimple::Client
-  include HTTParty
-
   def self.debug?
     @debug
   end
@@ -74,31 +72,32 @@ class DNSimple::Client
 
     if password
       options[:basic_auth] = {:username => username, :password => password}
-    end
-    if api_token
+    elsif api_token
       options[:headers]['X-DNSimple-Token'] = "#{username}:#{api_token}"
+    else
+      raise RuntimeError, 'A password or API token is required for all API requests.'
     end
 
     options
   end
 
   def self.get(path, options = {})
-    check_status_and_return super("#{base_uri}#{path}",
+    check_status_and_return HTTParty.get("#{base_uri}#{path}",
       standard_options.merge(options))
   end
 
   def self.post(path, options = {})
-    check_status_and_return super("#{base_uri}#{path}",
+    check_status_and_return HTTParty.post("#{base_uri}#{path}",
       standard_options.merge(options))
   end
 
   def self.put(path, options = {})
-    check_status_and_return super("#{base_uri}#{path}",
+    check_status_and_return HTTParty.put("#{base_uri}#{path}",
       standard_options.merge(options))
   end
 
   def self.delete(path, options = {})
-    check_status_and_return super("#{base_uri}#{path}",
+    check_status_and_return HTTParty.delete("#{base_uri}#{path}",
       standard_options.merge(options))
   end
 
