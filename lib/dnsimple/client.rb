@@ -82,26 +82,25 @@ class DNSimple::Client
   end
 
   def self.get(path, options = {})
-    check_status_and_return HTTParty.get("#{base_uri}#{path}",
-      standard_options.merge(options))
+    request :get, path, options
   end
 
   def self.post(path, options = {})
-    check_status_and_return HTTParty.post("#{base_uri}#{path}",
-      standard_options.merge(options))
+    request :post, path, options
   end
 
   def self.put(path, options = {})
-    check_status_and_return HTTParty.put("#{base_uri}#{path}",
-      standard_options.merge(options))
+    request :put, path, options
   end
 
   def self.delete(path, options = {})
-    check_status_and_return HTTParty.delete("#{base_uri}#{path}",
-      standard_options.merge(options))
+    request :delete, path, options
   end
 
-  def self.check_status_and_return(response)
+  def self.request(method, path, options)
+    response = HTTParty.send(method, "#{base_uri}#{path}",
+      standard_options.merge(options))
+
     pp response if debug?
 
     if response.code == 401
