@@ -21,8 +21,6 @@ class DNSimple::User < DNSimple::Base
     case response.code
     when 200
       return new(response["user"])
-    when 401
-      raise DNSimple::AuthenticationFailed, "Authentication failed"
     when 404
       raise DNSimple::UserNotFound, "Could not find user"
     else

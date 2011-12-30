@@ -35,13 +35,10 @@ class DNSimple::ExtendedAttribute < DNSimple::Base # Used for domains that requi
   # Find the extended attributes for the given TLD
   def self.find(tld, options={})
     response = DNSimple::Client.get "extended_attributes/#{tld}.json", options
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       response.map { |r| new(r) }
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise RuntimeError, "Error: #{response.code}"
     end

@@ -83,22 +83,32 @@ class DNSimple::Client
   end
 
   def self.get(path, options = {})
-    super "#{base_uri}#{path}",
-      standard_options.merge(options)
+    check_status_and_return super("#{base_uri}#{path}",
+      standard_options.merge(options))
   end
 
   def self.post(path, options = {})
-    super "#{base_uri}#{path}",
-      standard_options.merge(options)
+    check_status_and_return super("#{base_uri}#{path}",
+      standard_options.merge(options))
   end
 
   def self.put(path, options = {})
-    super "#{base_uri}#{path}",
-      standard_options.merge(options)
+    check_status_and_return super("#{base_uri}#{path}",
+      standard_options.merge(options))
   end
 
   def self.delete(path, options = {})
-    super "#{base_uri}#{path}",
-      standard_options.merge(options)
+    check_status_and_return super("#{base_uri}#{path}",
+      standard_options.merge(options))
+  end
+
+  def self.check_status_and_return(response)
+    pp response if debug?
+
+    if response.code == 401
+      raise DNSimple::AuthenticationFailed, 'Authentication failed'
+    end
+
+    response
   end
 end

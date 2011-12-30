@@ -76,13 +76,9 @@ class DNSimple::Contact < DNSimple::Base # Class representing a contact in DNSim
 
     response = DNSimple::Client.put("contacts/#{id}", options)
 
-    pp response if Client.debug?
-
     case response.code
     when 200
       return self
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise RuntimeError, "Failed to update contact: #{response.inspect}"
     end
@@ -118,13 +114,9 @@ class DNSimple::Contact < DNSimple::Base # Class representing a contact in DNSim
     options.merge!({:body => {:contact => contact_hash}})
     response = DNSimple::Client.post 'contacts.json', options
 
-    pp response if DNSimple::Client.debug?
-
     case response.code
     when 201
       return new(response["contact"])
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise RuntimeError, "Failed to create contact: #{response.inspect}"
     end
@@ -133,13 +125,9 @@ class DNSimple::Contact < DNSimple::Base # Class representing a contact in DNSim
   def self.find(id, options={})
     response = DNSimple::Client.get "contacts/#{id}.json", options
 
-    pp response if DNSimple::Client.debug?
-
     case response.code
     when 200
       return new(response["contact"])
-    when 401
-      raise RuntimeError, "Authentication failed"
     when 404
       raise RuntimeError, "Could not find contact #{id}"
     else
@@ -150,13 +138,9 @@ class DNSimple::Contact < DNSimple::Base # Class representing a contact in DNSim
   def self.all(options={})
     response = DNSimple::Client.get 'contacts.json', options
 
-    pp response if DNSimple::Client.debug?
-
     case response.code
     when 200
       response.map { |r| new(r["contact"]) }
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise RuntimeError, "Error: #{response.code}"
     end

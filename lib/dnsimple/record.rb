@@ -31,13 +31,10 @@ class DNSimple::Record < DNSimple::Base
     options.merge!(:body => {:record => record_hash})
 
     response = DNSimple::Client.put("domains/#{domain.id}/records/#{id}.json", options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       return self
-    when 401
-      raise DNSimple::AuthenticationFailed
     else
       raise DNSimple::Error, "Failed to update record: #{response.inspect}"
     end
@@ -61,13 +58,10 @@ class DNSimple::Record < DNSimple::Base
     options.merge!({:body => {:record => record_hash}})
 
     response = DNSimple::Client.post "domains/#{domain.name}/records", options
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 201
       return new({:domain => domain}.merge(response["record"]))
-    when 401
-      raise DNSimple::AuthenticationFailed
     when 406
       raise DNSimple::RecordExists.new("#{name}.#{domain.name}", response["errors"])
     else
@@ -77,13 +71,10 @@ class DNSimple::Record < DNSimple::Base
 
   def self.find(domain, id, options={})
     response = DNSimple::Client.get("domains/#{domain.name}/records/#{id}", options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       return new({:domain => domain}.merge(response["record"]))
-    when 401
-      raise DNSimple::AuthenticationFailed
     when 404
       raise DNSimple::RecordNotFound, "Could not find record #{id} for domain #{domain.name}"
     else
@@ -93,13 +84,10 @@ class DNSimple::Record < DNSimple::Base
 
   def self.all(domain, options={})
     response = DNSimple::Client.get("domains/#{domain.name}/records", options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       response.map { |r| new({:domain => domain}.merge(r["record"])) }
-    when 401
-      raise DNSimple::AuthenticationFailed, "Authentication failed"
     else
       raise DNSimple::Error, "Error listing domains: #{response.code}"
     end

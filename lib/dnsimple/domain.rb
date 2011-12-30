@@ -44,13 +44,10 @@ class DNSimple::Domain < DNSimple::Base # Class representing a single domain in 
   def applied_services(options={})
     response = DNSimple::Client.get "domains/#{name}/applied_services",
       options
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       response.map { |r| DNSimple::Service.new(r["service"]) }
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise RuntimeError, "Error: #{response.code}"
     end
@@ -59,13 +56,10 @@ class DNSimple::Domain < DNSimple::Base # Class representing a single domain in 
   def available_services(options={})
     response = DNSimple::Client.get "domains/#{name}/available_services",
       options
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       response.map { |r| DNSimple::Service.new(r["service"]) }
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise RuntimeError, "Error: #{response.code}"
     end
@@ -75,13 +69,10 @@ class DNSimple::Domain < DNSimple::Base # Class representing a single domain in 
     options.merge!(:body => {:service => {:id => id_or_short_name}})
     response = DNSimple::Client.post "domains/#{name}/applied_services",
       options
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       true
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise "Error: #{response.code}"
     end
@@ -89,13 +80,10 @@ class DNSimple::Domain < DNSimple::Base # Class representing a single domain in 
 
   def remove_service(id, options={})
     response = DNSimple::Client.delete("domains/#{name}/applied_services/#{id}", options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       true
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise "Error: #{response.code}"
     end
@@ -104,13 +92,10 @@ class DNSimple::Domain < DNSimple::Base # Class representing a single domain in 
   # Check the availability of a name
   def self.check(name, options={})
     response = DNSimple::Client.get("domains/#{name}/check", options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       "registered"
-    when 401
-      raise RuntimeError, "Authentication failed"
     when 404
       "available"
     else
@@ -122,17 +107,13 @@ class DNSimple::Domain < DNSimple::Base # Class representing a single domain in 
   # method returns a Domain instance if the name is created
   # and raises an error otherwise.
   def self.create(name, options={})
-    domain_hash = {:name => name}
-    options.merge!({:body => {:domain => domain_hash}})
+    options.merge!({:body => {:domain => {:name => name}}})
 
     response = DNSimple::Client.post('domains', options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 201
       return new(response["domain"])
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise DNSimple::DomainError.new(name, response["errors"])
     end
@@ -152,13 +133,10 @@ class DNSimple::Domain < DNSimple::Base # Class representing a single domain in 
     options.merge!({:body => body})
 
     response = DNSimple::Client.post('domain_registrations', options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 201
       return DNSimple::Domain.new(response["domain"])
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise DNSimple::DomainError.new(name, response["errors"])
     end
@@ -168,13 +146,10 @@ class DNSimple::Domain < DNSimple::Base # Class representing a single domain in 
   # or by the fully-qualified domain name.
   def self.find(id_or_name, options={})
     response = DNSimple::Client.get "domains/#{id_or_name}", options
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       return new(response["domain"])
-    when 401
-      raise RuntimeError, "Authentication failed"
     when 404
       raise RuntimeError, "Could not find domain #{id_or_name}"
     else
@@ -185,13 +160,10 @@ class DNSimple::Domain < DNSimple::Base # Class representing a single domain in 
   # Get all domains for the account.
   def self.all(options={})
     response = DNSimple::Client.get 'domains', options
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       response.map { |r| new(r["domain"]) }
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise RuntimeError, "Error: #{response.code}"
     end

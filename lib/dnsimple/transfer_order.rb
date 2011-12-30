@@ -17,13 +17,10 @@ class DNSimple::TransferOrder # Class representing a transfer order in DNSimple
     options.merge!({:body => body})
 
     response = DNSimple::Client.post 'domain_transfers.json', options
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 201
       return new(response["transfer_order"])
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise DNSimple::Error.new(name, response["errors"])
     end

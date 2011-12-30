@@ -35,13 +35,10 @@ class DNSimple::TemplateRecord < DNSimple::Base # A single record in a template
     options.merge!({:query => {:dns_template_record => record_hash}})
 
     response = DNSimple::Client.post("templates/#{template.id}/template_records.json", options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 201
       return new({:template => template}.merge(response["dns_template_record"]))
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise DNSimple::Error.new("#{name}", response["errors"])
     end
@@ -50,13 +47,10 @@ class DNSimple::TemplateRecord < DNSimple::Base # A single record in a template
   def self.find(short_name, id, options={})
     template = DNSimple::Template.find(short_name)
     response = DNSimple::Client.get("templates/#{template.id}/template_records/#{id}.json", options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       return new({:template => template}.merge(response["dns_template_record"]))
-    when 401
-      raise RuntimeError, "Authentication failed"
     when 404
       raise RuntimeError, "Could not find template record #{id} for template #{short_name}"
     end
@@ -67,13 +61,10 @@ class DNSimple::TemplateRecord < DNSimple::Base # A single record in a template
   def self.all(short_name, options={})
     template = DNSimple::Template.find(short_name)
     response = DNSimple::Client.get("templates/#{template.id}/template_records.json", options)
-    pp response if DNSimple::Client.debug?
 
     case response.code
     when 200
       response.map { |r| new({:template => template}.merge(r["dns_template_record"])) }
-    when 401
-      raise RuntimeError, "Authentication failed"
     else
       raise RuntimeError, "Error: #{response.code}"
     end

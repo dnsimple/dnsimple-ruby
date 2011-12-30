@@ -55,13 +55,9 @@ class DNSimple::Certificate < DNSimple::Base
 
     response = DNSimple::Client.put "domains/#{domain.name}/certificates/#{id}/submit", options
 
-    pp response if DNSimple::Client.debug?
-
     case response.code
     when 200
       return DNSimple::Certificate.new({:domain => domain}.merge(response["certificate"]))
-    when 401
-      raise DNSimple::AuthenticationFailed, "Authentication failed"
     else
       raise DNSimple::Error.new("Error submitting certificate: #{response["errors"]}")
     end
@@ -89,13 +85,9 @@ class DNSimple::Certificate < DNSimple::Base
 
     response = DNSimple::Client.post "domains/#{domain.name}/certificates", options
 
-    pp response if DNSimple::Client.debug?
-
     case response.code
     when 201
       return new({:domain => domain}.merge(response["certificate"]))
-    when 401
-      raise DNSimple::AuthenticationFailed, "Authentication failed"
     when 406
       raise DNSimple::CertificateExists.new("#{name}.#{domain.name}", response["errors"])
     else
@@ -107,13 +99,9 @@ class DNSimple::Certificate < DNSimple::Base
   def self.all(domain, options={})
     response = DNSimple::Client.get "domains/#{domain.name}/certificates", options
 
-    pp response if DNSimple::Client.debug?
-
     case response.code
     when 200
       response.map { |r| new({:domain => domain}.merge(r["certificate"])) }
-    when 401
-      raise DNSimple::AuthenticationFailed, "Authentication failed"
     else
       raise DNSimple::Error.new("List certificates error: #{response["errors"]}")
     end
@@ -123,13 +111,9 @@ class DNSimple::Certificate < DNSimple::Base
   def self.find(domain, certificate_id, options={})
     response = DNSimple::Client.get "domains/#{domain.name}/certificates/#{certificate_id}", options
 
-    pp response if DNSimple::Client.debug?
-
     case response.code
     when 200
       new({:domain => domain}.merge(response["certificate"]))
-    when 401
-      raise DNSimple::AuthenticationFailed, "Authentication failed"
     when 404
       raise DNSimple::CertificateNotFound, "Could not find certificate #{certificate_id} for domain #{domain.name}"
     else
