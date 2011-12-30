@@ -7,10 +7,9 @@ group :development do
   gem 'jeweler'
   gem 'rspec', '>= 2.0.0'
   gem 'mocha'
-  gem 'ruby-debug', :platforms => 'ruby_18'
+  gem 'ruby-debug', :platform => :ruby_18
   gem 'cucumber'
   gem 'aruba'
-  gem 'ruby-debug'
   gem 'fakeweb'
   gem 'vcr'
 end
