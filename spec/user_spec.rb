@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
-
 describe DNSimple::User do
   describe ".me" do
     use_vcr_cassette

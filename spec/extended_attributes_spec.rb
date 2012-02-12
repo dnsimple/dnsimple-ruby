@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
-
 describe DNSimple::ExtendedAttribute do
 
   describe "list extended attributes" do

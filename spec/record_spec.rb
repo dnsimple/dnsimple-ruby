@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
-
 describe DNSimple::Record do
 
   let(:domain_name) { 'example.com' }
