@@ -146,7 +146,7 @@ module DNSimple #:nodoc:
       when 401
         raise RuntimeError, "Authentication failed"
       else
-        raise DNSimple::Error.new(name, response["errors"])
+        raise DNSimple::DomainError.new(name, response["errors"])
       end
     end
 
@@ -175,7 +175,7 @@ module DNSimple #:nodoc:
       when 401
         raise RuntimeError, "Authentication failed"
       else
-        raise DNSimple::Error.new(name, response["errors"])
+        raise DNSimple::DomainError.new(name, response["errors"])
       end
     end
 
@@ -195,7 +195,7 @@ module DNSimple #:nodoc:
       when 404
         raise RuntimeError, "Could not find domain #{id_or_name}"
       else
-        raise DNSimple::Error.new(id_or_name, response["errors"])
+        raise DNSimple::DomainError.new(id_or_name, response["errors"])
       end
     end
 
