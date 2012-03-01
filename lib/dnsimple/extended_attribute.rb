@@ -56,7 +56,7 @@ module DNSimple #:nodoc:
     def self.find(tld, options={})
       options.merge!({:basic_auth => Client.credentials})
       
-      response = self.get("#{Client.base_uri}/extended_attributes/#{tld}.json", options)
+      response = self.get("#{Client.base_uri}/extended_attributes/#{tld}", options)
 
       pp response if Client.debug?
 

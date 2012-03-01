@@ -11,7 +11,7 @@ module DNSimple
         end
 
         domain = Domain.find(domain_name)
-        record = Record.find(domain.name, id)
+        record = Record.find(domain, id)
         attributes.each do |name, value|
           record.send("#{name}=", value)
         end
