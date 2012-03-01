@@ -106,3 +106,20 @@ Sample:
 The complete RDoc for the wrapper classes can be found here: 
 
   http://rdoc.info/projects/aetrion/dnsimple-ruby
+  
+== Running Rspec Tests
+
+There are two ways you can run the tests, either using VCR mocked responses or by hitting the test site.  Either way you need to create a configuration file in your home directory called .dnsimple.local.  To run the tests with the DNSimple test site this file should include:
+
+  username: foo@bar.com
+  password: test
+
+And in spec/spec_helper.rb uncomment this line:
+
+  # c.allow_http_connections_when_no_cassette = true
+
+The username and password must match the credentials you used to create your account on http://test.dnsimple.com.  To run the tests with VCR mocks you need to include an additional line in the .dnsimple.local file:
+
+  site: "http://localhost:3000"
+
+All of the VCR mocks trigger on http://localhost:3000.  If you are using VCR mocks you should leave c.allow_http_connections_when_no_cassette = true commented out.
