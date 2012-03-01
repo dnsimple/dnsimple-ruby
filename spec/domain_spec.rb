@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe DNSimple::Domain do
   let(:domain_name) { "example.com" }
   let(:contact_id) { 1 }
@@ -81,6 +83,15 @@ describe DNSimple::Domain do
       DNSimple::Record.all(domain).should be_empty
       domain.apply("googleapps")
       DNSimple::Record.all(domain).should_not be_empty
+    end
+  end
+  
+  describe "setting name servers" do
+    use_vcr_cassette
+    let(:domain) { DNSimple::Domain.new(:name => 'example.com') }
+    
+    it "overwrites name servers" do
+      domain.update_name_servers(["n1.fake.com", "ns2.fake.com"])
     end
   end
 end

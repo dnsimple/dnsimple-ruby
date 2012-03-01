@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe DNSimple::ExtendedAttribute do
 
   describe "list extended attributes" do

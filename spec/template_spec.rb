@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe DNSimple::Template do
   describe "a template" do
     use_vcr_cassette

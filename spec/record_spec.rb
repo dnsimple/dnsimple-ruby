@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe DNSimple::Record do
 
   let(:domain_name) { 'example.com' }

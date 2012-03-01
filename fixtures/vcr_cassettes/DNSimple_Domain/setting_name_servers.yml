@@ -1,0 +1,30 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/name_servers.json
+    body: name_servers[ns1]=ns1.fake.com&name_servers[ns2]=ns2.fake.com
+    headers: 
+      authorization: 
+      - Basic bWlrZUBzcGFycWNvZGUuY29tOnRlc3Q=
+      accept: 
+      - application/json
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: Updated
+    headers: 
+      content-length: 
+      - "2"
+      x-powered-by: 
+      - Phusion Passenger (mod_rails/mod_rack) 3.0.11
+      cache-control: 
+      - no-cache
+      content-type: 
+      - text/html; charset=utf-8
+      server: 
+      - nginx/1.0.10 + Phusion Passenger 3.0.11 (mod_rails/mod_rack)
+      status: 
+      - "200"
+    body: "{}"
+    http_version: "1.1"

@@ -42,6 +42,32 @@ module DNSimple #:nodoc:
       template = resolve_template(template)
       self.class.post("#{DNSimple::Client.base_uri}/domains/#{name}/templates/#{template.id}/apply", options)
     end
+    
+    # Overwrite the nameservers for a given domain.
+    def update_name_servers(name_servers, options = {})
+      options.merge!(DNSimple::Client.standard_options_with_credentials)
+      
+      name_servers_hash = {}
+      ns_index = 1
+      
+      name_servers.each do |name_server|
+        name_servers_hash["ns#{ns_index}"] = name_server
+        ns_index += 1
+      end
+      
+      options.merge!(:body => { :name_servers => name_servers_hash })
+      
+      response = self.class.post("#{DNSimple::Client.base_uri}/domains/#{name}/name_servers.json", options)
+      pp response if DNSimple::Client.debug?
+      
+      case response.code
+        
+      when 200
+        name_servers
+      else
+        raise RuntimeError, "Error: #{response.code}"
+      end
+    end
 
     #:nodoc:
     def resolve_template(template)

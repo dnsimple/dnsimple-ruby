@@ -18,4 +18,4 @@ config = YAML.load(File.new(File.expand_path('~/.dnsimple.local')))
 
 DNSimple::Client.base_uri = config['site'] || "https://test.dnsimple.com/" 
 DNSimple::Client.username = config['username']
-DNSimple::Client.password = config['password'] 
+DNSimple::Client.password = config['password']
