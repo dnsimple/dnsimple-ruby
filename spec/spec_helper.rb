@@ -7,6 +7,7 @@ VCR.config do |c|
   c.stub_with :fakeweb
   c.filter_sensitive_data("<USERNAME>") { CGI::escape(DNSimple::Client.username) }
   c.filter_sensitive_data("<PASSWORD>") { CGI::escape(DNSimple::Client.password) }
+  # c.allow_http_connections_when_no_cassette = true
 end
 
 RSpec.configure do |c|
