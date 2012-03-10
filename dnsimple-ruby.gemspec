@@ -4,13 +4,13 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "sparqcode-dnsimple-ruby"
+  s.name = "dnsimple-ruby"
   s.version = "1.2.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Anthony Eden"]
-  s.date = "2012-03-02"
-  s.description = "A ruby wrapper for the DNSimple API that also includes a command-line client.  This gem is identical to the offical one, except we added support for setting name servers."
+  s.date = "2012-03-10"
+  s.description = "A ruby wrapper for the DNSimple API that also includes a command-line client."
   s.email = "anthony.eden@dnsimple.com"
   s.executables = ["dnsimple"]
   s.extra_rdoc_files = [
@@ -138,10 +138,10 @@ Gem::Specification.new do |s|
     "spec/template_spec.rb",
     "spec/user_spec.rb"
   ]
-  s.homepage = "http://github.com/SPARQCode/dnsimple-ruby"
+  s.homepage = "http://github.com/aetrion/dnsimple-ruby"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.15"
-  s.summary = "A ruby wrapper for the DNSimple API."
+  s.summary = "A ruby wrapper for the DNSimple API"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
