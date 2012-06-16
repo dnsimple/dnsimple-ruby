@@ -1,6 +1,9 @@
+require 'rubygems'
+require 'bundler'
+
+Bundler.require :default, :development
+
 require 'aruba/cucumber'
-$:.unshift('lib')
-require 'dnsimple'
 
 Before do
   @aruba_timeout_seconds = 30
@@ -14,4 +17,3 @@ After do |scenario|
     end
   end
 end
-

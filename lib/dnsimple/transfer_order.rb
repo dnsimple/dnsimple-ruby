@@ -1,45 +1,28 @@
-module DNSimple #:nodoc:
-  # Class representing a transfer order in DNSimple
-  class TransferOrder
-    include HTTParty
+class DNSimple::TransferOrder # Class representing a transfer order in DNSimple
+  attr_accessor :id
 
-    attr_accessor :id
+  attr_accessor :status
 
-    attr_accessor :status
+  def self.create(name, authinfo='', registrant={}, extended_attributes={}, options={})
+    body = {:domain => {:name => name}, :transfer_order => {:authinfo => authinfo}}
 
-    def initialize(attributes)
-      attributes.each do |key, value|
-        m = "#{key}=".to_sym
-        self.send(m, value) if self.respond_to?(m)
-      end
+    if registrant[:id]
+      body[:domain][:registrant_id] = registrant[:id]
+    else
+      body.merge!(:contact => Contact.resolve_attributes(registrant))
     end
 
-    def self.create(name, authinfo='', registrant={}, extended_attributes={}, options={})
-      body = {:domain => {:name => name}, :transfer_order => {:authinfo => authinfo}}
+    body.merge!(:extended_attribute => extended_attributes)
 
-      if registrant[:id]
-        body[:domain][:registrant_id] = registrant[:id]
-      else
-        body.merge!(:contact => Contact.resolve_attributes(registrant))
-      end
+    options.merge!({:body => body})
 
-      body.merge!(:extended_attribute => extended_attributes)
+    response = DNSimple::Client.post 'domain_transfers.json', options
 
-      options.merge!({:body => body})
-      options.merge!({:basic_auth => Client.credentials})
-
-      response = self.post("#{Client.base_uri}/domain_transfers.json", options)
-
-      pp response if Client.debug?
-
-      case response.code
-      when 201
-        return TransferOrder.new(response["transfer_order"])
-      when 401
-        raise RuntimeError, "Authentication failed"
-      else
-        raise DNSimple::Error.new(name, response["errors"])
-      end
+    case response.code
+    when 201
+      return new(response["transfer_order"])
+    else
+      raise DNSimple::Error.new(name, response["errors"])
     end
   end
 end

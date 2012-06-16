@@ -5,6 +5,7 @@ module DNSimple
   BLANK_REGEX = /\S+/
 end
 
+require 'dnsimple/base'
 require 'dnsimple/client'
 require 'dnsimple/error'
 require 'dnsimple/user'

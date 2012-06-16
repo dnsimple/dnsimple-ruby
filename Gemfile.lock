@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    dnsimple-ruby (1.2.6)
+      httparty
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -21,14 +27,9 @@ GEM
     ffi (1.0.9)
     gherkin (2.6.3)
       json (>= 1.4.6)
-    git (1.2.5)
     httparty (0.8.1)
       multi_json
       multi_xml
-    jeweler (1.6.4)
-      bundler (~> 1.0)
-      git (>= 1.2.5)
-      rake
     json (1.6.1)
     linecache (0.46)
       rbx-require-relative (> 0.0.4)
@@ -61,9 +62,8 @@ PLATFORMS
 DEPENDENCIES
   aruba
   cucumber
+  dnsimple-ruby!
   fakeweb
-  httparty
-  jeweler
   mocha
   rake
   rspec (>= 2.0.0)
