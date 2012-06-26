@@ -105,4 +105,4 @@ Sample:
 
 The complete RDoc for the wrapper classes can be found here: 
 
-http://rdoc.info/projects/aetrion/dnsimple-ruby
+http://rubydoc.info/gems/dnsimple-ruby/1.2.6/
