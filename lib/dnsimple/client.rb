@@ -36,7 +36,7 @@ class DNSimple::Client
   end
 
   def self.base_uri=(base_uri)
-    base_uri += '/' if base_uri[/\/$/].nil?
+    base_uri += '/' if base_uri && base_uri[/\/$/].nil?
     @base_uri = base_uri
   end
 
