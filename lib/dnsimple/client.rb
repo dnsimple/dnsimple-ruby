@@ -40,6 +40,14 @@ class DNSimple::Client
     @base_uri = base_uri
   end
 
+  def self.http_proxy
+    @http_proxy
+  end
+
+  def self.http_proxy=(http_proxy)
+    @http_proxy = http_proxy
+  end
+
   def self.load_credentials_if_necessary
     load_credentials unless credentials_loaded?
   end
@@ -55,6 +63,7 @@ class DNSimple::Client
       self.password  = credentials['password']
       self.api_token = credentials['api_token']
       self.base_uri  = credentials['site']
+      self.http_proxy = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] }
       @credentials_loaded = true
       "Credentials loaded from #{path}"
     rescue
@@ -68,7 +77,12 @@ class DNSimple::Client
   end
 
   def self.standard_options
-    options = {:format => :json, :headers => {'Accept' => 'application/json'}}
+    options = {
+                :format => :json, 
+                :headers => {'Accept' => 'application/json'}, 
+                :http_proxyaddr => self.http_proxy[:addr], 
+                :http_proxyport => self.http_proxy[:port] 
+              }
 
     if password
       options[:basic_auth] = {:username => username, :password => password}
