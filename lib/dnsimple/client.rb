@@ -59,10 +59,10 @@ class DNSimple::Client
   def self.load_credentials(path=config_path)
     begin
       credentials = YAML.load(File.new(File.expand_path(path)))
-      self.username  = credentials['username']
-      self.password  = credentials['password']
-      self.api_token = credentials['api_token']
-      self.base_uri  = credentials['site']
+      self.username  ||= credentials['username']
+      self.password  ||= credentials['password']
+      self.api_token ||= credentials['api_token']
+      self.base_uri  ||= credentials['site']
       self.http_proxy = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] }
       @credentials_loaded = true
       "Credentials loaded from #{path}"
@@ -80,9 +80,14 @@ class DNSimple::Client
     options = {
                 :format => :json, 
                 :headers => {'Accept' => 'application/json'}, 
-                :http_proxyaddr => self.http_proxy[:addr], 
-                :http_proxyport => self.http_proxy[:port] 
               }
+
+    if http_proxy
+      options.merge!(
+        :http_proxyaddr => self.http_proxy[:addr],
+        :http_proxyport => self.http_proxy[:port]
+      )
+    end
 
     if password
       options[:basic_auth] = {:username => username, :password => password}
