@@ -117,10 +117,12 @@ class DNSimple::Client
   end
 
   def self.request(method, path, options)
+    pp [:request, method, path, options] if debug?
+
     response = HTTParty.send(method, "#{base_uri}#{path}",
       standard_options.merge(options))
 
-    pp response if debug?
+    pp [:response, response] if debug?
 
     if response.code == 401
       raise DNSimple::AuthenticationFailed, 'Authentication failed'
