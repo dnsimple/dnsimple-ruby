@@ -1,8 +1,15 @@
 require 'bundler/gem_tasks'
 
+# Run test by default.
+task :default => :spec
+task :test => :spec
 
-desc 'Default: run tests.'
-task :default => [:spec]
+
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new do |t|
+  t.verbose = !!ENV["VERBOSE"]
+end
 
 
 require 'rdoc/task'
