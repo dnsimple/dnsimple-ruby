@@ -3,6 +3,9 @@ require 'bundler/setup'
 require 'cgi'
 require 'vcr'
 
+$:.unshift(File.dirname(__FILE__) + '/lib')
+require 'dnsimple'
+
 VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
   c.hook_into :fakeweb
