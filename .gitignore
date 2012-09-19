@@ -1,4 +1,8 @@
-pkg
 rdoc
 turbulence
 .rvmrc
+
+# Bundler
+.bundle
+pkg/*
+Gemfile.lock
