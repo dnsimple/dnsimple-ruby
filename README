@@ -88,18 +88,22 @@ Sample:
   require 'rubygems'
   require 'dnsimple'
   
-  DNSimple::Client.username = 'YOUR_USERNAME'
-  DNSimple::Client.password = 'YOUR_PASSWORD'
+  DNSimple::Client.username   = 'YOUR_USERNAME'
+  DNSimple::Client.password   = 'YOUR_PASSWORD'
+  DNSimple::Client.http_proxy = {}
+
+  user = DNSimple::User.me
+  puts "#{user.domain_count} domains"
 
   puts "Domains..."
-  Domain.all.each do |domain|
+  DNSimple::Domain.all.each do |domain|
     puts "  #{domain.name}"
   end
 
-  domain = Domain.find("example.com")
+  domain = DNSimple::Domain.find("example.com")
   domain.apply("template") # applies a standard or custom template to the domain
 
-  domain = Domain.create("newdomain.com")
+  domain = DNSimple::Domain.create("newdomain.com")
   puts "Added #{domain.name}"
   domain.delete # removes from DNSimple
 
