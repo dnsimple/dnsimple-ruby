@@ -21,11 +21,11 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency     'httparty', '>= 0'
 
+  s.add_development_dependency 'rake',     '~> 0.9.0'
   s.add_development_dependency 'aruba',    '>= 0'
   s.add_development_dependency 'cucumber', '>= 0'
   s.add_development_dependency 'fakeweb',  '>= 0'
   s.add_development_dependency 'mocha',    '>= 0'
-  s.add_development_dependency 'rake',     '>= 0'
   s.add_development_dependency 'rspec',    '>= 2.0.0'
-  s.add_development_dependency 'vcr',      '>= 0'
+  s.add_development_dependency 'rdoc',     '~> 3.12.0'
 end
