@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domain_registrations
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domain_registrations
     body:
       encoding: UTF-8
       string: domain[registrant_id]=1&domain[name]=dnsimple-example-1321042237.com
@@ -23,7 +23,7 @@ http_interactions:
       X-Dnsimple-Api-Version:
       - 1.0.0
       Location:
-      - http://localhost:3000/domains/dnsimple-example-1321042237.com
+      - https://test.dnsimple.com/domains/dnsimple-example-1321042237.com
       Access-Control-Allow-Methods:
       - OPTIONS
       Content-Type:

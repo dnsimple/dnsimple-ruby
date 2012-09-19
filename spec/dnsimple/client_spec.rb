@@ -22,7 +22,7 @@ describe DNSimple::Client do
         DNSimple::Client.api_token = nil
 
         HTTParty.expects(method).
-          with('http://localhost:3000/domains',
+          with('https://test.dnsimple.com/domains',
             :format => :json, :headers => {'Accept' => 'application/json'},
             :basic_auth => {:username => 'user', :password => 'pass'}).
           returns(response)
@@ -36,7 +36,7 @@ describe DNSimple::Client do
         DNSimple::Client.api_token = 'token'
 
         HTTParty.expects(method).
-          with('http://localhost:3000/domains',
+          with('https://test.dnsimple.com/domains',
             :format => :json, :headers => {'Accept' => 'application/json',
             'X-DNSimple-Token' => 'user:token'}).
           returns(response)

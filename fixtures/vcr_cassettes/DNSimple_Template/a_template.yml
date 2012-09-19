@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/templates/googleapps
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/templates/googleapps
     body:
       encoding: US-ASCII
       string: ''

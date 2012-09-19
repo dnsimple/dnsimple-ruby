@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/users/me.json
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/users/me.json
     body:
       encoding: US-ASCII
       string: ''

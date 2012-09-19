@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/certificates
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com/certificates
     body:
       encoding: UTF-8
       string: certificate[name]=www&certificate[contact_id]=1
@@ -23,7 +23,7 @@ http_interactions:
       X-Dnsimple-Api-Version:
       - 1.0.0
       Location:
-      - http://localhost:3000/domains/example.com/certificates/1
+      - https://test.dnsimple.com/domains/example.com/certificates/1
       Access-Control-Allow-Methods:
       - OPTIONS
       Content-Type:

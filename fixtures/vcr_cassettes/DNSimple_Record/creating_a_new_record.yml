@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com/records
     body:
       encoding: UTF-8
       string: record[ttl]=600&record[prio]=&record[record_type]=A&record[name]=&record[content]=1.2.3.4
@@ -23,7 +23,7 @@ http_interactions:
       X-Dnsimple-Api-Version:
       - 1.0.0
       Location:
-      - http://localhost:3000/domains/example.com/records/70
+      - https://test.dnsimple.com/domains/example.com/records/70
       Access-Control-Allow-Methods:
       - OPTIONS
       Content-Type:

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com
     body:
       encoding: US-ASCII
       string: ''
@@ -50,7 +50,7 @@ http_interactions:
   recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
 - request:
     method: get
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com/records
     body:
       encoding: US-ASCII
       string: ''
@@ -98,7 +98,7 @@ http_interactions:
   recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
 - request:
     method: get
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/templates/googleapps
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/templates/googleapps
     body:
       encoding: US-ASCII
       string: ''
@@ -148,7 +148,7 @@ http_interactions:
   recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
 - request:
     method: post
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/templates/3/apply
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com/templates/3/apply
     body:
       encoding: US-ASCII
       string: ''
@@ -196,7 +196,7 @@ http_interactions:
   recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
 - request:
     method: get
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com/records
     body:
       encoding: US-ASCII
       string: ''

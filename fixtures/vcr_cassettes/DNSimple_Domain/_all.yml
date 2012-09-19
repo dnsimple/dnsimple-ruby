@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains
     body:
       encoding: UTF-8
       string: domain[name]=example0.com
@@ -23,7 +23,7 @@ http_interactions:
       X-Dnsimple-Api-Version:
       - 1.0.0
       Location:
-      - http://localhost:3000/domains/example0.com
+      - https://test.dnsimple.com/domains/example0.com
       Access-Control-Allow-Methods:
       - OPTIONS
       Content-Type:
@@ -50,7 +50,7 @@ http_interactions:
   recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
 - request:
     method: post
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains
     body:
       encoding: UTF-8
       string: domain[name]=example1.com
@@ -71,7 +71,7 @@ http_interactions:
       X-Dnsimple-Api-Version:
       - 1.0.0
       Location:
-      - http://localhost:3000/domains/example1.com
+      - https://test.dnsimple.com/domains/example1.com
       Access-Control-Allow-Methods:
       - OPTIONS
       Content-Type:
@@ -98,7 +98,7 @@ http_interactions:
   recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
 - request:
     method: get
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains
     body:
       encoding: US-ASCII
       string: ''

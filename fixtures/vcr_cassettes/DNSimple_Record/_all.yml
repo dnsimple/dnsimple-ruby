@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com/records
     body:
       encoding: UTF-8
       string: record[ttl]=3600&record[prio]=&record[record_type]=A&record[name]=&record[content]=4.5.6.7
@@ -23,7 +23,7 @@ http_interactions:
       X-Dnsimple-Api-Version:
       - 1.0.0
       Location:
-      - http://localhost:3000/domains/example.com/records/71
+      - https://test.dnsimple.com/domains/example.com/records/71
       Access-Control-Allow-Methods:
       - OPTIONS
       Content-Type:
@@ -50,7 +50,7 @@ http_interactions:
   recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
 - request:
     method: post
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com/records
     body:
       encoding: UTF-8
       string: record[ttl]=3600&record[prio]=&record[record_type]=CNAME&record[name]=www&record[content]=testdomain.com
@@ -71,7 +71,7 @@ http_interactions:
       X-Dnsimple-Api-Version:
       - 1.0.0
       Location:
-      - http://localhost:3000/domains/example.com/records/72
+      - https://test.dnsimple.com/domains/example.com/records/72
       Access-Control-Allow-Methods:
       - OPTIONS
       Content-Type:
@@ -98,7 +98,7 @@ http_interactions:
   recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
 - request:
     method: post
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com/records
     body:
       encoding: UTF-8
       string: record[ttl]=3600&record[prio]=10&record[record_type]=MX&record[name]=&record[content]=mail.foo.com
@@ -119,7 +119,7 @@ http_interactions:
       X-Dnsimple-Api-Version:
       - 1.0.0
       Location:
-      - http://localhost:3000/domains/example.com/records/73
+      - https://test.dnsimple.com/domains/example.com/records/73
       Access-Control-Allow-Methods:
       - OPTIONS
       Content-Type:
@@ -146,7 +146,7 @@ http_interactions:
   recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
 - request:
     method: get
-    uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/records
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/domains/example.com/records
     body:
       encoding: US-ASCII
       string: ''
