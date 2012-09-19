@@ -1,40 +1,46 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
-    method: :get
+---
+http_interactions:
+- request:
+    method: get
     uri: http://<USERNAME>:<PASSWORD>@localhost:3000/extended_attributes/com.json
-    body: 
-    headers: 
-      authorization: 
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
       - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      x-ua-compatible: 
+    headers:
+      X-Ua-Compatible:
       - IE=Edge
-      access-control-allow-headers: 
+      Access-Control-Allow-Headers:
       - Authorization,Accepts,Content-Type
-      x-dnsimple-api-version: 
+      X-Dnsimple-Api-Version:
       - 1.0.0
-      etag: 
-      - "\"d751713988987e9331980363e24189ce\""
-      access-control-allow-methods: 
+      Etag:
+      - ! '"d751713988987e9331980363e24189ce"'
+      Access-Control-Allow-Methods:
       - OPTIONS
-      content-type: 
+      Content-Type:
       - application/json; charset=utf-8
-      access-control-allow-origin: 
-      - "*"
-      date: 
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Date:
       - Fri, 11 Nov 2011 20:33:27 GMT
-      server: 
+      Server:
       - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
-      x-runtime: 
-      - "2.685911"
-      content-length: 
-      - "2"
-      cache-control: 
+      X-Runtime:
+      - '2.685911'
+      Content-Length:
+      - '2'
+      Cache-Control:
       - max-age=0, private, must-revalidate
-    body: "[]"
-    http_version: "1.1"
+    body:
+      encoding: UTF-8
+      string: ! '[]'
+    http_version: '1.1'
+  recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
+recorded_with: VCR 2.2.5

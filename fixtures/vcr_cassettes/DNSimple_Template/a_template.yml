@@ -1,44 +1,53 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
-    method: :get
+---
+http_interactions:
+- request:
+    method: get
     uri: http://<USERNAME>:<PASSWORD>@localhost:3000/templates/googleapps
-    body: 
-    headers: 
-      accept: 
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
       - application/json
-      authorization: 
+      Authorization:
       - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      x-ua-compatible: 
+    headers:
+      X-Ua-Compatible:
       - IE=Edge
-      access-control-allow-headers: 
+      Access-Control-Allow-Headers:
       - Authorization,Accepts,Content-Type
-      x-dnsimple-api-version: 
+      X-Dnsimple-Api-Version:
       - 1.0.0
-      etag: 
-      - "\"3649a89c5333cc5c491e30a29901f286\""
-      access-control-allow-methods: 
+      Etag:
+      - ! '"3649a89c5333cc5c491e30a29901f286"'
+      Access-Control-Allow-Methods:
       - OPTIONS
-      content-type: 
+      Content-Type:
       - application/json; charset=utf-8
-      access-control-allow-origin: 
-      - "*"
-      date: 
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Date:
       - Fri, 11 Nov 2011 20:26:05 GMT
-      server: 
+      Server:
       - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
-      x-runtime: 
-      - "0.301433"
-      content-length: 
-      - "266"
-      set-cookie: 
-      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlYjMyMDBiMjQwNDdiN2FlMjE4OTUxMDU5ZGYzY2EyMjNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--f1d49fb81f9ca5dae40e254e327c1c69b5352921; path=/; HttpOnly
-      cache-control: 
+      X-Runtime:
+      - '0.301433'
+      Content-Length:
+      - '266'
+      Set-Cookie:
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlYjMyMDBiMjQwNDdiN2FlMjE4OTUxMDU5ZGYzY2EyMjNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--f1d49fb81f9ca5dae40e254e327c1c69b5352921;
+        path=/; HttpOnly
+      Cache-Control:
       - max-age=0, private, must-revalidate
-    body: "{\"dns_template\":{\"created_at\":\"2011-09-04T01:08:50Z\",\"description\":\"The Google Mail Servers and Google Apps CNAME records in a single template.\",\"id\":3,\"name\":\"Google Apps\",\"short_name\":\"googleapps\",\"updated_at\":\"2011-09-04T01:08:50Z\",\"user_id\":null,\"visible\":true}}"
-    http_version: "1.1"
+    body:
+      encoding: UTF-8
+      string: ! '{"dns_template":{"created_at":"2011-09-04T01:08:50Z","description":"The
+        Google Mail Servers and Google Apps CNAME records in a single template.","id":3,"name":"Google
+        Apps","short_name":"googleapps","updated_at":"2011-09-04T01:08:50Z","user_id":null,"visible":true}}'
+    http_version: '1.1'
+  recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
+recorded_with: VCR 2.2.5

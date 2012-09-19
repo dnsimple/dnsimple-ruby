@@ -1,42 +1,50 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
-    method: :get
+---
+http_interactions:
+- request:
+    method: get
     uri: http://<USERNAME>:<PASSWORD>@localhost:3000/contacts/1.json
-    body: 
-    headers: 
-      authorization: 
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
       - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      x-ua-compatible: 
+    headers:
+      X-Ua-Compatible:
       - IE=Edge
-      access-control-allow-headers: 
+      Access-Control-Allow-Headers:
       - Authorization,Accepts,Content-Type
-      x-dnsimple-api-version: 
+      X-Dnsimple-Api-Version:
       - 1.0.0
-      etag: 
-      - "\"e311cdfc85cf816f955c96e6777b2960\""
-      access-control-allow-methods: 
+      Etag:
+      - ! '"e311cdfc85cf816f955c96e6777b2960"'
+      Access-Control-Allow-Methods:
       - OPTIONS
-      content-type: 
+      Content-Type:
       - application/json; charset=utf-8
-      access-control-allow-origin: 
-      - "*"
-      date: 
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Date:
       - Fri, 11 Nov 2011 20:34:48 GMT
-      server: 
+      Server:
       - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
-      x-runtime: 
-      - "0.435917"
-      content-length: 
-      - "401"
-      set-cookie: 
-      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlNjI1ZTcwODA3NzhjMzY2NDBmMzA4YzExOTQzZWZlYjNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--62ec9088d88ee5b5446a9e75637b33ef10ec8aed; path=/; HttpOnly
-      cache-control: 
+      X-Runtime:
+      - '0.435917'
+      Content-Length:
+      - '401'
+      Set-Cookie:
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlNjI1ZTcwODA3NzhjMzY2NDBmMzA4YzExOTQzZWZlYjNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--62ec9088d88ee5b5446a9e75637b33ef10ec8aed;
+        path=/; HttpOnly
+      Cache-Control:
       - max-age=0, private, must-revalidate
-    body: "{\"contact\":{\"address1\":\"2045 Corey Rd\",\"address2\":\"\",\"city\":\"Malabar\",\"country\":\"US\",\"created_at\":\"2011-10-16T16:46:55Z\",\"email_address\":\"anthonyeden@gmail.com\",\"fax\":\"\",\"first_name\":\"Anthony\",\"id\":1,\"job_title\":\"\",\"label\":\"\",\"last_name\":\"Eden\",\"organization_name\":\"\",\"phone\":\"321 505 0025\",\"phone_ext\":null,\"postal_code\":\"32950\",\"state_province\":\"FL\",\"updated_at\":\"2011-10-16T16:46:55Z\",\"user_id\":1}}"
-    http_version: "1.1"
+    body:
+      encoding: UTF-8
+      string: ! '{"contact":{"address1":"2045 Corey Rd","address2":"","city":"Malabar","country":"US","created_at":"2011-10-16T16:46:55Z","email_address":"anthonyeden@gmail.com","fax":"","first_name":"Anthony","id":1,"job_title":"","label":"","last_name":"Eden","organization_name":"","phone":"321
+        505 0025","phone_ext":null,"postal_code":"32950","state_province":"FL","updated_at":"2011-10-16T16:46:55Z","user_id":1}}'
+    http_version: '1.1'
+  recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
+recorded_with: VCR 2.2.5

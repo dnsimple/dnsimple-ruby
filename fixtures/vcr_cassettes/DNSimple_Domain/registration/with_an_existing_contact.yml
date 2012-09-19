@@ -1,44 +1,52 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
-    method: :post
+---
+http_interactions:
+- request:
+    method: post
     uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domain_registrations
-    body: domain[registrant_id]=1&domain[name]=dnsimple-example-1321042237.com
-    headers: 
-      accept: 
+    body:
+      encoding: UTF-8
+      string: domain[registrant_id]=1&domain[name]=dnsimple-example-1321042237.com
+    headers:
+      Accept:
       - application/json
-      authorization: 
+      Authorization:
       - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response:
+    status:
       code: 201
       message: Created
-    headers: 
-      x-ua-compatible: 
+    headers:
+      X-Ua-Compatible:
       - IE=Edge
-      access-control-allow-headers: 
+      Access-Control-Allow-Headers:
       - Authorization,Accepts,Content-Type
-      x-dnsimple-api-version: 
+      X-Dnsimple-Api-Version:
       - 1.0.0
-      location: 
+      Location:
       - http://localhost:3000/domains/dnsimple-example-1321042237.com
-      access-control-allow-methods: 
+      Access-Control-Allow-Methods:
       - OPTIONS
-      content-type: 
+      Content-Type:
       - application/json; charset=utf-8
-      access-control-allow-origin: 
-      - "*"
-      date: 
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Date:
       - Fri, 11 Nov 2011 20:11:09 GMT
-      server: 
+      Server:
       - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
-      x-runtime: 
-      - "31.776131"
-      content-length: 
-      - "531"
-      set-cookie: 
-      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlMzA0NzU5OThhM2Q5MmYwMGM4MGQzNzkxNWQ3ZThhNzFJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkGSSIJbmFtZQY7AEZJIiRkbnNpbXBsZS1leGFtcGxlLTEzMjEwNDIyMzcuY29tBjsAVA%3D%3D--557950d7421074c1db19f6b637c603cd90a185ec; path=/; HttpOnly
-      cache-control: 
+      X-Runtime:
+      - '31.776131'
+      Content-Length:
+      - '531'
+      Set-Cookie:
+      - _dnsimple_session=BAh7CUkiD3Nlc3Npb25faWQGOgZFRiIlMzA0NzU5OThhM2Q5MmYwMGM4MGQzNzkxNWQ3ZThhNzFJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkGSSIJbmFtZQY7AEZJIiRkbnNpbXBsZS1leGFtcGxlLTEzMjEwNDIyMzcuY29tBjsAVA%3D%3D--557950d7421074c1db19f6b637c603cd90a185ec;
+        path=/; HttpOnly
+      Cache-Control:
       - no-cache
-    body: "{\"domain\":{\"auto_renew\":null,\"created_at\":\"2011-11-11T20:10:46Z\",\"expires_at\":\"11/11/2012 12:10:00 PM\",\"id\":40,\"last_enom_order_id\":\"157773079\",\"last_name_server_status_check\":null,\"lockable\":true,\"name\":\"dnsimple-example-1321042237.com\",\"name_server_status\":\"unknown\",\"parsed_expiration_date\":\"2012-11-11T12:10:00Z\",\"pdns_identifier\":null,\"real_time\":true,\"registrant_id\":1,\"registration_status\":\"registered\",\"state\":\"registered\",\"updated_at\":\"2011-11-11T20:11:09Z\",\"user_id\":1,\"uses_external_name_servers\":null,\"record_count\":0}}"
-    http_version: "1.1"
+    body:
+      encoding: UTF-8
+      string: ! '{"domain":{"auto_renew":null,"created_at":"2011-11-11T20:10:46Z","expires_at":"11/11/2012
+        12:10:00 PM","id":40,"last_enom_order_id":"157773079","last_name_server_status_check":null,"lockable":true,"name":"dnsimple-example-1321042237.com","name_server_status":"unknown","parsed_expiration_date":"2012-11-11T12:10:00Z","pdns_identifier":null,"real_time":true,"registrant_id":1,"registration_status":"registered","state":"registered","updated_at":"2011-11-11T20:11:09Z","user_id":1,"uses_external_name_servers":null,"record_count":0}}'
+    http_version: '1.1'
+  recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
+recorded_with: VCR 2.2.5

@@ -1,44 +1,57 @@
---- 
-- !ruby/struct:VCR::HTTPInteraction 
-  request: !ruby/struct:VCR::Request 
-    method: :put
+---
+http_interactions:
+- request:
+    method: put
     uri: http://<USERNAME>:<PASSWORD>@localhost:3000/domains/example.com/certificates/1/submit
-    body: certificate[approver_email]=admin%40example.com
-    headers: 
-      accept: 
+    body:
+      encoding: UTF-8
+      string: certificate[approver_email]=admin%40example.com
+    headers:
+      Accept:
       - application/json
-      authorization: 
+      Authorization:
       - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
-  response: !ruby/struct:VCR::Response 
-    status: !ruby/struct:VCR::ResponseStatus 
+  response:
+    status:
       code: 200
       message: OK
-    headers: 
-      x-ua-compatible: 
+    headers:
+      X-Ua-Compatible:
       - IE=Edge
-      access-control-allow-headers: 
+      Access-Control-Allow-Headers:
       - Authorization,Accepts,Content-Type
-      x-dnsimple-api-version: 
+      X-Dnsimple-Api-Version:
       - 1.0.0
-      etag: 
-      - "\"8f2d8c456cd7fe85919f3a532762385d\""
-      access-control-allow-methods: 
+      Etag:
+      - ! '"8f2d8c456cd7fe85919f3a532762385d"'
+      Access-Control-Allow-Methods:
       - OPTIONS
-      content-type: 
+      Content-Type:
       - application/json; charset=utf-8
-      access-control-allow-origin: 
-      - "*"
-      date: 
+      Access-Control-Allow-Origin:
+      - ! '*'
+      Date:
       - Sat, 12 Nov 2011 13:01:04 GMT
-      server: 
+      Server:
       - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
-      x-runtime: 
-      - "9.576010"
-      content-length: 
-      - "3949"
-      set-cookie: 
-      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlNjk3MjQ4OTU0NTYzMjliNWMwNDFhYzEyN2IwMmNhMzNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--3f528e10ce8d7fcd773ecf939cb846d7f5da1d6c; path=/; HttpOnly
-      cache-control: 
+      X-Runtime:
+      - '9.576010'
+      Content-Length:
+      - '3949'
+      Set-Cookie:
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlNjk3MjQ4OTU0NTYzMjliNWMwNDFhYzEyN2IwMmNhMzNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--3f528e10ce8d7fcd773ecf939cb846d7f5da1d6c;
+        path=/; HttpOnly
+      Cache-Control:
       - max-age=0, private, must-revalidate
-    body: "{\"certificate\":{\"approver_email\":\"admin@example.com\",\"certificate_status\":\"Awaiting Configuration\",\"configured_at\":\"2011-11-12T12:19:26Z\",\"contact_id\":1,\"created_at\":\"2011-11-11T20:56:14Z\",\"csr\":\"-----BEGIN NEW CERTIFICATE REQUEST-----\\nMIIDMjCCAeoCAQAwXTELMAkGA1UEBhMCVVMxFTATBgNVBAoTDEFudGhvbnkgRWRl\\nbjEQMA4GA1UEBxMHTWFsYWJhcjELMAkGA1UECBMCRkwxGDAWBgNVBAMTD3d3dy5l\\neGFtcGxlLmNvbTCCAVIwDQYJKoZIhvcNAQEBBQADggE/ADCCAToCggExALVqxT38\\nVYrafdjtqrYGCn1/HOYnOTJ0r8aYR71cW/AN50H6t0NOwLdrKstQ11uxGxkqFotl\\ndHklfJUh5gJyrisIZNP/YZ55s+rjcbuFeiAyouEs12YwYOK2GzsHB6t3OBJC2+Nm\\nZirDUUbhA4VDkf7DqiIRVSKcC0BKJyr69fnGewpAW9xiECryYqq884vD1/MoxuPQ\\nYWKSWXB4G/iD5vXamBNqF5TCJV8U8/53mKClWBTsMQxO2eCjPEqO6Yf1LViu4vZx\\nOmB093Iet8h+DI93FYGRQFmYy8SKBb/jOnr83gXEKIbKSGccYNHy8QGlYMguX+Yb\\nNbUGqKgr2LL2sk9rtLv8rCu/fSkJMhOw7Rz9N1TAVccZYLqGm+gNDDlI3TcKUQ6o\\n1R4uE7TOX3OFCOsCAwEAAaAwMC4GCSqGSIb3DQEJDjEhMB8wDAYDVR0TAQH/BAIw\\nADAPBgNVHQ8BAf8EBQMDB4AAMA0GCSqGSIb3DQEBBQUAA4IBMQAFJ9nGFHx5Mcg6\\n/TnT3kvT8qaux6SwfCw35XepT9rJ7YppaMgeOanEGJdvjtZtYxIWzxq2E+lFcNGd\\nAsJoNk1jnmvbFLARjTAfN9JSvxfkT6x+rcR8rSbpzYb19NV2QTUivrDuur5BvLI3\\nCUHunT7bQaWuxbZK/GgZ4KiRIvplsUz09Ir6HDcLS2TNeswSRwqNYs1v1uY1TWeS\\nUGbW391e7EsmesnHi8QdzqafwIjWqUoz55V8TMN0xJF7Dlwfw09NZ7rhh3hmC9aT\\nk/s8jl+Cfaz9aumrTHex2RkBfBpfLNnTbkCrBuYSp2lkV7XSn6GRXL84QVIrVwZo\\nRgQisMWQ0HWKVVGpAhh8u1PcRBHpJiCsK1AoN+TsQ/7N/cbGpyllS5IBAzRCDM9V\\nUNT4A6BR\\n-----END NEW CERTIFICATE REQUEST-----\\n\",\"domain_id\":39,\"expiration_date\":\"11/11/2012 12:56:14 PM\",\"id\":1,\"name\":\"www\",\"order_date\":\"11/11/2011 12:56:14 PM\",\"private_key\":\"-----BEGIN RSA PRIVATE KEY-----\\nMIIFewIBAAKCATEAtWrFPfxVitp92O2qtgYKfX8c5ic5MnSvxphHvVxb8A3nQfq3\\nQ07At2sqy1DXW7EbGSoWi2V0eSV8lSHmAnKuKwhk0/9hnnmz6uNxu4V6IDKi4SzX\\nZjBg4rYbOwcHq3c4EkLb42ZmKsNRRuEDhUOR/sOqIhFVIpwLQEonKvr1+cZ7CkBb\\n3GIQKvJiqrzzi8PX8yjG49BhYpJZcHgb+IPm9dqYE2oXlMIlXxTz/neYoKVYFOwx\\nDE7Z4KM8So7ph/UtWK7i9nE6YHT3ch63yH4Mj3cVgZFAWZjLxIoFv+M6evzeBcQo\\nhspIZxxg0fLxAaVgyC5f5hs1tQaoqCvYsvayT2u0u/ysK799KQkyE7DtHP03VMBV\\nxxlguoab6A0MOUjdNwpRDqjVHi4TtM5fc4UI6wIDAQABAoIBLxQcLxiT1s62Kzbj\\n6W+O9zCUf5x6UnXLnwG5BSgUoWEQv1aUJjMhB7jD+ZmpFKbBF0MHJcnK4pHo/OmL\\nLLi7FqYxqMmx05PseV/FYAT19a/UOA5HV4BKeLFkP/4ov/i1ZxSGKRhHY/Lvbxxp\\nLHR9N9ps4qQ7jFCFJ2j14hayx5GHyX/AcKzUx90NnXg2xMiXIiQHUYfpJEAdIGc4\\njAMO8wjTQk9CGW3U/faibxdvRplpNbCV9Zmi7Wj3K3bX83LraqdbkhG7gWLono8S\\ntVwcKd7JFKhooyHpVmLt7M9VhRS08/oxuwOlwL/ETdNN1BwOhiZv6U74QoiW1wjN\\nfwbo4+QkE00a66E/TsX6CFQ6ec14tJKOcuHfQS+0bfBLK10XdgD696B/l1C9LwKy\\nVYcnzQKBmQDDazs4EZjpdxOLoqfWpo9ae6q7RXbFcsdDehf+fbWgvJdRuZlchwPQ\\nTYlmotJWuJZrmrAvkn0oo9WV8ct0teE5xcXyHCo1oACUyNpA0cRTAf5HYBghfJR8\\nx4UkFDK6cqZTYKdqs9HMbHs50Mc5geXaZVzSn034VD788Nuw1v06DSWkamDBqHBp\\nXYJnYdArUZGkwT7i1sdRPQKBmQDtqFU2gvTM6W7rwqxNbt90ZL+jJ/szduGsgPNO\\nQNXP4SKE41k3orqwpt7QYBGefGtPoI8294D0YV1K78yYOMkA83KbjAr5aUcCRLdL\\nXjk8E4esQAjWWYurdbwmrpD0WoKWgIlvM+s6aYjRzRYvamZa9bGk+a2n0zrM+HgX\\nBhQYSdpd1DiSvuV561UgmAiIRmNYdT7txRmVRwKBmGZUaogrvtTSQ+vk2tquEXci\\nNv8lmtI+DlYpQxNCpK9s0hg7hjFLihWz5HVYYaiDtFDYidX/cYasdBW2rgGJlEz6\\nYXMsiHXYOTWwD4nNzm5hJtQdX8V5RRAqMm/4G7BChRI4FLLtQrk3PTfDOe/FM6Wv\\nWnH4dY3KH8m4HnJ1wdh6NfHouo3uNB8Ylkaok6d7aTbK8rE6ItlJAoGZAJ6UHhf7\\nlgFNGdhy06nve2cc+sqRmQqkHr2OZcsndAP8A56MXTHEgbHyBucf02HfP3OofSd+\\nSyvF9AxWqjxAV88soqKr9X6rAti+pVfDDYnKtlL3f24X3hyQuPVOsiZ6ZnyqVApB\\nqIoXdVYY9N66roWvP9QHThqX1bqDaQ5j3fC/BthpDT7N5i1OHEVdbQQRg6S4xz68\\nr+9tAoGZAIyiHwn1QZqCUsIKiffm4g5sfVPcNqHhtKPCOTnNkNxAM7G4XB9WQyBA\\nzDnRRpwtFq+5R4XyJUyloSflZpltJ+T/aifq6lDn9sLf0ma6y+cCkTm06Lfx4MHw\\nMGvuTjj6oOeGj30kAe35j6e0xcNyhGFTRK+QROKkdMFMV2V9a9Jo3wTOr4PYr8Q6\\nt1BYovwF54fuQF/ceAFz\\n-----END RSA PRIVATE KEY-----\\n\",\"ssl_certificate\":null,\"updated_at\":\"2011-11-12T12:19:26Z\",\"available_approver_emails\":\"res-dom@iana.org,res-dom@iana.org,admin@example.com,administrator@example.com,hostmaster@example.com,root@example.com,webmaster@example.com,postmaster@example.com,admin@www.example.com,administrator@www.example.com,hostmaster@www.example.com,root@www.example.com,webmaster@www.example.com,postmaster@www.example.com\"}}"
-    http_version: "1.1"
+    body:
+      encoding: UTF-8
+      string: ! '{"certificate":{"approver_email":"admin@example.com","certificate_status":"Awaiting
+        Configuration","configured_at":"2011-11-12T12:19:26Z","contact_id":1,"created_at":"2011-11-11T20:56:14Z","csr":"-----BEGIN
+        NEW CERTIFICATE REQUEST-----\nMIIDMjCCAeoCAQAwXTELMAkGA1UEBhMCVVMxFTATBgNVBAoTDEFudGhvbnkgRWRl\nbjEQMA4GA1UEBxMHTWFsYWJhcjELMAkGA1UECBMCRkwxGDAWBgNVBAMTD3d3dy5l\neGFtcGxlLmNvbTCCAVIwDQYJKoZIhvcNAQEBBQADggE/ADCCAToCggExALVqxT38\nVYrafdjtqrYGCn1/HOYnOTJ0r8aYR71cW/AN50H6t0NOwLdrKstQ11uxGxkqFotl\ndHklfJUh5gJyrisIZNP/YZ55s+rjcbuFeiAyouEs12YwYOK2GzsHB6t3OBJC2+Nm\nZirDUUbhA4VDkf7DqiIRVSKcC0BKJyr69fnGewpAW9xiECryYqq884vD1/MoxuPQ\nYWKSWXB4G/iD5vXamBNqF5TCJV8U8/53mKClWBTsMQxO2eCjPEqO6Yf1LViu4vZx\nOmB093Iet8h+DI93FYGRQFmYy8SKBb/jOnr83gXEKIbKSGccYNHy8QGlYMguX+Yb\nNbUGqKgr2LL2sk9rtLv8rCu/fSkJMhOw7Rz9N1TAVccZYLqGm+gNDDlI3TcKUQ6o\n1R4uE7TOX3OFCOsCAwEAAaAwMC4GCSqGSIb3DQEJDjEhMB8wDAYDVR0TAQH/BAIw\nADAPBgNVHQ8BAf8EBQMDB4AAMA0GCSqGSIb3DQEBBQUAA4IBMQAFJ9nGFHx5Mcg6\n/TnT3kvT8qaux6SwfCw35XepT9rJ7YppaMgeOanEGJdvjtZtYxIWzxq2E+lFcNGd\nAsJoNk1jnmvbFLARjTAfN9JSvxfkT6x+rcR8rSbpzYb19NV2QTUivrDuur5BvLI3\nCUHunT7bQaWuxbZK/GgZ4KiRIvplsUz09Ir6HDcLS2TNeswSRwqNYs1v1uY1TWeS\nUGbW391e7EsmesnHi8QdzqafwIjWqUoz55V8TMN0xJF7Dlwfw09NZ7rhh3hmC9aT\nk/s8jl+Cfaz9aumrTHex2RkBfBpfLNnTbkCrBuYSp2lkV7XSn6GRXL84QVIrVwZo\nRgQisMWQ0HWKVVGpAhh8u1PcRBHpJiCsK1AoN+TsQ/7N/cbGpyllS5IBAzRCDM9V\nUNT4A6BR\n-----END
+        NEW CERTIFICATE REQUEST-----\n","domain_id":39,"expiration_date":"11/11/2012
+        12:56:14 PM","id":1,"name":"www","order_date":"11/11/2011 12:56:14 PM","private_key":"-----BEGIN
+        RSA PRIVATE KEY-----\nMIIFewIBAAKCATEAtWrFPfxVitp92O2qtgYKfX8c5ic5MnSvxphHvVxb8A3nQfq3\nQ07At2sqy1DXW7EbGSoWi2V0eSV8lSHmAnKuKwhk0/9hnnmz6uNxu4V6IDKi4SzX\nZjBg4rYbOwcHq3c4EkLb42ZmKsNRRuEDhUOR/sOqIhFVIpwLQEonKvr1+cZ7CkBb\n3GIQKvJiqrzzi8PX8yjG49BhYpJZcHgb+IPm9dqYE2oXlMIlXxTz/neYoKVYFOwx\nDE7Z4KM8So7ph/UtWK7i9nE6YHT3ch63yH4Mj3cVgZFAWZjLxIoFv+M6evzeBcQo\nhspIZxxg0fLxAaVgyC5f5hs1tQaoqCvYsvayT2u0u/ysK799KQkyE7DtHP03VMBV\nxxlguoab6A0MOUjdNwpRDqjVHi4TtM5fc4UI6wIDAQABAoIBLxQcLxiT1s62Kzbj\n6W+O9zCUf5x6UnXLnwG5BSgUoWEQv1aUJjMhB7jD+ZmpFKbBF0MHJcnK4pHo/OmL\nLLi7FqYxqMmx05PseV/FYAT19a/UOA5HV4BKeLFkP/4ov/i1ZxSGKRhHY/Lvbxxp\nLHR9N9ps4qQ7jFCFJ2j14hayx5GHyX/AcKzUx90NnXg2xMiXIiQHUYfpJEAdIGc4\njAMO8wjTQk9CGW3U/faibxdvRplpNbCV9Zmi7Wj3K3bX83LraqdbkhG7gWLono8S\ntVwcKd7JFKhooyHpVmLt7M9VhRS08/oxuwOlwL/ETdNN1BwOhiZv6U74QoiW1wjN\nfwbo4+QkE00a66E/TsX6CFQ6ec14tJKOcuHfQS+0bfBLK10XdgD696B/l1C9LwKy\nVYcnzQKBmQDDazs4EZjpdxOLoqfWpo9ae6q7RXbFcsdDehf+fbWgvJdRuZlchwPQ\nTYlmotJWuJZrmrAvkn0oo9WV8ct0teE5xcXyHCo1oACUyNpA0cRTAf5HYBghfJR8\nx4UkFDK6cqZTYKdqs9HMbHs50Mc5geXaZVzSn034VD788Nuw1v06DSWkamDBqHBp\nXYJnYdArUZGkwT7i1sdRPQKBmQDtqFU2gvTM6W7rwqxNbt90ZL+jJ/szduGsgPNO\nQNXP4SKE41k3orqwpt7QYBGefGtPoI8294D0YV1K78yYOMkA83KbjAr5aUcCRLdL\nXjk8E4esQAjWWYurdbwmrpD0WoKWgIlvM+s6aYjRzRYvamZa9bGk+a2n0zrM+HgX\nBhQYSdpd1DiSvuV561UgmAiIRmNYdT7txRmVRwKBmGZUaogrvtTSQ+vk2tquEXci\nNv8lmtI+DlYpQxNCpK9s0hg7hjFLihWz5HVYYaiDtFDYidX/cYasdBW2rgGJlEz6\nYXMsiHXYOTWwD4nNzm5hJtQdX8V5RRAqMm/4G7BChRI4FLLtQrk3PTfDOe/FM6Wv\nWnH4dY3KH8m4HnJ1wdh6NfHouo3uNB8Ylkaok6d7aTbK8rE6ItlJAoGZAJ6UHhf7\nlgFNGdhy06nve2cc+sqRmQqkHr2OZcsndAP8A56MXTHEgbHyBucf02HfP3OofSd+\nSyvF9AxWqjxAV88soqKr9X6rAti+pVfDDYnKtlL3f24X3hyQuPVOsiZ6ZnyqVApB\nqIoXdVYY9N66roWvP9QHThqX1bqDaQ5j3fC/BthpDT7N5i1OHEVdbQQRg6S4xz68\nr+9tAoGZAIyiHwn1QZqCUsIKiffm4g5sfVPcNqHhtKPCOTnNkNxAM7G4XB9WQyBA\nzDnRRpwtFq+5R4XyJUyloSflZpltJ+T/aifq6lDn9sLf0ma6y+cCkTm06Lfx4MHw\nMGvuTjj6oOeGj30kAe35j6e0xcNyhGFTRK+QROKkdMFMV2V9a9Jo3wTOr4PYr8Q6\nt1BYovwF54fuQF/ceAFz\n-----END
+        RSA PRIVATE KEY-----\n","ssl_certificate":null,"updated_at":"2011-11-12T12:19:26Z","available_approver_emails":"res-dom@iana.org,res-dom@iana.org,admin@example.com,administrator@example.com,hostmaster@example.com,root@example.com,webmaster@example.com,postmaster@example.com,admin@www.example.com,administrator@www.example.com,hostmaster@www.example.com,root@www.example.com,webmaster@www.example.com,postmaster@www.example.com"}}'
+    http_version: '1.1'
+  recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
+recorded_with: VCR 2.2.5
