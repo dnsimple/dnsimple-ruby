@@ -1,8 +1,9 @@
 module DNSimple
+
   class Error < StandardError
   end
 
-  class DomainError < DNSimple::Error
+  class DomainError < Error
     def initialize(domain, messages)
       @domain = domain
       @messages = messages
@@ -16,17 +17,22 @@ module DNSimple
     end
   end
 
-  class RecordNotFound < DNSimple::Error; end
+  class RecordNotFound < Error
+  end
 
-  class AuthenticationFailed < DNSimple::Error
-    def initialize(message="Authentication failed")
+  class AuthenticationFailed < Error
+    def initialize(message = "Authentication failed")
       super(message)
     end
   end
 
-  class UserNotFound < DNSimple::Error; end
+  class UserNotFound < Error
+  end
 
-  class CertificateExists < DNSimple::Error; end
+  class CertificateExists < Error
+  end
 
-  class CertificateNotFound < DNSimple::Error; end
+  class CertificateNotFound < Error
+  end
+
 end
