@@ -1,4 +1,3 @@
-rdoc
 turbulence
 .rvmrc
 
@@ -6,3 +5,7 @@ turbulence
 .bundle
 pkg/*
 Gemfile.lock
+
+# YARD
+.yardoc
+yardoc/

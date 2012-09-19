@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.require_paths    = ['lib']
   s.files            = `git ls-files`.split("\n")
   s.test_files       = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.extra_rdoc_files = %w( LICENSE README.md )
+  s.extra_rdoc_files = %w( README.md LICENSE )
   s.executables      = `git ls-files -- bin/*`.split("\n").collect { |f|
     File.basename(f)
   }
@@ -27,6 +27,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'fakeweb',  '>= 0'
   s.add_development_dependency 'mocha',    '>= 0'
   s.add_development_dependency 'rspec',    '>= 2.0.0'
-  s.add_development_dependency 'rdoc',     '~> 3.12.0'
+  s.add_development_dependency 'yard',     '~> 0.8.2'
   s.add_development_dependency 'vcr',      '~> 2.2.5'
 end

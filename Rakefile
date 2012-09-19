@@ -12,14 +12,16 @@ RSpec::Core::RakeTask.new do |t|
 end
 
 
-require 'rdoc/task'
+require 'yard'
 
-desc 'Generate documentation.'
-RDoc::Task.new do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'DNSimple Ruby'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README.md')
-  rdoc.rdoc_files.include('lib/*.rb')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+YARD::Rake::YardocTask.new(:yardoc) do |y|
+  y.options = ["--output-dir", "yardoc"]
 end
+
+namespace :yardoc do
+  task :clobber do
+    rm_r "yardoc" rescue nil
+  end
+end
+
+task :clobber => "yardoc:clobber"
