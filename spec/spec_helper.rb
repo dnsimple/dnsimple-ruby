@@ -1,12 +1,11 @@
-require 'cgi'
 require 'rubygems'
-require 'bundler'
+require 'bundler/setup'
+require 'cgi'
+require 'vcr'
 
-Bundler.require :default, :development
-
-VCR.config do |c|
+VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
-  c.stub_with :fakeweb
+  c.hook_into :fakeweb
   c.filter_sensitive_data("<USERNAME>") { CGI::escape(DNSimple::Client.username) }
   c.filter_sensitive_data("<PASSWORD>") { CGI::escape(DNSimple::Client.password) }
 end
