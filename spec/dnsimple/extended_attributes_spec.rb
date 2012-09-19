@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe DNSimple::ExtendedAttribute do
 
   describe "list extended attributes" do
@@ -7,6 +9,7 @@ describe DNSimple::ExtendedAttribute do
         DNSimple::ExtendedAttribute.find('com').should be_empty
       end
     end
+
     context "for ca" do
       use_vcr_cassette
       it "is not empty" do
@@ -14,4 +17,5 @@ describe DNSimple::ExtendedAttribute do
       end
     end
   end
+
 end

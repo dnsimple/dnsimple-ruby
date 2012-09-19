@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe DNSimple::User do
   describe ".me" do
     use_vcr_cassette

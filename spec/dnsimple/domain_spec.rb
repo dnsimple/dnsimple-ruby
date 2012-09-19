@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe DNSimple::Domain do
   let(:domain_name) { "example.com" }
   let(:contact_id) { 1 }
