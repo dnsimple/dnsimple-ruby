@@ -28,4 +28,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mocha',    '>= 0'
   s.add_development_dependency 'rspec',    '>= 2.0.0'
   s.add_development_dependency 'rdoc',     '~> 3.12.0'
+  s.add_development_dependency 'vcr',      '~> 2.2.5'
 end
