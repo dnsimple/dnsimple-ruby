@@ -1,15 +1,21 @@
 require 'spec_helper'
 
 describe DNSimple::Client do
+
+  let(:klass) { described_class }
+
   before :each do
-    @username, @password, @api_token = DNSimple::Client.username,
-      DNSimple::Client.password, DNSimple::Client.api_token
+    @_username  = DNSimple::Client.username
+    @_password  = DNSimple::Client.password
+    @_api_token = DNSimple::Client.api_token
+    @_host      = DNSimple::Client.host
   end
 
-  after :each do
-    DNSimple::Client.username  = @username
-    DNSimple::Client.password  = @password
-    DNSimple::Client.api_token = @api_token
+  after do
+    DNSimple::Client.username   = @_username
+    DNSimple::Client.password   = @_password
+    DNSimple::Client.api_token  = @_api_token
+    DNSimple::Client.host       = @_host
   end
 
   [:get, :post, :put, :delete].each do |method|
@@ -55,4 +61,22 @@ describe DNSimple::Client do
       end
     end
   end
+
+
+  describe ".base_uri" do
+    it "returns the qualified API uri" do
+      klass.host = "api.dnsimple.com"
+      klass.base_uri = "https://api.dnsimple.com/"
+    end
+  end
+
+  describe ".base_uri=" do
+    it "sets the host" do
+      klass.base_uri = "http://api1.dnsimple.com/"
+      klass.host.should == "api1.dnsimple.com"
+      klass.base_uri = "http://api2.dnsimple.com"
+      klass.host.should == "api2.dnsimple.com"
+    end
+  end
+
 end

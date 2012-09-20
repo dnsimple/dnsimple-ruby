@@ -97,7 +97,7 @@ if $0.split("/").last == 'dnsimple'
 
   global = OptionParser.new do |opts|
     opts.on("-s", "--site [ARG]") do |site|
-      DNSimple::Client.base_uri = site
+      DNSimple::Client.site_uri = site
     end
     opts.on("-u", "--username [ARG]") do |username|
       DNSimple::Client.username = username

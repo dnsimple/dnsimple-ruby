@@ -1,4 +1,5 @@
 class DNSimple::Client
+
   def self.debug?
     @debug
   end
@@ -31,13 +32,30 @@ class DNSimple::Client
     @api_token = api_token
   end
 
-  def self.base_uri
-    @base_uri ||= "https://dnsimple.com/"
+  # Sets the @host value.
+  #
+  # @returns [String] The host value.
+  def self.host
+    @host
   end
 
-  def self.base_uri=(base_uri)
-    base_uri += '/' if base_uri && base_uri[/\/$/].nil?
-    @base_uri = base_uri
+  # Gets the @host value.
+  #
+  # @param [String] value The host value.
+  def self.host=(value)
+    @host = value
+  end
+
+  # Gets the qualified API base uri.
+  #
+  # @return [String] The qualified API base uri.
+  def self.base_uri
+    "https://#{(host || "dnsimple.com")}/"
+  end
+
+  def self.base_uri=(value)
+    DNSimple.deprecate("Dnsimple::Client.base_uri is deprecated. Please use Dnsimple::Client.host and provide a simple host.")
+    self.host = URI.parse(value).host
   end
 
   def self.http_proxy
@@ -59,10 +77,11 @@ class DNSimple::Client
   def self.load_credentials(path = config_path)
     begin
       credentials = YAML.load(File.new(File.expand_path(path)))
-      self.username  ||= credentials['username']
-      self.password  ||= credentials['password']
-      self.api_token ||= credentials['api_token']
-      self.base_uri  ||= credentials['site']
+      self.username   ||= credentials['username']
+      self.password   ||= credentials['password']
+      self.api_token  ||= credentials['api_token']
+      self.base_uri     = credentials['site']      if credentials['site']
+      self.host         = credentials['host']      if credentials['host']
       self.http_proxy = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] }
       @credentials_loaded = true
       puts "Credentials loaded from #{path}"

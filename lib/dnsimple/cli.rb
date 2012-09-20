@@ -1,7 +1,7 @@
 require 'yaml'
 
 module DNSimple
-  
+
   class CommandNotFound < RuntimeError
   end
 
@@ -36,7 +36,7 @@ module DNSimple
         'delete' => DNSimple::Commands::DeleteDomain,
         'clear' => DNSimple::Commands::ClearDomain,
         'apply' => DNSimple::Commands::ApplyTemplate,
-         
+
         'record:describe' => DNSimple::Commands::DescribeRecord,
         'record:create' => DNSimple::Commands::CreateRecord,
         'record:list' => DNSimple::Commands::ListRecords,
