@@ -1,8 +1,5 @@
 require 'rubygems'
-require 'bundler'
-
-Bundler.require :default, :development
-
+require 'bundler/setup'
 require 'aruba/cucumber'
 
 Before do
