@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/contacts.json
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/contacts
     body:
       encoding: UTF-8
       string: contact[phone]=305%20111%202222&contact[city]=Miami&contact[first_name]=John&contact[state_province]=FL&contact[last_name]=Doe&contact[postal_code]=33143&contact[country]=US&contact[address1]=1%20SW%201st%20Street&contact[email_address]=john.doe%40example.com
