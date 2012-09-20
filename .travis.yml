@@ -3,4 +3,4 @@ rvm:
   - 1.8.7
   - 1.9.2
   - 1.9.3
-env: TEST_CONFIG=spec/ci/.dnsimple.test
+env: DNSIMPLE_TEST_CONFIG=spec/ci/.dnsimple.test
