@@ -2,6 +2,9 @@ require 'rubygems'
 require 'bundler/setup'
 require 'aruba/cucumber'
 
+$:.unshift(File.dirname(__FILE__) + '/lib')
+require 'dnsimple'
+
 Before do
   @aruba_timeout_seconds = 30
   ENV['DNSIMPLE_CONFIG'] = '~/.dnsimple.test'
