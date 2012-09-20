@@ -139,8 +139,6 @@ class DNSimple::Client
     response = HTTParty.send(method, "#{base_uri}#{path}",
       standard_options.merge(options))
 
-    pp response if debug?
-
     if response.code == 401
       raise DNSimple::AuthenticationFailed
     end
