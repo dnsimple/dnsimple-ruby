@@ -21,9 +21,6 @@ module DNSimple
   end
 
   class AuthenticationFailed < Error
-    def initialize(message = "Authentication failed")
-      super(message)
-    end
   end
 
   class UserNotFound < Error

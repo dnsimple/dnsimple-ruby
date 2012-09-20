@@ -123,7 +123,7 @@ class DNSimple::Client
     pp response if debug?
 
     if response.code == 401
-      raise DNSimple::AuthenticationFailed, 'Authentication failed'
+      raise DNSimple::AuthenticationFailed
     end
 
     response
