@@ -2,7 +2,6 @@
 # must also be submitted using the #submit method before the Certificate
 # Authority will issue a signed certificate.
 class DNSimple::Certificate < DNSimple::Base
-  #debug_output $stdout
 
   # The certificate ID in DNSimple
   attr_accessor :id
