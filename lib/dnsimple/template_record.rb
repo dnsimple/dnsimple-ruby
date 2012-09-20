@@ -38,9 +38,9 @@ class DNSimple::TemplateRecord < DNSimple::Base # A single record in a template
 
     case response.code
     when 201
-      return new({:template => template}.merge(response["dns_template_record"]))
+      new({:template => template}.merge(response["dns_template_record"]))
     else
-      raise DNSimple::Error.new("#{name}", response["errors"])
+      raise RequestError, "Error creating template record", response
     end
   end
 
@@ -50,9 +50,11 @@ class DNSimple::TemplateRecord < DNSimple::Base # A single record in a template
 
     case response.code
     when 200
-      return new({:template => template}.merge(response["dns_template_record"]))
+      new({:template => template}.merge(response["dns_template_record"]))
     when 404
-      raise RuntimeError, "Could not find template record #{id} for template #{short_name}"
+      raise RecordNotFound, "Could not find template record #{id} for template #{template.id}"
+    else
+      raise RequestError, "Error finding template record", response
     end
   end
 
@@ -66,7 +68,7 @@ class DNSimple::TemplateRecord < DNSimple::Base # A single record in a template
     when 200
       response.map { |r| new({:template => template}.merge(r["dns_template_record"])) }
     else
-      raise RuntimeError, "Error: #{response.code}"
+      raise RequestError, "Error listing template records", response
     end
   end
 end

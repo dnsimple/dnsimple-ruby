@@ -20,11 +20,11 @@ class DNSimple::User < DNSimple::Base
 
     case response.code
     when 200
-      return new(response["user"])
+      new(response["user"])
     when 404
-      raise DNSimple::UserNotFound, "Could not find user"
+      raise RecordNotFound, "Could not find account with current credentials"
     else
-      raise DNSimple::Error, "Error: #{response.code} #{response.message}"
+      raise RequestError, "Error finding account", response
     end
   end
 end

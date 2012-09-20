@@ -80,7 +80,7 @@ class DNSimple::Contact < DNSimple::Base # Class representing a contact in DNSim
     when 200
       return self
     else
-      raise RuntimeError, "Failed to update contact: #{response.inspect}"
+      raise RequestError, "Error updating contact", response
     end
   end
 
@@ -116,9 +116,9 @@ class DNSimple::Contact < DNSimple::Base # Class representing a contact in DNSim
 
     case response.code
     when 201
-      return new(response["contact"])
+      new(response["contact"])
     else
-      raise RuntimeError, "Failed to create contact: #{response.inspect}"
+      raise RequestError, "Error creating contact", response
     end
   end
 
@@ -127,11 +127,11 @@ class DNSimple::Contact < DNSimple::Base # Class representing a contact in DNSim
 
     case response.code
     when 200
-      return new(response["contact"])
+      new(response["contact"])
     when 404
-      raise RuntimeError, "Could not find contact #{id}"
+      raise RecordNotFound, "Could not find contact #{id}"
     else
-      raise DNSimple::Error.new(id, response["errors"])
+      raise RequestError, "Error finding contact", response
     end
   end
 
@@ -142,7 +142,7 @@ class DNSimple::Contact < DNSimple::Base # Class representing a contact in DNSim
     when 200
       response.map { |r| new(r["contact"]) }
     else
-      raise RuntimeError, "Error: #{response.code}"
+      raise RequestError, "Error listing contacts", response
     end
   end
 end

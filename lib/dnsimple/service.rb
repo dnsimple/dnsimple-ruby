@@ -9,15 +9,16 @@ class DNSimple::Service < DNSimple::Base # Class representing a service that can
 
   # Find a service by its ID or short name
   def self.find(id_or_short_name, options={})
-    response = DNSimple::Client.get("services/#{id_or_short_name}.json", options)
+    id = id_or_short_name
+    response = DNSimple::Client.get("services/#{id}.json", options)
 
     case response.code
     when 200
-      return new(response["service"])
+      new(response["service"])
     when 404
-      raise RuntimeError, "Could not find service #{id_or_short_name}"
+      raise RecordNotFound, "Could not find service #{id}"
     else
-      raise DNSimple::Error.new(id_or_short_name, response["errors"])
+      raise RequestError, "Error finding service", response
     end
   end
 
@@ -29,7 +30,7 @@ class DNSimple::Service < DNSimple::Base # Class representing a service that can
     when 200
       response.map { |r| new(r["service"]) }
     else
-      raise RuntimeError, "Error: #{response.code}"
+      raise RequestError, "Error listing services", response
     end
   end
 end

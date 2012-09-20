@@ -31,22 +31,23 @@ class DNSimple::Template < DNSimple::Base
 
     case response.code
     when 201
-      return new(response["dns_template"])
+      new(response["dns_template"])
     else
-      raise DNSimple::Error.new(name, response["errors"])
+      raise RequestError, "Error creating template", response
     end
   end
 
   def self.find(id_or_short_name, options={})
-    response = DNSimple::Client.get "templates/#{id_or_short_name}", options
+    id = id_or_short_name
+    response = DNSimple::Client.get "templates/#{id}", options
 
     case response.code
     when 200
-      return new(response["dns_template"])
+      new(response["dns_template"])
     when 404
-      raise RuntimeError, "Could not find template #{id_or_short_name}"
+      raise RecordNotFound, "Could not find template #{id}"
     else
-      raise DNSimple::Error.new(id_or_short_name, response["errors"])
+      raise RequestError, "Error finding template", response
     end
   end
 
@@ -57,7 +58,7 @@ class DNSimple::Template < DNSimple::Base
     when 200
       response.map { |r| new(r["dns_template"]) }
     else
-      raise RuntimeError, "Error: #{response.code}"
+      raise RequestError, "Error listing templates", response
     end
   end
 end

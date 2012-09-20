@@ -40,7 +40,7 @@ class DNSimple::ExtendedAttribute < DNSimple::Base # Used for domains that requi
     when 200
       response.map { |r| new(r) }
     else
-      raise RuntimeError, "Error: #{response.code}"
+      raise RequestError, "Error finding extended attributes", response
     end
   end
 end

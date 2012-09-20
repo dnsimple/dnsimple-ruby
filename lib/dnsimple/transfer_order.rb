@@ -20,9 +20,9 @@ class DNSimple::TransferOrder # Class representing a transfer order in DNSimple
 
     case response.code
     when 201
-      return new(response["transfer_order"])
+      new(response["transfer_order"])
     else
-      raise DNSimple::Error.new(name, response["errors"])
+      raise RequestError, "Error creating transfer order", response
     end
   end
 end

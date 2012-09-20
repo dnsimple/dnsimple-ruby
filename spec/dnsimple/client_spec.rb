@@ -57,7 +57,7 @@ describe DNSimple::Client do
 
         lambda {
           DNSimple::Client.send(method, 'domains')
-        }.should raise_error(RuntimeError, 'A password or API token is required for all API requests.')
+        }.should raise_error(DNSimple::Error, 'A password or API token is required for all API requests.')
       end
     end
   end

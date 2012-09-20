@@ -34,9 +34,9 @@ class DNSimple::Record < DNSimple::Base
 
     case response.code
     when 200
-      return self
+      self
     else
-      raise DNSimple::Error, "Failed to update record: #{response.inspect}"
+      raise RequestError, "Error updating record", response
     end
   end
 
@@ -61,11 +61,11 @@ class DNSimple::Record < DNSimple::Base
 
     case response.code
     when 201
-      return new({:domain => domain}.merge(response["record"]))
+      new({:domain => domain}.merge(response["record"]))
     when 406
-      raise DNSimple::RecordExists.new("#{name}.#{domain.name}", response["errors"])
+      raise RecordExists, "Record #{name}.#{domain.name} already exists"
     else
-      raise DNSimple::Error, "Failed to create #{name}.#{domain.name}: #{response["errors"]}"
+      raise RequestError, "Error creating record", response
     end
   end
 
@@ -74,11 +74,11 @@ class DNSimple::Record < DNSimple::Base
 
     case response.code
     when 200
-      return new({:domain => domain}.merge(response["record"]))
+      new({:domain => domain}.merge(response["record"]))
     when 404
-      raise DNSimple::RecordNotFound, "Could not find record #{id} for domain #{domain.name}"
+      raise RecordNotFound, "Could not find record #{id} for domain #{domain.name}"
     else
-      raise DNSimple::Error, "Failed to find domain #{domain.name}/#{id}: #{response["errors"]}"
+      raise RequestError, "Error finding record", response
     end
   end
 
@@ -89,7 +89,7 @@ class DNSimple::Record < DNSimple::Base
     when 200
       response.map { |r| new({:domain => domain}.merge(r["record"])) }
     else
-      raise DNSimple::Error, "Error listing domains: #{response.code}"
+      raise RequestError, "Error listing records", response
     end
   end
 end
