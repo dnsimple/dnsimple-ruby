@@ -56,7 +56,7 @@ module DNSimple
 
       options.merge!(:body => {:certificate => {:approver_email => approver_email}})
 
-      response = DNSimple::Client.put "domains/#{domain.name}/certificates/#{id}/submit", options
+      response = DNSimple::Client.put("domains/#{domain.name}/certificates/#{id}/submit", options)
 
       case response.code
       when 200

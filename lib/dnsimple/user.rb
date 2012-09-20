@@ -18,7 +18,7 @@ module DNSimple
     attr_accessor :domain_limit
 
     def self.me(options={})
-      response = DNSimple::Client.get("users/me.json", options)
+      response = DNSimple::Client.get("users/me", options)
 
       case response.code
       when 200

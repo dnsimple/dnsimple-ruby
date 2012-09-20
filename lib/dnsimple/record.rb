@@ -32,7 +32,7 @@ module DNSimple
 
       options.merge!(:body => {:record => record_hash})
 
-      response = DNSimple::Client.put("domains/#{domain.id}/records/#{id}.json", options)
+      response = DNSimple::Client.put("domains/#{domain.id}/records/#{id}", options)
 
       case response.code
       when 200
@@ -43,7 +43,7 @@ module DNSimple
     end
 
     def delete(options={})
-      DNSimple::Client.delete "domains/#{domain.id}/records/#{id}", options
+      DNSimple::Client.delete("domains/#{domain.id}/records/#{id}", options)
     end
     alias :destroy :delete
 
@@ -59,7 +59,7 @@ module DNSimple
 
       options.merge!({:body => {:record => record_hash}})
 
-      response = DNSimple::Client.post "domains/#{domain.name}/records", options
+      response = DNSimple::Client.post("domains/#{domain.name}/records", options)
 
       case response.code
       when 201

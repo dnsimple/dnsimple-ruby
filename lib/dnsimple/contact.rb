@@ -89,7 +89,7 @@ module DNSimple
 
     # Delete the contact from DNSimple. WARNING: this cannot be undone.
     def delete(options={})
-      DNSimple::Client.delete("contacts/#{id}.json", options)
+      DNSimple::Client.delete("contacts/#{id}", options)
     end
     alias :destroy :delete
 
@@ -115,7 +115,7 @@ module DNSimple
       contact_hash = resolve_attributes(attributes)
 
       options.merge!({:body => {:contact => contact_hash}})
-      response = DNSimple::Client.post 'contacts.json', options
+      response = DNSimple::Client.post("contacts", options)
 
       case response.code
       when 201
@@ -126,7 +126,7 @@ module DNSimple
     end
 
     def self.find(id, options={})
-      response = DNSimple::Client.get "contacts/#{id}.json", options
+      response = DNSimple::Client.get("contacts/#{id}", options)
 
       case response.code
       when 200
@@ -139,7 +139,7 @@ module DNSimple
     end
 
     def self.all(options={})
-      response = DNSimple::Client.get 'contacts.json', options
+      response = DNSimple::Client.get("contacts", options)
 
       case response.code
       when 200

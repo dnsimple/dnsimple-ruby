@@ -20,7 +20,7 @@ module DNSimple
 
       options.merge!({:body => body})
 
-      response = DNSimple::Client.post 'domain_transfers.json', options
+      response = DNSimple::Client.post("domain_transfers", options)
 
       case response.code
       when 201
