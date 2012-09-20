@@ -1,5 +1,3 @@
-require 'yaml'
-
 module DNSimple
 
   class CommandNotFound < RuntimeError

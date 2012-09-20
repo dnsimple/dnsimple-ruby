@@ -1,8 +1,9 @@
 module DNSimple
 
-  # Represents an SSL certificate that has been purchased. The certificate
-  # must also be submitted using the #submit method before the Certificate
-  # Authority will issue a signed certificate.
+  # Represents an SSL certificate that has been purchased.
+  #
+  # The certificate must also be submitted using the #submit method
+  # before the Certificate Authority will issue a signed certificate.
   class Certificate < Base
 
     # The certificate ID in DNSimple
