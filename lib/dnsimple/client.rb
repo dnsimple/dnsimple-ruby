@@ -56,7 +56,7 @@ class DNSimple::Client
     ENV['DNSIMPLE_CONFIG'] || '~/.dnsimple'
   end
 
-  def self.load_credentials(path=config_path)
+  def self.load_credentials(path = config_path)
     begin
       credentials = YAML.load(File.new(File.expand_path(path)))
       self.username  ||= credentials['username']
@@ -65,9 +65,9 @@ class DNSimple::Client
       self.base_uri  ||= credentials['site']
       self.http_proxy = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] }
       @credentials_loaded = true
-      "Credentials loaded from #{path}"
-    rescue
-      puts "Error loading your credentials: #{$!.message}"
+      puts "Credentials loaded from #{path}"
+    rescue => error
+      puts "Error loading your credentials: #{error.message}"
       exit 1
     end
   end
