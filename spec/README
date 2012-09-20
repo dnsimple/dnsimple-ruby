@@ -6,5 +6,5 @@ Before running the DNSimple Ruby Client specifications, you must do the followin
 
 username: YOUR_USERNAME
 password: YOUR_PASSWORD
-site: https://test.dnsimple.com
+host: test.dnsimple.com
 
