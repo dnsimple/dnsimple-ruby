@@ -83,8 +83,8 @@ module DNSimple
         self.username   ||= credentials['username']
         self.password   ||= credentials['password']
         self.api_token  ||= credentials['api_token']
-        self.base_uri     = credentials['site']      if credentials['site']
-        self.host         = credentials['host']      if credentials['host']
+        self.base_uri     = credentials['base_uri']  if credentials['base_uri']
+        self.site         = credentials['site']      if credentials['site']
         self.http_proxy = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] }
         @credentials_loaded = true
         puts "Credentials loaded from #{path}"
