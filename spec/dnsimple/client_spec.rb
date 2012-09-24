@@ -23,12 +23,13 @@ describe DNSimple::Client do
       let(:response) { stub('response', :code => 200) }
 
       it "uses HTTP authentication if there's a password provided" do
-        DNSimple::Client.username  = 'user'
-        DNSimple::Client.password  = 'pass'
-        DNSimple::Client.api_token = nil
+        DNSimple::Client.username   = 'user'
+        DNSimple::Client.password   = 'pass'
+        DNSimple::Client.api_token  = nil
+        DNSimple::Client.site       = 'https://test.example.com'
 
         HTTParty.expects(method).
-          with('https://test.dnsimple.com/domains',
+          with('https://test.example.com/domains',
             :format => :json, :headers => {'Accept' => 'application/json'},
             :basic_auth => {:username => 'user', :password => 'pass'}).
           returns(response)
@@ -37,12 +38,13 @@ describe DNSimple::Client do
       end
 
       it "uses header authentication if there's an api token provided" do
-        DNSimple::Client.username  = 'user'
-        DNSimple::Client.password  = nil
-        DNSimple::Client.api_token = 'token'
+        DNSimple::Client.username   = 'user'
+        DNSimple::Client.password   = nil
+        DNSimple::Client.api_token  = 'token'
+        DNSimple::Client.site       = 'https://test.example.com'
 
         HTTParty.expects(method).
-          with('https://test.dnsimple.com/domains',
+          with('https://test.example.com/domains',
             :format => :json, :headers => {'Accept' => 'application/json',
             'X-DNSimple-Token' => 'user:token'}).
           returns(response)
@@ -51,9 +53,10 @@ describe DNSimple::Client do
       end
 
       it "raises an error if there's no password or api token provided" do
-        DNSimple::Client.username  = 'user'
-        DNSimple::Client.password  = nil
-        DNSimple::Client.api_token = nil
+        DNSimple::Client.username   = 'user'
+        DNSimple::Client.password   = nil
+        DNSimple::Client.api_token  = nil
+        DNSimple::Client.site       = 'https://test.example.com'
 
         lambda {
           DNSimple::Client.send(method, 'domains')
