@@ -35,30 +35,30 @@ module DNSimple
       @api_token = api_token
     end
 
-    # Sets the @host value.
+    # Sets the @site value.
     #
-    # @returns [String] The host value.
-    def self.host
-      @host
+    # @returns [String] The site value.
+    def self.site
+      @site
     end
 
-    # Gets the @host value.
+    # Gets the @site value.
     #
-    # @param [String] value The host value.
-    def self.host=(value)
-      @host = value
+    # @param [String] value The site value.
+    def self.site=(value)
+      @site = value.to_s.chomp("/")
     end
 
     # Gets the qualified API base uri.
     #
     # @return [String] The qualified API base uri.
     def self.base_uri
-      "https://#{(host || "dnsimple.com")}/"
+      (site || "https://dnsimple.com")
     end
 
     def self.base_uri=(value)
-      DNSimple.deprecate("Dnsimple::Client.base_uri is deprecated. Please use Dnsimple::Client.host and provide a simple host.")
-      self.host = URI.parse(value).host
+      DNSimple.deprecate("Dnsimple::Client.base_uri is deprecated. Please use Dnsimple::Client.site and provide a site.")
+      self.site = value
     end
 
     def self.http_proxy
@@ -139,7 +139,7 @@ module DNSimple
     end
 
     def self.request(method, path, options)
-      response = HTTParty.send(method, "#{base_uri}#{path}",
+      response = HTTParty.send(method, "#{base_uri}/#{path}",
         standard_options.merge(options))
 
       if response.code == 401

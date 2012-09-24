@@ -8,14 +8,14 @@ describe DNSimple::Client do
     @_username  = DNSimple::Client.username
     @_password  = DNSimple::Client.password
     @_api_token = DNSimple::Client.api_token
-    @_host      = DNSimple::Client.host
+    @_site      = DNSimple::Client.site
   end
 
   after do
     DNSimple::Client.username   = @_username
     DNSimple::Client.password   = @_password
     DNSimple::Client.api_token  = @_api_token
-    DNSimple::Client.host       = @_host
+    DNSimple::Client.site       = @_site
   end
 
   [:get, :post, :put, :delete].each do |method|
@@ -65,17 +65,17 @@ describe DNSimple::Client do
 
   describe ".base_uri" do
     it "returns the qualified API uri" do
-      klass.host = "api.dnsimple.com"
-      klass.base_uri = "https://api.dnsimple.com/"
+      klass.site = "http://api.dnsimple.com"
+      klass.base_uri = "https://api.dnsimple.com"
     end
   end
 
   describe ".base_uri=" do
-    it "sets the host" do
+    it "sets the site" do
       klass.base_uri = "http://api1.dnsimple.com/"
-      klass.host.should == "api1.dnsimple.com"
+      klass.site.should == "http://api1.dnsimple.com"
       klass.base_uri = "http://api2.dnsimple.com"
-      klass.host.should == "api2.dnsimple.com"
+      klass.site.should == "http://api2.dnsimple.com"
     end
   end
 
