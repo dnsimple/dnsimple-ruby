@@ -44,7 +44,7 @@ module DNSimple
       when 200
         response.map { |r| new(r) }
       else
-        raise RequestError, "Error finding extended attributes", response
+        raise RequestError.new("Error finding extended attributes", response)
       end
     end
 

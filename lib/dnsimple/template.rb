@@ -36,7 +36,7 @@ module DNSimple
       when 201
         new(response["dns_template"])
       else
-        raise RequestError, "Error creating template", response
+        raise RequestError.new("Error creating template", response)
       end
     end
 
@@ -50,7 +50,7 @@ module DNSimple
       when 404
         raise RecordNotFound, "Could not find template #{id}"
       else
-        raise RequestError, "Error finding template", response
+        raise RequestError.new("Error finding template", response)
       end
     end
 
@@ -61,7 +61,7 @@ module DNSimple
       when 200
         response.map { |r| new(r["dns_template"]) }
       else
-        raise RequestError, "Error listing templates", response
+        raise RequestError.new("Error listing templates", response)
       end
     end
 

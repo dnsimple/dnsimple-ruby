@@ -22,7 +22,7 @@ module DNSimple
       when 404
         raise RecordNotFound, "Could not find service #{id}"
       else
-        raise RequestError, "Error finding service", response
+        raise RequestError.new("Error finding service", response)
       end
     end
 
@@ -34,7 +34,7 @@ module DNSimple
       when 200
         response.map { |r| new(r["service"]) }
       else
-        raise RequestError, "Error listing services", response
+        raise RequestError.new("Error listing services", response)
       end
     end
 

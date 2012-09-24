@@ -38,7 +38,7 @@ module DNSimple
       when 200
         self
       else
-        raise RequestError, "Error updating record", response
+        raise RequestError.new("Error updating record", response)
       end
     end
 
@@ -67,7 +67,7 @@ module DNSimple
       when 406
         raise RecordExists, "Record #{name}.#{domain.name} already exists"
       else
-        raise RequestError, "Error creating record", response
+        raise RequestError.new("Error creating record", response)
       end
     end
 
@@ -80,7 +80,7 @@ module DNSimple
       when 404
         raise RecordNotFound, "Could not find record #{id} for domain #{domain.name}"
       else
-        raise RequestError, "Error finding record", response
+        raise RequestError.new("Error finding record", response)
       end
     end
 
@@ -91,7 +91,7 @@ module DNSimple
       when 200
         response.map { |r| new({:domain => domain}.merge(r["record"])) }
       else
-        raise RequestError, "Error listing records", response
+        raise RequestError.new("Error listing records", response)
       end
     end
 

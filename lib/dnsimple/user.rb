@@ -26,7 +26,7 @@ module DNSimple
       when 404
         raise RecordNotFound, "Could not find account with current credentials"
       else
-        raise RequestError, "Error finding account", response
+        raise RequestError.new("Error finding account", response)
       end
     end
 

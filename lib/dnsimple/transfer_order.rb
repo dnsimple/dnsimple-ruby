@@ -26,7 +26,7 @@ module DNSimple
       when 201
         new(response["transfer_order"])
       else
-        raise RequestError, "Error creating transfer order", response
+        raise RequestError.new("Error creating transfer order", response)
       end
     end
 

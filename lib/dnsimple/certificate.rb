@@ -62,7 +62,7 @@ module DNSimple
       when 200
         Certificate.new({ :domain => domain }.merge(response["certificate"]))
       else
-        raise RequestError, "Error submitting certificate", response
+        raise RequestError.new("Error submitting certificate", response)
       end
     end
 
@@ -94,7 +94,7 @@ module DNSimple
       when 406
         raise RecordExists, "Certificate for #{domain.name} already exists"
       else
-        raise RequestError, "Error purchasing certificate", response
+        raise RequestError.new("Error purchasing certificate", response)
       end
     end
 
@@ -106,7 +106,7 @@ module DNSimple
       when 200
         response.map { |r| new({:domain => domain}.merge(r["certificate"])) }
       else
-        raise RequestError, "Error listing certificates", response
+        raise RequestError.new("Error listing certificates", response)
       end
     end
 
@@ -120,7 +120,7 @@ module DNSimple
       when 404
         raise RecordNotFound, "Could not find certificate #{id} for domain #{domain.name}"
       else
-        raise RequestError, "Error finding certificate", response
+        raise RequestError.new("Error finding certificate", response)
       end
     end
 

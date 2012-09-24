@@ -50,7 +50,7 @@ module DNSimple
       when 200
         response.map { |r| DNSimple::Service.new(r["service"]) }
       else
-        raise RequestError, "Error listing applied services", response
+        raise RequestError.new("Error listing applied services", response)
       end
     end
 
@@ -61,7 +61,7 @@ module DNSimple
       when 200
         response.map { |r| DNSimple::Service.new(r["service"]) }
       else
-        raise RequestError, "Error listing available services", response
+        raise RequestError.new("Error listing available services", response)
       end
     end
 
@@ -73,7 +73,7 @@ module DNSimple
       when 200
         true
       else
-        raise RequestError, "Error adding service", response
+        raise RequestError.new("Error adding service", response)
       end
     end
 
@@ -84,7 +84,7 @@ module DNSimple
       when 200
         true
       else
-        raise RequestError, "Error removing service", response
+        raise RequestError.new("Error removing service", response)
       end
     end
 
@@ -98,7 +98,7 @@ module DNSimple
       when 404
         "available"
       else
-        raise RequestError, "Error checking availability", response
+        raise RequestError.new("Error checking availability", response)
       end
     end
 
@@ -114,7 +114,7 @@ module DNSimple
       when 201
         new(response["domain"])
       else
-        raise RequestError, "Error creating domain", response
+        raise RequestError.new("Error creating domain", response)
       end
     end
 
@@ -137,7 +137,7 @@ module DNSimple
       when 201
         return DNSimple::Domain.new(response["domain"])
       else
-        raise RequestError, "Error registering domain", response
+        raise RequestError.new("Error registering domain", response)
       end
     end
 
@@ -153,7 +153,7 @@ module DNSimple
       when 404
         raise RecordNotFound, "Could not find domain #{id}"
       else
-        raise RequestError, "Error finding domain", response
+        raise RequestError.new("Error finding domain", response)
       end
     end
 
@@ -165,7 +165,7 @@ module DNSimple
       when 200
         response.map { |r| new(r["domain"]) }
       else
-        raise RequestError, "Error listing domains", response
+        raise RequestError.new("Error listing domains", response)
       end
     end
 

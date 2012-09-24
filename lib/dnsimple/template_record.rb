@@ -44,7 +44,7 @@ module DNSimple
       when 201
         new({:template => template}.merge(response["dns_template_record"]))
       else
-        raise RequestError, "Error creating template record", response
+        raise RequestError.new("Error creating template record", response)
       end
     end
 
@@ -58,7 +58,7 @@ module DNSimple
       when 404
         raise RecordNotFound, "Could not find template record #{id} for template #{template.id}"
       else
-        raise RequestError, "Error finding template record", response
+        raise RequestError.new("Error finding template record", response)
       end
     end
 
@@ -72,7 +72,7 @@ module DNSimple
       when 200
         response.map { |r| new({:template => template}.merge(r["dns_template_record"])) }
       else
-        raise RequestError, "Error listing template records", response
+        raise RequestError.new("Error listing template records", response)
       end
     end
 

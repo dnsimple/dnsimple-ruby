@@ -83,7 +83,7 @@ module DNSimple
       when 200
         return self
       else
-        raise RequestError, "Error updating contact", response
+        raise RequestError.new("Error updating contact", response)
       end
     end
 
@@ -121,7 +121,7 @@ module DNSimple
       when 201
         new(response["contact"])
       else
-        raise RequestError, "Error creating contact", response
+        raise RequestError.new("Error creating contact", response)
       end
     end
 
@@ -134,7 +134,7 @@ module DNSimple
       when 404
         raise RecordNotFound, "Could not find contact #{id}"
       else
-        raise RequestError, "Error finding contact", response
+        raise RequestError.new("Error finding contact", response)
       end
     end
 
@@ -145,7 +145,7 @@ module DNSimple
       when 200
         response.map { |r| new(r["contact"]) }
       else
-        raise RequestError, "Error listing contacts", response
+        raise RequestError.new("Error listing contacts", response)
       end
     end
 
