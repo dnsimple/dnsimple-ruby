@@ -2,6 +2,8 @@
 
 A Ruby command line utility and wrapper for the [DNSimple API](https://dnsimple.com/documentation/api).
 
+[![Build Status](https://secure.travis-ci.org/aetrion/dnsimple-ruby.png)](http://travis-ci.org/aetrion/dnsimple-ruby)
+
 [DNSimple](https://dnsimple.com/) provides DNS hosting
 and domain registration that is simple and friendly.
 We provide a full API and an easy-to-use web interface so you can get
