@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ListTemplateRecords
-      def execute(args, options={})
+      def execute(args, options = {})
         short_name = args.shift
         template_records = TemplateRecord.all(short_name)
         puts "Found #{template_records.length} records for #{short_name}"

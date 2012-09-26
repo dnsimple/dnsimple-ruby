@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ListAvailableServices
-      def execute(args, options={})
+      def execute(args, options = {})
         domain_name = args.shift
         domain = Domain.find(domain_name)
         services = domain.available_services

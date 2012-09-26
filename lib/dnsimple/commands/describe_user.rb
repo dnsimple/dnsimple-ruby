@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class DescribeUser
-      def execute(args, options={})
+      def execute(args, options = {})
         puts "Connecting to #{Client.base_uri}"
         user = User.me
         puts "User details:"

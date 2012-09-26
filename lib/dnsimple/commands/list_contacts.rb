@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ListContacts
-      def execute(args, options={})
+      def execute(args, options = {})
         contacts = Contact.all
         puts "Found #{contacts.length} contacts:"
         contacts.each do |contact|

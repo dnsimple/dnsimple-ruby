@@ -5,7 +5,7 @@ module DNSimple
       #
       # Args expected:
       # id [name:value name:value ...]
-      def execute(args, options={})
+      def execute(args, options = {})
         attributes = {}
         id = args.shift
         args.each do |arg|

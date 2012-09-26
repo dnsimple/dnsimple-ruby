@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ListCertificates
-      def execute(args, options={})
+      def execute(args, options = {})
         domain_name = args.shift
         domain = DNSimple::Domain.find(domain_name)
         certificates = DNSimple::Certificate.all(domain)

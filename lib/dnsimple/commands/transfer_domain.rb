@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class TransferDomain
-      def execute(args, options={})
+      def execute(args, options = {})
         name = args.shift
         registrant = {:id => args.shift}
         authinfo = args.shift unless args.empty?

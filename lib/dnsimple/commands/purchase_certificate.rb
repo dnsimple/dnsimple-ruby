@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class PurchaseCertificate
-      def execute(args, options={})
+      def execute(args, options = {})
         domain_name = args.shift
         name = args.shift
         contact_id = args.shift

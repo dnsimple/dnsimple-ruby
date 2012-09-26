@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class DeleteDomain
-      def execute(args, options={})
+      def execute(args, options = {})
         name_or_id = args.shift
 
         domain = Domain.find(name_or_id)

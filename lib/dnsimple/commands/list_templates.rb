@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ListTemplates
-      def execute(args, options={})
+      def execute(args, options = {})
         templates = Template.all
         puts "Found #{templates.length} templates:"
         templates.each do |template|

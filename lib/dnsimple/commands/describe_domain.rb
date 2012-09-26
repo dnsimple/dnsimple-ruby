@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class DescribeDomain
-      def execute(args, options={})
+      def execute(args, options = {})
         name = args.shift
         domain = Domain.find(name)
         puts "Domain #{domain.name}:"

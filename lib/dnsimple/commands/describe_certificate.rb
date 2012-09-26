@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class DescribeCertificate
-      def execute(args, options={})
+      def execute(args, options = {})
         domain_name = args.shift
         certificate_id = args.shift
         domain = Domain.find(domain_name)

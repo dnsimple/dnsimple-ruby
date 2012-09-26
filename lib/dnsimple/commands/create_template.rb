@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class CreateTemplate
-      def execute(args, options={})
+      def execute(args, options = {})
         name = args.shift
         short_name = args.shift
         description = args.shift unless args.empty?

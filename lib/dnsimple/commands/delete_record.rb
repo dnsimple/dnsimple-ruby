@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class DeleteRecord
-      def execute(args, options={})
+      def execute(args, options = {})
         domain_name = args.shift
         id = args.shift
 

@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class RemoveService
-      def execute(args, options={})
+      def execute(args, options = {})
         domain_name = args.shift
         domain = Domain.find(domain_name)
         short_name = args.shift

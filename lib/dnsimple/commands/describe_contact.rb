@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class DescribeContact
-      def execute(args, options={})
+      def execute(args, options = {})
         id = args.shift
         contact = Contact.find(id)
         puts "Contact: #{contact.name}:"

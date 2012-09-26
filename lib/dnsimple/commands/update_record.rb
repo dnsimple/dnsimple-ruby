@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class UpdateRecord
-      def execute(args, options={})
+      def execute(args, options = {})
         attributes = {}
         domain_name = args.shift
         id = args.shift

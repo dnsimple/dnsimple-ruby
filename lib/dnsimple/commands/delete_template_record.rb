@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class DeleteTemplateRecord
-      def execute(args, options={})
+      def execute(args, options = {})
         short_name = args.shift
         id = args.shift
 

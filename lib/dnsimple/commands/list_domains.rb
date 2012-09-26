@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ListDomains
-      def execute(args, options={})
+      def execute(args, options = {})
         domains = Domain.all
         puts "Found #{domains.length} domains:"
         domains.each do |domain|

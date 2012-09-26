@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ApplyTemplate
-      def execute(args, options={})
+      def execute(args, options = {})
         domain_name = args.shift
         template_name = args.shift
 

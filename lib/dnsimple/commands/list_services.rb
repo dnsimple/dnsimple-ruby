@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ListServices
-      def execute(args, options={})
+      def execute(args, options = {})
         services = Service.all
         puts "Found #{services.length} services:"
         services.each do |service|

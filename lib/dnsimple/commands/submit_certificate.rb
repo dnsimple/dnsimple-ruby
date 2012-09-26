@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class SubmitCertificate
-      def execute(args, options={})
+      def execute(args, options = {})
         domain_name = args.shift
         certificate_id = args.shift
         approver_email = args.shift

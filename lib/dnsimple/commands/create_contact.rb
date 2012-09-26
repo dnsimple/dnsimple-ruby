@@ -5,7 +5,7 @@ module DNSimple
       # 
       # Args expected to be:
       # [name:value name:value ...]
-      def execute(args, options={})
+      def execute(args, options = {})
         attributes = {}
         attributes['state_province_choice'] = 'S'
         args.each do |arg|

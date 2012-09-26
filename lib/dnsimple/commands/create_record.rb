@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class CreateRecord
-      def execute(args, options={})
+      def execute(args, options = {})
         name = args.shift
         record_name = args.shift
         record_type = args.shift

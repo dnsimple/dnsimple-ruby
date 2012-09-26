@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class RegisterDomain
-      def execute(args, options={})
+      def execute(args, options = {})
         name = args.shift
         registrant = nil
 

@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class DeleteTemplate
-      def execute(args, options={})
+      def execute(args, options = {})
         short_name = args.shift
         template = Template.find(short_name)
         template.delete

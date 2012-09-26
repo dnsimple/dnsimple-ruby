@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class AddTemplateRecord
-      def execute(args, options={})
+      def execute(args, options = {})
         short_name = args.shift
         record_name = args.shift
         record_type = args.shift

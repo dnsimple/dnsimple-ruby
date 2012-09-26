@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ListRecords
-      def execute(args, options={})
+      def execute(args, options = {})
         domain_name = args.shift
 
         records = Record.all(DNSimple::Domain.new(:name => domain_name))

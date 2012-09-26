@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ListExtendedAttributes
-      def execute(args, options={})
+      def execute(args, options = {})
         tld = args.shift
         extended_attributes = ExtendedAttribute.find(tld)
         puts "Extended attributes: "

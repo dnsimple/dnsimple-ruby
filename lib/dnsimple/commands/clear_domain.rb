@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class ClearDomain
-      def execute(args, options={})
+      def execute(args, options = {})
         name = args.shift
 
         records = Record.all(name)

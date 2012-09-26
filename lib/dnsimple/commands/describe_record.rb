@@ -1,7 +1,7 @@
 module DNSimple
   module Commands
     class DescribeRecord
-      def execute(args, options={})
+      def execute(args, options = {})
         name = args.shift
         id = args.shift
         record = Record.find(name, id)
