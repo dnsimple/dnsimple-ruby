@@ -1,6 +1,6 @@
 # DNSimple Ruby Client
 
-A Ruby command line utility and wrapper for the DNSimple API.
+A Ruby command line utility and wrapper for the [DNSimple API](https://dnsimple.com/documentation/api).
 
 [DNSimple](https://dnsimple.com/) provides DNS hosting
 and domain registration that is simple and friendly.
