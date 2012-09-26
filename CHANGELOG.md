@@ -10,6 +10,8 @@
 
 - CHANGED: Use Accept header to determine the request type instead of the .json suffix in the URL.
 
+- CHANGED: Renamed commands to the ObjectAction scheme (e.g. CreateDomain became DomainCreate).
+
 - FIXED: Cucumber was trying to execute steps on dnsimple.com main website instead of given site.
 
 - REMOVED: Removed DomainError, UserNotFound, CertificateNotFound, CertificateExists error classes.

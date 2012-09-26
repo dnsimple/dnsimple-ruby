@@ -24,4 +24,14 @@ end
 RSpec.configure do |c|
   c.mock_framework = :mocha
   c.extend VCR::RSpec::Macros
+
+  # Silent the puts call in the commands
+  c.before do
+    @_stdout = $stdout
+    $stdout = StringIO.new
+  end
+  c.after do
+    $stdout = @_stdout
+  end
 end
+
