@@ -20,15 +20,5 @@ describe DNSimple::Commands::ListRecords do
   let(:domain) { DNSimple::Domain.new(:name => domain_name) }
   let(:out) { StringIO.new }
 
-  it 'should retrieve all records and print them' do
-    described_class.new(out).execute(args)
-
-    out.string.should include(ttl)
-    out.string.should include(id)
-    out.string.should include(record_type)
-    out.string.should include(name)
-    out.string.should include(domain_name)
-    out.string.should include(content)
-  end
 end
 

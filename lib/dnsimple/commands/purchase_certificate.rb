@@ -1,8 +1,6 @@
-require 'dnsimple/command'
-
 module DNSimple
   module Commands
-    class PurchaseCertificate < Command
+    class PurchaseCertificate
       def execute(args, options={})
         domain_name = args.shift
         name = args.shift
@@ -12,7 +10,7 @@ module DNSimple
         contact = Contact.find(contact_id)
         
         certificate = Certificate.purchase(domain, name, contact)
-        say "Purchased certificate for #{certificate.fqdn}"
+        puts "Purchased certificate for #{certificate.fqdn}"
       end
     end
   end

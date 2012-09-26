@@ -1,19 +1,17 @@
-require 'dnsimple/command'
-
 module DNSimple
   module Commands
-    class CreateRecord < Command
+    class CreateRecord
       def execute(args, options={})
         name = args.shift
         record_name = args.shift
         record_type = args.shift
         content = args.shift
         ttl = args.shift
-        
+
         domain = Domain.find(name)
         record = Record.create(domain, record_name, record_type, content, :ttl => ttl, :prio => options[:prio])
-        
-        say "Created #{record.record_type} record for #{domain.name} (id:#{record.id})"
+
+        puts "Created #{record.record_type} record for #{domain.name} (id:#{record.id})"
       end
     end
   end

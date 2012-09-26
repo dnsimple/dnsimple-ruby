@@ -12,5 +12,7 @@
 
 - FIXED: Cucumber was trying to execute steps on dnsimple.com main website instead of given site.
 
-- DELETED: Removed DomainError, UserNotFound, CertificateNotFound, CertificateExists error classes.
+- REMOVED: Removed DomainError, UserNotFound, CertificateNotFound, CertificateExists error classes.
   See Error and RequestError.
+
+- REMOVED: Removed DNSimple::Command base class.
