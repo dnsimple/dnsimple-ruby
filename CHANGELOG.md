@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## Release 1.4.0
 
 - CHANGED: Normalized exception handling. No more RuntimeError.
   In case of request error, the client raises RequestError, RecordExists or RecodNotFound
