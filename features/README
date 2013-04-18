@@ -6,7 +6,7 @@ Before running the DNSimple Ruby Client cucumber feature files, you must do the 
 
 username: YOUR_USERNAME
 password: YOUR_PASSWORD
-site: https://test.dnsimple.com
+base_uri: https://test.dnsimple.com
 
 
 

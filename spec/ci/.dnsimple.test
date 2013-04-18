@@ -1,3 +1,3 @@
 username: username
 password: password
-site: https://test.dnsimple.com
+base_uri: https://test.dnsimple.com

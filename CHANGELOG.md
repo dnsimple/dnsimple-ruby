@@ -2,8 +2,6 @@
 
 ## master
 
-- CHANGED: Deprecated Dnsimple::Client.base_uri= in favor of Dnsimple::Client.site=.
-
 - CHANGED: Normalized exception handling. No more RuntimeError.
   In case of request error, the client raises RequestError, RecordExists or RecodNotFound
   depending on the called method.

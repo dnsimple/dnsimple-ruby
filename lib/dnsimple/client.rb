@@ -35,30 +35,18 @@ module DNSimple
       @api_token = api_token
     end
 
-    # Sets the @site value.
-    #
-    # @returns [String] The site value.
-    def self.site
-      @site
-    end
-
-    # Gets the @site value.
-    #
-    # @param [String] value The site value.
-    def self.site=(value)
-      @site = value.to_s.chomp("/")
-    end
-
     # Gets the qualified API base uri.
     #
     # @return [String] The qualified API base uri.
     def self.base_uri
-      (site || "https://dnsimple.com")
+      @base_uri ||= "https://dnsimple.com"
     end
 
+    # Sets the qualified API base uri.
+    #
+    # @param [String] value The qualified API base uri.
     def self.base_uri=(value)
-      DNSimple.deprecate("Dnsimple::Client.base_uri is deprecated. Please use Dnsimple::Client.site and provide a site.")
-      self.site = value
+      @base_uri = value.to_s.chomp("/")
     end
 
     def self.http_proxy
@@ -83,9 +71,9 @@ module DNSimple
         self.username   ||= credentials['username']
         self.password   ||= credentials['password']
         self.api_token  ||= credentials['api_token']
-        self.base_uri     = credentials['base_uri']  if credentials['base_uri']
-        self.site         = credentials['site']      if credentials['site']
-        self.http_proxy = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] }
+        self.base_uri     = credentials['site']       if credentials['site']
+        self.base_uri     = credentials['base_uri']   if credentials['base_uri']
+        self.http_proxy   = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] }
         @credentials_loaded = true
         puts "Credentials loaded from #{path}"
       rescue => error

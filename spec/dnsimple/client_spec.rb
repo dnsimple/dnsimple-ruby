@@ -8,14 +8,14 @@ describe DNSimple::Client do
     @_username  = DNSimple::Client.username
     @_password  = DNSimple::Client.password
     @_api_token = DNSimple::Client.api_token
-    @_site      = DNSimple::Client.site
+    @_base_uri  = DNSimple::Client.base_uri
   end
 
   after do
     DNSimple::Client.username   = @_username
     DNSimple::Client.password   = @_password
     DNSimple::Client.api_token  = @_api_token
-    DNSimple::Client.site       = @_site
+    DNSimple::Client.base_uri   = @_base_uri
   end
 
   [:get, :post, :put, :delete].each do |method|
@@ -26,7 +26,7 @@ describe DNSimple::Client do
         DNSimple::Client.username   = 'user'
         DNSimple::Client.password   = 'pass'
         DNSimple::Client.api_token  = nil
-        DNSimple::Client.site       = 'https://test.example.com'
+        DNSimple::Client.base_uri   = 'https://test.example.com'
 
         HTTParty.expects(method).
           with('https://test.example.com/domains',
@@ -41,7 +41,7 @@ describe DNSimple::Client do
         DNSimple::Client.username   = 'user'
         DNSimple::Client.password   = nil
         DNSimple::Client.api_token  = 'token'
-        DNSimple::Client.site       = 'https://test.example.com'
+        DNSimple::Client.base_uri   = 'https://test.example.com'
 
         HTTParty.expects(method).
           with('https://test.example.com/domains',
@@ -56,7 +56,7 @@ describe DNSimple::Client do
         DNSimple::Client.username   = 'user'
         DNSimple::Client.password   = nil
         DNSimple::Client.api_token  = nil
-        DNSimple::Client.site       = 'https://test.example.com'
+        DNSimple::Client.base_uri   = 'https://test.example.com'
 
         lambda {
           DNSimple::Client.send(method, 'domains')
@@ -68,17 +68,17 @@ describe DNSimple::Client do
 
   describe ".base_uri" do
     it "returns the qualified API uri" do
-      klass.site = "http://api.dnsimple.com"
-      klass.base_uri = "https://api.dnsimple.com"
+      klass.base_uri = "http://api.dnsimple.com"
+      klass.base_uri.should eq("http://api.dnsimple.com")
     end
   end
 
   describe ".base_uri=" do
-    it "sets the site" do
+    it "sets the base_uri" do
       klass.base_uri = "http://api1.dnsimple.com/"
-      klass.site.should == "http://api1.dnsimple.com"
+      klass.base_uri.should eq("http://api1.dnsimple.com")
       klass.base_uri = "http://api2.dnsimple.com"
-      klass.site.should == "http://api2.dnsimple.com"
+      klass.base_uri.should eq("http://api2.dnsimple.com")
     end
   end
 

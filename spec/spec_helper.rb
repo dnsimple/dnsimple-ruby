@@ -9,7 +9,7 @@ require 'dnsimple'
 config = YAML.load_file(File.expand_path(ENV['DNSIMPLE_TEST_CONFIG'] || '~/.dnsimple.test'))
 
 DNSimple::Client.base_uri   = config['site']      if config['site']     # Example: https://test.dnsimple.com/
-DNSimple::Client.host       = config['host']      if config['host']     # Example: test.dnsimple.com
+DNSimple::Client.base_uri   = config['base_uri']  if config['base_uri'] # Example: https://test.dnsimple.com/
 DNSimple::Client.username   = config['username']                        # Example: testusername@example.com
 DNSimple::Client.password   = config['password']                        # Example: testpassword
 DNSimple::Client.api_token  = config['api_token']                       # Example: 1234567890
