@@ -12,9 +12,11 @@
 
 - CHANGED: Renamed commands to the ObjectAction scheme (e.g. CreateDomain became DomainCreate).
 
-- FIXED: Cucumber was trying to execute steps on dnsimple.com main website instead of given site.
-
-- REMOVED: Removed DomainError, UserNotFound, CertificateNotFound, CertificateExists error classes.
+- CHANGED: Removed DomainError, UserNotFound, CertificateNotFound, CertificateExists error classes.
   See Error and RequestError.
 
-- REMOVED: Removed DNSimple::Command base class.
+- CHANGED: Removed DNSimple::Command base class.
+
+- FIXED: Cucumber was trying to execute steps on dnsimple.com main website instead of given site.
+
+- FIXED: We're no longer accepting route format. Use the correct header.
