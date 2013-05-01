@@ -22,10 +22,15 @@ In this file add the following:
     username: YOUR_USERNAME
     password: YOUR_PASSWORD
 
+Or if using an API token
+
+    username: YOUR_USERNAME
+    api_token: YOUR_API_TOKEN
+
 ## Commands
 
 There are two ways to interact with the DNSimple Ruby wrapper. The first is
-to use the command line utility that is included. The commands available 
+to use the command line utility that is included. The commands available
 are as follows:
 
 For help:
@@ -72,8 +77,8 @@ The following commands are available for purchasing certificates:
 - dnsimple certificate:purchase domain.com name contact_id
 - dnsimple certificate:submit id
 
-The contact name/value pairs are: 
- 
+The contact name/value pairs are:
+
 - first_name
 - last_name
 - organization_name (optional)
