@@ -92,7 +92,7 @@ require 'dnsimple/commands/record_create'
 require 'dnsimple/commands/record_update'
 require 'dnsimple/commands/record_delete'
 
-require 'dnsimple/commands/template_list'
+require 'dnsimple/commands/templates_list'
 require 'dnsimple/commands/template_create'
 require 'dnsimple/commands/template_delete'
 require 'dnsimple/commands/template_record_list'
