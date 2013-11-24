@@ -30,5 +30,16 @@ module DNSimple
       end
     end
 
+    def self.register(options={})
+      response = DNSimple::Client.post("users", {:no_auth => true, :body => {:user => options}})
+
+      case response.code
+      when 400
+        raise RequestError.new("Could not register user", response)
+      when 201
+        new(response["user"])
+      end
+    end
+
   end
 end
