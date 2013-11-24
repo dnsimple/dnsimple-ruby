@@ -86,28 +86,31 @@ module DNSimple
       (@credentials_loaded ||= false) or (username and (password or api_token))
     end
 
-    def self.standard_options
-      options = {
+    def self.merge_standard_options(options={})
+
+      standart_options = {
                   :format => :json,
                   :headers => {'Accept' => 'application/json'},
                 }
 
       if http_proxy
-        options.merge!(
+        standart_options.merge!(
           :http_proxyaddr => self.http_proxy[:addr],
           :http_proxyport => self.http_proxy[:port]
         )
       end
 
-      if password
-        options[:basic_auth] = {:username => username, :password => password}
+      if options[:no_auth]
+        options.delete :no_auth
+      elsif password
+        standart_options[:basic_auth] = {:username => username, :password => password}
       elsif api_token
-        options[:headers]['X-DNSimple-Token'] = "#{username}:#{api_token}"
+        standart_options[:headers]['X-DNSimple-Token'] = "#{username}:#{api_token}"
       else
         raise Error, 'A password or API token is required for all API requests.'
       end
 
-      options
+      standart_options.merge(options)
     end
 
     def self.get(path, options = {})
@@ -128,8 +131,7 @@ module DNSimple
 
     def self.request(method, path, options)
       response = HTTParty.send(method, "#{base_uri}/#{path}",
-        standard_options.merge(options))
-
+        merge_standard_options(options))
       if response.code == 401
         raise AuthenticationFailed
       end

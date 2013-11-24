@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://<USERNAME>:<PASSWORD>@test.dnsimple.com/users
+    body:
+      encoding: UTF-8
+      string: user[email]=john.smith%40gmail.com&user[password]=x8ejfhfgjQ%23A&user[password_confirmation]=x8ejfhfgjQ%23A
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - Basic YW50aG9ueWVkZW5AZ21haWwuY29tOmxldG1laW4=
+  response:
+    status:
+      code: 201
+      message: OK
+    headers:
+      X-Ua-Compatible:
+      - IE=Edge
+      Access-Control-Allow-Headers:
+      - Authorization,Accepts,Content-Type
+      X-Dnsimple-Api-Version:
+      - 1.0.0
+      Etag:
+      - '"3649a89c5333cc5c491e30a29901f286"'
+      Access-Control-Allow-Methods:
+      - OPTIONS
+      Content-Type:
+      - application/json; charset=utf-8
+      Access-Control-Allow-Origin:
+      - '*'
+      Date:
+      - Fri, 11 Nov 2011 20:26:05 GMT
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      X-Runtime:
+      - '0.301433'
+      Content-Length:
+      - '266'
+      Set-Cookie:
+      - _dnsimple_session=BAh7CEkiD3Nlc3Npb25faWQGOgZFRiIlYjMyMDBiMjQwNDdiN2FlMjE4OTUxMDU5ZGYzY2EyMjNJIhV1c2VyX2NyZWRlbnRpYWxzBjsARkkiAYA1YzI0ZTYzOGYwNjFkZWRmN2Y5YTNiYjY3MTdiZjUxMjliZmUwYjdjODg5OGZkZTVhNmEzNGMxZDkwOWUyMmNlNmIzMTc4MzRlZTdmY2RkYjllYjQ3ODdhYjZlMDM1Y2E0ZmEyYmY0MWVkYzJiOWMxZGEwNzYwZDdjMzhmNzY1OAY7AFRJIhh1c2VyX2NyZWRlbnRpYWxzX2lkBjsARmkG--f1d49fb81f9ca5dae40e254e327c1c69b5352921;
+        path=/; HttpOnly
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+    body:
+      encoding: UTF-8
+      string: '{"user":{"authy_identifier":null,"authy_verified_at":null,"country_code":null,"created_at":"2013-11-24T17:35:33Z","default_contact_id":null,"email":"john.smith@gmail.com","failed_login_count":0,"first_name":null,"id":22806,"last_name":null,"login_count":1,"phone":null,"referral_token":"5ae8c1cfc9b8a1","single_access_token":"ziv5g2SURw9TrNLGXo6","unsubscribed_at":null,"updated_at":"2013-11-24T17:35:33Z","domain_count":0,"domain_limit":10}}'
+    http_version: '1.1'
+  recorded_at: Thu, 06 Sep 2012 18:52:19 GMT
+recorded_with: VCR 2.7.0
