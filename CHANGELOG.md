@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- CHANGED: Added support for versioned API (GH-33)
+
 ## Release 1.4.0
 
 - CHANGED: Normalized exception handling. No more RuntimeError.

@@ -3,14 +3,14 @@ require 'spec_helper'
 describe DNSimple::User do
   describe ".me" do
     before do
-      stub_request(:get, %r[/users/me]).
+      stub_request(:get, %r[/v1/users/me]).
           to_return(read_fixture("users/me/success.http"))
     end
 
     it "builds the correct request" do
       described_class.me
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/users/me").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/users/me").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 

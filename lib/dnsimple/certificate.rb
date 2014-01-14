@@ -65,7 +65,7 @@ module DNSimple
 
       options.merge!({:body => {:certificate => certificate_hash}})
 
-      response = DNSimple::Client.post("domains/#{domain.name}/certificates", options)
+      response = DNSimple::Client.post("/v1/domains/#{domain.name}/certificates", options)
 
       case response.code
       when 201
@@ -79,7 +79,7 @@ module DNSimple
 
     # Get an array of all certificates for the given domain.
     def self.all(domain, options={})
-      response = DNSimple::Client.get("domains/#{domain.name}/certificates", options)
+      response = DNSimple::Client.get("/v1/domains/#{domain.name}/certificates", options)
 
       case response.code
       when 200
@@ -91,7 +91,7 @@ module DNSimple
 
     # Find a specific certificate for the given domain.
     def self.find(domain, id, options = {})
-      response = DNSimple::Client.get("domains/#{domain.name}/certificates/#{id}", options)
+      response = DNSimple::Client.get("/v1/domains/#{domain.name}/certificates/#{id}", options)
 
       case response.code
       when 200
@@ -115,7 +115,7 @@ module DNSimple
 
       options.merge!(:body => {:certificate => {:approver_email => approver_email}})
 
-      response = DNSimple::Client.put("domains/#{domain.name}/certificates/#{id}/submit", options)
+      response = DNSimple::Client.put("/v1/domains/#{domain.name}/certificates/#{id}/submit", options)
 
       case response.code
         when 200

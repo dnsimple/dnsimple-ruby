@@ -7,14 +7,14 @@ describe DNSimple::Record do
 
   describe ".find" do
     before do
-      stub_request(:get, %r[/domains/example.com/records/2]).
+      stub_request(:get, %r[/v1/domains/example.com/records/2]).
           to_return(read_fixture("records/show/success.http"))
     end
 
     it "builds the correct request" do
       described_class.find(domain, "2")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/domains/example.com/records/2").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/domains/example.com/records/2").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 

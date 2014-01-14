@@ -4,20 +4,20 @@ describe DNSimple::ExtendedAttribute do
 
   describe ".find" do
     before do
-      stub_request(:get, %r[/extended_attributes/com]).
+      stub_request(:get, %r[/v1/extended_attributes/com]).
           to_return(read_fixture("extended_attributes/success.http"))
     end
 
     it "builds the correct request" do
       described_class.find("com")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/extended_attributes/com").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/extended_attributes/com").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 
     context "when the TLD has no attributes" do
       before do
-        stub_request(:get, %r[/extended_attributes/com]).
+        stub_request(:get, %r[/v1/extended_attributes/com]).
             to_return(read_fixture("extended_attributes/com.http"))
       end
 
@@ -30,7 +30,7 @@ describe DNSimple::ExtendedAttribute do
 
     context "when the TLD has attributes" do
       before do
-        stub_request(:get, %r[/extended_attributes/ca]).
+        stub_request(:get, %r[/v1/extended_attributes/ca]).
             to_return(read_fixture("extended_attributes/ca.http"))
       end
 
