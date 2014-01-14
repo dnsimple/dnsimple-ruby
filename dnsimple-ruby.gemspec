@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w( README.md CHANGELOG.md LICENSE )
   s.executables      = `git ls-files -- bin/*`.split("\n").collect { |f| File.basename(f) }
 
-  s.add_runtime_dependency     'httparty', '>= 0'
+  s.add_dependency  'httparty', RUBY_VERSION < "1.9.3" ? [">= 0.10", "< 0.12"] : "~> 0.12"
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'aruba'
