@@ -3,6 +3,8 @@ require 'yaml'
 module DNSimple
   class Client
 
+    API_BASE_URI = "https://api.dnsimple.com"
+
     def self.debug?
       @debug
     end
@@ -39,7 +41,7 @@ module DNSimple
     #
     # @return [String] The qualified API base uri.
     def self.base_uri
-      @base_uri ||= "https://dnsimple.com"
+      @base_uri ||= API_BASE_URI
     end
 
     # Sets the qualified API base uri.

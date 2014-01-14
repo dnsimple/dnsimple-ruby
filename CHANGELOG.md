@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- CHANGED: Added support for versioned API
+
 ## Release 1.4.0
 
 - CHANGED: Normalized exception handling. No more RuntimeError.
