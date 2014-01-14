@@ -1,25 +1,11 @@
 module DNSimple
-
   class Template < Base
 
-    # The template ID in DNSimple
     attr_accessor :id
-
-    # The template name
     attr_accessor :name
-
-    # The template short name
     attr_accessor :short_name
-
-    # The template description
     attr_accessor :description
 
-    # Delete the template from DNSimple. WARNING: this cannot
-    # be undone.
-    def delete(options={})
-      DNSimple::Client.delete("templates/#{id}", options)
-    end
-    alias :destroy :delete
 
     def self.create(name, short_name, description=nil, options={})
       template_hash = {
@@ -64,6 +50,14 @@ module DNSimple
         raise RequestError.new("Error listing templates", response)
       end
     end
+
+
+    # Delete the template from DNSimple.
+    # WARNING: this cannot be undone.
+    def delete(options={})
+      DNSimple::Client.delete("templates/#{id}", options)
+    end
+    alias :destroy :delete
 
   end
 end
