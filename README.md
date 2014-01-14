@@ -1,8 +1,6 @@
-# DNSimple Ruby Client
+# DNSimple Ruby Client  [![Build Status](https://secure.travis-ci.org/aetrion/dnsimple-ruby.png)](http://travis-ci.org/aetrion/dnsimple-ruby)
 
 A Ruby command line utility and wrapper for the [DNSimple API](http://developer.dnsimple.com/).
-
-[![Build Status](https://secure.travis-ci.org/aetrion/dnsimple-ruby.png)](http://travis-ci.org/aetrion/dnsimple-ruby)
 
 [DNSimple](https://dnsimple.com/) provides DNS hosting
 and domain registration that is simple and friendly.
