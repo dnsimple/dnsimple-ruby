@@ -6,13 +6,18 @@ require 'vcr'
 $:.unshift(File.dirname(__FILE__) + '/lib')
 require 'dnsimple'
 
-config = YAML.load_file(File.expand_path(ENV['DNSIMPLE_TEST_CONFIG'] || '~/.dnsimple.test'))
+unless defined?(SPEC_ROOT)
+  SPEC_ROOT = File.expand_path("../", __FILE__)
+end
 
-DNSimple::Client.base_uri   = config['site']      if config['site']     # Example: https://test.dnsimple.com/
-DNSimple::Client.base_uri   = config['base_uri']  if config['base_uri'] # Example: https://test.dnsimple.com/
-DNSimple::Client.username   = config['username']                        # Example: testusername@example.com
-DNSimple::Client.password   = config['password']                        # Example: testpassword
-DNSimple::Client.api_token  = config['api_token']                       # Example: 1234567890
+
+CONFIG = YAML.load_file(File.expand_path(ENV['DNSIMPLE_TEST_CONFIG'] || '~/.dnsimple.test'))
+
+DNSimple::Client.base_uri   = CONFIG['site']      if CONFIG['site']     # Example: https://test.dnsimple.com/
+DNSimple::Client.base_uri   = CONFIG['base_uri']  if CONFIG['base_uri'] # Example: https://test.dnsimple.com/
+DNSimple::Client.username   = CONFIG['username']                        # Example: testusername@example.com
+DNSimple::Client.password   = CONFIG['password']                        # Example: testpassword
+DNSimple::Client.api_token  = CONFIG['api_token']                       # Example: 1234567890
 
 VCR.configure do |c|
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
@@ -35,3 +40,4 @@ RSpec.configure do |c|
   end
 end
 
+Dir[File.join(SPEC_ROOT, "support/**/*.rb")].each { |f| require f }
