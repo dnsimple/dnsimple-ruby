@@ -15,18 +15,29 @@ module DNSimple
     # The contact ID in DNSimple
     attr_accessor :id
 
-    # The name of the organization in which the contact works
-    # (may be omitted)
-    attr_accessor :organization_name
-
     # The contact first name
     attr_accessor :first_name
 
     # The contact last name
     attr_accessor :last_name
 
-    # The contact's job title (may be omitted)
+    # The contact's job title
     attr_accessor :job_title
+
+    # The name of the organization in which the contact works
+    attr_accessor :organization_name
+
+    # The contact email address
+    attr_accessor :email_address
+
+    # The contact phone number
+    attr_accessor :phone
+
+    # The contact phone extension (may be omitted)
+    attr_accessor :phone_ext
+
+    # The contact fax number (may be omitted)
+    attr_accessor :fax
 
     # The contact street address
     attr_accessor :address1
@@ -46,52 +57,12 @@ module DNSimple
     # The contact country (as a 2-character country code)
     attr_accessor :country
 
-    # The contact email address
-    attr_accessor :email_address
-
-    # The contact phone number
-    attr_accessor :phone
-
-    # The contact phone extension (may be omitted)
-    attr_accessor :phone_ext
-
-    # The contact fax number (may be omitted)
-    attr_accessor :fax
-
     # When the contact was created in DNSimple
     attr_accessor :created_at
 
     # When the contact was last updated in DNSimple
     attr_accessor :updated_at
 
-    def name
-      [first_name, last_name].join(' ')
-    end
-
-    def save(options={})
-      contact_hash = {}
-      %w(first_name last_name organization_name job_title address1 address2 city
-      state_province postal_code country email_address phone phone_ext fax).each do |attribute|
-        contact_hash[DNSimple::Contact.resolve(attribute)] = self.send(attribute)
-      end
-
-      options.merge!({:body => {:contact => contact_hash}})
-
-      response = DNSimple::Client.put("contacts/#{id}", options)
-
-      case response.code
-      when 200
-        return self
-      else
-        raise RequestError.new("Error updating contact", response)
-      end
-    end
-
-    # Delete the contact from DNSimple. WARNING: this cannot be undone.
-    def delete(options={})
-      DNSimple::Client.delete("contacts/#{id}", options)
-    end
-    alias :destroy :delete
 
     # Map an aliased field name to it's real name. For example, if you
     # pass "first" it will be resolved to "first_name", "email" is resolved
@@ -148,6 +119,36 @@ module DNSimple
         raise RequestError.new("Error listing contacts", response)
       end
     end
+
+
+    def name
+      [first_name, last_name].join(' ')
+    end
+
+    def save(options={})
+      contact_hash = {}
+      %w(first_name last_name organization_name job_title address1 address2 city
+      state_province postal_code country email_address phone phone_ext fax).each do |attribute|
+        contact_hash[DNSimple::Contact.resolve(attribute)] = self.send(attribute)
+      end
+
+      options.merge!({:body => {:contact => contact_hash}})
+
+      response = DNSimple::Client.put("contacts/#{id}", options)
+
+      case response.code
+        when 200
+          return self
+        else
+          raise RequestError.new("Error updating contact", response)
+      end
+    end
+
+    # Delete the contact from DNSimple. WARNING: this cannot be undone.
+    def delete(options={})
+      DNSimple::Client.delete("contacts/#{id}", options)
+    end
+    alias :destroy :delete
 
   end
 end

@@ -14,7 +14,7 @@ describe DNSimple::User do
                      with(:headers => { 'Accept' => 'application/json' })
     end
 
-    it "returns the current user" do
+    it "returns the user" do
       result = described_class.me
 
       expect(result).to be_a(described_class)

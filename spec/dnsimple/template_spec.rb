@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe DNSimple::Template do
+
   describe ".find" do
     before do
       stub_request(:get, %r[/templates/google-apps]).
@@ -15,7 +16,7 @@ describe DNSimple::Template do
     end
 
     context "when the template exists" do
-      it "returns the current user" do
+      it "returns the template" do
         result = described_class.find("google-apps")
 
         expect(result).to be_a(described_class)
