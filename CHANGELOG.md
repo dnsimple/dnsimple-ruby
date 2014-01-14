@@ -1,5 +1,9 @@
 # Changelog
 
+## Release 1.5.1
+
+- FIXED: Invalid base URI.
+
 ## Release 1.5.0
 
 - CHANGED: Added support for versioned API (GH-33)

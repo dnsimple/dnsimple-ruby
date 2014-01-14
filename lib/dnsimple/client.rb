@@ -3,7 +3,7 @@ require 'yaml'
 module DNSimple
   class Client
 
-    API_BASE_URI = "https://api.dnsimple.com/v1/"
+    API_BASE_URI = "https://api.dnsimple.com/"
 
 
     def self.debug?
