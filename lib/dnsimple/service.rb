@@ -14,7 +14,7 @@ module DNSimple
     # Find a service by its ID or short name
     def self.find(id_or_short_name, options={})
       id = id_or_short_name
-      response = DNSimple::Client.get("/services/#{id}", options)
+      response = DNSimple::Client.get("/v1/services/#{id}", options)
 
       case response.code
       when 200
@@ -28,7 +28,7 @@ module DNSimple
 
     # Get all of the services that can be applied to a domain
     def self.all(options={})
-      response = DNSimple::Client.get("/services", options)
+      response = DNSimple::Client.get("/v1/services", options)
 
       case response.code
       when 200

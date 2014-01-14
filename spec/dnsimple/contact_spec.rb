@@ -4,14 +4,14 @@ describe DNSimple::Contact do
 
   describe ".find" do
     before do
-      stub_request(:get, %r[/contacts/2]).
+      stub_request(:get, %r[/v1/contacts/2]).
           to_return(read_fixture("contacts/show/success.http"))
     end
 
     it "builds the correct request" do
       described_class.find("2")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/contacts/2").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/contacts/2").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 

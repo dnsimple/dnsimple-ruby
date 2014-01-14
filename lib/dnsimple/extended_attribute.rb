@@ -38,7 +38,7 @@ module DNSimple
 
     # Find the extended attributes for the given TLD
     def self.find(tld, options={})
-      response = DNSimple::Client.get("/extended_attributes/#{tld}", options)
+      response = DNSimple::Client.get("/v1/extended_attributes/#{tld}", options)
 
       case response.code
       when 200

@@ -4,14 +4,14 @@ describe DNSimple::Template do
 
   describe ".find" do
     before do
-      stub_request(:get, %r[/templates/google-apps]).
+      stub_request(:get, %r[/v1/templates/google-apps]).
           to_return(read_fixture("templates/show/success.http"))
     end
 
     it "builds the correct request" do
       described_class.find("google-apps")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/templates/google-apps").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/templates/google-apps").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 
