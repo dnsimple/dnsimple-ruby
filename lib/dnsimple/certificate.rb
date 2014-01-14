@@ -14,14 +14,26 @@ module DNSimple
     # The subdomain on the certificate
     attr_accessor :name
 
-    # The private key, if DNSimple generated the Certificate Signing Request
-    attr_accessor :private_key
+    # The Certificate Signing Request
+    attr_accessor :csr
 
     # The SSL certificate, if it has been issued by the Certificate Authority
     attr_accessor :ssl_certificate
 
-    # The Certificate Signing Request
-    attr_accessor :csr
+    # The private key, if DNSimple generated the Certificate Signing Request
+    attr_accessor :private_key
+
+    # The approver email address
+    attr_accessor :approver_email
+
+    # When the certificate was purchased
+    attr_accessor :created_at
+
+    # When the certificate was last updated
+    attr_accessor :updated_at
+
+    # An array of all emails that can be used to approve the certificate
+    attr_accessor :available_approver_emails
 
     # The Certificate status
     attr_accessor :certificate_status
@@ -32,39 +44,6 @@ module DNSimple
     # The date the Certificate will expire
     attr_accessor :expiration_date
 
-    # The approver email address
-    attr_accessor :approver_email
-
-    # An array of all emails that can be used to approve the certificate
-    attr_accessor :available_approver_emails
-
-    # When the certificate was purchased
-    attr_accessor :created_at
-
-    # When the certificate was last updated
-    attr_accessor :updated_at
-
-
-    # Get the fully-qualified domain name for the certificate. This is the
-    # domain.name joined with the certificate name, separated by a period.
-    def fqdn
-      [name, domain.name].delete_if { |p| p !~ DNSimple::BLANK_REGEX }.join(".")
-    end
-
-    def submit(approver_email, options={})
-      raise DNSimple::Error, "Approver email is required" unless approver_email
-
-      options.merge!(:body => {:certificate => {:approver_email => approver_email}})
-
-      response = DNSimple::Client.put("domains/#{domain.name}/certificates/#{id}/submit", options)
-
-      case response.code
-      when 200
-        Certificate.new({ :domain => domain }.merge(response["certificate"]))
-      else
-        raise RequestError.new("Error submitting certificate", response)
-      end
-    end
 
     # Purchase a certificate under the given domain with the given name. The
     # name will be appended to the domain name, and thus should only be the
@@ -121,6 +100,28 @@ module DNSimple
         raise RecordNotFound, "Could not find certificate #{id} for domain #{domain.name}"
       else
         raise RequestError.new("Error finding certificate", response)
+      end
+    end
+
+
+    # Get the fully-qualified domain name for the certificate. This is the
+    # domain.name joined with the certificate name, separated by a period.
+    def fqdn
+      [name, domain.name].delete_if { |p| p !~ DNSimple::BLANK_REGEX }.join(".")
+    end
+
+    def submit(approver_email, options={})
+      raise DNSimple::Error, "Approver email is required" unless approver_email
+
+      options.merge!(:body => {:certificate => {:approver_email => approver_email}})
+
+      response = DNSimple::Client.put("domains/#{domain.name}/certificates/#{id}/submit", options)
+
+      case response.code
+        when 200
+          Certificate.new({ :domain => domain }.merge(response["certificate"]))
+        else
+          raise RequestError.new("Error submitting certificate", response)
       end
     end
 

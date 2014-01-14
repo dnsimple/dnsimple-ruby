@@ -22,6 +22,7 @@ describe DNSimple::Record do
       it "returns the record" do
         result = described_class.find(domain, "2")
 
+        expect(result).to be_a(described_class)
         expect(result.id).to eq(1495)
         expect(result.domain).to be(domain)
         expect(result.name).to eq("www")
