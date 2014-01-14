@@ -12,7 +12,7 @@ describe DNSimple::Contact do
       described_class.find("2")
 
       WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@api.sandbox.dnsimple.com/contacts/2").
-                         with(:headers => { 'Accept' => 'application/json' })
+                     with(:headers => { 'Accept' => 'application/json' })
     end
 
     context "when the contact exists" do

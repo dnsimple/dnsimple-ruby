@@ -15,7 +15,7 @@ describe DNSimple::Record do
       described_class.find(domain, "2")
 
       WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@api.sandbox.dnsimple.com/domains/example.com/records/2").
-                         with(:headers => { 'Accept' => 'application/json' })
+                     with(:headers => { 'Accept' => 'application/json' })
     end
 
     context "when the record exists" do

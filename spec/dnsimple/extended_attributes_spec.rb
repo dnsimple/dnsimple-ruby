@@ -12,7 +12,7 @@ describe DNSimple::ExtendedAttribute do
       described_class.find("com")
 
       WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@api.sandbox.dnsimple.com/extended_attributes/com").
-                         with(:headers => { 'Accept' => 'application/json' })
+                     with(:headers => { 'Accept' => 'application/json' })
     end
 
     context "when the TLD has no attributes" do
