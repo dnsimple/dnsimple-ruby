@@ -7,14 +7,15 @@ unless defined?(SPEC_ROOT)
   SPEC_ROOT = File.expand_path("../", __FILE__)
 end
 
-
-CONFIG = YAML.load_file(File.expand_path(ENV['DNSIMPLE_TEST_CONFIG'] || '~/.dnsimple.test'))
-
-DNSimple::Client.base_uri   = CONFIG['site']      if CONFIG['site']     # Example: https://test.dnsimple.com/
-DNSimple::Client.base_uri   = CONFIG['base_uri']  if CONFIG['base_uri'] # Example: https://test.dnsimple.com/
-DNSimple::Client.username   = CONFIG['username']                        # Example: testusername@example.com
-DNSimple::Client.password   = CONFIG['password']                        # Example: testpassword
-DNSimple::Client.api_token  = CONFIG['api_token']                       # Example: 1234567890
+if ENV['DNSIMPLE_TEST_CONFIG']
+  DNSimple::Client.load_credentials(ENV['DNSIMPLE_TEST_CONFIG'])
+  CONFIG = { 'username' => DNSimple::Client.username, 'password' => DNSimple::Client.password, 'base_uri' => DNSimple::Client.base_uri }
+else
+  CONFIG = { 'username' => 'username', 'password' => 'password', 'base_uri' => 'https://api.sandbox.dnsimple.com/' }
+  DNSimple::Client.base_uri = CONFIG['base_uri']
+  DNSimple::Client.username = CONFIG['username']
+  DNSimple::Client.password = CONFIG['password']
+end
 
 
 RSpec.configure do |c|

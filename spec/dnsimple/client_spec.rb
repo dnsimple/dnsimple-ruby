@@ -26,12 +26,12 @@ describe DNSimple::Client do
         DNSimple::Client.username   = 'user'
         DNSimple::Client.password   = 'pass'
         DNSimple::Client.api_token  = nil
-        DNSimple::Client.base_uri   = 'https://test.example.com'
+        DNSimple::Client.base_uri   = 'https://api.example.com'
 
         HTTParty.expects(method).
-          with('https://test.example.com/domains',
+          with('https://api.example.com/domains',
             :format => :json, :headers => {'Accept' => 'application/json'},
-            :basic_auth => {:username => 'user', :password => 'pass'}).
+            :basic_auth => { :username => 'user', :password => 'pass'}).
           returns(response)
 
         DNSimple::Client.send(method, 'domains')
@@ -41,10 +41,10 @@ describe DNSimple::Client do
         DNSimple::Client.username   = 'user'
         DNSimple::Client.password   = nil
         DNSimple::Client.api_token  = 'token'
-        DNSimple::Client.base_uri   = 'https://test.example.com'
+        DNSimple::Client.base_uri   = 'https://api.example.com'
 
         HTTParty.expects(method).
-          with('https://test.example.com/domains',
+          with('https://api.example.com/domains',
             :format => :json, :headers => {'Accept' => 'application/json',
             'X-DNSimple-Token' => 'user:token'}).
           returns(response)
