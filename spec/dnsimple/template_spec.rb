@@ -11,7 +11,7 @@ describe DNSimple::Template do
     it "builds the correct request" do
       described_class.find("google-apps")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@api.sandbox.dnsimple.com/templates/google-apps").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/templates/google-apps").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 

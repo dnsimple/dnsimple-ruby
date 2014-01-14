@@ -14,7 +14,7 @@ describe DNSimple::Certificate do
     it "builds the correct request" do
       described_class.find(domain, "2")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@api.sandbox.dnsimple.com/domains/example.com/certificates/2").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/domains/example.com/certificates/2").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 

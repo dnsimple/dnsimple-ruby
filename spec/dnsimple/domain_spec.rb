@@ -13,7 +13,7 @@ describe DNSimple::Domain do
     it "builds the correct request" do
       described_class.find("example.com")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@api.sandbox.dnsimple.com/domains/example.com").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/domains/example.com").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 

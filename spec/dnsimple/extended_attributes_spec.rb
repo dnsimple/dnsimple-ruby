@@ -11,7 +11,7 @@ describe DNSimple::ExtendedAttribute do
     it "builds the correct request" do
       described_class.find("com")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@api.sandbox.dnsimple.com/extended_attributes/com").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/extended_attributes/com").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 
