@@ -1,7 +1,4 @@
-require 'rubygems'
-require 'bundler/setup'
-require 'cgi'
-require 'vcr'
+require 'rspec'
 
 $:.unshift(File.dirname(__FILE__) + '/lib')
 require 'dnsimple'
@@ -19,16 +16,9 @@ DNSimple::Client.username   = CONFIG['username']                        # Exampl
 DNSimple::Client.password   = CONFIG['password']                        # Example: testpassword
 DNSimple::Client.api_token  = CONFIG['api_token']                       # Example: 1234567890
 
-VCR.configure do |c|
-  c.cassette_library_dir = 'fixtures/vcr_cassettes'
-  c.hook_into :fakeweb
-  c.filter_sensitive_data("<USERNAME>") { CGI::escape(DNSimple::Client.username) }
-  c.filter_sensitive_data("<PASSWORD>") { CGI::escape(DNSimple::Client.password) }
-end
 
 RSpec.configure do |c|
   c.mock_framework = :mocha
-  c.extend VCR::RSpec::Macros
 
   # Silent the puts call in the commands
   c.before do
