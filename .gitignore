@@ -1,6 +1,3 @@
-turbulence
-.rvmrc
-
 # Bundler
 .bundle
 pkg/*

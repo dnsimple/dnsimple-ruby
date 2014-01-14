@@ -7,18 +7,13 @@ module DNSimple
     }
 
     attr_accessor :id
-
     attr_accessor :domain
-
     attr_accessor :name
-
     attr_accessor :content
-
+    attr_accessor :ttl
+    attr_accessor :prio
     attr_accessor :record_type
 
-    attr_accessor :ttl
-
-    attr_accessor :prio
 
     def fqdn
       [name, domain.name].delete_if { |v| v !~ DNSimple::BLANK_REGEX }.join(".")

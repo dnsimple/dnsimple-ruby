@@ -2,58 +2,50 @@ require 'spec_helper'
 
 describe DNSimple::Record do
 
-  let(:domain_name) { 'example.com' }
-  let(:domain) { DNSimple::Domain.new(:name => domain_name) }
+  let(:domain) { DNSimple::Domain.new(:name => 'example.com') }
+
+
+  describe ".find" do
+    before do
+      stub_request(:get, %r[/domains/example.com/records/2]).
+          to_return(read_fixture("records/show/success.http"))
+    end
+
+    it "builds the correct request" do
+      described_class.find(domain, "2")
+
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/domains/example.com/records/2").
+                     with(:headers => { 'Accept' => 'application/json' })
+    end
+
+    context "when the record exists" do
+      it "returns the record" do
+        result = described_class.find(domain, "2")
+
+        expect(result).to be_a(described_class)
+        expect(result.id).to eq(1495)
+        expect(result.domain).to be(domain)
+        expect(result.name).to eq("www")
+        expect(result.content).to eq("1.2.3.4")
+        expect(result.ttl).to eq(3600)
+        expect(result.prio).to be_nil
+        expect(result.record_type).to eq("A")
+      end
+    end
+  end
+
 
   describe "#fqdn" do
     it "joins the name and domain name" do
-      record = DNSimple::Record.new(:name => 'www', :domain => domain)
-      record.fqdn.should eq("www.#{domain_name}")
+      record = described_class.new(:name => 'www', :domain => domain)
+      expect(record.fqdn).to eq("www.#{domain.name}")
     end
+
     it "strips a blank name" do
-      record = DNSimple::Record.new(:name => '', :domain => domain)
-      record.fqdn.should eq(domain_name)
+      record = described_class.new(:name => '', :domain => domain)
+      expect(record.fqdn).to eq(domain.name)
     end
   end
 
-  describe "creating a new record" do
-    use_vcr_cassette
-    it "has specific attributes" do 
-      record = DNSimple::Record.create(domain, "", "A", "1.2.3.4", :ttl => 600)
-      record.name.should eql("")
-      record.record_type.should eql("A")
-      record.content.should eql("1.2.3.4")
-      record.ttl.should eql(600)
-      record.id.should_not be_nil
-    end
-  end
-  describe "find a record" do
-    use_vcr_cassette
-    it "can be found by id" do
-      record = DNSimple::Record.find(domain, 70)
-      record.name.should eql("")
-      record.record_type.should eql("A")
-      record.content.should eql("1.2.3.4")
-      record.ttl.should eql(600)
-      record.id.should_not be_nil
-    end
-  end
-
-  describe ".all" do
-    use_vcr_cassette
-    before do
-      @records = []
-      
-      @records << DNSimple::Record.create(domain, "", "A", "4.5.6.7")
-      @records << DNSimple::Record.create(domain, "www", "CNAME", "testdomain.com")
-      @records << DNSimple::Record.create(domain, "", "MX", "mail.foo.com", :prio => 10)
-    end
-    
-    it "returns a list of records" do
-      records = DNSimple::Record.all(domain)
-      records.should_not be_empty
-      records.length.should eql(@records.length)
-    end
-  end
 end
 

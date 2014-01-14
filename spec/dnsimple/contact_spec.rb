@@ -2,35 +2,43 @@ require 'spec_helper'
 
 describe DNSimple::Contact do
 
-  describe "a new contact" do
-    use_vcr_cassette
-
-    let(:contact_attributes) {
-      {
-        :first_name => 'John',
-        :last_name => 'Doe',
-        :address1 => '1 SW 1st Street',
-        :city => 'Miami',
-        :state_province => 'FL',
-        :postal_code => '33143',
-        :country => 'US',
-        :email_address => 'john.doe@example.com',
-        :phone => '305 111 2222'
-      }
-    }
-    it "has specific attributes" do
-      contact = DNSimple::Contact.create(contact_attributes)
-      contact.first_name.should eql(contact_attributes[:first_name])
-      contact.id.should_not be_nil
+  describe ".find" do
+    before do
+      stub_request(:get, %r[/contacts/2]).
+          to_return(read_fixture("contacts/show/success.http"))
     end
-  end
 
-  describe "an existing contact" do
-    use_vcr_cassette
+    it "builds the correct request" do
+      described_class.find("2")
 
-    it "can be found by id" do
-      contact = DNSimple::Contact.find(1)
-      contact.should_not be_nil
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/contacts/2").
+                     with(:headers => { 'Accept' => 'application/json' })
+    end
+
+    context "when the contact exists" do
+      it "returns the contact" do
+        result = described_class.find("2")
+
+        expect(result).to be_a(described_class)
+        expect(result.id).to eq(2)
+        expect(result.first_name).to eq("Simone")
+        expect(result.last_name).to eq("Carletti")
+        expect(result.job_title).to eq("Underwater Programmer")
+        expect(result.organization_name).to eq("DNSimple")
+        expect(result.email_address).to eq("example@example.com")
+        expect(result.phone).to eq("+1 111 000000")
+        expect(result.fax).to eq("+1 222 000000")
+        expect(result.address1).to eq("Awesome Street")
+        expect(result.address2).to eq("c/o Someone")
+        expect(result.city).to eq("Rome")
+        expect(result.state_province).to eq("RM")
+        expect(result.postal_code).to eq("00171")
+        expect(result.country).to eq("IT")
+        expect(result.created_at).to eq("2013-11-08T17:23:15Z")
+        expect(result.updated_at).to eq("2013-11-08T17:23:15Z")
+
+        expect(result.phone_ext).to be_nil
+      end
     end
   end
 

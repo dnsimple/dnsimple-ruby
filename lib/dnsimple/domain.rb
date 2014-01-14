@@ -1,7 +1,6 @@
 module DNSimple
-
-  # Represents a single domain.
   class Domain < Base
+
     # The domain ID in DNSimple
     attr_accessor :id
 
@@ -16,6 +15,88 @@ module DNSimple
 
     # The current known name server status
     attr_accessor :name_server_status
+
+
+    # Check the availability of a name
+    def self.check(name, options={})
+      response = DNSimple::Client.get("domains/#{name}/check", options)
+
+      case response.code
+      when 200
+        "registered"
+      when 404
+        "available"
+      else
+        raise RequestError.new("Error checking availability", response)
+      end
+    end
+
+    # Create the domain with the given name in DNSimple. This
+    # method returns a Domain instance if the name is created
+    # and raises an error otherwise.
+    def self.create(name, options={})
+      options.merge!({:body => {:domain => {:name => name}}})
+
+      response = DNSimple::Client.post("domains", options)
+
+      case response.code
+      when 201
+        new(response["domain"])
+      else
+        raise RequestError.new("Error creating domain", response)
+      end
+    end
+
+    # Purchase a domain name.
+    def self.register(name, registrant={}, extended_attributes={}, options={})
+      body = {:domain => {:name => name}}
+      if registrant
+        if registrant[:id]
+          body[:domain][:registrant_id] = registrant[:id]
+        else
+          body.merge!(:contact => DNSimple::Contact.resolve_attributes(registrant))
+        end
+      end
+      body.merge!(:extended_attribute => extended_attributes)
+      options.merge!({:body => body})
+
+      response = DNSimple::Client.post("domain_registrations", options)
+
+      case response.code
+      when 201
+        return DNSimple::Domain.new(response["domain"])
+      else
+        raise RequestError.new("Error registering domain", response)
+      end
+    end
+
+    # Find a specific domain in the account either by the numeric ID
+    # or by the fully-qualified domain name.
+    def self.find(id, options={})
+      response = DNSimple::Client.get("domains/#{id}", options)
+
+      case response.code
+      when 200
+        new(response["domain"])
+      when 404
+        raise RecordNotFound, "Could not find domain #{id}"
+      else
+        raise RequestError.new("Error finding domain", response)
+      end
+    end
+
+    # Get all domains for the account.
+    def self.all(options={})
+      response = DNSimple::Client.get("domains", options)
+
+      case response.code
+      when 200
+        response.map { |r| new(r["domain"]) }
+      else
+        raise RequestError.new("Error listing domains", response)
+      end
+    end
+
 
     # Delete the domain from DNSimple. WARNING: this cannot
     # be undone.
@@ -85,87 +166,6 @@ module DNSimple
         true
       else
         raise RequestError.new("Error removing service", response)
-      end
-    end
-
-    # Check the availability of a name
-    def self.check(name, options={})
-      response = DNSimple::Client.get("domains/#{name}/check", options)
-
-      case response.code
-      when 200
-        "registered"
-      when 404
-        "available"
-      else
-        raise RequestError.new("Error checking availability", response)
-      end
-    end
-
-    # Create the domain with the given name in DNSimple. This
-    # method returns a Domain instance if the name is created
-    # and raises an error otherwise.
-    def self.create(name, options={})
-      options.merge!({:body => {:domain => {:name => name}}})
-
-      response = DNSimple::Client.post("domains", options)
-
-      case response.code
-      when 201
-        new(response["domain"])
-      else
-        raise RequestError.new("Error creating domain", response)
-      end
-    end
-
-    # Purchase a domain name.
-    def self.register(name, registrant={}, extended_attributes={}, options={})
-      body = {:domain => {:name => name}}
-      if registrant
-        if registrant[:id]
-          body[:domain][:registrant_id] = registrant[:id]
-        else
-          body.merge!(:contact => DNSimple::Contact.resolve_attributes(registrant))
-        end
-      end
-      body.merge!(:extended_attribute => extended_attributes)
-      options.merge!({:body => body})
-
-      response = DNSimple::Client.post("domain_registrations", options)
-
-      case response.code
-      when 201
-        return DNSimple::Domain.new(response["domain"])
-      else
-        raise RequestError.new("Error registering domain", response)
-      end
-    end
-
-    # Find a specific domain in the account either by the numeric ID
-    # or by the fully-qualified domain name.
-    def self.find(id_or_name, options={})
-      id = id_or_name
-      response = DNSimple::Client.get("domains/#{id}", options)
-
-      case response.code
-      when 200
-        new(response["domain"])
-      when 404
-        raise RecordNotFound, "Could not find domain #{id}"
-      else
-        raise RequestError.new("Error finding domain", response)
-      end
-    end
-
-    # Get all domains for the account.
-    def self.all(options={})
-      response = DNSimple::Client.get("domains", options)
-
-      case response.code
-      when 200
-        response.map { |r| new(r["domain"]) }
-      else
-        raise RequestError.new("Error listing domains", response)
       end
     end
 

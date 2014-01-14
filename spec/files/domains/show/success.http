@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+Server: nginx/1.4.4
+Date: Tue, 14 Jan 2014 19:03:37 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+Status: 200 OK
+X-DNSimple-API-Version: 1.0.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+X-UA-Compatible: IE=Edge,chrome=1
+ETag: "3f9496912d04f422c7f083b93bd6e9e3"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: eec6552de5a2aa5ae570139b388ffb9b
+X-Runtime: 0.046892
+Strict-Transport-Security: max-age=315360000
+
+{"domain":{"id":6,"user_id":2,"registrant_id":2,"name":"test-1383931357.com","unicode_name":"test-1383931357.com","token":"5b70de8be5cc783c77aa7d8359abd264","state":"registered","language":null,"lockable":true,"auto_renew":true,"whois_protected":false,"record_count":7,"service_count":0,"expires_on":"2015-11-08","created_at":"2013-11-08T17:22:48Z","updated_at":"2014-01-14T18:27:04Z","parsed_expiration_date":"2015-11-08T17:23:00Z","expires_at":"11/8/2015 5:23:00 PM","name_server_status":null,"private_whois?":false}}

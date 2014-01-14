@@ -67,13 +67,13 @@ module DNSimple
 
     def self.load_credentials(path = config_path)
       begin
-        credentials = YAML.load(File.new(File.expand_path(path)))
+        credentials = YAML.load_file(File.expand_path(path))
         self.username   ||= credentials['username']
         self.password   ||= credentials['password']
         self.api_token  ||= credentials['api_token']
         self.base_uri     = credentials['site']       if credentials['site']
         self.base_uri     = credentials['base_uri']   if credentials['base_uri']
-        self.http_proxy   = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] }
+        self.http_proxy   = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] } if credentials['proxy_addr'] || credentials['proxy_port']
         @credentials_loaded = true
         puts "Credentials loaded from #{path}"
       rescue => error

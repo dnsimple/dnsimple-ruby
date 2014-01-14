@@ -15,18 +15,15 @@ Gem::Specification.new do |s|
   s.files            = `git ls-files`.split("\n")
   s.test_files       = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.extra_rdoc_files = %w( README.md CHANGELOG.md LICENSE )
-  s.executables      = `git ls-files -- bin/*`.split("\n").collect { |f|
-    File.basename(f)
-  }
+  s.executables      = `git ls-files -- bin/*`.split("\n").collect { |f| File.basename(f) }
 
-  s.add_runtime_dependency     'httparty', '>= 0'
+  s.add_dependency  'httparty', RUBY_VERSION < "1.9.3" ? [">= 0.10", "< 0.12"] : "~> 0.12"
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'aruba'
   s.add_development_dependency 'cucumber'
-  s.add_development_dependency 'fakeweb'
   s.add_development_dependency 'mocha'
   s.add_development_dependency 'rspec'
-  s.add_development_dependency 'vcr'
   s.add_development_dependency 'yard'
+  s.add_development_dependency 'webmock'
 end

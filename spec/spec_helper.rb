@@ -1,29 +1,25 @@
-require 'rubygems'
-require 'bundler/setup'
-require 'cgi'
-require 'vcr'
+require 'rspec'
 
 $:.unshift(File.dirname(__FILE__) + '/lib')
 require 'dnsimple'
 
-config = YAML.load_file(File.expand_path(ENV['DNSIMPLE_TEST_CONFIG'] || '~/.dnsimple.test'))
-
-DNSimple::Client.base_uri   = config['site']      if config['site']     # Example: https://test.dnsimple.com/
-DNSimple::Client.base_uri   = config['base_uri']  if config['base_uri'] # Example: https://test.dnsimple.com/
-DNSimple::Client.username   = config['username']                        # Example: testusername@example.com
-DNSimple::Client.password   = config['password']                        # Example: testpassword
-DNSimple::Client.api_token  = config['api_token']                       # Example: 1234567890
-
-VCR.configure do |c|
-  c.cassette_library_dir = 'fixtures/vcr_cassettes'
-  c.hook_into :fakeweb
-  c.filter_sensitive_data("<USERNAME>") { CGI::escape(DNSimple::Client.username) }
-  c.filter_sensitive_data("<PASSWORD>") { CGI::escape(DNSimple::Client.password) }
+unless defined?(SPEC_ROOT)
+  SPEC_ROOT = File.expand_path("../", __FILE__)
 end
+
+if ENV['DNSIMPLE_TEST_CONFIG']
+  DNSimple::Client.load_credentials(ENV['DNSIMPLE_TEST_CONFIG'])
+  CONFIG = { 'username' => DNSimple::Client.username, 'password' => DNSimple::Client.password, 'base_uri' => DNSimple::Client.base_uri, 'host' => URI.parse(DNSimple::Client.base_uri).host }
+else
+  CONFIG = { 'username' => 'username', 'password' => 'password', 'base_uri' => 'https://api.sandbox.dnsimple.com/', 'host' => 'api.sandbox.dnsimple.com' }
+  DNSimple::Client.base_uri = CONFIG['base_uri']
+  DNSimple::Client.username = CONFIG['username']
+  DNSimple::Client.password = CONFIG['password']
+end
+
 
 RSpec.configure do |c|
   c.mock_framework = :mocha
-  c.extend VCR::RSpec::Macros
 
   # Silent the puts call in the commands
   c.before do
@@ -35,3 +31,4 @@ RSpec.configure do |c|
   end
 end
 
+Dir[File.join(SPEC_ROOT, "support/**/*.rb")].each { |f| require f }

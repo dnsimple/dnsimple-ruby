@@ -1,6 +1,6 @@
 # DNSimple Ruby Client
 
-A Ruby command line utility and wrapper for the [DNSimple API](https://dnsimple.com/documentation/api).
+A Ruby command line utility and wrapper for the [DNSimple API](http://developer.dnsimple.com/).
 
 [![Build Status](https://secure.travis-ci.org/aetrion/dnsimple-ruby.png)](http://travis-ci.org/aetrion/dnsimple-ruby)
 

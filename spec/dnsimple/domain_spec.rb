@@ -1,88 +1,35 @@
 require 'spec_helper'
 
 describe DNSimple::Domain do
-  let(:domain_name) { "example.com" }
-  let(:contact_id) { 1 }
 
-  describe "creating a new domain" do
-    use_vcr_cassette
-    it "has specific attributes" do 
-      @domain = DNSimple::Domain.create(domain_name)
-      @domain.name.should eql(domain_name)
-      @domain.id.should_not be_nil
-    end
-  end
-  describe "finding an existing domain" do
-    context "by id" do
-      use_vcr_cassette
-      it "can be found" do
-        domain = DNSimple::Domain.find(39)
-        domain.name.should eql(domain_name)
-        domain.id.should_not be_nil
-      end
-    end
-    context "by name" do
-      use_vcr_cassette
-      it "can be found" do
-        domain = DNSimple::Domain.find(domain_name)
-        domain.name.should eql(domain_name)
-        domain.id.should_not be_nil
-      end
-    end
-  end
+  let(:contact_id) { 1001 }
 
-  context "registration" do
-
-    context "with an existing contact" do
-      let(:domain_name) { "dnsimple-example-1321042237.com" }
-      use_vcr_cassette
-      it "can be registered" do
-        domain = DNSimple::Domain.register(domain_name, {:id => contact_id})
-        domain.name.should eql(domain_name)
-      end
-    end
-    
-    context "with a new registrant contact" do
-      let(:domain_name) { "dnsimple-example-1321042288.com" }
-      use_vcr_cassette
-      it "can be registered" do
-        registrant = {
-          :first_name => 'John',
-          :last_name => 'Smith',
-          :address1 => '123 SW 1st Street',
-          :city => 'Miami',
-          :state_or_province => 'FL',
-          :country => 'US',
-          :postal_code => '33143',
-          :phone => '321 555 1212'
-        }
-        domain = DNSimple::Domain.register(domain_name, registrant)
-        domain.name.should eql(domain_name)
-      end
-    end
-  end
-
-  describe ".all" do
-    use_vcr_cassette
+  describe ".find" do
     before do
-      @domains = []
-      2.times do |n|
-        @domains << DNSimple::Domain.create("example#{n}.com")
-      end
+      stub_request(:get, %r[/domains/example.com]).
+          to_return(read_fixture("domains/show/success.http"))
     end
-    it "returns a list of domains" do
-      domains = DNSimple::Domain.all
-      domains.map { |d| d.name }.should include(*@domains.map { |d| d.name })
+
+    it "builds the correct request" do
+      described_class.find("example.com")
+
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/domains/example.com").
+                     with(:headers => { 'Accept' => 'application/json' })
+    end
+
+    context "when the domain exists" do
+      it "returns the domain" do
+        result = described_class.find("example.com")
+
+        expect(result).to be_a(described_class)
+        expect(result.id).to eq(6)
+        expect(result.name).to eq("test-1383931357.com")
+        expect(result.created_at).to eq("2013-11-08T17:22:48Z")
+        expect(result.updated_at).to eq("2014-01-14T18:27:04Z")
+
+        expect(result.name_server_status).to be_nil
+      end
     end
   end
 
-  describe "applying templates" do
-    use_vcr_cassette
-    let(:domain) { DNSimple::Domain.find("example.com") }
-    it "applies a named template" do
-      DNSimple::Record.all(domain).should be_empty
-      domain.apply("googleapps")
-      DNSimple::Record.all(domain).should_not be_empty
-    end
-  end
 end
