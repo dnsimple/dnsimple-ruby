@@ -25,7 +25,7 @@ module DNSimple
     attr_accessor :prio
 
     def delete(options={})
-      DNSimple::Client.delete("templates/#{template.id}/template_records/#{id}", options)
+      DNSimple::Client.delete("/templates/#{template.id}/template_records/#{id}", options)
     end
     alias :destroy :delete
 
@@ -38,7 +38,7 @@ module DNSimple
 
       options.merge!({:query => {:dns_template_record => record_hash}})
 
-      response = DNSimple::Client.post("templates/#{template.id}/template_records", options)
+      response = DNSimple::Client.post("/templates/#{template.id}/template_records", options)
 
       case response.code
       when 201
@@ -50,7 +50,7 @@ module DNSimple
 
     def self.find(short_name, id, options={})
       template = DNSimple::Template.find(short_name)
-      response = DNSimple::Client.get("templates/#{template.id}/template_records/#{id}", options)
+      response = DNSimple::Client.get("/templates/#{template.id}/template_records/#{id}", options)
 
       case response.code
       when 200
@@ -66,7 +66,7 @@ module DNSimple
     # given short name.
     def self.all(short_name, options={})
       template = DNSimple::Template.find(short_name)
-      response = DNSimple::Client.get("templates/#{template.id}/template_records", options)
+      response = DNSimple::Client.get("/templates/#{template.id}/template_records", options)
 
       case response.code
       when 200

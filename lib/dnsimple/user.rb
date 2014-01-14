@@ -12,7 +12,7 @@ module DNSimple
 
 
     def self.me
-      response = DNSimple::Client.get("users/me")
+      response = DNSimple::Client.get("/users/me")
 
       case response.code
       when 200

@@ -3,7 +3,8 @@ require 'yaml'
 module DNSimple
   class Client
 
-    API_BASE_URI = "https://api.dnsimple.com"
+    API_BASE_URI = "https://api.dnsimple.com/v1/"
+
 
     def self.debug?
       @debug
@@ -41,7 +42,7 @@ module DNSimple
     #
     # @return [String] The qualified API base uri.
     def self.base_uri
-      @base_uri ||= API_BASE_URI
+      @base_uri ||= API_BASE_URI.chomp("/")
     end
 
     # Sets the qualified API base uri.
@@ -129,7 +130,7 @@ module DNSimple
     end
 
     def self.request(method, path, options)
-      response = HTTParty.send(method, "#{base_uri}/#{path}",
+      response = HTTParty.send(method, "#{base_uri}#{path}",
         standard_options.merge(options))
 
       if response.code == 401

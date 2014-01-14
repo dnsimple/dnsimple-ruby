@@ -19,7 +19,7 @@ module DNSimple
 
     # Check the availability of a name
     def self.check(name, options={})
-      response = DNSimple::Client.get("domains/#{name}/check", options)
+      response = DNSimple::Client.get("/domains/#{name}/check", options)
 
       case response.code
       when 200
@@ -37,7 +37,7 @@ module DNSimple
     def self.create(name, options={})
       options.merge!({:body => {:domain => {:name => name}}})
 
-      response = DNSimple::Client.post("domains", options)
+      response = DNSimple::Client.post("/domains", options)
 
       case response.code
       when 201
@@ -60,7 +60,7 @@ module DNSimple
       body.merge!(:extended_attribute => extended_attributes)
       options.merge!({:body => body})
 
-      response = DNSimple::Client.post("domain_registrations", options)
+      response = DNSimple::Client.post("/domain_registrations", options)
 
       case response.code
       when 201
@@ -73,7 +73,7 @@ module DNSimple
     # Find a specific domain in the account either by the numeric ID
     # or by the fully-qualified domain name.
     def self.find(id, options={})
-      response = DNSimple::Client.get("domains/#{id}", options)
+      response = DNSimple::Client.get("/domains/#{id}", options)
 
       case response.code
       when 200
@@ -87,7 +87,7 @@ module DNSimple
 
     # Get all domains for the account.
     def self.all(options={})
-      response = DNSimple::Client.get("domains", options)
+      response = DNSimple::Client.get("/domains", options)
 
       case response.code
       when 200
@@ -101,7 +101,7 @@ module DNSimple
     # Delete the domain from DNSimple. WARNING: this cannot
     # be undone.
     def delete(options={})
-      DNSimple::Client.delete("domains/#{name}", options)
+      DNSimple::Client.delete("/domains/#{name}", options)
     end
     alias :destroy :delete
 
@@ -111,7 +111,7 @@ module DNSimple
       options.merge!(:body => {})
       template = resolve_template(template)
 
-      DNSimple::Client.post("domains/#{name}/templates/#{template.id}/apply", options)
+      DNSimple::Client.post("/domains/#{name}/templates/#{template.id}/apply", options)
     end
 
     #:nodoc:
@@ -125,7 +125,7 @@ module DNSimple
     end
 
     def applied_services(options={})
-      response = DNSimple::Client.get("domains/#{name}/applied_services", options)
+      response = DNSimple::Client.get("/domains/#{name}/applied_services", options)
 
       case response.code
       when 200
@@ -136,7 +136,7 @@ module DNSimple
     end
 
     def available_services(options={})
-      response = DNSimple::Client.get("domains/#{name}/available_services", options)
+      response = DNSimple::Client.get("/domains/#{name}/available_services", options)
 
       case response.code
       when 200
@@ -148,7 +148,7 @@ module DNSimple
 
     def add_service(id_or_short_name, options={})
       options.merge!(:body => {:service => {:id => id_or_short_name}})
-      response = DNSimple::Client.post("domains/#{name}/applied_services", options)
+      response = DNSimple::Client.post("/domains/#{name}/applied_services", options)
 
       case response.code
       when 200
@@ -159,7 +159,7 @@ module DNSimple
     end
 
     def remove_service(id, options={})
-      response = DNSimple::Client.delete("domains/#{name}/applied_services/#{id}", options)
+      response = DNSimple::Client.delete("/domains/#{name}/applied_services/#{id}", options)
 
       case response.code
       when 200

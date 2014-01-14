@@ -26,7 +26,7 @@ describe DNSimple::Client do
         DNSimple::Client.username   = 'user'
         DNSimple::Client.password   = 'pass'
         DNSimple::Client.api_token  = nil
-        DNSimple::Client.base_uri   = 'https://api.example.com'
+        DNSimple::Client.base_uri   = 'https://api.example.com/'
 
         HTTParty.expects(method).
           with('https://api.example.com/domains',
@@ -34,14 +34,14 @@ describe DNSimple::Client do
             :basic_auth => { :username => 'user', :password => 'pass'}).
           returns(response)
 
-        DNSimple::Client.send(method, 'domains')
+        DNSimple::Client.send(method, '/domains')
       end
 
       it "uses header authentication if there's an api token provided" do
         DNSimple::Client.username   = 'user'
         DNSimple::Client.password   = nil
         DNSimple::Client.api_token  = 'token'
-        DNSimple::Client.base_uri   = 'https://api.example.com'
+        DNSimple::Client.base_uri   = 'https://api.example.com/'
 
         HTTParty.expects(method).
           with('https://api.example.com/domains',
@@ -49,17 +49,17 @@ describe DNSimple::Client do
             'X-DNSimple-Token' => 'user:token'}).
           returns(response)
 
-        DNSimple::Client.send(method, 'domains')
+        DNSimple::Client.send(method, '/domains')
       end
 
       it "raises an error if there's no password or api token provided" do
         DNSimple::Client.username   = 'user'
         DNSimple::Client.password   = nil
         DNSimple::Client.api_token  = nil
-        DNSimple::Client.base_uri   = 'https://test.example.com'
+        DNSimple::Client.base_uri   = 'https://api.example.com/'
 
         lambda {
-          DNSimple::Client.send(method, 'domains')
+          DNSimple::Client.send(method, '/domains')
         }.should raise_error(DNSimple::Error, 'A password or API token is required for all API requests.')
       end
     end
