@@ -1,6 +1,6 @@
 # Changelog
 
-#### master
+#### Release 1.5.2
 
 - NEW: Provide a meaningful user-agent.
 
