@@ -22,8 +22,8 @@ describe DNSimple::Client do
   [:get, :post, :put, :delete].each do |method|
     describe ".#{method}" do
       it "delegates to .request" do
-        described_class.expects(:request).with(method, '/domains', { foo: 'bar' })
-        described_class.send(method, '/domains', { foo: 'bar' })
+        described_class.expects(:request).with(method, '/domains', { :foo => 'bar' })
+        described_class.send(method, '/domains', { :foo => 'bar' })
       end
     end
   end
