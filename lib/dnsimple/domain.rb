@@ -16,6 +16,8 @@ module DNSimple
     # The current known name server status
     attr_accessor :name_server_status
 
+    # When the domain is due to expire
+    attr_accessor :expires_on
 
     # Check the availability of a name
     def self.check(name, options={})

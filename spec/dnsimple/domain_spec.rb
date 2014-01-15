@@ -22,6 +22,7 @@ describe DNSimple::Domain do
         result = described_class.find("example.com")
 
         expect(result).to be_a(described_class)
+        expect(result.expires_on).to eq('2015-11-08')
         expect(result.id).to eq(6)
         expect(result.name).to eq("test-1383931357.com")
         expect(result.created_at).to eq("2013-11-08T17:22:48Z")
