@@ -3,65 +3,87 @@ require 'spec_helper'
 describe DNSimple::Client do
 
   let(:klass) { described_class }
+  let(:response) { stub('response', :code => 200) }
 
-  before :each do
-    @_username  = DNSimple::Client.username
-    @_password  = DNSimple::Client.password
-    @_api_token = DNSimple::Client.api_token
-    @_base_uri  = DNSimple::Client.base_uri
+  before do
+    @_username  = described_class.username
+    @_password  = described_class.password
+    @_api_token = described_class.api_token
+    @_base_uri  = described_class.base_uri
   end
 
   after do
-    DNSimple::Client.username   = @_username
-    DNSimple::Client.password   = @_password
-    DNSimple::Client.api_token  = @_api_token
-    DNSimple::Client.base_uri   = @_base_uri
+    described_class.username   = @_username
+    described_class.password   = @_password
+    described_class.api_token  = @_api_token
+    described_class.base_uri   = @_base_uri
   end
 
   [:get, :post, :put, :delete].each do |method|
     describe ".#{method}" do
-      let(:response) { stub('response', :code => 200) }
-
-      it "uses HTTP authentication if there's a password provided" do
-        DNSimple::Client.username   = 'user'
-        DNSimple::Client.password   = 'pass'
-        DNSimple::Client.api_token  = nil
-        DNSimple::Client.base_uri   = 'https://api.example.com/'
-
-        HTTParty.expects(method).
-          with('https://api.example.com/domains',
-            :format => :json, :headers => {'Accept' => 'application/json'},
-            :basic_auth => { :username => 'user', :password => 'pass'}).
-          returns(response)
-
-        DNSimple::Client.send(method, '/domains')
+      it "delegates to .request" do
+        described_class.expects(:request).with(method, '/domains', { foo: 'bar' })
+        described_class.send(method, '/domains', { foo: 'bar' })
       end
+    end
+  end
 
-      it "uses header authentication if there's an api token provided" do
-        DNSimple::Client.username   = 'user'
-        DNSimple::Client.password   = nil
-        DNSimple::Client.api_token  = 'token'
-        DNSimple::Client.base_uri   = 'https://api.example.com/'
+  describe ".request" do
+    it "uses HTTP authentication if there's a password provided" do
+      described_class.username   = 'user'
+      described_class.password   = 'pass'
+      described_class.api_token  = nil
+      described_class.base_uri   = 'https://api.example.com/'
 
-        HTTParty.expects(method).
-          with('https://api.example.com/domains',
-            :format => :json, :headers => {'Accept' => 'application/json',
-            'X-DNSimple-Token' => 'user:token'}).
-          returns(response)
+      HTTParty.expects(:get).
+        with('https://api.example.com/domains', has_entries(:basic_auth => { :username => 'user', :password => 'pass' })).
+        returns(response)
 
-        DNSimple::Client.send(method, '/domains')
-      end
+      described_class.request(:get, '/domains', {})
+    end
 
-      it "raises an error if there's no password or api token provided" do
-        DNSimple::Client.username   = 'user'
-        DNSimple::Client.password   = nil
-        DNSimple::Client.api_token  = nil
-        DNSimple::Client.base_uri   = 'https://api.example.com/'
+    it "uses header authentication if there's an api token provided" do
+      described_class.username   = 'user'
+      described_class.password   = nil
+      described_class.api_token  = 'token'
+      described_class.base_uri   = 'https://api.example.com/'
 
-        lambda {
-          DNSimple::Client.send(method, '/domains')
-        }.should raise_error(DNSimple::Error, 'A password or API token is required for all API requests.')
-      end
+      HTTParty.expects(:get).
+        with('https://api.example.com/domains', has_entries(:headers => has_entries({ 'X-DNSimple-Token' => 'user:token' }))).
+        returns(response)
+
+      described_class.request(:get, '/domains', {})
+    end
+
+    it "raises an error if there's no password or api token provided" do
+      described_class.username   = 'user'
+      described_class.password   = nil
+      described_class.api_token  = nil
+      described_class.base_uri   = 'https://api.example.com/'
+
+      expect {
+        described_class.request(:get, '/domains', {})
+      }.to raise_error(DNSimple::Error, 'A password or API token is required for all API requests.')
+    end
+
+    it "adds a custom user-agent" do
+      HTTParty.expects(:get).
+        with(is_a(String), has_entries(:headers => has_entries({ 'User-Agent' => "dnsimple-ruby/#{DNSimple::VERSION}" }))).
+        returns(response)
+
+      described_class.request(:get, '/foo', {})
+    end
+
+    it "performs a request" do
+      HTTParty.expects(:get).
+        with("#{described_class.base_uri}/foo",
+          :format => :json,
+          :basic_auth => { :username => described_class.username, :password => described_class.password },
+          :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{DNSimple::VERSION}" }
+          ).
+        returns(response)
+
+      described_class.request(:get, '/foo', {})
     end
   end
 

@@ -22,13 +22,13 @@ RSpec.configure do |c|
   c.mock_framework = :mocha
 
   # Silent the puts call in the commands
-  c.before do
-    @_stdout = $stdout
-    $stdout = StringIO.new
-  end
-  c.after do
-    $stdout = @_stdout
-  end
+  # c.before do
+  #   @_stdout = $stdout
+  #   $stdout = StringIO.new
+  # end
+  # c.after do
+  #   $stdout = @_stdout
+  # end
 end
 
 Dir[File.join(SPEC_ROOT, "support/**/*.rb")].each { |f| require f }

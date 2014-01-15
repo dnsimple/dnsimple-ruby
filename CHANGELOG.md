@@ -1,14 +1,18 @@
 # Changelog
 
-## Release 1.5.1
+#### master
+
+- NEW: Provide a meaningful user-agent.
+
+#### Release 1.5.1
 
 - FIXED: Invalid base URI.
 
-## Release 1.5.0
+#### Release 1.5.0
 
 - CHANGED: Added support for versioned API (GH-33)
 
-## Release 1.4.0
+#### Release 1.4.0
 
 - CHANGED: Normalized exception handling. No more RuntimeError.
   In case of request error, the client raises RequestError, RecordExists or RecodNotFound
