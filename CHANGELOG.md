@@ -1,6 +1,6 @@
 # Changelog
 
-#### master
+#### Release 1.5.3
 
 - FIXED: In some cases the client crashed with NoMethodError VERSION (GH-35).
 
