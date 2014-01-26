@@ -1,3 +1,4 @@
+require 'dnsimple/version'
 require 'yaml'
 
 module DNSimple

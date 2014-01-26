@@ -1,5 +1,9 @@
 # Changelog
 
+#### master
+
+- FIXED: In some cases the client crashed with NoMethodError VERSION (GH-35).
+
 #### Release 1.5.2
 
 - NEW: Provide a meaningful user-agent.
