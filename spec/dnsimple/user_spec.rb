@@ -3,14 +3,14 @@ require 'spec_helper'
 describe DNSimple::User do
   describe ".me" do
     before do
-      stub_request(:get, %r[/v1/users/me]).
-          to_return(read_fixture("users/me/success.http"))
+      stub_request(:get, %r[/v1/user]).
+          to_return(read_fixture("account/user/success.http"))
     end
 
     it "builds the correct request" do
       described_class.me
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/users/me").
+      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/user").
                      with(:headers => { 'Accept' => 'application/json' })
     end
 
@@ -18,14 +18,14 @@ describe DNSimple::User do
       result = described_class.me
 
       expect(result).to be_a(described_class)
-      expect(result.id).to eq(2)
+      expect(result.id).to eq(19)
       expect(result.email).to eq("example@example.com")
-      expect(result.domain_count).to eq(2)
-      expect(result.domain_limit).to eq(50)
-      expect(result.login_count).to eq(2)
-      expect(result.failed_login_count).to eq(0)
-      expect(result.created_at).to eq("2013-11-08T17:20:58Z")
-      expect(result.updated_at).to eq("2014-01-14T17:45:57Z")
+      expect(result.domain_count).to be_a(Integer)
+      expect(result.domain_limit).to be_a(Integer)
+      expect(result.login_count).to be_a(Integer)
+      expect(result.failed_login_count).to be_a(Integer)
+      expect(result.created_at).to eq("2014-01-15T21:59:04Z")
+      expect(result.updated_at).to be_a(String)
     end
   end
 end

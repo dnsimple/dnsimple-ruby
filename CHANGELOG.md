@@ -4,6 +4,8 @@
 
 - NEW: Added domain#expires_on attribute (GH-34). Thanks @alkema
 
+- CHANGED: User.me now uses the correct patch for API v1.
+
 #### Release 1.5.3
 
 - FIXED: In some cases the client crashed with NoMethodError VERSION (GH-35).
