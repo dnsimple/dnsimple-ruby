@@ -19,6 +19,9 @@ module DNSimple
     # When the domain is due to expire
     attr_accessor :expires_on
 
+    # Whether the domain has auto_renew enabled/disabled
+    attr_accessor :auto_renew
+
     # Check the availability of a name
     def self.check(name, options={})
       response = DNSimple::Client.get("/v1/domains/#{name}/check", options)
@@ -99,6 +102,17 @@ module DNSimple
       end
     end
 
+    # Enable auto_renew on the domain
+    def enable_auto_renew
+      return if auto_renew
+      auto_renew!(:post)
+    end
+
+    # Disable auto_renew on the domain
+    def disable_auto_renew
+      return unless auto_renew
+      auto_renew!(:delete)
+    end
 
     # Delete the domain from DNSimple. WARNING: this cannot
     # be undone.
@@ -171,5 +185,16 @@ module DNSimple
       end
     end
 
+    private
+
+    def auto_renew!(method)
+      response = DNSimple::Client.send(method, "/v1/domains/#{name}/auto_renewal")
+      case response.code
+      when 200
+        self.auto_renew = response['domain']['auto_renew']
+      else
+        raise RequestError.new("Error setting auto_renew", response)
+      end
+    end
   end
 end
