@@ -27,6 +27,12 @@ describe DNSimple::Domain do
         expect(result.expires_on).to eq('2015-11-08')
         expect(result.created_at).to eq("2013-11-08T17:22:48Z")
         expect(result.updated_at).to eq("2014-01-14T18:27:04Z")
+        expect(result.state).to eq("registered")
+        expect(result.registrant_id).to eq(2)
+        expect(result.user_id).to eq(2)
+        expect(result.lockable).to eq(true)
+        expect(result.auto_renew).to eq(true)
+        expect(result.whois_protected).to eq(false)
 
         expect(result.name_server_status).to be_nil
       end
