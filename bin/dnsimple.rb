@@ -85,7 +85,7 @@ certificate:describe domain.com id                          # Get a specific cer
 certificate:purchase domain.com name contact_id             # Purchase a certificate
 certificate:submit domain.com id approver_email             # Submit a certificate for processing
 
-Please see the DNSimple documentation at https://dnsimple.com/documentation/api for additional
+Please see the DNSimple documentation at http://developer.dnsimple.com for additional
 information on the commands that are available to DNSimple customers.
 
 EOF
