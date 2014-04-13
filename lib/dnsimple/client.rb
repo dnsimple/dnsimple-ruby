@@ -39,6 +39,14 @@ module DNSimple
       @api_token = api_token
     end
 
+    def self.domain_token
+      @domain_token
+    end
+
+    def self.domain_token=(domain_token)
+      @domain_token = domain_token
+    end
+
     # Gets the qualified API base uri.
     #
     # @return [String] The qualified API base uri.
@@ -75,6 +83,7 @@ module DNSimple
         self.username   ||= credentials['username']
         self.password   ||= credentials['password']
         self.api_token  ||= credentials['api_token']
+        self.domain_token  ||= credentials['domain_token']
         self.base_uri     = credentials['site']       if credentials['site']
         self.base_uri     = credentials['base_uri']   if credentials['base_uri']
         self.http_proxy   = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] } if credentials['proxy_addr'] || credentials['proxy_port']
@@ -87,7 +96,7 @@ module DNSimple
     end
 
     def self.credentials_loaded?
-      (@credentials_loaded ||= false) or (username and (password or api_token))
+      (@credentials_loaded ||= false) or (domain_token or (username and (password or api_token)))
     end
 
     def self.base_options
@@ -107,6 +116,8 @@ module DNSimple
         options[:basic_auth] = { :username => username, :password => password }
       elsif api_token
         options[:headers]['X-DNSimple-Token'] = "#{username}:#{api_token}"
+      elsif domain_token
+        options[:headers]['X-DNSimple-Domain-Token'] = domain_token
       else
         raise Error, 'A password or API token is required for all API requests.'
       end
