@@ -11,7 +11,7 @@ module DNSimple
 
   class RequestError < Error
     def initialize(description, response)
-      super("#{description}: #{response["error"]}")
+      super("#{description}: #{response["errors"]}")
     end
   end
 
