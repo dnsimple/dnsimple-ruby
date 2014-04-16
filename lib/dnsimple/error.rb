@@ -11,7 +11,8 @@ module DNSimple
 
   class RequestError < Error
     def initialize(description, response)
-      super("#{description}: #{response["error"]}")
+      error = response["errors"].size > 0 ? response["errors"] : response["warning"]
+      super("#{description}: #{error} (#{response.code})")
     end
   end
 
