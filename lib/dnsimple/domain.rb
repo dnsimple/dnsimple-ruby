@@ -34,8 +34,9 @@ module DNSimple
     # Is the domain set to autorenew
     attr_accessor :auto_renew
     
-    # IS the whois information protected
+    # Is the whois information protected
     attr_accessor :whois_protected
+
 
     # Check the availability of a name
     def self.check(name, options={})
@@ -117,6 +118,17 @@ module DNSimple
       end
     end
 
+    # Enable auto_renew on the domain
+    def enable_auto_renew
+      return if auto_renew
+      auto_renew!(:post)
+    end
+
+    # Disable auto_renew on the domain
+    def disable_auto_renew
+      return unless auto_renew
+      auto_renew!(:delete)
+    end
 
     # Delete the domain from DNSimple. WARNING: this cannot
     # be undone.
@@ -134,7 +146,6 @@ module DNSimple
       DNSimple::Client.post("/v1/domains/#{name}/templates/#{template.id}/apply", options)
     end
 
-    #:nodoc:
     def resolve_template(template)
       case template
       when DNSimple::Template
@@ -186,6 +197,19 @@ module DNSimple
         true
       else
         raise RequestError.new("Error removing service", response)
+      end
+    end
+
+
+    private
+
+    def auto_renew!(method)
+      response = DNSimple::Client.send(method, "/v1/domains/#{name}/auto_renewal")
+      case response.code
+      when 200
+        self.auto_renew = response['domain']['auto_renew']
+      else
+        raise RequestError.new("Error setting auto_renew", response)
       end
     end
 
