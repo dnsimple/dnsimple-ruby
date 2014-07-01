@@ -40,12 +40,11 @@ describe DNSimple::Domain do
   end
 
   describe "#enable_auto_renew" do
+    let(:domain) { described_class.new(name: 'example.com', auto_renew: false) }
 
     context "when response is not 200" do
-      let(:domain) { described_class.new 'name' => 'test1383931357.com' }
-
       before do
-        stub_request(:post, %r[/v1/domains/test1383931357.com/auto_renewal]).
+        stub_request(:post, %r[/v1/domains/example.com/auto_renewal]).
             to_return(read_fixture("domains/show/notfound.http"))
       end
 
@@ -55,17 +54,16 @@ describe DNSimple::Domain do
     end
 
     context "when auto_renew is true" do
-      let(:domain) { described_class.new 'auto_renew' => true, 'name' => 'example.com' }
+      let(:domain) { described_class.new(name: 'example.com', auto_renew: true) }
 
       it "does not send a web request" do
         domain.enable_auto_renew
-        expect(WebMock).to_not have_requested(:post, %r[/v1/domains/example.com/auto_renewal])
+        expect(WebMock).to have_not_been_made
       end
-
     end
 
     context "when auto_renew is false" do
-      let(:domain) { described_class.new 'auto_renew' => false, 'name' => 'example.com' }
+      let(:domain) { described_class.new(name: 'example.com', auto_renew: false) }
 
       before do
         stub_request(:post, %r[/v1/domains/example.com/auto_renewal]).
@@ -88,21 +86,30 @@ describe DNSimple::Domain do
   end
 
   describe "#disable_auto_renew" do
-    context "when response is not 200" do
-      let(:domain) { described_class.new 'auto_renew' => true, 'name' => 'test1383931357.com' }
+    let(:domain) { described_class.new(name: 'example.com', auto_renew: true) }
 
+    context "when response is not 200" do
       before do
-        stub_request(:delete, %r[/v1/domains/test1383931357.com/auto_renewal]).
+        stub_request(:delete, %r[/v1/domains/example.com/auto_renewal]).
             to_return(read_fixture("domains/show/notfound.http"))
       end
 
       it "raises a RequestError" do
-        expect { domain.disable_auto_renew }.to raise_error DNSimple::RequestError
+        expect { domain.disable_auto_renew }.to raise_error(DNSimple::RequestError)
+      end
+    end
+
+    context "when auto_renew is false" do
+      let(:domain) { described_class.new(name: 'example.com', auto_renew: false) }
+
+      it "does not send a web request" do
+        domain.disable_auto_renew
+        expect(WebMock).to have_not_been_made
       end
     end
 
     context "when auto_renew is true" do
-      let(:domain) { described_class.new 'auto_renew' => true, 'name' => 'example.com' }
+      let(:domain) { described_class.new(name: 'example.com', auto_renew: true) }
 
       before do
         stub_request(:delete, %r[/v1/domains/example.com/auto_renewal]).
@@ -122,13 +129,5 @@ describe DNSimple::Domain do
       end
     end
 
-    context "when auto_renew is false" do
-      let(:domain) { described_class.new 'auto_renew' => false, 'name' => 'example.com' }
-
-      it "does not send a web request" do
-        domain.disable_auto_renew
-        expect(WebMock).to_not have_requested(:delete, %r[/v1/domains/example.com/auto_renewal])
-      end
-    end
   end
 end
