@@ -45,7 +45,7 @@ describe DNSimple::Domain do
     context "when response is not 200" do
       before do
         stub_request(:post, %r[/v1/domains/example.com/auto_renewal]).
-            to_return(read_fixture("domains/show/notfound.http"))
+            to_return(read_fixture("domains/auto_renewal_enable/notfound.http"))
       end
 
       it "raises a RequestError" do
@@ -67,7 +67,7 @@ describe DNSimple::Domain do
 
       before do
         stub_request(:post, %r[/v1/domains/example.com/auto_renewal]).
-            to_return(read_fixture("domains/show/success.http"))
+            to_return(read_fixture("domains/auto_renewal_enable/success.http"))
       end
 
       it "builds the correct request to enable auto_renew" do
@@ -91,7 +91,7 @@ describe DNSimple::Domain do
     context "when response is not 200" do
       before do
         stub_request(:delete, %r[/v1/domains/example.com/auto_renewal]).
-            to_return(read_fixture("domains/show/notfound.http"))
+            to_return(read_fixture("domains/auto_renewal_disable/notfound.http"))
       end
 
       it "raises a RequestError" do
@@ -113,7 +113,7 @@ describe DNSimple::Domain do
 
       before do
         stub_request(:delete, %r[/v1/domains/example.com/auto_renewal]).
-            to_return(read_fixture("domains/show/auto_renew_false.http"))
+            to_return(read_fixture("domains/auto_renewal_disable/success.http"))
       end
 
       it "builds the correct request to disable auto_renew" do
