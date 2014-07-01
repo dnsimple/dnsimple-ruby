@@ -11,8 +11,8 @@ describe DNSimple::Contact do
     it "builds the correct request" do
       described_class.find("2")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/contacts/2").
-                     with(:headers => { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/contacts/2").
+          with(:headers => { 'Accept' => 'application/json' })
     end
 
     context "when the contact exists" do

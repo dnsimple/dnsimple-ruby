@@ -11,8 +11,8 @@ describe DNSimple::ExtendedAttribute do
     it "builds the correct request" do
       described_class.find("com")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/extended_attributes/com").
-                     with(:headers => { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/extended_attributes/com").
+          with(:headers => { 'Accept' => 'application/json' })
     end
 
     context "when the TLD has no attributes" do
@@ -38,15 +38,15 @@ describe DNSimple::ExtendedAttribute do
         result = described_class.find("ca")
 
         expect(result).to be_a(Array)
-        expect(result).to have(5).attributes
+        expect(result.size).to eq(5)
 
         attribute = result[0]
         expect(attribute).to be_a(described_class)
         expect(attribute.name).to eq("cira_legal_type")
         expect(attribute.description).to eq("Legal type of registrant contact")
-        expect(attribute.required).to be_true
+        expect(attribute.required).to be_truthy
         expect(attribute.options).to be_a(Array)
-        expect(attribute.options).to have(18).options
+        expect(attribute.options.size).to eq(18)
       end
     end
   end

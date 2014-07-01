@@ -11,8 +11,8 @@ describe DNSimple::Template do
     it "builds the correct request" do
       described_class.find("google-apps")
 
-      WebMock.should have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/templates/google-apps").
-                     with(:headers => { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/templates/google-apps").
+          with(:headers => { 'Accept' => 'application/json' })
     end
 
     context "when the template exists" do

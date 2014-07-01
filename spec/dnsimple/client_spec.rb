@@ -91,16 +91,16 @@ describe DNSimple::Client do
   describe ".base_uri" do
     it "returns the qualified API uri" do
       klass.base_uri = "http://api.dnsimple.com"
-      klass.base_uri.should eq("http://api.dnsimple.com")
+      expect(klass.base_uri).to eq("http://api.dnsimple.com")
     end
   end
 
   describe ".base_uri=" do
     it "sets the base_uri" do
       klass.base_uri = "http://api1.dnsimple.com/"
-      klass.base_uri.should eq("http://api1.dnsimple.com")
+      expect(klass.base_uri).to eq("http://api1.dnsimple.com")
       klass.base_uri = "http://api2.dnsimple.com"
-      klass.base_uri.should eq("http://api2.dnsimple.com")
+      expect(klass.base_uri).to eq("http://api2.dnsimple.com")
     end
   end
 
