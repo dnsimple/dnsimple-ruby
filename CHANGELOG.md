@@ -4,7 +4,12 @@
 
 - NEW: Added domain#expires_on attribute (GH-34). Thanks @alkema
 
+- NEW: Add various missing domain attributes (GH-38). Thanks @nickhammond
+
+- NEW: Added support for auto-renewal (GH-36). Thanks @mzuneska
+
 - CHANGED: User.me now uses the correct patch for API v1.
+
 
 #### Release 1.5.3
 
