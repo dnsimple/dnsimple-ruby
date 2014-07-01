@@ -19,6 +19,24 @@ module DNSimple
     # When the domain is due to expire
     attr_accessor :expires_on
 
+    # The state of the domain in DNSimple
+    attr_accessor :state
+
+    # ID of the registrant in DNSimple
+    attr_accessor :registrant_id
+
+    # User ID in DNSimple
+    attr_accessor :user_id
+    
+    # Is the domain lockable
+    attr_accessor :lockable
+    
+    # Is the domain set to autorenew
+    attr_accessor :auto_renew
+    
+    # IS the whois information protected
+    attr_accessor :whois_protected
+
     # Check the availability of a name
     def self.check(name, options={})
       response = DNSimple::Client.get("/v1/domains/#{name}/check", options)
