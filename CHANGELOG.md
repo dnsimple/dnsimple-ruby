@@ -1,5 +1,9 @@
 # Changelog
 
+#### Release 1.5.5
+
+- NEW: Add notice about the CLI moving to a new location
+
 #### Release 1.5.4
 
 - NEW: Added domain#expires_on attribute (GH-34). Thanks @alkema
