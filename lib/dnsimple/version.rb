@@ -1,3 +1,3 @@
 module DNSimple
-  VERSION = '1.5.4'
+  VERSION = '2.0.0'
 end
