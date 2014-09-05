@@ -4,6 +4,7 @@ A Ruby API wrapper for the [DNSimple API](http://developer.dnsimple.com/).
 
 [DNSimple](https://dnsimple.com/) provides DNS hosting
 and domain registration that is simple and friendly.
+
 We provide a full API and an easy-to-use web interface so you can get
 your domain registered and set up with a minimal amount of effort.
 
