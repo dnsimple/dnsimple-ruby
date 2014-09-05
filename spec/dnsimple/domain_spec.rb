@@ -40,7 +40,7 @@ describe DNSimple::Domain do
   end
 
   describe "#enable_auto_renew" do
-    let(:domain) { described_class.new(name: 'example.com', auto_renew: false) }
+    let(:domain) { described_class.new(:name => 'example.com', :auto_renew => false) }
 
     context "when response is not 200" do
       before do
@@ -54,7 +54,7 @@ describe DNSimple::Domain do
     end
 
     context "when auto_renew is true" do
-      let(:domain) { described_class.new(name: 'example.com', auto_renew: true) }
+      let(:domain) { described_class.new(:name => 'example.com', :auto_renew => true) }
 
       it "does not send a web request" do
         domain.enable_auto_renew
@@ -63,7 +63,7 @@ describe DNSimple::Domain do
     end
 
     context "when auto_renew is false" do
-      let(:domain) { described_class.new(name: 'example.com', auto_renew: false) }
+      let(:domain) { described_class.new(:name => 'example.com', :auto_renew => false) }
 
       before do
         stub_request(:post, %r[/v1/domains/example.com/auto_renewal]).
@@ -86,7 +86,7 @@ describe DNSimple::Domain do
   end
 
   describe "#disable_auto_renew" do
-    let(:domain) { described_class.new(name: 'example.com', auto_renew: true) }
+    let(:domain) { described_class.new(:name => 'example.com', :auto_renew => true) }
 
     context "when response is not 200" do
       before do
@@ -100,7 +100,7 @@ describe DNSimple::Domain do
     end
 
     context "when auto_renew is false" do
-      let(:domain) { described_class.new(name: 'example.com', auto_renew: false) }
+      let(:domain) { described_class.new(:name => 'example.com', :auto_renew => false) }
 
       it "does not send a web request" do
         domain.disable_auto_renew
@@ -109,7 +109,7 @@ describe DNSimple::Domain do
     end
 
     context "when auto_renew is true" do
-      let(:domain) { described_class.new(name: 'example.com', auto_renew: true) }
+      let(:domain) { described_class.new(:name => 'example.com', :auto_renew => true) }
 
       before do
         stub_request(:delete, %r[/v1/domains/example.com/auto_renewal]).
