@@ -1,4 +1,6 @@
-# DNSimple Ruby API Wrapper  [![Build Status](https://secure.travis-ci.org/aetrion/dnsimple-ruby.png)](http://travis-ci.org/aetrion/dnsimple-ruby)
+# DNSimple Ruby API Wrapper
+
+[![Build Status](https://secure.travis-ci.org/aetrion/dnsimple-ruby.png)](http://travis-ci.org/aetrion/dnsimple-ruby)
 
 A Ruby API wrapper for the [DNSimple API](http://developer.dnsimple.com/).
 
@@ -10,7 +12,7 @@ your domain registered and set up with a minimal amount of effort.
 
 ## Installation
 
-    $ gem install dnsimple-ruby
+    $ gem install dnsimple
 
 ## Credentials
 
