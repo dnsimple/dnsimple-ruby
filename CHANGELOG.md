@@ -1,5 +1,9 @@
 # Changelog
 
+#### Release 2.0.0
+
+- NEW: Separated CLI from library. The CLI may be found at https://github.com/aetrion/dnsimple-cli
+
 #### Release 1.5.4
 
 - NEW: Added domain#expires_on attribute (GH-34). Thanks @alkema
