@@ -124,4 +124,20 @@ describe DNSimple::Client do
     end
   end
 
+
+  describe "authentication" do
+    context "when 2FA is required" do
+      before do
+        stub_request(:get, %r[/foo]).
+            to_return(read_fixture("2fa/error-required.http"))
+      end
+
+      it "raises a TwoFactorAuthenticationRequired error" do
+        expect {
+          described_class.get('/foo', {})
+        }.to raise_error(DNSimple::TwoFactorAuthenticationRequired)
+      end
+    end
+  end
+
 end

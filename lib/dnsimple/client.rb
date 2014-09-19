@@ -111,7 +111,9 @@ module DNSimple
     def self.request(method, path, options)
       response = HTTParty.send(method, "#{base_uri}#{path}", base_options.merge(options))
 
-      if response.code == 401
+      if response.code == 401 && response.headers[HEADER_OTP_TOKEN] == "required"
+        raise TwoFactorAuthenticationRequired, response["message"]
+      elsif response.code == 401
         raise AuthenticationFailed, response["message"]
       end
 
