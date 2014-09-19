@@ -137,7 +137,7 @@ module DNSimple
       response = HTTParty.send(method, "#{base_uri}#{path}", base_options.merge(options))
 
       if response.code == 401
-        raise AuthenticationFailed
+        raise AuthenticationFailed, response["message"]
       end
 
       response

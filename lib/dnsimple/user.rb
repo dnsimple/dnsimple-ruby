@@ -39,7 +39,9 @@ module DNSimple
     #   # => "cda038832591e34f5df642ce2b61dc78"
     #
     # @param  [String] otp_token the two-factor one time (OTP) token
+    #
     # @return [String] the two-factor API exchange token
+    # @raise  [AuthenticationFailed] if the provided OTP token is invalid
     def self.two_factor_exchange_token(otp_token)
       response = DNSimple::Client.get("/v1/user", headers: { DNSimple::Client::HEADER_2FA_STRICT => "1", DNSimple::Client::HEADER_OTP_TOKEN => otp_token })
       response.headers[DNSimple::Client::HEADER_EXCHANGE_TOKEN]

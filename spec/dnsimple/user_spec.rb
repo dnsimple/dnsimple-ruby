@@ -54,7 +54,7 @@ describe DNSimple::User do
       expect(result).to eq("0c622716aaa64124219963075bc1c870")
     end
 
-    context "when the OTP password is invalid" do
+    context "when the OTP token is invalid" do
       before do
         stub_request(:get, %r[/v1/user]).
             to_return(read_fixture("2fa/error-badtoken.http"))
@@ -63,7 +63,7 @@ describe DNSimple::User do
       it "raises an AuthenticationFailed" do
         expect {
           described_class.two_factor_exchange_token("invalid-token")
-        }.to raise_error(DNSimple::AuthenticationFailed)
+        }.to raise_error(DNSimple::AuthenticationFailed, "Bad OTP token")
       end
     end
   end

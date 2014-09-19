@@ -19,8 +19,10 @@ module DNSimple
     end
   end
 
-  # TODO: [2.0] rename to AuthenticationError
-  class AuthenticationFailed < Error
+  class AuthenticationError < Error
+  end
+
+  class AuthenticationFailed < AuthenticationError
   end
 
 end
