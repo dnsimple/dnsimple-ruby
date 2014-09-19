@@ -1,5 +1,9 @@
 # Changelog
 
+#### master
+
+- NEW: Add support for 2FA (GH-44)
+
 #### Release 1.5.5
 
 - NEW: Add notice about the CLI moving to a new location
