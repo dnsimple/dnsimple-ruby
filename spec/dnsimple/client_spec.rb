@@ -33,6 +33,7 @@ describe DNSimple::Client do
       described_class.username   = 'user'
       described_class.password   = 'pass'
       described_class.api_token  = nil
+      described_class.domain_token  = nil
       described_class.base_uri   = 'https://api.example.com/'
 
       HTTParty.expects(:get).
@@ -46,6 +47,7 @@ describe DNSimple::Client do
       described_class.username   = 'user'
       described_class.password   = nil
       described_class.api_token  = 'token'
+      described_class.domain_token  = nil
       described_class.base_uri   = 'https://api.example.com/'
 
       HTTParty.expects(:get).
@@ -55,10 +57,25 @@ describe DNSimple::Client do
       described_class.request(:get, '/domains', {})
     end
 
+    it "uses domain header authentication if it is provided" do 
+      described_class.username   = nil
+      described_class.password   = nil
+      described_class.api_token  = nil
+      described_class.domain_token  = 'token'
+      described_class.base_uri   = 'https://api.example.com/'
+
+      HTTParty.expects(:get).
+        with('https://api.example.com/domains', has_entries(:headers => has_entries({ 'X-DNSimple-Domain-Token' => 'token' }))).
+        returns(response)
+
+      described_class.request(:get, '/domains', {})
+    end
+
     it "raises an error if there's no password or api token provided" do
       described_class.username   = 'user'
       described_class.password   = nil
       described_class.api_token  = nil
+      described_class.domain_token  = nil
       described_class.base_uri   = 'https://api.example.com/'
 
       expect {
