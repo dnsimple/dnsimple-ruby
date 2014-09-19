@@ -44,7 +44,7 @@ describe DNSimple::User do
         # workaround for https://github.com/bblimke/webmock/issues/276
         with do |req|
           req.headers['Accept'] == 'application/json' &&
-          req.headers['X-DNSimple-OTP'] == otp_token
+          req.headers[DNSimple::CLient::HEADER_OTP_TOKEN] == otp_token
         end
     end
 

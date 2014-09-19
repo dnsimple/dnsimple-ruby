@@ -29,10 +29,15 @@ describe DNSimple::Client do
   end
 
   describe ".request" do
+    before do
+      [:username, :password, :exchange_token, :api_token].each do |attribute|
+        described_class.send("#{attribute}=", nil)
+      end
+    end
+
     it "uses HTTP authentication if there's a password provided" do
       described_class.username   = 'user'
       described_class.password   = 'pass'
-      described_class.api_token  = nil
       described_class.base_uri   = 'https://api.example.com/'
 
       HTTParty.expects(:get).
@@ -44,7 +49,6 @@ describe DNSimple::Client do
 
     it "uses header authentication if there's an api token provided" do
       described_class.username   = 'user'
-      described_class.password   = nil
       described_class.api_token  = 'token'
       described_class.base_uri   = 'https://api.example.com/'
 
@@ -55,10 +59,21 @@ describe DNSimple::Client do
       described_class.request(:get, '/domains', {})
     end
 
+    it "uses HTTP authentication via exchange token if there's an exchange token provided" do
+      described_class.username = 'user'
+      described_class.password = 'pass'
+      described_class.exchange_token = 'exchange-token'
+      described_class.base_uri = 'https://api.example.com/'
+
+      HTTParty.expects(:get).
+          with('https://api.example.com/domains', has_entries(:basic_auth => { :username => 'exchange-token', :password => 'x-2fa-basic' })).
+          returns(response)
+
+      described_class.request(:get, '/domains', {})
+    end
+
     it "raises an error if there's no password or api token provided" do
       described_class.username   = 'user'
-      described_class.password   = nil
-      described_class.api_token  = nil
       described_class.base_uri   = 'https://api.example.com/'
 
       expect {
@@ -67,6 +82,8 @@ describe DNSimple::Client do
     end
 
     it "adds a custom user-agent" do
+      described_class.api_token  = 'token'
+
       HTTParty.expects(:get).
         with(is_a(String), has_entries(:headers => has_entries({ 'User-Agent' => "dnsimple-ruby/#{DNSimple::VERSION}" }))).
         returns(response)
@@ -75,12 +92,15 @@ describe DNSimple::Client do
     end
 
     it "performs a request" do
+      described_class.username = 'user'
+      described_class.password = 'pass'
+
       HTTParty.expects(:get).
         with("#{described_class.base_uri}/foo",
           :format => :json,
           :basic_auth => { :username => described_class.username, :password => described_class.password },
           :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{DNSimple::VERSION}" }
-          ).
+        ).
         returns(response)
 
       described_class.request(:get, '/foo', {})
