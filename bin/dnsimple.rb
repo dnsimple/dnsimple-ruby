@@ -12,7 +12,7 @@ def usage
   $stderr.puts <<EOF
 
 NOTICE: The CLI is moving out into its own repository and its own gem! Visit
-https://githuv.com/aetrion/dnsimple-cli
+https://github.com/aetrion/dnsimple-cli
 
 This is a command line tool for DNSimple. More information about DNSimple can
 be found at http://dnsimple.com/
