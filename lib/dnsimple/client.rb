@@ -4,8 +4,11 @@ require 'yaml'
 module DNSimple
   class Client
 
-    DEFAULT_BASE_URI  = "https://api.dnsimple.com/"
-
+    DEFAULT_BASE_URI = "https://api.dnsimple.com/"
+    HEADER_2FA_STRICT = "X-DNSimple-2FA-Strict"
+    HEADER_API_TOKEN = "X-DNSimple-Token"
+    HEADER_OTP_TOKEN = "X-DNSimple-OTP"
+    HEADER_EXCHANGE_TOKEN = "X-DNSimple-OTP-Token"
 
     def self.debug?
       @debug
@@ -72,9 +75,9 @@ module DNSimple
     def self.load_credentials(path = config_path)
       begin
         credentials = YAML.load_file(File.expand_path(path))
-        self.username   ||= credentials['username']
-        self.password   ||= credentials['password']
-        self.api_token  ||= credentials['api_token']
+        self.username     = credentials['username']
+        self.password     = credentials['password']
+        self.api_token    = credentials['api_token']
         self.base_uri     = credentials['site']       if credentials['site']
         self.base_uri     = credentials['base_uri']   if credentials['base_uri']
         self.http_proxy   = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] } if credentials['proxy_addr'] || credentials['proxy_port']
@@ -106,7 +109,7 @@ module DNSimple
       if password
         options[:basic_auth] = { :username => username, :password => password }
       elsif api_token
-        options[:headers]['X-DNSimple-Token'] = "#{username}:#{api_token}"
+        options[:headers][HEADER_API_TOKEN] = "#{username}:#{api_token}"
       else
         raise Error, 'A password or API token is required for all API requests.'
       end

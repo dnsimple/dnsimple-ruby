@@ -9,12 +9,17 @@ module DNSimple
   class RecordNotFound < Error
   end
 
+  # An exception that is raised if a method is called with missing or invalid parameter values.
+  class ValidationError < Error
+  end
+
   class RequestError < Error
     def initialize(description, response)
       super("#{description}: #{response["error"]}")
     end
   end
 
+  # TODO: [2.0] rename to AuthenticationError
   class AuthenticationFailed < Error
   end
 

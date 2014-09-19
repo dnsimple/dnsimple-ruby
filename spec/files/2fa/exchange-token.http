@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Fri, 19 Sep 2014 10:59:16 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+Status: 200 OK
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+X-UA-Compatible: chrome=1
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+X-DNSimple-OTP-Token: 0c622716aaa64124219963075bc1c870
+ETag: "8f991ac7debfbe00277cb74b6d41c9a4"
+Cache-Control: max-age=0, private, must-revalidate
+Set-Cookie: user_credentials=5a9961782864b9d0601fedf748aaafaa009a8468d6864b5e648b65b0a4c05547d17a07bf162c9610efb422824633563a74e2e2bf58a0d4627bb5ddcb7fe07014; path=/; expires=Sat, 19 Sep 2015 10:59:16 -0000; secure
+Set-Cookie: _dnsimple_session=OG0rMmJZSHVZWDNuMXd5Rjk4SGxPMU8zRjlrbWkydW44ek00bXRDSkhpUTA3ZkZzUWVsenlXMjcyWk93ZFhCRjZXejdpSTNrZWxqdE9DUFVqckg0YU13cTNFcVJVTnU1VTVTYjRZNHRWdGV3QmpXYlFEUlhRVDRrZHFPZXovMU9pUmhYTG16UXBTbjRoeWtBUVJudytUVmpaU2NFdDFDQlE2QTRFRXBwSEI2V1lCRnJ3Zmx3RUVYWVM0THN1WlIySkJtTkYwRG5CcC9CK2RzeXpMU2hxcWpMTld5OThPSWxmSHpWNXdEUFRFWnFHRktZSktlZkRGNEdIS2llN25aZkhxWTh4Q0w2UUREemNYTDNIMm1yLzQvTU5WUk1RSTgwTE1la3A2Vk1jeXc9LS03dml0dCtLWUx5MFRLa3phRWxNRmt3PT0%3D--6cbcdf7e930eb4343b632553396dfb6ee0ee04e6; path=/; HttpOnly; secure
+X-Request-Id: 7e658b27-a46f-42bc-acb7-56fc94a5a623
+X-Runtime: 0.437686
+Strict-Transport-Security: max-age=315360000
+
+{"user":{"id":19,"email":"example@example.com","referral_token":"ad932ffb60c295","single_access_token":"hZ1P7jz1V0u6g0MMv0pL","domain_count":2,"domain_limit":10,"login_count":1,"failed_login_count":0,"created_at":"2014-01-15T21:59:04.104Z","updated_at":"2014-09-19T10:59:16.231Z","first_name":null,"last_name":null,"default_contact_id":null}}

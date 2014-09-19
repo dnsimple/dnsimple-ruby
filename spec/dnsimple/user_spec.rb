@@ -28,4 +28,43 @@ describe DNSimple::User do
       expect(result.updated_at).to be_a(String)
     end
   end
+
+  describe ".two_factor_exchange_token" do
+    before do
+      stub_request(:get, %r[/v1/user]).
+          to_return(read_fixture("2fa/exchange-token.http"))
+    end
+
+    let(:otp_token) { '1234567' }
+
+    it "builds the correct request" do
+      described_class.two_factor_exchange_token(otp_token)
+
+      expect(WebMock).to have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/user").
+        # workaround for https://github.com/bblimke/webmock/issues/276
+        with do |req|
+          req.headers['Accept'] == 'application/json' &&
+          req.headers['X-DNSimple-OTP'] == otp_token
+        end
+    end
+
+    it "returns the exchange_token" do
+      result = described_class.two_factor_exchange_token(otp_token)
+
+      expect(result).to eq("0c622716aaa64124219963075bc1c870")
+    end
+
+    context "when the OTP password is invalid" do
+      before do
+        stub_request(:get, %r[/v1/user]).
+            to_return(read_fixture("2fa/error-badtoken.http"))
+      end
+
+      it "raises an AuthenticationFailed" do
+        expect {
+          described_class.two_factor_exchange_token("invalid-token")
+        }.to raise_error(DNSimple::AuthenticationFailed)
+      end
+    end
+  end
 end
