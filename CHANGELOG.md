@@ -1,6 +1,6 @@
 # Changelog
 
-#### master
+#### Release 1.6.0
 
 - NEW: Add support for 2FA (GH-44)
 
