@@ -1,5 +1,9 @@
 # Changelog
 
+#### Release 1.7.0
+
+- NEW: Add support for Domain-based authentication (GH-40, GH-46). Thanks @dwradcliffe and @samsonasu.
+
 #### Release 1.6.0
 
 - NEW: Add support for 2FA (GH-44)
