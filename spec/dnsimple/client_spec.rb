@@ -30,7 +30,7 @@ describe DNSimple::Client do
 
   describe ".request" do
     before do
-      [:username, :password, :exchange_token, :api_token].each do |attribute|
+      [:username, :password, :exchange_token, :api_token, :domain_api_token].each do |attribute|
         described_class.send("#{attribute}=", nil)
       end
     end
@@ -42,6 +42,17 @@ describe DNSimple::Client do
 
       HTTParty.expects(:get).
         with('https://api.example.com/domains', has_entries(:basic_auth => { :username => 'user', :password => 'pass' })).
+        returns(response)
+
+      described_class.request(:get, '/domains', {})
+    end
+
+    it "uses header authentication if there's a domain api token provided" do
+      described_class.domain_api_token  = 'domaintoken'
+      described_class.base_uri   = 'https://api.example.com/'
+
+      HTTParty.expects(:get).
+        with('https://api.example.com/domains', has_entries(:headers => has_entries({ 'X-DNSimple-Domain-Token' => 'domaintoken' }))).
         returns(response)
 
       described_class.request(:get, '/domains', {})
