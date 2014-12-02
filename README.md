@@ -70,6 +70,7 @@ user = DNSimple::User.me
 #### API Token
 
 ```ruby
+DNSimple::Client.username = 'YOUR_USERNAME'
 DNSimple::Client.api_token = 'the-token'
 
 user = DNSimple::User.me
