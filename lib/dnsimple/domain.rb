@@ -144,12 +144,8 @@ module DNSimple
     # Set the nameservers for a domain
     def name_servers=(servers)
       servers = servers.inject({}) { |hash, server| hash.merge("ns#{hash.length + 1}" => server) }
-      body = { :name_servers => servers }.to_json
-      response = DNSimple::Client.post(
-        "/v1/domains/#{name}/name_servers",
-        :body => body,
-        :headers => DNSimple::Client.base_options[:headers].merge('Content-Type' => 'application/json')
-      )
+      body = { :name_servers => servers }
+      response = DNSimple::Client.post("/v1/domains/#{name}/name_servers", :body => body)
       case response.code
       when 200
         response.parsed_response
