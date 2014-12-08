@@ -132,12 +132,29 @@ module DNSimple
 
     # Fetch the current list of nameservers for the domain
     def name_servers
-      response = DNSimple::Client.send(:get, "/v1/domains/#{name}/name_servers")
+      response = DNSimple::Client.get("/v1/domains/#{name}/name_servers")
       case response.code
       when 200
         response.parsed_response
       else
         raise RequestError.new("Error getting nameservers for #{name}", response)
+      end
+    end
+
+    # Set the nameservers for a domain
+    def name_servers=(servers)
+      servers = servers.inject({}) { |hash, server| hash.merge("ns#{hash.length + 1}" => server) }
+      body = { :name_servers => servers }.to_json
+      response = DNSimple::Client.post(
+        "/v1/domains/#{name}/name_servers",
+        :body => body,
+        :headers => DNSimple::Client.base_options[:headers].merge('Content-Type' => 'application/json')
+      )
+      case response.code
+      when 200
+        response.parsed_response
+      else
+        raise RequestError.new("Error setting nameservers for #{name}", response)
       end
     end
 
