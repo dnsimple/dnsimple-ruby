@@ -154,7 +154,7 @@ describe DNSimple::Domain do
       end
 
       it "returns an array of nameservers" do
-        expect(domain.name_servers).to eq(%w(ns1 ns2 ns3 ns4).map{|name| "#{name}.dnsimple.com" })
+        expect(domain.name_servers).to eq(%w(ns1.dnsimple.com ns2.dnsimple.com))
       end
 
     end
@@ -178,8 +178,8 @@ describe DNSimple::Domain do
 
     context "when response is 200" do
       let(:response) { read_fixture("domains/name_servers/success.http") }
-      let(:nameservers) { ['ns1.example.com','ns2.example.com','ns3.example.com','ns4.example.com'] }
-      let(:body) { '{"name_servers":{"ns1":"ns1.example.com","ns2":"ns2.example.com","ns3":"ns3.example.com","ns4":"ns4.example.com"}}' }
+      let(:nameservers) { ['ns1.example.com','ns2.example.com'] }
+      let(:body) { "name_servers[ns1]=ns1.example.com&name_servers[ns2]=ns2.example.com" }
 
       before do
         stub_request(:post, %r[/v1/domains/example.com/name_servers]).with(:body => body).to_return(response)
