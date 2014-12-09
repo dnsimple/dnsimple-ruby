@@ -179,7 +179,7 @@ describe DNSimple::Domain do
     context "when response is 200" do
       let(:response) { read_fixture("domains/name_servers/success.http") }
       let(:nameservers) { ['ns1.example.com','ns2.example.com'] }
-      let(:body) { "name_servers[ns1]=ns1.example.com&name_servers[ns2]=ns2.example.com" }
+      let(:body) { { 'name_servers' => { 'ns1' => 'ns1.example.com', 'ns2' => 'ns2.example.com' } } }
 
       before do
         stub_request(:post, %r[/v1/domains/example.com/name_servers]).with(:body => body).to_return(response)
