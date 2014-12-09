@@ -130,4 +130,67 @@ describe DNSimple::Domain do
     end
 
   end
+
+  describe "#name_servers" do
+    let(:domain) { described_class.new(:name => 'example.com') }
+
+    context "when response is not 200" do
+      let(:response) { read_fixture("domains/name_servers/notfound.http") }
+
+      before do
+        stub_request(:get, %r[/v1/domains/example.com/name_servers]).to_return(response)
+      end
+
+      it "raises a RequestError" do
+        expect { domain.name_servers }.to raise_error(DNSimple::RequestError)
+      end
+    end
+
+    context "when response is 200" do
+      let(:response) { read_fixture("domains/name_servers/success.http") }
+
+      before do
+        stub_request(:get, %r[/v1/domains/example.com/name_servers]).to_return(response)
+      end
+
+      it "returns an array of nameservers" do
+        expect(domain.name_servers).to eq(%w(ns1.dnsimple.com ns2.dnsimple.com))
+      end
+
+    end
+
+  end
+
+  describe "#name_servers=" do
+    let(:domain) { described_class.new(:name => 'example.com') }
+
+    context "when response is not 200" do
+      let(:response) { read_fixture("domains/name_servers/notfound.http") }
+
+      before do
+        stub_request(:post, %r[/v1/domains/example.com/name_servers]).to_return(response)
+      end
+
+      it "raises a RequestError" do
+        expect { domain.name_servers = ['ns1.example.com'] }.to raise_error(DNSimple::RequestError)
+      end
+    end
+
+    context "when response is 200" do
+      let(:response) { read_fixture("domains/name_servers/success.http") }
+      let(:nameservers) { ['ns1.example.com','ns2.example.com'] }
+      let(:body) { { 'name_servers' => { 'ns1' => 'ns1.example.com', 'ns2' => 'ns2.example.com' } } }
+
+      before do
+        stub_request(:post, %r[/v1/domains/example.com/name_servers]).with(:body => body).to_return(response)
+      end
+
+      it "returns an array of nameservers" do
+        expect(domain.name_servers = nameservers).to eq(nameservers)
+      end
+
+    end
+
+  end
+
 end
