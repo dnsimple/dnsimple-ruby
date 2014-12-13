@@ -2,13 +2,18 @@ require 'bundler/gem_tasks'
 
 # Run test by default.
 task :default => :spec
-task :test => :spec
+task :travis => [:coverall, :spec]
 
 
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new do |t|
   t.verbose = !!ENV["VERBOSE"]
+end
+
+task :coverall do
+  require 'coveralls'
+  Coveralls.wear!
 end
 
 
