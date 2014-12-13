@@ -1,5 +1,9 @@
 # Changelog
 
+#### master
+
+- CHANGED: Drop 1.8.7 support.
+
 #### Release 1.7.1
 
 - FIXED: Updated Certificate to match the serialized attributes (GH-53)
