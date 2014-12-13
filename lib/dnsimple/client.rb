@@ -37,37 +37,6 @@ module DNSimple
       @http_proxy
     end
 
-    def self.load_credentials_if_necessary
-      load_credentials unless credentials_loaded?
-    end
-
-    def self.config_path
-      ENV['DNSIMPLE_CONFIG'] || '~/.dnsimple'
-    end
-
-    def self.load_credentials(path = config_path)
-      begin
-        credentials = YAML.load_file(File.expand_path(path))
-        self.username       = credentials['username']
-        self.password       = credentials['password']
-        self.exchange_token = credentials['exchange_token']
-        self.api_token      = credentials['api_token']
-        self.domain_api_token = credentials['domain_api_token']
-        self.base_uri       = credentials['site']       if credentials['site']
-        self.base_uri       = credentials['base_uri']   if credentials['base_uri']
-        @http_proxy = { :addr => credentials['proxy_addr'], :port => credentials['proxy_port'] } if credentials['proxy_addr'] || credentials['proxy_port']
-        @credentials_loaded = true
-        puts "Credentials loaded from #{path}"
-      rescue => error
-        puts "Error loading your credentials: #{error.message}"
-        exit 1
-      end
-    end
-
-    def self.credentials_loaded?
-      (@credentials_loaded ||= false) or domain_api_token or (username and (password or api_token))
-    end
-
     def self.base_options
       options = {
         :format => :json,

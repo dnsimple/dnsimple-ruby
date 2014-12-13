@@ -1,5 +1,13 @@
 # Changelog
 
+#### master
+
+- CHANGED: Drop 1.8.7 support.
+
+- CHANGED: This package no longer provides a CLI. The CLI has been extracted to [aetrion/dnsimple-ruby-cli](https://github.com/aetrion/dnsimple-ruby-cli)
+
+- REMOVED: The library no longer provides built-in support for loading the credentials from a config file.
+
 #### Release 1.7.1
 
 - FIXED: Updated Certificate to match the serialized attributes (GH-53)
