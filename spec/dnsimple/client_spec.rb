@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Dnsimple::Client do
 
   let(:klass) { described_class }
-  let(:response) { stub('response', :code => 200) }
+  let(:response) { double('response', code: 200) }
 
   before do
     @_username  = described_class.username
@@ -22,7 +22,7 @@ describe Dnsimple::Client do
   [:get, :post, :put, :delete].each do |method|
     describe ".#{method}" do
       it "delegates to .request" do
-        described_class.expects(:request).with(method, '/domains', { :foo => 'bar' })
+        expect(described_class).to receive(:request).with(method, '/domains', { foo: 'bar' })
         described_class.send(method, '/domains', { :foo => 'bar' })
       end
     end
@@ -40,9 +40,9 @@ describe Dnsimple::Client do
       described_class.password   = 'pass'
       described_class.base_uri   = 'https://api.example.com/'
 
-      HTTParty.expects(:get).
-        with('https://api.example.com/domains', has_entries(:basic_auth => { :username => 'user', :password => 'pass' })).
-        returns(response)
+      expect(HTTParty).to receive(:get).
+        with('https://api.example.com/domains', hash_including(:basic_auth => { :username => 'user', :password => 'pass' })).
+        and_return(response)
 
       described_class.request(:get, '/domains', {})
     end
@@ -51,9 +51,9 @@ describe Dnsimple::Client do
       described_class.domain_api_token  = 'domaintoken'
       described_class.base_uri   = 'https://api.example.com/'
 
-      HTTParty.expects(:get).
-        with('https://api.example.com/domains', has_entries(:headers => has_entries({ 'X-DNSimple-Domain-Token' => 'domaintoken' }))).
-        returns(response)
+      expect(HTTParty).to receive(:get).
+        with('https://api.example.com/domains', hash_including(:headers => hash_including({ 'X-DNSimple-Domain-Token' => 'domaintoken' }))).
+        and_return(response)
 
       described_class.request(:get, '/domains', {})
     end
@@ -63,9 +63,9 @@ describe Dnsimple::Client do
       described_class.api_token  = 'token'
       described_class.base_uri   = 'https://api.example.com/'
 
-      HTTParty.expects(:get).
-        with('https://api.example.com/domains', has_entries(:headers => has_entries({ 'X-DNSimple-Token' => 'user:token' }))).
-        returns(response)
+      expect(HTTParty).to receive(:get).
+        with('https://api.example.com/domains', hash_including(:headers => hash_including({ 'X-DNSimple-Token' => 'user:token' }))).
+        and_return(response)
 
       described_class.request(:get, '/domains', {})
     end
@@ -76,9 +76,9 @@ describe Dnsimple::Client do
       described_class.exchange_token = 'exchange-token'
       described_class.base_uri = 'https://api.example.com/'
 
-      HTTParty.expects(:get).
-          with('https://api.example.com/domains', has_entries(:basic_auth => { :username => 'exchange-token', :password => 'x-2fa-basic' })).
-          returns(response)
+      expect(HTTParty).to receive(:get).
+          with('https://api.example.com/domains', hash_including(:basic_auth => { :username => 'exchange-token', :password => 'x-2fa-basic' })).
+          and_return(response)
 
       described_class.request(:get, '/domains', {})
     end
@@ -95,9 +95,9 @@ describe Dnsimple::Client do
     it "adds a custom user-agent" do
       described_class.api_token  = 'token'
 
-      HTTParty.expects(:get).
-        with(is_a(String), has_entries(:headers => has_entries({ 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }))).
-        returns(response)
+      expect(HTTParty).to receive(:get).
+        with(kind_of(String), hash_including(:headers => hash_including({ 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }))).
+        and_return(response)
 
       described_class.request(:get, '/foo', {})
     end
@@ -106,13 +106,13 @@ describe Dnsimple::Client do
       described_class.username = 'user'
       described_class.password = 'pass'
 
-      HTTParty.expects(:get).
+      expect(HTTParty).to receive(:get).
         with("#{described_class.base_uri}/foo",
           :format => :json,
           :basic_auth => { :username => described_class.username, :password => described_class.password },
           :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
         ).
-        returns(response)
+        and_return(response)
 
       described_class.request(:get, '/foo', {})
     end

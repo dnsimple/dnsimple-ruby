@@ -19,8 +19,6 @@ Dnsimple::Client.password = CONFIG['password']
 
 
 RSpec.configure do |c|
-  c.mock_framework = :mocha
-
   # Silent the puts call in the commands
   # c.before do
   #   @_stdout = $stdout

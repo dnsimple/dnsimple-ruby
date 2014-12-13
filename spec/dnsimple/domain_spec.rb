@@ -140,7 +140,7 @@ describe Dnsimple::Domain do
   describe "#delete" do
     it "delegates to .delete" do
       subject = described_class.new(name: "example.com")
-      described_class.expects(:delete).with(subject.name).returns(:returned)
+      expect(described_class).to receive(:delete).with(subject.name).and_return(:returned)
 
       expect(subject.delete).to eq(:returned)
     end
