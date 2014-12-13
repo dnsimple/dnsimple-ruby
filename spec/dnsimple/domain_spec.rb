@@ -137,6 +137,66 @@ describe Dnsimple::Domain do
   end
 
 
+  describe ".list_name_servers" do
+    before do
+      stub_request(:get, %r[/v1/domains/example.com/name_servers]).
+          to_return(read_fixture("domains/nameservers/success.http"))
+    end
+
+    it "builds the correct request" do
+      described_class.list_name_servers("example.com")
+
+      expect(WebMock).to have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/domains/example.com/name_servers").
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns an array of nameservers" do
+      expect(described_class.list_name_servers("example.com")).to eq(%w( ns1.dnsimple.com ns2.dnsimple.com ))
+    end
+
+    context "when the domain does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:get, %r[/v1/domains/example.com/name_servers]).
+            to_return(read_fixture("domains/nameservers/notfound.http"))
+
+        expect {
+          described_class.list_name_servers("example.com")
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
+  describe ".change_name_servers" do
+    before do
+      stub_request(:post, %r[/v1/domains/example.com/name_servers]).
+          to_return(read_fixture("domains/nameservers/success.http"))
+    end
+
+    it "builds the correct request" do
+      described_class.change_name_servers("example.com", %w( ns1.example.com ns2.example.com ))
+
+      expect(WebMock).to have_requested(:post, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/domains/example.com/name_servers").
+          with(headers: { 'Accept' => 'application/json' }).
+          with(body: { "name_servers" => { "ns1" => "ns1.example.com", "ns2" => "ns2.example.com" }})
+    end
+
+    it "returns an array of nameservers" do
+      expect(described_class.change_name_servers("example.com", %w())).to eq(%w( ns1.dnsimple.com ns2.dnsimple.com ))
+    end
+
+    context "when the domain does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:post, %r[/v1/domains/example.com/name_servers]).
+            to_return(read_fixture("domains/nameservers/notfound.http"))
+
+        expect {
+          described_class.change_name_servers("example.com", %w())
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
+
   describe "#delete" do
     it "delegates to .delete" do
       subject = described_class.new(name: "example.com")
@@ -152,7 +212,7 @@ describe Dnsimple::Domain do
     context "when response is not 200" do
       before do
         stub_request(:post, %r[/v1/domains/example.com/auto_renewal]).
-            to_return(read_fixture("domains/auto_renewal_enable/notfound.http"))
+            to_return(read_fixture("domains/autorenewal/enable/notfound.http"))
       end
 
       it "raises a RequestError" do
@@ -174,7 +234,7 @@ describe Dnsimple::Domain do
 
       before do
         stub_request(:post, %r[/v1/domains/example.com/auto_renewal]).
-            to_return(read_fixture("domains/auto_renewal_enable/success.http"))
+            to_return(read_fixture("domains/autorenewal/enable/success.http"))
       end
 
       it "builds the correct request to enable auto_renew" do
@@ -198,7 +258,7 @@ describe Dnsimple::Domain do
     context "when response is not 200" do
       before do
         stub_request(:delete, %r[/v1/domains/example.com/auto_renewal]).
-            to_return(read_fixture("domains/auto_renewal_disable/notfound.http"))
+            to_return(read_fixture("domains/autorenewal/disable/notfound.http"))
       end
 
       it "raises a RequestError" do
@@ -220,7 +280,7 @@ describe Dnsimple::Domain do
 
       before do
         stub_request(:delete, %r[/v1/domains/example.com/auto_renewal]).
-            to_return(read_fixture("domains/auto_renewal_disable/success.http"))
+            to_return(read_fixture("domains/autorenewal/disable/success.http"))
       end
 
       it "builds the correct request to disable auto_renew" do
@@ -235,7 +295,6 @@ describe Dnsimple::Domain do
         expect(domain.auto_renew).to be_falsey
       end
     end
-
   end
 
 end

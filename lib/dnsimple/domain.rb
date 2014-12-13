@@ -59,7 +59,6 @@ module Dnsimple
     # @raise  [RequestError] When the request fails.
     def self.create(name)
       options = { body: { domain: { name: name }}}
-
       response = Client.post("/v1/domains", options)
 
       case response.code
@@ -149,6 +148,45 @@ module Dnsimple
       end
     end
 
+
+    # Lists the name servers for a domain.
+    #
+    # @param [Fixnum,String] id Either the numeric ID or the fully-qualified domain name.
+    #
+    # @return [Array<String>] The delegates name servers.
+    def self.list_name_servers(id)
+      response = Client.get("/v1/domains/#{id}/name_servers")
+
+      case response.code
+      when 200
+        response.parsed_response
+      when 404
+        raise RecordNotFound, "Could not find domain #{id}"
+      else
+        raise RequestError.new("Error listing nameservers for #{id}", response)
+      end
+    end
+
+    # Changes the name servers for a domain.
+    #
+    # @param [Fixnum,String] id Either the numeric ID or the fully-qualified domain name.
+    # @param [Array<String>] servers The name server list.
+    #
+    # @return [Array<String>] The delegates name servers.
+    def self.change_name_servers(id, servers)
+      servers = servers.inject({}) { |hash, server| hash.merge("ns#{hash.length + 1}" => server) }
+      options = { body: { name_servers: servers } }
+      response = Client.post("/v1/domains/#{id}/name_servers", options)
+
+      case response.code
+      when 200
+        response.parsed_response
+      when 404
+        raise RecordNotFound, "Could not find domain #{id}"
+      else
+        raise RequestError.new("Error changing nameservers for #{id}", response)
+      end
+    end
 
     # Enable auto_renew on the domain
     def enable_auto_renew

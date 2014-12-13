@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Server: nginx/1.4.7
+Date: Tue, 01 Jul 2014 16:15:06 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+Status: 200 OK
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+X-UA-Compatible: chrome=1
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+Content-Security-Policy: default-src 'self'; connect-src 'self'; font-src 'self' data: netdna.bootstrapcdn.com *.edgecastcdn.net; frame-src 'self'; img-src 'self' data: *.nr-data.net; media-src 'self'; object-src 'self'; script-src 'self' data: 'unsafe-inline' 'unsafe-eval' *.getdrip.com *.visualwebsiteoptimizer.com *.doubleclick.net *.pathful.com *.newrelic.com; style-src 'self' data: 'unsafe-inline' 'unsafe-eval' netdna.bootstrapcdn.com cloud.webtype.com cloud.typography.com;
+ETag: "ab6304c604f60fabe9a0db5b5d2c7a27"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 03f71270-5c5b-44e1-9542-20a21d213222
+X-Runtime: 3.279343
+Strict-Transport-Security: max-age=315360000
+
+["ns1.dnsimple.com","ns2.dnsimple.com"]
