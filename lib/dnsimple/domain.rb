@@ -1,35 +1,38 @@
 module Dnsimple
   class Domain < Base
 
-    # The domain ID in DNSimple
+    # The Fixnum domain ID in DNSimple.
     attr_accessor :id
 
-    # The domain name
-    attr_accessor :name
-
-    # When the domain was created in DNSimple
-    attr_accessor :created_at
-
-    # When the domain was last update in DNSimple
-    attr_accessor :updated_at
-
-    # When the domain is due to expire
-    attr_accessor :expires_on
-
-    # The state of the domain in DNSimple
-    attr_accessor :state
-
-    # ID of the registrant in DNSimple
-    attr_accessor :registrant_id
-
-    # User ID in DNSimple
+    # The Fixnum associated user ID.
     attr_accessor :user_id
 
-    # Is the domain set to autorenew
+    # The Fixnum associated registrant ID.
+    attr_accessor :registrant_id
+
+    # The String name.
+    attr_accessor :name
+
+    # The String state.
+    attr_accessor :state
+
+    # The String API token
+    attr_accessor :token
+
+    # Is the domain set to auto renew?
     attr_accessor :auto_renew
-    
-    # Is the whois information protected
+
+    # Is the whois information protected?
     attr_accessor :whois_protected
+
+    # The Date the domain will expire.
+    attr_accessor :expires_on
+
+    # The Date the domain was created in DNSimple.
+    attr_accessor :created_at
+
+    # The Date the domain was last update in DNSimple.
+    attr_accessor :updated_at
 
 
     # Lists the domains in the DNSimple account.

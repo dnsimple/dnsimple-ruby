@@ -40,16 +40,16 @@ module Dnsimple
     # It is set only if the state is configured.
     attr_accessor :approver_emails
 
-    # The Date the certificate was purchased
+    # The Date the certificate was create in DNSimple.
     attr_accessor :created_at
 
-    # The Date the certificate was last updated
+    # The Date the certificate was last updated in DNSimple.
     attr_accessor :updated_at
 
-    # The Date the certificate was configured
+    # The Date the certificate was configured.
     attr_accessor :configured_at
 
-    # The Date the Certificate will expire
+    # The Date the certificate will expire.
     attr_accessor :expires_on
 
     # The associated Domain.
