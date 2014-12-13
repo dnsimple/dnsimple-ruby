@@ -1,4 +1,4 @@
-module DNSimple
+module Dnsimple
   class Template < Base
 
     attr_accessor :id
@@ -16,7 +16,7 @@ module DNSimple
 
       options.merge!(:body => {:dns_template => template_hash})
 
-      response = DNSimple::Client.post("/v1/templates", options)
+      response = Dnsimple::Client.post("/v1/templates", options)
 
       case response.code
       when 201
@@ -28,7 +28,7 @@ module DNSimple
 
     def self.find(id_or_short_name, options={})
       id = id_or_short_name
-      response = DNSimple::Client.get("/v1/templates/#{id}", options)
+      response = Dnsimple::Client.get("/v1/templates/#{id}", options)
 
       case response.code
       when 200
@@ -41,7 +41,7 @@ module DNSimple
     end
 
     def self.all(options={})
-      response = DNSimple::Client.get("/v1/templates", options)
+      response = Dnsimple::Client.get("/v1/templates", options)
 
       case response.code
       when 200
@@ -52,10 +52,12 @@ module DNSimple
     end
 
 
-    # Delete the template from DNSimple.
+    # #delete the template from DNSimple.
+    #
     # WARNING: this cannot be undone.
+    #
     def delete(options={})
-      DNSimple::Client.delete("/v1/templates/#{id}", options)
+      Dnsimple::Client.delete("/v1/templates/#{id}", options)
     end
     alias :destroy :delete
 

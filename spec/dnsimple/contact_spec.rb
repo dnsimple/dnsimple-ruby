@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DNSimple::Contact do
+describe Dnsimple::Contact do
 
   describe ".find" do
     before do
@@ -24,7 +24,7 @@ describe DNSimple::Contact do
         expect(result.first_name).to eq("Simone")
         expect(result.last_name).to eq("Carletti")
         expect(result.job_title).to eq("Underwater Programmer")
-        expect(result.organization_name).to eq("DNSimple")
+        expect(result.organization_name).to eq("Dnsimple")
         expect(result.email_address).to eq("example@example.com")
         expect(result.phone).to eq("+1 111 000000")
         expect(result.fax).to eq("+1 222 000000")

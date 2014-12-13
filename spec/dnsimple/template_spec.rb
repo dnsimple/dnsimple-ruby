@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DNSimple::Template do
+describe Dnsimple::Template do
 
   describe ".find" do
     before do

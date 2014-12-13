@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe DNSimple::Certificate do
+describe Dnsimple::Certificate do
 
-  let(:domain) { DNSimple::Domain.new(:name => "example.com") }
+  let(:domain) { Dnsimple::Domain.new(:name => "example.com") }
 
 
   describe ".find" do

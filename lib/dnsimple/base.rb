@@ -1,4 +1,4 @@
-module DNSimple
+module Dnsimple
   class Base
     def initialize(attributes = {})
       attributes.each do |key, value|

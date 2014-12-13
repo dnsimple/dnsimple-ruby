@@ -5,9 +5,9 @@ Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: close
 Status: 200 OK
-X-DNSimple-API-Version: 1.0.0
+X-Dnsimple-API-Version: 1.0.0
 Access-Control-Allow-Origin: *
-Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-Dnsimple-Token,X-Dnsimple-Domain-Token,X-CSRF-Token,x-requested-with
 Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
 X-UA-Compatible: IE=Edge,chrome=1
 ETag: "c8da059d309b1de77a7b400c6c8febb0"
@@ -16,4 +16,4 @@ X-Request-Id: 954fef00cf763b3de6211670a740ebc9
 X-Runtime: 0.040477
 Strict-Transport-Security: max-age=315360000
 
-{"contact":{"id":2,"user_id":2,"label":"Default","first_name":"Simone","last_name":"Carletti","job_title":"Underwater Programmer","organization_name":"DNSimple","email_address":"example@example.com","phone":"+1 111 000000","fax":"+1 222 000000","address1":"Awesome Street","address2":"c/o Someone","city":"Rome","state_province":"RM","postal_code":"00171","country":"IT","created_at":"2013-11-08T17:23:15Z","updated_at":"2013-11-08T17:23:15Z","phone_ext":null}}
+{"contact":{"id":2,"user_id":2,"label":"Default","first_name":"Simone","last_name":"Carletti","job_title":"Underwater Programmer","organization_name":"Dnsimple","email_address":"example@example.com","phone":"+1 111 000000","fax":"+1 222 000000","address1":"Awesome Street","address2":"c/o Someone","city":"Rome","state_province":"RM","postal_code":"00171","country":"IT","created_at":"2013-11-08T17:23:15Z","updated_at":"2013-11-08T17:23:15Z","phone_ext":null}}

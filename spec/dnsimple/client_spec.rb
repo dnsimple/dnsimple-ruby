@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DNSimple::Client do
+describe Dnsimple::Client do
 
   let(:klass) { described_class }
   let(:response) { stub('response', :code => 200) }
@@ -89,14 +89,14 @@ describe DNSimple::Client do
 
       expect {
         described_class.request(:get, '/domains', {})
-      }.to raise_error(DNSimple::Error, 'A password or API token is required for all API requests.')
+      }.to raise_error(Dnsimple::Error, 'A password or API token is required for all API requests.')
     end
 
     it "adds a custom user-agent" do
       described_class.api_token  = 'token'
 
       HTTParty.expects(:get).
-        with(is_a(String), has_entries(:headers => has_entries({ 'User-Agent' => "dnsimple-ruby/#{DNSimple::VERSION}" }))).
+        with(is_a(String), has_entries(:headers => has_entries({ 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }))).
         returns(response)
 
       described_class.request(:get, '/foo', {})
@@ -110,7 +110,7 @@ describe DNSimple::Client do
         with("#{described_class.base_uri}/foo",
           :format => :json,
           :basic_auth => { :username => described_class.username, :password => described_class.password },
-          :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{DNSimple::VERSION}" }
+          :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
         ).
         returns(response)
 
@@ -146,7 +146,7 @@ describe DNSimple::Client do
       it "raises a TwoFactorAuthenticationRequired error" do
         expect {
           described_class.get('/foo', {})
-        }.to raise_error(DNSimple::TwoFactorAuthenticationRequired)
+        }.to raise_error(Dnsimple::TwoFactorAuthenticationRequired)
       end
     end
   end

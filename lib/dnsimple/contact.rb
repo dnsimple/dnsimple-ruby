@@ -1,4 +1,4 @@
-module DNSimple
+module Dnsimple
 
   # Represents a contact.
   class Contact < Base
@@ -68,7 +68,7 @@ module DNSimple
     # pass "first" it will be resolved to "first_name", "email" is resolved
     # to "email_address" and so on.
     def self.resolve(name)
-      DNSimple::Contact::Aliases[name.to_s] || name
+      Dnsimple::Contact::Aliases[name.to_s] || name
     end
 
     def self.resolve_attributes(attributes)
@@ -86,7 +86,7 @@ module DNSimple
       contact_hash = resolve_attributes(attributes)
 
       options.merge!({:body => {:contact => contact_hash}})
-      response = DNSimple::Client.post("/v1/contacts", options)
+      response = Dnsimple::Client.post("/v1/contacts", options)
 
       case response.code
       when 201
@@ -97,7 +97,7 @@ module DNSimple
     end
 
     def self.find(id, options={})
-      response = DNSimple::Client.get("/v1/contacts/#{id}", options)
+      response = Dnsimple::Client.get("/v1/contacts/#{id}", options)
 
       case response.code
       when 200
@@ -110,7 +110,7 @@ module DNSimple
     end
 
     def self.all(options={})
-      response = DNSimple::Client.get("/v1/contacts", options)
+      response = Dnsimple::Client.get("/v1/contacts", options)
 
       case response.code
       when 200
@@ -129,12 +129,12 @@ module DNSimple
       contact_hash = {}
       %w(first_name last_name organization_name job_title address1 address2 city
       state_province postal_code country email_address phone phone_ext fax).each do |attribute|
-        contact_hash[DNSimple::Contact.resolve(attribute)] = self.send(attribute)
+        contact_hash[Dnsimple::Contact.resolve(attribute)] = self.send(attribute)
       end
 
       options.merge!({:body => {:contact => contact_hash}})
 
-      response = DNSimple::Client.put("/v1/contacts/#{id}", options)
+      response = Dnsimple::Client.put("/v1/contacts/#{id}", options)
 
       case response.code
         when 200
@@ -144,9 +144,12 @@ module DNSimple
       end
     end
 
-    # Delete the contact from DNSimple. WARNING: this cannot be undone.
+    # #delete the contact from DNSimple.
+    #
+    # WARNING: this cannot be undone.
+    #
     def delete(options={})
-      DNSimple::Client.delete("/v1/contacts/#{id}", options)
+      Dnsimple::Client.delete("/v1/contacts/#{id}", options)
     end
     alias :destroy :delete
 

@@ -1,4 +1,4 @@
-module DNSimple
+module Dnsimple
 
   class Record < Base
     Aliases = {
@@ -16,18 +16,18 @@ module DNSimple
 
 
     def fqdn
-      [name, domain.name].delete_if { |v| v !~ DNSimple::BLANK_REGEX }.join(".")
+      [name, domain.name].delete_if { |v| v !~ Dnsimple::BLANK_REGEX }.join(".")
     end
 
     def save(options={})
       record_hash = {}
       %w(name content ttl prio).each do |attribute|
-        record_hash[DNSimple::Record.resolve(attribute)] = self.send(attribute)
+        record_hash[Dnsimple::Record.resolve(attribute)] = self.send(attribute)
       end
 
       options.merge!(:body => {:record => record_hash})
 
-      response = DNSimple::Client.put("/v1/domains/#{domain.id}/records/#{id}", options)
+      response = Dnsimple::Client.put("/v1/domains/#{domain.id}/records/#{id}", options)
 
       case response.code
       when 200
@@ -38,12 +38,12 @@ module DNSimple
     end
 
     def delete(options={})
-      DNSimple::Client.delete("/v1/domains/#{domain.id}/records/#{id}", options)
+      Dnsimple::Client.delete("/v1/domains/#{domain.id}/records/#{id}", options)
     end
     alias :destroy :delete
 
     def self.resolve(name)
-      DNSimple::Record::Aliases[name] || name
+      Dnsimple::Record::Aliases[name] || name
     end
 
     def self.create(domain, name, record_type, content, options={})
@@ -54,7 +54,7 @@ module DNSimple
 
       options.merge!({:body => {:record => record_hash}})
 
-      response = DNSimple::Client.post("/v1/domains/#{domain.name}/records", options)
+      response = Dnsimple::Client.post("/v1/domains/#{domain.name}/records", options)
 
       case response.code
       when 201
@@ -67,7 +67,7 @@ module DNSimple
     end
 
     def self.find(domain, id, options={})
-      response = DNSimple::Client.get("/v1/domains/#{domain.name}/records/#{id}", options)
+      response = Dnsimple::Client.get("/v1/domains/#{domain.name}/records/#{id}", options)
 
       case response.code
       when 200
@@ -80,7 +80,7 @@ module DNSimple
     end
 
     def self.all(domain, options={})
-      response = DNSimple::Client.get("/v1/domains/#{domain.name}/records", options)
+      response = Dnsimple::Client.get("/v1/domains/#{domain.name}/records", options)
 
       case response.code
       when 200

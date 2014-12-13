@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DNSimple::Domain do
+describe Dnsimple::Domain do
 
   let(:contact_id) { 1001 }
 
@@ -49,7 +49,7 @@ describe DNSimple::Domain do
       end
 
       it "raises a RequestError" do
-        expect { domain.enable_auto_renew }.to raise_error(DNSimple::RequestError)
+        expect { domain.enable_auto_renew }.to raise_error(Dnsimple::RequestError)
       end
     end
 
@@ -95,7 +95,7 @@ describe DNSimple::Domain do
       end
 
       it "raises a RequestError" do
-        expect { domain.disable_auto_renew }.to raise_error(DNSimple::RequestError)
+        expect { domain.disable_auto_renew }.to raise_error(Dnsimple::RequestError)
       end
     end
 

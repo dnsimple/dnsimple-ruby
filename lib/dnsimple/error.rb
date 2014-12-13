@@ -1,4 +1,4 @@
-module DNSimple
+module Dnsimple
 
   class Error < StandardError
   end

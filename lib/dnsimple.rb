@@ -1,6 +1,6 @@
 require 'httparty'
 
-module DNSimple
+module Dnsimple
 
   BLANK_REGEX = /\S+/
 

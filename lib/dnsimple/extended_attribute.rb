@@ -1,4 +1,4 @@
-module DNSimple
+module Dnsimple
 
   # Used for domains that require extended attributes.
   class ExtendedAttribute < Base
@@ -32,13 +32,13 @@ module DNSimple
     def options=(opts)
       @options = []
       opts.each do |opt|
-        @options << DNSimple::ExtendedAttribute::Option.new(opt)
+        @options << Dnsimple::ExtendedAttribute::Option.new(opt)
       end
     end
 
     # Find the extended attributes for the given TLD
     def self.find(tld, options={})
-      response = DNSimple::Client.get("/v1/extended_attributes/#{tld}", options)
+      response = Dnsimple::Client.get("/v1/extended_attributes/#{tld}", options)
 
       case response.code
       when 200

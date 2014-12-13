@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DNSimple::User do
+describe Dnsimple::User do
   describe ".me" do
     before do
       stub_request(:get, %r[/v1/user]).
@@ -43,7 +43,7 @@ describe DNSimple::User do
       expect(WebMock).to have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/user").
         # workaround for https://github.com/bblimke/webmock/issues/276
         with { |req|
-          # req.headers[DNSimple::Client::HEADER_OTP_TOKEN] == otp_token
+          # req.headers[Dnsimple::Client::HEADER_OTP_TOKEN] == otp_token
           req.headers["X-Dnsimple-Otp"] == otp_token
         }
     end
@@ -63,7 +63,7 @@ describe DNSimple::User do
       it "raises an AuthenticationFailed" do
         expect {
           described_class.two_factor_exchange_token("invalid-token")
-        }.to raise_error(DNSimple::AuthenticationFailed, "Bad OTP token")
+        }.to raise_error(Dnsimple::AuthenticationFailed, "Bad OTP token")
       end
     end
   end

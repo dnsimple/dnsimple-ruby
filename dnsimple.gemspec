@@ -4,7 +4,7 @@ require 'dnsimple/version'
 
 Gem::Specification.new do |s|
   s.name        = 'dnsimple'
-  s.version     = DNSimple::VERSION
+  s.version     = Dnsimple::VERSION
   s.authors     = ['Anthony Eden', 'Simone Carletti']
   s.email       = ['anthony.eden@dnsimple.com', 'simone.carletti@dnsimple.com']
   s.homepage    = 'http://github.com/aetrion/dnsimple-ruby'

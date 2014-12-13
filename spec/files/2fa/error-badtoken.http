@@ -11,7 +11,7 @@ X-XSS-Protection: 1
 X-Content-Type-Options: nosniff
 X-UA-Compatible: chrome=1
 Access-Control-Allow-Origin: *
-Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-Dnsimple-Token,X-Dnsimple-Domain-Token,X-CSRF-Token,x-requested-with
 Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
 Cache-Control: no-cache
 Set-Cookie: user_credentials=f53d51039d1ac35e3398b604cb8eb8b8ecc085b69e76e6a8b41bf9b758380b97be2c65ba3124b1d5f8fc9dbeef9690386bdc5ccd775f0494a1a5a1edb5d98521; path=/; expires=Sat, 19 Sep 2015 10:20:23 -0000; secure

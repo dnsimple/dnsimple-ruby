@@ -1,7 +1,7 @@
 require 'dnsimple/version'
 require 'yaml'
 
-module DNSimple
+module Dnsimple
   class Client
 
     DEFAULT_BASE_URI = "https://api.dnsimple.com/"
@@ -40,7 +40,7 @@ module DNSimple
     def self.base_options
       options = {
         :format => :json,
-        :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{DNSimple::VERSION}" },
+        :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" },
       }
 
       if http_proxy

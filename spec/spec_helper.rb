@@ -13,9 +13,9 @@ unless defined?(SPEC_ROOT)
 end
 
 CONFIG = { 'username' => 'username', 'password' => 'password', 'base_uri' => 'https://api.sandbox.dnsimple.com/', 'host' => 'api.sandbox.dnsimple.com' }
-DNSimple::Client.base_uri = CONFIG['base_uri']
-DNSimple::Client.username = CONFIG['username']
-DNSimple::Client.password = CONFIG['password']
+Dnsimple::Client.base_uri = CONFIG['base_uri']
+Dnsimple::Client.username = CONFIG['username']
+Dnsimple::Client.password = CONFIG['password']
 
 
 RSpec.configure do |c|

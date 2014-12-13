@@ -1,4 +1,4 @@
-module DNSimple
+module Dnsimple
 
   # Represents a transfer order.
   class TransferOrder < Base
@@ -20,7 +20,7 @@ module DNSimple
 
       options.merge!({:body => body})
 
-      response = DNSimple::Client.post("/v1/domain_transfers", options)
+      response = Dnsimple::Client.post("/v1/domain_transfers", options)
 
       case response.code
       when 201

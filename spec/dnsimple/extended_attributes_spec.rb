@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DNSimple::ExtendedAttribute do
+describe Dnsimple::ExtendedAttribute do
 
   describe ".find" do
     before do
