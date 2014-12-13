@@ -169,6 +169,7 @@ module Dnsimple
     #
     # WARNING: this cannot be undone.
     #
+    # @see .delete
     def delete
       self.class.delete(name)
     end
