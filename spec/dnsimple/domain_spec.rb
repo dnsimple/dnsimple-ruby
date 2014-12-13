@@ -79,7 +79,6 @@ describe Dnsimple::Domain do
       expect(result.state).to eq("registered")
       expect(result.registrant_id).to eq(2)
       expect(result.user_id).to eq(2)
-      expect(result.lockable).to eq(true)
       expect(result.auto_renew).to eq(true)
       expect(result.whois_protected).to eq(false)
     end

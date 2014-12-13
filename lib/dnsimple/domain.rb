@@ -24,10 +24,7 @@ module Dnsimple
 
     # User ID in DNSimple
     attr_accessor :user_id
-    
-    # Is the domain lockable
-    attr_accessor :lockable
-    
+
     # Is the domain set to autorenew
     attr_accessor :auto_renew
     
