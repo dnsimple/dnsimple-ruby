@@ -1,6 +1,6 @@
 # Changelog
 
-#### master
+#### 2.0.0.alpha
 
 - CHANGED: Drop 1.8.7 support.
 
