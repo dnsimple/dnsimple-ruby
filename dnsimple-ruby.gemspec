@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Anthony Eden']
   s.email       = ['anthony.eden@dnsimple.com']
   s.homepage    = 'http://github.com/aetrion/dnsimple-ruby'
-  s.summary     = 'A ruby wrapper for the DNSimple API'
-  s.description = 'A ruby wrapper for the DNSimple API that also includes a command-line client.'
+  s.summary     = 'A Ruby client for the DNSimple API'
+  s.description = 'A Ruby client for the DNSimple API that also includes a command-line client.'
 
   s.require_paths    = ['lib']
   s.files            = `git ls-files`.split("\n")
