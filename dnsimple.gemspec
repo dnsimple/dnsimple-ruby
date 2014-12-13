@@ -3,7 +3,7 @@ $:.push File.expand_path('../lib', __FILE__)
 require 'dnsimple/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'dnsimple-ruby'
+  s.name        = 'dnsimple'
   s.version     = DNSimple::VERSION
   s.authors     = ['Anthony Eden', 'Simone Carletti']
   s.email       = ['anthony.eden@dnsimple.com', 'simone.carletti@dnsimple.com']

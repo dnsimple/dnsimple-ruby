@@ -6,6 +6,8 @@
 
 - CHANGED: This package no longer provides a CLI. The CLI has been extracted to [aetrion/dnsimple-ruby-cli](https://github.com/aetrion/dnsimple-ruby-cli)
 
+- CHANGED: Renamed the Gem from "dnsimple-ruby" to "dnsimple" (GH-23)
+
 - REMOVED: The library no longer provides built-in support for loading the credentials from a config file.
 
 #### Release 1.7.1

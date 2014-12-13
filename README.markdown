@@ -11,7 +11,7 @@ We provide a full API and an easy-to-use web interface so you can get your domai
 
 ## Installation
 
-    $ gem install dnsimple-ruby
+    $ gem install dnsimple
 
 
 ## DNSimple Client
@@ -40,7 +40,7 @@ puts "Added #{domain.name}"
 domain.delete # removes from DNSimple
 ```
 
-For the full API documentation visit http://rubydoc.info/gems/dnsimple-ruby
+For the full API documentation visit http://rubydoc.info/gems/dnsimple
 
 ### Authentication
 
