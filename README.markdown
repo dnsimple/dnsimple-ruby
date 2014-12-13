@@ -11,38 +11,42 @@ We provide a full API and an easy-to-use web interface so you can get your domai
 
 ## Installation
 
-    $ gem install dnsimple
+```
+$ gem install dnsimple
+```
 
 
-## DNSimple Client
+## Getting Started
 
-This library provides a Ruby DNSimple client you can use to interact with the [DNSimple API](http://developer.dnsimple.com/). Here's a short example.
+This library is a Ruby client you can use to interact with the [DNSimple API](http://developer.dnsimple.com/). 
+
+Here's a short example.
 
 ```ruby
 require 'dnsimple'
 
-DNSimple::Client.username   = 'YOUR_USERNAME'
-DNSimple::Client.password   = 'YOUR_PASSWORD'
+Dnsimple::Client.username = 'YOUR_USERNAME'
+Dnsimple::Client.password = 'YOUR_PASSWORD'
 
-user = DNSimple::User.me
-puts "#{user.domain_count} domains"
+# Fetch your user details
+user = Dnsimple::User.me
+puts "My email is #{user.email}"
 
-puts "Domains..."
-DNSimple::Domain.all.each do |domain|
-  puts "  #{domain.name}"
+# Get a list of your domains
+domains = Dnsimple::Domain.list
+domains.each do |domain|
+  puts "Domain: %s (id: %d)" % [domain.name, domain.id]
 end
 
-domain = DNSimple::Domain.find("example.com")
-domain.apply("template") # applies a standard or custom template to the domain
-
-domain = DNSimple::Domain.create("newdomain.com")
-puts "Added #{domain.name}"
-domain.delete # removes from DNSimple
+# Create a domain
+domain = Dnsimple::Domain.create("example.com")
+puts "Domain: %s (id: %d)" % [domain.name, domain.id]
 ```
 
-For the full API documentation visit http://rubydoc.info/gems/dnsimple
+For the full library documentation visit http://rubydoc.info/gems/dnsimple
 
-### Authentication
+
+## Authentication
 
 This client supports both the HTTP Basic and API Token authentication mechanism.
 

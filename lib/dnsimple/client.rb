@@ -1,5 +1,4 @@
 require 'dnsimple/version'
-require 'yaml'
 
 module Dnsimple
   class Client
