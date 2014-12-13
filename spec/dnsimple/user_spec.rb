@@ -42,10 +42,10 @@ describe DNSimple::User do
 
       expect(WebMock).to have_requested(:get, "https://#{CONFIG['username']}:#{CONFIG['password']}@#{CONFIG['host']}/v1/user").
         # workaround for https://github.com/bblimke/webmock/issues/276
-        with do |req|
-          req.headers['Accept'] == 'application/json' &&
-          req.headers[DNSimple::CLient::HEADER_OTP_TOKEN] == otp_token
-        end
+        with { |req|
+          # req.headers[DNSimple::Client::HEADER_OTP_TOKEN] == otp_token
+          req.headers["X-Dnsimple-Otp"] == otp_token
+        }
     end
 
     it "returns the exchange_token" do
