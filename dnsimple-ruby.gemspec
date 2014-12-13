@@ -11,6 +11,8 @@ Gem::Specification.new do |s|
   s.summary     = 'A Ruby client for the DNSimple API'
   s.description = 'A Ruby client for the DNSimple API that also includes a command-line client.'
 
+  s.required_ruby_version = ">= 1.9.3"
+
   s.require_paths    = ['lib']
   s.files            = `git ls-files`.split("\n")
   s.test_files       = `git ls-files -- {test,spec,features}/*`.split("\n")
