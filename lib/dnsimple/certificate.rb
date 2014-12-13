@@ -14,6 +14,8 @@ module DNSimple
     # The subdomain on the certificate
     attr_accessor :name
 
+    attr_accessor :state
+
     # The Certificate Signing Request
     attr_accessor :csr
 
@@ -32,6 +34,8 @@ module DNSimple
     # When the certificate was last updated
     attr_accessor :updated_at
 
+    attr_accessor :configured_at
+
     # An array of all emails that can be used to approve the certificate
     attr_accessor :available_approver_emails
 
@@ -42,8 +46,7 @@ module DNSimple
     attr_accessor :order_date
 
     # The date the Certificate will expire
-    attr_accessor :expiration_date
-
+    attr_accessor :expires_on
 
     # Purchase a certificate under the given domain with the given name. The
     # name will be appended to the domain name, and thus should only be the
