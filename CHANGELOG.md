@@ -1,5 +1,9 @@
 # Changelog
 
+#### master
+
+- FIXED: Updated Certificate to match the serialized attributes (GH-53)
+
 #### Release 1.7.0
 
 - NEW: Add support for Domain-based authentication (GH-40, GH-46). Thanks @dwradcliffe and @samsonasu.

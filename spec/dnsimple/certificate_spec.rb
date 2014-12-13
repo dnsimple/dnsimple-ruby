@@ -23,17 +23,20 @@ describe DNSimple::Certificate do
         result = described_class.find(domain, "2")
 
         expect(result.id).to eq(4576)
-        expect(result.domain).to eq(domain)
+        expect(result.domain_id).to eq(79569)
+        expect(result.contact_id).to eq(11549)
         expect(result.name).to eq("www")
+        expect(result.state).to eq("cancelled")
         expect(result.csr).to eq("-----BEGIN NEW CERTIFICATE REQUEST-----\nRHr2akB4KMba6FMAsvlStnO/2ika16hNx+d3smPNsER+HA==\n-----END NEW CERTIFICATE REQUEST-----\n")
         expect(result.ssl_certificate).to eq("-----BEGIN CERTIFICATE-----\nXwTkw5UCPpaVyUYcwHlvaprOe9ZbwIyEHm2AT1rW+70=\n-----END CERTIFICATE-----\n")
         expect(result.private_key).to eq("-----BEGIN RSA PRIVATE KEY-----\nUeXbFi7o+nuPfRhpBFQEKwacKFc3Hnc1hH6UsnC0KY25cUif7yz38A==\n-----END RSA PRIVATE KEY-----\n")
         expect(result.approver_email).to eq("example@example.net")
         expect(result.created_at).to eq("2013-09-17T21:54:42Z")
         expect(result.updated_at).to eq("2013-09-17T22:25:36Z")
+        expect(result.configured_at).to eq("2013-09-17T22:25:01Z")
+        expect(result.expires_on).to eq("2014-09-17")
 
-        expect(result.available_approver_emails).to be_nil
-        expect(result.certificate_status).to be_nil
+        expect(result.domain).to eq(domain)
       end
     end
   end

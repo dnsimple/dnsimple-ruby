@@ -6,47 +6,55 @@ module DNSimple
   # before the Certificate Authority will issue a signed certificate.
   class Certificate < Base
 
-    # The certificate ID in DNSimple
+    # The Fixnum certificate ID in DNSimple.
     attr_accessor :id
 
-    attr_accessor :domain
+    # The Fixnum associated domain ID.
+    attr_accessor :domain_id
 
-    # The subdomain on the certificate
+    # The Fixnum associated contact ID.
+    attr_accessor :contact_id
+
+    # The String subdomain on the certificate.
     attr_accessor :name
 
+    # The String state.
     attr_accessor :state
 
-    # The Certificate Signing Request
+    # The String Certificate Signing Request.
     attr_accessor :csr
 
-    # The SSL certificate, if it has been issued by the Certificate Authority
+    # The String SSL certificate.
+    # It is set only if the order issued by the Certificate Authority.
     attr_accessor :ssl_certificate
 
-    # The private key, if DNSimple generated the Certificate Signing Request
+    # The String private key.
+    # It is set only if DNSimple generated the Certificate Signing Request.
     attr_accessor :private_key
 
-    # The approver email address
+    # The String approver email address
+    # It is set only if the state is submitted.
     attr_accessor :approver_email
 
-    # When the certificate was purchased
+    # The Array of all emails that can be used to approve the certificate.
+    # It is set only if the state is configured.
+    attr_accessor :approver_emails
+
+    # The Date the certificate was purchased
     attr_accessor :created_at
 
-    # When the certificate was last updated
+    # The Date the certificate was last updated
     attr_accessor :updated_at
 
+    # The Date the certificate was configured
     attr_accessor :configured_at
 
-    # An array of all emails that can be used to approve the certificate
-    attr_accessor :available_approver_emails
-
-    # The Certificate status
-    attr_accessor :certificate_status
-
-    # The date the Certificate order was placed
-    attr_accessor :order_date
-
-    # The date the Certificate will expire
+    # The Date the Certificate will expire
     attr_accessor :expires_on
+
+    # The associated Domain.
+    attr_accessor :domain
+
 
     # Purchase a certificate under the given domain with the given name. The
     # name will be appended to the domain name, and thus should only be the
