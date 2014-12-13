@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.require_paths    = ['lib']
   s.files            = `git ls-files`.split("\n")
   s.test_files       = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.extra_rdoc_files = %w( README.md CHANGELOG.md LICENSE )
+  s.extra_rdoc_files = %w( README.markdown CHANGELOG.markdown LICENSE )
   s.executables      = `git ls-files -- bin/*`.split("\n").collect { |f| File.basename(f) }
 
   s.add_dependency  'httparty', RUBY_VERSION < "1.9.3" ? [">= 0.10", "< 0.12"] : "~> 0.12"
