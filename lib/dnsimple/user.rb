@@ -11,12 +11,12 @@ module Dnsimple
     attr_accessor :updated_at
 
 
-    # Gets the information about the authenticated user.
+    # Fetches the information about the authenticated user.
     #
     # @return [User] the authenticated user
     # @raise  [RequestError] if the user doesn't exist
     def self.me
-      response = Dnsimple::Client.get("/v1/user")
+      response = Client.get("/v1/user")
 
       case response.code
       when 200
@@ -34,7 +34,6 @@ module Dnsimple
     # @see http://developer.dnsimple.com/authentication/#twofa
     #
     # @example Request an Exchange Token
-    #
     #   Dnsimple::User.two_factor_exchange_token('0000000')
     #   # => "cda038832591e34f5df642ce2b61dc78"
     #
@@ -43,8 +42,8 @@ module Dnsimple
     # @return [String] the two-factor API exchange token
     # @raise  [AuthenticationFailed] if the provided OTP token is invalid
     def self.two_factor_exchange_token(otp_token)
-      response = Dnsimple::Client.get("/v1/user", :headers => { Dnsimple::Client::HEADER_2FA_STRICT => "1", Dnsimple::Client::HEADER_OTP_TOKEN => otp_token })
-      response.headers[Dnsimple::Client::HEADER_EXCHANGE_TOKEN]
+      response = Client.get("/v1/user", :headers => { Client::HEADER_2FA_STRICT => "1", Client::HEADER_OTP_TOKEN => otp_token })
+      response.headers[Client::HEADER_EXCHANGE_TOKEN]
     end
 
   end

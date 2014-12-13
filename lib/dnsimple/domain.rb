@@ -40,7 +40,7 @@ module Dnsimple
 
     # Check the availability of a name
     def self.check(name, options={})
-      response = Dnsimple::Client.get("/v1/domains/#{name}/check", options)
+      response = Client.get("/v1/domains/#{name}/check", options)
 
       case response.code
       when 200
@@ -58,7 +58,7 @@ module Dnsimple
     def self.create(name, options={})
       options.merge!({:body => {:domain => {:name => name}}})
 
-      response = Dnsimple::Client.post("/v1/domains", options)
+      response = Client.post("/v1/domains", options)
 
       case response.code
       when 201
@@ -75,17 +75,17 @@ module Dnsimple
         if registrant[:id]
           body[:domain][:registrant_id] = registrant[:id]
         else
-          body.merge!(:contact => Dnsimple::Contact.resolve_attributes(registrant))
+          body.merge!(:contact => Contact.resolve_attributes(registrant))
         end
       end
       body.merge!(:extended_attribute => extended_attributes)
       options.merge!({:body => body})
 
-      response = Dnsimple::Client.post("/v1/domain_registrations", options)
+      response = Client.post("/v1/domain_registrations", options)
 
       case response.code
       when 201
-        return Dnsimple::Domain.new(response["domain"])
+        return Domain.new(response["domain"])
       else
         raise RequestError.new("Error registering domain", response)
       end
@@ -94,7 +94,7 @@ module Dnsimple
     # Find a specific domain in the account either by the numeric ID
     # or by the fully-qualified domain name.
     def self.find(id, options={})
-      response = Dnsimple::Client.get("/v1/domains/#{id}", options)
+      response = Client.get("/v1/domains/#{id}", options)
 
       case response.code
       when 200
@@ -108,7 +108,7 @@ module Dnsimple
 
     # Get all domains for the account.
     def self.all(options={})
-      response = Dnsimple::Client.get("/v1/domains", options)
+      response = Client.get("/v1/domains", options)
 
       case response.code
       when 200
@@ -135,7 +135,7 @@ module Dnsimple
     # WARNING: this cannot be undone.
     #
     def delete(options={})
-      Dnsimple::Client.delete("/v1/domains/#{name}", options)
+      Client.delete("/v1/domains/#{name}", options)
     end
     alias :destroy :delete
 
@@ -145,35 +145,35 @@ module Dnsimple
       options.merge!(:body => {})
       template = resolve_template(template)
 
-      Dnsimple::Client.post("/v1/domains/#{name}/templates/#{template.id}/apply", options)
+      Client.post("/v1/domains/#{name}/templates/#{template.id}/apply", options)
     end
 
     def resolve_template(template)
       case template
-      when Dnsimple::Template
+      when Template
         template
       else
-        Dnsimple::Template.find(template)
+        Template.find(template)
       end
     end
 
     def applied_services(options={})
-      response = Dnsimple::Client.get("/v1/domains/#{name}/applied_services", options)
+      response = Client.get("/v1/domains/#{name}/applied_services", options)
 
       case response.code
       when 200
-        response.map { |r| Dnsimple::Service.new(r["service"]) }
+        response.map { |r| Service.new(r["service"]) }
       else
         raise RequestError.new("Error listing applied services", response)
       end
     end
 
     def available_services(options={})
-      response = Dnsimple::Client.get("/v1/domains/#{name}/available_services", options)
+      response = Client.get("/v1/domains/#{name}/available_services", options)
 
       case response.code
       when 200
-        response.map { |r| Dnsimple::Service.new(r["service"]) }
+        response.map { |r| Service.new(r["service"]) }
       else
         raise RequestError.new("Error listing available services", response)
       end
@@ -181,7 +181,7 @@ module Dnsimple
 
     def add_service(id_or_short_name, options={})
       options.merge!(:body => {:service => {:id => id_or_short_name}})
-      response = Dnsimple::Client.post("/v1/domains/#{name}/applied_services", options)
+      response = Client.post("/v1/domains/#{name}/applied_services", options)
 
       case response.code
       when 200
@@ -192,7 +192,7 @@ module Dnsimple
     end
 
     def remove_service(id, options={})
-      response = Dnsimple::Client.delete("/v1/domains/#{name}/applied_services/#{id}", options)
+      response = Client.delete("/v1/domains/#{name}/applied_services/#{id}", options)
 
       case response.code
       when 200
@@ -206,7 +206,7 @@ module Dnsimple
     private
 
     def auto_renew!(method)
-      response = Dnsimple::Client.send(method, "/v1/domains/#{name}/auto_renewal")
+      response = Client.send(method, "/v1/domains/#{name}/auto_renewal")
       case response.code
       when 200
         self.auto_renew = response['domain']['auto_renew']

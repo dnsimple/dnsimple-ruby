@@ -56,18 +56,21 @@ module Dnsimple
     attr_accessor :domain
 
 
-    # Purchase a certificate under the given domain with the given name. The
-    # name will be appended to the domain name, and thus should only be the
-    # subdomain part.
+    # Purchases a certificate under the given domain with the given name.
     #
-    # Example: Dnsimple::Certificate.purchase(domain, 'www', contact)
+    # The name will be appended to the domain name, and thus should only be the subdomain part.
     #
-    # Please note that by invoking this method DNSimple will immediately charge
+    # Invoking this method DNSimple will immediately charge
     # your credit card on file at DNSimple for the full certificate price.
     #
     # For wildcard certificates an asterisk must appear in the name.
     #
-    # Example: Dnsimple::Certificate.purchase(domain, '*', contact)
+    # @example Purchase a single-hostname certificate
+    #   Dnsimple::Certificate.purchase(domain, 'www', contact)
+    #
+    # @example Purchase a wildcard certificate
+    #   Dnsimple::Certificate.purchase(domain, '*', contact)
+    #
     def self.purchase(domain, name, contact, options={})
       certificate_hash = {
         :name => name,
@@ -76,7 +79,7 @@ module Dnsimple
 
       options.merge!({:body => {:certificate => certificate_hash}})
 
-      response = Dnsimple::Client.post("/v1/domains/#{domain.name}/certificates", options)
+      response = Client.post("/v1/domains/#{domain.name}/certificates", options)
 
       case response.code
       when 201
@@ -90,7 +93,7 @@ module Dnsimple
 
     # Get an array of all certificates for the given domain.
     def self.all(domain, options={})
-      response = Dnsimple::Client.get("/v1/domains/#{domain.name}/certificates", options)
+      response = Client.get("/v1/domains/#{domain.name}/certificates", options)
 
       case response.code
       when 200
@@ -102,7 +105,7 @@ module Dnsimple
 
     # Find a specific certificate for the given domain.
     def self.find(domain, id, options = {})
-      response = Dnsimple::Client.get("/v1/domains/#{domain.name}/certificates/#{id}", options)
+      response = Client.get("/v1/domains/#{domain.name}/certificates/#{id}", options)
 
       case response.code
       when 200
@@ -118,21 +121,21 @@ module Dnsimple
     # Get the fully-qualified domain name for the certificate. This is the
     # domain.name joined with the certificate name, separated by a period.
     def fqdn
-      [name, domain.name].delete_if { |p| p !~ Dnsimple::BLANK_REGEX }.join(".")
+      [name, domain.name].delete_if { |p| p !~ BLANK_REGEX }.join(".")
     end
 
     def submit(approver_email, options={})
-      raise Dnsimple::Error, "Approver email is required" unless approver_email
+      raise Error, "Approver email is required" unless approver_email
 
       options.merge!(:body => {:certificate => {:approver_email => approver_email}})
 
-      response = Dnsimple::Client.put("/v1/domains/#{domain.name}/certificates/#{id}/submit", options)
+      response = Client.put("/v1/domains/#{domain.name}/certificates/#{id}/submit", options)
 
       case response.code
-        when 200
-          Certificate.new({ :domain => domain }.merge(response["certificate"]))
-        else
-          raise RequestError.new("Error submitting certificate", response)
+      when 200
+        Certificate.new({ :domain => domain }.merge(response["certificate"]))
+      else
+        raise RequestError.new("Error submitting certificate", response)
       end
     end
 

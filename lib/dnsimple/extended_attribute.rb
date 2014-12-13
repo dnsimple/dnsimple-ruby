@@ -32,13 +32,13 @@ module Dnsimple
     def options=(opts)
       @options = []
       opts.each do |opt|
-        @options << Dnsimple::ExtendedAttribute::Option.new(opt)
+        @options << ExtendedAttribute::Option.new(opt)
       end
     end
 
     # Find the extended attributes for the given TLD
     def self.find(tld, options={})
-      response = Dnsimple::Client.get("/v1/extended_attributes/#{tld}", options)
+      response = Client.get("/v1/extended_attributes/#{tld}", options)
 
       case response.code
       when 200

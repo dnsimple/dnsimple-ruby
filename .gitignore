@@ -6,3 +6,4 @@ Gemfile.lock
 # YARD
 .yardoc
 yardoc/
+doc/

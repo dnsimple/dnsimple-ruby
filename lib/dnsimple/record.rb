@@ -16,18 +16,18 @@ module Dnsimple
 
 
     def fqdn
-      [name, domain.name].delete_if { |v| v !~ Dnsimple::BLANK_REGEX }.join(".")
+      [name, domain.name].delete_if { |v| v !~ BLANK_REGEX }.join(".")
     end
 
     def save(options={})
       record_hash = {}
       %w(name content ttl prio).each do |attribute|
-        record_hash[Dnsimple::Record.resolve(attribute)] = self.send(attribute)
+        record_hash[Record.resolve(attribute)] = self.send(attribute)
       end
 
       options.merge!(:body => {:record => record_hash})
 
-      response = Dnsimple::Client.put("/v1/domains/#{domain.id}/records/#{id}", options)
+      response = Client.put("/v1/domains/#{domain.id}/records/#{id}", options)
 
       case response.code
       when 200
@@ -38,12 +38,12 @@ module Dnsimple
     end
 
     def delete(options={})
-      Dnsimple::Client.delete("/v1/domains/#{domain.id}/records/#{id}", options)
+      Client.delete("/v1/domains/#{domain.id}/records/#{id}", options)
     end
     alias :destroy :delete
 
     def self.resolve(name)
-      Dnsimple::Record::Aliases[name] || name
+      Record::Aliases[name] || name
     end
 
     def self.create(domain, name, record_type, content, options={})
@@ -54,7 +54,7 @@ module Dnsimple
 
       options.merge!({:body => {:record => record_hash}})
 
-      response = Dnsimple::Client.post("/v1/domains/#{domain.name}/records", options)
+      response = Client.post("/v1/domains/#{domain.name}/records", options)
 
       case response.code
       when 201
@@ -67,7 +67,7 @@ module Dnsimple
     end
 
     def self.find(domain, id, options={})
-      response = Dnsimple::Client.get("/v1/domains/#{domain.name}/records/#{id}", options)
+      response = Client.get("/v1/domains/#{domain.name}/records/#{id}", options)
 
       case response.code
       when 200
@@ -80,7 +80,7 @@ module Dnsimple
     end
 
     def self.all(domain, options={})
-      response = Dnsimple::Client.get("/v1/domains/#{domain.name}/records", options)
+      response = Client.get("/v1/domains/#{domain.name}/records", options)
 
       case response.code
       when 200

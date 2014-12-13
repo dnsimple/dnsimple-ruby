@@ -25,12 +25,12 @@ module Dnsimple
     attr_accessor :prio
 
     def delete(options={})
-      Dnsimple::Client.delete("/v1/templates/#{template.id}/template_records/#{id}", options)
+      Client.delete("/v1/templates/#{template.id}/template_records/#{id}", options)
     end
     alias :destroy :delete
 
     def self.create(short_name, name, record_type, content, options={})
-      template = Dnsimple::Template.find(short_name)
+      template = Template.find(short_name)
 
       record_hash = {:name => name, :record_type => record_type, :content => content}
       record_hash[:ttl] = options.delete(:ttl) || 3600
@@ -38,7 +38,7 @@ module Dnsimple
 
       options.merge!({:query => {:dns_template_record => record_hash}})
 
-      response = Dnsimple::Client.post("/v1/templates/#{template.id}/template_records", options)
+      response = Client.post("/v1/templates/#{template.id}/template_records", options)
 
       case response.code
       when 201
@@ -49,8 +49,8 @@ module Dnsimple
     end
 
     def self.find(short_name, id, options={})
-      template = Dnsimple::Template.find(short_name)
-      response = Dnsimple::Client.get("/v1/templates/#{template.id}/template_records/#{id}", options)
+      template = Template.find(short_name)
+      response = Client.get("/v1/templates/#{template.id}/template_records/#{id}", options)
 
       case response.code
       when 200
@@ -65,8 +65,8 @@ module Dnsimple
     # Get all of the template records for the template with the
     # given short name.
     def self.all(short_name, options={})
-      template = Dnsimple::Template.find(short_name)
-      response = Dnsimple::Client.get("/v1/templates/#{template.id}/template_records", options)
+      template = Template.find(short_name)
+      response = Client.get("/v1/templates/#{template.id}/template_records", options)
 
       case response.code
       when 200

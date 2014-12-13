@@ -40,7 +40,7 @@ module Dnsimple
     def self.base_options
       options = {
         :format => :json,
-        :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" },
+        :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{VERSION}" },
       }
 
       if http_proxy

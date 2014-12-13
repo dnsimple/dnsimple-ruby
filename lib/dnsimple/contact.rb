@@ -68,7 +68,7 @@ module Dnsimple
     # pass "first" it will be resolved to "first_name", "email" is resolved
     # to "email_address" and so on.
     def self.resolve(name)
-      Dnsimple::Contact::Aliases[name.to_s] || name
+      Contact::Aliases[name.to_s] || name
     end
 
     def self.resolve_attributes(attributes)
@@ -86,7 +86,7 @@ module Dnsimple
       contact_hash = resolve_attributes(attributes)
 
       options.merge!({:body => {:contact => contact_hash}})
-      response = Dnsimple::Client.post("/v1/contacts", options)
+      response = Client.post("/v1/contacts", options)
 
       case response.code
       when 201
@@ -97,7 +97,7 @@ module Dnsimple
     end
 
     def self.find(id, options={})
-      response = Dnsimple::Client.get("/v1/contacts/#{id}", options)
+      response = Client.get("/v1/contacts/#{id}", options)
 
       case response.code
       when 200
@@ -110,7 +110,7 @@ module Dnsimple
     end
 
     def self.all(options={})
-      response = Dnsimple::Client.get("/v1/contacts", options)
+      response = Client.get("/v1/contacts", options)
 
       case response.code
       when 200
@@ -129,12 +129,12 @@ module Dnsimple
       contact_hash = {}
       %w(first_name last_name organization_name job_title address1 address2 city
       state_province postal_code country email_address phone phone_ext fax).each do |attribute|
-        contact_hash[Dnsimple::Contact.resolve(attribute)] = self.send(attribute)
+        contact_hash[Contact.resolve(attribute)] = self.send(attribute)
       end
 
       options.merge!({:body => {:contact => contact_hash}})
 
-      response = Dnsimple::Client.put("/v1/contacts/#{id}", options)
+      response = Client.put("/v1/contacts/#{id}", options)
 
       case response.code
         when 200
@@ -149,7 +149,7 @@ module Dnsimple
     # WARNING: this cannot be undone.
     #
     def delete(options={})
-      Dnsimple::Client.delete("/v1/contacts/#{id}", options)
+      Client.delete("/v1/contacts/#{id}", options)
     end
     alias :destroy :delete
 
