@@ -38,25 +38,30 @@ module Dnsimple
     attr_accessor :whois_protected
 
 
-    # Check the availability of a name
-    def self.check(name, options={})
-      response = Client.get("/v1/domains/#{name}/check", options)
+    # Lists the domains in the DNSimple account.
+    #
+    # @return [Array<Domain>]
+    def self.list(options = {})
+      response = Client.get("/v1/domains", options)
 
       case response.code
       when 200
-        "registered"
-      when 404
-        "available"
+        response.map { |r| new(r["domain"]) }
       else
-        raise RequestError.new("Error checking availability", response)
+        raise RequestError.new("Error listing domains", response)
       end
     end
 
-    # Create the domain with the given name in Dnsimple. This
-    # method returns a Domain instance if the name is created
-    # and raises an error otherwise.
-    def self.create(name, options={})
-      options.merge!({:body => {:domain => {:name => name}}})
+    def self.all(*args); list(*args); end
+
+    # Creates the domain in the DNSimple account.
+    #
+    # @param  [String] name The domain name.
+    #
+    # @return [Domain] The newly created domain.
+    # @raise  [RequestError] When the request fails.
+    def self.create(name)
+      options = { body: { domain: { name: name }}}
 
       response = Client.post("/v1/domains", options)
 
@@ -65,6 +70,62 @@ module Dnsimple
         new(response["domain"])
       else
         raise RequestError.new("Error creating domain", response)
+      end
+    end
+
+    # Gets a specific domain in the account.
+    #
+    # @param [Fixnum,String] id Either the numeric ID or the fully-qualified domain name.
+    #
+    # @return [Domain] The domain.
+    # @raise  [RecordNotFound] When the domain doesn't exist.
+    # @raise  [RequestError] When the request fails.
+    def self.find(id)
+      response = Client.get("/v1/domains/#{id}")
+
+      case response.code
+      when 200
+        new(response["domain"])
+      when 404
+        raise RecordNotFound, "Could not find domain #{id}"
+      else
+        raise RequestError.new("Error finding domain", response)
+      end
+    end
+
+    # Deletes a specific domain from the account.
+    #
+    # WARNING: this cannot be undone.
+    #
+    # @param [Fixnum,String] id Either the numeric ID or the fully-qualified domain name.
+    #
+    # @return [void]
+    # @raise  [RecordNotFound] When the domain doesn't exist.
+    # @raise  [RequestError] When the request fails.
+    def self.delete(id)
+      response = Client.delete("/v1/domains/#{id}")
+
+      case response.code
+      when 200, 204
+        true
+      when 404
+        raise RecordNotFound, "Could not find domain #{id}"
+      else
+        raise RequestError.new("Error deleting domain", response)
+      end
+    end
+
+    # Check the availability of a name
+    def self.check(name, options={})
+      response = Client.get("/v1/domains/#{name}/check", options)
+
+      case response.code
+        when 200
+          "registered"
+        when 404
+          "available"
+        else
+          raise RequestError.new("Error checking availability", response)
       end
     end
 
@@ -91,32 +152,6 @@ module Dnsimple
       end
     end
 
-    # Find a specific domain in the account either by the numeric ID
-    # or by the fully-qualified domain name.
-    def self.find(id, options={})
-      response = Client.get("/v1/domains/#{id}", options)
-
-      case response.code
-      when 200
-        new(response["domain"])
-      when 404
-        raise RecordNotFound, "Could not find domain #{id}"
-      else
-        raise RequestError.new("Error finding domain", response)
-      end
-    end
-
-    # Get all domains for the account.
-    def self.all(options={})
-      response = Client.get("/v1/domains", options)
-
-      case response.code
-      when 200
-        response.map { |r| new(r["domain"]) }
-      else
-        raise RequestError.new("Error listing domains", response)
-      end
-    end
 
     # Enable auto_renew on the domain
     def enable_auto_renew
@@ -130,12 +165,12 @@ module Dnsimple
       auto_renew!(:delete)
     end
 
-    # #delete the domain from DNSimple.
+    # Deletes this domain from the account.
     #
     # WARNING: this cannot be undone.
     #
-    def delete(options={})
-      Client.delete("/v1/domains/#{name}", options)
+    def delete
+      self.class.delete(name)
     end
     alias :destroy :delete
 

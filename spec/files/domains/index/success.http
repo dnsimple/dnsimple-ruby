@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+Server: nginx/1.4.4
+Date: Thu, 16 Jan 2014 22:57:11 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+Status: 200 OK
+X-DNSimple-API-Version: 1.0.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+X-UA-Compatible: IE=Edge,chrome=1
+ETag: "e745f0c40f69125f6ae89bf85f438aeb"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 8abb9f0b5d449b86514cfad056cd9a91
+X-Runtime: 0.040123
+Strict-Transport-Security: max-age=315360000
+
+[{"domain":{"id":228,"user_id":19,"registrant_id":null,"name":"example-1389823304.it","unicode_name":"example-1389823304.it","token":"domain-token","state":"hosted","language":null,"lockable":true,"auto_renew":false,"whois_protected":false,"record_count":5,"service_count":0,"expires_on":null,"created_at":"2014-01-15T22:03:49Z","updated_at":"2014-01-15T22:03:49Z","parsed_expiration_date":null,"expires_at":null,"name_server_status":null,"private_whois?":false}},{"domain":{"id":227,"user_id":19,"registrant_id":28,"name":"example-1389823304.com","unicode_name":"example-1389823304.com","token":"domain-token","state":"registered","language":null,"lockable":true,"auto_renew":true,"whois_protected":false,"record_count":7,"service_count":0,"expires_on":"2015-01-16","created_at":"2014-01-15T22:01:55Z","updated_at":"2014-01-16T22:56:22Z","parsed_expiration_date":"2015-01-16T22:56:00Z","expires_at":"1/16/2015 10:56:00 PM","name_server_status":null,"private_whois?":false}}]
