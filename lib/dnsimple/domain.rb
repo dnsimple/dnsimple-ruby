@@ -13,9 +13,6 @@ module Dnsimple
     # When the domain was last update in DNSimple
     attr_accessor :updated_at
 
-    # The current known name server status
-    attr_accessor :name_server_status
-
     # When the domain is due to expire
     attr_accessor :expires_on
 

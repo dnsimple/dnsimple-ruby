@@ -82,8 +82,6 @@ describe Dnsimple::Domain do
       expect(result.lockable).to eq(true)
       expect(result.auto_renew).to eq(true)
       expect(result.whois_protected).to eq(false)
-
-      expect(result.name_server_status).to be_nil
     end
 
     context "when the domain does not exist" do
