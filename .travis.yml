@@ -5,5 +5,6 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.0
-env: DNSIMPLE_TEST_CONFIG=spec/ci/.dnsimple.test
-script: bundle exec rake travis
+env: 
+  - DNSIMPLE_TEST_CONFIG=spec/ci/.dnsimple.test
+  - COVERALL=1

@@ -1,5 +1,10 @@
 require 'rspec'
 
+if ENV['COVERALL']
+  require 'coveralls'
+  Coveralls.wear!
+end
+
 $:.unshift(File.dirname(__FILE__) + '/lib')
 require 'dnsimple'
 
