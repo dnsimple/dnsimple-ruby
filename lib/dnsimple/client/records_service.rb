@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    class RecordsService < Struct.new(:client)
+    class RecordsService < Service
 
       # Lists the domain records in the account.
       #
@@ -84,15 +84,6 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def delete(domain, record)
         client.delete("v1/domains/#{domain}/records/#{record}")
-      end
-
-
-      private
-
-      def validate_mandatory_attributes(attributes, required)
-        required.each do |name|
-          attributes.key?(name) or raise(ArgumentError, ":#{name} is required")
-        end
       end
 
     end

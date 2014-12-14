@@ -1,157 +1,60 @@
 module Dnsimple
 
-  # Represents a contact.
   class Contact < Base
 
-    Aliases = {
-      'first'             => 'first_name',
-      'last'              => 'last_name',
-      'state'             => 'state_province',
-      'province'          => 'state_province',
-      'state_or_province' => 'state_province',
-      'email'             => 'email_address',
-    }
-
-    # The contact ID in DNSimple
+    # @return [Symbol] The contact ID in DNSimple.
     attr_accessor :id
 
-    # The contact first name
+    # @return [Symbol] The label to represent the contact.
+    attr_accessor :label
+
+    # @return [Symbol] The contact first name.
     attr_accessor :first_name
 
-    # The contact last name
+    # @return [Symbol] The contact last name.
     attr_accessor :last_name
 
-    # The contact's job title
+    # @return [Symbol] The contact's job title.
     attr_accessor :job_title
 
-    # The name of the organization in which the contact works
+    # @return [Symbol] The name of the organization in which the contact works.
     attr_accessor :organization_name
 
-    # The contact email address
-    attr_accessor :email_address
-
-    # The contact phone number
-    attr_accessor :phone
-
-    # The contact phone extension (may be omitted)
-    attr_accessor :phone_ext
-
-    # The contact fax number (may be omitted)
-    attr_accessor :fax
-
-    # The contact street address
+    # @return [Symbol] The contact street address.
     attr_accessor :address1
 
-    # Apartment or suite number
+    # @return [Symbol] Apartment or suite number.
     attr_accessor :address2
 
-    # The city name
+    # @return [Symbol] The city name.
     attr_accessor :city
 
-    # The state or province name
+    # @return [Symbol] The state or province name.
     attr_accessor :state_province
 
-    # The contact postal code
+    # @return [Symbol] The contact postal code.
     attr_accessor :postal_code
 
-    # The contact country (as a 2-character country code)
+    # @return [Symbol] The contact country (as a 2-character country code).
     attr_accessor :country
 
-    # When the contact was created in DNSimple
+    # @return [Symbol] The contact phone number.
+    attr_accessor :phone
+
+    # @return [Symbol] The contact fax number (may be omitted).
+    attr_accessor :fax
+
+    # @return [Symbol] The contact email address.
+    attr_accessor :email_address
+
+    # @return [Symbol] When the contact was created in DNSimple.
     attr_accessor :created_at
 
-    # When the contact was last updated in DNSimple
+    # @return [Symbol] When the contact was last updated in DNSimple.
     attr_accessor :updated_at
 
-
-    # Map an aliased field name to it's real name. For example, if you
-    # pass "first" it will be resolved to "first_name", "email" is resolved
-    # to "email_address" and so on.
-    def self.resolve(name)
-      Contact::Aliases[name.to_s] || name
-    end
-
-    def self.resolve_attributes(attributes)
-      resolved_attributes = {}
-      attributes.each do |k, v|
-        resolved_attributes[resolve(k)] = v
-      end
-      resolved_attributes
-    end
-
-    # Create the contact with the given attributes in DNSimple.
-    # This method returns a Contact instance of the contact is created
-    # and raises an error otherwise.
-    def self.create(attributes, options={})
-      contact_hash = resolve_attributes(attributes)
-
-      options.merge!({:body => {:contact => contact_hash}})
-      response = Client.post("v1/contacts", options)
-
-      case response.code
-      when 201
-        new(response["contact"])
-      else
-        raise RequestError.new("Error creating contact", response)
-      end
-    end
-
-    def self.find(id, options={})
-      response = Client.get("v1/contacts/#{id}", options)
-
-      case response.code
-      when 200
-        new(response["contact"])
-      when 404
-        raise RecordNotFound, "Could not find contact #{id}"
-      else
-        raise RequestError.new("Error finding contact", response)
-      end
-    end
-
-    def self.all(options={})
-      response = Client.get("v1/contacts", options)
-
-      case response.code
-      when 200
-        response.map { |r| new(r["contact"]) }
-      else
-        raise RequestError.new("Error listing contacts", response)
-      end
-    end
-
-
-    def name
-      [first_name, last_name].join(' ')
-    end
-
-    def save(options={})
-      contact_hash = {}
-      %w(first_name last_name organization_name job_title address1 address2 city
-      state_province postal_code country email_address phone phone_ext fax).each do |attribute|
-        contact_hash[Contact.resolve(attribute)] = self.send(attribute)
-      end
-
-      options.merge!({:body => {:contact => contact_hash}})
-
-      response = Client.put("v1/contacts/#{id}", options)
-
-      case response.code
-        when 200
-          return self
-        else
-          raise RequestError.new("Error updating contact", response)
-      end
-    end
-
-    # #delete the contact from DNSimple.
-    #
-    # WARNING: this cannot be undone.
-    #
-    def delete(options={})
-      Client.delete("v1/contacts/#{id}", options)
-    end
-    alias :destroy :delete
-
+    alias :email :email_address
+    alias :email= :email_address=
   end
+
 end

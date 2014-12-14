@@ -30,7 +30,7 @@ describe Dnsimple::Client, ".records" do
       expect(result.id).to eq(37)
     end
 
-    context "when the record does not exist" do
+    context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("records/notfound.http"))
@@ -45,7 +45,7 @@ describe Dnsimple::Client, ".records" do
   describe ".create" do
     before do
       stub_request(:post, %r[/v1/domains/.+/records$]).
-          to_return(read_fixture("records/create/success.http"))
+          to_return(read_fixture("records/create/created.http"))
     end
 
     it "builds the correct request" do
@@ -56,14 +56,14 @@ describe Dnsimple::Client, ".records" do
                          with { |req| req.headers['Accept'] == 'application/json' }
     end
 
-    it "returns the domain" do
+    it "returns the record" do
       result = subject.create("example.com", { name: "", record_type: "", content: "" })
 
       expect(result).to be_a(Dnsimple::Record)
       expect(result.id).to eq(3554751)
     end
 
-    context "when the record does not exist" do
+    context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:post, %r[/v1]).
             to_return(read_fixture("records/notfound.http"))
@@ -82,7 +82,7 @@ describe Dnsimple::Client, ".records" do
     end
 
     it "builds the correct request" do
-      subject.find("example.com", "2")
+      subject.find("example.com", 2)
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/records/2").
                          with { |req| req.headers['Accept'] == 'application/json' }
@@ -103,7 +103,7 @@ describe Dnsimple::Client, ".records" do
       expect(result.updated_at).to eq("2014-01-14T18:26:04Z")
     end
 
-    context "when the record does not exist" do
+    context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("records/notfound.http"))
@@ -129,14 +129,14 @@ describe Dnsimple::Client, ".records" do
                              with { |req| req.headers['Accept'] == 'application/json' }
     end
 
-    it "returns the domain" do
+    it "returns the record" do
       result = subject.update("example.com", 2, {})
 
       expect(result).to be_a(Dnsimple::Record)
       expect(result.id).to eq(3554751)
     end
 
-    context "when the record does not exist" do
+    context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:put, %r[/v1]).
             to_return(read_fixture("records/notfound.http"))
@@ -176,7 +176,7 @@ describe Dnsimple::Client, ".records" do
       expect(result).to be_truthy
     end
 
-    context "when the domain does not exist" do
+    context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:delete, %r[/v1]).
             to_return(read_fixture("records/notfound.http"))
