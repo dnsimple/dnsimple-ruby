@@ -1,5 +1,6 @@
 require 'dnsimple/version'
 require 'dnsimple/compatibility'
+require 'dnsimple/client/records_service'
 
 module Dnsimple
 
@@ -96,13 +97,22 @@ module Dnsimple
     def request(method, path, options)
       response = HTTParty.send(method, api_endpoint + path, base_options.merge(options))
 
-      if response.code == 401 && response.headers[HEADER_OTP_TOKEN] == "required"
-        raise TwoFactorAuthenticationRequired, response["message"]
-      elsif response.code == 401
-        raise AuthenticationFailed, response["message"]
+      case response.code
+      when 200..299
+        response
+      when 401
+        raise (response.headers[HEADER_OTP_TOKEN] == "required" ? TwoFactorAuthenticationRequired : AuthenticationFailed), response["message"]
+      when 404
+        raise RecordNotFound.new(response)
+      else
+        raise RequestError(response)
       end
+    end
 
-      response
+
+    # @return [Dnsimple::Client::RecordsService] The record-related API proxy.
+    def records
+      @records_service ||= Client::RecordsService.new(self)
     end
 
 

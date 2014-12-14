@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Sun, 14 Dec 2014 16:19:53 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 200 OK
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+ETag: "45fbc90e793bde6153366ce961c88e73"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: e44cd2a2-5010-42c6-bdec-8e12c339e8c9
+X-Runtime: 0.036717
+Strict-Transport-Security: max-age=315360000
+
+{"record":{"id":3554751,"domain_id":41571,"parent_id":null,"name":"0001","content":"127.0.0.1","ttl":3600,"prio":null,"record_type":"A","system_record":null,"created_at":"2014-12-14T16:11:02.771Z","updated_at":"2014-12-14T16:11:02.771Z"}}
