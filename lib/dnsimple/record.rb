@@ -27,7 +27,7 @@ module Dnsimple
 
       options.merge!(:body => {:record => record_hash})
 
-      response = Client.put("/v1/domains/#{domain.id}/records/#{id}", options)
+      response = Client.put("v1/domains/#{domain.id}/records/#{id}", options)
 
       case response.code
       when 200
@@ -38,7 +38,7 @@ module Dnsimple
     end
 
     def delete(options={})
-      Client.delete("/v1/domains/#{domain.id}/records/#{id}", options)
+      Client.delete("v1/domains/#{domain.id}/records/#{id}", options)
     end
     alias :destroy :delete
 
@@ -54,7 +54,7 @@ module Dnsimple
 
       options.merge!({:body => {:record => record_hash}})
 
-      response = Client.post("/v1/domains/#{domain.name}/records", options)
+      response = Client.post("v1/domains/#{domain.name}/records", options)
 
       case response.code
       when 201
@@ -67,7 +67,7 @@ module Dnsimple
     end
 
     def self.find(domain, id, options={})
-      response = Client.get("/v1/domains/#{domain.name}/records/#{id}", options)
+      response = Client.get("v1/domains/#{domain.name}/records/#{id}", options)
 
       case response.code
       when 200
@@ -80,7 +80,7 @@ module Dnsimple
     end
 
     def self.all(domain, options={})
-      response = Client.get("/v1/domains/#{domain.name}/records", options)
+      response = Client.get("v1/domains/#{domain.name}/records", options)
 
       case response.code
       when 200

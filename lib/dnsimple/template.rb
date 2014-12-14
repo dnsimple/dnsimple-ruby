@@ -16,7 +16,7 @@ module Dnsimple
 
       options.merge!(:body => {:dns_template => template_hash})
 
-      response = Client.post("/v1/templates", options)
+      response = Client.post("v1/templates", options)
 
       case response.code
       when 201
@@ -28,7 +28,7 @@ module Dnsimple
 
     def self.find(id_or_short_name, options={})
       id = id_or_short_name
-      response = Client.get("/v1/templates/#{id}", options)
+      response = Client.get("v1/templates/#{id}", options)
 
       case response.code
       when 200
@@ -41,7 +41,7 @@ module Dnsimple
     end
 
     def self.all(options={})
-      response = Client.get("/v1/templates", options)
+      response = Client.get("v1/templates", options)
 
       case response.code
       when 200
@@ -57,7 +57,7 @@ module Dnsimple
     # WARNING: this cannot be undone.
     #
     def delete(options={})
-      Client.delete("/v1/templates/#{id}", options)
+      Client.delete("v1/templates/#{id}", options)
     end
     alias :destroy :delete
 

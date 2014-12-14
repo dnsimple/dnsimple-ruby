@@ -79,7 +79,7 @@ module Dnsimple
 
       options.merge!({:body => {:certificate => certificate_hash}})
 
-      response = Client.post("/v1/domains/#{domain.name}/certificates", options)
+      response = Client.post("v1/domains/#{domain.name}/certificates", options)
 
       case response.code
       when 201
@@ -93,7 +93,7 @@ module Dnsimple
 
     # Get an array of all certificates for the given domain.
     def self.all(domain, options={})
-      response = Client.get("/v1/domains/#{domain.name}/certificates", options)
+      response = Client.get("v1/domains/#{domain.name}/certificates", options)
 
       case response.code
       when 200
@@ -105,7 +105,7 @@ module Dnsimple
 
     # Find a specific certificate for the given domain.
     def self.find(domain, id, options = {})
-      response = Client.get("/v1/domains/#{domain.name}/certificates/#{id}", options)
+      response = Client.get("v1/domains/#{domain.name}/certificates/#{id}", options)
 
       case response.code
       when 200
@@ -129,7 +129,7 @@ module Dnsimple
 
       options.merge!(:body => {:certificate => {:approver_email => approver_email}})
 
-      response = Client.put("/v1/domains/#{domain.name}/certificates/#{id}/submit", options)
+      response = Client.put("v1/domains/#{domain.name}/certificates/#{id}/submit", options)
 
       case response.code
       when 200

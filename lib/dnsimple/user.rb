@@ -16,7 +16,7 @@ module Dnsimple
     # @return [User] the authenticated user
     # @raise  [RequestError] if the user doesn't exist
     def self.me
-      response = Client.get("/v1/user")
+      response = Client.get("v1/user")
 
       case response.code
       when 200
@@ -42,7 +42,7 @@ module Dnsimple
     # @return [String] the two-factor API exchange token
     # @raise  [AuthenticationFailed] if the provided OTP token is invalid
     def self.two_factor_exchange_token(otp_token)
-      response = Client.get("/v1/user", :headers => { Client::HEADER_2FA_STRICT => "1", Client::HEADER_OTP_TOKEN => otp_token })
+      response = Client.get("v1/user", :headers => { Client::HEADER_2FA_STRICT => "1", Client::HEADER_OTP_TOKEN => otp_token })
       response.headers[Client::HEADER_EXCHANGE_TOKEN]
     end
 

@@ -14,7 +14,7 @@ module Dnsimple
     # Find a service by its ID or short name
     def self.find(id_or_short_name, options={})
       id = id_or_short_name
-      response = Client.get("/v1/services/#{id}", options)
+      response = Client.get("v1/services/#{id}", options)
 
       case response.code
       when 200
@@ -28,7 +28,7 @@ module Dnsimple
 
     # Get all of the services that can be applied to a domain
     def self.all(options={})
-      response = Client.get("/v1/services", options)
+      response = Client.get("v1/services", options)
 
       case response.code
       when 200

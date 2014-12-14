@@ -18,9 +18,10 @@ module Dnsimple
 
 end
 
-require 'dnsimple/base'
+require 'dnsimple/default'
 require 'dnsimple/client'
 require 'dnsimple/error'
+require 'dnsimple/base'
 require 'dnsimple/user'
 require 'dnsimple/contact'
 require 'dnsimple/domain'

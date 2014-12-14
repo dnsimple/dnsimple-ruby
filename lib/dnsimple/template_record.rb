@@ -25,7 +25,7 @@ module Dnsimple
     attr_accessor :prio
 
     def delete(options={})
-      Client.delete("/v1/templates/#{template.id}/template_records/#{id}", options)
+      Client.delete("v1/templates/#{template.id}/template_records/#{id}", options)
     end
     alias :destroy :delete
 
@@ -38,7 +38,7 @@ module Dnsimple
 
       options.merge!({:query => {:dns_template_record => record_hash}})
 
-      response = Client.post("/v1/templates/#{template.id}/template_records", options)
+      response = Client.post("v1/templates/#{template.id}/template_records", options)
 
       case response.code
       when 201
@@ -50,7 +50,7 @@ module Dnsimple
 
     def self.find(short_name, id, options={})
       template = Template.find(short_name)
-      response = Client.get("/v1/templates/#{template.id}/template_records/#{id}", options)
+      response = Client.get("v1/templates/#{template.id}/template_records/#{id}", options)
 
       case response.code
       when 200
@@ -66,7 +66,7 @@ module Dnsimple
     # given short name.
     def self.all(short_name, options={})
       template = Template.find(short_name)
-      response = Client.get("/v1/templates/#{template.id}/template_records", options)
+      response = Client.get("v1/templates/#{template.id}/template_records", options)
 
       case response.code
       when 200

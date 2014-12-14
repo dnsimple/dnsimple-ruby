@@ -1,58 +1,134 @@
 require 'dnsimple/version'
+require 'dnsimple/compatibility'
 
 module Dnsimple
-  class Client
 
-    DEFAULT_BASE_URI = "https://api.dnsimple.com/"
+  # Client for the DNSimple API
+  #
+  # @see http://developer.dnsimple.com
+  class Client
+    include Dnsimple::Compatibility
+
     HEADER_2FA_STRICT = "X-DNSimple-2FA-Strict"
     HEADER_API_TOKEN = "X-DNSimple-Token"
     HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
     HEADER_OTP_TOKEN = "X-DNSimple-OTP"
     HEADER_EXCHANGE_TOKEN = "X-DNSimple-OTP-Token"
 
-    class << self
-      # @return [Boolean] if the debug mode is enabled.
-      #   Defaults to false.
-      attr_accessor :debug
 
-      attr_accessor :username, :password, :exchange_token, :api_token, :domain_api_token
+    # @!attribute api_endpoint
+    #   @return [String] Base URL for API requests. (default: https://api.dnsimple.com/)
+    # @!attribute username
+    #   @return [String] DNSimple username for Basic Authentication
+    # @!attribute password
+    #   @see http://developer.dnsimple.com/authentication/
+    #   @return [String] DNSimple password for Basic Authentication
+    # @!attribute exchange_token
+    #   @see http://developer.dnsimple.com/authentication/
+    #   @return [String] Exchange Token for Basic Authentication with 2FA
+    # @!attribute api_token
+    #   @see http://developer.dnsimple.com/authentication/
+    #   @return [String] API access token for authentication
+    # @!attribute domain_api_token
+    #   @see http://developer.dnsimple.com/authentication/
+    #   @return [String] Domain API access token for authentication
+    # @!attribute user_agent
+    #   @return [String] Configure User-Agent header for requests.
+    # @!attribute proxy
+    #   @return [String,nil] Configure address:port values for proxy server
+
+    attr_accessor :api_endpoint, :username, :password, :exchange_token, :api_token, :domain_api_token,
+                  :user_agent, :proxy
+
+
+    def initialize(options = {})
+      defaults = Dnsimple::Default.options
+
+      Dnsimple::Default.keys.each do |key|
+        instance_variable_set(:"@#{key}", options[key] || defaults[key])
+      end
     end
 
-    # Gets the qualified API base uri.
+
+    # Make a HTTP GET request.
     #
-    # @return [String] The qualified API base uri.
-    def self.base_uri
-      @base_uri ||= DEFAULT_BASE_URI.chomp("/")
+    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [Hash] options Query and header params for request
+    # @return [HTTParty::Response]
+    def get(path, options = {})
+      request :get, path, options
     end
 
-    # Sets the qualified API base uri.
+    # Make a HTTP POST request.
     #
-    # @param [String] value The qualified API base uri.
-    def self.base_uri=(value)
-      @base_uri = value.to_s.chomp("/")
+    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [Hash] options Body and header params for request
+    # @return [HTTParty::Response]
+    def post(path, options = {})
+      request :post, path, options
     end
 
-    def self.http_proxy
-      @http_proxy
+    # Make a HTTP PUT request.
+    #
+    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [Hash] options Body and header params for request
+    # @return [HTTParty::Response]
+    def put(path, options = {})
+      request :put, path, options
     end
 
-    def self.base_options
+    # Make a HTTP DELETE request.
+    #
+    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [Hash] options Query and header params for request
+    # @return [HTTParty::Response]
+    def delete(path, options = {})
+      request :delete, path, options
+    end
+
+
+    # Make a HTTP request.
+    #
+    # @param  [String] method The HTTP method
+    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [Hash] options Query and header params for request
+    # @return [HTTParty::Response]
+    def request(method, path, options)
+      response = HTTParty.send(method, api_endpoint + path, base_options.merge(options))
+
+      if response.code == 401 && response.headers[HEADER_OTP_TOKEN] == "required"
+        raise TwoFactorAuthenticationRequired, response["message"]
+      elsif response.code == 401
+        raise AuthenticationFailed, response["message"]
+      end
+
+      response
+    end
+
+
+    # @return [String] Base URL for API requests.
+    def api_endpoint
+      File.join(@api_endpoint, "")
+    end
+
+
+    private
+
+    def base_options
       options = {
-        :format => :json,
-        :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{VERSION}" },
+          format:   :json,
+          headers:  { 'Accept' => 'application/json', 'User-Agent' => user_agent },
       }
 
-      if http_proxy
-        options.merge!(
-          :http_proxyaddr => http_proxy[:addr],
-          :http_proxyport => http_proxy[:port]
-        )
+      if proxy
+        address, port = proxy.split(":")
+        options.merge!(http_proxyaddr: address, http_proxyport: port)
       end
 
       if exchange_token
-        options[:basic_auth] = { :username => exchange_token, :password => "x-2fa-basic" }
+        options[:basic_auth] = { username: exchange_token, password: "x-2fa-basic" }
       elsif password
-        options[:basic_auth] = { :username => username, :password => password }
+        options[:basic_auth] = { username: username, password: password }
       elsif domain_api_token
         options[:headers][HEADER_DOMAIN_API_TOKEN] = domain_api_token
       elsif api_token
@@ -62,34 +138,6 @@ module Dnsimple
       end
 
       options
-    end
-
-    def self.get(path, options = {})
-      request :get, path, options
-    end
-
-    def self.post(path, options = {})
-      request :post, path, options
-    end
-
-    def self.put(path, options = {})
-      request :put, path, options
-    end
-
-    def self.delete(path, options = {})
-      request :delete, path, options
-    end
-
-    def self.request(method, path, options)
-      response = HTTParty.send(method, "#{base_uri}#{path}", base_options.merge(options))
-
-      if response.code == 401 && response.headers[HEADER_OTP_TOKEN] == "required"
-        raise TwoFactorAuthenticationRequired, response["message"]
-      elsif response.code == 401
-        raise AuthenticationFailed, response["message"]
-      end
-
-      response
     end
 
   end

@@ -86,7 +86,7 @@ module Dnsimple
       contact_hash = resolve_attributes(attributes)
 
       options.merge!({:body => {:contact => contact_hash}})
-      response = Client.post("/v1/contacts", options)
+      response = Client.post("v1/contacts", options)
 
       case response.code
       when 201
@@ -97,7 +97,7 @@ module Dnsimple
     end
 
     def self.find(id, options={})
-      response = Client.get("/v1/contacts/#{id}", options)
+      response = Client.get("v1/contacts/#{id}", options)
 
       case response.code
       when 200
@@ -110,7 +110,7 @@ module Dnsimple
     end
 
     def self.all(options={})
-      response = Client.get("/v1/contacts", options)
+      response = Client.get("v1/contacts", options)
 
       case response.code
       when 200
@@ -134,7 +134,7 @@ module Dnsimple
 
       options.merge!({:body => {:contact => contact_hash}})
 
-      response = Client.put("/v1/contacts/#{id}", options)
+      response = Client.put("v1/contacts/#{id}", options)
 
       case response.code
         when 200
@@ -149,7 +149,7 @@ module Dnsimple
     # WARNING: this cannot be undone.
     #
     def delete(options={})
-      Client.delete("/v1/contacts/#{id}", options)
+      Client.delete("v1/contacts/#{id}", options)
     end
     alias :destroy :delete
 

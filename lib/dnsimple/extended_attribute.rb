@@ -38,7 +38,7 @@ module Dnsimple
 
     # Find the extended attributes for the given TLD
     def self.find(tld, options={})
-      response = Client.get("/v1/extended_attributes/#{tld}", options)
+      response = Client.get("v1/extended_attributes/#{tld}", options)
 
       case response.code
       when 200

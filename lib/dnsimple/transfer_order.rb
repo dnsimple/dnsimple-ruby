@@ -20,7 +20,7 @@ module Dnsimple
 
       options.merge!({:body => body})
 
-      response = Client.post("/v1/domain_transfers", options)
+      response = Client.post("v1/domain_transfers", options)
 
       case response.code
       when 201

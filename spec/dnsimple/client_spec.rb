@@ -2,152 +2,138 @@ require 'spec_helper'
 
 describe Dnsimple::Client do
 
-  let(:klass) { described_class }
-  let(:response) { double('response', code: 200) }
+  describe "initialization" do
+    it "accepts :api_endpoint option" do
+      subject = described_class.new(api_endpoint: "https://api.example.com/")
+      expect(subject.api_endpoint).to eq("https://api.example.com/")
+    end
 
-  before do
-    @_username  = described_class.username
-    @_password  = described_class.password
-    @_api_token = described_class.api_token
-    @_base_uri  = described_class.base_uri
-  end
+    it "normalizes :api_endpoint trailing slash" do
+      subject = described_class.new(api_endpoint: "https://api.example.com/missing/slash")
+      expect(subject.api_endpoint).to eq("https://api.example.com/missing/slash/")
+    end
 
-  after do
-    described_class.username   = @_username
-    described_class.password   = @_password
-    described_class.api_token  = @_api_token
-    described_class.base_uri   = @_base_uri
-  end
-
-  [:get, :post, :put, :delete].each do |method|
-    describe ".#{method}" do
-      it "delegates to .request" do
-        expect(described_class).to receive(:request).with(method, '/domains', { foo: 'bar' })
-        described_class.send(method, '/domains', { :foo => 'bar' })
-      end
+    it "defaults :api_endpoint to production API" do
+      subject = described_class.new
+      expect(subject.api_endpoint).to eq("https://api.dnsimple.com/")
     end
   end
 
-  describe ".request" do
-    before do
-      [:username, :password, :exchange_token, :api_token, :domain_api_token].each do |attribute|
-        described_class.send("#{attribute}=", nil)
-      end
-    end
-
+  describe "authentication" do
     it "uses HTTP authentication if there's a password provided" do
-      described_class.username   = 'user'
-      described_class.password   = 'pass'
-      described_class.base_uri   = 'https://api.example.com/'
+      stub_request(:any, %r[/test])
 
-      expect(HTTParty).to receive(:get).
-        with('https://api.example.com/domains', hash_including(:basic_auth => { :username => 'user', :password => 'pass' })).
-        and_return(response)
+      subject = described_class.new(username: "user", password: "pass")
+      subject.request(:get, "test", {})
 
-      described_class.request(:get, '/domains', {})
+      expect(WebMock).to have_requested(:get, "https://user:pass@api.dnsimple.com/test")
     end
 
     it "uses header authentication if there's a domain api token provided" do
-      described_class.domain_api_token  = 'domaintoken'
-      described_class.base_uri   = 'https://api.example.com/'
+      stub_request(:any, %r[/test])
 
-      expect(HTTParty).to receive(:get).
-        with('https://api.example.com/domains', hash_including(:headers => hash_including({ 'X-DNSimple-Domain-Token' => 'domaintoken' }))).
-        and_return(response)
+      subject = described_class.new(domain_api_token: "domaintoken")
+      subject.request(:get, "test", {})
 
-      described_class.request(:get, '/domains', {})
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
+                         with { |req| req.headers["X-Dnsimple-Domain-Token"] == "domaintoken" }
     end
 
     it "uses header authentication if there's an api token provided" do
-      described_class.username   = 'user'
-      described_class.api_token  = 'token'
-      described_class.base_uri   = 'https://api.example.com/'
+      stub_request(:any, %r[/test])
 
-      expect(HTTParty).to receive(:get).
-        with('https://api.example.com/domains', hash_including(:headers => hash_including({ 'X-DNSimple-Token' => 'user:token' }))).
-        and_return(response)
+      subject = described_class.new(username: "user", api_token: "token")
+      subject.request(:get, "test", {})
 
-      described_class.request(:get, '/domains', {})
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
+                         with { |req| req.headers["X-Dnsimple-Token"] == "user:token" }
     end
 
     it "uses HTTP authentication via exchange token if there's an exchange token provided" do
-      described_class.username = 'user'
-      described_class.password = 'pass'
-      described_class.exchange_token = 'exchange-token'
-      described_class.base_uri = 'https://api.example.com/'
+      stub_request(:any, %r[/test])
 
-      expect(HTTParty).to receive(:get).
-          with('https://api.example.com/domains', hash_including(:basic_auth => { :username => 'exchange-token', :password => 'x-2fa-basic' })).
-          and_return(response)
+      subject = described_class.new(username: "user", password: "pass", exchange_token: "exchange-token")
+      subject.request(:get, "test", {})
 
-      described_class.request(:get, '/domains', {})
+      expect(WebMock).to have_requested(:get, "https://exchange-token:x-2fa-basic@api.dnsimple.com/test")
     end
 
     it "raises an error if there's no password or api token provided" do
-      described_class.username   = 'user'
-      described_class.base_uri   = 'https://api.example.com/'
+      subject = described_class.new(username: "user")
 
       expect {
-        described_class.request(:get, '/domains', {})
+        subject.request(:get, "test", {})
       }.to raise_error(Dnsimple::Error, 'A password or API token is required for all API requests.')
     end
 
-    it "adds a custom user-agent" do
-      described_class.api_token  = 'token'
-
-      expect(HTTParty).to receive(:get).
-        with(kind_of(String), hash_including(:headers => hash_including({ 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }))).
-        and_return(response)
-
-      described_class.request(:get, '/foo', {})
-    end
-
-    it "performs a request" do
-      described_class.username = 'user'
-      described_class.password = 'pass'
-
-      expect(HTTParty).to receive(:get).
-        with("#{described_class.base_uri}/foo",
-          :format => :json,
-          :basic_auth => { :username => described_class.username, :password => described_class.password },
-          :headers => { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
-        ).
-        and_return(response)
-
-      described_class.request(:get, '/foo', {})
-    end
-  end
-
-
-  describe ".base_uri" do
-    it "returns the qualified API uri" do
-      klass.base_uri = "http://api.dnsimple.com"
-      expect(klass.base_uri).to eq("http://api.dnsimple.com")
-    end
-  end
-
-  describe ".base_uri=" do
-    it "sets the base_uri" do
-      klass.base_uri = "http://api1.dnsimple.com/"
-      expect(klass.base_uri).to eq("http://api1.dnsimple.com")
-      klass.base_uri = "http://api2.dnsimple.com"
-      expect(klass.base_uri).to eq("http://api2.dnsimple.com")
-    end
-  end
-
-
-  describe "authentication" do
     context "when 2FA is required" do
+      subject { described_class.new(username: "user", password: "pass") }
+
       before do
-        stub_request(:get, %r[/foo]).
+        stub_request(:any, %r[/test]).
             to_return(read_fixture("2fa/error-required.http"))
       end
 
       it "raises a TwoFactorAuthenticationRequired error" do
         expect {
-          described_class.get('/foo', {})
+          subject.request(:get, "test", {})
         }.to raise_error(Dnsimple::TwoFactorAuthenticationRequired)
       end
+    end
+  end
+
+  describe "#get" do
+    it "delegates to #request" do
+      expect(subject).to receive(:request).with(:get, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject.get("path", foo: "bar")).to eq(:returned)
+    end
+  end
+
+  describe "#post" do
+    it "delegates to #request" do
+      expect(subject).to receive(:request).with(:post, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject.post("path", foo: "bar")).to eq(:returned)
+    end
+  end
+
+  describe "#put" do
+    it "delegates to #request" do
+      expect(subject).to receive(:request).with(:put, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject.put("path", foo: "bar")).to eq(:returned)
+    end
+  end
+
+  describe "#delete" do
+    it "delegates to #request" do
+      expect(subject).to receive(:request).with(:delete, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject.delete("path", foo: "bar")).to eq(:returned)
+    end
+  end
+
+  describe "#request" do
+    subject { described_class.new(username: "user", password: "pass") }
+
+    it "performs a request" do
+      stub_request(:get, %r[/foo])
+
+      subject.request(:get, 'foo', {})
+
+      expect(WebMock).to have_requested(:get, "https://user:pass@api.dnsimple.com/foo").
+                         with(headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" })
+    end
+
+    it "delegates to HTTParty" do
+      stub_request(:get, %r[/foo])
+
+      expect(HTTParty).to receive(:get).
+                          with("#{subject.api_endpoint}foo",
+                               format: :json,
+                               basic_auth: { username: "user", password: "pass" },
+                               headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+                          ).
+                          and_return(double('response', code: 200))
+
+      subject.request(:get, 'foo', {})
     end
   end
 
