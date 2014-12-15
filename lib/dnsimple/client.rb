@@ -2,6 +2,7 @@ require 'dnsimple/version'
 require 'dnsimple/compatibility'
 require 'dnsimple/client/client_service'
 require 'dnsimple/client/contacts_service'
+require 'dnsimple/client/domains_service'
 require 'dnsimple/client/name_servers_service'
 require 'dnsimple/client/records_service'
 require 'dnsimple/client/services_service'
@@ -120,7 +121,12 @@ module Dnsimple
 
     # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
     def contacts
-      @services[:contact] ||= Client::ContactsService.new(self)
+      @services[:contacts] ||= Client::ContactsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::DomainsService] The domain-related API proxy.
+    def domains
+      @services[:domains] ||= Client::DomainsService.new(self)
     end
 
     # @return [Dnsimple::Client::NameServersService] The name server-related API proxy.
@@ -145,7 +151,7 @@ module Dnsimple
 
     # @return [Dnsimple::Client::UsersService] The user-related API proxy.
     def users
-      @services[:templates] ||= Client::UsersService.new(self)
+      @services[:users] ||= Client::UsersService.new(self)
     end
 
 

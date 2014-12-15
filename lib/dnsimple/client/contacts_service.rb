@@ -6,7 +6,7 @@ module Dnsimple
       #
       # @see http://developer.dnsimple.com/contacts/#list
       #
-      # @return [Array<Record>]
+      # @return [Array<Contact>]
       # @raise  [RequestError] When the request fails.
       def list
         response = client.get("v1/contacts")

@@ -1,17 +1,19 @@
 HTTP/1.1 404 Not Found
-Server: nginx/1.4.4
-Date: Tue, 14 Jan 2014 19:03:59 GMT
+Server: nginx
+Date: Mon, 15 Dec 2014 20:55:36 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
-Connection: close
+Connection: keep-alive
 Status: 404 Not Found
-X-Dnsimple-API-Version: 1.0.0
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
 Access-Control-Allow-Origin: *
-Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-Dnsimple-Token,X-Dnsimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
 Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
-X-UA-Compatible: IE=Edge,chrome=1
 Cache-Control: no-cache
-X-Request-Id: ef98925c644549114ccc4cb17f3c8c75
-X-Runtime: 0.029489
+X-Request-Id: 8d96a3b2-be45-4734-9a76-7dde39e0c94e
+X-Runtime: 0.048082
 
-{"message":"Couldn't find Domain with name = test1383931357.com"}
+{"message":"Domain `0' not found"}
