@@ -55,6 +55,17 @@ describe Dnsimple::Client, ".services" do
       expect(result.short_name).to eq("google-apps")
       expect(result.description).to eq("All the records you need for Google Apps to function.")
     end
+
+    context "when something does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:get, %r[/v1]).
+            to_return(read_fixture("services/notfound.http"))
+
+        expect {
+          subject.find(1)
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
   end
 
   describe "#applied" do

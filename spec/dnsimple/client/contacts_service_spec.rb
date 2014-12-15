@@ -88,6 +88,17 @@ describe Dnsimple::Client, ".contacts" do
       expect(result.created_at).to eq("2013-11-08T17:23:15Z")
       expect(result.updated_at).to eq("2013-11-08T17:23:15Z")
     end
+
+    context "when something does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:get, %r[/v1]).
+            to_return(read_fixture("contacts/notfound.http"))
+
+        expect {
+          subject.find(1)
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
   end
 
   describe "#update" do

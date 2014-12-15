@@ -1,10 +1,10 @@
-HTTP/1.1 404 Not Found
+HTTP/1.1 200 OK
 Server: nginx
-Date: Sun, 14 Dec 2014 21:01:05 GMT
+Date: Mon, 15 Dec 2014 14:29:45 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
-Status: 404 Not Found
+Status: 200 OK
 Strict-Transport-Security: max-age=631138519
 X-Frame-Options: SAMEORIGIN
 X-XSS-Protection: 1
@@ -12,8 +12,10 @@ X-Content-Type-Options: nosniff
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
 Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
-Cache-Control: no-cache
-X-Request-Id: 34138912-6358-4ef9-8838-c0852137b5b9
-X-Runtime: 0.046436
+ETag: "99914b932bd37a50b983c5e7c90ae93b"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: eb63e99b-2aa3-4c40-a60f-6b3203026eff
+X-Runtime: 0.136152
+Strict-Transport-Security: max-age=315360000
 
-{"message":"Contact `0' not found"}
+
