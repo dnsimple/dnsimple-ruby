@@ -201,4 +201,41 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
+
+  describe "#check" do
+    before do
+      stub_request(:get, %r[/v1/domains/.+/check$]).
+          to_return(read_fixture("domains/check/registered.http"))
+    end
+
+    it "builds the correct request" do
+      subject.check("example.com")
+
+      expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/check").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    context "the domain is registered" do
+      before do
+        stub_request(:get, %r[/v1/domains/.+/check$]).
+            to_return(read_fixture("domains/check/registered.http"))
+      end
+
+      it "returns available" do
+        expect(subject.check("example.com")).to eq("registered")
+      end
+    end
+
+    context "the domain is available" do
+      before do
+        stub_request(:get, %r[/v1/domains/.+/check$]).
+            to_return(read_fixture("domains/check/available.http"))
+      end
+
+      it "returns available" do
+        expect(subject.check("example.com")).to eq("available")
+      end
+    end
+  end
+
 end

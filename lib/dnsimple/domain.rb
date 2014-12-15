@@ -35,20 +35,6 @@ module Dnsimple
     attr_accessor :updated_at
 
 
-    # Check the availability of a name
-    def self.check(name, options={})
-      response = Client.get("v1/domains/#{name}/check", options)
-
-      case response.code
-        when 200
-          "registered"
-        when 404
-          "available"
-        else
-          raise RequestError.new("Error checking availability", response)
-      end
-    end
-
     # Purchase a domain name.
     def self.register(name, registrant={}, extended_attributes={}, options={})
       body = {:domain => {:name => name}}

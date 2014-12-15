@@ -89,6 +89,22 @@ module Dnsimple
         Domain.new(response["domain"])
       end
 
+
+      # Checks the availability of a domain name.
+      #
+      # @param  [#to_s] name The domain name to check.
+      #
+      # @return [String] "available" or "registered"
+      # @raise  [RequestError] When the request fails.
+      def check(name, options={})
+        begin
+          client.get("v1/domains/#{name}/check", options)
+          "registered"
+        rescue RecordNotFound
+          "available"
+        end
+      end
+
     end
   end
 end

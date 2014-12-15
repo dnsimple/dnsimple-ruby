@@ -29,7 +29,7 @@ module Dnsimple
         Service.new(response["service"])
       end
 
-      # List the services applied to a domain.
+      # Lists the services applied to a domain.
       #
       # @see http://developer.dnsimple.com/services/#applied
       #
@@ -44,7 +44,7 @@ module Dnsimple
         response.map { |r| Service.new(r["service"]) }
       end
 
-      # List the services not applied to a domain.
+      # Lists the services not applied to a domain.
       #
       # @see http://developer.dnsimple.com/services/#available
       #
@@ -59,7 +59,7 @@ module Dnsimple
         response.map { |r| Service.new(r["service"]) }
       end
 
-      # Apply a service to a domain.
+      # Applies a service to a domain.
       #
       # @see http://developer.dnsimple.com/services/#apply
       #
@@ -75,7 +75,7 @@ module Dnsimple
         response.code == 200
       end
 
-      # Un-apply a service from a domain.
+      # Un-applies a service from a domain.
       #
       # @see http://developer.dnsimple.com/services/#unapply
       #
