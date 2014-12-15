@@ -72,30 +72,6 @@ module Dnsimple
       end
     end
 
-
-    # Enable auto_renew on the domain
-    def enable_auto_renew
-      return if auto_renew
-      auto_renew!(:post)
-    end
-
-    # Disable auto_renew on the domain
-    def disable_auto_renew
-      return unless auto_renew
-      auto_renew!(:delete)
-    end
-
-    private
-
-    def auto_renew!(method)
-      response = Client.send(method, "v1/domains/#{name}/auto_renewal")
-      case response.code
-      when 200
-        self.auto_renew = response['domain']['auto_renew']
-      else
-        raise RequestError.new("Error setting auto_renew", response)
-      end
-    end
   end
 
 end

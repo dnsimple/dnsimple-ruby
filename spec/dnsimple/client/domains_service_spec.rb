@@ -62,14 +62,14 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "builds the correct request" do
-      subject.find(1)
+      subject.find("example.com")
 
-      expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/1").
+      expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the domain" do
-      result = subject.find(1)
+      result = subject.find("example.com")
 
       expect(result).to be_a(Dnsimple::Domain)
       expect(result.id).to eq(1)
@@ -90,7 +90,7 @@ describe Dnsimple::Client, ".domains" do
             to_return(read_fixture("domains/notfound.http"))
 
         expect {
-          subject.find(1)
+          subject.find("example.com")
         }.to raise_error(Dnsimple::RecordNotFound)
       end
     end
@@ -98,19 +98,19 @@ describe Dnsimple::Client, ".domains" do
 
   describe "#delete" do
     before do
-      stub_request(:delete, %r[/v1/domains/1$]).
+      stub_request(:delete, %r[/v1/domains/.+$]).
           to_return(read_fixture("domains/delete/success.http"))
     end
 
     it "builds the correct request" do
-      subject.delete(1)
+      subject.delete("example.com")
 
-      expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/1").
+      expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
-      result = subject.delete(1)
+      result = subject.delete("example.com")
 
       expect(result).to be_truthy
     end
@@ -119,7 +119,7 @@ describe Dnsimple::Client, ".domains" do
       stub_request(:delete, %r[/v1]).
           to_return(read_fixture("contacts/delete/success-204.http"))
 
-      result = subject.delete(1)
+      result = subject.delete("example.com")
 
       expect(result).to be_truthy
     end
@@ -127,10 +127,75 @@ describe Dnsimple::Client, ".domains" do
     context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("records/notfound.http"))
+            to_return(read_fixture("domains/notfound.http"))
 
         expect {
-          subject.delete(1)
+          subject.delete("example.com")
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
+
+  describe "#enable_auto_renewal" do
+    before do
+      stub_request(:post, %r[/v1/domains/.+/auto_renewal]).
+          to_return(read_fixture("domains/autorenewal/enable/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.enable_auto_renewal("example.com")
+
+      expect(WebMock).to have_requested(:post, "https://api.zone/v1/domains/example.com/auto_renewal").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the domain" do
+      result = subject.enable_auto_renewal("example.com")
+
+      expect(result).to be_a(Dnsimple::Domain)
+      expect(result.id).to eq(1)
+    end
+
+    context "when something does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:post, %r[/v1]).
+            to_return(read_fixture("domains/notfound.http"))
+
+        expect {
+          subject.enable_auto_renewal("example.com")
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
+  describe "#disable_auto_renewal" do
+    before do
+      stub_request(:delete, %r[/v1/domains/.+/auto_renewal]).
+          to_return(read_fixture("domains/autorenewal/disable/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.disable_auto_renewal("example.com")
+
+      expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com/auto_renewal").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the domain" do
+      result = subject.disable_auto_renewal("example.com")
+
+      expect(result).to be_a(Dnsimple::Domain)
+      expect(result.id).to eq(1)
+    end
+
+    context "when something does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:delete, %r[/v1]).
+            to_return(read_fixture("domains/notfound.http"))
+
+        expect {
+          subject.disable_auto_renewal("example.com")
         }.to raise_error(Dnsimple::RecordNotFound)
       end
     end
