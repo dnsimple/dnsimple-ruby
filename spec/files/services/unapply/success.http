@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 15 Dec 2014 10:33:56 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 200 OK
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+ETag: "6bdbf603809e0847d57208b71f4ea116"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 496c0212-0e61-4bc5-b3eb-94222fef21d3
+X-Runtime: 0.470952
+Strict-Transport-Security: max-age=315360000
+
+{"id":7,"status":"deleted"}

@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    class RecordsService < Service
+    class RecordsService < ClientService
 
       # Lists the records in the account.
       #

@@ -189,52 +189,6 @@ module Dnsimple
       end
     end
 
-    def applied_services(options={})
-      response = Client.get("v1/domains/#{name}/applied_services", options)
-
-      case response.code
-      when 200
-        response.map { |r| Service.new(r["service"]) }
-      else
-        raise RequestError.new("Error listing applied services", response)
-      end
-    end
-
-    def available_services(options={})
-      response = Client.get("v1/domains/#{name}/available_services", options)
-
-      case response.code
-      when 200
-        response.map { |r| Service.new(r["service"]) }
-      else
-        raise RequestError.new("Error listing available services", response)
-      end
-    end
-
-    def add_service(id_or_short_name, options={})
-      options.merge!(:body => {:service => {:id => id_or_short_name}})
-      response = Client.post("v1/domains/#{name}/applied_services", options)
-
-      case response.code
-      when 200
-        true
-      else
-        raise RequestError.new("Error adding service", response)
-      end
-    end
-
-    def remove_service(id, options={})
-      response = Client.delete("v1/domains/#{name}/applied_services/#{id}", options)
-
-      case response.code
-      when 200
-        true
-      else
-        raise RequestError.new("Error removing service", response)
-      end
-    end
-
-
     private
 
     def auto_renew!(method)

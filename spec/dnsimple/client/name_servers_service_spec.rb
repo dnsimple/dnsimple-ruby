@@ -5,7 +5,7 @@ describe Dnsimple::Client, ".name_servers" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").name_servers }
 
 
-  describe ".list" do
+  describe "#list" do
     before do
       stub_request(:get, %r[/v1/domains/.+/name_servers]).
           to_return(read_fixture("domains/nameservers/success.http"))
@@ -34,7 +34,7 @@ describe Dnsimple::Client, ".name_servers" do
     end
   end
 
-  describe ".change" do
+  describe "#change" do
     before do
       stub_request(:post, %r[/v1/domains/.+/name_servers]).
           to_return(read_fixture("domains/nameservers/success.http"))
@@ -63,6 +63,5 @@ describe Dnsimple::Client, ".name_servers" do
       end
     end
   end
-
 
 end

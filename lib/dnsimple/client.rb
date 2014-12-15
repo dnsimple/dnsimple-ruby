@@ -1,9 +1,10 @@
 require 'dnsimple/version'
 require 'dnsimple/compatibility'
-require 'dnsimple/client/service'
+require 'dnsimple/client/client_service'
 require 'dnsimple/client/contacts_service'
 require 'dnsimple/client/name_servers_service'
 require 'dnsimple/client/records_service'
+require 'dnsimple/client/services_service'
 
 module Dnsimple
 
@@ -128,6 +129,11 @@ module Dnsimple
     # @return [Dnsimple::Client::RecordsService] The record-related API proxy.
     def records
       @services[:records] ||= Client::RecordsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::ServicesService] The service-related API proxy.
+    def services
+      @services[:services] ||= Client::ServicesService.new(self)
     end
 
 

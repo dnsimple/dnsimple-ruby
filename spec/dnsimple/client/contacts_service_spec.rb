@@ -5,7 +5,7 @@ describe Dnsimple::Client, ".contacts" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").contacts }
 
 
-  describe ".list" do
+  describe "#list" do
     before do
       stub_request(:get, %r[/v1/contacts$]).
           to_return(read_fixture("contacts/index/success.http"))
@@ -29,7 +29,7 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
-  describe ".create" do
+  describe "#create" do
     before do
       stub_request(:post, %r[/v1/contacts]).
           to_return(read_fixture("contacts/create/created.http"))
@@ -53,7 +53,7 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
-  describe ".find" do
+  describe "#find" do
     before do
       stub_request(:get, %r[/v1/contacts/.+$]).
           to_return(read_fixture("contacts/show/success.http"))
@@ -90,7 +90,7 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
-  describe ".update" do
+  describe "#update" do
     before do
       stub_request(:put, %r[/v1/contacts/.+$]).
           to_return(read_fixture("contacts/update/success.http"))
@@ -123,7 +123,7 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
-  describe ".delete" do
+  describe "#delete" do
     before do
       stub_request(:delete, %r[/v1/contacts/1$]).
           to_return(read_fixture("contacts/delete/success.http"))

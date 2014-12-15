@@ -1,7 +1,7 @@
 module Dnsimple
   class Client
 
-    class Service < Struct.new(:client)
+    class ClientService < Struct.new(:client)
       private
 
       def validate_mandatory_attributes(attributes, required)
