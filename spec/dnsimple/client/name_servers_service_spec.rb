@@ -15,7 +15,7 @@ describe Dnsimple::Client, ".name_servers" do
       subject.list("example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/name_servers").
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the name servers" do
@@ -45,7 +45,7 @@ describe Dnsimple::Client, ".name_servers" do
 
       expect(WebMock).to have_requested(:post, "https://api.zone/v1/domains/example.com/name_servers").
                          with(body: { "name_servers" => { "ns1" => "ns1.example.com", "ns2" => "ns2.example.com" }}).
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the name servers" do

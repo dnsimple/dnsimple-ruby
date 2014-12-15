@@ -21,7 +21,7 @@ module Dnsimple
       # @see http://developer.dnsimple.com/domains/nameservers/#change
       #
       # @param  [#to_s] domain The domain id or domain name.
-      # @param [Array<String>] servers The name server list.
+      # @param  [Array<String>] servers The name server list.
       #
       # @return [Array<String>] The delegates name servers.
       # @raise  [RecordNotFound]

@@ -15,7 +15,7 @@ describe Dnsimple::Client, ".contacts" do
       subject.list
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/contacts").
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the contacts" do
@@ -42,7 +42,7 @@ describe Dnsimple::Client, ".contacts" do
 
       expect(WebMock).to have_requested(:post, "https://api.zone/v1/contacts").
                          with(body: { contact: attributes }).
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the contact" do
@@ -63,7 +63,7 @@ describe Dnsimple::Client, ".contacts" do
       subject.find(1)
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/contacts/1").
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the contact" do
@@ -101,7 +101,7 @@ describe Dnsimple::Client, ".contacts" do
 
       expect(WebMock).to have_requested(:put, "https://api.zone/v1/contacts/1").
                          with(body: { contact: { label: "Updated" } }).
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the contact" do
@@ -133,7 +133,7 @@ describe Dnsimple::Client, ".contacts" do
       subject.delete(1)
 
       expect(WebMock).to have_requested(:delete, "https://api.zone/v1/contacts/1").
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do

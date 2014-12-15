@@ -15,7 +15,7 @@ describe Dnsimple::Client, ".records" do
       subject.list("example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/records").
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the records" do
@@ -53,7 +53,7 @@ describe Dnsimple::Client, ".records" do
 
       expect(WebMock).to have_requested(:post, "https://api.zone/v1/domains/example.com/records").
                          with(body: { record: { name: "", record_type: "A", content: "127.0.0.1", prio: "1" } }).
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
@@ -85,7 +85,7 @@ describe Dnsimple::Client, ".records" do
       subject.find("example.com", 2)
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/records/2").
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
@@ -126,7 +126,7 @@ describe Dnsimple::Client, ".records" do
 
       expect(WebMock).to have_requested(:put, "https://api.zone/v1/domains/example.com/records/2").
                          with(body: { record: { content: "127.0.0.1", prio: "1" } }).
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
@@ -158,7 +158,7 @@ describe Dnsimple::Client, ".records" do
       subject.delete("example.com", "2")
 
       expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com/records/2").
-                         with { |req| req.headers['Accept'] == 'application/json' }
+                         with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
