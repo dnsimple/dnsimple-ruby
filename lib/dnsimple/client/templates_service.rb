@@ -78,6 +78,22 @@ module Dnsimple
       end
 
 
+      # Applies the template to the domain.
+      #
+      # @see http://developer.dnsimple.com/templates/#apply
+      #
+      # @param  [#to_s] domain The domain id or domain name.
+      # @param  [#to_s] template The template id or short-name.
+      #
+      # @return [void]
+      # @raise  [RecordNotFound]
+      # @raise  [RequestError] When the request fails.
+      def apply(domain, template)
+        response = client.post("v1/domains/#{domain}/templates/#{template}/apply")
+        response.code == 200
+      end
+
+
       # Lists the records for a template.
       #
       # @see http://developer.dnsimple.com/templates/records/#list
@@ -100,13 +116,13 @@ module Dnsimple
       # @param  [#to_s] template The template id or short-name.
       # @param  [Hash] attributes
       #
-      # @return [Record]
+      # @return [TemplateRecord]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
-      def create_record(domain, attributes = {})
+      def create_record(template, attributes = {})
         validate_mandatory_attributes(attributes, [:name, :record_type, :content])
         options  = { body: { dns_template_record: attributes }}
-        response = client.post("v1/templates/#{domain}/records", options)
+        response = client.post("v1/templates/#{template}/records", options)
 
         TemplateRecord.new(response["dns_template_record"])
       end

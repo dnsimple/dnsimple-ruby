@@ -171,24 +171,6 @@ module Dnsimple
     end
     alias :destroy :delete
 
-    # Apply the given named template to the domain. This will add
-    # all of the records in the template to the domain.
-    def apply(template, options={})
-      options.merge!(:body => {})
-      template = resolve_template(template)
-
-      Client.post("v1/domains/#{name}/templates/#{template.id}/apply", options)
-    end
-
-    def resolve_template(template)
-      case template
-      when Template
-        template
-      else
-        Template.find(template)
-      end
-    end
-
     private
 
     def auto_renew!(method)
