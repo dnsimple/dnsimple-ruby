@@ -14,7 +14,7 @@ module Dnsimple
         response.map { |r| Contact.new(r["contact"]) }
       end
 
-      # Creates the contact in the account.
+      # Creates a contact in the account.
       #
       # @see http://developer.dnsimple.com/contacts/#create
       #
@@ -30,7 +30,7 @@ module Dnsimple
         Contact.new(response["contact"])
       end
 
-      # Gets a specific contact in the account.
+      # Gets a contact from the account.
       #
       # @see http://developer.dnsimple.com/contacts/#get
       #
@@ -45,7 +45,7 @@ module Dnsimple
         Contact.new(response["contact"])
       end
 
-      # Updates the contact in the account.
+      # Updates a contact in the account.
       #
       # @see http://developer.dnsimple.com/contacts/#update
       #
@@ -62,7 +62,7 @@ module Dnsimple
         Contact.new(response["contact"])
       end
 
-      # Deletes a specific contact from the account.
+      # Deletes a contact from the account.
       #
       # WARNING: this cannot be undone.
       #

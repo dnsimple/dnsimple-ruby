@@ -100,8 +100,8 @@ describe Dnsimple::Client, ".contacts" do
       subject.update(1, { label: "Updated" })
 
       expect(WebMock).to have_requested(:put, "https://api.zone/v1/contacts/1").
-                             with(body: { contact: { label: "Updated" } }).
-                             with { |req| req.headers['Accept'] == 'application/json' }
+                         with(body: { contact: { label: "Updated" } }).
+                         with { |req| req.headers['Accept'] == 'application/json' }
     end
 
     it "returns the contact" do

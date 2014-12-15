@@ -125,8 +125,8 @@ describe Dnsimple::Client, ".records" do
       subject.update("example.com", 2, { content: "127.0.0.1", prio: "1" })
 
       expect(WebMock).to have_requested(:put, "https://api.zone/v1/domains/example.com/records/2").
-                             with(body: { record: { content: "127.0.0.1", prio: "1" } }).
-                             with { |req| req.headers['Accept'] == 'application/json' }
+                         with(body: { record: { content: "127.0.0.1", prio: "1" } }).
+                         with { |req| req.headers['Accept'] == 'application/json' }
     end
 
     it "returns the record" do

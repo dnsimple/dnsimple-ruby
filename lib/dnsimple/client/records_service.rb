@@ -2,7 +2,7 @@ module Dnsimple
   class Client
     class RecordsService < Service
 
-      # Lists the domain records in the account.
+      # Lists the records in the account.
       #
       # @see http://developer.dnsimple.com/domains/records/#list
       #
@@ -18,7 +18,7 @@ module Dnsimple
         response.map { |r| Record.new(r["record"]) }
       end
 
-      # Creates the record in the account.
+      # Creates a record in the account.
       #
       # @see http://developer.dnsimple.com/domains/records/#create
       #
@@ -36,7 +36,7 @@ module Dnsimple
         Record.new(response["record"])
       end
 
-      # Gets a specific record in the account.
+      # Gets a record from the account.
       #
       # @see http://developer.dnsimple.com/domains/records/#get
       #
@@ -52,7 +52,7 @@ module Dnsimple
         Record.new(response["record"])
       end
 
-      # Updates the record in the account.
+      # Updates a record in the account.
       #
       # @see http://developer.dnsimple.com/domains/records/#update
       #
@@ -70,7 +70,7 @@ module Dnsimple
         Record.new(response["record"])
       end
 
-      # Deletes a specific record from the account.
+      # Deletes a record from the account.
       #
       # WARNING: this cannot be undone.
       #

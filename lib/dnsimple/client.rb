@@ -2,6 +2,7 @@ require 'dnsimple/version'
 require 'dnsimple/compatibility'
 require 'dnsimple/client/service'
 require 'dnsimple/client/contacts_service'
+require 'dnsimple/client/name_servers_service'
 require 'dnsimple/client/records_service'
 
 module Dnsimple
@@ -50,6 +51,8 @@ module Dnsimple
       Dnsimple::Default.keys.each do |key|
         instance_variable_set(:"@#{key}", options[key] || defaults[key])
       end
+
+      @services = {}
     end
 
 
@@ -114,12 +117,17 @@ module Dnsimple
 
     # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
     def contacts
-      @contacts_service ||= Client::ContactsService.new(self)
+      @services[:contact] ||= Client::ContactsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::NameServersService] The name server-related API proxy.
+    def name_servers
+      @services[:name_servers] ||= Client::NameServersService.new(self)
     end
 
     # @return [Dnsimple::Client::RecordsService] The record-related API proxy.
     def records
-      @records_service ||= Client::RecordsService.new(self)
+      @services[:records] ||= Client::RecordsService.new(self)
     end
 
 
