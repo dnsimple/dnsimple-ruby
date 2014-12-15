@@ -6,6 +6,7 @@ require 'dnsimple/client/name_servers_service'
 require 'dnsimple/client/records_service'
 require 'dnsimple/client/services_service'
 require 'dnsimple/client/templates_service'
+require 'dnsimple/client/users_service'
 
 module Dnsimple
 
@@ -140,6 +141,11 @@ module Dnsimple
     # @return [Dnsimple::Client::TemplatesService] The template-related API proxy.
     def templates
       @services[:templates] ||= Client::TemplatesService.new(self)
+    end
+
+    # @return [Dnsimple::Client::UsersService] The user-related API proxy.
+    def users
+      @services[:templates] ||= Client::UsersService.new(self)
     end
 
 
