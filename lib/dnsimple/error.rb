@@ -6,14 +6,9 @@ module Dnsimple
   class RequestError < Error
     attr_reader :response
 
-    def initialize(*args)
-      if args.size == 2
-        message, @response = *args
-        super("#{message}: #{response["error"]}")
-      else
-        @response = args.first
-        super("#{response.code}")
-      end
+    def initialize(response)
+      @response = response
+      super("#{response.code}")
     end
   end
 

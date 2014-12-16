@@ -149,6 +149,15 @@ describe Dnsimple::Client do
 
       subject.request(:put, 'foo', { something: "else", query: { foo: "bar" }, headers: { "Custom" => "Header" } })
     end
+
+    it "raises RequestError in case of error" do
+      stub_request(:get, %r[/foo]).
+          to_return(status: [500, "Internal Server Error"])
+
+      expect {
+        subject.request(:get, "foo", {})
+      }.to raise_error(Dnsimple::RequestError, "500")
+    end
   end
 
 end

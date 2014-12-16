@@ -1,7 +1,6 @@
 module Dnsimple
 
   class Service < Base
-
     # @return [Fixnum] The service ID in DNSimple.
     attr_accessor :id
 
@@ -13,7 +12,6 @@ module Dnsimple
 
     # @return [String] The description.
     attr_accessor :description
-
   end
 
 end

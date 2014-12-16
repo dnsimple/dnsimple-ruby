@@ -33,7 +33,6 @@ module Dnsimple
 
     # The Date the domain was last update in DNSimple.
     attr_accessor :updated_at
-
   end
 
 end

@@ -1,7 +1,6 @@
 module Dnsimple
 
   class Certificate < Base
-
     # The Fixnum certificate ID in DNSimple.
     attr_accessor :id
 
@@ -50,7 +49,6 @@ module Dnsimple
 
     # The associated Domain.
     attr_accessor :domain
-
   end
 
 end

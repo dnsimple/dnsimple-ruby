@@ -124,7 +124,7 @@ module Dnsimple
       when 404
         raise RecordNotFound.new(response)
       else
-        raise RequestError(response)
+        raise RequestError.new(response)
       end
     end
 
