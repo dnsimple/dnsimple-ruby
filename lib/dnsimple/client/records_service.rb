@@ -30,7 +30,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def create(domain, attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
-        options  = { body: { record: attributes }}
+        options  = { record: attributes }
         response = client.post("v1/domains/#{domain}/records", options)
 
         Record.new(response["record"])
@@ -64,7 +64,7 @@ module Dnsimple
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def update(domain, record, attributes = {})
-        options  = { body: { record: attributes }}
+        options  = { record: attributes }
         response = client.put("v1/domains/#{domain}/records/#{record}", options)
 
         Record.new(response["record"])

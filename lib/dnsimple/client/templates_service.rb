@@ -24,7 +24,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def create(attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :short_name])
-        options  = { body: { dns_template: attributes }}
+        options  = { dns_template: attributes }
         response = client.post("v1/templates", options)
 
         Template.new(response["dns_template"])
@@ -56,7 +56,7 @@ module Dnsimple
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def update(template, attributes = {})
-        options  = { body: { dns_template: attributes }}
+        options  = { dns_template: attributes }
         response = client.put("v1/templates/#{template}", options)
 
         Template.new(response["dns_template"])
@@ -121,7 +121,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def create_record(template, attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
-        options  = { body: { dns_template_record: attributes }}
+        options  = { dns_template_record: attributes }
         response = client.post("v1/templates/#{template}/records", options)
 
         TemplateRecord.new(response["dns_template_record"])
@@ -155,7 +155,7 @@ module Dnsimple
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def update_record(template, record, attributes = {})
-        options  = { body: { dns_template_record: attributes }}
+        options  = { dns_template_record: attributes }
         response = client.put("v1/templates/#{template}/records/#{record}", options)
 
         TemplateRecord.new(response["dns_template_record"])

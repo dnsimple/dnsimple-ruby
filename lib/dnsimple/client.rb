@@ -105,8 +105,16 @@ module Dnsimple
     # @param  [String] url The path, relative to {#api_endpoint}
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
-    def request(method, path, options)
-      response = HTTParty.send(method, api_endpoint + path, base_options.merge(options))
+    def request(method, path, data, options = {})
+      if data.is_a?(Hash)
+        options[:query]   = data.delete(:query)   if data.key?(:query)
+        options[:headers] = data.delete(:headers) if data.key?(:headers)
+      end
+      if !data.empty?
+        options[:body] = data
+      end
+
+      response = HTTParty.send(method, api_endpoint + path, Extra.deep_merge!(base_options, options))
 
       case response.code
       when 200..299

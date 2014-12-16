@@ -57,7 +57,7 @@ module Dnsimple
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def purchase(domain, name, contact_id, options = {})
-        options  = { body: Extra.deep_merge(options, { certificate: { name: name, contact_id: contact_id }}) }
+        options  = Extra.deep_merge(options, { certificate: { name: name, contact_id: contact_id }})
         response = client.post("v1/domains/#{domain}/certificates", options)
 
         Certificate.new(response["certificate"])
@@ -87,7 +87,7 @@ module Dnsimple
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def submit(domain, certificate_id, email)
-        options = { body: { certificate: { approver_email: email }} }
+        options = { certificate: { approver_email: email }}
         response = client.put("v1/domains/#{domain}/certificates/#{certificate_id}/submit", options)
 
         Certificate.new(response["certificate"])

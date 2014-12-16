@@ -70,7 +70,7 @@ module Dnsimple
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def apply(domain, service)
-        options  = { body: { service: { id: service }}}
+        options  = { service: { id: service }}
         response = client.post("v1/domains/#{domain}/applied_services", options)
         response.code == 200
       end

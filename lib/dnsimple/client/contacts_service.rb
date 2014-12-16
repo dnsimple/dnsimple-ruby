@@ -24,7 +24,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def create(attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email_address])
-        options  = { body: { contact: attributes }}
+        options  = { contact: attributes }
         response = client.post("v1/contacts", options)
 
         Contact.new(response["contact"])
@@ -56,7 +56,7 @@ module Dnsimple
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def update(contact, attributes = {})
-        options  = { body: { contact: attributes }}
+        options  = { contact: attributes }
         response = client.put("v1/contacts/#{contact}", options)
 
         Contact.new(response["contact"])

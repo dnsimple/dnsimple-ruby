@@ -28,7 +28,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def change(domain, servers)
         servers = servers.inject({}) { |hash, server| hash.merge("ns#{hash.length + 1}" => server) }
-        options = { body: { name_servers: servers } }
+        options = { name_servers: servers }
         response = client.post("v1/domains/#{domain}/name_servers", options)
         response.parsed_response
       end

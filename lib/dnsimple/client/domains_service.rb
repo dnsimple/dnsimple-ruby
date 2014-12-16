@@ -39,7 +39,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def create(attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:name])
-        options  = { body: { domain: attributes }}
+        options  = { domain: attributes }
         response = client.post("v1/domains", options)
 
         Domain.new(response["domain"])
@@ -119,10 +119,9 @@ module Dnsimple
       # @return [Domain]
       # @raise  [RequestError] When the request fails.
       def register(name, registrant_id, extended_attributes = {}, options = {})
-        body = { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes }
-        options[:body] = body
-
+        options = Extra.deep_merge(options, { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes })
         response = client.post("v1/domain_registrations", options)
+
         Domain.new(response["domain"])
       end
 
@@ -139,10 +138,9 @@ module Dnsimple
       # @return [TransferOrder]
       # @raise  [RequestError] When the request fails.
       def transfer(name, auth_code, registrant_id, extended_attributes = {}, options = {})
-        body = { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes, transfer_order: { authinfo: auth_code } }
-        options[:body] = body
-
+        options = Extra.deep_merge(options, { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes, transfer_order: { authinfo: auth_code }})
         response = client.post("v1/domain_transfers", options)
+
         TransferOrder.new(response["transfer_order"])
       end
 
@@ -156,10 +154,9 @@ module Dnsimple
       # @return [Domain]
       # @raise  [RequestError] When the request fails.
       def renew(name, options = {})
-        body = { domain: { name: name }}
-        options[:body] = body
-
+        options = Extra.deep_merge(options, { domain: { name: name }})
         response = client.post("v1/domain_renewals", options)
+
         Domain.new(response["domain"])
       end
 
