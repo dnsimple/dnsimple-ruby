@@ -1,6 +1,8 @@
 require 'dnsimple/version'
 require 'dnsimple/compatibility'
+require 'dnsimple/extra'
 require 'dnsimple/client/client_service'
+require 'dnsimple/client/certificates_service'
 require 'dnsimple/client/contacts_service'
 require 'dnsimple/client/domains_service'
 require 'dnsimple/client/name_servers_service'
@@ -118,6 +120,11 @@ module Dnsimple
       end
     end
 
+
+    # @return [Dnsimple::Client::CertificatesService] The certificate-related API proxy.
+    def certificates
+      @services[:certificates] ||= Client::CertificatesService.new(self)
+    end
 
     # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
     def contacts

@@ -66,7 +66,7 @@ describe Dnsimple::Client, ".records" do
     context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("records/notfound.http"))
+            to_return(read_fixture("domains/notfound.http"))
 
         expect {
           subject.create("example.com", { name: "", record_type: "", content: "" })

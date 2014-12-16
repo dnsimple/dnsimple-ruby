@@ -17,9 +17,6 @@ module Dnsimple
     end
   end
 
-  class RecordExists < Error
-  end
-
   class RecordNotFound < RequestError
   end
 
