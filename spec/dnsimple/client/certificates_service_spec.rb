@@ -100,6 +100,14 @@ describe Dnsimple::Client, ".certificates" do
                              with(headers: { 'Accept' => 'application/json' })
     end
 
+    it "merges custom options" do
+      subject.purchase("example.com", "www", 100, certificate: { csr: "CUSTOM" }, something: "else")
+
+      expect(WebMock).to have_requested(:post, "https://api.zone/v1/domains/example.com/certificates").
+                             with(body: { certificate: { name: "www", contact_id: "100", csr: "CUSTOM" }, something: "else"}).
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
     it "returns the certificate" do
       result = subject.purchase("example.com", "www", 100)
 
