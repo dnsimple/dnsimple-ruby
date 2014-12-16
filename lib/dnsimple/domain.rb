@@ -34,30 +34,6 @@ module Dnsimple
     # The Date the domain was last update in DNSimple.
     attr_accessor :updated_at
 
-
-    # Purchase a domain name.
-    def self.register(name, registrant={}, extended_attributes={}, options={})
-      body = {:domain => {:name => name}}
-      if registrant
-        if registrant[:id]
-          body[:domain][:registrant_id] = registrant[:id]
-        else
-          body.merge!(:contact => Contact.resolve_attributes(registrant))
-        end
-      end
-      body.merge!(:extended_attribute => extended_attributes)
-      options.merge!({:body => body})
-
-      response = Client.post("v1/domain_registrations", options)
-
-      case response.code
-      when 201
-        return Domain.new(response["domain"])
-      else
-        raise RequestError.new("Error registering domain", response)
-      end
-    end
-
   end
 
 end

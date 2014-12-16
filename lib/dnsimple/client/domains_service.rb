@@ -92,6 +92,8 @@ module Dnsimple
 
       # Checks the availability of a domain name.
       #
+      # @see http://developer.dnsimple.com/domains/registry/#check
+      #
       # @param  [#to_s] name The domain name to check.
       #
       # @return [String] "available" or "registered"
@@ -103,6 +105,62 @@ module Dnsimple
         rescue RecordNotFound
           "available"
         end
+      end
+
+      # Registers a domain.
+      #
+      # @see http://developer.dnsimple.com/domains/registry/#register
+      #
+      # @param  [#to_s] name The domain name to register.
+      # @param  [Fixnum] registrant_id The id of the contact to use as registrant.
+      # @param  [Hash] extended_attributes
+      # @param  [Hash] options
+      #
+      # @return [Domain]
+      # @raise  [RequestError] When the request fails.
+      def register(name, registrant_id, extended_attributes = {}, options = {})
+        body = { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes }
+        options[:body] = body
+
+        response = client.post("v1/domain_registrations", options)
+        Domain.new(response["domain"])
+      end
+
+      # Transfers a domain.
+      #
+      # @see http://developer.dnsimple.com/domains/registry/#transfer
+      #
+      # @param  [#to_s] name The domain name to register.
+      # @param  [String] auth_code
+      # @param  [Fixnum] registrant_id The id of the contact to use as registrant.
+      # @param  [Hash] extended_attributes
+      # @param  [Hash] options
+      #
+      # @return [TransferOrder]
+      # @raise  [RequestError] When the request fails.
+      def transfer(name, auth_code, registrant_id, extended_attributes = {}, options = {})
+        body = { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes, transfer_order: { authinfo: auth_code } }
+        options[:body] = body
+
+        response = client.post("v1/domain_transfers", options)
+        TransferOrder.new(response["transfer_order"])
+      end
+
+      # Renew a domain.
+      #
+      # @see http://developer.dnsimple.com/domains/registry/#renew
+      #
+      # @param  [#to_s] name The domain name to renew.
+      # @param  [Hash] options
+      #
+      # @return [Domain]
+      # @raise  [RequestError] When the request fails.
+      def renew(name, options = {})
+        body = { domain: { name: name }}
+        options[:body] = body
+
+        response = client.post("v1/domain_renewals", options)
+        Domain.new(response["domain"])
       end
 
     end

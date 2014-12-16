@@ -238,4 +238,58 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
+  describe "#register" do
+    before do
+      stub_request(:post, %r[/v1/domain_registrations]).
+          to_return(read_fixture("domains/registration/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.register("example.com", 10)
+
+      expect(WebMock).to have_requested(:post, "https://api.zone/v1/domain_registrations").
+                             with(body: { domain: { name: "example.com", registrant_id: "10" }}).
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the domain" do
+      result = subject.register("example.com", 10)
+
+      expect(result).to be_a(Dnsimple::Domain)
+      expect(result.id).to eq(1797)
+    end
+  end
+
+  describe "#renew" do
+    before do
+      stub_request(:post, %r[/v1/domain_renewals]).
+          to_return(read_fixture("domains/renewal/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.renew("example.com")
+
+      expect(WebMock).to have_requested(:post, "https://api.zone/v1/domain_renewals").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the domain" do
+      result = subject.renew("example.com")
+
+      expect(result).to be_a(Dnsimple::Domain)
+      expect(result.id).to eq(1797)
+    end
+
+    context "when something does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:post, %r[/v1]).
+            to_return(read_fixture("domains/notfound.http"))
+
+        expect {
+          subject.renew("example.com")
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
 end

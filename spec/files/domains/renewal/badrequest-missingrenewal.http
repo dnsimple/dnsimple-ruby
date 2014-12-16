@@ -1,0 +1,19 @@
+HTTP/1.1 400 Bad Request
+Server: nginx
+Date: Mon, 15 Dec 2014 23:22:54 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+Status: 400 Bad Request
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+Cache-Control: no-cache
+X-Request-Id: 94aa82e2-ae9e-4298-9524-5ac0e9d0a1b7
+X-Runtime: 0.041781
+
+{"message":"Required parameter missing: domain_renewal"}
