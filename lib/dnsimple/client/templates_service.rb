@@ -23,7 +23,7 @@ module Dnsimple
       # @return [Template]
       # @raise  [RequestError] When the request fails.
       def create(attributes = {})
-        validate_mandatory_attributes(attributes, [:name, :short_name])
+        Extra.validate_mandatory_attributes(attributes, [:name, :short_name])
         options  = { body: { dns_template: attributes }}
         response = client.post("v1/templates", options)
 
@@ -120,7 +120,7 @@ module Dnsimple
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def create_record(template, attributes = {})
-        validate_mandatory_attributes(attributes, [:name, :record_type, :content])
+        Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
         options  = { body: { dns_template_record: attributes }}
         response = client.post("v1/templates/#{template}/records", options)
 

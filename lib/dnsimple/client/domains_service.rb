@@ -38,7 +38,7 @@ module Dnsimple
       # @return [Domain]
       # @raise  [RequestError] When the request fails.
       def create(attributes = {})
-        validate_mandatory_attributes(attributes, [:name])
+        Extra.validate_mandatory_attributes(attributes, [:name])
         options  = { body: { domain: attributes }}
         response = client.post("v1/domains", options)
 

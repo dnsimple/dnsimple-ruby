@@ -23,7 +23,7 @@ module Dnsimple
       # @return [Contact]
       # @raise  [RequestError] When the request fails.
       def create(attributes = {})
-        validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email_address])
+        Extra.validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email_address])
         options  = { body: { contact: attributes }}
         response = client.post("v1/contacts", options)
 

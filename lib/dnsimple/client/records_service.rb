@@ -29,7 +29,7 @@ module Dnsimple
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def create(domain, attributes = {})
-        validate_mandatory_attributes(attributes, [:name, :record_type, :content])
+        Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
         options  = { body: { record: attributes }}
         response = client.post("v1/domains/#{domain}/records", options)
 
