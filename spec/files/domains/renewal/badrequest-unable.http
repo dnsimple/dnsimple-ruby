@@ -1,0 +1,19 @@
+HTTP/1.1 422 Unprocessable Entity
+Server: nginx
+Date: Mon, 15 Dec 2014 23:21:08 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+Status: 422 Unprocessable Entity
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+Cache-Control: no-cache
+X-Request-Id: 60f79466-a97b-4f6a-b3e2-95a7f22da87c
+X-Runtime: 0.060428
+
+{"message":"example-1418683185.com may not be renewed at this time"}

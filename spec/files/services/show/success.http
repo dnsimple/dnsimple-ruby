@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 15 Dec 2014 10:07:51 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 200 OK
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+ETag: "44ebf8f9a5640a00c6a8ce4f1a827712"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: fdae1bd3-bbb9-42f4-9d0d-75d56ce95fea
+X-Runtime: 0.048314
+Strict-Transport-Security: max-age=315360000
+
+{"service":{"id":1,"name":"Google Apps","short_name":"google-apps","description":"All the records you need for Google Apps to function.","created_at":"2014-01-29T12:33:07.214Z","updated_at":"2014-01-29T12:33:07.229Z"}}

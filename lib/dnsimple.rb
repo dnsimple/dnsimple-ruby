@@ -2,8 +2,6 @@ require 'httparty'
 
 module Dnsimple
 
-  BLANK_REGEX = /\S+/
-
   # Echoes a deprecation warning message.
   #
   # @param  [String] message The message to display.

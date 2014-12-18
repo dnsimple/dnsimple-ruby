@@ -1,0 +1,22 @@
+HTTP/1.1 201 Created
+Server: nginx
+Date: Mon, 15 Dec 2014 17:25:20 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 201 Created
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+Location: /templates/2947/records/8868
+ETag: "8b6a002b2d4d8eecfd1c9a3bdd70bec1"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: dba82208-ba76-47ee-9570-b8e35d7cd335
+X-Runtime: 0.073547
+Strict-Transport-Security: max-age=315360000
+
+{"dns_template_record":{"id":8868,"dns_template_id":2947,"name":"ww1","content":"127.0.0.1","ttl":3600,"prio":null,"record_type":"ALIAS","created_at":"2014-12-15T17:25:20.431Z","updated_at":"2014-12-15T17:25:20.431Z"}}

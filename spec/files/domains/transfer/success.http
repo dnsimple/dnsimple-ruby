@@ -1,0 +1,21 @@
+HTTP/1.1 201 Created
+Server: nginx
+Date: Tue, 16 Dec 2014 00:15:46 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+Status: 201 Created
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+ETag: "8ae2f909210b303eebe68b66e636b117"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: c1ecc834-9cf7-4973-b060-34b701e6b686
+X-Runtime: 16.594202
+Strict-Transport-Security: max-age=315360000
+
+{"transfer_order":{"id":11,"domain_id":1803,"state":"submitted","created_at":"2014-12-16T00:15:44.781Z","updated_at":"2014-12-16T00:15:46.065Z"}}

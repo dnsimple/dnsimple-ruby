@@ -1,0 +1,21 @@
+HTTP/1.1 201 Created
+Server: nginx
+Date: Mon, 15 Dec 2014 23:04:01 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+Status: 201 Created
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+ETag: "642e37a05eb4016a974eb52085385822"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: c67b3494-bea3-4fe3-9fdd-8ec5ca89095e
+X-Runtime: 5.852385
+Strict-Transport-Security: max-age=315360000
+
+{"domain":{"id":1797,"user_id":null,"registrant_id":409,"name":"example-1418683185.com","unicode_name":"example-1418683185.com","token":"domain-token","state":"registered","language":null,"lockable":true,"auto_renew":false,"whois_protected":false,"record_count":5,"service_count":0,"expires_on":"2015-12-15","created_at":"2014-12-15T23:03:56.636Z","updated_at":"2014-12-15T23:04:01.406Z"}}

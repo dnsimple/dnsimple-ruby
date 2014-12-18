@@ -1,0 +1,18 @@
+HTTP/1.1 204 No Content
+Server: nginx/1.4.4
+Date: Tue, 14 Jan 2014 19:03:37 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: close
+Status: 204 No Content
+X-Dnsimple-API-Version: 1.0.0
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-Dnsimple-Token,X-Dnsimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+X-UA-Compatible: IE=Edge,chrome=1
+ETag: "3f9496912d04f422c7f083b93bd6e9e3"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: eec6552de5a2aa5ae570139b388ffb9b
+X-Runtime: 0.046892
+Strict-Transport-Security: max-age=315360000
+

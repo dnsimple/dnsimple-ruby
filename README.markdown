@@ -25,21 +25,20 @@ Here's a short example.
 ```ruby
 require 'dnsimple'
 
-Dnsimple::Client.username = 'YOUR_USERNAME'
-Dnsimple::Client.password = 'YOUR_PASSWORD'
+client = Dnsimple::Client.new(username: 'YOUR_USERNAME', api_token: 'YOUR_TOKEN')
 
 # Fetch your user details
-user = Dnsimple::User.me
+user = client.users.user
 puts "My email is #{user.email}"
 
 # Get a list of your domains
-domains = Dnsimple::Domain.list
+domains = client.domains.list
 domains.each do |domain|
   puts "Domain: %s (id: %d)" % [domain.name, domain.id]
 end
 
 # Create a domain
-domain = Dnsimple::Domain.create("example.com")
+domain = client.domains.create("example.com")
 puts "Domain: %s (id: %d)" % [domain.name, domain.id]
 ```
 
@@ -53,10 +52,9 @@ This client supports both the HTTP Basic and API Token authentication mechanism.
 #### HTTP Basic
 
 ```ruby
-DNSimple::Client.username = 'YOUR_USERNAME'
-DNSimple::Client.password = 'YOUR_PASSWORD'
-
-user = DNSimple::User.me
+client = Dnsimple::Client.new(username: 'YOUR_USERNAME', password: 'YOUR_PASSWORD')
+client.users.user
+# => User
 ```
 
 #### HTTP Basic with two-factor authentication enabled
@@ -65,20 +63,20 @@ See the [2FA API documentation](http://developer.dnsimple.com/authentication/#tw
 
 ```ruby
 # Request the 2FA exchange token
-DNSimple::Client.username = 'YOUR_USERNAME'
-DNSimple::Client.password = 'YOUR_PASSWORD'
-token = DNSimple::User.two_factor_exchange_token('otp-token')
+client = Dnsimple::Client.new(username: 'YOUR_USERNAME', password: 'YOUR_PASSWORD')
+token  = client.users.exchange_token('otp-token')
 
 # Authenticate with the exchange token
-DNSimple::Client.exchange_token = token
-user = DNSimple::User.me
+client.exchange_token = token
+client.users.user
+# => User
 ```
 
 #### API Token
 
 ```ruby
-DNSimple::Client.username  = 'YOUR_USERNAME'
-DNSimple::Client.api_token = 'API_TOKEN'
+client = Dnsimple::Client.new(username: 'YOUR_USERNAME', api_token: 'YOUR_TOKEN')
 
-user = DNSimple::User.me
+client.users.user
+# => User
 ```

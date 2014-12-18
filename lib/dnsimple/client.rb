@@ -1,5 +1,15 @@
 require 'dnsimple/version'
 require 'dnsimple/compatibility'
+require 'dnsimple/extra'
+require 'dnsimple/client/client_service'
+require 'dnsimple/client/certificates_service'
+require 'dnsimple/client/contacts_service'
+require 'dnsimple/client/domains_service'
+require 'dnsimple/client/name_servers_service'
+require 'dnsimple/client/records_service'
+require 'dnsimple/client/services_service'
+require 'dnsimple/client/templates_service'
+require 'dnsimple/client/users_service'
 
 module Dnsimple
 
@@ -47,6 +57,8 @@ module Dnsimple
       Dnsimple::Default.keys.each do |key|
         instance_variable_set(:"@#{key}", options[key] || defaults[key])
       end
+
+      @services = {}
     end
 
 
@@ -93,16 +105,68 @@ module Dnsimple
     # @param  [String] url The path, relative to {#api_endpoint}
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
-    def request(method, path, options)
-      response = HTTParty.send(method, api_endpoint + path, base_options.merge(options))
-
-      if response.code == 401 && response.headers[HEADER_OTP_TOKEN] == "required"
-        raise TwoFactorAuthenticationRequired, response["message"]
-      elsif response.code == 401
-        raise AuthenticationFailed, response["message"]
+    def request(method, path, data, options = {})
+      if data.is_a?(Hash)
+        options[:query]   = data.delete(:query)   if data.key?(:query)
+        options[:headers] = data.delete(:headers) if data.key?(:headers)
+      end
+      if !data.empty?
+        options[:body] = data
       end
 
-      response
+      response = HTTParty.send(method, api_endpoint + path, Extra.deep_merge!(base_options, options))
+
+      case response.code
+      when 200..299
+        response
+      when 401
+        raise (response.headers[HEADER_OTP_TOKEN] == "required" ? TwoFactorAuthenticationRequired : AuthenticationFailed), response["message"]
+      when 404
+        raise RecordNotFound.new(response)
+      else
+        raise RequestError.new(response)
+      end
+    end
+
+
+    # @return [Dnsimple::Client::CertificatesService] The certificate-related API proxy.
+    def certificates
+      @services[:certificates] ||= Client::CertificatesService.new(self)
+    end
+
+    # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
+    def contacts
+      @services[:contacts] ||= Client::ContactsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::DomainsService] The domain-related API proxy.
+    def domains
+      @services[:domains] ||= Client::DomainsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::NameServersService] The name server-related API proxy.
+    def name_servers
+      @services[:name_servers] ||= Client::NameServersService.new(self)
+    end
+
+    # @return [Dnsimple::Client::RecordsService] The record-related API proxy.
+    def records
+      @services[:records] ||= Client::RecordsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::ServicesService] The service-related API proxy.
+    def services
+      @services[:services] ||= Client::ServicesService.new(self)
+    end
+
+    # @return [Dnsimple::Client::TemplatesService] The template-related API proxy.
+    def templates
+      @services[:templates] ||= Client::TemplatesService.new(self)
+    end
+
+    # @return [Dnsimple::Client::UsersService] The user-related API proxy.
+    def users
+      @services[:users] ||= Client::UsersService.new(self)
     end
 
 

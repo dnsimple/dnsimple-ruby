@@ -1,0 +1,22 @@
+HTTP/1.1 201 Created
+Server: nginx
+Date: Mon, 15 Dec 2014 14:27:51 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 201 Created
+Strict-Transport-Security: max-age=631138519
+X-Frame-Options: SAMEORIGIN
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
+Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+Location: /templates/2946
+ETag: "5ac7df35c5efb57fd52458429f945a97"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 437773da-9d5a-4eaf-b8c8-a8d032bddeac
+X-Runtime: 0.127665
+Strict-Transport-Security: max-age=315360000
+
+{"dns_template":{"id":2946,"user_id":null,"name":"foo","short_name":"bar","description":null,"created_at":"2014-12-15T14:27:51.896Z","updated_at":"2014-12-15T14:27:51.896Z"}}

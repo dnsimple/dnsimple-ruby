@@ -135,6 +135,29 @@ describe Dnsimple::Client do
 
       subject.request(:get, 'foo', {})
     end
+
+    it "properly extracts options from data" do
+      expect(HTTParty).to receive(:put).
+                          with("#{subject.api_endpoint}foo",
+                               format: :json,
+                               body: { something: "else" },
+                               query: { foo: "bar" },
+                               basic_auth: { username: "user", password: "pass" },
+                               headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
+                          ).
+                          and_return(double('response', code: 200))
+
+      subject.request(:put, 'foo', { something: "else", query: { foo: "bar" }, headers: { "Custom" => "Header" } })
+    end
+
+    it "raises RequestError in case of error" do
+      stub_request(:get, %r[/foo]).
+          to_return(status: [500, "Internal Server Error"])
+
+      expect {
+        subject.request(:get, "foo", {})
+      }.to raise_error(Dnsimple::RequestError, "500")
+    end
   end
 
 end
