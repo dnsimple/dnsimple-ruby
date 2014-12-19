@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".name_servers" do
   describe "#list" do
     before do
       stub_request(:get, %r[/v1/domains/.+/name_servers]).
-          to_return(read_fixture("nameservers/success.http"))
+          to_return(read_fixture("nameservers/list/success.http"))
     end
 
     it "builds the correct request" do
@@ -25,7 +25,7 @@ describe Dnsimple::Client, ".name_servers" do
     context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("nameservers/notfound.http"))
+            to_return(read_fixture("nameservers/notfound-domain.http"))
 
         expect {
           subject.list("example.com")
@@ -37,7 +37,7 @@ describe Dnsimple::Client, ".name_servers" do
   describe "#change" do
     before do
       stub_request(:post, %r[/v1/domains/.+/name_servers]).
-          to_return(read_fixture("nameservers/success.http"))
+          to_return(read_fixture("nameservers/change/success.http"))
     end
 
     it "builds the correct request" do
@@ -55,7 +55,7 @@ describe Dnsimple::Client, ".name_servers" do
     context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("nameservers/notfound.http"))
+            to_return(read_fixture("nameservers/notfound-domain.http"))
 
         expect {
           subject.change("example.com", %w())
