@@ -150,12 +150,12 @@ describe Dnsimple::Client, ".records" do
 
   describe "#delete" do
     before do
-      stub_request(:delete, %r[/v1/domains/example.com/records/2$]).
+      stub_request(:delete, %r[/v1/domains/.+/records/.+$]).
           to_return(read_fixture("domains/delete/success.http"))
     end
 
     it "builds the correct request" do
-      subject.delete("example.com", "2")
+      subject.delete("example.com", 2)
 
       expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com/records/2").
                          with(headers: { 'Accept' => 'application/json' })
