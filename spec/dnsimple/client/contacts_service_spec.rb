@@ -48,7 +48,7 @@ describe Dnsimple::Client, ".contacts" do
     it "returns the contact" do
       result = subject.create(attributes)
 
-      expect(result).to be_a(Dnsimple::Contact)
+      expect(result).to be_a(Dnsimple::Struct::Contact)
       expect(result.id).to eq(22968)
     end
   end
@@ -69,7 +69,7 @@ describe Dnsimple::Client, ".contacts" do
     it "returns the contact" do
       result = subject.find(1)
 
-      expect(result).to be_a(Dnsimple::Contact)
+      expect(result).to be_a(Dnsimple::Struct::Contact)
       expect(result.id).to eq(2)
       expect(result.label).to eq("Default")
       expect(result.first_name).to eq("Simone")
@@ -118,7 +118,7 @@ describe Dnsimple::Client, ".contacts" do
     it "returns the contact" do
       result = subject.update(1, {})
 
-      expect(result).to be_a(Dnsimple::Contact)
+      expect(result).to be_a(Dnsimple::Struct::Contact)
       expect(result.id).to eq(22968)
     end
 

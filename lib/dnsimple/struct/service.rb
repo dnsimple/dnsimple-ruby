@@ -1,4 +1,5 @@
 module Dnsimple
+  module Struct
 
   class Service < Base
     # @return [Fixnum] The service ID in DNSimple.
@@ -14,4 +15,5 @@ module Dnsimple
     attr_accessor :description
   end
 
+  end
 end

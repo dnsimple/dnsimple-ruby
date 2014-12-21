@@ -48,7 +48,7 @@ describe Dnsimple::Client, ".templates" do
     it "returns the template" do
       result = subject.create(attributes)
 
-      expect(result).to be_a(Dnsimple::Template)
+      expect(result).to be_a(Dnsimple::Struct::Template)
       expect(result.id).to eq(2946)
     end
   end
@@ -69,7 +69,7 @@ describe Dnsimple::Client, ".templates" do
     it "returns the template" do
       result = subject.find(1)
 
-      expect(result).to be_a(Dnsimple::Template)
+      expect(result).to be_a(Dnsimple::Struct::Template)
       expect(result.id).to eq(2651)
       expect(result.name).to eq("Localhost")
       expect(result.short_name).to eq("localhost")
@@ -105,7 +105,7 @@ describe Dnsimple::Client, ".templates" do
     it "returns the template" do
       result = subject.update(1, {})
 
-      expect(result).to be_a(Dnsimple::Template)
+      expect(result).to be_a(Dnsimple::Struct::Template)
       expect(result.id).to eq(2651)
     end
 
@@ -237,7 +237,7 @@ describe Dnsimple::Client, ".templates" do
     it "returns the template record" do
       result = subject.create_record(1, { name: "", record_type: "", content: "" })
 
-      expect(result).to be_a(Dnsimple::TemplateRecord)
+      expect(result).to be_a(Dnsimple::Struct::TemplateRecord)
       expect(result.id).to eq(8868)
     end
 
@@ -269,7 +269,7 @@ describe Dnsimple::Client, ".templates" do
     it "returns the record" do
       result = subject.find_record(1, 2)
 
-      expect(result).to be_a(Dnsimple::TemplateRecord)
+      expect(result).to be_a(Dnsimple::Struct::TemplateRecord)
       expect(result.id).to eq(8868)
       expect(result.dns_template_id).to eq(2947)
       expect(result.name).to eq("ww1")
@@ -310,7 +310,7 @@ describe Dnsimple::Client, ".templates" do
     it "returns the template record" do
       result = subject.update_record(1, 2, {})
 
-      expect(result).to be_a(Dnsimple::TemplateRecord)
+      expect(result).to be_a(Dnsimple::Struct::TemplateRecord)
       expect(result.id).to eq(8868)
     end
 

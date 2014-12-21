@@ -50,7 +50,7 @@ describe Dnsimple::Client, ".domains" do
     it "returns the domain" do
       result = subject.create(attributes)
 
-      expect(result).to be_a(Dnsimple::Domain)
+      expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to eq(1)
     end
   end
@@ -71,7 +71,7 @@ describe Dnsimple::Client, ".domains" do
     it "returns the domain" do
       result = subject.find("example.com")
 
-      expect(result).to be_a(Dnsimple::Domain)
+      expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to eq(1)
       expect(result.user_id).to eq(21)
       expect(result.registrant_id).to eq(321)
@@ -153,7 +153,7 @@ describe Dnsimple::Client, ".domains" do
     it "returns the domain" do
       result = subject.enable_auto_renewal("example.com")
 
-      expect(result).to be_a(Dnsimple::Domain)
+      expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to eq(1)
     end
 
@@ -185,7 +185,7 @@ describe Dnsimple::Client, ".domains" do
     it "returns the domain" do
       result = subject.disable_auto_renewal("example.com")
 
-      expect(result).to be_a(Dnsimple::Domain)
+      expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to eq(1)
     end
 
@@ -256,7 +256,7 @@ describe Dnsimple::Client, ".domains" do
     it "returns the record" do
       result = subject.create_email_forward("example.com", { from: "", to: "" })
 
-      expect(result).to be_a(Dnsimple::EmailForward)
+      expect(result).to be_a(Dnsimple::Struct::EmailForward)
       expect(result.id).to eq(1)
     end
 
@@ -288,7 +288,7 @@ describe Dnsimple::Client, ".domains" do
     it "returns the record" do
       result = subject.find_email_forward("example.com", 2)
 
-      expect(result).to be_a(Dnsimple::EmailForward)
+      expect(result).to be_a(Dnsimple::Struct::EmailForward)
       expect(result.id).to eq(1)
       expect(result.domain_id).to eq(1111)
       expect(result.from).to eq("sender@dnsimple-sandbox.com")
@@ -394,7 +394,7 @@ describe Dnsimple::Client, ".domains" do
     it "returns the domain" do
       result = subject.register("example.com", 10)
 
-      expect(result).to be_a(Dnsimple::Domain)
+      expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to eq(1797)
     end
   end
@@ -415,7 +415,7 @@ describe Dnsimple::Client, ".domains" do
     it "returns the domain" do
       result = subject.renew("example.com")
 
-      expect(result).to be_a(Dnsimple::Domain)
+      expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to eq(1797)
     end
 

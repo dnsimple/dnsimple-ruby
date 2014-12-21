@@ -6,12 +6,12 @@ module Dnsimple
       #
       # @see http://developer.dnsimple.com/templates/#list
       #
-      # @return [Array<Template>]
+      # @return [Array<Struct::Template>]
       # @raise  [RequestError] When the request fails.
       def list
         response = client.get("v1/templates")
 
-        response.map { |r| Template.new(r["dns_template"]) }
+        response.map { |r| Struct::Template.new(r["dns_template"]) }
       end
 
       # Creates a template in the account.
@@ -20,14 +20,14 @@ module Dnsimple
       #
       # @param  [Hash] attributes
       #
-      # @return [Template]
+      # @return [Struct::Template]
       # @raise  [RequestError] When the request fails.
       def create(attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :short_name])
         options  = { dns_template: attributes }
         response = client.post("v1/templates", options)
 
-        Template.new(response["dns_template"])
+        Struct::Template.new(response["dns_template"])
       end
 
       # Gets a template from the account.
@@ -36,13 +36,13 @@ module Dnsimple
       #
       # @param  [#to_s] template The template id or short-name.
       #
-      # @return [Template]
+      # @return [Struct::Template]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def find(template)
         response = client.get("v1/templates/#{template}")
 
-        Template.new(response["dns_template"])
+        Struct::Template.new(response["dns_template"])
       end
 
       # Updates a template in the account.
@@ -52,14 +52,14 @@ module Dnsimple
       # @param  [#to_s] template The template id or short-name.
       # @param  [Hash] attributes
       #
-      # @return [Template]
+      # @return [Struct::Template]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def update(template, attributes = {})
         options  = { dns_template: attributes }
         response = client.put("v1/templates/#{template}", options)
 
-        Template.new(response["dns_template"])
+        Struct::Template.new(response["dns_template"])
       end
 
       # Deletes a template from the account.
@@ -100,13 +100,13 @@ module Dnsimple
       #
       # @param  [#to_s] template The template id or short-name.
       #
-      # @return [Array<TemplateRecord>]
+      # @return [Array<Struct::TemplateRecord>]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def list_records(template)
         response = client.get("v1/templates/#{template}/records")
 
-        response.map { |r| TemplateRecord.new(r["dns_template_record"]) }
+        response.map { |r| Struct::TemplateRecord.new(r["dns_template_record"]) }
       end
 
       # Creates a record for a template.
@@ -116,7 +116,7 @@ module Dnsimple
       # @param  [#to_s] template The template id or short-name.
       # @param  [Hash] attributes
       #
-      # @return [TemplateRecord]
+      # @return [Struct::TemplateRecord]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def create_record(template, attributes = {})
@@ -124,7 +124,7 @@ module Dnsimple
         options  = { dns_template_record: attributes }
         response = client.post("v1/templates/#{template}/records", options)
 
-        TemplateRecord.new(response["dns_template_record"])
+        Struct::TemplateRecord.new(response["dns_template_record"])
       end
 
       # Gets a record for a template.
@@ -134,13 +134,13 @@ module Dnsimple
       # @param  [#to_s] template The template id or short-name.
       # @param  [Fixnum] record The record id.
       #
-      # @return [TemplateRecord]
+      # @return [Struct::TemplateRecord]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def find_record(template, record)
         response = client.get("v1/templates/#{template}/records/#{record}")
 
-        TemplateRecord.new(response["dns_template_record"])
+        Struct::TemplateRecord.new(response["dns_template_record"])
       end
 
       # Updates a record for a template.
@@ -151,14 +151,14 @@ module Dnsimple
       # @param  [Fixnum] record The record id.
       # @param  [Hash] attributes
       #
-      # @return [TemplateRecord]
+      # @return [Struct::TemplateRecord]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def update_record(template, record, attributes = {})
         options  = { dns_template_record: attributes }
         response = client.put("v1/templates/#{template}/records/#{record}", options)
 
-        TemplateRecord.new(response["dns_template_record"])
+        Struct::TemplateRecord.new(response["dns_template_record"])
       end
 
       # Deletes a record for a template.

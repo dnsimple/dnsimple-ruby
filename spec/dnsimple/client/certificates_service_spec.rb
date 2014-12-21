@@ -58,7 +58,7 @@ describe Dnsimple::Client, ".certificates" do
     it "returns the certificate" do
       result = subject.find("example.com", 2)
 
-      expect(result).to be_a(Dnsimple::Certificate)
+      expect(result).to be_a(Dnsimple::Struct::Certificate)
       expect(result.id).to eq(4576)
       expect(result.domain_id).to eq(79569)
       expect(result.contact_id).to eq(11549)
@@ -111,7 +111,7 @@ describe Dnsimple::Client, ".certificates" do
     it "returns the certificate" do
       result = subject.purchase("example.com", "www", 100)
 
-      expect(result).to be_a(Dnsimple::Certificate)
+      expect(result).to be_a(Dnsimple::Struct::Certificate)
       expect(result.id).to eq(4576)
     end
 
@@ -144,7 +144,7 @@ describe Dnsimple::Client, ".certificates" do
     it "returns the certificate" do
       result = subject.configure("example.com", 2)
 
-      expect(result).to be_a(Dnsimple::Certificate)
+      expect(result).to be_a(Dnsimple::Struct::Certificate)
       expect(result.id).to eq(4576)
     end
 
@@ -177,7 +177,7 @@ describe Dnsimple::Client, ".certificates" do
     it "returns the certificate" do
       result = subject.submit("example.com", 2, "admin@example.com")
 
-      expect(result).to be_a(Dnsimple::Certificate)
+      expect(result).to be_a(Dnsimple::Struct::Certificate)
       expect(result.id).to eq(4576)
     end
 

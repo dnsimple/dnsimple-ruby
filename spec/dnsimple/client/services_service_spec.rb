@@ -49,7 +49,7 @@ describe Dnsimple::Client, ".services" do
     it "returns the service" do
       result = subject.find(1)
 
-      expect(result).to be_a(Dnsimple::Service)
+      expect(result).to be_a(Dnsimple::Struct::Service)
       expect(result.id).to eq(1)
       expect(result.name).to eq("Google Apps")
       expect(result.short_name).to eq("google-apps")

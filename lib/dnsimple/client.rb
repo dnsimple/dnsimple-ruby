@@ -1,6 +1,6 @@
-require 'dnsimple/version'
 require 'dnsimple/compatibility'
 require 'dnsimple/extra'
+require 'dnsimple/struct'
 require 'dnsimple/client/client_service'
 require 'dnsimple/client/certificates_service'
 require 'dnsimple/client/contacts_service'

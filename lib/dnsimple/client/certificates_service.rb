@@ -9,13 +9,13 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] options
       #
-      # @return [Array<Certificate>]
+      # @return [Array<Struct::Certificate>]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def list(domain, options = {})
         response = client.get("v1/domains/#{domain}/certificates", options)
 
-        response.map { |r| Certificate.new(r["certificate"]) }
+        response.map { |r| Struct::Certificate.new(r["certificate"]) }
       end
 
       # Gets a certificate for a domain.
@@ -25,13 +25,13 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] certificate_id The certificate ID.
       #
-      # @return [Certificate]
+      # @return [Struct::Certificate]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def find(domain, certificate_id)
         response = client.get("v1/domains/#{domain}/certificates/#{certificate_id}")
 
-        Certificate.new(response["certificate"])
+        Struct::Certificate.new(response["certificate"])
       end
 
       # Purchases a certificate under the given domain with the given name.
@@ -53,14 +53,14 @@ module Dnsimple
       # @param  [String] name The certificate name.
       # @param  [Fixnum] contact_id The ID of the contact associated to the certificate.
       #
-      # @return [Certificate]
+      # @return [Struct::Certificate]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def purchase(domain, name, contact_id, options = {})
         options  = Extra.deep_merge(options, { certificate: { name: name, contact_id: contact_id }})
         response = client.post("v1/domains/#{domain}/certificates", options)
 
-        Certificate.new(response["certificate"])
+        Struct::Certificate.new(response["certificate"])
       end
 
       # Configures a certificate.
@@ -68,13 +68,13 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] certificate_id The certificate ID.
       #
-      # @return [Certificate]
+      # @return [Struct::Certificate]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def configure(domain, certificate_id)
         response = client.put("v1/domains/#{domain}/certificates/#{certificate_id}/configure")
 
-        Certificate.new(response["certificate"])
+        Struct::Certificate.new(response["certificate"])
       end
 
       # Submits a certificate for approval.
@@ -83,14 +83,14 @@ module Dnsimple
       # @param  [Fixnum] certificate_id The certificate ID.
       # @param  [Fixnum] email The approver email.
       #
-      # @return [Certificate]
+      # @return [Struct::Certificate]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def submit(domain, certificate_id, email)
         options = { certificate: { approver_email: email }}
         response = client.put("v1/domains/#{domain}/certificates/#{certificate_id}/submit", options)
 
-        Certificate.new(response["certificate"])
+        Struct::Certificate.new(response["certificate"])
       end
 
     end

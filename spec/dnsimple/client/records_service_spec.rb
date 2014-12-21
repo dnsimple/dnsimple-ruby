@@ -59,7 +59,7 @@ describe Dnsimple::Client, ".records" do
     it "returns the record" do
       result = subject.create("example.com", { name: "", record_type: "", content: "" })
 
-      expect(result).to be_a(Dnsimple::Record)
+      expect(result).to be_a(Dnsimple::Struct::Record)
       expect(result.id).to eq(3554751)
     end
 
@@ -91,7 +91,7 @@ describe Dnsimple::Client, ".records" do
     it "returns the record" do
       result = subject.find("example.com", 2)
 
-      expect(result).to be_a(Dnsimple::Record)
+      expect(result).to be_a(Dnsimple::Struct::Record)
       expect(result.id).to eq(1495)
       expect(result.domain_id).to eq(6)
       expect(result.name).to eq("www")
@@ -132,7 +132,7 @@ describe Dnsimple::Client, ".records" do
     it "returns the record" do
       result = subject.update("example.com", 2, {})
 
-      expect(result).to be_a(Dnsimple::Record)
+      expect(result).to be_a(Dnsimple::Struct::Record)
       expect(result.id).to eq(3554751)
     end
 

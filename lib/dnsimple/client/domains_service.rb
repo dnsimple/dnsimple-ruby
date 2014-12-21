@@ -6,12 +6,12 @@ module Dnsimple
       #
       # @see http://developer.dnsimple.com/domains/#list
       #
-      # @return [Array<Domain>]
+      # @return [Array<Struct::Domain>]
       # @raise  [RequestError] When the request fails.
       def list(options = {})
         response = client.get("v1/domains", options)
 
-        response.map { |r| Domain.new(r["domain"]) }
+        response.map { |r| Struct::Domain.new(r["domain"]) }
       end
 
       # Gets a domain from the account.
@@ -20,13 +20,13 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       #
-      # @return [Domain]
+      # @return [Struct::Domain]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def find(domain)
         response = client.get("v1/domains/#{domain}")
 
-        Domain.new(response["domain"])
+        Struct::Domain.new(response["domain"])
       end
 
       # Creates a domain in the account.
@@ -35,14 +35,14 @@ module Dnsimple
       #
       # @param  [Hash] attributes
       #
-      # @return [Domain]
+      # @return [Struct::Domain]
       # @raise  [RequestError] When the request fails.
       def create(attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:name])
         options  = { domain: attributes }
         response = client.post("v1/domains", options)
 
-        Domain.new(response["domain"])
+        Struct::Domain.new(response["domain"])
       end
 
       # Deletes a domain from the account.
@@ -67,12 +67,12 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       #
-      # @return [Domain]
+      # @return [Struct::Domain]
       # @raise  [RequestError] When the request fails.
       def enable_auto_renewal(domain)
         response = client.post("v1/domains/#{domain}/auto_renewal")
 
-        Domain.new(response["domain"])
+        Struct::Domain.new(response["domain"])
       end
 
       # Disables auto-renewal for a domain.
@@ -81,12 +81,12 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       #
-      # @return [Domain]
+      # @return [Struct::Domain]
       # @raise  [RequestError] When the request fails.
       def disable_auto_renewal(domain)
         response = client.delete("v1/domains/#{domain}/auto_renewal")
 
-        Domain.new(response["domain"])
+        Struct::Domain.new(response["domain"])
       end
 
 
@@ -97,13 +97,13 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] options
       #
-      # @return [Array<EmailForward>]
+      # @return [Array<Struct::EmailForward>]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def list_email_forwards(domain)
         response = client.get("v1/domains/#{domain}/email_forwards")
 
-        response.map { |r| EmailForward.new(r["email_forward"]) }
+        response.map { |r| Struct::EmailForward.new(r["email_forward"]) }
       end
 
       # Creates an email forward for a domain.
@@ -113,7 +113,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] attributes
       #
-      # @return [EmailForward]
+      # @return [Struct::EmailForward]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def create_email_forward(domain, attributes = {})
@@ -121,7 +121,7 @@ module Dnsimple
         options  = { email_forward: attributes }
         response = client.post("v1/domains/#{domain}/email_forwards", options)
 
-        EmailForward.new(response["email_forward"])
+        Struct::EmailForward.new(response["email_forward"])
       end
 
       # Gets an email forward for a domain.
@@ -131,13 +131,13 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] forward The forward id.
       #
-      # @return [EmailForward]
+      # @return [Struct::EmailForward]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def find_email_forward(domain, forward)
         response = client.get("v1/domains/#{domain}/email_forwards/#{forward}")
 
-        EmailForward.new(response["email_forward"])
+        Struct::EmailForward.new(response["email_forward"])
       end
 
       # Deletes an email forward for a domain.
@@ -181,13 +181,13 @@ module Dnsimple
       # @param  [Hash] extended_attributes
       # @param  [Hash] options
       #
-      # @return [Domain]
+      # @return [Struct::Domain]
       # @raise  [RequestError] When the request fails.
       def register(name, registrant_id, extended_attributes = {}, options = {})
         options = Extra.deep_merge(options, { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes })
         response = client.post("v1/domain_registrations", options)
 
-        Domain.new(response["domain"])
+        Struct::Domain.new(response["domain"])
       end
 
       # Transfers a domain.
@@ -200,13 +200,13 @@ module Dnsimple
       # @param  [Hash] extended_attributes
       # @param  [Hash] options
       #
-      # @return [TransferOrder]
+      # @return [Struct::TransferOrder]
       # @raise  [RequestError] When the request fails.
       def transfer(name, auth_code, registrant_id, extended_attributes = {}, options = {})
         options = Extra.deep_merge(options, { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes, transfer_order: { authinfo: auth_code }})
         response = client.post("v1/domain_transfers", options)
 
-        TransferOrder.new(response["transfer_order"])
+        Struct::TransferOrder.new(response["transfer_order"])
       end
 
       # Renew a domain.
@@ -216,13 +216,20 @@ module Dnsimple
       # @param  [#to_s] name The domain name to renew.
       # @param  [Hash] options
       #
-      # @return [Domain]
+      # @return [Struct::Domain]
       # @raise  [RequestError] When the request fails.
       def renew(name, options = {})
         options = Extra.deep_merge(options, { domain: { name: name }})
         response = client.post("v1/domain_renewals", options)
 
-        Domain.new(response["domain"])
+        Struct::Domain.new(response["domain"])
+      end
+
+
+      def extended_attributes(tld, options={})
+        response = Client.get("v1/extended_attributes/#{tld}", options)
+
+        response.map { |r| Struct::ExtendedAttribute.new(r) }
       end
 
     end

@@ -6,12 +6,12 @@ module Dnsimple
       #
       # @see http://developer.dnsimple.com/services/#list
       #
-      # @return [Array<Service>]
+      # @return [Array<Struct::Service>]
       # @raise  [RequestError] When the request fails.
       def list
         response = client.get("v1/services")
 
-        response.map { |r| Service.new(r["service"]) }
+        response.map { |r| Struct::Service.new(r["service"]) }
       end
 
       # Gets a service.
@@ -20,13 +20,13 @@ module Dnsimple
       #
       # @param  [Fixnum] service The service id.
       #
-      # @return [Service]
+      # @return [Struct::Service]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def find(service)
         response = client.get("v1/services/#{service}")
 
-        Service.new(response["service"])
+        Struct::Service.new(response["service"])
       end
 
       # Lists the services applied to a domain.
@@ -35,13 +35,13 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       #
-      # @return [Array<Service>]
+      # @return [Array<Struct::Service>]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def applied(domain)
         response = client.get("v1/domains/#{domain}/applied_services")
 
-        response.map { |r| Service.new(r["service"]) }
+        response.map { |r| Struct::Service.new(r["service"]) }
       end
 
       # Lists the services not applied to a domain.
@@ -50,13 +50,13 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       #
-      # @return [Array<Service>]
+      # @return [Array<Struct::Service>]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def available(domain)
         response = client.get("v1/domains/#{domain}/available_services")
 
-        response.map { |r| Service.new(r["service"]) }
+        response.map { |r| Struct::Service.new(r["service"]) }
       end
 
       # Applies a service to a domain.

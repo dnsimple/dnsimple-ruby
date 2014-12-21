@@ -6,12 +6,12 @@ module Dnsimple
       #
       # @see http://developer.dnsimple.com/contacts/#list
       #
-      # @return [Array<Contact>]
+      # @return [Array<Struct::Contact>]
       # @raise  [RequestError] When the request fails.
       def list
         response = client.get("v1/contacts")
 
-        response.map { |r| Contact.new(r["contact"]) }
+        response.map { |r| Struct::Contact.new(r["contact"]) }
       end
 
       # Creates a contact in the account.
@@ -20,14 +20,14 @@ module Dnsimple
       #
       # @param  [Hash] attributes
       #
-      # @return [Contact]
+      # @return [Struct::Contact]
       # @raise  [RequestError] When the request fails.
       def create(attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email_address])
         options  = { contact: attributes }
         response = client.post("v1/contacts", options)
 
-        Contact.new(response["contact"])
+        Struct::Contact.new(response["contact"])
       end
 
       # Gets a contact from the account.
@@ -36,13 +36,13 @@ module Dnsimple
       #
       # @param  [Fixnum] contact The contact id.
       #
-      # @return [Contact]
+      # @return [Struct::Contact]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def find(contact)
         response = client.get("v1/contacts/#{contact}")
 
-        Contact.new(response["contact"])
+        Struct::Contact.new(response["contact"])
       end
 
       # Updates a contact in the account.
@@ -52,14 +52,14 @@ module Dnsimple
       # @param  [Fixnum] contact The contact id.
       # @param  [Hash] attributes
       #
-      # @return [Contact]
+      # @return [Struct::Contact]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def update(contact, attributes = {})
         options  = { contact: attributes }
         response = client.put("v1/contacts/#{contact}", options)
 
-        Contact.new(response["contact"])
+        Struct::Contact.new(response["contact"])
       end
 
       # Deletes a contact from the account.

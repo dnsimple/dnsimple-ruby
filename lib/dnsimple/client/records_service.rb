@@ -9,13 +9,13 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] options
       #
-      # @return [Array<Record>]
+      # @return [Array<Struct::Record>]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def list(domain, options = {})
         response = client.get("v1/domains/#{domain}/records", options)
 
-        response.map { |r| Record.new(r["record"]) }
+        response.map { |r| Struct::Record.new(r["record"]) }
       end
 
       # Creates a record for a domain.
@@ -25,7 +25,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] attributes
       #
-      # @return [Record]
+      # @return [Struct::Record]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def create(domain, attributes = {})
@@ -33,7 +33,7 @@ module Dnsimple
         options  = { record: attributes }
         response = client.post("v1/domains/#{domain}/records", options)
 
-        Record.new(response["record"])
+        Struct::Record.new(response["record"])
       end
 
       # Gets a record for a domain.
@@ -43,13 +43,13 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.
       #
-      # @return [Record]
+      # @return [Struct::Record]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def find(domain, record)
         response = client.get("v1/domains/#{domain}/records/#{record}")
 
-        Record.new(response["record"])
+        Struct::Record.new(response["record"])
       end
 
       # Updates a record for a domain.
@@ -60,14 +60,14 @@ module Dnsimple
       # @param  [Fixnum] record The record id.
       # @param  [Hash] attributes
       #
-      # @return [Record]
+      # @return [Struct::Record]
       # @raise  [RecordNotFound]
       # @raise  [RequestError] When the request fails.
       def update(domain, record, attributes = {})
         options  = { record: attributes }
         response = client.put("v1/domains/#{domain}/records/#{record}", options)
 
-        Record.new(response["record"])
+        Struct::Record.new(response["record"])
       end
 
       # Deletes a record for a domain.

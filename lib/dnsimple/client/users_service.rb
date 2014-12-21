@@ -4,12 +4,12 @@ module Dnsimple
 
       # Fetches the information about the authenticated user.
       #
-      # @return [User] The authenticated user.
+      # @return [Struct::User] The authenticated user.
       # @raise  [RequestError] When the request fails.
       def user
         response = client.get("v1/user")
 
-        User.new(response["user"])
+        Struct::User.new(response["user"])
       end
 
       # Requests a new two-factor authentication exchange token.
