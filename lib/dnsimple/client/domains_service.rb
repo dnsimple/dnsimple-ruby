@@ -226,8 +226,16 @@ module Dnsimple
       end
 
 
-      def extended_attributes(tld, options={})
-        response = Client.get("v1/extended_attributes/#{tld}", options)
+      # List the extended attributes for a TLD.
+      #
+      # @see http://developer.dnsimple.com/registrar/extended-attributes/#list
+      #
+      # @param  [#to_s] tld The TLD name.
+      #
+      # @return [Array<Struct::ExtendedAttribute>]
+      # @raise  [RequestError] When the request fails.
+      def extended_attributes(tld)
+        response = client.get("v1/extended_attributes/#{tld}")
 
         response.map { |r| Struct::ExtendedAttribute.new(r) }
       end

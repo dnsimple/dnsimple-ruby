@@ -431,4 +431,39 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
+
+  describe "#extended_attributes" do
+    before do
+      stub_request(:get, %r[/v1/extended_attributes/.+$]).
+          to_return(read_fixture("registrar/extended-attributes/list/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.extended_attributes("uk")
+
+      expect(WebMock).to have_requested(:get, "https://api.zone/v1/extended_attributes/uk").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the extended attributes" do
+      results = subject.extended_attributes("uk")
+
+      expect(results).to be_a(Array)
+      expect(results.size).to eq(4)
+
+      result = results[0]
+      expect(result).to be_a(Dnsimple::Struct::ExtendedAttribute)
+      expect(result.name).to eq("uk_legal_type")
+      expect(result.description).to eq("Legal type of registrant contact")
+      expect(result.required).to eq(false)
+      expect(result.options).to be_a(Array)
+      expect(result.options.size).to eq(17)
+
+      option = result.options[0]
+      expect(option.title).to eq("UK Individual")
+      expect(option.value).to eq("IND")
+      expect(option.description).to eq("UK Individual (our default value)")
+    end
+  end
+
 end
