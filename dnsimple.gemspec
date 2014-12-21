@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ['anthony.eden@dnsimple.com', 'simone.carletti@dnsimple.com']
   s.homepage    = 'http://github.com/aetrion/dnsimple-ruby'
   s.summary     = 'A Ruby client for the DNSimple API'
-  s.description = 'A Ruby client for the DNSimple API that also includes a command-line client.'
+  s.description = 'A Ruby client for the DNSimple API.'
 
   s.required_ruby_version = ">= 1.9.3"
 
