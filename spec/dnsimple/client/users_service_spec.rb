@@ -21,7 +21,7 @@ describe Dnsimple::Client, ".users" do
     it "returns the user" do
       result = subject.user
 
-      expect(result).to be_a(Dnsimple::User)
+      expect(result).to be_a(Dnsimple::Struct::User)
       expect(result.id).to eq(1)
       expect(result.email).to eq("example@example.com")
       expect(result.api_token).to eq("api-token")
