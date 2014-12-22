@@ -54,7 +54,7 @@ This client supports both the HTTP Basic and API Token authentication mechanism.
 ```ruby
 client = Dnsimple::Client.new(username: 'YOUR_USERNAME', password: 'YOUR_PASSWORD')
 client.users.user
-# => User
+# => Dnsimple::Struct::User
 ```
 
 #### HTTP Basic with two-factor authentication enabled
@@ -69,7 +69,7 @@ token  = client.users.exchange_token('otp-token')
 # Authenticate with the exchange token
 client.exchange_token = token
 client.users.user
-# => User
+# => Dnsimple::Struct::User
 ```
 
 #### API Token
@@ -78,5 +78,5 @@ client.users.user
 client = Dnsimple::Client.new(username: 'YOUR_USERNAME', api_token: 'YOUR_TOKEN')
 
 client.users.user
-# => User
+# => Dnsimple::Struct::User
 ```

@@ -117,7 +117,7 @@ describe Dnsimple::Client, ".domains" do
 
     it "supports HTTP 204" do
       stub_request(:delete, %r[/v1]).
-          to_return(read_fixture("contacts/delete/success-204.http"))
+          to_return(read_fixture("domains/delete/success-204.http"))
 
       result = subject.delete("example.com")
 
@@ -140,7 +140,7 @@ describe Dnsimple::Client, ".domains" do
   describe "#enable_auto_renewal" do
     before do
       stub_request(:post, %r[/v1/domains/.+/auto_renewal]).
-          to_return(read_fixture("domains/autorenewal/enable/success.http"))
+          to_return(read_fixture("domains_autorenewal/enable/success.http"))
     end
 
     it "builds the correct request" do
@@ -157,10 +157,10 @@ describe Dnsimple::Client, ".domains" do
       expect(result.id).to eq(1)
     end
 
-    context "when something does not exist" do
+    context "when the domain does not exist" do
       it "raises RecordNotFound" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("domains/notfound.http"))
+            to_return(read_fixture("domains_autorenewal/notfound-domain.http"))
 
         expect {
           subject.enable_auto_renewal("example.com")
@@ -172,7 +172,7 @@ describe Dnsimple::Client, ".domains" do
   describe "#disable_auto_renewal" do
     before do
       stub_request(:delete, %r[/v1/domains/.+/auto_renewal]).
-          to_return(read_fixture("domains/autorenewal/disable/success.http"))
+          to_return(read_fixture("domains_autorenewal/disable/success.http"))
     end
 
     it "builds the correct request" do
@@ -189,10 +189,10 @@ describe Dnsimple::Client, ".domains" do
       expect(result.id).to eq(1)
     end
 
-    context "when something does not exist" do
+    context "when the domain does not exist" do
       it "raises RecordNotFound" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("domains/notfound.http"))
+            to_return(read_fixture("domains_autorenewal/notfound-domain.http"))
 
         expect {
           subject.disable_auto_renewal("example.com")
@@ -205,7 +205,7 @@ describe Dnsimple::Client, ".domains" do
   describe "#list_email_forwards" do
     before do
       stub_request(:get, %r[/v1/domains/.+/email_forwards]).
-          to_return(read_fixture("domains/forwards/list/success.http"))
+          to_return(read_fixture("domains_forwards/list/success.http"))
     end
 
     it "builds the correct request" do
@@ -230,7 +230,7 @@ describe Dnsimple::Client, ".domains" do
     context "when the domain does not exist" do
       it "raises RecordNotFound" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains/forwards/notfound-domain.http"))
+            to_return(read_fixture("domains_forwards/notfound-domain.http"))
 
         expect {
           subject.list_email_forwards("example.com")
@@ -242,7 +242,7 @@ describe Dnsimple::Client, ".domains" do
   describe "#create_email_forward" do
     before do
       stub_request(:post, %r[/v1/domains/.+/email_forwards$]).
-          to_return(read_fixture("domains/forwards/create/created.http"))
+          to_return(read_fixture("domains_forwards/create/created.http"))
     end
 
     it "builds the correct request" do
@@ -263,7 +263,7 @@ describe Dnsimple::Client, ".domains" do
     context "when the domain does not exist" do
       it "raises RecordNotFound" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("domains/forwards/notfound-domain.http"))
+            to_return(read_fixture("domains_forwards/notfound-domain.http"))
 
         expect {
           subject.create_email_forward("example.com", { from: "", to: "" })
@@ -275,7 +275,7 @@ describe Dnsimple::Client, ".domains" do
   describe "#find_email_forward" do
     before do
       stub_request(:get, %r[/v1/domains/.+/email_forwards/.+$]).
-          to_return(read_fixture("domains/forwards/get/success.http"))
+          to_return(read_fixture("domains_forwards/get/success.http"))
     end
 
     it "builds the correct request" do
@@ -300,7 +300,7 @@ describe Dnsimple::Client, ".domains" do
     context "when forward does not exist" do
       it "raises RecordNotFound" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains/forwards/notfound.http"))
+            to_return(read_fixture("domains_forwards/notfound.http"))
 
         expect {
           subject.find_email_forward("example.com", 2)
@@ -312,7 +312,7 @@ describe Dnsimple::Client, ".domains" do
   describe "#delete_email_forwards" do
     before do
       stub_request(:delete, %r[/v1/domains/.+/email_forwards/.+$]).
-          to_return(read_fixture("domains/forwards/delete/success.http"))
+          to_return(read_fixture("domains_forwards/delete/success.http"))
     end
 
     it "builds the correct request" do
@@ -331,7 +331,7 @@ describe Dnsimple::Client, ".domains" do
     context "when the forward does not exist" do
       it "raises RecordNotFound" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("domains/forwards/notfound.http"))
+            to_return(read_fixture("domains_forwards/notfound.http"))
 
         expect {
           subject.delete_email_forward("example.com", 2)

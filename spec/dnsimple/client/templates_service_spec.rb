@@ -197,7 +197,7 @@ describe Dnsimple::Client, ".templates" do
   describe "#list_records" do
     before do
       stub_request(:get, %r[/v1/templates/.+/records$]).
-          to_return(read_fixture("templates/records/index/success.http"))
+          to_return(read_fixture("templates_records/index/success.http"))
     end
 
     it "builds the correct request" do
@@ -223,7 +223,7 @@ describe Dnsimple::Client, ".templates" do
   describe "#create_record" do
     before do
       stub_request(:post, %r[/v1/templates/.+/records$]).
-          to_return(read_fixture("templates/records/create/created.http"))
+          to_return(read_fixture("templates_records/create/created.http"))
     end
 
     it "builds the correct request" do
@@ -244,7 +244,7 @@ describe Dnsimple::Client, ".templates" do
     context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("templates/records/notfound.http"))
+            to_return(read_fixture("templates_records/notfound.http"))
 
         expect {
           subject.create_record(1, { name: "", record_type: "", content: "" })
@@ -256,7 +256,7 @@ describe Dnsimple::Client, ".templates" do
   describe "#find_record" do
     before do
       stub_request(:get, %r[/v1/templates/.+/records/.+$]).
-          to_return(read_fixture("templates/records/show/success.http"))
+          to_return(read_fixture("templates_records/show/success.http"))
     end
 
     it "builds the correct request" do
@@ -284,7 +284,7 @@ describe Dnsimple::Client, ".templates" do
     context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("templates/records/notfound.http"))
+            to_return(read_fixture("templates_records/notfound.http"))
 
         expect {
           subject.find_record(1, 2)
@@ -296,7 +296,7 @@ describe Dnsimple::Client, ".templates" do
   describe "#update_record" do
     before do
       stub_request(:put, %r[/v1/templates/.+/records/.+$]).
-          to_return(read_fixture("templates/records/update/success.http"))
+          to_return(read_fixture("templates_records/update/success.http"))
     end
 
     it "builds the correct request" do
@@ -317,7 +317,7 @@ describe Dnsimple::Client, ".templates" do
     context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:put, %r[/v1]).
-            to_return(read_fixture("templates/records/notfound.http"))
+            to_return(read_fixture("templates_records/notfound.http"))
 
         expect {
           subject.update_record(1, 2, {})
@@ -329,7 +329,7 @@ describe Dnsimple::Client, ".templates" do
   describe "#delete_record" do
     before do
       stub_request(:delete, %r[/v1/templates/.+/records/.+$]).
-          to_return(read_fixture("templates/records/delete/success.http"))
+          to_return(read_fixture("templates_records/delete/success.http"))
     end
 
     it "builds the correct request" do
@@ -347,7 +347,7 @@ describe Dnsimple::Client, ".templates" do
 
     it "supports HTTP 204" do
       stub_request(:delete, %r[/v1]).
-          to_return(read_fixture("templates/records/delete/success-204.http"))
+          to_return(read_fixture("templates_records/delete/success-204.http"))
 
       result = subject.delete_record(1, 2)
 
@@ -357,7 +357,7 @@ describe Dnsimple::Client, ".templates" do
     context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("templates/records/notfound.http"))
+            to_return(read_fixture("templates_records/notfound.http"))
 
         expect {
           subject.delete_record(1, 2)
