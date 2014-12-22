@@ -64,4 +64,68 @@ describe Dnsimple::Client, ".name_servers" do
     end
   end
 
+
+  describe "#register" do
+    before do
+      stub_request(:post, %r[/v1/domains/.+/registry_name_servers$]).
+          to_return(read_fixture("nameservers/register/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.register("example.com", "ns1.example.com", "127.0.0.1")
+
+      expect(WebMock).to have_requested(:post, "https://api.zone/v1/domains/example.com/registry_name_servers").
+                             with(body: { "name_server" => { "name" => "ns1.example.com", "ip" => "127.0.0.1" }}).
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      result = subject.register("example.com", "ns1.example.com", "127.0.0.1")
+
+      expect(result).to be_truthy
+    end
+
+    context "when the domain does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:post, %r[/v1]).
+            to_return(read_fixture("nameservers/notfound-domain.http"))
+
+        expect {
+          subject.register("example.com", "ns1.example.com", "127.0.0.1")
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
+  describe "#deregister" do
+    before do
+      stub_request(:delete, %r[/v1/domains/.+/registry_name_servers/.+$]).
+          to_return(read_fixture("nameservers/deregister/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.deregister("example.com", "ns1.example.com")
+
+      expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com/registry_name_servers/ns1.example.com").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      result = subject.deregister("example.com", "ns1.example.com")
+
+      expect(result).to be_truthy
+    end
+
+    context "when the domain does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:delete, %r[/v1]).
+            to_return(read_fixture("nameservers/notfound-domain.http"))
+
+        expect {
+          subject.deregister("example.com", "ns1.example.com")
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
 end
