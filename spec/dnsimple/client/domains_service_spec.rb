@@ -207,7 +207,7 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
-  describe "#find_records" do
+  describe "#find_record" do
     before do
       stub_request(:get, %r[/v1/domains/.+/records/.+$]).
           to_return(read_fixture("domains_records/show/success.http"))
@@ -621,6 +621,39 @@ describe Dnsimple::Client, ".domains" do
 
         expect {
           subject.delete_email_forward("example.com", 2)
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
+
+  describe "#zone" do
+    before do
+      stub_request(:get, %r[/v1/domains/.+/zone$]).
+          to_return(read_fixture("domains_zones/get/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.zone("example.com")
+
+      expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/zone").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the record" do
+      result = subject.zone("example.com")
+
+      expect(result).to be_a(String)
+      expect(result).to match(/^#{Regexp.escape("$ORIGIN")}/)
+    end
+
+    context "when domain does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:get, %r[/v1]).
+            to_return(read_fixture("domains_zones/notfound-domain.http"))
+
+        expect {
+          subject.zone("example.com")
         }.to raise_error(Dnsimple::RecordNotFound)
       end
     end
