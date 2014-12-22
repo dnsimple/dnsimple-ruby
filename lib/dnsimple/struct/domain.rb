@@ -2,13 +2,13 @@ module Dnsimple
   module Struct
 
     class Domain < Base
-      # The Fixnum domain ID in DNSimple.
+      # @return [Fixnum] The domain ID in DNSimple.
       attr_accessor :id
 
-      # The Fixnum associated user ID.
+      # @return [Fixnum] The associated user ID.
       attr_accessor :user_id
 
-      # The Fixnum associated registrant ID.
+      # @return [Fixnum] The associated registrant (contact) ID.
       attr_accessor :registrant_id
 
       # The String name.
@@ -26,13 +26,13 @@ module Dnsimple
       # Is the whois information protected?
       attr_accessor :whois_protected
 
-      # The Date the domain will expire.
+      # @return [String] The date the domain will expire.
       attr_accessor :expires_on
 
-      # The Date the domain was created in DNSimple.
+      # @return [String] When the domain was created in DNSimple.
       attr_accessor :created_at
 
-      # The Date the domain was last update in DNSimple.
+      # @return [String] When the domain was last updated in DNSimple.
       attr_accessor :updated_at
     end
 

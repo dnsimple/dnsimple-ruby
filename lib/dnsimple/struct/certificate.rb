@@ -2,10 +2,10 @@ module Dnsimple
   module Struct
 
     class Certificate < Base
-      # The Fixnum certificate ID in DNSimple.
+      # @return [Fixnum] The certificate ID in DNSimple.
       attr_accessor :id
 
-      # The Fixnum associated domain ID.
+      # @return [Fixnum] The associated domain ID.
       attr_accessor :domain_id
 
       # The Fixnum associated contact ID.
@@ -36,10 +36,10 @@ module Dnsimple
       # It is set only if the state is configured.
       attr_accessor :approver_emails
 
-      # The Date the certificate was create in DNSimple.
+      # @return [String] When the certificate was created in DNSimple.
       attr_accessor :created_at
 
-      # The Date the certificate was last updated in DNSimple.
+      # @return [String] When the certificate was last updated in DNSimple.
       attr_accessor :updated_at
 
       # The Date the certificate was configured.
