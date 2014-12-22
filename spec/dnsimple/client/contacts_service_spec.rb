@@ -165,7 +165,7 @@ describe Dnsimple::Client, ".contacts" do
     context "when something does not exist" do
       it "raises RecordNotFound" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("records/notfound.http"))
+            to_return(read_fixture("contacts/notfound.http"))
 
         expect {
           subject.delete(1)
