@@ -386,6 +386,108 @@ describe Dnsimple::Client, ".domains" do
   end
 
 
+  describe "#list_memberships" do
+    before do
+      stub_request(:get, %r[/v1/domains/.+/memberships]).
+          to_return(read_fixture("domains_sharing/list/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.list_memberships("example.com")
+
+      expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/memberships").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the records" do
+      results = subject.list_memberships("example.com")
+
+      expect(results).to be_a(Array)
+      expect(results.size).to eq(2)
+
+      result = results[0]
+      expect(result.id).to eq(155)
+      result = results[1]
+      expect(result.id).to eq(156)
+    end
+
+    context "when the domain does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:get, %r[/v1]).
+            to_return(read_fixture("domains_sharing/notfound-domain.http"))
+
+        expect {
+          subject.list_memberships("example.com")
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
+  describe "#create_membership" do
+    before do
+      stub_request(:post, %r[/v1/domains/.+/memberships]).
+          to_return(read_fixture("domains_sharing/create/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.create_membership("example.com", "someone@example.com")
+
+      expect(WebMock).to have_requested(:post, "https://api.zone/v1/domains/example.com/memberships").
+                             with(body: { membership: { email: "someone@example.com" } }).
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the record" do
+      result = subject.create_membership("example.com", "someone@example.com")
+
+      expect(result).to be_a(Dnsimple::Struct::Membership)
+      expect(result.id).to eq(155)
+    end
+
+    context "when the domain does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:post, %r[/v1]).
+            to_return(read_fixture("domains_forwards/notfound-domain.http"))
+
+        expect {
+          subject.create_membership("example.com", "someone@example.com")
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
+  describe "#delete_membership" do
+    before do
+      stub_request(:delete, %r[/v1/domains/.+/memberships/.+$]).
+          to_return(read_fixture("domains_sharing/delete/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.delete_membership("example.com", 2)
+
+      expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com/memberships/2").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      result = subject.delete_membership("example.com", 2)
+
+      expect(result).to be_truthy
+    end
+
+    context "when the membership does not exist" do
+      it "raises RecordNotFound" do
+        stub_request(:delete, %r[/v1]).
+            to_return(read_fixture("domains_sharing/notfound.http"))
+
+        expect {
+          subject.delete_membership("example.com", 2)
+        }.to raise_error(Dnsimple::RecordNotFound)
+      end
+    end
+  end
+
+
   describe "#list_email_forwards" do
     before do
       stub_request(:get, %r[/v1/domains/.+/email_forwards]).
@@ -493,7 +595,7 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
-  describe "#delete_email_forwards" do
+  describe "#delete_email_forward" do
     before do
       stub_request(:delete, %r[/v1/domains/.+/email_forwards/.+$]).
           to_return(read_fixture("domains_forwards/delete/success.http"))
