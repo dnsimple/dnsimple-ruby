@@ -12,6 +12,8 @@
 
 - CHANGED: Renamed the namespace from DNSimple to Dnsimple.
 
+- CHANGED: Redesigned client API.
+
 - REMOVED: The library no longer provides built-in support for loading the credentials from a config file.
 
 #### Release 1.7.1
