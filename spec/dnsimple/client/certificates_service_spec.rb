@@ -24,10 +24,10 @@ describe Dnsimple::Client, ".certificates" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(2)
 
-      result = results[0]
-      expect(result.id).to eq(4576)
-      result = results[1]
-      expect(result.id).to eq(4578)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Certificate)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
 
     context "when something does not exist" do
@@ -112,7 +112,7 @@ describe Dnsimple::Client, ".certificates" do
       result = subject.purchase("example.com", "www", 100)
 
       expect(result).to be_a(Dnsimple::Struct::Certificate)
-      expect(result.id).to eq(4576)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when something does not exist" do
@@ -145,7 +145,7 @@ describe Dnsimple::Client, ".certificates" do
       result = subject.configure("example.com", 2)
 
       expect(result).to be_a(Dnsimple::Struct::Certificate)
-      expect(result.id).to eq(4576)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when something does not exist" do
@@ -178,7 +178,7 @@ describe Dnsimple::Client, ".certificates" do
       result = subject.submit("example.com", 2, "admin@example.com")
 
       expect(result).to be_a(Dnsimple::Struct::Certificate)
-      expect(result.id).to eq(4576)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when something does not exist" do

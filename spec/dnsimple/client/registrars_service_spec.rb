@@ -59,7 +59,7 @@ describe Dnsimple::Client, ".registrars" do
       result = subject.register("example.com", 10)
 
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to eq(1797)
+      expect(result.id).to be_a(Fixnum)
     end
   end
 
@@ -80,7 +80,7 @@ describe Dnsimple::Client, ".registrars" do
       result = subject.renew("example.com")
 
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to eq(1797)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when something does not exist" do

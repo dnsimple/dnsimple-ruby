@@ -24,8 +24,10 @@ describe Dnsimple::Client, ".templates" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(1)
 
-      result = results[0]
-      expect(result.id).to eq(2651)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Template)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
   end
 
@@ -49,7 +51,7 @@ describe Dnsimple::Client, ".templates" do
       result = subject.create(attributes)
 
       expect(result).to be_a(Dnsimple::Struct::Template)
-      expect(result.id).to eq(2946)
+      expect(result.id).to be_a(Fixnum)
     end
   end
 
@@ -106,7 +108,7 @@ describe Dnsimple::Client, ".templates" do
       result = subject.update(1, {})
 
       expect(result).to be_a(Dnsimple::Struct::Template)
-      expect(result.id).to eq(2651)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when something does not exist" do
@@ -213,10 +215,10 @@ describe Dnsimple::Client, ".templates" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(2)
 
-      result = results[0]
-      expect(result.id).to eq(8869)
-      result = results[1]
-      expect(result.id).to eq(8868)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::TemplateRecord)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
   end
 
@@ -238,7 +240,7 @@ describe Dnsimple::Client, ".templates" do
       result = subject.create_record(1, { name: "", record_type: "", content: "" })
 
       expect(result).to be_a(Dnsimple::Struct::TemplateRecord)
-      expect(result.id).to eq(8868)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when something does not exist" do
@@ -311,7 +313,7 @@ describe Dnsimple::Client, ".templates" do
       result = subject.update_record(1, 2, {})
 
       expect(result).to be_a(Dnsimple::Struct::TemplateRecord)
-      expect(result.id).to eq(8868)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when something does not exist" do

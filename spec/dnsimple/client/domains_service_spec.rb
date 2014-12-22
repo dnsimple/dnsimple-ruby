@@ -24,10 +24,10 @@ describe Dnsimple::Client, ".domains" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(2)
 
-      result = results[0]
-      expect(result.id).to eq(1)
-      result = results[1]
-      expect(result.id).to eq(2)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Domain)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
   end
 
@@ -51,7 +51,7 @@ describe Dnsimple::Client, ".domains" do
       result = subject.create(attributes)
 
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to eq(1)
+      expect(result.id).to be_a(Fixnum)
     end
   end
 
@@ -137,7 +137,7 @@ describe Dnsimple::Client, ".domains" do
   end
 
 
-  describe "#list" do
+  describe "#list_records" do
     before do
       stub_request(:get, %r[/v1/domains/.+/records$]).
           to_return(read_fixture("domains_records/index/success.http"))
@@ -156,10 +156,10 @@ describe Dnsimple::Client, ".domains" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(7)
 
-      result = results[0]
-      expect(result.id).to eq(36)
-      result = results[1]
-      expect(result.id).to eq(37)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Record)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
 
     context "when something does not exist" do
@@ -192,7 +192,7 @@ describe Dnsimple::Client, ".domains" do
       result = subject.create_record("example.com", { name: "", record_type: "", content: "" })
 
       expect(result).to be_a(Dnsimple::Struct::Record)
-      expect(result.id).to eq(3554751)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when something does not exist" do
@@ -207,7 +207,7 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
-  describe "#find" do
+  describe "#find_records" do
     before do
       stub_request(:get, %r[/v1/domains/.+/records/.+$]).
           to_return(read_fixture("domains_records/show/success.http"))
@@ -265,7 +265,7 @@ describe Dnsimple::Client, ".domains" do
       result = subject.update_record("example.com", 2, {})
 
       expect(result).to be_a(Dnsimple::Struct::Record)
-      expect(result.id).to eq(3554751)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when something does not exist" do
@@ -338,7 +338,7 @@ describe Dnsimple::Client, ".domains" do
       result = subject.enable_auto_renewal("example.com")
 
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to eq(1)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when the domain does not exist" do
@@ -370,7 +370,7 @@ describe Dnsimple::Client, ".domains" do
       result = subject.disable_auto_renewal("example.com")
 
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to eq(1)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when the domain does not exist" do
@@ -405,10 +405,10 @@ describe Dnsimple::Client, ".domains" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(2)
 
-      result = results[0]
-      expect(result.id).to eq(155)
-      result = results[1]
-      expect(result.id).to eq(156)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Membership)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
 
     context "when the domain does not exist" do
@@ -441,7 +441,7 @@ describe Dnsimple::Client, ".domains" do
       result = subject.create_membership("example.com", "someone@example.com")
 
       expect(result).to be_a(Dnsimple::Struct::Membership)
-      expect(result.id).to eq(155)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when the domain does not exist" do
@@ -507,10 +507,10 @@ describe Dnsimple::Client, ".domains" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(2)
 
-      result = results[0]
-      expect(result.id).to eq(1)
-      result = results[1]
-      expect(result.id).to eq(2)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::EmailForward)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
 
     context "when the domain does not exist" do
@@ -543,7 +543,7 @@ describe Dnsimple::Client, ".domains" do
       result = subject.create_email_forward("example.com", { from: "", to: "" })
 
       expect(result).to be_a(Dnsimple::Struct::EmailForward)
-      expect(result.id).to eq(1)
+      expect(result.id).to be_a(Fixnum)
     end
 
     context "when the domain does not exist" do

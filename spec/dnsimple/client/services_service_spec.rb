@@ -24,12 +24,10 @@ describe Dnsimple::Client, ".services" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(3)
 
-      result = results[0]
-      expect(result.id).to eq(1)
-      result = results[1]
-      expect(result.id).to eq(2)
-      result = results[2]
-      expect(result.id).to eq(35)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Service)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
   end
 
@@ -87,8 +85,10 @@ describe Dnsimple::Client, ".services" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(1)
 
-      result = results[0]
-      expect(result.id).to eq(1)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Service)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
   end
 
@@ -111,8 +111,10 @@ describe Dnsimple::Client, ".services" do
       expect(results).to be_a(Array)
       expect(results.size).to eq(1)
 
-      result = results[0]
-      expect(result.id).to eq(1)
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Service)
+        expect(result.id).to be_a(Fixnum)
+      end
     end
   end
 
