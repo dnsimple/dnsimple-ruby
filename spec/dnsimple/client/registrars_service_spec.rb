@@ -96,21 +96,21 @@ describe Dnsimple::Client, ".registrars" do
   end
 
 
-  describe "#extended_attributes" do
+  describe "#list_extended_attributes" do
     before do
       stub_request(:get, %r[/v1/extended_attributes/.+$]).
-          to_return(read_fixture("registrars/extended-attributes/list/success.http"))
+          to_return(read_fixture("registrars_extended_attributes/list/success.http"))
     end
 
     it "builds the correct request" do
-      subject.extended_attributes("uk")
+      subject.list_extended_attributes("uk")
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/extended_attributes/uk").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the extended attributes" do
-      results = subject.extended_attributes("uk")
+      results = subject.list_extended_attributes("uk")
 
       expect(results).to be_a(Array)
       expect(results.size).to eq(4)
@@ -127,6 +127,33 @@ describe Dnsimple::Client, ".registrars" do
       expect(option.title).to eq("UK Individual")
       expect(option.value).to eq("IND")
       expect(option.description).to eq("UK Individual (our default value)")
+    end
+  end
+
+
+  describe "#list_prices" do
+    before do
+      stub_request(:get, %r[/v1/prices$]).
+          to_return(read_fixture("registrars_prices/list/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.list_prices
+
+      expect(WebMock).to have_requested(:get, "https://api.zone/v1/prices").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the prices" do
+      results = subject.list_prices
+
+      expect(results).to be_a(Array)
+      expect(results.size).to be > 0
+
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Price)
+        expect(result.tld).to be_a(String)
+      end
     end
   end
 
