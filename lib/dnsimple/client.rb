@@ -1,15 +1,7 @@
 require 'dnsimple/compatibility'
 require 'dnsimple/extra'
 require 'dnsimple/struct'
-require 'dnsimple/client/client_service'
-require 'dnsimple/client/certificates_service'
-require 'dnsimple/client/contacts_service'
-require 'dnsimple/client/domains_service'
-require 'dnsimple/client/name_servers_service'
-require 'dnsimple/client/registrars_service'
-require 'dnsimple/client/services_service'
-require 'dnsimple/client/templates_service'
-require 'dnsimple/client/users_service'
+require 'dnsimple/client/clients'
 
 module Dnsimple
 
