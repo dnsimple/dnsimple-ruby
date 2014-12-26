@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    class DomainsService < ClientService
+    module DomainsForwards
 
       # Lists the email forwards for a domain.
       #

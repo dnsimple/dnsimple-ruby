@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    class TemplatesService < ClientService
+    module TemplatesRecords
 
       # Lists the records for a template.
       #

@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    class DomainsService < ClientService
+    module DomainsSharing
 
       # Lists the memberships.
       #

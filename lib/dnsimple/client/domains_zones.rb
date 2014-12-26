@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    class DomainsService < ClientService
+    module DomainsZones
 
       # Gets a domain zone as zone file.
       #

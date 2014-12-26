@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    class ServicesService < ClientService
+    module ServicesDomains
 
       # Lists the services applied to a domain.
       #
