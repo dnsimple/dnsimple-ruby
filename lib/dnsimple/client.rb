@@ -56,7 +56,7 @@ module Dnsimple
 
     # Make a HTTP GET request.
     #
-    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#api_endpoint}
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
     def get(path, options = {})
@@ -65,7 +65,7 @@ module Dnsimple
 
     # Make a HTTP POST request.
     #
-    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#api_endpoint}
     # @param  [Hash] options Body and header params for request
     # @return [HTTParty::Response]
     def post(path, options = {})
@@ -74,7 +74,7 @@ module Dnsimple
 
     # Make a HTTP PUT request.
     #
-    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#api_endpoint}
     # @param  [Hash] options Body and header params for request
     # @return [HTTParty::Response]
     def put(path, options = {})
@@ -83,7 +83,7 @@ module Dnsimple
 
     # Make a HTTP DELETE request.
     #
-    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#api_endpoint}
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
     def delete(path, options = {})
@@ -94,7 +94,7 @@ module Dnsimple
     # Make a HTTP request.
     #
     # @param  [String] method The HTTP method
-    # @param  [String] url The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#api_endpoint}
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
     def request(method, path, data, options = {})
