@@ -7,7 +7,7 @@ describe Dnsimple::Client, ".domains / autorenewals" do
 
   describe "#enable_auto_renewal" do
     before do
-      stub_request(:post, %r[/v1/domains/.+/auto_renewal]).
+      stub_request(:post, %r[/v1/domains/.+/auto_renewal$]).
           to_return(read_fixture("domains_autorenewal/enable/success.http"))
     end
 
@@ -39,7 +39,7 @@ describe Dnsimple::Client, ".domains / autorenewals" do
 
   describe "#disable_auto_renewal" do
     before do
-      stub_request(:delete, %r[/v1/domains/.+/auto_renewal]).
+      stub_request(:delete, %r[/v1/domains/.+/auto_renewal$]).
           to_return(read_fixture("domains_autorenewal/disable/success.http"))
     end
 
