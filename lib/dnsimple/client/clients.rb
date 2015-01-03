@@ -1,6 +1,47 @@
 module Dnsimple
   class Client
 
+    # @return [Dnsimple::Client::CertificatesService] The certificate-related API proxy.
+    def certificates
+      @services[:certificates] ||= Client::CertificatesService.new(self)
+    end
+
+    # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
+    def contacts
+      @services[:contacts] ||= Client::ContactsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::DomainsService] The domain-related API proxy.
+    def domains
+      @services[:domains] ||= Client::DomainsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::NameServersService] The name server-related API proxy.
+    def name_servers
+      @services[:name_servers] ||= Client::NameServersService.new(self)
+    end
+
+    # @return [Dnsimple::Client::RegistrarService] The registrar-related API proxy.
+    def registrar
+      @services[:registrar] ||= Client::RegistrarService.new(self)
+    end
+
+    # @return [Dnsimple::Client::ServicesService] The service-related API proxy.
+    def services
+      @services[:services] ||= Client::ServicesService.new(self)
+    end
+
+    # @return [Dnsimple::Client::TemplatesService] The template-related API proxy.
+    def templates
+      @services[:templates] ||= Client::TemplatesService.new(self)
+    end
+
+    # @return [Dnsimple::Client::UsersService] The user-related API proxy.
+    def users
+      @services[:users] ||= Client::UsersService.new(self)
+    end
+
+
     class ClientService < ::Struct.new(:client)
     end
 
@@ -8,14 +49,14 @@ module Dnsimple
     require 'dnsimple/client/certificates_main'
 
     class CertificatesService < ClientService
-      include CertificatesMain
+      include Client::CertificatesMain
     end
 
 
     require 'dnsimple/client/contacts_main'
 
     class ContactsService < ClientService
-      include ContactsMain
+      include Client::ContactsMain
     end
 
 
@@ -28,27 +69,27 @@ module Dnsimple
     require 'dnsimple/client/domains_zones'
 
     class DomainsService < ClientService
-      include DomainsMain
-      include DomainsRecords
-      include DomainsAutorenewals
-      include DomainsPrivacy
-      include DomainsSharing
-      include DomainsForwards
-      include DomainsZones
+      include Client::DomainsMain
+      include Client::DomainsRecords
+      include Client::DomainsAutorenewals
+      include Client::DomainsPrivacy
+      include Client::DomainsSharing
+      include Client::DomainsForwards
+      include Client::DomainsZones
     end
 
 
     require 'dnsimple/client/name_servers_main'
 
     class NameServersService < ClientService
-      include NameServersMain
+      include Client::NameServersMain
     end
 
 
     require 'dnsimple/client/registrar'
 
     class RegistrarService < ClientService
-      include Registrar
+      include Client::Registrar
     end
 
 
@@ -56,8 +97,8 @@ module Dnsimple
     require 'dnsimple/client/services_domains'
 
     class ServicesService < ClientService
-      include ServicesMain
-      include ServicesDomains
+      include Client::ServicesMain
+      include Client::ServicesDomains
     end
 
 
@@ -65,15 +106,15 @@ module Dnsimple
     require 'dnsimple/client/templates_records'
 
     class TemplatesService < ClientService
-      include TemplatesMain
-      include TemplatesRecords
+      include Client::TemplatesMain
+      include Client::TemplatesRecords
     end
 
 
     require 'dnsimple/client/users_main'
 
     class UsersService < ClientService
-      include UsersMain
+      include Client::UsersMain
     end
 
   end

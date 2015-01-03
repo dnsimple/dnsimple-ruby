@@ -121,47 +121,6 @@ module Dnsimple
     end
 
 
-    # @return [Dnsimple::Client::CertificatesService] The certificate-related API proxy.
-    def certificates
-      @services[:certificates] ||= Client::CertificatesService.new(self)
-    end
-
-    # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
-    def contacts
-      @services[:contacts] ||= Client::ContactsService.new(self)
-    end
-
-    # @return [Dnsimple::Client::DomainsService] The domain-related API proxy.
-    def domains
-      @services[:domains] ||= Client::DomainsService.new(self)
-    end
-
-    # @return [Dnsimple::Client::NameServersService] The name server-related API proxy.
-    def name_servers
-      @services[:name_servers] ||= Client::NameServersService.new(self)
-    end
-
-    # @return [Dnsimple::Client::RegistrarService] The registrar-related API proxy.
-    def registrar
-      @services[:registrar] ||= Client::RegistrarService.new(self)
-    end
-
-    # @return [Dnsimple::Client::ServicesService] The service-related API proxy.
-    def services
-      @services[:services] ||= Client::ServicesService.new(self)
-    end
-
-    # @return [Dnsimple::Client::TemplatesService] The template-related API proxy.
-    def templates
-      @services[:templates] ||= Client::TemplatesService.new(self)
-    end
-
-    # @return [Dnsimple::Client::UsersService] The user-related API proxy.
-    def users
-      @services[:users] ||= Client::UsersService.new(self)
-    end
-
-
     # @return [String] Base URL for API requests.
     def api_endpoint
       File.join(@api_endpoint, "")
