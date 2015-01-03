@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module UsersMain
+    module Users
 
       # Fetches the information about the authenticated user.
       #

@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module CertificatesMain
+    module Certificates
 
       # Lists the certificates for a domain.
       #

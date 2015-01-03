@@ -46,21 +46,21 @@ module Dnsimple
     end
 
 
-    require 'dnsimple/client/certificates_main'
+    require 'dnsimple/client/certificates'
 
     class CertificatesService < ClientService
-      include Client::CertificatesMain
+      include Client::Certificates
     end
 
 
-    require 'dnsimple/client/contacts_main'
+    require 'dnsimple/client/contacts'
 
     class ContactsService < ClientService
-      include Client::ContactsMain
+      include Client::Contacts
     end
 
 
-    require 'dnsimple/client/domains_main'
+    require 'dnsimple/client/domains'
     require 'dnsimple/client/domains_records'
     require 'dnsimple/client/domains_autorenewals'
     require 'dnsimple/client/domains_privacy'
@@ -69,7 +69,7 @@ module Dnsimple
     require 'dnsimple/client/domains_zones'
 
     class DomainsService < ClientService
-      include Client::DomainsMain
+      include Client::Domains
       include Client::DomainsRecords
       include Client::DomainsAutorenewals
       include Client::DomainsPrivacy
@@ -79,10 +79,10 @@ module Dnsimple
     end
 
 
-    require 'dnsimple/client/name_servers_main'
+    require 'dnsimple/client/name_servers'
 
     class NameServersService < ClientService
-      include Client::NameServersMain
+      include Client::NameServers
     end
 
 
@@ -93,28 +93,28 @@ module Dnsimple
     end
 
 
-    require 'dnsimple/client/services_main'
+    require 'dnsimple/client/services'
     require 'dnsimple/client/services_domains'
 
     class ServicesService < ClientService
-      include Client::ServicesMain
+      include Client::Services
       include Client::ServicesDomains
     end
 
 
-    require 'dnsimple/client/templates_main'
+    require 'dnsimple/client/templates'
     require 'dnsimple/client/templates_records'
 
     class TemplatesService < ClientService
-      include Client::TemplatesMain
+      include Client::Templates
       include Client::TemplatesRecords
     end
 
 
-    require 'dnsimple/client/users_main'
+    require 'dnsimple/client/users'
 
     class UsersService < ClientService
-      include Client::UsersMain
+      include Client::Users
     end
 
   end

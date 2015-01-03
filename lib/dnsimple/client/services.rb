@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module ServicesMain
+    module Services
 
       # Lists the supported services.
       #

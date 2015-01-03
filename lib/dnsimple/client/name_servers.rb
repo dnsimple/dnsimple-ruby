@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module NameServersMain
+    module NameServers
 
       # Lists the name servers for a domain.
       #

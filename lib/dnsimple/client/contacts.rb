@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module ContactsMain
+    module Contacts
 
       # Lists the contacts in the account.
       #

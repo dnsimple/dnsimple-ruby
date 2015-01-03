@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module DomainsMain
+    module Domains
 
       # Lists the domains in the account.
       #

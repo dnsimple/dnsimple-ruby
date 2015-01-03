@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module TemplatesMain
+    module Templates
 
       # Lists the templates in the account.
       #
