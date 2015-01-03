@@ -2,7 +2,11 @@
 
 #### 2.0.0.alpha
 
+2.0 is a complete client redesign.
+
 - NEW: Add support changing name servers (GH-52). Thanks @rosscooperman
+
+- NEW: Add support for all DNSimple API methods.
 
 - CHANGED: Drop 1.8.7, 1.9.2 support. Required Ruby >= 1.9.3.
 
@@ -11,8 +15,6 @@
 - CHANGED: Renamed the Gem from "dnsimple-ruby" to "dnsimple" (GH-23).
 
 - CHANGED: Renamed the namespace from DNSimple to Dnsimple.
-
-- CHANGED: Redesigned client API.
 
 - REMOVED: The library no longer provides built-in support for loading the credentials from a config file.
 
