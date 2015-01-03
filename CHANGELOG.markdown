@@ -4,7 +4,7 @@
 
 - NEW: Add support changing name servers (GH-52). Thanks @rosscooperman
 
-- CHANGED: Drop 1.8.7 support.
+- CHANGED: Drop 1.8.7, 1.9.2 support. Required Ruby >= 1.9.3.
 
 - CHANGED: This package no longer provides a CLI. The CLI has been extracted to [aetrion/dnsimple-ruby-cli](https://github.com/aetrion/dnsimple-ruby-cli)
 
