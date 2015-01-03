@@ -141,9 +141,9 @@ module Dnsimple
       @services[:name_servers] ||= Client::NameServersService.new(self)
     end
 
-    # @return [Dnsimple::Client::RegistrarsService] The registrar-related API proxy.
-    def registrars
-      @services[:registrars] ||= Client::RegistrarsService.new(self)
+    # @return [Dnsimple::Client::RegistrarService] The registrar-related API proxy.
+    def registrar
+      @services[:registrar] ||= Client::RegistrarService.new(self)
     end
 
     # @return [Dnsimple::Client::ServicesService] The service-related API proxy.

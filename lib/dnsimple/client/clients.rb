@@ -45,10 +45,10 @@ module Dnsimple
     end
 
 
-    require 'dnsimple/client/registrars_main'
+    require 'dnsimple/client/registrar'
 
-    class RegistrarsService < ClientService
-      include RegistrarsMain
+    class RegistrarService < ClientService
+      include Registrar
     end
 
 

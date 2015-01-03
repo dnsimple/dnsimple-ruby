@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe Dnsimple::Client, ".registrars" do
+describe Dnsimple::Client, ".registrar" do
 
-  subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").registrars }
+  subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").registrar }
 
 
   describe "#check" do
     before do
       stub_request(:get, %r[/v1/domains/.+/check$]).
-          to_return(read_fixture("registrars/check/registered.http"))
+          to_return(read_fixture("registrar/check/registered.http"))
     end
 
     it "builds the correct request" do
@@ -21,7 +21,7 @@ describe Dnsimple::Client, ".registrars" do
     context "the domain is registered" do
       before do
         stub_request(:get, %r[/v1/domains/.+/check$]).
-            to_return(read_fixture("registrars/check/registered.http"))
+            to_return(read_fixture("registrar/check/registered.http"))
       end
 
       it "returns available" do
@@ -32,7 +32,7 @@ describe Dnsimple::Client, ".registrars" do
     context "the domain is available" do
       before do
         stub_request(:get, %r[/v1/domains/.+/check$]).
-            to_return(read_fixture("registrars/check/available.http"))
+            to_return(read_fixture("registrar/check/available.http"))
       end
 
       it "returns available" do
@@ -44,7 +44,7 @@ describe Dnsimple::Client, ".registrars" do
   describe "#register" do
     before do
       stub_request(:post, %r[/v1/domain_registrations]).
-          to_return(read_fixture("registrars/register/success.http"))
+          to_return(read_fixture("registrar/register/success.http"))
     end
 
     it "builds the correct request" do
@@ -66,7 +66,7 @@ describe Dnsimple::Client, ".registrars" do
   describe "#renew" do
     before do
       stub_request(:post, %r[/v1/domain_renewals]).
-          to_return(read_fixture("registrars/renew/success.http"))
+          to_return(read_fixture("registrar/renew/success.http"))
     end
 
     it "builds the correct request" do
@@ -99,7 +99,7 @@ describe Dnsimple::Client, ".registrars" do
   describe "#list_extended_attributes" do
     before do
       stub_request(:get, %r[/v1/extended_attributes/.+$]).
-          to_return(read_fixture("registrars_extended_attributes/list/success.http"))
+          to_return(read_fixture("registrar_extended_attributes/list/success.http"))
     end
 
     it "builds the correct request" do
@@ -134,7 +134,7 @@ describe Dnsimple::Client, ".registrars" do
   describe "#list_prices" do
     before do
       stub_request(:get, %r[/v1/prices$]).
-          to_return(read_fixture("registrars_prices/list/success.http"))
+          to_return(read_fixture("registrar_prices/list/success.http"))
     end
 
     it "builds the correct request" do

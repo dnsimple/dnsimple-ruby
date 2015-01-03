@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module RegistrarsMain
+    module Registrar
 
       # Checks the availability of a domain name.
       #
