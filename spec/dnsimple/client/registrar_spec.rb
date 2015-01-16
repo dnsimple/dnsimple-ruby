@@ -24,8 +24,11 @@ describe Dnsimple::Client, ".registrar" do
             to_return(read_fixture("registrar/check/registered.http"))
       end
 
-      it "returns available" do
-        expect(subject.check("example.com")).to eq("registered")
+      it "returns the result" do
+        result = subject.check("example.com")
+
+        expect(result).to be_a(Hash)
+        expect(result['status']).to eq("unavailable")
       end
     end
 
@@ -35,8 +38,47 @@ describe Dnsimple::Client, ".registrar" do
             to_return(read_fixture("registrar/check/available.http"))
       end
 
-      it "returns available" do
-        expect(subject.check("example.com")).to eq("available")
+      it "returns the result" do
+        result = subject.check("example.com")
+
+        expect(result).to be_a(Hash)
+        expect(result['status']).to eq("available")
+      end
+    end
+  end
+
+  describe "#available?" do
+    before do
+      stub_request(:get, %r[/v1/domains/.+/check$]).
+          to_return(read_fixture("registrar/check/registered.http"))
+    end
+
+    it "builds the correct request" do
+      subject.check("example.com")
+
+      expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/check").
+                             with(headers: { 'Accept' => 'application/json' })
+    end
+
+    context "the domain is registered" do
+      before do
+        stub_request(:get, %r[/v1/domains/.+/check$]).
+            to_return(read_fixture("registrar/check/registered.http"))
+      end
+
+      it "returns false" do
+        expect(subject.available?("example.com")).to be_falsey
+      end
+    end
+
+    context "the domain is available" do
+      before do
+        stub_request(:get, %r[/v1/domains/.+/check$]).
+            to_return(read_fixture("registrar/check/available.http"))
+      end
+
+      it "returns true" do
+        expect(subject.available?("example.com")).to be_truthy
       end
     end
   end

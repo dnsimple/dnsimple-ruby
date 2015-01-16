@@ -8,15 +8,28 @@ module Dnsimple
       #
       # @param  [#to_s] name The domain name to check.
       #
-      # @return [String] "available" or "registered"
+      # @return [Hash] The response containing the status, price, and more details.
       # @raise  [RequestError] When the request fails.
-      def check(name, options={})
-        begin
-          client.get("v1/domains/#{name}/check", options)
-          "registered"
-        rescue NotFoundError
-          "available"
+      def check(name)
+        response = begin
+          client.get("v1/domains/#{name}/check")
+        rescue NotFoundError => e
+          e.response
         end
+
+        response.parsed_response
+      end
+
+      # Checks the availability of a domain name.
+      #
+      # @see http://developer.dnsimple.com/domains/registry/#check
+      #
+      # @param  [#to_s] name The domain name to check.
+      #
+      # @return [Boolean] true if the domain is available
+      # @raise  [RequestError] When the request fails.
+      def available?(name)
+        check(name)["status"] == "available"
       end
 
       # Registers a domain.
