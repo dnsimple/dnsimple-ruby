@@ -26,13 +26,13 @@ describe Dnsimple::Client, ".domains / autorenewals" do
     end
 
     context "when the domain does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
             to_return(read_fixture("domains_autorenewal/notfound-domain.http"))
 
         expect {
           subject.enable_auto_renewal("example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -58,13 +58,13 @@ describe Dnsimple::Client, ".domains / autorenewals" do
     end
 
     context "when the domain does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
             to_return(read_fixture("domains_autorenewal/notfound-domain.http"))
 
         expect {
           subject.disable_auto_renewal("example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end

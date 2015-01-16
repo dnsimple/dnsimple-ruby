@@ -9,7 +9,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       #
       # @return [String]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def zone(domain)
         response = client.get("v1/domains/#{domain}/zone")

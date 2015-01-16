@@ -9,7 +9,7 @@ module Dnsimple
       # @param  [#to_s] template The template id or short-name.
       #
       # @return [Array<Struct::TemplateRecord>]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def list_records(template)
         response = client.get("v1/templates/#{template}/records")
@@ -25,7 +25,7 @@ module Dnsimple
       # @param  [Hash] attributes
       #
       # @return [Struct::TemplateRecord]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def create_record(template, attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
@@ -43,7 +43,7 @@ module Dnsimple
       # @param  [Fixnum] record The record id.
       #
       # @return [Struct::TemplateRecord]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def find_record(template, record)
         response = client.get("v1/templates/#{template}/records/#{record}")
@@ -60,7 +60,7 @@ module Dnsimple
       # @param  [Hash] attributes
       #
       # @return [Struct::TemplateRecord]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def update_record(template, record, attributes = {})
         options  = { dns_template_record: attributes }
@@ -77,7 +77,7 @@ module Dnsimple
       # @param  [Fixnum] record The record id.
       #
       # @return [Template]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete_record(template, record)
         client.delete("v1/templates/#{template}/records/#{record}")

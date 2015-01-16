@@ -31,13 +31,13 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("domains/notfound.http"))
 
         expect {
           subject.list("example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -75,13 +75,13 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("certificates/notfound.http"))
 
         expect {
           subject.find("example.com", 2)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -116,13 +116,13 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
             to_return(read_fixture("domains/notfound.http"))
 
         expect {
           subject.purchase("example.com", "www", 100)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -149,13 +149,13 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:put, %r[/v1]).
             to_return(read_fixture("certificates/notfound.http"))
 
         expect {
           subject.configure("example.com", 2)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -182,13 +182,13 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:put, %r[/v1]).
             to_return(read_fixture("certificates/notfound.http"))
 
         expect {
           subject.submit("example.com", 2, "admin@example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end

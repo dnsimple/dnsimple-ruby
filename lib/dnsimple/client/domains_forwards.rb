@@ -9,7 +9,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       #
       # @return [Array<Struct::EmailForward>]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def list_email_forwards(domain)
         response = client.get("v1/domains/#{domain}/email_forwards")
@@ -25,7 +25,7 @@ module Dnsimple
       # @param  [Hash] attributes
       #
       # @return [Struct::EmailForward]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def create_email_forward(domain, attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:from, :to])
@@ -43,7 +43,7 @@ module Dnsimple
       # @param  [Fixnum] forward The forward id.
       #
       # @return [Struct::EmailForward]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def find_email_forward(domain, forward)
         response = client.get("v1/domains/#{domain}/email_forwards/#{forward}")
@@ -59,7 +59,7 @@ module Dnsimple
       # @param  [Fixnum] forward The forward id.
       #
       # @return [void]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete_email_forward(domain, forward)
         client.delete("v1/domains/#{domain}/email_forwards/#{forward}")

@@ -55,13 +55,13 @@ describe Dnsimple::Client, ".services" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("services/notfound.http"))
 
         expect {
           subject.find(1)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end

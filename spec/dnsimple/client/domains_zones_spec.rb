@@ -26,13 +26,13 @@ describe Dnsimple::Client, ".domains / zones" do
     end
 
     context "when domain does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("domains_zones/notfound-domain.http"))
 
         expect {
           subject.zone("example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end

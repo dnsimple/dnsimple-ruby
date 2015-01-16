@@ -10,7 +10,7 @@ module Dnsimple
       # @param  [Hash] options
       #
       # @return [Array<Struct::Record>]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def list_records(domain, options = {})
         response = client.get("v1/domains/#{domain}/records", options)
@@ -26,7 +26,7 @@ module Dnsimple
       # @param  [Hash] attributes
       #
       # @return [Struct::Record]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def create_record(domain, attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
@@ -44,7 +44,7 @@ module Dnsimple
       # @param  [Fixnum] record The record id.
       #
       # @return [Struct::Record]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def find_record(domain, record)
         response = client.get("v1/domains/#{domain}/records/#{record}")
@@ -61,7 +61,7 @@ module Dnsimple
       # @param  [Hash] attributes
       #
       # @return [Struct::Record]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def update_record(domain, record, attributes = {})
         options  = { record: attributes }
@@ -78,7 +78,7 @@ module Dnsimple
       # @param  [Fixnum] record The record id.
       #
       # @return [void]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete_record(domain, record)
         client.delete("v1/domains/#{domain}/records/#{record}")

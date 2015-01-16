@@ -114,7 +114,7 @@ module Dnsimple
       when 401
         raise (response.headers[HEADER_OTP_TOKEN] == "required" ? TwoFactorAuthenticationRequired : AuthenticationFailed), response["message"]
       when 404
-        raise RecordNotFound.new(response)
+        raise NotFoundError.new(response)
       else
         raise RequestError.new(response)
       end

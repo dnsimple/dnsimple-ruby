@@ -37,7 +37,7 @@ module Dnsimple
       # @param  [#to_s] template The template id or short-name.
       #
       # @return [Struct::Template]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def find(template)
         response = client.get("v1/templates/#{template}")
@@ -53,7 +53,7 @@ module Dnsimple
       # @param  [Hash] attributes
       #
       # @return [Struct::Template]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def update(template, attributes = {})
         options  = { dns_template: attributes }
@@ -71,7 +71,7 @@ module Dnsimple
       # @param  [#to_s] template The template id or short-name.
       #
       # @return [void]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete(template)
         client.delete("v1/templates/#{template}")
@@ -86,7 +86,7 @@ module Dnsimple
       # @param  [#to_s] template The template id or short-name.
       #
       # @return [void]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def apply(domain, template)
         response = client.post("v1/domains/#{domain}/templates/#{template}/apply")

@@ -23,13 +23,13 @@ describe Dnsimple::Client, ".name_servers" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("nameservers/notfound-domain.http"))
 
         expect {
           subject.list("example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -53,13 +53,13 @@ describe Dnsimple::Client, ".name_servers" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
             to_return(read_fixture("nameservers/notfound-domain.http"))
 
         expect {
           subject.change("example.com", %w())
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -86,13 +86,13 @@ describe Dnsimple::Client, ".name_servers" do
     end
 
     context "when the domain does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
             to_return(read_fixture("nameservers/notfound-domain.http"))
 
         expect {
           subject.register("example.com", "ns1.example.com", "127.0.0.1")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -117,13 +117,13 @@ describe Dnsimple::Client, ".name_servers" do
     end
 
     context "when the domain does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
             to_return(read_fixture("nameservers/notfound-domain.http"))
 
         expect {
           subject.deregister("example.com", "ns1.example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end

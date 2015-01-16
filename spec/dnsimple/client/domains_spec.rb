@@ -85,13 +85,13 @@ describe Dnsimple::Client, ".domains" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("domains/notfound.http"))
 
         expect {
           subject.find("example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -125,13 +125,13 @@ describe Dnsimple::Client, ".domains" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
             to_return(read_fixture("domains/notfound.http"))
 
         expect {
           subject.delete("example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end

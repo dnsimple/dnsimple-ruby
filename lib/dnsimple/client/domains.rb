@@ -21,7 +21,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       #
       # @return [Struct::Domain]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def find(domain)
         response = client.get("v1/domains/#{domain}")
@@ -54,7 +54,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       #
       # @return [void]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete(domain)
         client.delete("v1/domains/#{domain}")

@@ -10,7 +10,7 @@ module Dnsimple
       # @param  [Hash] options
       #
       # @return [Array<Struct::Certificate>]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def list(domain, options = {})
         response = client.get("v1/domains/#{domain}/certificates", options)
@@ -26,7 +26,7 @@ module Dnsimple
       # @param  [Fixnum] certificate_id The certificate ID.
       #
       # @return [Struct::Certificate]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def find(domain, certificate_id)
         response = client.get("v1/domains/#{domain}/certificates/#{certificate_id}")
@@ -54,7 +54,7 @@ module Dnsimple
       # @param  [Fixnum] contact_id The ID of the contact associated to the certificate.
       #
       # @return [Struct::Certificate]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def purchase(domain, name, contact_id, options = {})
         options  = Extra.deep_merge(options, { certificate: { name: name, contact_id: contact_id }})
@@ -69,7 +69,7 @@ module Dnsimple
       # @param  [Fixnum] certificate_id The certificate ID.
       #
       # @return [Struct::Certificate]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def configure(domain, certificate_id)
         response = client.put("v1/domains/#{domain}/certificates/#{certificate_id}/configure")
@@ -84,7 +84,7 @@ module Dnsimple
       # @param  [Fixnum] email The approver email.
       #
       # @return [Struct::Certificate]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def submit(domain, certificate_id, email)
         options = { certificate: { approver_email: email }}

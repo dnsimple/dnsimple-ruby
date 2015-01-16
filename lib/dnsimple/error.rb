@@ -12,7 +12,7 @@ module Dnsimple
     end
   end
 
-  class RecordNotFound < RequestError
+  class NotFoundError < RequestError
   end
 
   class AuthenticationError < Error

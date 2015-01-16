@@ -31,13 +31,13 @@ describe Dnsimple::Client, ".domains / sharing" do
     end
 
     context "when the domain does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("domains_sharing/notfound-domain.http"))
 
         expect {
           subject.list_memberships("example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -64,13 +64,13 @@ describe Dnsimple::Client, ".domains / sharing" do
     end
 
     context "when the domain does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
             to_return(read_fixture("domains_forwards/notfound-domain.http"))
 
         expect {
           subject.create_membership("example.com", "someone@example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -95,13 +95,13 @@ describe Dnsimple::Client, ".domains / sharing" do
     end
 
     context "when the membership does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
             to_return(read_fixture("domains_sharing/notfound.http"))
 
         expect {
           subject.delete_membership("example.com", 2)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end

@@ -9,7 +9,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       #
       # @return [Array<Struct::Service>]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def applied(domain)
         response = client.get("v1/domains/#{domain}/applied_services")
@@ -24,7 +24,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       #
       # @return [Array<Struct::Service>]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def available(domain)
         response = client.get("v1/domains/#{domain}/available_services")
@@ -40,7 +40,7 @@ module Dnsimple
       # @param  [Fixnum] service The service id.
       #
       # @return [void]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def apply(domain, service)
         options  = { service: { id: service }}
@@ -56,7 +56,7 @@ module Dnsimple
       # @param  [Fixnum] service The service id.
       #
       # @return [void]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def unapply(domain, service)
         response = client.delete("v1/domains/#{domain}/applied_services/#{service}")

@@ -53,13 +53,13 @@ describe Dnsimple::Client, ".templates / records" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
             to_return(read_fixture("templates_records/notfound.http"))
 
         expect {
           subject.create_record(1, { name: "", record_type: "", content: "" })
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -93,13 +93,13 @@ describe Dnsimple::Client, ".templates / records" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("templates_records/notfound.http"))
 
         expect {
           subject.find_record(1, 2)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -126,13 +126,13 @@ describe Dnsimple::Client, ".templates / records" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:put, %r[/v1]).
             to_return(read_fixture("templates_records/notfound.http"))
 
         expect {
           subject.update_record(1, 2, {})
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -166,13 +166,13 @@ describe Dnsimple::Client, ".templates / records" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
             to_return(read_fixture("templates_records/notfound.http"))
 
         expect {
           subject.delete_record(1, 2)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end

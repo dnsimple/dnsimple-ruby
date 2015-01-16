@@ -92,13 +92,13 @@ describe Dnsimple::Client, ".contacts" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("contacts/notfound.http"))
 
         expect {
           subject.find(1)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -125,13 +125,13 @@ describe Dnsimple::Client, ".contacts" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:put, %r[/v1]).
             to_return(read_fixture("contacts/notfound.http"))
 
         expect {
           subject.update(1, {})
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -165,13 +165,13 @@ describe Dnsimple::Client, ".contacts" do
     end
 
     context "when something does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
             to_return(read_fixture("contacts/notfound.http"))
 
         expect {
           subject.delete(1)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end

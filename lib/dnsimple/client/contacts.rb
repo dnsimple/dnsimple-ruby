@@ -37,7 +37,7 @@ module Dnsimple
       # @param  [Fixnum] contact The contact id.
       #
       # @return [Struct::Contact]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def find(contact)
         response = client.get("v1/contacts/#{contact}")
@@ -53,7 +53,7 @@ module Dnsimple
       # @param  [Hash] attributes
       #
       # @return [Struct::Contact]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def update(contact, attributes = {})
         options  = { contact: attributes }
@@ -71,7 +71,7 @@ module Dnsimple
       # @param  [Fixnum] contact The contact id.
       #
       # @return [void]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete(contact)
         client.delete("v1/contacts/#{contact}")

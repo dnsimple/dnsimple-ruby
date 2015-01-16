@@ -9,7 +9,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       #
       # @return [Array<String>] The delegates name servers.
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def list(domain)
         response = client.get("v1/domains/#{domain}/name_servers")
@@ -25,7 +25,7 @@ module Dnsimple
       # @param  [Array<String>] servers The name server list.
       #
       # @return [Array<String>] The delegates name servers.
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def change(domain, servers)
         servers = servers.inject({}) { |hash, server| hash.merge("ns#{hash.length + 1}" => server) }

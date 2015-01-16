@@ -21,7 +21,7 @@ module Dnsimple
       # @param  [Fixnum] service The service id.
       #
       # @return [Struct::Service]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def find(service)
         response = client.get("v1/services/#{service}")

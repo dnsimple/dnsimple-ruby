@@ -9,7 +9,7 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       #
       # @return [Array<Struct::Membership>]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def list_memberships(domain)
         response = client.get("v1/domains/#{domain}/memberships")
@@ -25,7 +25,7 @@ module Dnsimple
       # @param  [String] email
       #
       # @return [Struct::Membership]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def create_membership(domain, email)
         options  = { membership: { email: email }}
@@ -42,7 +42,7 @@ module Dnsimple
       # @param  [Fixnum] membership The membership id.
       #
       # @return [void]
-      # @raise  [RecordNotFound]
+      # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete_membership(domain, membership)
         client.delete("v1/domains/#{domain}/memberships/#{membership}")

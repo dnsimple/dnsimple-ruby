@@ -14,7 +14,7 @@ module Dnsimple
         begin
           client.get("v1/domains/#{name}/check", options)
           "registered"
-        rescue RecordNotFound
+        rescue NotFoundError
           "available"
         end
       end

@@ -31,13 +31,13 @@ describe Dnsimple::Client, ".domains / forwards" do
     end
 
     context "when the domain does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("domains_forwards/notfound-domain.http"))
 
         expect {
           subject.list_email_forwards("example.com")
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -64,13 +64,13 @@ describe Dnsimple::Client, ".domains / forwards" do
     end
 
     context "when the domain does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
             to_return(read_fixture("domains_forwards/notfound-domain.http"))
 
         expect {
           subject.create_email_forward("example.com", { from: "", to: "" })
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -101,13 +101,13 @@ describe Dnsimple::Client, ".domains / forwards" do
     end
 
     context "when forward does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
             to_return(read_fixture("domains_forwards/notfound.http"))
 
         expect {
           subject.find_email_forward("example.com", 2)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
@@ -132,13 +132,13 @@ describe Dnsimple::Client, ".domains / forwards" do
     end
 
     context "when the forward does not exist" do
-      it "raises RecordNotFound" do
+      it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
             to_return(read_fixture("domains_forwards/notfound.http"))
 
         expect {
           subject.delete_email_forward("example.com", 2)
-        }.to raise_error(Dnsimple::RecordNotFound)
+        }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
