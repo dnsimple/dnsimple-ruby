@@ -24,7 +24,7 @@ describe Dnsimple::Client do
       stub_request(:any, %r[/test])
 
       subject = described_class.new(username: "user", password: "pass")
-      subject.request(:get, "test", {})
+      subject.execute(:get, "test", {})
 
       expect(WebMock).to have_requested(:get, "https://user:pass@api.dnsimple.com/test")
     end
@@ -33,7 +33,7 @@ describe Dnsimple::Client do
       stub_request(:any, %r[/test])
 
       subject = described_class.new(domain_api_token: "domaintoken")
-      subject.request(:get, "test", {})
+      subject.execute(:get, "test", {})
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
                          with { |req| req.headers["X-Dnsimple-Domain-Token"] == "domaintoken" }
@@ -43,7 +43,7 @@ describe Dnsimple::Client do
       stub_request(:any, %r[/test])
 
       subject = described_class.new(username: "user", api_token: "token")
-      subject.request(:get, "test", {})
+      subject.execute(:get, "test", {})
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
                          with { |req| req.headers["X-Dnsimple-Token"] == "user:token" }
@@ -53,7 +53,7 @@ describe Dnsimple::Client do
       stub_request(:any, %r[/test])
 
       subject = described_class.new(username: "user", password: "pass", exchange_token: "exchange-token")
-      subject.request(:get, "test", {})
+      subject.execute(:get, "test", {})
 
       expect(WebMock).to have_requested(:get, "https://exchange-token:x-2fa-basic@api.dnsimple.com/test")
     end
@@ -62,7 +62,7 @@ describe Dnsimple::Client do
       subject = described_class.new(username: "user")
 
       expect {
-        subject.request(:get, "test", {})
+        subject.execute(:get, "test", {})
       }.to raise_error(Dnsimple::Error, 'A password or API token is required for all API requests.')
     end
 
@@ -76,7 +76,7 @@ describe Dnsimple::Client do
 
       it "raises a TwoFactorAuthenticationRequired error" do
         expect {
-          subject.request(:get, "test", {})
+          subject.execute(:get, "test", {})
         }.to raise_error(Dnsimple::TwoFactorAuthenticationRequired)
       end
     end
@@ -84,29 +84,42 @@ describe Dnsimple::Client do
 
   describe "#get" do
     it "delegates to #request" do
-      expect(subject).to receive(:request).with(:get, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:get, "path", { foo: "bar" }).and_return(:returned)
       expect(subject.get("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#post" do
     it "delegates to #request" do
-      expect(subject).to receive(:request).with(:post, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:post, "path", { foo: "bar" }).and_return(:returned)
       expect(subject.post("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#put" do
     it "delegates to #request" do
-      expect(subject).to receive(:request).with(:put, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:put, "path", { foo: "bar" }).and_return(:returned)
       expect(subject.put("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#delete" do
     it "delegates to #request" do
-      expect(subject).to receive(:request).with(:delete, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:delete, "path", { foo: "bar" }).and_return(:returned)
       expect(subject.delete("path", foo: "bar")).to eq(:returned)
+    end
+  end
+
+  describe "#execute" do
+    subject { described_class.new(username: "user", password: "pass") }
+
+    it "raises RequestError in case of error" do
+      stub_request(:get, %r[/foo]).
+          to_return(status: [500, "Internal Server Error"])
+
+      expect {
+        subject.execute(:get, "foo", {})
+      }.to raise_error(Dnsimple::RequestError, "500")
     end
   end
 
@@ -148,15 +161,6 @@ describe Dnsimple::Client do
                           and_return(double('response', code: 200))
 
       subject.request(:put, 'foo', { something: "else", query: { foo: "bar" }, headers: { "Custom" => "Header" } })
-    end
-
-    it "raises RequestError in case of error" do
-      stub_request(:get, %r[/foo]).
-          to_return(status: [500, "Internal Server Error"])
-
-      expect {
-        subject.request(:get, "foo", {})
-      }.to raise_error(Dnsimple::RequestError, "500")
     end
   end
 

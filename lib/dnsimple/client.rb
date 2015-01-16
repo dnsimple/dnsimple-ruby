@@ -60,7 +60,7 @@ module Dnsimple
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
     def get(path, options = {})
-      request :get, path, options
+      execute :get, path, options
     end
 
     # Make a HTTP POST request.
@@ -69,7 +69,7 @@ module Dnsimple
     # @param  [Hash] options Body and header params for request
     # @return [HTTParty::Response]
     def post(path, options = {})
-      request :post, path, options
+      execute :post, path, options
     end
 
     # Make a HTTP PUT request.
@@ -78,7 +78,7 @@ module Dnsimple
     # @param  [Hash] options Body and header params for request
     # @return [HTTParty::Response]
     def put(path, options = {})
-      request :put, path, options
+      execute :put, path, options
     end
 
     # Make a HTTP DELETE request.
@@ -87,11 +87,43 @@ module Dnsimple
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
     def delete(path, options = {})
-      request :delete, path, options
+      execute :delete, path, options
+    end
+
+
+    # Executes a request, validates and returns the response.
+    #
+    # @param  [String] method The HTTP method
+    # @param  [String] path The path, relative to {#api_endpoint}
+    # @param  [Hash] options Query and header params for request
+    # @return [HTTParty::Response]
+    # @raise  [RequestError]
+    # @raise  [NotFoundError]
+    # @raise  [AuthenticationFailed]
+    # @raise  [TwoFactorAuthenticationRequired]
+    def execute(method, path, data, options = {})
+      response = request(method, path, data, options)
+
+      case response.code
+      when 200..299
+        response
+      when 401
+        raise (response.headers[HEADER_OTP_TOKEN] == "required" ? TwoFactorAuthenticationRequired : AuthenticationFailed), response["message"]
+      when 404
+        raise NotFoundError.new(response)
+      else
+        raise RequestError.new(response)
+      end
     end
 
 
     # Make a HTTP request.
+    #
+    # This method doesn't validate the response and never raise errors
+    # even in case of HTTP error codes, except for connection errors raised by
+    # the underlying HTTP client.
+    #
+    # Therefore, it's up to the caller to properly handle and validate the response.
     #
     # @param  [String] method The HTTP method
     # @param  [String] path The path, relative to {#api_endpoint}
@@ -106,18 +138,7 @@ module Dnsimple
         options[:body] = data
       end
 
-      response = HTTParty.send(method, api_endpoint + path, Extra.deep_merge!(base_options, options))
-
-      case response.code
-      when 200..299
-        response
-      when 401
-        raise (response.headers[HEADER_OTP_TOKEN] == "required" ? TwoFactorAuthenticationRequired : AuthenticationFailed), response["message"]
-      when 404
-        raise NotFoundError.new(response)
-      else
-        raise RequestError.new(response)
-      end
+      HTTParty.send(method, api_endpoint + path, Extra.deep_merge!(base_options, options))
     end
 
 
