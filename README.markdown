@@ -38,8 +38,20 @@ domains.each do |domain|
 end
 
 # Create a domain
-domain = client.domains.create("example.com")
+domain = client.domains.create(name: "example.com")
 puts "Domain: %s (id: %d)" % [domain.name, domain.id]
+
+# Get a domain
+domain = client.domains.domain("example.com")
+puts "Domain: %s (id: %d)" % [domain.name, domain.id]
+
+# Create a domain record
+record = client.domains.create_record("example.com", record_type: "A", name: "www", content: "127.0.0.1")
+puts "Record: %s (id: %d)" % [record.name, record.id]
+
+# Get a domain record
+record = client.domains.record("example.com", 1234)
+puts "Record: %s (id: %d)" % [record.name, record.id]
 ```
 
 For the full library documentation visit http://rubydoc.info/gems/dnsimple
