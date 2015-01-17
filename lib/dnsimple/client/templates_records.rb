@@ -11,7 +11,7 @@ module Dnsimple
       # @return [Array<Struct::TemplateRecord>]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def list_records(template)
+      def records(template)
         response = client.get("v1/templates/#{template}/records")
 
         response.map { |r| Struct::TemplateRecord.new(r["dns_template_record"]) }
@@ -45,7 +45,7 @@ module Dnsimple
       # @return [Struct::TemplateRecord]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def find_record(template, record)
+      def record(template, record)
         response = client.get("v1/templates/#{template}/records/#{record}")
 
         Struct::TemplateRecord.new(response["dns_template_record"])

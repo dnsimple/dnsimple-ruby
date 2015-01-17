@@ -8,11 +8,13 @@ module Dnsimple
       #
       # @return [Array<Struct::Template>]
       # @raise  [RequestError] When the request fails.
-      def list
+      def templates
         response = client.get("v1/templates")
 
         response.map { |r| Struct::Template.new(r["dns_template"]) }
       end
+
+      alias :list :templates
 
       # Creates a template in the account.
       #
@@ -39,7 +41,7 @@ module Dnsimple
       # @return [Struct::Template]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def find(template)
+      def template(template)
         response = client.get("v1/templates/#{template}")
 
         Struct::Template.new(response["dns_template"])

@@ -12,11 +12,13 @@ module Dnsimple
       # @return [Array<Struct::Certificate>]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def list(domain, options = {})
+      def certificates(domain, options = {})
         response = client.get("v1/domains/#{domain}/certificates", options)
 
         response.map { |r| Struct::Certificate.new(r["certificate"]) }
       end
+
+      alias :list :certificates
 
       # Gets a certificate for a domain.
       #
@@ -28,7 +30,7 @@ module Dnsimple
       # @return [Struct::Certificate]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def find(domain, certificate_id)
+      def certificate(domain, certificate_id)
         response = client.get("v1/domains/#{domain}/certificates/#{certificate_id}")
 
         Struct::Certificate.new(response["certificate"])

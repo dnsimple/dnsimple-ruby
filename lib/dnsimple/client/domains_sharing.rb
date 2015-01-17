@@ -11,7 +11,7 @@ module Dnsimple
       # @return [Array<Struct::Membership>]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def list_memberships(domain)
+      def memberships(domain)
         response = client.get("v1/domains/#{domain}/memberships")
 
         response.map { |r| Struct::Membership.new(r["membership"]) }

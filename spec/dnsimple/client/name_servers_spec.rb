@@ -5,9 +5,9 @@ describe Dnsimple::Client, ".name_servers" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").name_servers }
 
 
-  describe "#list" do
+  describe "#name_servers" do
     before do
-      stub_request(:get, %r[/v1/domains/.+/name_servers]).
+      stub_request(:get, %r[/v1/domains/.+/name_servers$]).
           to_return(read_fixture("nameservers/list/success.http"))
     end
 
@@ -19,7 +19,7 @@ describe Dnsimple::Client, ".name_servers" do
     end
 
     it "returns the name servers" do
-      expect(subject.list("example.com")).to eq(%w( ns1.dnsimple.com ns2.dnsimple.com ))
+      expect(subject.name_servers("example.com")).to eq(%w( ns1.dnsimple.com ns2.dnsimple.com ))
     end
 
     context "when something does not exist" do
@@ -28,7 +28,7 @@ describe Dnsimple::Client, ".name_servers" do
             to_return(read_fixture("nameservers/notfound-domain.http"))
 
         expect {
-          subject.list("example.com")
+          subject.name_servers("example.com")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
@@ -36,7 +36,7 @@ describe Dnsimple::Client, ".name_servers" do
 
   describe "#change" do
     before do
-      stub_request(:post, %r[/v1/domains/.+/name_servers]).
+      stub_request(:post, %r[/v1/domains/.+/name_servers$]).
           to_return(read_fixture("nameservers/change/success.http"))
     end
 

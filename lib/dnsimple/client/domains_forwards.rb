@@ -11,7 +11,7 @@ module Dnsimple
       # @return [Array<Struct::EmailForward>]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def list_email_forwards(domain)
+      def email_forwards(domain)
         response = client.get("v1/domains/#{domain}/email_forwards")
 
         response.map { |r| Struct::EmailForward.new(r["email_forward"]) }
@@ -45,7 +45,7 @@ module Dnsimple
       # @return [Struct::EmailForward]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def find_email_forward(domain, forward)
+      def email_forward(domain, forward)
         response = client.get("v1/domains/#{domain}/email_forwards/#{forward}")
 
         Struct::EmailForward.new(response["email_forward"])

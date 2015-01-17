@@ -5,21 +5,21 @@ describe Dnsimple::Client, ".templates" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").templates }
 
 
-  describe "#list" do
+  describe "#templates" do
     before do
       stub_request(:get, %r[/v1/templates$]).
-          to_return(read_fixture("templates/index/success.http"))
+          to_return(read_fixture("templates/list/success.http"))
     end
 
     it "builds the correct request" do
-      subject.list
+      subject.templates
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/templates").
                          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the templates" do
-      results = subject.list
+      results = subject.templates
 
       expect(results).to be_a(Array)
       expect(results.size).to eq(1)
@@ -55,21 +55,21 @@ describe Dnsimple::Client, ".templates" do
     end
   end
 
-  describe "#find" do
+  describe "#template" do
     before do
       stub_request(:get, %r[/v1/templates/.+$]).
-          to_return(read_fixture("templates/show/success.http"))
+          to_return(read_fixture("templates/get/success.http"))
     end
 
     it "builds the correct request" do
-      subject.find(1)
+      subject.template(1)
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/templates/1").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the template" do
-      result = subject.find(1)
+      result = subject.template(1)
 
       expect(result).to be_a(Dnsimple::Struct::Template)
       expect(result.id).to eq(2651)
@@ -84,7 +84,7 @@ describe Dnsimple::Client, ".templates" do
             to_return(read_fixture("templates/notfound.http"))
 
         expect {
-          subject.find(1)
+          subject.template(1)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end

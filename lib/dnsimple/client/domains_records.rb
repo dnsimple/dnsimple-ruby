@@ -12,7 +12,7 @@ module Dnsimple
       # @return [Array<Struct::Record>]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def list_records(domain, options = {})
+      def records(domain, options = {})
         response = client.get("v1/domains/#{domain}/records", options)
 
         response.map { |r| Struct::Record.new(r["record"]) }
@@ -46,7 +46,7 @@ module Dnsimple
       # @return [Struct::Record]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def find_record(domain, record)
+      def record(domain, record)
         response = client.get("v1/domains/#{domain}/records/#{record}")
 
         Struct::Record.new(response["record"])

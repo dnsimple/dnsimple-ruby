@@ -8,11 +8,13 @@ module Dnsimple
       #
       # @return [Array<Struct::Contact>]
       # @raise  [RequestError] When the request fails.
-      def list
+      def contacts
         response = client.get("v1/contacts")
 
         response.map { |r| Struct::Contact.new(r["contact"]) }
       end
+
+      alias :list :contacts
 
       # Creates a contact in the account.
       #
@@ -39,7 +41,7 @@ module Dnsimple
       # @return [Struct::Contact]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def find(contact)
+      def contact(contact)
         response = client.get("v1/contacts/#{contact}")
 
         Struct::Contact.new(response["contact"])

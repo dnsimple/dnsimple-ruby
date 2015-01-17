@@ -5,21 +5,21 @@ describe Dnsimple::Client, ".services" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").services }
 
 
-  describe "#list" do
+  describe "#services" do
     before do
       stub_request(:get, %r[/v1/services$]).
-          to_return(read_fixture("services/index/success.http"))
+          to_return(read_fixture("services/list/success.http"))
     end
 
     it "builds the correct request" do
-      subject.list
+      subject.services
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/services").
                          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the services" do
-      results = subject.list
+      results = subject.services
 
       expect(results).to be_a(Array)
       expect(results.size).to eq(3)
@@ -31,21 +31,21 @@ describe Dnsimple::Client, ".services" do
     end
   end
 
-  describe "#find" do
+  describe "#service" do
     before do
       stub_request(:get, %r[/v1/services/.+$]).
-          to_return(read_fixture("services/show/success.http"))
+          to_return(read_fixture("services/get/success.http"))
     end
 
     it "builds the correct request" do
-      subject.find(1)
+      subject.service(1)
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/services/1").
                          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the service" do
-      result = subject.find(1)
+      result = subject.service(1)
 
       expect(result).to be_a(Dnsimple::Struct::Service)
       expect(result.id).to eq(1)
@@ -60,7 +60,7 @@ describe Dnsimple::Client, ".services" do
             to_return(read_fixture("services/notfound.http"))
 
         expect {
-          subject.find(1)
+          subject.service(1)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end

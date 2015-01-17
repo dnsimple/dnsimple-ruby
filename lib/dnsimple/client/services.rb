@@ -8,11 +8,13 @@ module Dnsimple
       #
       # @return [Array<Struct::Service>]
       # @raise  [RequestError] When the request fails.
-      def list
+      def services
         response = client.get("v1/services")
 
         response.map { |r| Struct::Service.new(r["service"]) }
       end
+
+      alias :list :services
 
       # Gets a service.
       #
@@ -23,7 +25,7 @@ module Dnsimple
       # @return [Struct::Service]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def find(service)
+      def service(service)
         response = client.get("v1/services/#{service}")
 
         Struct::Service.new(response["service"])
