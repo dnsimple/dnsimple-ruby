@@ -22,13 +22,13 @@ If you are upgrading your code from v1.x, here's the major changes you should be
 
     # v2
     client = Dnsimple::Client.new(username: 'YOUR_USERNAME', password: 'YOUR_PASSWORD')
-    domain = client.domains.find("example.com")
+    domain = client.domains.domain("example.com")
     ```
 
 1.  API call responses are now simple struct-like objects, rather Model-like objects.
 
     ```ruby
-    domain = client.domains.find("example.com")
+    domain = client.domains.domain("example.com")
     # => Dnsimple::Struct::Domain
     ```
 
@@ -41,7 +41,7 @@ If you are upgrading your code from v1.x, here's the major changes you should be
     persistence methods on an object returned from the API, as it was in v1.
 
     ```ruby
-    record = client.domains.find_record("example.com", 1)
+    record = client.domains.record("example.com", 1)
     # this will fail
     record.name = "www"
     record.update
@@ -55,7 +55,7 @@ If you are upgrading your code from v1.x, here's the major changes you should be
     ```ruby
     class DnsimpleRecord
       def self.find(client, domain, record_id)
-        client.find_record(domain, record_id)
+        client.record(domain, record_id)
       end
 
       def self.create(client, domain, attributes)
