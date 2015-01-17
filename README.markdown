@@ -31,7 +31,8 @@ client = Dnsimple::Client.new(username: 'YOUR_USERNAME', api_token: 'YOUR_TOKEN'
 user = client.users.user
 puts "My email is #{user.email}"
 
-# Get a list of your domains
+
+# List your domains
 domains = client.domains.list
 domains.each do |domain|
   puts "Domain: %s (id: %d)" % [domain.name, domain.id]
@@ -45,6 +46,7 @@ puts "Domain: %s (id: %d)" % [domain.name, domain.id]
 domain = client.domains.domain("example.com")
 puts "Domain: %s (id: %d)" % [domain.name, domain.id]
 
+
 # Create a domain record
 record = client.domains.create_record("example.com", record_type: "A", name: "www", content: "127.0.0.1")
 puts "Record: %s (id: %d)" % [record.name, record.id]
@@ -52,6 +54,12 @@ puts "Record: %s (id: %d)" % [record.name, record.id]
 # Get a domain record
 record = client.domains.record("example.com", 1234)
 puts "Record: %s (id: %d)" % [record.name, record.id]
+
+# List domain records
+records = client.domains.records("example.com")
+records.each do |record|
+  puts "Record: %s (id: %d)" % [record.name, record.id]
+end
 ```
 
 For the full library documentation visit http://rubydoc.info/gems/dnsimple
