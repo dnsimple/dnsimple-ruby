@@ -8,11 +8,13 @@ module Dnsimple
       #
       # @return [Array<Struct::Domain>]
       # @raise  [RequestError] When the request fails.
-      def list(options = {})
+      def domains(options = {})
         response = client.get("v1/domains", options)
 
         response.map { |r| Struct::Domain.new(r["domain"]) }
       end
+
+      alias :list :domains
 
       # Gets a domain from the account.
       #
@@ -23,7 +25,7 @@ module Dnsimple
       # @return [Struct::Domain]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def find(domain)
+      def domain(domain)
         response = client.get("v1/domains/#{domain}")
 
         Struct::Domain.new(response["domain"])

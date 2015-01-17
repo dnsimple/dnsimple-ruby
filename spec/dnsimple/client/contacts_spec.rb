@@ -5,24 +5,24 @@ describe Dnsimple::Client, ".contacts" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").contacts }
 
 
-  describe "#list" do
+  describe "#contacts" do
     before do
       stub_request(:get, %r[/v1/contacts$]).
-          to_return(read_fixture("contacts/index/success.http"))
+          to_return(read_fixture("contacts/list/success.http"))
     end
 
     it "builds the correct request" do
-      subject.list
+      subject.contacts
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/contacts").
                          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the contacts" do
-      results = subject.list
+      results = subject.contacts
 
       expect(results).to be_a(Array)
-      expect(results.size).to eq(1)
+      expect(results.size).to eq(2)
 
       results.each do |result|
         expect(result).to be_a(Dnsimple::Struct::Contact)
@@ -33,7 +33,7 @@ describe Dnsimple::Client, ".contacts" do
 
   describe "#create" do
     before do
-      stub_request(:post, %r[/v1/contacts]).
+      stub_request(:post, %r[/v1/contacts$]).
           to_return(read_fixture("contacts/create/created.http"))
     end
 
@@ -55,40 +55,40 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
-  describe "#find" do
+  describe "#contact" do
     before do
       stub_request(:get, %r[/v1/contacts/.+$]).
-          to_return(read_fixture("contacts/show/success.http"))
+          to_return(read_fixture("contacts/get/success.http"))
     end
 
     it "builds the correct request" do
-      subject.find(1)
+      subject.contact(1)
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/contacts/1").
                          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the contact" do
-      result = subject.find(1)
+      result = subject.contact(1)
 
       expect(result).to be_a(Dnsimple::Struct::Contact)
-      expect(result.id).to eq(2)
+      expect(result.id).to eq(1)
       expect(result.label).to eq("Default")
       expect(result.first_name).to eq("Simone")
       expect(result.last_name).to eq("Carletti")
       expect(result.job_title).to eq("Underwater Programmer")
-      expect(result.organization_name).to eq("Dnsimple")
-      expect(result.email_address).to eq("example@example.com")
-      expect(result.phone).to eq("+1 111 000000")
-      expect(result.fax).to eq("+1 222 000000")
+      expect(result.organization_name).to eq("DNSimple")
+      expect(result.email_address).to eq("simone.carletti@dnsimple.com")
+      expect(result.phone).to eq("+1 111 4567890")
+      expect(result.fax).to eq("+1 222 4567890")
       expect(result.address1).to eq("Awesome Street")
       expect(result.address2).to eq("c/o Someone")
       expect(result.city).to eq("Rome")
       expect(result.state_province).to eq("RM")
       expect(result.postal_code).to eq("00171")
       expect(result.country).to eq("IT")
-      expect(result.created_at).to eq("2013-11-08T17:23:15Z")
-      expect(result.updated_at).to eq("2013-11-08T17:23:15Z")
+      expect(result.created_at).to eq("2014-01-15T22:08:07.390Z")
+      expect(result.updated_at).to eq("2014-01-15T22:08:07.390Z")
     end
 
     context "when something does not exist" do
@@ -97,7 +97,7 @@ describe Dnsimple::Client, ".contacts" do
             to_return(read_fixture("contacts/notfound.http"))
 
         expect {
-          subject.find(1)
+          subject.contact(1)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end

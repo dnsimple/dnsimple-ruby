@@ -5,21 +5,21 @@ describe Dnsimple::Client, ".domains / sharing" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").domains }
 
 
-  describe "#list_memberships" do
+  describe "#memberships" do
     before do
-      stub_request(:get, %r[/v1/domains/.+/memberships]).
+      stub_request(:get, %r[/v1/domains/.+/memberships$]).
           to_return(read_fixture("domains_sharing/list/success.http"))
     end
 
     it "builds the correct request" do
-      subject.list_memberships("example.com")
+      subject.memberships("example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/memberships").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the records" do
-      results = subject.list_memberships("example.com")
+      results = subject.memberships("example.com")
 
       expect(results).to be_a(Array)
       expect(results.size).to eq(2)
@@ -36,7 +36,7 @@ describe Dnsimple::Client, ".domains / sharing" do
             to_return(read_fixture("domains_sharing/notfound-domain.http"))
 
         expect {
-          subject.list_memberships("example.com")
+          subject.memberships("example.com")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
@@ -44,7 +44,7 @@ describe Dnsimple::Client, ".domains / sharing" do
 
   describe "#create_membership" do
     before do
-      stub_request(:post, %r[/v1/domains/.+/memberships]).
+      stub_request(:post, %r[/v1/domains/.+/memberships$]).
           to_return(read_fixture("domains_sharing/create/success.http"))
     end
 

@@ -5,21 +5,21 @@ describe Dnsimple::Client, ".domains" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").domains }
 
 
-  describe "#list" do
+  describe "#domains" do
     before do
       stub_request(:get, %r[/v1/domains$]).
-          to_return(read_fixture("domains/index/success.http"))
+          to_return(read_fixture("domains/list/success.http"))
     end
 
     it "builds the correct request" do
-      subject.list
+      subject.domains
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the domains" do
-      results = subject.list
+      results = subject.domains
 
       expect(results).to be_a(Array)
       expect(results.size).to eq(2)
@@ -33,7 +33,7 @@ describe Dnsimple::Client, ".domains" do
 
   describe "#create" do
     before do
-      stub_request(:post, %r[/v1/domains]).
+      stub_request(:post, %r[/v1/domains$]).
           to_return(read_fixture("domains/create/created.http"))
     end
 
@@ -55,21 +55,21 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
-  describe "#find" do
+  describe "#domain" do
     before do
       stub_request(:get, %r[/v1/domains/.+$]).
-          to_return(read_fixture("domains/show/success.http"))
+          to_return(read_fixture("domains/get/success.http"))
     end
 
     it "builds the correct request" do
-      subject.find("example.com")
+      subject.domain("example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the domain" do
-      result = subject.find("example.com")
+      result = subject.domain("example.com")
 
       expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to eq(1)
@@ -90,7 +90,7 @@ describe Dnsimple::Client, ".domains" do
             to_return(read_fixture("domains/notfound.http"))
 
         expect {
-          subject.find("example.com")
+          subject.domain("example.com")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end

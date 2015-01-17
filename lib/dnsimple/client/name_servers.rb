@@ -11,11 +11,13 @@ module Dnsimple
       # @return [Array<String>] The delegates name servers.
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def list(domain)
+      def name_servers(domain)
         response = client.get("v1/domains/#{domain}/name_servers")
 
         response.parsed_response
       end
+
+      alias :list :name_servers
 
       # Changes the name servers for a domain.
       #

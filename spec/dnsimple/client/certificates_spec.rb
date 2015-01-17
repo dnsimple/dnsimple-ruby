@@ -5,21 +5,21 @@ describe Dnsimple::Client, ".certificates" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").certificates }
 
 
-  describe "#list" do
+  describe "#certificates" do
     before do
       stub_request(:get, %r[/v1/domains/.+/certificates$]).
-          to_return(read_fixture("certificates/index/success.http"))
+          to_return(read_fixture("certificates/list/success.http"))
     end
 
     it "builds the correct request" do
-      subject.list("example.com")
+      subject.certificates("example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/certificates").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the records" do
-      results = subject.list("example.com")
+      results = subject.certificates("example.com")
 
       expect(results).to be_a(Array)
       expect(results.size).to eq(2)
@@ -36,27 +36,27 @@ describe Dnsimple::Client, ".certificates" do
             to_return(read_fixture("domains/notfound.http"))
 
         expect {
-          subject.list("example.com")
+          subject.certificates("example.com")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
 
-  describe "#find" do
+  describe "#certificate" do
     before do
       stub_request(:get, %r[/v1/domains/.+/certificates/.+$]).
-          to_return(read_fixture("certificates/show/success.http"))
+          to_return(read_fixture("certificates/get/success.http"))
     end
 
     it "builds the correct request" do
-      subject.find("example.com", 2)
+      subject.certificate("example.com", 2)
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/certificates/2").
                          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the certificate" do
-      result = subject.find("example.com", 2)
+      result = subject.certificate("example.com", 2)
 
       expect(result).to be_a(Dnsimple::Struct::Certificate)
       expect(result.id).to eq(4576)
@@ -80,7 +80,7 @@ describe Dnsimple::Client, ".certificates" do
             to_return(read_fixture("certificates/notfound.http"))
 
         expect {
-          subject.find("example.com", 2)
+          subject.certificate("example.com", 2)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end

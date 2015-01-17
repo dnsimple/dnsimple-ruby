@@ -5,21 +5,21 @@ describe Dnsimple::Client, ".domains / records" do
   subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").domains }
 
 
-  describe "#list_records" do
+  describe "#records" do
     before do
       stub_request(:get, %r[/v1/domains/.+/records$]).
-          to_return(read_fixture("domains_records/index/success.http"))
+          to_return(read_fixture("domains_records/list/success.http"))
     end
 
     it "builds the correct request" do
-      subject.list_records("example.com")
+      subject.records("example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/records").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the records" do
-      results = subject.list_records("example.com")
+      results = subject.records("example.com")
 
       expect(results).to be_a(Array)
       expect(results.size).to eq(7)
@@ -36,7 +36,7 @@ describe Dnsimple::Client, ".domains / records" do
             to_return(read_fixture("domains_records/notfound.http"))
 
         expect {
-          subject.list_records("example.com")
+          subject.records("example.com")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
@@ -75,21 +75,21 @@ describe Dnsimple::Client, ".domains / records" do
     end
   end
 
-  describe "#find_record" do
+  describe "#record" do
     before do
       stub_request(:get, %r[/v1/domains/.+/records/.+$]).
-          to_return(read_fixture("domains_records/show/success.http"))
+          to_return(read_fixture("domains_records/get/success.http"))
     end
 
     it "builds the correct request" do
-      subject.find_record("example.com", 2)
+      subject.record("example.com", 2)
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com/records/2").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
-      result = subject.find_record("example.com", 2)
+      result = subject.record("example.com", 2)
 
       expect(result).to be_a(Dnsimple::Struct::Record)
       expect(result.id).to eq(1495)
@@ -109,7 +109,7 @@ describe Dnsimple::Client, ".domains / records" do
             to_return(read_fixture("domains_records/notfound.http"))
 
         expect {
-          subject.find_record("example.com", 2)
+          subject.record("example.com", 2)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
