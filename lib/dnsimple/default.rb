@@ -58,13 +58,13 @@ module Dnsimple
 
       # Default DNSimple API Token for Token Auth from ENV
       # @return [String]
-      def domain_api_token
+      def api_token
         ENV['DNSIMPLE_API_TOKEN']
       end
 
       # Default DNSimple Domain API Token for Token Auth from ENV
       # @return [String]
-      def api_token
+      def domain_api_token
         ENV['DNSIMPLE_API_DOMAIN_TOKEN']
       end
 
