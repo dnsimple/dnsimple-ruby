@@ -18,10 +18,10 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def enable(domain, names)
         options = {
-                      "vanity_nameserver_configuration": {
-                        "server_source": "external"
-                      }
+                    "vanity_nameserver_configuration": {
+                      "server_source": "external"
                     }
+                  }
         options[:vanity_nameserver_configuration].merge!(names)
         client.post("v1/domains/#{domain}/vanity_name_servers", options)
       end
