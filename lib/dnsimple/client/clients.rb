@@ -21,6 +21,11 @@ module Dnsimple
       @services[:name_servers] ||= Client::NameServersService.new(self)
     end
 
+    # @return [Dnsimple::Client::VanityNameServersService] The vanity name server-related API proxy.
+    def vanity_name_servers
+      @services[:vanity_name_servers] ||= Client::VanityNameServersService.new(self)
+    end
+
     # @return [Dnsimple::Client::RegistrarService] The registrar-related API proxy.
     def registrar
       @services[:registrar] ||= Client::RegistrarService.new(self)
@@ -83,6 +88,13 @@ module Dnsimple
 
     class NameServersService < ClientService
       include Client::NameServers
+    end
+
+
+    require 'dnsimple/client/vanity_name_servers'
+
+    class VanityNameServersService < ClientService
+      include Client::VanityNameServers
     end
 
 
