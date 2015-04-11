@@ -10,16 +10,16 @@ module Dnsimple
       # @param  [Hash] names A hash of up to 4 external name servers; hash keys
       # are ns1 through ns4, e.g.
       #         {
-      #           "ns1": "ns1.example.com",
-      #           "ns2": "ns2.example.com"
+      #           "ns1" => "ns1.example.com",
+      #           "ns2" => "ns2.example.com"
       #         }
       #
       # @return [void]
       # @raise  [RequestError] When the request fails.
       def enable(domain, names)
         options = {
-                    "vanity_nameserver_configuration": {
-                      "server_source": "external"
+                    "vanity_nameserver_configuration" => {
+                      "server_source" => "external"
                     }
                   }
         options[:vanity_nameserver_configuration].merge!(names)
