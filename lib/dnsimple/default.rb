@@ -56,16 +56,16 @@ module Dnsimple
         ENV['DNSIMPLE_API_EXCHANGE_TOKEN']
       end
 
-      # Default DNSimple API Token for Token Auth from ENV
-      # @return [String]
-      def domain_api_token
-        ENV['DNSIMPLE_API_TOKEN']
-      end
-
       # Default DNSimple Domain API Token for Token Auth from ENV
       # @return [String]
+      def domain_api_token
+        ENV['DNSIMPLE_DOMAIN_API_TOKEN']
+      end
+
+      # Default DNSimple API Token for Token Auth from ENV
+      # @return [String]
       def api_token
-        ENV['DNSIMPLE_API_DOMAIN_TOKEN']
+        ENV['DNSIMPLE_API_TOKEN']
       end
 
       # Default User-Agent header string from ENV or {USER_AGENT}
