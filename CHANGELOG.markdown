@@ -1,6 +1,6 @@
 # Changelog
 
-#### 2.0.0.alpha
+#### 2.0.0
 
 **2.0.0.alpha**
 
@@ -23,7 +23,6 @@
 **2.0**
 
 - FIXED: Fixed a bug where API token environment variables were not properly detected (GH-59, GH-62). Thanks @oguzbilgic and @rupurt.
-
 
 #### Release 1.7.1
 
