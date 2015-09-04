@@ -13,8 +13,25 @@ module Dnsimple
 
         response.map { |r| Struct::Domain.new(r["domain"]) }
       end
-
       alias :list :domains
+      alias :list_domains :domains
+
+      # Creates a domain in the account.
+      #
+      # @see http://developer.dnsimple.com/domains/#create
+      #
+      # @param  [Hash] attributes
+      #
+      # @return [Struct::Domain]
+      # @raise  [RequestError] When the request fails.
+      def create_domain(attributes = {})
+        Extra.validate_mandatory_attributes(attributes, [:name])
+        options  = { domain: attributes }
+        response = client.post("v1/domains", options)
+
+        Struct::Domain.new(response["domain"])
+      end
+      alias :create :create_domain
 
       # Gets a domain from the account.
       #
@@ -31,22 +48,6 @@ module Dnsimple
         Struct::Domain.new(response["domain"])
       end
 
-      # Creates a domain in the account.
-      #
-      # @see http://developer.dnsimple.com/domains/#create
-      #
-      # @param  [Hash] attributes
-      #
-      # @return [Struct::Domain]
-      # @raise  [RequestError] When the request fails.
-      def create(attributes = {})
-        Extra.validate_mandatory_attributes(attributes, [:name])
-        options  = { domain: attributes }
-        response = client.post("v1/domains", options)
-
-        Struct::Domain.new(response["domain"])
-      end
-
       # Deletes a domain from the account.
       #
       # WARNING: this cannot be undone.
@@ -58,9 +59,10 @@ module Dnsimple
       # @return [void]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete(domain)
+      def delete_domain(domain)
         client.delete("v1/domains/#{domain}")
       end
+      alias :delete :delete_domain
 
     end
   end

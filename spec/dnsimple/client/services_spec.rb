@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".services" do
   describe "#services" do
     before do
       stub_request(:get, %r[/v1/services$]).
-          to_return(read_fixture("services/list/success.http"))
+          to_return(read_fixture("services/services/success.http"))
     end
 
     it "builds the correct request" do
@@ -34,7 +34,7 @@ describe Dnsimple::Client, ".services" do
   describe "#service" do
     before do
       stub_request(:get, %r[/v1/services/.+$]).
-          to_return(read_fixture("services/get/success.http"))
+          to_return(read_fixture("services/service/success.http"))
     end
 
     it "builds the correct request" do
@@ -57,7 +57,7 @@ describe Dnsimple::Client, ".services" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("services/notfound.http"))
+            to_return(read_fixture("services/notfound-service.http"))
 
         expect {
           subject.service(1)

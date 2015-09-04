@@ -16,6 +16,7 @@ module Dnsimple
 
         response.map { |r| Struct::Membership.new(r["membership"]) }
       end
+      alias :list_memberships :memberships
 
       # Shares a domain.
       #

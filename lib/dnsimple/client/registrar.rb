@@ -94,12 +94,12 @@ module Dnsimple
       #
       # @return [Array<Struct::ExtendedAttribute>]
       # @raise  [RequestError] When the request fails.
-      def list_extended_attributes(tld)
+      def extended_attributes(tld)
         response = client.get("v1/extended_attributes/#{tld}")
 
         response.map { |r| Struct::ExtendedAttribute.new(r) }
       end
-
+      alias :list_extended_attributes :extended_attributes
 
       # List all the TLD prices.
       #
@@ -107,11 +107,12 @@ module Dnsimple
       #
       # @return [Array<Struct::Price>]
       # @raise  [RequestError] When the request fails.
-      def list_prices
+      def prices
         response = client.get("v1/prices")
 
         response.map { |r| Struct::Price.new(r["price"]) }
       end
+      alias :list_prices :prices
 
     end
   end

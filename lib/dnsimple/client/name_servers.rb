@@ -16,8 +16,8 @@ module Dnsimple
 
         response.parsed_response
       end
-
       alias :list :name_servers
+      alias :list_name_servers :name_servers
 
       # Changes the name servers for a domain.
       #

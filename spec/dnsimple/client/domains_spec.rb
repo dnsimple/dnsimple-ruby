@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".domains" do
   describe "#domains" do
     before do
       stub_request(:get, %r[/v1/domains$]).
-          to_return(read_fixture("domains/list/success.http"))
+          to_return(read_fixture("domains/domains/success.http"))
     end
 
     it "builds the correct request" do
@@ -31,16 +31,16 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
-  describe "#create" do
+  describe "#create_domain" do
     before do
       stub_request(:post, %r[/v1/domains$]).
-          to_return(read_fixture("domains/create/created.http"))
+          to_return(read_fixture("domains/create_domain/created.http"))
     end
 
     let(:attributes) { { name: "example.com" } }
 
     it "builds the correct request" do
-      subject.create(attributes)
+      subject.create_domain(attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.zone/v1/domains").
                              with(body: { domain: attributes }).
@@ -48,7 +48,7 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "returns the domain" do
-      result = subject.create(attributes)
+      result = subject.create_domain(attributes)
 
       expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to be_a(Fixnum)
@@ -58,7 +58,7 @@ describe Dnsimple::Client, ".domains" do
   describe "#domain" do
     before do
       stub_request(:get, %r[/v1/domains/.+$]).
-          to_return(read_fixture("domains/get/success.http"))
+          to_return(read_fixture("domains/domain/success.http"))
     end
 
     it "builds the correct request" do
@@ -87,7 +87,7 @@ describe Dnsimple::Client, ".domains" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.domain("example.com")
@@ -96,30 +96,30 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
-  describe "#delete" do
+  describe "#delete_domain" do
     before do
       stub_request(:delete, %r[/v1/domains/.+$]).
-          to_return(read_fixture("domains/delete/success.http"))
+          to_return(read_fixture("domains/delete_domain/success.http"))
     end
 
     it "builds the correct request" do
-      subject.delete("example.com")
+      subject.delete_domain("example.com")
 
       expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
-      result = subject.delete("example.com")
+      result = subject.delete_domain("example.com")
 
       expect(result).to be_truthy
     end
 
     it "supports HTTP 204" do
       stub_request(:delete, %r[/v1]).
-          to_return(read_fixture("domains/delete/success-204.http"))
+          to_return(read_fixture("domains/delete_domain/success-204.http"))
 
-      result = subject.delete("example.com")
+      result = subject.delete_domain("example.com")
 
       expect(result).to be_truthy
     end
@@ -127,10 +127,10 @@ describe Dnsimple::Client, ".domains" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("domains/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
-          subject.delete("example.com")
+          subject.delete_domain("example.com")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end

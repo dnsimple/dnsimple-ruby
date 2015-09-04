@@ -16,6 +16,7 @@ module Dnsimple
 
         response.map { |r| Struct::EmailForward.new(r["email_forward"]) }
       end
+      alias :list_email_forwards :email_forwards
 
       # Creates an email forward for a domain.
       #

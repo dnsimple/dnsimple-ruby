@@ -17,8 +17,8 @@ module Dnsimple
 
         response.map { |r| Struct::Certificate.new(r["certificate"]) }
       end
-
       alias :list :certificates
+      alias :list_certificates :certificates
 
       # Gets a certificate for a domain.
       #

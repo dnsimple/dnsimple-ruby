@@ -13,8 +13,8 @@ module Dnsimple
 
         response.map { |r| Struct::Contact.new(r["contact"]) }
       end
-
       alias :list :contacts
+      alias :list_contacts :contacts
 
       # Creates a contact in the account.
       #
@@ -24,13 +24,14 @@ module Dnsimple
       #
       # @return [Struct::Contact]
       # @raise  [RequestError] When the request fails.
-      def create(attributes = {})
+      def create_contact(attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email_address])
         options  = { contact: attributes }
         response = client.post("v1/contacts", options)
 
         Struct::Contact.new(response["contact"])
       end
+      alias :create :create_contact
 
       # Gets a contact from the account.
       #
@@ -57,12 +58,13 @@ module Dnsimple
       # @return [Struct::Contact]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def update(contact, attributes = {})
+      def update_contact(contact, attributes = {})
         options  = { contact: attributes }
         response = client.put("v1/contacts/#{contact}", options)
 
         Struct::Contact.new(response["contact"])
       end
+      alias :update :update_contact
 
       # Deletes a contact from the account.
       #
@@ -75,9 +77,10 @@ module Dnsimple
       # @return [void]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete(contact)
+      def delete_contact(contact)
         client.delete("v1/contacts/#{contact}")
       end
+      alias :delete :delete_contact
 
     end
   end

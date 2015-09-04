@@ -13,8 +13,8 @@ module Dnsimple
 
         response.map { |r| Struct::Template.new(r["dns_template"]) }
       end
-
       alias :list :templates
+      alias :list_templates :templates
 
       # Creates a template in the account.
       #
@@ -24,13 +24,14 @@ module Dnsimple
       #
       # @return [Struct::Template]
       # @raise  [RequestError] When the request fails.
-      def create(attributes = {})
+      def create_template(attributes = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :short_name])
         options  = { dns_template: attributes }
         response = client.post("v1/templates", options)
 
         Struct::Template.new(response["dns_template"])
       end
+      alias :create :create_template
 
       # Gets a template from the account.
       #
@@ -57,12 +58,13 @@ module Dnsimple
       # @return [Struct::Template]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def update(template, attributes = {})
+      def update_template(template, attributes = {})
         options  = { dns_template: attributes }
         response = client.put("v1/templates/#{template}", options)
 
         Struct::Template.new(response["dns_template"])
       end
+      alias :update :update_template
 
       # Deletes a template from the account.
       #
@@ -75,25 +77,10 @@ module Dnsimple
       # @return [void]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete(template)
+      def delete_template(template)
         client.delete("v1/templates/#{template}")
       end
-
-
-      # Applies the template to the domain.
-      #
-      # @see http://developer.dnsimple.com/templates/#apply
-      #
-      # @param  [#to_s] domain The domain id or domain name.
-      # @param  [#to_s] template The template id or short-name.
-      #
-      # @return [void]
-      # @raise  [NotFoundError]
-      # @raise  [RequestError] When the request fails.
-      def apply(domain, template)
-        response = client.post("v1/domains/#{domain}/templates/#{template}/apply")
-        response.code == 200
-      end
+      alias :delete :delete_template
 
     end
   end
