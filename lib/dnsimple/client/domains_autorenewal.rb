@@ -7,11 +7,11 @@ module Dnsimple
       # @see http://developer.dnsimple.com/domains/autorenewal/#enable
       #
       # @param  [#to_s] domain The domain id or domain name.
-      #
       # @return [Struct::Domain]
+      #
       # @raise  [RequestError] When the request fails.
-      def enable_auto_renewal(domain)
-        response = client.post("v1/domains/#{domain}/auto_renewal")
+      def enable_auto_renewal(domain, options = {})
+        response = client.post("v1/domains/#{domain}/auto_renewal", options)
 
         Struct::Domain.new(response["domain"])
       end
@@ -21,11 +21,11 @@ module Dnsimple
       # @see http://developer.dnsimple.com/domains/autorenewal/#disable
       #
       # @param  [#to_s] domain The domain id or domain name.
-      #
       # @return [Struct::Domain]
+      #
       # @raise  [RequestError] When the request fails.
-      def disable_auto_renewal(domain)
-        response = client.delete("v1/domains/#{domain}/auto_renewal")
+      def disable_auto_renewal(domain, options = {})
+        response = client.delete("v1/domains/#{domain}/auto_renewal", options)
 
         Struct::Domain.new(response["domain"])
       end

@@ -7,9 +7,10 @@ module Dnsimple
       # @see http://developer.dnsimple.com/services/#list
       #
       # @return [Array<Struct::Service>]
+      #
       # @raise  [RequestError] When the request fails.
-      def services
-        response = client.get("v1/services")
+      def services(options = {})
+        response = client.get("v1/services", options)
 
         response.map { |r| Struct::Service.new(r["service"]) }
       end
@@ -21,12 +22,12 @@ module Dnsimple
       # @see http://developer.dnsimple.com/services/#get
       #
       # @param  [Fixnum] service The service id.
-      #
       # @return [Struct::Service]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def service(service)
-        response = client.get("v1/services/#{service}")
+      def service(service, options = {})
+        response = client.get("v1/services/#{service}", options)
 
         Struct::Service.new(response["service"])
       end

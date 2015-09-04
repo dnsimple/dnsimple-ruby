@@ -7,9 +7,10 @@ module Dnsimple
       # @see http://developer.dnsimple.com/contacts/#list
       #
       # @return [Array<Struct::Contact>]
+      #
       # @raise  [RequestError] When the request fails.
-      def contacts
-        response = client.get("v1/contacts")
+      def contacts(options = {})
+        response = client.get("v1/contacts", options)
 
         response.map { |r| Struct::Contact.new(r["contact"]) }
       end
@@ -21,12 +22,12 @@ module Dnsimple
       # @see http://developer.dnsimple.com/contacts/#create
       #
       # @param  [Hash] attributes
-      #
       # @return [Struct::Contact]
+      #
       # @raise  [RequestError] When the request fails.
-      def create_contact(attributes = {})
+      def create_contact(attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email_address])
-        options  = { contact: attributes }
+        options  = options.merge(contact: attributes)
         response = client.post("v1/contacts", options)
 
         Struct::Contact.new(response["contact"])
@@ -38,12 +39,12 @@ module Dnsimple
       # @see http://developer.dnsimple.com/contacts/#get
       #
       # @param  [Fixnum] contact The contact id.
-      #
       # @return [Struct::Contact]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def contact(contact)
-        response = client.get("v1/contacts/#{contact}")
+      def contact(contact, options = {})
+        response = client.get("v1/contacts/#{contact}", options)
 
         Struct::Contact.new(response["contact"])
       end
@@ -54,12 +55,12 @@ module Dnsimple
       #
       # @param  [Fixnum] contact The contact id.
       # @param  [Hash] attributes
-      #
       # @return [Struct::Contact]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def update_contact(contact, attributes = {})
-        options  = { contact: attributes }
+      def update_contact(contact, attributes = {}, options = {})
+        options  = options.merge(contact: attributes)
         response = client.put("v1/contacts/#{contact}", options)
 
         Struct::Contact.new(response["contact"])
@@ -73,12 +74,12 @@ module Dnsimple
       # @see http://developer.dnsimple.com/contacts/#delete
       #
       # @param  [Fixnum] contact The contact id.
-      #
       # @return [void]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete_contact(contact)
-        client.delete("v1/contacts/#{contact}")
+      def delete_contact(contact, options = {})
+        client.delete("v1/contacts/#{contact}", options)
       end
       alias :delete :delete_contact
 

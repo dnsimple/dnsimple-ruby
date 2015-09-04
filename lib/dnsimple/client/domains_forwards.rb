@@ -7,12 +7,12 @@ module Dnsimple
       # @see http://developer.dnsimple.com/domains/forwards/#list
       #
       # @param  [#to_s] domain The domain id or domain name.
-      #
       # @return [Array<Struct::EmailForward>]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def email_forwards(domain)
-        response = client.get("v1/domains/#{domain}/email_forwards")
+      def email_forwards(domain, options = {})
+        response = client.get("v1/domains/#{domain}/email_forwards", options)
 
         response.map { |r| Struct::EmailForward.new(r["email_forward"]) }
       end
@@ -24,13 +24,13 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] attributes
-      #
       # @return [Struct::EmailForward]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def create_email_forward(domain, attributes = {})
+      def create_email_forward(domain, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:from, :to])
-        options  = { email_forward: attributes }
+        options  = options.merge({ email_forward: attributes })
         response = client.post("v1/domains/#{domain}/email_forwards", options)
 
         Struct::EmailForward.new(response["email_forward"])
@@ -42,12 +42,12 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] forward The forward id.
-      #
       # @return [Struct::EmailForward]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def email_forward(domain, forward)
-        response = client.get("v1/domains/#{domain}/email_forwards/#{forward}")
+      def email_forward(domain, forward, options = {})
+        response = client.get("v1/domains/#{domain}/email_forwards/#{forward}", options)
 
         Struct::EmailForward.new(response["email_forward"])
       end
@@ -58,12 +58,12 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] forward The forward id.
-      #
       # @return [void]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete_email_forward(domain, forward)
-        client.delete("v1/domains/#{domain}/email_forwards/#{forward}")
+      def delete_email_forward(domain, forward, options = {})
+        client.delete("v1/domains/#{domain}/email_forwards/#{forward}", options)
       end
 
     end

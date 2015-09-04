@@ -8,8 +8,8 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] options
-      #
       # @return [Array<Struct::Certificate>]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def certificates(domain, options = {})
@@ -26,12 +26,12 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] certificate_id The certificate ID.
-      #
       # @return [Struct::Certificate]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def certificate(domain, certificate_id)
-        response = client.get("v1/domains/#{domain}/certificates/#{certificate_id}")
+      def certificate(domain, certificate_id, options = {})
+        response = client.get("v1/domains/#{domain}/certificates/#{certificate_id}", options)
 
         Struct::Certificate.new(response["certificate"])
       end
@@ -54,8 +54,8 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [String] name The certificate name.
       # @param  [Fixnum] contact_id The ID of the contact associated to the certificate.
-      #
       # @return [Struct::Certificate]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def purchase(domain, name, contact_id, options = {})
@@ -69,12 +69,12 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] certificate_id The certificate ID.
-      #
       # @return [Struct::Certificate]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def configure(domain, certificate_id)
-        response = client.put("v1/domains/#{domain}/certificates/#{certificate_id}/configure")
+      def configure(domain, certificate_id, options = {})
+        response = client.put("v1/domains/#{domain}/certificates/#{certificate_id}/configure", options)
 
         Struct::Certificate.new(response["certificate"])
       end
@@ -88,8 +88,8 @@ module Dnsimple
       # @return [Struct::Certificate]
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def submit(domain, certificate_id, email)
-        options = { certificate: { approver_email: email }}
+      def submit(domain, certificate_id, email, options = {})
+        options  = options.merge(certificate: { approver_email: email })
         response = client.put("v1/domains/#{domain}/certificates/#{certificate_id}/submit", options)
 
         Struct::Certificate.new(response["certificate"])
