@@ -17,6 +17,7 @@ module Dnsimple
 
         response.map { |r| Struct::Record.new(r["record"]) }
       end
+      alias :list_record :records
 
       # Creates a record for a domain.
       #

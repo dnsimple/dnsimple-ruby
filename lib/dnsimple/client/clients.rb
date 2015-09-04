@@ -62,7 +62,7 @@ module Dnsimple
 
     require 'dnsimple/client/domains'
     require 'dnsimple/client/domains_records'
-    require 'dnsimple/client/domains_autorenewals'
+    require 'dnsimple/client/domains_autorenewal'
     require 'dnsimple/client/domains_privacy'
     require 'dnsimple/client/domains_sharing'
     require 'dnsimple/client/domains_forwards'
@@ -71,7 +71,7 @@ module Dnsimple
     class DomainsService < ClientService
       include Client::Domains
       include Client::DomainsRecords
-      include Client::DomainsAutorenewals
+      include Client::DomainsAutorenewal
       include Client::DomainsPrivacy
       include Client::DomainsSharing
       include Client::DomainsForwards
@@ -103,10 +103,12 @@ module Dnsimple
 
 
     require 'dnsimple/client/templates'
+    require 'dnsimple/client/templates_domains'
     require 'dnsimple/client/templates_records'
 
     class TemplatesService < ClientService
       include Client::Templates
+      include Client::TemplatesDomains
       include Client::TemplatesRecords
     end
 

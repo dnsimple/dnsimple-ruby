@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".contacts" do
   describe "#contacts" do
     before do
       stub_request(:get, %r[/v1/contacts$]).
-          to_return(read_fixture("contacts/list/success.http"))
+          to_return(read_fixture("contacts/contacts/success.http"))
     end
 
     it "builds the correct request" do
@@ -31,24 +31,24 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
-  describe "#create" do
+  describe "#create_contact" do
     before do
       stub_request(:post, %r[/v1/contacts$]).
-          to_return(read_fixture("contacts/create/created.http"))
+          to_return(read_fixture("contacts/create_contact/created.http"))
     end
 
     let(:attributes) { { first_name: "Simone", last_name: "Carletti", address1: "", city: "Rome", state_province: "RM", postal_code: "00171", country: "IT", email_address: "", phone: "" } }
 
     it "builds the correct request" do
-      subject.create(attributes)
+      subject.create_contact(attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.zone/v1/contacts").
-                         with(body: { contact: attributes }).
-                         with(headers: { 'Accept' => 'application/json' })
+                             with(body: { contact: attributes }).
+                             with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the contact" do
-      result = subject.create(attributes)
+      result = subject.create_contact(attributes)
 
       expect(result).to be_a(Dnsimple::Struct::Contact)
       expect(result.id).to be_a(Fixnum)
@@ -58,7 +58,7 @@ describe Dnsimple::Client, ".contacts" do
   describe "#contact" do
     before do
       stub_request(:get, %r[/v1/contacts/.+$]).
-          to_return(read_fixture("contacts/get/success.http"))
+          to_return(read_fixture("contacts/contact/success.http"))
     end
 
     it "builds the correct request" do
@@ -94,7 +94,7 @@ describe Dnsimple::Client, ".contacts" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("contacts/notfound.http"))
+            to_return(read_fixture("contacts/notfound-contact.http"))
 
         expect {
           subject.contact(1)
@@ -103,10 +103,10 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
-  describe "#update" do
+  describe "#update_contact" do
     before do
       stub_request(:put, %r[/v1/contacts/.+$]).
-          to_return(read_fixture("contacts/update/success.http"))
+          to_return(read_fixture("contacts/update_contact/success.http"))
     end
 
     it "builds the correct request" do
@@ -118,7 +118,7 @@ describe Dnsimple::Client, ".contacts" do
     end
 
     it "returns the contact" do
-      result = subject.update(1, {})
+      result = subject.update_contact(1, {})
 
       expect(result).to be_a(Dnsimple::Struct::Contact)
       expect(result.id).to be_a(Fixnum)
@@ -127,39 +127,39 @@ describe Dnsimple::Client, ".contacts" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:put, %r[/v1]).
-            to_return(read_fixture("contacts/notfound.http"))
+            to_return(read_fixture("contacts/notfound-contact.http"))
 
         expect {
-          subject.update(1, {})
+          subject.update_contact(1, {})
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
 
-  describe "#delete" do
+  describe "#delete_contact" do
     before do
       stub_request(:delete, %r[/v1/contacts/1$]).
-          to_return(read_fixture("contacts/delete/success.http"))
+          to_return(read_fixture("contacts/delete_contact/success.http"))
     end
 
     it "builds the correct request" do
-      subject.delete(1)
+      subject.delete_contact(1)
 
       expect(WebMock).to have_requested(:delete, "https://api.zone/v1/contacts/1").
                          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
-      result = subject.delete(1)
+      result = subject.delete_contact(1)
 
       expect(result).to be_truthy
     end
 
     it "supports HTTP 204" do
       stub_request(:delete, %r[/v1]).
-          to_return(read_fixture("contacts/delete/success-204.http"))
+          to_return(read_fixture("contacts/delete_contact/success-204.http"))
 
-      result = subject.delete(1)
+      result = subject.delete_contact(1)
 
       expect(result).to be_truthy
     end
@@ -167,10 +167,10 @@ describe Dnsimple::Client, ".contacts" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("contacts/notfound.http"))
+            to_return(read_fixture("contacts/notfound-contact.http"))
 
         expect {
-          subject.delete(1)
+          subject.delete_contact(1)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end

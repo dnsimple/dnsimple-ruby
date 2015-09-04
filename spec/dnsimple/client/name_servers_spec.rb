@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".name_servers" do
   describe "#name_servers" do
     before do
       stub_request(:get, %r[/v1/domains/.+/name_servers$]).
-          to_return(read_fixture("nameservers/list/success.http"))
+          to_return(read_fixture("nameservers/name_servers/success.http"))
     end
 
     it "builds the correct request" do

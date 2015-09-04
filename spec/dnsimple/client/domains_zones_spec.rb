@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".domains / zones" do
   describe "#zone" do
     before do
       stub_request(:get, %r[/v1/domains/.+/zone$]).
-          to_return(read_fixture("domains_zones/get/success.http"))
+          to_return(read_fixture("domains/zone/success.http"))
     end
 
     it "builds the correct request" do
@@ -28,7 +28,7 @@ describe Dnsimple::Client, ".domains / zones" do
     context "when domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains_zones/notfound-domain.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.zone("example.com")

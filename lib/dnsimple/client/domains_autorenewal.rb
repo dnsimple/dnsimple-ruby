@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module DomainsAutorenewals
+    module DomainsAutorenewal
 
       # Enables auto-renewal for a domain.
       #

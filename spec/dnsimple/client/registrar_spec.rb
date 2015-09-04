@@ -128,7 +128,7 @@ describe Dnsimple::Client, ".registrar" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("domains/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.renew("example.com")
@@ -138,21 +138,21 @@ describe Dnsimple::Client, ".registrar" do
   end
 
 
-  describe "#list_extended_attributes" do
+  describe "#extended_attributes" do
     before do
       stub_request(:get, %r[/v1/extended_attributes/.+$]).
-          to_return(read_fixture("registrar_extended_attributes/list/success.http"))
+          to_return(read_fixture("registrar/extended_attributes/success.http"))
     end
 
     it "builds the correct request" do
-      subject.list_extended_attributes("uk")
+      subject.extended_attributes("uk")
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/extended_attributes/uk").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the extended attributes" do
-      results = subject.list_extended_attributes("uk")
+      results = subject.extended_attributes("uk")
 
       expect(results).to be_a(Array)
       expect(results.size).to eq(4)
@@ -173,21 +173,21 @@ describe Dnsimple::Client, ".registrar" do
   end
 
 
-  describe "#list_prices" do
+  describe "#prices" do
     before do
       stub_request(:get, %r[/v1/prices$]).
-          to_return(read_fixture("registrar_prices/list/success.http"))
+          to_return(read_fixture("registrar/prices/success.http"))
     end
 
     it "builds the correct request" do
-      subject.list_prices
+      subject.prices
 
       expect(WebMock).to have_requested(:get, "https://api.zone/v1/prices").
                              with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the prices" do
-      results = subject.list_prices
+      results = subject.prices
 
       expect(results).to be_a(Array)
       expect(results.size).to be > 0

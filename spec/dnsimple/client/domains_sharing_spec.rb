@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".domains / sharing" do
   describe "#memberships" do
     before do
       stub_request(:get, %r[/v1/domains/.+/memberships$]).
-          to_return(read_fixture("domains_sharing/list/success.http"))
+          to_return(read_fixture("domains/memberships/success.http"))
     end
 
     it "builds the correct request" do
@@ -33,7 +33,7 @@ describe Dnsimple::Client, ".domains / sharing" do
     context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains_sharing/notfound-domain.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.memberships("example.com")
@@ -45,7 +45,7 @@ describe Dnsimple::Client, ".domains / sharing" do
   describe "#create_membership" do
     before do
       stub_request(:post, %r[/v1/domains/.+/memberships$]).
-          to_return(read_fixture("domains_sharing/create/success.http"))
+          to_return(read_fixture("domains/create_membership/success.http"))
     end
 
     it "builds the correct request" do
@@ -66,7 +66,7 @@ describe Dnsimple::Client, ".domains / sharing" do
     context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("domains_forwards/notfound-domain.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.create_membership("example.com", "someone@example.com")
@@ -78,7 +78,7 @@ describe Dnsimple::Client, ".domains / sharing" do
   describe "#delete_membership" do
     before do
       stub_request(:delete, %r[/v1/domains/.+/memberships/.+$]).
-          to_return(read_fixture("domains_sharing/delete/success.http"))
+          to_return(read_fixture("domains/delete_membership/success.http"))
     end
 
     it "builds the correct request" do
@@ -97,7 +97,7 @@ describe Dnsimple::Client, ".domains / sharing" do
     context "when the membership does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("domains_sharing/notfound.http"))
+            to_return(read_fixture("domains/notfound-membership.http"))
 
         expect {
           subject.delete_membership("example.com", 2)

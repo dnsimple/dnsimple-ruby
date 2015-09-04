@@ -13,8 +13,8 @@ module Dnsimple
 
         response.map { |r| Struct::Service.new(r["service"]) }
       end
-
       alias :list :services
+      alias :list_services :services
 
       # Gets a service.
       #

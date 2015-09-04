@@ -33,7 +33,7 @@ describe Dnsimple::Client, ".certificates" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.certificates("example.com")
@@ -118,7 +118,7 @@ describe Dnsimple::Client, ".certificates" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("domains/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.purchase("example.com", "www", 100)
