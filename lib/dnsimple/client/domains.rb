@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the domains in the account.
       #
-      # @see http://developer.dnsimple.com/domains/#list
+      # @see http://developer.dnsimple.com/v1/domains/#list
       #
       # @param  [Hash] options the filtering and sorting option
       # @return [Array<Struct::Domain>]
@@ -20,7 +20,7 @@ module Dnsimple
 
       # Creates a domain in the account.
       #
-      # @see http://developer.dnsimple.com/domains/#create
+      # @see http://developer.dnsimple.com/v1/domains/#create
       #
       # @param  [Hash] attributes
       # @return [Struct::Domain]
@@ -37,7 +37,7 @@ module Dnsimple
 
       # Gets a domain from the account.
       #
-      # @see http://developer.dnsimple.com/domains/#get
+      # @see http://developer.dnsimple.com/v1/domains/#get
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Struct::Domain]
@@ -54,7 +54,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see http://developer.dnsimple.com/domains/#delete
+      # @see http://developer.dnsimple.com/v1/domains/#delete
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [void]

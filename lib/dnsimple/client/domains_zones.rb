@@ -4,7 +4,7 @@ module Dnsimple
 
       # Gets a domain zone as zone file.
       #
-      # @see http://developer.dnsimple.com/domains/zones/#get
+      # @see http://developer.dnsimple.com/v1/domains/zones/#get
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [String]

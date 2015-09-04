@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the supported services.
       #
-      # @see http://developer.dnsimple.com/services/#list
+      # @see http://developer.dnsimple.com/v1/services/#list
       #
       # @return [Array<Struct::Service>]
       #
@@ -19,7 +19,7 @@ module Dnsimple
 
       # Gets a service.
       #
-      # @see http://developer.dnsimple.com/services/#get
+      # @see http://developer.dnsimple.com/v1/services/#get
       #
       # @param  [Fixnum] service The service id.
       # @return [Struct::Service]

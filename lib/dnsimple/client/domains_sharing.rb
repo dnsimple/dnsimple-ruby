@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the memberships.
       #
-      # @see http://developer.dnsimple.com/domains/sharing/#list
+      # @see http://developer.dnsimple.com/v1/domains/sharing/#list
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Array<Struct::Membership>]
@@ -20,7 +20,7 @@ module Dnsimple
 
       # Shares a domain.
       #
-      # @see http://developer.dnsimple.com/domains/sharing/#create
+      # @see http://developer.dnsimple.com/v1/domains/sharing/#create
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [String] email
@@ -37,7 +37,7 @@ module Dnsimple
 
       # Un-shares a domain.
       #
-      # @see http://developer.dnsimple.com/domains/sharing/#delete
+      # @see http://developer.dnsimple.com/v1/domains/sharing/#delete
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] membership The membership id.

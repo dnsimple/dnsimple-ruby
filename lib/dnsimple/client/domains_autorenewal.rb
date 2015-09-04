@@ -4,7 +4,7 @@ module Dnsimple
 
       # Enables auto-renewal for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/autorenewal/#enable
+      # @see http://developer.dnsimple.com/v1/registrar/auto-renewal/#enable
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Struct::Domain]
@@ -18,7 +18,7 @@ module Dnsimple
 
       # Disables auto-renewal for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/autorenewal/#disable
+      # @see http://developer.dnsimple.com/v1/registrar/auto-renewal/#disable
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Struct::Domain]

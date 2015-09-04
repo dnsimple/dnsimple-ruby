@@ -4,7 +4,7 @@ module Dnsimple
 
       # Enables WHOIS privacy for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/privacy/#enable
+      # @see http://developer.dnsimple.com/v1/registrar/privacy/#enable
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Struct::WhoisPrivacy]
@@ -18,7 +18,7 @@ module Dnsimple
 
       # Disables WHOIS privacy for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/privacy/#disable
+      # @see http://developer.dnsimple.com/v1/registrar/privacy/#disable
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Struct::WhoisPrivacy]

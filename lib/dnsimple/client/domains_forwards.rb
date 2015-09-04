@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the email forwards for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/forwards/#list
+      # @see http://developer.dnsimple.com/v1/domains/forwards/#list
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Array<Struct::EmailForward>]
@@ -20,7 +20,7 @@ module Dnsimple
 
       # Creates an email forward for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/forwards/#create
+      # @see http://developer.dnsimple.com/v1/domains/forwards/#create
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] attributes
@@ -38,7 +38,7 @@ module Dnsimple
 
       # Gets an email forward for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/forwards/#get
+      # @see http://developer.dnsimple.com/v1/domains/forwards/#get
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] forward The forward id.
@@ -54,7 +54,7 @@ module Dnsimple
 
       # Deletes an email forward for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/forwards/#delete
+      # @see http://developer.dnsimple.com/v1/domains/forwards/#delete
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] forward The forward id.

@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the records for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#list
+      # @see http://developer.dnsimple.com/v1/domains/records/#list
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] options
@@ -21,7 +21,7 @@ module Dnsimple
 
       # Creates a record for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#create
+      # @see http://developer.dnsimple.com/v1/domains/records/#create
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] attributes
@@ -39,7 +39,7 @@ module Dnsimple
 
       # Gets a record for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#get
+      # @see http://developer.dnsimple.com/v1/domains/records/#get
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.
@@ -55,7 +55,7 @@ module Dnsimple
 
       # Updates a record for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#update
+      # @see http://developer.dnsimple.com/v1/domains/records/#update
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.
@@ -73,7 +73,7 @@ module Dnsimple
 
       # Deletes a record for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#delete
+      # @see http://developer.dnsimple.com/v1/domains/records/#delete
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.

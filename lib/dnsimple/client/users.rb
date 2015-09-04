@@ -18,7 +18,7 @@ module Dnsimple
       # The exchange-token is required to validate API requests
       # using HTTP Basic Authentication when the account has two-factor authentication enabled.
       #
-      # @see http://developer.dnsimple.com/authentication/#twofa
+      # @see http://developer.dnsimple.com/v1/authentication/#twofa
       #
       # @example Request an Exchange Token
       #   Dnsimple::User.two_factor_exchange_token('0000000')

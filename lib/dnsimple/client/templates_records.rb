@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the records for a template.
       #
-      # @see http://developer.dnsimple.com/templates/records/#list
+      # @see http://developer.dnsimple.com/v1/templates/records/#list
       #
       # @param  [#to_s] template The template id or short-name.
       # @return [Array<Struct::TemplateRecord>]
@@ -19,7 +19,7 @@ module Dnsimple
 
       # Creates a record for a template.
       #
-      # @see http://developer.dnsimple.com/templates/records/#create
+      # @see http://developer.dnsimple.com/v1/templates/records/#create
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Hash] attributes
@@ -37,7 +37,7 @@ module Dnsimple
 
       # Gets a record for a template.
       #
-      # @see http://developer.dnsimple.com/templates/records/#delete
+      # @see http://developer.dnsimple.com/v1/templates/records/#delete
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Fixnum] record The record id.
@@ -53,7 +53,7 @@ module Dnsimple
 
       # Updates a record for a template.
       #
-      # @see http://developer.dnsimple.com/templates/#update
+      # @see http://developer.dnsimple.com/v1/templates/#update
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Fixnum] record The record id.
@@ -71,7 +71,7 @@ module Dnsimple
 
       # Deletes a record for a template.
       #
-      # @see http://developer.dnsimple.com/templates/records/#get
+      # @see http://developer.dnsimple.com/v1/templates/records/#get
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Fixnum] record The record id.

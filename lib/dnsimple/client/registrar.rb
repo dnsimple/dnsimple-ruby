@@ -4,7 +4,7 @@ module Dnsimple
 
       # Checks the availability of a domain name.
       #
-      # @see http://developer.dnsimple.com/domains/registry/#check
+      # @see http://developer.dnsimple.com/v1/domains/registry/#check
       #
       # @param  [#to_s] name The domain name to check.
       # @return [Hash] The response containing the status, price, and more details.
@@ -22,7 +22,7 @@ module Dnsimple
 
       # Checks the availability of a domain name.
       #
-      # @see http://developer.dnsimple.com/domains/registry/#check
+      # @see http://developer.dnsimple.com/v1/domains/registry/#check
       #
       # @param  [#to_s] name The domain name to check.
       # @return [Boolean] true if the domain is available
@@ -34,7 +34,7 @@ module Dnsimple
 
       # Registers a domain.
       #
-      # @see http://developer.dnsimple.com/domains/registry/#register
+      # @see http://developer.dnsimple.com/v1/domains/registry/#register
       #
       # @param  [#to_s] name The domain name to register.
       # @param  [Fixnum] registrant_id The id of the contact to use as registrant.
@@ -52,7 +52,7 @@ module Dnsimple
 
       # Transfers a domain.
       #
-      # @see http://developer.dnsimple.com/domains/registry/#transfer
+      # @see http://developer.dnsimple.com/v1/domains/registry/#transfer
       #
       # @param  [#to_s] name The domain name to register.
       # @param  [String] auth_code
@@ -71,7 +71,7 @@ module Dnsimple
 
       # Renew a domain.
       #
-      # @see http://developer.dnsimple.com/domains/registry/#renew
+      # @see http://developer.dnsimple.com/v1/domains/registry/#renew
       #
       # @param  [#to_s] name The domain name to renew.
       # @param  [Hash] options
@@ -88,7 +88,7 @@ module Dnsimple
 
       # List the extended attributes for a TLD.
       #
-      # @see http://developer.dnsimple.com/registrar/extended-attributes/#list
+      # @see http://developer.dnsimple.com/v1/registrar/extended-attributes/#list
       #
       # @param  [#to_s] tld The TLD name.
       # @return [Array<Struct::ExtendedAttribute>]
@@ -103,7 +103,7 @@ module Dnsimple
 
       # List all the TLD prices.
       #
-      # @see http://developer.dnsimple.com/registrar/prices/#list
+      # @see http://developer.dnsimple.com/v1/registrar/prices/#list
       #
       # @return [Array<Struct::Price>]
       #

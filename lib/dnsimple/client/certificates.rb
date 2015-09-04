@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the certificates for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/certificates/#list
+      # @see http://developer.dnsimple.com/v1/domains/certificates/#list
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] options
@@ -22,7 +22,7 @@ module Dnsimple
 
       # Gets a certificate for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/certificates/#get
+      # @see http://developer.dnsimple.com/v1/domains/certificates/#get
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] certificate_id The certificate ID.

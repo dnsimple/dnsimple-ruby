@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the name servers for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/nameservers/#list
+      # @see http://developer.dnsimple.com/v1/domains/nameservers/#list
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Array<String>] The delegates name servers.
@@ -21,7 +21,7 @@ module Dnsimple
 
       # Changes the name servers for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/nameservers/#change
+      # @see http://developer.dnsimple.com/v1/domains/nameservers/#change
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Array<String>] servers The name server list.
@@ -40,7 +40,7 @@ module Dnsimple
 
       # Registers a name server at the registry.
       #
-      # @see http://developer.dnsimple.com/nameservers/#register
+      # @see http://developer.dnsimple.com/v1/nameservers/#register
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [String] name The hostname to register.
@@ -55,7 +55,7 @@ module Dnsimple
 
       # De-registers a name server at the registry.
       #
-      # @see http://developer.dnsimple.com/nameservers/#deregister
+      # @see http://developer.dnsimple.com/v1/nameservers/#deregister
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [String] name The hostname to register.

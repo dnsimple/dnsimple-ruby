@@ -4,7 +4,7 @@ module Dnsimple
 
       # Applies the template to the domain.
       #
-      # @see http://developer.dnsimple.com/templates/#apply
+      # @see http://developer.dnsimple.com/v1/templates/#apply
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [#to_s] template The template id or short-name.

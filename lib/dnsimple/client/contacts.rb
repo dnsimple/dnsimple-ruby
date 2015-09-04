@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the contacts in the account.
       #
-      # @see http://developer.dnsimple.com/contacts/#list
+      # @see http://developer.dnsimple.com/v1/contacts/#list
       #
       # @return [Array<Struct::Contact>]
       #
@@ -19,7 +19,7 @@ module Dnsimple
 
       # Creates a contact in the account.
       #
-      # @see http://developer.dnsimple.com/contacts/#create
+      # @see http://developer.dnsimple.com/v1/contacts/#create
       #
       # @param  [Hash] attributes
       # @return [Struct::Contact]
@@ -36,7 +36,7 @@ module Dnsimple
 
       # Gets a contact from the account.
       #
-      # @see http://developer.dnsimple.com/contacts/#get
+      # @see http://developer.dnsimple.com/v1/contacts/#get
       #
       # @param  [Fixnum] contact The contact id.
       # @return [Struct::Contact]
@@ -51,7 +51,7 @@ module Dnsimple
 
       # Updates a contact in the account.
       #
-      # @see http://developer.dnsimple.com/contacts/#update
+      # @see http://developer.dnsimple.com/v1/contacts/#update
       #
       # @param  [Fixnum] contact The contact id.
       # @param  [Hash] attributes
@@ -71,7 +71,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see http://developer.dnsimple.com/contacts/#delete
+      # @see http://developer.dnsimple.com/v1/contacts/#delete
       #
       # @param  [Fixnum] contact The contact id.
       # @return [void]

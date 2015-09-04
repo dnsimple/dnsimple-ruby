@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the services applied to a domain.
       #
-      # @see http://developer.dnsimple.com/services/#applied
+      # @see http://developer.dnsimple.com/v1/services/#applied
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Array<Struct::Service>]
@@ -19,7 +19,7 @@ module Dnsimple
 
       # Lists the services not applied to a domain.
       #
-      # @see http://developer.dnsimple.com/services/#available
+      # @see http://developer.dnsimple.com/v1/services/#available
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Array<Struct::Service>]
@@ -34,7 +34,7 @@ module Dnsimple
 
       # Applies a service to a domain.
       #
-      # @see http://developer.dnsimple.com/services/#apply
+      # @see http://developer.dnsimple.com/v1/services/#apply
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] service The service id.
@@ -50,7 +50,7 @@ module Dnsimple
 
       # Un-applies a service from a domain.
       #
-      # @see http://developer.dnsimple.com/services/#unapply
+      # @see http://developer.dnsimple.com/v1/services/#unapply
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] service The service id.

@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the templates in the account.
       #
-      # @see http://developer.dnsimple.com/templates/#list
+      # @see http://developer.dnsimple.com/v1/templates/#list
       #
       # @return [Array<Struct::Template>]
       #
@@ -19,7 +19,7 @@ module Dnsimple
 
       # Creates a template in the account.
       #
-      # @see http://developer.dnsimple.com/templates/#create
+      # @see http://developer.dnsimple.com/v1/templates/#create
       #
       # @param  [Hash] attributes
       # @return [Struct::Template]
@@ -36,7 +36,7 @@ module Dnsimple
 
       # Gets a template from the account.
       #
-      # @see http://developer.dnsimple.com/templates/#get
+      # @see http://developer.dnsimple.com/v1/templates/#get
       #
       # @param  [#to_s] template The template id or short-name.
       # @return [Struct::Template]
@@ -51,7 +51,7 @@ module Dnsimple
 
       # Updates a template in the account.
       #
-      # @see http://developer.dnsimple.com/templates/#update
+      # @see http://developer.dnsimple.com/v1/templates/#update
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Hash] attributes
@@ -71,7 +71,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see http://developer.dnsimple.com/templates/#delete
+      # @see http://developer.dnsimple.com/v1/templates/#delete
       #
       # @param  [#to_s] template The template id or short-name.
       # @return [void]
