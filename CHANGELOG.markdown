@@ -1,6 +1,6 @@
 # Changelog
 
-#### master
+#### 2.1.0
 
 - NEW: Add the ability to set headers and pass extra connection params in each API method (GH-64) 
 
