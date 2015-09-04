@@ -8,8 +8,8 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] options
-      #
       # @return [Array<Struct::Record>]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def records(domain, options = {})
@@ -25,13 +25,13 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] attributes
-      #
       # @return [Struct::Record]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def create_record(domain, attributes = {})
+      def create_record(domain, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
-        options  = { record: attributes }
+        options  = options.merge({ record: attributes })
         response = client.post("v1/domains/#{domain}/records", options)
 
         Struct::Record.new(response["record"])
@@ -43,12 +43,12 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.
-      #
       # @return [Struct::Record]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def record(domain, record)
-        response = client.get("v1/domains/#{domain}/records/#{record}")
+      def record(domain, record, options = {})
+        response = client.get("v1/domains/#{domain}/records/#{record}", options)
 
         Struct::Record.new(response["record"])
       end
@@ -60,12 +60,12 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.
       # @param  [Hash] attributes
-      #
       # @return [Struct::Record]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def update_record(domain, record, attributes = {})
-        options  = { record: attributes }
+      def update_record(domain, record, attributes = {}, options = {})
+        options  = options.merge({ record: attributes })
         response = client.put("v1/domains/#{domain}/records/#{record}", options)
 
         Struct::Record.new(response["record"])
@@ -77,12 +77,12 @@ module Dnsimple
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.
-      #
       # @return [void]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete_record(domain, record)
-        client.delete("v1/domains/#{domain}/records/#{record}")
+      def delete_record(domain, record, options = {})
+        client.delete("v1/domains/#{domain}/records/#{record}", options)
       end
 
     end

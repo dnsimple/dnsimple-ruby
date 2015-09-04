@@ -6,7 +6,9 @@ module Dnsimple
       #
       # @see http://developer.dnsimple.com/domains/#list
       #
+      # @param  [Hash] options the filtering and sorting option
       # @return [Array<Struct::Domain>]
+      #
       # @raise  [RequestError] When the request fails.
       def domains(options = {})
         response = client.get("v1/domains", options)
@@ -21,12 +23,12 @@ module Dnsimple
       # @see http://developer.dnsimple.com/domains/#create
       #
       # @param  [Hash] attributes
-      #
       # @return [Struct::Domain]
+      #
       # @raise  [RequestError] When the request fails.
-      def create_domain(attributes = {})
+      def create_domain(attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:name])
-        options  = { domain: attributes }
+        options  = options.merge({ domain: attributes })
         response = client.post("v1/domains", options)
 
         Struct::Domain.new(response["domain"])
@@ -38,12 +40,12 @@ module Dnsimple
       # @see http://developer.dnsimple.com/domains/#get
       #
       # @param  [#to_s] domain The domain id or domain name.
-      #
       # @return [Struct::Domain]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def domain(domain)
-        response = client.get("v1/domains/#{domain}")
+      def domain(domain, options = {})
+        response = client.get("v1/domains/#{domain}", options)
 
         Struct::Domain.new(response["domain"])
       end
@@ -55,12 +57,12 @@ module Dnsimple
       # @see http://developer.dnsimple.com/domains/#delete
       #
       # @param  [#to_s] domain The domain id or domain name.
-      #
       # @return [void]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete_domain(domain)
-        client.delete("v1/domains/#{domain}")
+      def delete_domain(domain, options = {})
+        client.delete("v1/domains/#{domain}", options)
       end
       alias :delete :delete_domain
 
