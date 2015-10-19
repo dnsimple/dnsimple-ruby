@@ -1,6 +1,6 @@
 # DNSimple Ruby Client
 
-A Ruby client for the [DNSimple API](http://developer.dnsimple.com/).
+A Ruby client for the [DNSimple API](https://developer.dnsimple.com/).
 
 [![Build Status](https://travis-ci.org/aetrion/dnsimple-ruby.svg?branch=master)](https://travis-ci.org/aetrion/dnsimple-ruby)
 [![Coverage Status](https://img.shields.io/coveralls/aetrion/dnsimple-ruby.svg)](https://coveralls.io/r/aetrion/dnsimple-ruby?branch=master)
@@ -18,9 +18,7 @@ $ gem install dnsimple
 
 ## Getting Started
 
-This library is a Ruby client you can use to interact with the [DNSimple API](http://developer.dnsimple.com/). 
-
-Here's a short example.
+This library is a Ruby client you can use to interact with the [DNSimple API](https://developer.dnsimple.com/). Here are some examples.
 
 ```ruby
 require 'dnsimple'
@@ -100,3 +98,8 @@ client = Dnsimple::Client.new(username: 'YOUR_USERNAME', api_token: 'YOUR_TOKEN'
 client.users.user
 # => Dnsimple::Struct::User
 ```
+
+
+## License
+
+Copyright (c) 2010-2015 Aetrion LLC. This is Free Software distributed under the MIT license.
