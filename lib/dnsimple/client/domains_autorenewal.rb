@@ -11,7 +11,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def enable_auto_renewal(domain, options = {})
-        response = client.post("v1/domains/#{domain}/auto_renewal", options)
+        response = client.post(Client.versioned("/domains/#{domain}/auto_renewal"), options)
 
         Struct::Domain.new(response["domain"])
       end
@@ -25,7 +25,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def disable_auto_renewal(domain, options = {})
-        response = client.delete("v1/domains/#{domain}/auto_renewal", options)
+        response = client.delete(Client.versioned("/domains/#{domain}/auto_renewal"), options)
 
         Struct::Domain.new(response["domain"])
       end

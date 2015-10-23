@@ -12,7 +12,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def check(name, options = {})
         response = begin
-          client.get("v1/domains/#{name}/check", options)
+          client.get(Client.versioned("/domains/#{name}/check"), options)
         rescue NotFoundError => e
           e.response
         end
@@ -45,7 +45,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def register(name, registrant_id, extended_attributes = {}, options = {})
         options = Extra.deep_merge(options, { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes })
-        response = client.post("v1/domain_registrations", options)
+        response = client.post(Client.versioned("/domain_registrations"), options)
 
         Struct::Domain.new(response["domain"])
       end
@@ -64,7 +64,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def transfer(name, auth_code, registrant_id, extended_attributes = {}, options = {})
         options = Extra.deep_merge(options, { domain: { name: name, registrant_id: registrant_id }, extended_attribute: extended_attributes, transfer_order: { authinfo: auth_code }})
-        response = client.post("v1/domain_transfers", options)
+        response = client.post(Client.versioned("/domain_transfers"), options)
 
         Struct::TransferOrder.new(response["transfer_order"])
       end
@@ -80,7 +80,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def renew(name, options = {})
         options = Extra.deep_merge(options, { domain: { name: name }})
-        response = client.post("v1/domain_renewals", options)
+        response = client.post(Client.versioned("/domain_renewals"), options)
 
         Struct::Domain.new(response["domain"])
       end
@@ -95,7 +95,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def extended_attributes(tld, options = {})
-        response = client.get("v1/extended_attributes/#{tld}", options)
+        response = client.get(Client.versioned("/extended_attributes/#{tld}"), options)
 
         response.map { |r| Struct::ExtendedAttribute.new(r) }
       end
@@ -109,7 +109,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def prices(options = {})
-        response = client.get("v1/prices", options)
+        response = client.get(Client.versioned("/prices"), options)
 
         response.map { |r| Struct::Price.new(r["price"]) }
       end

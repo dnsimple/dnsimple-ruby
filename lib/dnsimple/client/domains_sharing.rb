@@ -12,7 +12,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def memberships(domain, options = {})
-        response = client.get("v1/domains/#{domain}/memberships", options)
+        response = client.get(Client.versioned("/domains/#{domain}/memberships"), options)
 
         response.map { |r| Struct::Membership.new(r["membership"]) }
       end
@@ -30,7 +30,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def create_membership(domain, email, options = {})
         options  = options.merge({ membership: { email: email }})
-        response = client.post("v1/domains/#{domain}/memberships", options)
+        response = client.post(Client.versioned("/domains/#{domain}/memberships"), options)
 
         Struct::Membership.new(response["membership"])
       end
@@ -46,7 +46,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete_membership(domain, membership, options = {})
-        client.delete("v1/domains/#{domain}/memberships/#{membership}", options)
+        client.delete(Client.versioned("/domains/#{domain}/memberships/#{membership}"), options)
       end
 
     end

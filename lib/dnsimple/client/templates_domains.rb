@@ -13,7 +13,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def apply_template(domain, template, options = {})
-        response = client.post("v1/domains/#{domain}/templates/#{template}/apply", options)
+        response = client.post(Client.versioned("/domains/#{domain}/templates/#{template}/apply"), options)
         response.code == 200
       end
       alias :apply :apply_template

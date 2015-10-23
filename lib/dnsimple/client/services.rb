@@ -10,7 +10,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def services(options = {})
-        response = client.get("v1/services", options)
+        response = client.get(Client.versioned("services"), options)
 
         response.map { |r| Struct::Service.new(r["service"]) }
       end
@@ -27,7 +27,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def service(service, options = {})
-        response = client.get("v1/services/#{service}", options)
+        response = client.get(Client.versioned("services/#{service}"), options)
 
         Struct::Service.new(response["service"])
       end

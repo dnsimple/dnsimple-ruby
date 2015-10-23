@@ -12,7 +12,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def email_forwards(domain, options = {})
-        response = client.get("v1/domains/#{domain}/email_forwards", options)
+        response = client.get(Client.versioned("/domains/#{domain}/email_forwards"), options)
 
         response.map { |r| Struct::EmailForward.new(r["email_forward"]) }
       end
@@ -31,7 +31,7 @@ module Dnsimple
       def create_email_forward(domain, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:from, :to])
         options  = options.merge({ email_forward: attributes })
-        response = client.post("v1/domains/#{domain}/email_forwards", options)
+        response = client.post(Client.versioned("/domains/#{domain}/email_forwards"), options)
 
         Struct::EmailForward.new(response["email_forward"])
       end
@@ -47,7 +47,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def email_forward(domain, forward, options = {})
-        response = client.get("v1/domains/#{domain}/email_forwards/#{forward}", options)
+        response = client.get(Client.versioned("/domains/#{domain}/email_forwards/#{forward}"), options)
 
         Struct::EmailForward.new(response["email_forward"])
       end
@@ -63,7 +63,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete_email_forward(domain, forward, options = {})
-        client.delete("v1/domains/#{domain}/email_forwards/#{forward}", options)
+        client.delete(Client.versioned("/domains/#{domain}/email_forwards/#{forward}"), options)
       end
 
     end

@@ -12,7 +12,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def zone(domain, options = {})
-        response = client.get("v1/domains/#{domain}/zone", options)
+        response = client.get(Client.versioned("/domains/#{domain}/zone"), options)
 
         response["zone"]
       end

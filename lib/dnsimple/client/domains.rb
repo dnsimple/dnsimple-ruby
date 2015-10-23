@@ -11,7 +11,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def domains(options = {})
-        response = client.get("v1/domains", options)
+        response = client.get(Client.versioned("/domains"), options)
 
         response.map { |r| Struct::Domain.new(r["domain"]) }
       end
@@ -29,7 +29,7 @@ module Dnsimple
       def create_domain(attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:name])
         options  = options.merge({ domain: attributes })
-        response = client.post("v1/domains", options)
+        response = client.post(Client.versioned("/domains"), options)
 
         Struct::Domain.new(response["domain"])
       end
@@ -45,7 +45,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def domain(domain, options = {})
-        response = client.get("v1/domains/#{domain}", options)
+        response = client.get(Client.versioned("/domains/#{domain}"), options)
 
         Struct::Domain.new(response["domain"])
       end
@@ -62,7 +62,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete_domain(domain, options = {})
-        client.delete("v1/domains/#{domain}", options)
+        client.delete(Client.versioned("/domains/#{domain}"), options)
       end
       alias :delete :delete_domain
 

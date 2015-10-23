@@ -10,7 +10,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def templates(options = {})
-        response = client.get("v1/templates", options)
+        response = client.get(Client.versioned("templates"), options)
 
         response.map { |r| Struct::Template.new(r["dns_template"]) }
       end
@@ -28,7 +28,7 @@ module Dnsimple
       def create_template(attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :short_name])
         options  = options.merge({ dns_template: attributes })
-        response = client.post("v1/templates", options)
+        response = client.post(Client.versioned("templates"), options)
 
         Struct::Template.new(response["dns_template"])
       end
@@ -44,7 +44,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def template(template, options = {})
-        response = client.get("v1/templates/#{template}", options)
+        response = client.get(Client.versioned("templates/#{template}"), options)
 
         Struct::Template.new(response["dns_template"])
       end
@@ -61,7 +61,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def update_template(template, attributes = {}, options = {})
         options  = options.merge({ dns_template: attributes })
-        response = client.put("v1/templates/#{template}", options)
+        response = client.put(Client.versioned("templates/#{template}"), options)
 
         Struct::Template.new(response["dns_template"])
       end
@@ -79,7 +79,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete_template(template, options = {})
-        client.delete("v1/templates/#{template}", options)
+        client.delete(Client.versioned("templates/#{template}"), options)
       end
       alias :delete :delete_template
 

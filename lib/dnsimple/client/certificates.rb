@@ -13,7 +13,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def certificates(domain, options = {})
-        response = client.get("v1/domains/#{domain}/certificates", options)
+        response = client.get(Client.versioned("/domains/#{domain}/certificates"), options)
 
         response.map { |r| Struct::Certificate.new(r["certificate"]) }
       end
@@ -31,7 +31,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def certificate(domain, certificate_id, options = {})
-        response = client.get("v1/domains/#{domain}/certificates/#{certificate_id}", options)
+        response = client.get(Client.versioned("/domains/#{domain}/certificates/#{certificate_id}"), options)
 
         Struct::Certificate.new(response["certificate"])
       end
@@ -60,7 +60,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def purchase(domain, name, contact_id, options = {})
         options  = Extra.deep_merge(options, { certificate: { name: name, contact_id: contact_id }})
-        response = client.post("v1/domains/#{domain}/certificates", options)
+        response = client.post(Client.versioned("/domains/#{domain}/certificates"), options)
 
         Struct::Certificate.new(response["certificate"])
       end
@@ -74,7 +74,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def configure(domain, certificate_id, options = {})
-        response = client.put("v1/domains/#{domain}/certificates/#{certificate_id}/configure", options)
+        response = client.put(Client.versioned("/domains/#{domain}/certificates/#{certificate_id}/configure"), options)
 
         Struct::Certificate.new(response["certificate"])
       end
@@ -90,7 +90,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def submit(domain, certificate_id, email, options = {})
         options  = options.merge(certificate: { approver_email: email })
-        response = client.put("v1/domains/#{domain}/certificates/#{certificate_id}/submit", options)
+        response = client.put(Client.versioned("/domains/#{domain}/certificates/#{certificate_id}/submit"), options)
 
         Struct::Certificate.new(response["certificate"])
       end

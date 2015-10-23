@@ -11,7 +11,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def enable_whois_privacy(domain, options = {})
-        response = client.post("v1/domains/#{domain}/whois_privacy", options)
+        response = client.post(Client.versioned("domains/#{domain}/whois_privacy"), options)
 
         Struct::WhoisPrivacy.new(response["whois_privacy"])
       end
@@ -25,7 +25,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def disable_whois_privacy(domain, options = {})
-        response = client.delete("v1/domains/#{domain}/whois_privacy", options)
+        response = client.delete(Client.versioned("domains/#{domain}/whois_privacy"), options)
 
         Struct::WhoisPrivacy.new(response["whois_privacy"])
       end

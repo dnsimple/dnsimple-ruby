@@ -12,7 +12,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def applied(domain, options = {})
-        response = client.get("v1/domains/#{domain}/applied_services", options)
+        response = client.get(Client.versioned("domains/#{domain}/applied_services"), options)
 
         response.map { |r| Struct::Service.new(r["service"]) }
       end
@@ -27,7 +27,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def available(domain, options = {})
-        response = client.get("v1/domains/#{domain}/available_services", options)
+        response = client.get(Client.versioned("domains/#{domain}/available_services"), options)
 
         response.map { |r| Struct::Service.new(r["service"]) }
       end
@@ -44,7 +44,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def apply(domain, service, options = {})
         options  = Extra.deep_merge(options, { service: { id: service }})
-        response = client.post("v1/domains/#{domain}/applied_services", options)
+        response = client.post(Client.versioned("domains/#{domain}/applied_services"), options)
         response.code == 200
       end
 
@@ -59,7 +59,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def unapply(domain, service, options = {})
-        response = client.delete("v1/domains/#{domain}/applied_services/#{service}", options)
+        response = client.delete(Client.versioned("domains/#{domain}/applied_services/#{service}"), options)
         response.code == 200
       end
 

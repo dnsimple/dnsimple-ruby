@@ -13,7 +13,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def records(domain, options = {})
-        response = client.get("v1/domains/#{domain}/records", options)
+        response = client.get(Client.versioned("domains/#{domain}/records"), options)
 
         response.map { |r| Struct::Record.new(r["record"]) }
       end
@@ -32,7 +32,7 @@ module Dnsimple
       def create_record(domain, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
         options  = options.merge({ record: attributes })
-        response = client.post("v1/domains/#{domain}/records", options)
+        response = client.post(Client.versioned("domains/#{domain}/records"), options)
 
         Struct::Record.new(response["record"])
       end
@@ -48,7 +48,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def record(domain, record, options = {})
-        response = client.get("v1/domains/#{domain}/records/#{record}", options)
+        response = client.get(Client.versioned("domains/#{domain}/records/#{record}"), options)
 
         Struct::Record.new(response["record"])
       end
@@ -66,7 +66,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def update_record(domain, record, attributes = {}, options = {})
         options  = options.merge({ record: attributes })
-        response = client.put("v1/domains/#{domain}/records/#{record}", options)
+        response = client.put(Client.versioned("domains/#{domain}/records/#{record}"), options)
 
         Struct::Record.new(response["record"])
       end
@@ -82,7 +82,7 @@ module Dnsimple
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def delete_record(domain, record, options = {})
-        client.delete("v1/domains/#{domain}/records/#{record}", options)
+        client.delete(Client.versioned("domains/#{domain}/records/#{record}"), options)
       end
 
     end

@@ -8,7 +8,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def user(options = {})
-        response = client.get("v1/user", options)
+        response = client.get(Client.versioned("/user"), options)
 
         Struct::User.new(response["user"])
       end
@@ -30,7 +30,7 @@ module Dnsimple
       # @raise  [AuthenticationFailed] if the provided OTP token is invalid.
       def exchange_token(otp_token, options = {})
         options  = Extra.deep_merge(options, headers: { Client::HEADER_2FA_STRICT => "1", Client::HEADER_OTP_TOKEN => otp_token })
-        response = client.get("v1/user", options)
+        response = client.get(Client.versioned("/user"), options)
         response.headers[Client::HEADER_EXCHANGE_TOKEN]
       end
 
