@@ -144,7 +144,7 @@ module Dnsimple
 
     # @return [String] Base URL for API requests.
     def api_endpoint
-      File.join(@api_endpoint, "")
+      Extra.join_uri(@api_endpoint, "")
     end
 
 
