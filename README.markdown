@@ -77,7 +77,7 @@ client.users.user
 
 #### HTTP Basic with two-factor authentication enabled
 
-See the [2FA API documentation](http://developer.dnsimple.com/authentication/#twofa).
+See the [2FA API documentation](https://developer.dnsimple.com/authentication/#twofa).
 
 ```ruby
 # Request the 2FA exchange token
