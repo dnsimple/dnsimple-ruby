@@ -1,6 +1,6 @@
 # Changelog
 
-#### master
+#### 2.1.1
 
 - FIXED: Paths may mistakenly be generated use \ on windows.
 
