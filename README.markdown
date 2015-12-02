@@ -99,6 +99,19 @@ client.users.user
 # => Dnsimple::Struct::User
 ```
 
+#### Domain API Token
+
+The domain API token grants [limited access]](https://developer.dnsimple.com/v1/authentication/#domain-token) to a single domain.
+
+```ruby
+client = Dnsimple::Client.new(domain_api_token: 'DOMAIN_TOKEN')
+
+client.domains.records("example.com")
+# => [Dnsimple::Struct::Record, Dnsimple::Struct::Record, ...]
+
+client.domains.records("foobar.com")
+# => Authentication error
+```
 
 ## License
 
