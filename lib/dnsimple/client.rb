@@ -45,13 +45,19 @@ module Dnsimple
     # @!attribute domain_api_token
     #   @see http://developer.dnsimple.com/authentication/
     #   @return [String] Domain API access token for authentication
+    # @!attribute oauth_client_id
+    #   @see http://developer.dnsimple.com/authentication/
+    #   @return [String] OAuth client id for authentication
+    # @!attribute oauth_client_secret
+    #   @see http://developer.dnsimple.com/authentication/
+    #   @return [String] OAuth client secret for authentication
     # @!attribute user_agent
     #   @return [String] Configure User-Agent header for requests.
     # @!attribute proxy
     #   @return [String,nil] Configure address:port values for proxy server
 
     attr_accessor :api_endpoint, :username, :password, :exchange_token, :api_token, :domain_api_token,
-                  :user_agent, :proxy
+                  :oauth_client_id, :oauth_client_secret, :user_agent, :proxy
 
 
     def initialize(options = {})
