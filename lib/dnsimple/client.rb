@@ -19,7 +19,7 @@ module Dnsimple
 
 
     # @return [String] The current API version.
-    API_VERSION = "v1"
+    API_VERSION = "v2"
 
 
     # Prepends the correct API version to +path+.
