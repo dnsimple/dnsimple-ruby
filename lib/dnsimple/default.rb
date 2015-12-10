@@ -21,6 +21,8 @@ module Dnsimple
             :exchange_token,
             :api_token,
             :domain_api_token,
+            :oauth_client_id,
+            :oauth_client_secret,
             :user_agent,
             :proxy,
         ]
@@ -66,6 +68,18 @@ module Dnsimple
       # @return [String]
       def api_token
         ENV['DNSIMPLE_API_TOKEN']
+      end
+
+      # Default DNSimple OAuth client ID for OAuth authentication from ENV
+      # @return [String]
+      def oauth_client_id
+        ENV['DNSIMPLE_OAUTH_CLIENT_ID']
+      end
+
+      # Default DNSimple OAuth client secret for OAuth authentication from ENV
+      # @return [String]
+      def oauth_client_secret
+        ENV['DNSIMPLE_OAUTH_CLIENT_SECRET']
       end
 
       # Default User-Agent header string from ENV or {USER_AGENT}
