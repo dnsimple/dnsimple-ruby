@@ -1,7 +1,6 @@
 require 'dnsimple/compatibility'
 require 'dnsimple/extra'
 require 'dnsimple/struct'
-require 'dnsimple/client/clients'
 
 module Dnsimple
 
