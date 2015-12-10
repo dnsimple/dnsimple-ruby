@@ -16,7 +16,7 @@ module Dnsimple
       #
       # @return [void]
       # @raise  [RequestError] When the request fails.
-      def enable(domain, names)
+      def enable_vanity_name_servers(domain, names)
         options = {
                     "vanity_nameserver_configuration" => {
                       "server_source" => "external"
@@ -34,7 +34,7 @@ module Dnsimple
       #
       # @return [void]
       # @raise  [RequestError] When the request fails.
-      def disable(domain)
+      def disable_vanity_name_servers(domain)
         client.delete("v1/domains/#{domain}/vanity_name_servers")
       end
 
