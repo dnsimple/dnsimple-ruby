@@ -4,7 +4,7 @@ module Dnsimple
 
       # Enable vanity name servers for a domain. 
       #
-      # @see https://developer.dnsimple.com/nameservers/vanity-nameservers/#enable
+      # @see https://developer.dnsimple.com/v1/nameservers/vanity-nameservers/#enable
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] names A hash of up to 4 external name servers; hash keys
@@ -28,7 +28,7 @@ module Dnsimple
 
       # Disable vanity name servers for a domain.
       #
-      # @see https://developer.dnsimple.com/nameservers/vanity-nameservers/#disable
+      # @see https://developer.dnsimple.com/v1/nameservers/vanity-nameservers/#disable
       #
       # @param  [#to_s] domain The domain id or domain name.
       #
