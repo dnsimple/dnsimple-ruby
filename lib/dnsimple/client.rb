@@ -57,7 +57,7 @@ module Dnsimple
     #   @return [String,nil] Configure address:port values for proxy server
 
     attr_accessor :api_endpoint, :username, :password, :exchange_token, :api_token, :domain_api_token,
-                  :oauth_client_id, :oauth_client_secret, :user_agent, :proxy
+                  :oauth_client_id, :oauth_client_secret, :oauth_access_token, :user_agent, :proxy
 
 
     def initialize(options = {})

@@ -14,6 +14,11 @@ describe Dnsimple::Client do
       expect(subject.oauth_client_secret).to eq("secret")
     end
 
+    it "access :oauth_access_token option" do
+      subject = described_class.new(oauth_access_token: "token")
+      expect(subject.oauth_access_token).to eq("token")
+    end
+
     it "normalizes :api_endpoint trailing slash" do
       subject = described_class.new(api_endpoint: "https://api.example.com/missing/slash")
       expect(subject.api_endpoint).to eq("https://api.example.com/missing/slash/")
