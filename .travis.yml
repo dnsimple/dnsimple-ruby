@@ -1,12 +1,6 @@
 language: ruby
 rvm:
-  - 1.8.7
-  - 1.9.2
   - 1.9.3
-  - 2.0.0
-  - 2.1.0
-env: DNSIMPLE_TEST_CONFIG=spec/ci/.dnsimple.test COVERALL=1
-
-matrix:
-  allow_failures:
-    - rvm: 1.8.7
+  - 2.0
+  - 2.1
+  - 2.2

@@ -1,5 +1,9 @@
 # Changelog
 
+#### Release 2.0
+
+The gem has been renamed to `dnsimple`. The `dnsimple-ruby` gem now simply requires `dnsimple`.
+
 #### Release 1.7.1
 
 - FIXED: Updated Certificate to match the serialized attributes (GH-53)
