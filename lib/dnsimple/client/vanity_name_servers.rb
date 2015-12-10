@@ -22,8 +22,8 @@ module Dnsimple
                       "server_source" => "external"
                     }
                   }
-        options[:vanity_nameserver_configuration].merge!(names)
-        client.post("v1/domains/#{domain}/vanity_name_servers", options)
+        options["vanity_nameserver_configuration"].merge!(names)
+        client.post(Client.versioned("domains/#{domain}/vanity_name_servers"), options)
       end
 
       # Disable vanity name servers for a domain.
