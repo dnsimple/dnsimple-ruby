@@ -4,84 +4,85 @@ module Dnsimple
 
       # Lists the records for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#list
+      # @see http://developer.dnsimple.com/v1/domains/records/#list
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] options
-      #
       # @return [Array<Struct::Record>]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def records(domain, options = {})
-        response = client.get("v1/domains/#{domain}/records", options)
+        response = client.get(Client.versioned("domains/#{domain}/records"), options)
 
         response.map { |r| Struct::Record.new(r["record"]) }
       end
+      alias :list_record :records
 
       # Creates a record for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#create
+      # @see http://developer.dnsimple.com/v1/domains/records/#create
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Hash] attributes
-      #
       # @return [Struct::Record]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def create_record(domain, attributes = {})
+      def create_record(domain, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
-        options  = { record: attributes }
-        response = client.post("v1/domains/#{domain}/records", options)
+        options  = options.merge({ record: attributes })
+        response = client.post(Client.versioned("domains/#{domain}/records"), options)
 
         Struct::Record.new(response["record"])
       end
 
       # Gets a record for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#get
+      # @see http://developer.dnsimple.com/v1/domains/records/#get
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.
-      #
       # @return [Struct::Record]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def record(domain, record)
-        response = client.get("v1/domains/#{domain}/records/#{record}")
+      def record(domain, record, options = {})
+        response = client.get(Client.versioned("domains/#{domain}/records/#{record}"), options)
 
         Struct::Record.new(response["record"])
       end
 
       # Updates a record for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#update
+      # @see http://developer.dnsimple.com/v1/domains/records/#update
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.
       # @param  [Hash] attributes
-      #
       # @return [Struct::Record]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def update_record(domain, record, attributes = {})
-        options  = { record: attributes }
-        response = client.put("v1/domains/#{domain}/records/#{record}", options)
+      def update_record(domain, record, attributes = {}, options = {})
+        options  = options.merge({ record: attributes })
+        response = client.put(Client.versioned("domains/#{domain}/records/#{record}"), options)
 
         Struct::Record.new(response["record"])
       end
 
       # Deletes a record for a domain.
       #
-      # @see http://developer.dnsimple.com/domains/records/#delete
+      # @see http://developer.dnsimple.com/v1/domains/records/#delete
       #
       # @param  [#to_s] domain The domain id or domain name.
       # @param  [Fixnum] record The record id.
-      #
       # @return [void]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete_record(domain, record)
-        client.delete("v1/domains/#{domain}/records/#{record}")
+      def delete_record(domain, record, options = {})
+        client.delete(Client.versioned("domains/#{domain}/records/#{record}"), options)
       end
 
     end

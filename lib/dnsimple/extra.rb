@@ -1,6 +1,13 @@
 module Dnsimple
   module Extra
 
+    # Joins two pieces of URI with a /.
+    #
+    # @return [String] The joined string.
+    def self.join_uri(*parts)
+      parts.map { |part| part.chomp("/") }.join("/")
+    end
+
     # Returns a new hash with +self+ and +other+ merged recursively.
     #
     #   h1 = { a: true, b: { c: [1, 2, 3] } }

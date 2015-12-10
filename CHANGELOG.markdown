@@ -1,6 +1,16 @@
 # Changelog
 
-#### 2.0.0.alpha
+#### 2.1.1
+
+- FIXED: Paths may mistakenly be generated use \ on windows.
+
+#### 2.1.0
+
+- NEW: Add the ability to set headers and pass extra connection params in each API method (GH-64) 
+
+#### 2.0.0
+
+**2.0.0.alpha**
 
 2.0 is a complete client redesign.
 
@@ -17,6 +27,10 @@
 - CHANGED: Renamed the namespace from DNSimple to Dnsimple.
 
 - REMOVED: The library no longer provides built-in support for loading the credentials from a config file.
+
+**2.0**
+
+- FIXED: Fixed a bug where API token environment variables were not properly detected (GH-59, GH-62). Thanks @oguzbilgic and @rupurt.
 
 #### Release 1.7.1
 

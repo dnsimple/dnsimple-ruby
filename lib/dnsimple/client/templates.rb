@@ -4,96 +4,84 @@ module Dnsimple
 
       # Lists the templates in the account.
       #
-      # @see http://developer.dnsimple.com/templates/#list
+      # @see http://developer.dnsimple.com/v1/templates/#list
       #
       # @return [Array<Struct::Template>]
+      #
       # @raise  [RequestError] When the request fails.
-      def templates
-        response = client.get("v1/templates")
+      def templates(options = {})
+        response = client.get(Client.versioned("templates"), options)
 
         response.map { |r| Struct::Template.new(r["dns_template"]) }
       end
-
       alias :list :templates
+      alias :list_templates :templates
 
       # Creates a template in the account.
       #
-      # @see http://developer.dnsimple.com/templates/#create
+      # @see http://developer.dnsimple.com/v1/templates/#create
       #
       # @param  [Hash] attributes
-      #
       # @return [Struct::Template]
+      #
       # @raise  [RequestError] When the request fails.
-      def create(attributes = {})
+      def create_template(attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :short_name])
-        options  = { dns_template: attributes }
-        response = client.post("v1/templates", options)
+        options  = options.merge({ dns_template: attributes })
+        response = client.post(Client.versioned("templates"), options)
 
         Struct::Template.new(response["dns_template"])
       end
+      alias :create :create_template
 
       # Gets a template from the account.
       #
-      # @see http://developer.dnsimple.com/templates/#get
+      # @see http://developer.dnsimple.com/v1/templates/#get
       #
       # @param  [#to_s] template The template id or short-name.
-      #
       # @return [Struct::Template]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def template(template)
-        response = client.get("v1/templates/#{template}")
+      def template(template, options = {})
+        response = client.get(Client.versioned("templates/#{template}"), options)
 
         Struct::Template.new(response["dns_template"])
       end
 
       # Updates a template in the account.
       #
-      # @see http://developer.dnsimple.com/templates/#update
+      # @see http://developer.dnsimple.com/v1/templates/#update
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Hash] attributes
-      #
       # @return [Struct::Template]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def update(template, attributes = {})
-        options  = { dns_template: attributes }
-        response = client.put("v1/templates/#{template}", options)
+      def update_template(template, attributes = {}, options = {})
+        options  = options.merge({ dns_template: attributes })
+        response = client.put(Client.versioned("templates/#{template}"), options)
 
         Struct::Template.new(response["dns_template"])
       end
+      alias :update :update_template
 
       # Deletes a template from the account.
       #
       # WARNING: this cannot be undone.
       #
-      # @see http://developer.dnsimple.com/templates/#delete
+      # @see http://developer.dnsimple.com/v1/templates/#delete
       #
       # @param  [#to_s] template The template id or short-name.
-      #
       # @return [void]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete(template)
-        client.delete("v1/templates/#{template}")
+      def delete_template(template, options = {})
+        client.delete(Client.versioned("templates/#{template}"), options)
       end
-
-
-      # Applies the template to the domain.
-      #
-      # @see http://developer.dnsimple.com/templates/#apply
-      #
-      # @param  [#to_s] domain The domain id or domain name.
-      # @param  [#to_s] template The template id or short-name.
-      #
-      # @return [void]
-      # @raise  [NotFoundError]
-      # @raise  [RequestError] When the request fails.
-      def apply(domain, template)
-        response = client.post("v1/domains/#{domain}/templates/#{template}/apply")
-        response.code == 200
-      end
+      alias :delete :delete_template
 
     end
   end

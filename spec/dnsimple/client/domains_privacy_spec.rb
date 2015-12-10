@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".domains / privacy" do
   describe "#enable_whois_privacy" do
     before do
       stub_request(:post, %r[/v1/domains/.+/whois_privacy$]).
-          to_return(read_fixture("domains_privacy/enable/success.http"))
+          to_return(read_fixture("domains/enable_whois_privacy/success.http"))
     end
 
     it "builds the correct request" do
@@ -28,7 +28,7 @@ describe Dnsimple::Client, ".domains / privacy" do
     context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("domains_privacy/notfound-domain.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.enable_whois_privacy("example.com")
@@ -40,7 +40,7 @@ describe Dnsimple::Client, ".domains / privacy" do
   describe "#disable_whois_privacy" do
     before do
       stub_request(:delete, %r[/v1/domains/.+/whois_privacy]).
-          to_return(read_fixture("domains_privacy/disable/success.http"))
+          to_return(read_fixture("domains/disable_whois_privacy/success.http"))
     end
 
     it "builds the correct request" do
@@ -60,7 +60,7 @@ describe Dnsimple::Client, ".domains / privacy" do
     context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("domains_privacy/notfound-domain.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.disable_whois_privacy("example.com")

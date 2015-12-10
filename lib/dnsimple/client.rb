@@ -18,6 +18,18 @@ module Dnsimple
     HEADER_EXCHANGE_TOKEN = "X-DNSimple-OTP-Token"
 
 
+    # @return [String] The current API version.
+    API_VERSION = "v1"
+
+
+    # Prepends the correct API version to +path+.
+    #
+    # @return [String] The versioned path.
+    def self.versioned(path)
+      File.join(API_VERSION, path)
+    end
+
+
     # @!attribute api_endpoint
     #   @return [String] Base URL for API requests. (default: https://api.dnsimple.com/)
     # @!attribute username
@@ -144,7 +156,7 @@ module Dnsimple
 
     # @return [String] Base URL for API requests.
     def api_endpoint
-      File.join(@api_endpoint, "")
+      Extra.join_uri(@api_endpoint, "")
     end
 
 

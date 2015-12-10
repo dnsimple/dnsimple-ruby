@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".domains / records" do
   describe "#records" do
     before do
       stub_request(:get, %r[/v1/domains/.+/records$]).
-          to_return(read_fixture("domains_records/list/success.http"))
+          to_return(read_fixture("domains/records/success.http"))
     end
 
     it "builds the correct request" do
@@ -33,7 +33,7 @@ describe Dnsimple::Client, ".domains / records" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains_records/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.records("example.com")
@@ -45,7 +45,7 @@ describe Dnsimple::Client, ".domains / records" do
   describe "#create_record" do
     before do
       stub_request(:post, %r[/v1/domains/.+/records$]).
-          to_return(read_fixture("domains_records/create/created.http"))
+          to_return(read_fixture("domains/create_record/created.http"))
     end
 
     it "builds the correct request" do
@@ -66,7 +66,7 @@ describe Dnsimple::Client, ".domains / records" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("domains/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.create_record("example.com", { name: "", record_type: "", content: "" })
@@ -78,7 +78,7 @@ describe Dnsimple::Client, ".domains / records" do
   describe "#record" do
     before do
       stub_request(:get, %r[/v1/domains/.+/records/.+$]).
-          to_return(read_fixture("domains_records/get/success.http"))
+          to_return(read_fixture("domains/record/success.http"))
     end
 
     it "builds the correct request" do
@@ -106,7 +106,7 @@ describe Dnsimple::Client, ".domains / records" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains_records/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.record("example.com", 2)
@@ -118,7 +118,7 @@ describe Dnsimple::Client, ".domains / records" do
   describe "#update_record" do
     before do
       stub_request(:put, %r[/v1/domains/.+/records/.+$]).
-          to_return(read_fixture("domains_records/update/success.http"))
+          to_return(read_fixture("domains/update_record/success.http"))
     end
 
     it "builds the correct request" do
@@ -139,7 +139,7 @@ describe Dnsimple::Client, ".domains / records" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:put, %r[/v1]).
-            to_return(read_fixture("domains_records/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.update_record("example.com", 2, {})
@@ -151,7 +151,7 @@ describe Dnsimple::Client, ".domains / records" do
   describe "#delete_record" do
     before do
       stub_request(:delete, %r[/v1/domains/.+/records/.+$]).
-          to_return(read_fixture("domains/delete/success.http"))
+          to_return(read_fixture("domains/delete_record/success.http"))
     end
 
     it "builds the correct request" do
@@ -169,7 +169,7 @@ describe Dnsimple::Client, ".domains / records" do
 
     it "supports HTTP 204" do
       stub_request(:delete, %r[/v1]).
-          to_return(read_fixture("domains_records/delete/success-204.http"))
+          to_return(read_fixture("domains/delete_record/success-204.http"))
 
       result = subject.delete_record("example.com", 2)
 
@@ -179,7 +179,7 @@ describe Dnsimple::Client, ".domains / records" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("domains_records/notfound.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.delete_record("example.com", 2)

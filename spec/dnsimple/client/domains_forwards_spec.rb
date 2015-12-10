@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".domains / forwards" do
   describe "#email_forwards" do
     before do
       stub_request(:get, %r[/v1/domains/.+/email_forwards$]).
-          to_return(read_fixture("domains_forwards/list/success.http"))
+          to_return(read_fixture("domains/forwards/success.http"))
     end
 
     it "builds the correct request" do
@@ -33,7 +33,7 @@ describe Dnsimple::Client, ".domains / forwards" do
     context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains_forwards/notfound-domain.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.email_forwards("example.com")
@@ -45,7 +45,7 @@ describe Dnsimple::Client, ".domains / forwards" do
   describe "#create_email_forward" do
     before do
       stub_request(:post, %r[/v1/domains/.+/email_forwards$]).
-          to_return(read_fixture("domains_forwards/create/created.http"))
+          to_return(read_fixture("domains/create_forward/created.http"))
     end
 
     it "builds the correct request" do
@@ -66,7 +66,7 @@ describe Dnsimple::Client, ".domains / forwards" do
     context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("domains_forwards/notfound-domain.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.create_email_forward("example.com", { from: "", to: "" })
@@ -78,7 +78,7 @@ describe Dnsimple::Client, ".domains / forwards" do
   describe "#email_forward" do
     before do
       stub_request(:get, %r[/v1/domains/.+/email_forwards/.+$]).
-          to_return(read_fixture("domains_forwards/get/success.http"))
+          to_return(read_fixture("domains/forward/success.http"))
     end
 
     it "builds the correct request" do
@@ -103,7 +103,7 @@ describe Dnsimple::Client, ".domains / forwards" do
     context "when forward does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains_forwards/notfound.http"))
+            to_return(read_fixture("domains/notfound-forward.http"))
 
         expect {
           subject.email_forward("example.com", 2)
@@ -115,7 +115,7 @@ describe Dnsimple::Client, ".domains / forwards" do
   describe "#delete_email_forward" do
     before do
       stub_request(:delete, %r[/v1/domains/.+/email_forwards/.+$]).
-          to_return(read_fixture("domains_forwards/delete/success.http"))
+          to_return(read_fixture("domains/delete_forward/success.http"))
     end
 
     it "builds the correct request" do
@@ -134,7 +134,7 @@ describe Dnsimple::Client, ".domains / forwards" do
     context "when the forward does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("domains_forwards/notfound.http"))
+            to_return(read_fixture("domains/notfound-forward.http"))
 
         expect {
           subject.delete_email_forward("example.com", 2)

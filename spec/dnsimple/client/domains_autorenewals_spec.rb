@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".domains / autorenewals" do
   describe "#enable_auto_renewal" do
     before do
       stub_request(:post, %r[/v1/domains/.+/auto_renewal$]).
-          to_return(read_fixture("domains_autorenewal/enable/success.http"))
+          to_return(read_fixture("domains/enable_auto_renewal/success.http"))
     end
 
     it "builds the correct request" do
@@ -28,7 +28,7 @@ describe Dnsimple::Client, ".domains / autorenewals" do
     context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r[/v1]).
-            to_return(read_fixture("domains_autorenewal/notfound-domain.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.enable_auto_renewal("example.com")
@@ -40,7 +40,7 @@ describe Dnsimple::Client, ".domains / autorenewals" do
   describe "#disable_auto_renewal" do
     before do
       stub_request(:delete, %r[/v1/domains/.+/auto_renewal$]).
-          to_return(read_fixture("domains_autorenewal/disable/success.http"))
+          to_return(read_fixture("domains/disable_auto_renewal/success.http"))
     end
 
     it "builds the correct request" do
@@ -60,7 +60,7 @@ describe Dnsimple::Client, ".domains / autorenewals" do
     context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("domains_autorenewal/notfound-domain.http"))
+            to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
           subject.disable_auto_renewal("example.com")

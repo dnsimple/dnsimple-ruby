@@ -1,6 +1,6 @@
 # DNSimple Ruby Client
 
-A Ruby client for the [DNSimple API](http://developer.dnsimple.com/).
+A Ruby client for the [DNSimple API](https://developer.dnsimple.com/).
 
 [![Build Status](https://travis-ci.org/aetrion/dnsimple-ruby.svg?branch=master)](https://travis-ci.org/aetrion/dnsimple-ruby)
 [![Coverage Status](https://img.shields.io/coveralls/aetrion/dnsimple-ruby.svg)](https://coveralls.io/r/aetrion/dnsimple-ruby?branch=master)
@@ -18,9 +18,7 @@ $ gem install dnsimple
 
 ## Getting Started
 
-This library is a Ruby client you can use to interact with the [DNSimple API](http://developer.dnsimple.com/). 
-
-Here's a short example.
+This library is a Ruby client you can use to interact with the [DNSimple API](https://developer.dnsimple.com/). Here are some examples.
 
 ```ruby
 require 'dnsimple'
@@ -79,7 +77,7 @@ client.users.user
 
 #### HTTP Basic with two-factor authentication enabled
 
-See the [2FA API documentation](http://developer.dnsimple.com/authentication/#twofa).
+See the [2FA API documentation](https://developer.dnsimple.com/authentication/#twofa).
 
 ```ruby
 # Request the 2FA exchange token
@@ -100,3 +98,21 @@ client = Dnsimple::Client.new(username: 'YOUR_USERNAME', api_token: 'YOUR_TOKEN'
 client.users.user
 # => Dnsimple::Struct::User
 ```
+
+#### Domain API Token
+
+The domain API token grants [limited access]](https://developer.dnsimple.com/v1/authentication/#domain-token) to a single domain.
+
+```ruby
+client = Dnsimple::Client.new(domain_api_token: 'DOMAIN_TOKEN')
+
+client.domains.records("example.com")
+# => [Dnsimple::Struct::Record, Dnsimple::Struct::Record, ...]
+
+client.domains.records("foobar.com")
+# => Authentication error
+```
+
+## License
+
+Copyright (c) 2010-2015 Aetrion LLC. This is Free Software distributed under the MIT license.

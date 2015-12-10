@@ -4,83 +4,83 @@ module Dnsimple
 
       # Lists the records for a template.
       #
-      # @see http://developer.dnsimple.com/templates/records/#list
+      # @see http://developer.dnsimple.com/v1/templates/records/#list
       #
       # @param  [#to_s] template The template id or short-name.
-      #
       # @return [Array<Struct::TemplateRecord>]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def records(template)
-        response = client.get("v1/templates/#{template}/records")
+      def records(template, options = {})
+        response = client.get(Client.versioned("/templates/#{template}/records"), options)
 
         response.map { |r| Struct::TemplateRecord.new(r["dns_template_record"]) }
       end
 
       # Creates a record for a template.
       #
-      # @see http://developer.dnsimple.com/templates/records/#create
+      # @see http://developer.dnsimple.com/v1/templates/records/#create
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Hash] attributes
-      #
       # @return [Struct::TemplateRecord]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def create_record(template, attributes = {})
+      def create_record(template, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:name, :record_type, :content])
-        options  = { dns_template_record: attributes }
-        response = client.post("v1/templates/#{template}/records", options)
+        options  = options.merge({ dns_template_record: attributes })
+        response = client.post(Client.versioned("/templates/#{template}/records"), options)
 
         Struct::TemplateRecord.new(response["dns_template_record"])
       end
 
       # Gets a record for a template.
       #
-      # @see http://developer.dnsimple.com/templates/records/#delete
+      # @see http://developer.dnsimple.com/v1/templates/records/#delete
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Fixnum] record The record id.
-      #
       # @return [Struct::TemplateRecord]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def record(template, record)
-        response = client.get("v1/templates/#{template}/records/#{record}")
+      def record(template, record, options = {})
+        response = client.get(Client.versioned("/templates/#{template}/records/#{record}"), options)
 
         Struct::TemplateRecord.new(response["dns_template_record"])
       end
 
       # Updates a record for a template.
       #
-      # @see http://developer.dnsimple.com/templates/#update
+      # @see http://developer.dnsimple.com/v1/templates/#update
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Fixnum] record The record id.
       # @param  [Hash] attributes
-      #
       # @return [Struct::TemplateRecord]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def update_record(template, record, attributes = {})
-        options  = { dns_template_record: attributes }
-        response = client.put("v1/templates/#{template}/records/#{record}", options)
+      def update_record(template, record, attributes = {}, options = {})
+        options  = options.merge({ dns_template_record: attributes })
+        response = client.put(Client.versioned("/templates/#{template}/records/#{record}"), options)
 
         Struct::TemplateRecord.new(response["dns_template_record"])
       end
 
       # Deletes a record for a template.
       #
-      # @see http://developer.dnsimple.com/templates/records/#get
+      # @see http://developer.dnsimple.com/v1/templates/records/#get
       #
       # @param  [#to_s] template The template id or short-name.
       # @param  [Fixnum] record The record id.
-      #
       # @return [Template]
+      #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
-      def delete_record(template, record)
-        client.delete("v1/templates/#{template}/records/#{record}")
+      def delete_record(template, record, options = {})
+        client.delete(Client.versioned("/templates/#{template}/records/#{record}"), options)
       end
 
     end
