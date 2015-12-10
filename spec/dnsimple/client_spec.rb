@@ -69,8 +69,18 @@ describe Dnsimple::Client do
       expect(WebMock).to have_requested(:get, "https://exchange-token:x-2fa-basic@api.dnsimple.com/test")
     end
 
-    it "raises an error if there's no password or api token provided" do
-      subject = described_class.new(username: "user")
+    it "uses OAuth access token if there's an access token provided" do
+      stub_request(:any, %r[/test])
+
+      subject = described_class.new(oauth_access_token: "access-token")
+      subject.execute(:get, "test", {})
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
+                         with { |req| req.headers["Authorization"] == "Bearer access-token" }
+    end
+
+    it "raises an error if there's no password, api token or access token provided" do
+      subject = described_class.new(username: "user", oauth_client_id: "id", oauth_client_secret: "secret")
 
       expect {
         subject.execute(:get, "test", {})

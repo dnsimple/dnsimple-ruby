@@ -15,6 +15,7 @@ module Dnsimple
     HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
     HEADER_OTP_TOKEN = "X-DNSimple-OTP"
     HEADER_EXCHANGE_TOKEN = "X-DNSimple-OTP-Token"
+    HEADER_OAUTH_ACCESS_TOKEN = "Authorization"
 
 
     # @return [String] The current API version.
@@ -186,6 +187,8 @@ module Dnsimple
         options[:headers][HEADER_DOMAIN_API_TOKEN] = domain_api_token
       elsif api_token
         options[:headers][HEADER_API_TOKEN] = "#{username}:#{api_token}"
+      elsif oauth_access_token
+        options[:headers][HEADER_OAUTH_ACCESS_TOKEN] = "Bearer #{oauth_access_token}"
       else
         raise Error, 'A password or API token is required for all API requests.'
       end
