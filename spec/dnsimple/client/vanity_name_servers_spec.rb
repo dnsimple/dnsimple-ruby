@@ -17,6 +17,14 @@ describe Dnsimple::Client, ".nameservers / vanity_name_servers" do
                              with(headers: { 'Accept' => 'application/json' })
     end
 
+    it "allows submission of extra options" do
+      subject.enable_vanity_name_servers("example.com", { "ns1" => "ns1.example.com", "ns2" => "ns2.example.com" }, {headers: { "X-FAKE-HEADER" => "Some value" }})
+
+      expect(WebMock).to have_requested(:post, "https://api.zone/v1/domains/example.com/vanity_name_servers").
+                             with(body: { "vanity_nameserver_configuration" => { "server_source" => "external", "ns1" => "ns1.example.com", "ns2" => "ns2.example.com" } }).
+                             with(headers: { 'Accept' => 'application/json', "X-FAKE-HEADER" => "Some value" })
+    end
+
     it "returns nothing" do
       result = subject.enable_vanity_name_servers("example.com", { ns1: "ns1.example.com", ns2: "ns2.example.com" })
 
@@ -35,6 +43,13 @@ describe Dnsimple::Client, ".nameservers / vanity_name_servers" do
 
       expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com/vanity_name_servers").
                              with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "allows submission of extra options" do
+      subject.disable_vanity_name_servers("example.com", {headers: { "X-FAKE-HEADER" => "Some value" }})
+
+      expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com/vanity_name_servers").
+                             with(headers: { 'Accept' => 'application/json', "X-FAKE-HEADER" => "Some value" })
     end
 
     it "returns nothing" do

@@ -16,12 +16,8 @@ module Dnsimple
       #
       # @return [void]
       # @raise  [RequestError] When the request fails.
-      def enable_vanity_name_servers(domain, names)
-        options = {
-                    "vanity_nameserver_configuration" => {
-                      "server_source" => "external"
-                    }
-                  }
+      def enable_vanity_name_servers(domain, names, options={})
+        options["vanity_nameserver_configuration"] = {"server_source" => "external"}
         options["vanity_nameserver_configuration"].merge!(names)
         client.post(Client.versioned("domains/#{domain}/vanity_name_servers"), options)
       end
@@ -34,8 +30,8 @@ module Dnsimple
       #
       # @return [void]
       # @raise  [RequestError] When the request fails.
-      def disable_vanity_name_servers(domain)
-        client.delete("v1/domains/#{domain}/vanity_name_servers")
+      def disable_vanity_name_servers(domain, options={})
+        client.delete("v1/domains/#{domain}/vanity_name_servers", options)
       end
 
     end
