@@ -80,9 +80,11 @@ module Dnsimple
 
 
     require 'dnsimple/client/name_servers'
+    require 'dnsimple/client/vanity_name_servers'
 
     class NameServersService < ClientService
       include Client::NameServers
+      include Client::VanityNameServers
     end
 
 
