@@ -11,10 +11,8 @@ module Dnsimple
     include Dnsimple::Compatibility
 
     HEADER_2FA_STRICT = "X-DNSimple-2FA-Strict"
-    HEADER_API_TOKEN = "X-DNSimple-Token"
     HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
     HEADER_OTP_TOKEN = "X-DNSimple-OTP"
-    HEADER_EXCHANGE_TOKEN = "X-DNSimple-OTP-Token"
     HEADER_OAUTH_ACCESS_TOKEN = "Authorization"
 
 
@@ -37,12 +35,6 @@ module Dnsimple
     # @!attribute password
     #   @see http://developer.dnsimple.com/authentication/
     #   @return [String] DNSimple password for Basic Authentication
-    # @!attribute exchange_token
-    #   @see http://developer.dnsimple.com/authentication/
-    #   @return [String] Exchange Token for Basic Authentication with 2FA
-    # @!attribute api_token
-    #   @see http://developer.dnsimple.com/authentication/
-    #   @return [String] API access token for authentication
     # @!attribute domain_api_token
     #   @see http://developer.dnsimple.com/authentication/
     #   @return [String] Domain API access token for authentication
@@ -57,8 +49,8 @@ module Dnsimple
     # @!attribute proxy
     #   @return [String,nil] Configure address:port values for proxy server
 
-    attr_accessor :api_endpoint, :username, :password, :exchange_token, :api_token, :domain_api_token,
-                  :oauth_client_id, :oauth_client_secret, :oauth_access_token, :user_agent, :proxy
+    attr_accessor :api_endpoint, :username, :password, :domain_api_token, :oauth_access_token,
+                  :oauth_client_id, :oauth_client_secret, :user_agent, :proxy
 
 
     def initialize(options = {})
@@ -179,14 +171,10 @@ module Dnsimple
         options.merge!(http_proxyaddr: address, http_proxyport: port)
       end
 
-      if exchange_token
-        options[:basic_auth] = { username: exchange_token, password: "x-2fa-basic" }
-      elsif password
+      if password
         options[:basic_auth] = { username: username, password: password }
       elsif domain_api_token
         options[:headers][HEADER_DOMAIN_API_TOKEN] = domain_api_token
-      elsif api_token
-        options[:headers][HEADER_API_TOKEN] = "#{username}:#{api_token}"
       elsif oauth_access_token
         options[:headers][HEADER_OAUTH_ACCESS_TOKEN] = "Bearer #{oauth_access_token}"
       else

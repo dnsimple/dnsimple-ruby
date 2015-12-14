@@ -60,15 +60,6 @@ describe Dnsimple::Client do
                          with { |req| req.headers["X-Dnsimple-Token"] == "user:token" }
     end
 
-    it "uses HTTP authentication via exchange token if there's an exchange token provided" do
-      stub_request(:any, %r[/test])
-
-      subject = described_class.new(username: "user", password: "pass", exchange_token: "exchange-token")
-      subject.execute(:get, "test", {})
-
-      expect(WebMock).to have_requested(:get, "https://exchange-token:x-2fa-basic@api.dnsimple.com/test")
-    end
-
     it "uses OAuth access token if there's an access token provided" do
       stub_request(:any, %r[/test])
 
