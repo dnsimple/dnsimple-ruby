@@ -1,4 +1,3 @@
-require 'dnsimple/compatibility'
 require 'dnsimple/extra'
 require 'dnsimple/struct'
 
@@ -8,7 +7,6 @@ module Dnsimple
   #
   # @see http://developer.dnsimple.com
   class Client
-    include Dnsimple::Compatibility
 
     HEADER_2FA_STRICT = "X-DNSimple-2FA-Strict"
     HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
