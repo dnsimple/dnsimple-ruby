@@ -50,16 +50,6 @@ describe Dnsimple::Client do
                          with { |req| req.headers["X-Dnsimple-Domain-Token"] == "domaintoken" }
     end
 
-    it "uses header authentication if there's an api token provided" do
-      stub_request(:any, %r[/test])
-
-      subject = described_class.new(username: "user", api_token: "token")
-      subject.execute(:get, "test", {})
-
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
-                         with { |req| req.headers["X-Dnsimple-Token"] == "user:token" }
-    end
-
     it "uses OAuth access token if there's an access token provided" do
       stub_request(:any, %r[/test])
 
@@ -70,12 +60,12 @@ describe Dnsimple::Client do
                          with { |req| req.headers["Authorization"] == "Bearer access-token" }
     end
 
-    it "raises an error if there's no password, api token or access token provided" do
+    it "raises an error if there's no password, domain token or access token provided" do
       subject = described_class.new(username: "user", oauth_client_id: "id", oauth_client_secret: "secret")
 
       expect {
         subject.execute(:get, "test", {})
-      }.to raise_error(Dnsimple::Error, 'A password or API token is required for all API requests.')
+      }.to raise_error(Dnsimple::Error, "A password, domain  API token or OAuth access token is required for all API requests.")
     end
 
     context "when 2FA is required" do

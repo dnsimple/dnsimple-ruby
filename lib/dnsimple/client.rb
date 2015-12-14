@@ -178,7 +178,7 @@ module Dnsimple
       elsif oauth_access_token
         options[:headers][HEADER_OAUTH_ACCESS_TOKEN] = "Bearer #{oauth_access_token}"
       else
-        raise Error, 'A password or API token is required for all API requests.'
+        raise Error, 'A password, domain  API token or OAuth access token is required for all API requests.'
       end
 
       options
