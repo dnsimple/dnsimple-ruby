@@ -10,7 +10,6 @@ module Dnsimple
 
     HEADER_2FA_STRICT = "X-DNSimple-2FA-Strict"
     HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
-    HEADER_OTP_TOKEN = "X-DNSimple-OTP"
     HEADER_OAUTH_ACCESS_TOKEN = "Authorization"
 
 
@@ -116,7 +115,7 @@ module Dnsimple
       when 200..299
         response
       when 401
-        raise (response.headers[HEADER_OTP_TOKEN] == "required" ? TwoFactorAuthenticationRequired : AuthenticationFailed), response["message"]
+        raise AuthenticationFailed.new(response["message"])
       when 404
         raise NotFoundError.new(response)
       else
