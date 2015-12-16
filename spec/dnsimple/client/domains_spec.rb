@@ -37,6 +37,16 @@ describe Dnsimple::Client, ".domains" do
         expect(result.id).to be_a(Fixnum)
       end
     end
+
+    it "exposes the pagination information" do
+      results = subject.domains(account_id)
+
+      expect(results.respond_to?(:page)).to be_truthy
+      expect(results.page).to eq(1)
+      expect(results.per_page).to be_a(Fixnum)
+      expect(results.total_entries).to be_a(Fixnum)
+      expect(results.total_pages).to be_a(Fixnum)
+    end
   end
 
 end

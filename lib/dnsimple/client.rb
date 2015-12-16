@@ -1,5 +1,6 @@
 require 'dnsimple/extra'
 require 'dnsimple/struct'
+require 'dnsimple/paginated_response'
 require 'dnsimple/client/clients'
 
 module Dnsimple

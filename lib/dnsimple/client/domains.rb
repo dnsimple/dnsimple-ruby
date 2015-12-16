@@ -19,7 +19,7 @@ module Dnsimple
       def domains(account_id, options = {})
         response = client.get(Client.versioned("/%s/domains" % [account_id]), options)
 
-        response["data"].map { |r| Struct::Domain.new(r) }
+        PaginatedResponse.new(response, response["data"].map { |r| Struct::Domain.new(r) })
       end
       alias :list :domains
       alias :list_domains :domains
