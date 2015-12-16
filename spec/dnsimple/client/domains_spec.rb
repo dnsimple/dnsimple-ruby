@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".domains" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/1010/domains$])
+      stub_request(:get, %r[/v2/1010/domains])
           .to_return(read_fixture("domains/domains/success.http"))
     end
 
@@ -18,6 +18,12 @@ describe Dnsimple::Client, ".domains" do
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains")
           .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "supports pagination" do
+      subject.domains(account_id, query: { page: 2 })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?page=2")
     end
 
     it "returns the domains" do
