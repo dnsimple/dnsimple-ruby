@@ -49,6 +49,15 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
+  describe "#all_domains" do
+    let(:account_id) { 1010 }
+
+    it "delegates to client.paginate" do
+      expect(subject.client).to receive(:paginate).with(subject, :domains, account_id, { foo: "bar" })
+      subject.all_domains(account_id, { foo: "bar" })
+    end
+  end
+
   describe "#domain" do
     let(:account_id) { 1010 }
 
