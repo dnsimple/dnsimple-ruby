@@ -63,6 +63,12 @@ module Dnsimple
     end
 
 
+    # @return [String] Base URL for API requests.
+    def api_endpoint
+      Extra.join_uri(@api_endpoint, "")
+    end
+
+
     # Make a HTTP GET request.
     #
     # @param  [String] path The path, relative to {#api_endpoint}
@@ -99,7 +105,6 @@ module Dnsimple
       execute :delete, path, options
     end
 
-
     # Executes a request, validates and returns the response.
     #
     # @param  [String] method The HTTP method
@@ -125,7 +130,6 @@ module Dnsimple
       end
     end
 
-
     # Make a HTTP request.
     #
     # This method doesn't validate the response and never raise errors
@@ -150,10 +154,30 @@ module Dnsimple
       HTTParty.send(method, api_endpoint + path, Extra.deep_merge!(base_options, options))
     end
 
+    # Internal helper that loops over a paginated response and returns all the records in the collection.
+    #
+    # @api private
+    #
+    # @param  [Dnsimple::Client::ClientService] client
+    # @param  [Symbol] method The client method to execute
+    # @param  [Array] args The args to call the method with
+    # @return [Array]
+    def paginate(client, method, *args)
+      current_page = 0
+      total_pages = nil
+      collection = []
+      options = args.pop
 
-    # @return [String] Base URL for API requests.
-    def api_endpoint
-      Extra.join_uri(@api_endpoint, "")
+      begin
+        current_page += 1
+        query = Extra.deep_merge(options, query: { page: current_page, per_page: 100 })
+
+        response = client.send(method, *(args + [query]))
+        total_pages ||= response.total_pages
+        collection.concat(response)
+      end while current_page < total_pages
+
+      collection
     end
 
 

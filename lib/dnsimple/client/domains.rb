@@ -15,8 +15,8 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting option
-      # @return [Array<Struct::Domain>]
-      # @raise  [RequestError] When the request fails.
+      # @return [Array<Dnsimple::Struct::Domain>]
+      # @raise  [Dnsimple::RequestError] when the request fails.
       def domains(account_id, options = {})
         response = client.get(Client.versioned("/%s/domains" % [account_id]), options)
 
@@ -38,23 +38,10 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting option
-      # @return [Array<Struct::Domain>]
-      # @raise  [RequestError] When the request fails.
+      # @return [Array<Dnsimple::Struct::Domain>]
+      # @raise  [Dnsimple::RequestError] when the request fails.
       def all_domains(account_id, options = {})
-        current_page = 0
-        total_pages  = nil
-        collection   = []
-
-        begin
-          current_page += 1
-          query = Extra.deep_merge(options, query: { page: current_page, per_page: 100 })
-
-          response = domains(account_id, query)
-          total_pages ||= response.total_pages
-          collection.concat(response)
-        end while current_page < total_pages
-
-        collection
+        client.paginate(self, :domains, account_id, options)
       end
       alias :all :all_domains
 
