@@ -19,7 +19,7 @@ module Dnsimple
             :username,
             :password,
             :domain_api_token,
-            :oauth_access_token,
+            :access_token,
             :oauth_client_id,
             :oauth_client_secret,
             :user_agent,
@@ -57,10 +57,10 @@ module Dnsimple
         ENV['DNSIMPLE_API_DOMAIN_TOKEN']
       end
 
-      # Default DNSimple OAuth access token for OAuth authentication from ENV
+      # Default DNSimple access token for OAuth authentication from ENV
       # @return [String]
-      def oauth_access_token
-        ENV['DNSIMPLE_OAUTH_ACCESS_TOKEN']
+      def access_token
+        ENV['DNSIMPLE_ACCESS_TOKEN']
       end
 
       # Default DNSimple OAuth client ID for OAuth authentication from ENV

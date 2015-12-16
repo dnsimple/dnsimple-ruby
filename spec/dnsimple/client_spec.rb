@@ -14,9 +14,9 @@ describe Dnsimple::Client do
       expect(subject.oauth_client_secret).to eq("secret")
     end
 
-    it "access :oauth_access_token option" do
-      subject = described_class.new(oauth_access_token: "token")
-      expect(subject.oauth_access_token).to eq("token")
+    it "access :access_token option" do
+      subject = described_class.new(access_token: "token")
+      expect(subject.access_token).to eq("token")
     end
 
     it "normalizes :api_endpoint trailing slash" do
@@ -50,10 +50,10 @@ describe Dnsimple::Client do
                          with { |req| req.headers["X-Dnsimple-Domain-Token"] == "domaintoken" }
     end
 
-    it "uses OAuth access token if there's an access token provided" do
+    it "uses access token if there's an access token provided" do
       stub_request(:any, %r[/test])
 
-      subject = described_class.new(oauth_access_token: "access-token")
+      subject = described_class.new(access_token: "access-token")
       subject.execute(:get, "test", {})
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
@@ -152,7 +152,7 @@ describe Dnsimple::Client do
   end
 
   describe "#paginate" do
-    subject { described_class.new(api_endpoint: "https://api.example.com/", oauth_access_token: "a1b2c3") }
+    subject { described_class.new(api_endpoint: "https://api.example.com/", access_token: "a1b2c3") }
 
     service_class = Class.new(Dnsimple::Client::ClientService) do
       Item = Class.new(Dnsimple::Struct::Base) do
