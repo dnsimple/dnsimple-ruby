@@ -67,21 +67,6 @@ describe Dnsimple::Client do
         subject.execute(:get, "test", {})
       }.to raise_error(Dnsimple::Error, "A password, domain  API token or OAuth access token is required for all API requests.")
     end
-
-    context "when 2FA is required" do
-      subject { described_class.new(username: "user", password: "pass") }
-
-      before do
-        stub_request(:any, %r[/test]).
-            to_return(read_fixture("2fa/error-required.http"))
-      end
-
-      it "raises a TwoFactorAuthenticationRequired error" do
-        expect {
-          subject.execute(:get, "test", {})
-        }.to raise_error(Dnsimple::TwoFactorAuthenticationRequired)
-      end
-    end
   end
 
   describe "#get" do
