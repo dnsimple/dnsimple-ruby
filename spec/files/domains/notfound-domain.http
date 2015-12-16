@@ -1,19 +1,12 @@
 HTTP/1.1 404 Not Found
 Server: nginx
-Date: Mon, 15 Dec 2014 20:55:36 GMT
+Date: Wed, 16 Dec 2015 22:07:20 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
-Status: 404 Not Found
-Strict-Transport-Security: max-age=631138519
-X-Frame-Options: SAMEORIGIN
-X-XSS-Protection: 1
-X-Content-Type-Options: nosniff
-Access-Control-Allow-Origin: *
-Access-Control-Allow-Headers: Authorization,Accepts,Content-Type,X-DNSimple-Token,X-DNSimple-Domain-Token,X-CSRF-Token,x-requested-with
-Access-Control-Allow-Methods: GET,POST,PUT,DELETE,OPTIONS
+Strict-Transport-Security: max-age=31536000
 Cache-Control: no-cache
-X-Request-Id: 8d96a3b2-be45-4734-9a76-7dde39e0c94e
-X-Runtime: 0.048082
+X-Request-Id: bc587ea7-bcd5-4c10-a940-a9b4c8339824
+X-Runtime: 0.059966
 
 {"message":"Domain `0' not found"}

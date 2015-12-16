@@ -13,6 +13,7 @@ module Dnsimple
     HEADER_2FA_STRICT = "X-DNSimple-2FA-Strict"
     HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
     HEADER_AUTHORIZATION = "Authorization"
+    WILDCARD_ACCOUNT = "_"
 
 
     # @return [String] The current API version.

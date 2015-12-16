@@ -45,6 +45,22 @@ module Dnsimple
       end
       alias :all :all_domains
 
+      # Gets a domain from the account.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/#get
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain The domain id or domain name.
+      # @return [Struct::Domain]
+      #
+      # @raise  [NotFoundError]
+      # @raise  [RequestError] When the request fails.
+      def domain(account_id, domain, options = {})
+        response = client.get(Client.versioned("/%s/domains/%s" % [account_id, domain]), options)
+
+        Struct::Domain.new(response["data"])
+      end
+
     end
   end
 end
