@@ -13,17 +13,4 @@ module Dnsimple
   end
 end
 
-require 'dnsimple/struct/certificate'
-require 'dnsimple/struct/contact'
-require 'dnsimple/struct/domain'
-require 'dnsimple/struct/email_forward'
-require 'dnsimple/struct/extended_attribute'
-require 'dnsimple/struct/membership'
-require 'dnsimple/struct/price'
-require 'dnsimple/struct/record'
-require 'dnsimple/struct/service'
-require 'dnsimple/struct/template'
-require 'dnsimple/struct/template_record'
-require 'dnsimple/struct/transfer_order'
-require 'dnsimple/struct/user'
-require 'dnsimple/struct/whois_privacy'
+require_relative 'struct/domain'
