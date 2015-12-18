@@ -153,33 +153,6 @@ module Dnsimple
       HTTParty.send(method, api_endpoint + path, Extra.deep_merge!(base_options, options))
     end
 
-    # Internal helper that loops over a paginated response and returns all the records in the collection.
-    #
-    # @api private
-    #
-    # @param  [Dnsimple::Client::ClientService] client
-    # @param  [Symbol] method The client method to execute
-    # @param  [Array] args The args to call the method with
-    # @return [Dnsimple::CollectionResponse]
-    def paginate(client, method, *args)
-      current_page = 0
-      total_pages = nil
-      collection = []
-      options = args.pop
-      response = nil
-
-      begin
-        current_page += 1
-        query = Extra.deep_merge(options, query: { page: current_page, per_page: 100 })
-
-        response = client.send(method, *(args + [query]))
-        total_pages ||= response.total_pages
-        collection.concat(response.data)
-      end while current_page < total_pages
-
-      CollectionResponse.new(response.response, collection)
-    end
-
 
     private
 

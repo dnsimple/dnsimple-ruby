@@ -20,7 +20,7 @@ module Dnsimple
       def domains(account_id, options = {})
         response = client.get(Client.versioned("/%s/domains" % [account_id]), options)
 
-        PaginatedResponse.new(response, response["data"].map { |r| Struct::Domain.new(r) })
+        Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Domain.new(r) })
       end
       alias :list :domains
       alias :list_domains :domains
@@ -41,7 +41,7 @@ module Dnsimple
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Domain>]
       # @raise  [Dnsimple::RequestError]
       def all_domains(account_id, options = {})
-        client.paginate(self, :domains, account_id, options)
+        paginate(:domains, account_id, options)
       end
       alias :all :all_domains
 
@@ -60,7 +60,7 @@ module Dnsimple
         options  = options.merge(attributes)
         response = client.post(Client.versioned("/%s/domains" % [account_id]), options)
 
-        Response.new(response, Struct::Domain.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
       alias :create :create_domain
 
@@ -78,7 +78,7 @@ module Dnsimple
       def domain(account_id, domain, options = {})
         response = client.get(Client.versioned("/%s/domains/%s" % [account_id, domain]), options)
 
-        Response.new(response, Struct::Domain.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
       # Deletes a domain from the account.
@@ -97,7 +97,7 @@ module Dnsimple
       def delete_domain(account_id, domain, options = {})
         response = client.delete(Client.versioned("/%s/domains/%s" % [account_id, domain]), options)
 
-        Response.new(response, nil)
+        Dnsimple::Response.new(response, nil)
       end
       alias :delete :delete_domain
 
