@@ -24,12 +24,15 @@ require 'dnsimple'
 
 client = Dnsimple::Client.new(access_token: "a1b2c3")
 
-# Fetch your user details
+# Fetch your details
+response = client.domains.whoami    # execute the call
+response.data                       # extract the relevant data from the response or
+client.domains.whoami.data          # execute the call and get the data in one line
 
 # List your domains
-client.domains.list(1234)                       # => domains from the account 1234, first page
-client.domains.list(1234, query: { page: 3 })   # => domains from the account 1234, third page
-client.domains.all(1234)                        # => all domains from the account 1234 (use carefully)
+client.domains.list(1234).data                      # => domains from the account 1234, first page
+client.domains.list(1234, query: { page: 3 }).data  # => domains from the account 1234, third page
+client.domains.all(1234).data                       # => all domains from the account 1234 (use carefully)
 
 # Create a domain
 
