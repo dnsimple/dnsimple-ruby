@@ -39,7 +39,7 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Domain>]
-      # @raise  [Dnsimple::RequestError] when the request fails.
+      # @raise  [Dnsimple::RequestError]
       def all_domains(account_id, options = {})
         client.paginate(self, :domains, account_id, options)
       end
@@ -53,13 +53,32 @@ module Dnsimple
       # @param  [#to_s] domain The domain id or domain name.
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
       #
-      # @raise  [NotFoundError]
-      # @raise  [RequestError] When the request fails.
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
       def domain(account_id, domain, options = {})
         response = client.get(Client.versioned("/%s/domains/%s" % [account_id, domain]), options)
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
+
+      # Deletes a domain from the account.
+      #
+      # WARNING: this cannot be undone.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/#delete
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain The domain id or domain name.
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def delete_domain(account_id, domain, options = {})
+        response = client.delete(Client.versioned("/%s/domains/%s" % [account_id, domain]), options)
+
+        Dnsimple::Response.new(response, nil)
+      end
+      alias :delete :delete_domain
 
     end
   end

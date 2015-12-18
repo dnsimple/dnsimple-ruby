@@ -104,4 +104,38 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
+  describe "#delete_domain" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:delete, %r[/v2/#{account_id}/domains/.+$])
+          .to_return(read_fixture("domains/delete_domain/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.delete_domain(account_id, domain = "example.com")
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain}").
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      response = subject.delete_domain(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+
+    context "when something does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:delete, %r[/v2])
+            .to_return(read_fixture("domains/notfound-domain.http"))
+
+        expect {
+          subject.delete_domain(account_id, "example.com")
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
 end
