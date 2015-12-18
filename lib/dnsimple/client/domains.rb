@@ -45,6 +45,24 @@ module Dnsimple
       end
       alias :all :all_domains
 
+      # Creates a domain in the account.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/#create
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [Hash] attributes
+      # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def create_domain(account_id, attributes = {}, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:name])
+        options  = options.merge(attributes)
+        response = client.post(Client.versioned("/%s/domains" % [account_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+      end
+      alias :create :create_domain
+
       # Gets a domain from the account.
       #
       # @see https://developer.dnsimple.com/v2/domains/#get

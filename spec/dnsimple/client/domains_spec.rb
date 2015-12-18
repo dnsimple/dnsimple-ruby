@@ -59,6 +59,34 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
+  describe "#create_domain" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:post, %r[/v2/#{account_id}/domains$])
+          .to_return(read_fixture("domains/create_domain/created.http"))
+    end
+
+    let(:attributes) { { name: "example.com" } }
+
+    it "builds the correct request" do
+      subject.create_domain(account_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the domain" do
+      response = subject.create_domain(account_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Domain)
+      expect(result.id).to be_a(Fixnum)
+    end
+  end
+
   describe "#domain" do
     let(:account_id) { 1010 }
 
@@ -138,4 +166,5 @@ describe Dnsimple::Client, ".domains" do
       end
     end
   end
+
 end
