@@ -1,6 +1,6 @@
 require 'dnsimple/extra'
 require 'dnsimple/struct'
-require 'dnsimple/paginated_response'
+require 'dnsimple/response'
 require 'dnsimple/client/clients'
 
 module Dnsimple
@@ -160,12 +160,13 @@ module Dnsimple
     # @param  [Dnsimple::Client::ClientService] client
     # @param  [Symbol] method The client method to execute
     # @param  [Array] args The args to call the method with
-    # @return [Array]
+    # @return [Dnsimple::CollectionResponse]
     def paginate(client, method, *args)
       current_page = 0
       total_pages = nil
       collection = []
       options = args.pop
+      response = nil
 
       begin
         current_page += 1
@@ -173,10 +174,10 @@ module Dnsimple
 
         response = client.send(method, *(args + [query]))
         total_pages ||= response.total_pages
-        collection.concat(response)
+        collection.concat(response.data)
       end while current_page < total_pages
 
-      collection
+      CollectionResponse.new(response.response, collection)
     end
 
 

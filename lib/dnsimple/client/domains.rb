@@ -15,7 +15,7 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting option
-      # @return [Array<Dnsimple::Struct::Domain>]
+      # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Domain>]
       # @raise  [Dnsimple::RequestError] when the request fails.
       def domains(account_id, options = {})
         response = client.get(Client.versioned("/%s/domains" % [account_id]), options)
@@ -38,7 +38,7 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting option
-      # @return [Array<Dnsimple::Struct::Domain>]
+      # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Domain>]
       # @raise  [Dnsimple::RequestError] when the request fails.
       def all_domains(account_id, options = {})
         client.paginate(self, :domains, account_id, options)
@@ -51,14 +51,14 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain The domain id or domain name.
-      # @return [Struct::Domain]
+      # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
       #
       # @raise  [NotFoundError]
       # @raise  [RequestError] When the request fails.
       def domain(account_id, domain, options = {})
         response = client.get(Client.versioned("/%s/domains/%s" % [account_id, domain]), options)
 
-        Struct::Domain.new(response["data"])
+        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
     end

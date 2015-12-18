@@ -179,8 +179,8 @@ describe Dnsimple::Client do
 
     it "loops all the pages" do
       results = subject.paginate(service, :list, account_id, {})
-      expect(results.size).to eq(5)
-      expect(results.map(&:id)).to eq([1, 2, 3, 4, 5])
+      expect(results.data.size).to eq(5)
+      expect(results.data.map(&:id)).to eq([1, 2, 3, 4, 5])
     end
   end
 

@@ -27,25 +27,26 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "returns the domains" do
-      results = subject.domains(account_id)
+      response = subject.domains(account_id)
 
-      expect(results).to be_a(Array)
-      expect(results.size).to eq(2)
+      expect(response).to be_a(Dnsimple::PaginatedResponse)
+      expect(response.data).to be_a(Array)
+      expect(response.data.size).to eq(2)
 
-      results.each do |result|
+      response.data.each do |result|
         expect(result).to be_a(Dnsimple::Struct::Domain)
         expect(result.id).to be_a(Fixnum)
       end
     end
 
     it "exposes the pagination information" do
-      results = subject.domains(account_id)
+      response = subject.domains(account_id)
 
-      expect(results.respond_to?(:page)).to be_truthy
-      expect(results.page).to eq(1)
-      expect(results.per_page).to be_a(Fixnum)
-      expect(results.total_entries).to be_a(Fixnum)
-      expect(results.total_pages).to be_a(Fixnum)
+      expect(response.respond_to?(:page)).to be_truthy
+      expect(response.page).to eq(1)
+      expect(response.per_page).to be_a(Fixnum)
+      expect(response.total_entries).to be_a(Fixnum)
+      expect(response.total_pages).to be_a(Fixnum)
     end
   end
 
@@ -74,8 +75,10 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "returns the domain" do
-      result = subject.domain(account_id, "example.com")
+      response = subject.domain(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
 
+      result = response.data
       expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to eq(1745)
       expect(result.account_id).to eq(24)
