@@ -143,8 +143,8 @@ describe Dnsimple::Client, ".domains" do
     it "builds the correct request" do
       subject.delete_domain(account_id, domain = "example.com")
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do

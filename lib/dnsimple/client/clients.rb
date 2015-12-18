@@ -6,6 +6,11 @@ module Dnsimple
       @services[:domains] ||= Client::DomainsService.new(self)
     end
 
+    # @return [Dnsimple::Client::MiscService] The miscellaneous-methods API proxy.
+    def misc
+      @services[:misc] ||= Client::MiscService.new(self)
+    end
+
 
     class ClientService < ::Struct.new(:client)
     end
@@ -15,6 +20,13 @@ module Dnsimple
 
     class DomainsService < ClientService
       include Client::Domains
+    end
+
+
+    require_relative 'misc'
+
+    class MiscService < ClientService
+      include Client::Misc
     end
 
   end

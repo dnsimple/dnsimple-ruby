@@ -13,4 +13,6 @@ module Dnsimple
   end
 end
 
+require_relative 'struct/account'
 require_relative 'struct/domain'
+require_relative 'struct/user'

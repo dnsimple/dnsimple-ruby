@@ -16,7 +16,7 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Domain>]
-      # @raise  [Dnsimple::RequestError] when the request fails.
+      # @raise  [Dnsimple::RequestError]
       def domains(account_id, options = {})
         response = client.get(Client.versioned("/%s/domains" % [account_id]), options)
 
@@ -51,6 +51,7 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] attributes
+      # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -59,7 +60,7 @@ module Dnsimple
         options  = options.merge(attributes)
         response = client.post(Client.versioned("/%s/domains" % [account_id]), options)
 
-        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+        Response.new(response, Struct::Domain.new(response["data"]))
       end
       alias :create :create_domain
 
@@ -69,6 +70,7 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain The domain id or domain name.
+      # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -76,7 +78,7 @@ module Dnsimple
       def domain(account_id, domain, options = {})
         response = client.get(Client.versioned("/%s/domains/%s" % [account_id, domain]), options)
 
-        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+        Response.new(response, Struct::Domain.new(response["data"]))
       end
 
       # Deletes a domain from the account.
@@ -87,6 +89,7 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain The domain id or domain name.
+      # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -94,7 +97,7 @@ module Dnsimple
       def delete_domain(account_id, domain, options = {})
         response = client.delete(Client.versioned("/%s/domains/%s" % [account_id, domain]), options)
 
-        Dnsimple::Response.new(response, nil)
+        Response.new(response, nil)
       end
       alias :delete :delete_domain
 
