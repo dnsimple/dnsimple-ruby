@@ -53,4 +53,4 @@ For the full library documentation visit http://rubydoc.info/gems/dnsimple
 
 ## License
 
-Copyright (c) 2010-2015 Aetrion LLC. This is Free Software distributed under the MIT license.
+Copyright (c) 2010-2016 Aetrion LLC. This is Free Software distributed under the MIT license.
