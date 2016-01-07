@@ -10,7 +10,6 @@ module Dnsimple
   # @see http://developer.dnsimple.com
   class Client
 
-    HEADER_2FA_STRICT = "X-DNSimple-2FA-Strict"
     HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
     HEADER_AUTHORIZATION = "Authorization"
     WILDCARD_ACCOUNT = "_"
