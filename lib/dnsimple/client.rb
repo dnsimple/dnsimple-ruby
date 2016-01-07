@@ -94,6 +94,15 @@ module Dnsimple
       execute :put, path, options
     end
 
+    # Make a HTTP PATCH request.
+    #
+    # @param  [String] path The path, relative to {#api_endpoint}
+    # @param  [Hash] options Body and header params for request
+    # @return [HTTParty::Response]
+    def patch(path, options = {})
+      execute :patch, path, options
+    end
+
     # Make a HTTP DELETE request.
     #
     # @param  [String] path The path, relative to {#api_endpoint}
