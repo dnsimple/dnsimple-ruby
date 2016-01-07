@@ -59,7 +59,7 @@ describe Dnsimple::Client do
 
       expect {
         subject.execute(:get, "test", {})
-      }.to raise_error(Dnsimple::Error, "A password, domain  API token or OAuth access token is required for all API requests.")
+      }.to raise_error(Dnsimple::Error, "A password, domain API token or access token is required for all API requests.")
     end
   end
 
