@@ -126,7 +126,7 @@ describe Dnsimple::Client, ".domains" do
       expect(result.updated_at).to eq("2015-12-09T00:20:56.056Z")
     end
 
-    context "when something does not exist" do
+    context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v2])
             .to_return(read_fixture("notfound-domain.http"))
@@ -161,7 +161,7 @@ describe Dnsimple::Client, ".domains" do
       expect(result).to be_nil
     end
 
-    context "when something does not exist" do
+    context "when the domain does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r[/v2])
             .to_return(read_fixture("notfound-domain.http"))
