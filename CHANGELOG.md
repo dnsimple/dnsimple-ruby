@@ -1,5 +1,9 @@
 # Changelog
 
+##### 3.x
+
+- CHANGED: Minimum Ruby version >= 2
+
 #### 2.1.1
 
 - FIXED: Paths may mistakenly be generated use \ on windows.
