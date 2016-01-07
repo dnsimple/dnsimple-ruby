@@ -3,7 +3,7 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
-##### 3.x
+#### 3.x
 
 - CHANGED: Minimum Ruby version >= 2
 
