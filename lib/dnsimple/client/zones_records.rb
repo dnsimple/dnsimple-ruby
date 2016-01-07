@@ -47,6 +47,25 @@ module Dnsimple
         paginate(:records, account_id, zone_id, options)
       end
 
+      # Creates a zone record in the account.
+      #
+      # @see https://developer.dnsimple.com/v2/zones/records/#create
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [String] zone_id the zone name
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Record>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def create_record(account_id, zone_id, attributes = {}, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:record_type, :name, :content])
+        options  = options.merge(attributes)
+        response = client.post(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
+      end
+
       # Gets a zone record from the account.
       #
       # @see https://developer.dnsimple.com/v2/zones/records/#get

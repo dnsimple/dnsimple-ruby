@@ -78,6 +78,46 @@ describe Dnsimple::Client, ".zones" do
     end
   end
 
+  describe "#create_record" do
+    let(:account_id) { 1010 }
+    let(:zone_id) { "example.com" }
+
+    before do
+      stub_request(:post, %r[/v2/#{account_id}/zones/#{zone_id}/records$])
+          .to_return(read_fixture("zones/create_record/created.http"))
+    end
+
+    let(:attributes) { { record_type: "A", name: "www", content: "127.0.0.1" } }
+
+    it "builds the correct request" do
+      subject.create_record(account_id, zone_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records")
+                             .with(body: attributes)
+                             .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the record" do
+      response = subject.create_record(account_id, zone_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Record)
+      expect(result.id).to be_a(Fixnum)
+    end
+
+    # context "when the zone does not exist" do
+    #   it "raises NotFoundError" do
+    #     stub_request(:get, %r[/v2])
+    #         .to_return(read_fixture("notfound-zone.http"))
+    #
+    #     expect {
+    #       subject.domain(account_id, zone_id)
+    #     }.to raise_error(Dnsimple::NotFoundError)
+    #   end
+    # end
+  end
+
   describe "#record" do
     let(:account_id) { 1010 }
     let(:zone_id) { "example.com" }
@@ -100,17 +140,17 @@ describe Dnsimple::Client, ".zones" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Record)
-      expect(result.id).to eq(64779)
+      expect(result.id).to eq(64784)
       expect(result.domain_id).to eq(5841)
       expect(result.parent_id).to eq(nil)
-      expect(result.type).to eq("SOA")
-      expect(result.name).to eq("")
-      expect(result.content).to eq("ns1.dnsimple.com admin.dnsimple.com 1452184205 86400 7200 604800 300")
-      expect(result.ttl).to eq(3600)
+      expect(result.type).to eq("A")
+      expect(result.name).to eq("www")
+      expect(result.content).to eq("127.0.0.1")
+      expect(result.ttl).to eq(600)
       expect(result.priority).to eq(nil)
-      expect(result.system_record).to eq(true)
-      expect(result.created_at).to eq("2016-01-07T16:30:05.379Z")
-      expect(result.updated_at).to eq("2016-01-07T16:30:05.379Z")
+      expect(result.system_record).to eq(false)
+      expect(result.created_at).to eq("2016-01-07T17:45:13.653Z")
+      expect(result.updated_at).to eq("2016-01-07T17:45:13.653Z")
     end
 
     # context "when the zone does not exist" do
