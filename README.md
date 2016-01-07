@@ -11,8 +11,8 @@ The code is tested with an automated test suite connected to a continuous integr
 
 A Ruby client for the [DNSimple API v2](https://developer.dnsimple.com/v2/).
 
-[![Build Status](https://travis-ci.org/aetrion/dnsimple-ruby.svg?branch=api-v2)](https://travis-ci.org/aetrion/dnsimple-ruby)
-[![Coverage Status](https://img.shields.io/coveralls/aetrion/dnsimple-ruby.svg)](https://coveralls.io/r/aetrion/dnsimple-ruby?branch=api-v2)
+[![Build Status](https://travis-ci.org/aetrion/dnsimple-ruby.svg?branch=master)](https://travis-ci.org/aetrion/dnsimple-ruby)
+[![Coverage Status](https://img.shields.io/coveralls/aetrion/dnsimple-ruby.svg)](https://coveralls.io/r/aetrion/dnsimple-ruby?branch=master)
 
 [DNSimple](https://dnsimple.com/) provides DNS hosting and domain registration that is simple and friendly.
 We provide a full API and an easy-to-use web interface so you can get your domain registered and set up with a minimal amount of effort.
