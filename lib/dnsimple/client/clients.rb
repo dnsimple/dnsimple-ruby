@@ -11,6 +11,11 @@ module Dnsimple
       @services[:misc] ||= Client::MiscService.new(self)
     end
 
+    # @return [Dnsimple::Client::ZonesService] The zone-related API proxy.
+    def zones
+      @services[:zones] ||= Client::ZonesService.new(self)
+    end
+
 
     class ClientService < ::Struct.new(:client)
 
@@ -54,6 +59,13 @@ module Dnsimple
 
     class MiscService < ClientService
       include Client::Misc
+    end
+
+
+    require_relative 'zones_records'
+
+    class ZonesService < ClientService
+      include Client::ZonesRecords
     end
 
   end
