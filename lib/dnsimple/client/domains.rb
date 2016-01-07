@@ -70,7 +70,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#get
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
       # @param  [#to_s] domain_id The domain id or domain name.
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
@@ -89,7 +89,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#delete
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
       # @param  [#to_s] domain_id The domain id or domain name.
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
