@@ -28,8 +28,6 @@ module Dnsimple
     end
 
 
-    # @!attribute api_endpoint
-    #   @return [String] Base URL for API requests. (default: https://api.dnsimple.com/)
     # @!attribute username
     #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] DNSimple username for Basic Authentication
@@ -42,13 +40,15 @@ module Dnsimple
     # @!attribute access_token
     #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] Domain API access token for authentication
+    # @!attribute api_endpoint
+    #   @return [String] Base URL for API requests. (default: https://api.dnsimple.com/)
     # @!attribute user_agent
     #   @return [String] Configure User-Agent header for requests.
     # @!attribute proxy
     #   @return [String,nil] Configure address:port values for proxy server
 
-    attr_accessor :api_endpoint, :username, :password, :domain_api_token, :access_token,
-                  :oauth_client_id, :oauth_client_secret, :user_agent, :proxy
+    attr_accessor :username, :password, :domain_api_token, :access_token,
+                  :api_endpoint, :user_agent, :proxy
 
 
     def initialize(options = {})

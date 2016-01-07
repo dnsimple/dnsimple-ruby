@@ -8,12 +8,6 @@ describe Dnsimple::Client do
       expect(subject.api_endpoint).to eq("https://api.example.com/")
     end
 
-    it "accepts :oauth_client_id and :oauth_client_secret options" do
-      subject = described_class.new(oauth_client_id: "id", oauth_client_secret: "secret")
-      expect(subject.oauth_client_id).to eq("id")
-      expect(subject.oauth_client_secret).to eq("secret")
-    end
-
     it "access :access_token option" do
       subject = described_class.new(access_token: "token")
       expect(subject.access_token).to eq("token")
