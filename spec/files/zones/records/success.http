@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 07 Jan 2016 16:33:47 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 200 OK
+X-RateLimit-Limit: 4000
+X-RateLimit-Remaining: 3994
+X-RateLimit-Reset: 1452184426
+ETag: W/"1ae3e2e65dbcc2c2a7237e3e564129dd"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 9b361b57-43e2-47df-9f00-e7c252bc4d41
+X-Runtime: 0.107990
+Strict-Transport-Security: max-age=31536000
+
+{"data":[{"id":64779,"domain_id":5841,"parent_id":null,"name":"","content":"ns1.dnsimple.com admin.dnsimple.com 1452184205 86400 7200 604800 300","ttl":3600,"priority":null,"type":"SOA","system_record":true,"created_at":"2016-01-07T16:30:05.379Z","updated_at":"2016-01-07T16:30:05.379Z"},{"id":64780,"domain_id":5841,"parent_id":null,"name":"","content":"ns1.dnsimple.com","ttl":3600,"priority":null,"type":"NS","system_record":true,"created_at":"2016-01-07T16:30:05.422Z","updated_at":"2016-01-07T16:30:05.422Z"},{"id":64781,"domain_id":5841,"parent_id":null,"name":"","content":"ns2.dnsimple.com","ttl":3600,"priority":null,"type":"NS","system_record":true,"created_at":"2016-01-07T16:30:05.433Z","updated_at":"2016-01-07T16:30:05.433Z"},{"id":64782,"domain_id":5841,"parent_id":null,"name":"","content":"ns3.dnsimple.com","ttl":3600,"priority":null,"type":"NS","system_record":true,"created_at":"2016-01-07T16:30:05.445Z","updated_at":"2016-01-07T16:30:05.445Z"},{"id":64783,"domain_id":5841,"parent_id":null,"name":"","content":"ns4.dnsimple.com","ttl":3600,"priority":null,"type":"NS","system_record":true,"created_at":"2016-01-07T16:30:05.457Z","updated_at":"2016-01-07T16:30:05.457Z"}],"pagination":{"current_page":1,"per_page":30,"total_entries":5,"total_pages":1}}

@@ -8,10 +8,10 @@ module Dnsimple
       # @see #all_domains
       #
       # @example List domains in the first page
-      #   client.domains(1010)
+      #   client.domains.list(1010)
       #
       # @example List domains, provide a specific page
-      #   client.domains(1010, query: { page: 2 })
+      #   client.domains.list(1010, query: { page: 2 })
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting option

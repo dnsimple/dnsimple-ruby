@@ -26,6 +26,12 @@ describe Dnsimple::Client, ".domains" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?page=2")
     end
 
+    it "supports extra request options" do
+      subject.domains(account_id, query: { foo: "bar" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?foo=bar")
+    end
+
     it "returns the domains" do
       response = subject.domains(account_id)
 
@@ -123,7 +129,7 @@ describe Dnsimple::Client, ".domains" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r[/v2])
-            .to_return(read_fixture("domains/notfound-domain.http"))
+            .to_return(read_fixture("notfound-domain.http"))
 
         expect {
           subject.domain(account_id, "example.com")
@@ -158,7 +164,7 @@ describe Dnsimple::Client, ".domains" do
     context "when something does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r[/v2])
-            .to_return(read_fixture("domains/notfound-domain.http"))
+            .to_return(read_fixture("notfound-domain.http"))
 
         expect {
           subject.delete_domain(account_id, "example.com")
