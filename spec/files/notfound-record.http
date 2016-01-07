@@ -1,0 +1,12 @@
+HTTP/1.1 500 Internal Server Error
+Server: nginx
+Date: Thu, 07 Jan 2016 17:06:11 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 500 Internal Server Error
+Cache-Control: no-cache
+X-Request-Id: 9ab528c2-affa-413b-8c6f-fc5a865c418f
+X-Runtime: 0.037865
+
+{"message":"Internal Server Error"}

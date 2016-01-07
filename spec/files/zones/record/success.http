@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Thu, 07 Jan 2016 17:05:54 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 200 OK
+X-RateLimit-Limit: 4000
+X-RateLimit-Remaining: 3992
+X-RateLimit-Reset: 1452186353
+ETag: W/"f47d46682d197eb264985cde712813c2"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 6494db54-42b0-4281-9f96-3634c5295c0e
+X-Runtime: 0.128238
+Strict-Transport-Security: max-age=31536000
+
+{"data":{"id":64779,"domain_id":5841,"parent_id":null,"name":"","content":"ns1.dnsimple.com admin.dnsimple.com 1452184205 86400 7200 604800 300","ttl":3600,"priority":null,"type":"SOA","system_record":true,"created_at":"2016-01-07T16:30:05.379Z","updated_at":"2016-01-07T16:30:05.379Z"}}

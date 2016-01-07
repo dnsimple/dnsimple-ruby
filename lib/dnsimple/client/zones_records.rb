@@ -17,6 +17,7 @@ module Dnsimple
       # @param  [String] zone_id the zone name
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Record>]
+      #
       # @raise  [Dnsimple::RequestError]
       def records(account_id, zone_id, options = {})
         response = client.get(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), options)
@@ -36,13 +37,32 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/zones/records/#list
       # @see #records
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
       # @param  [String] zone_id the zone name
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Record>]
+      #
       # @raise  [Dnsimple::RequestError]
       def all_records(account_id, zone_id, options = {})
         paginate(:records, account_id, zone_id, options)
+      end
+
+      # Gets a zone record from the account.
+      #
+      # @see https://developer.dnsimple.com/v2/zones/records/#get
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [String] zone_id the zone name
+      # @param  [Fixnum] record_id the record ID
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def record(account_id, zone_id, record_id, options = {})
+        response = client.get(Client.versioned("/%s/zones/%s/records/%s" % [account_id, zone_id, record_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
       end
 
     end
