@@ -13,9 +13,9 @@ We provide a full API and an easy-to-use web interface so you can get your domai
 
 This branch targets the development of the API client for the [DNSimple API v2](https://developer.dnsimple.com/v2/). If you are looking for the stable version of the client for [DNSimple API v1](https://developer.dnsimple.com/v1/) then use the [`master-v1`](https://github.com/aetrion/dnsimple-ruby/tree/master-v1) branch.
 
-This version is currently under development, therefore the methods and the implementation should he considered a work-in-progress. Changes in the method naming, method signatures, public or internal API may happen at any time.
+This version is currently under development, therefore the methods and the implementation should he considered a work-in-progress. Changes in the method naming, method signatures, public or internal APIs may happen at any time.
 
-The code is tested with an automated test suite connected to a continuous integration tool, therefore you should not expect destructive bugs to be merged into master. However, you use this library at your own risk.
+The code is tested with an automated test suite connected to a continuous integration tool, therefore you should not expect destructive bugs to be merged into master. Regardless, use this library at your own risk.
 
 
 ## Installation
