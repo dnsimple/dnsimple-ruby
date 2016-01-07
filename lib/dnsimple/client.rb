@@ -1,6 +1,6 @@
-require 'dnsimple/compatibility'
 require 'dnsimple/extra'
 require 'dnsimple/struct'
+require 'dnsimple/response'
 require 'dnsimple/client/clients'
 
 module Dnsimple
@@ -9,17 +9,15 @@ module Dnsimple
   #
   # @see http://developer.dnsimple.com
   class Client
-    include Dnsimple::Compatibility
 
     HEADER_2FA_STRICT = "X-DNSimple-2FA-Strict"
-    HEADER_API_TOKEN = "X-DNSimple-Token"
     HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
-    HEADER_OTP_TOKEN = "X-DNSimple-OTP"
-    HEADER_EXCHANGE_TOKEN = "X-DNSimple-OTP-Token"
+    HEADER_AUTHORIZATION = "Authorization"
+    WILDCARD_ACCOUNT = "_"
 
 
     # @return [String] The current API version.
-    API_VERSION = "v1"
+    API_VERSION = "v2"
 
 
     # Prepends the correct API version to +path+.
@@ -33,26 +31,24 @@ module Dnsimple
     # @!attribute api_endpoint
     #   @return [String] Base URL for API requests. (default: https://api.dnsimple.com/)
     # @!attribute username
+    #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] DNSimple username for Basic Authentication
     # @!attribute password
-    #   @see http://developer.dnsimple.com/authentication/
+    #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] DNSimple password for Basic Authentication
-    # @!attribute exchange_token
-    #   @see http://developer.dnsimple.com/authentication/
-    #   @return [String] Exchange Token for Basic Authentication with 2FA
-    # @!attribute api_token
-    #   @see http://developer.dnsimple.com/authentication/
-    #   @return [String] API access token for authentication
     # @!attribute domain_api_token
-    #   @see http://developer.dnsimple.com/authentication/
+    #   @see https://developer.dnsimple.com/v2/#authentication
+    #   @return [String] Domain API access token for authentication
+    # @!attribute access_token
+    #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] Domain API access token for authentication
     # @!attribute user_agent
     #   @return [String] Configure User-Agent header for requests.
     # @!attribute proxy
     #   @return [String,nil] Configure address:port values for proxy server
 
-    attr_accessor :api_endpoint, :username, :password, :exchange_token, :api_token, :domain_api_token,
-                  :user_agent, :proxy
+    attr_accessor :api_endpoint, :username, :password, :domain_api_token, :access_token,
+                  :oauth_client_id, :oauth_client_secret, :user_agent, :proxy
 
 
     def initialize(options = {})
@@ -63,6 +59,12 @@ module Dnsimple
       end
 
       @services = {}
+    end
+
+
+    # @return [String] Base URL for API requests.
+    def api_endpoint
+      Extra.join_uri(@api_endpoint, "")
     end
 
 
@@ -102,7 +104,6 @@ module Dnsimple
       execute :delete, path, options
     end
 
-
     # Executes a request, validates and returns the response.
     #
     # @param  [String] method The HTTP method
@@ -120,14 +121,13 @@ module Dnsimple
       when 200..299
         response
       when 401
-        raise (response.headers[HEADER_OTP_TOKEN] == "required" ? TwoFactorAuthenticationRequired : AuthenticationFailed), response["message"]
+        raise AuthenticationFailed.new(response["message"])
       when 404
         raise NotFoundError.new(response)
       else
         raise RequestError.new(response)
       end
     end
-
 
     # Make a HTTP request.
     #
@@ -154,12 +154,6 @@ module Dnsimple
     end
 
 
-    # @return [String] Base URL for API requests.
-    def api_endpoint
-      Extra.join_uri(@api_endpoint, "")
-    end
-
-
     private
 
     def base_options
@@ -173,16 +167,14 @@ module Dnsimple
         options.merge!(http_proxyaddr: address, http_proxyport: port)
       end
 
-      if exchange_token
-        options[:basic_auth] = { username: exchange_token, password: "x-2fa-basic" }
-      elsif password
+      if password
         options[:basic_auth] = { username: username, password: password }
       elsif domain_api_token
         options[:headers][HEADER_DOMAIN_API_TOKEN] = domain_api_token
-      elsif api_token
-        options[:headers][HEADER_API_TOKEN] = "#{username}:#{api_token}"
+      elsif access_token
+        options[:headers][HEADER_AUTHORIZATION] = "Bearer #{access_token}"
       else
-        raise Error, 'A password or API token is required for all API requests.'
+        raise Error, 'A password, domain  API token or OAuth access token is required for all API requests.'
       end
 
       options

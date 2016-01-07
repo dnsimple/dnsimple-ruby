@@ -2,135 +2,166 @@ require 'spec_helper'
 
 describe Dnsimple::Client, ".domains" do
 
-  subject { described_class.new(api_endpoint: "https://api.zone", username: "user", api_token: "token").domains }
+  subject { described_class.new(api_endpoint: "https://api.dnsimple.test", access_token: "a1b2c3").domains }
 
 
   describe "#domains" do
+    let(:account_id) { 1010 }
+
     before do
-      stub_request(:get, %r[/v1/domains$]).
-          to_return(read_fixture("domains/domains/success.http"))
+      stub_request(:get, %r[/v2/#{account_id}/domains])
+          .to_return(read_fixture("domains/domains/success.http"))
     end
 
     it "builds the correct request" do
-      subject.domains
+      subject.domains(account_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains").
-                             with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "supports pagination" do
+      subject.domains(account_id, query: { page: 2 })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?page=2")
     end
 
     it "returns the domains" do
-      results = subject.domains
+      response = subject.domains(account_id)
 
-      expect(results).to be_a(Array)
-      expect(results.size).to eq(2)
+      expect(response).to be_a(Dnsimple::PaginatedResponse)
+      expect(response.data).to be_a(Array)
+      expect(response.data.size).to eq(2)
 
-      results.each do |result|
+      response.data.each do |result|
         expect(result).to be_a(Dnsimple::Struct::Domain)
         expect(result.id).to be_a(Fixnum)
       end
     end
+
+    it "exposes the pagination information" do
+      response = subject.domains(account_id)
+
+      expect(response.respond_to?(:page)).to be_truthy
+      expect(response.page).to eq(1)
+      expect(response.per_page).to be_a(Fixnum)
+      expect(response.total_entries).to be_a(Fixnum)
+      expect(response.total_pages).to be_a(Fixnum)
+    end
+  end
+
+  describe "#all_domains" do
+    let(:account_id) { 1010 }
+
+    it "delegates to client.paginate" do
+      expect(subject).to receive(:paginate).with(:domains, account_id, { foo: "bar" })
+      subject.all_domains(account_id, { foo: "bar" })
+    end
   end
 
   describe "#create_domain" do
+    let(:account_id) { 1010 }
+
     before do
-      stub_request(:post, %r[/v1/domains$]).
-          to_return(read_fixture("domains/create_domain/created.http"))
+      stub_request(:post, %r[/v2/#{account_id}/domains$])
+          .to_return(read_fixture("domains/create_domain/created.http"))
     end
 
     let(:attributes) { { name: "example.com" } }
 
     it "builds the correct request" do
-      subject.create_domain(attributes)
+      subject.create_domain(account_id, attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.zone/v1/domains").
-                             with(body: { domain: attributes }).
-                             with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the domain" do
-      result = subject.create_domain(attributes)
+      response = subject.create_domain(account_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
 
+      result = response.data
       expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to be_a(Fixnum)
     end
   end
 
   describe "#domain" do
+    let(:account_id) { 1010 }
+
     before do
-      stub_request(:get, %r[/v1/domains/.+$]).
-          to_return(read_fixture("domains/domain/success.http"))
+      stub_request(:get, %r[/v2/#{account_id}/domains/.+$])
+          .to_return(read_fixture("domains/domain/success.http"))
     end
 
     it "builds the correct request" do
-      subject.domain("example.com")
+      subject.domain(account_id, domain = "example.com")
 
-      expect(WebMock).to have_requested(:get, "https://api.zone/v1/domains/example.com").
-                             with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the domain" do
-      result = subject.domain("example.com")
+      response = subject.domain(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
 
+      result = response.data
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to eq(1)
-      expect(result.user_id).to eq(21)
-      expect(result.registrant_id).to eq(321)
-      expect(result.name).to eq("example.com")
-      expect(result.state).to eq("registered")
-      expect(result.auto_renew).to eq(true)
-      expect(result.whois_protected).to eq(false)
-      expect(result.expires_on).to eq("2015-09-27")
-      expect(result.created_at).to eq("2012-09-27T14:25:57.646Z")
-      expect(result.updated_at).to eq("2014-12-15T20:27:04.552Z")
+      expect(result.id).to eq(1745)
+      expect(result.account_id).to eq(24)
+      expect(result.registrant_id).to eq(409)
+      expect(result.name).to eq("example-1417881397.com")
+      expect(result.state).to eq("expired")
+      expect(result.auto_renew).to eq(false)
+      expect(result.private_whois).to eq(false)
+      expect(result.expires_on).to eq("2015-12-06")
+      expect(result.created_at).to eq("2014-12-06T15:56:55.573Z")
+      expect(result.updated_at).to eq("2015-12-09T00:20:56.056Z")
     end
 
     context "when something does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r[/v1]).
-            to_return(read_fixture("domains/notfound-domain.http"))
+        stub_request(:get, %r[/v2])
+            .to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
-          subject.domain("example.com")
+          subject.domain(account_id, "example.com")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
 
   describe "#delete_domain" do
+    let(:account_id) { 1010 }
+
     before do
-      stub_request(:delete, %r[/v1/domains/.+$]).
-          to_return(read_fixture("domains/delete_domain/success.http"))
+      stub_request(:delete, %r[/v2/#{account_id}/domains/.+$])
+          .to_return(read_fixture("domains/delete_domain/success.http"))
     end
 
     it "builds the correct request" do
-      subject.delete_domain("example.com")
+      subject.delete_domain(account_id, domain = "example.com")
 
-      expect(WebMock).to have_requested(:delete, "https://api.zone/v1/domains/example.com").
-                             with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
-      result = subject.delete_domain("example.com")
+      response = subject.delete_domain(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
 
-      expect(result).to be_truthy
-    end
-
-    it "supports HTTP 204" do
-      stub_request(:delete, %r[/v1]).
-          to_return(read_fixture("domains/delete_domain/success-204.http"))
-
-      result = subject.delete_domain("example.com")
-
-      expect(result).to be_truthy
+      result = response.data
+      expect(result).to be_nil
     end
 
     context "when something does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r[/v1]).
-            to_return(read_fixture("domains/notfound-domain.http"))
+        stub_request(:delete, %r[/v2])
+            .to_return(read_fixture("domains/notfound-domain.http"))
 
         expect {
-          subject.delete_domain("example.com")
+          subject.delete_domain(account_id, "example.com")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end

@@ -5,26 +5,26 @@ module Dnsimple
       # @return [Fixnum] The domain ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated user ID.
-      attr_accessor :user_id
+      # @return [Fixnum] The associated account ID.
+      attr_accessor :account_id
 
       # @return [Fixnum] The associated registrant (contact) ID.
       attr_accessor :registrant_id
 
-      # The String name.
+      # @return [String] The domain name.
       attr_accessor :name
 
-      # The String state.
-      attr_accessor :state
-
-      # The String API token
+      # @return [String] The domain API token used for domain authentication.
       attr_accessor :token
 
-      # Is the domain set to auto renew?
+      # @return [String] The domain state.
+      attr_accessor :state
+
+      # @return [Bool] True if the domain is set to auto-renew, false otherwise.
       attr_accessor :auto_renew
 
-      # Is the whois information protected?
-      attr_accessor :whois_protected
+      # @return [Bool] True if the domain WHOIS privacy is enabled, false otherwise.
+      attr_accessor :private_whois
 
       # @return [String] The date the domain will expire.
       attr_accessor :expires_on

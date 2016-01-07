@@ -18,9 +18,10 @@ module Dnsimple
             :api_endpoint,
             :username,
             :password,
-            :exchange_token,
-            :api_token,
             :domain_api_token,
+            :access_token,
+            :oauth_client_id,
+            :oauth_client_secret,
             :user_agent,
             :proxy,
         ]
@@ -50,22 +51,28 @@ module Dnsimple
         ENV['DNSIMPLE_PASSWORD']
       end
 
-      # Default DNSimple Exchange Token for Basic Auth from ENV
-      # @return [String]
-      def exchange_token
-        ENV['DNSIMPLE_API_EXCHANGE_TOKEN']
-      end
-
       # Default DNSimple Domain API Token for Token Auth from ENV
       # @return [String]
       def domain_api_token
         ENV['DNSIMPLE_API_DOMAIN_TOKEN']
       end
 
-      # Default DNSimple API Token for Token Auth from ENV
+      # Default DNSimple access token for OAuth authentication from ENV
       # @return [String]
-      def api_token
-        ENV['DNSIMPLE_API_TOKEN']
+      def access_token
+        ENV['DNSIMPLE_ACCESS_TOKEN']
+      end
+
+      # Default DNSimple OAuth client ID for OAuth authentication from ENV
+      # @return [String]
+      def oauth_client_id
+        ENV['DNSIMPLE_OAUTH_CLIENT_ID']
+      end
+
+      # Default DNSimple OAuth client secret for OAuth authentication from ENV
+      # @return [String]
+      def oauth_client_secret
+        ENV['DNSIMPLE_OAUTH_CLIENT_SECRET']
       end
 
       # Default User-Agent header string from ENV or {USER_AGENT}

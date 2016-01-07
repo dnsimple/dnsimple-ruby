@@ -8,6 +8,17 @@ describe Dnsimple::Client do
       expect(subject.api_endpoint).to eq("https://api.example.com/")
     end
 
+    it "accepts :oauth_client_id and :oauth_client_secret options" do
+      subject = described_class.new(oauth_client_id: "id", oauth_client_secret: "secret")
+      expect(subject.oauth_client_id).to eq("id")
+      expect(subject.oauth_client_secret).to eq("secret")
+    end
+
+    it "access :access_token option" do
+      subject = described_class.new(access_token: "token")
+      expect(subject.access_token).to eq("token")
+    end
+
     it "normalizes :api_endpoint trailing slash" do
       subject = described_class.new(api_endpoint: "https://api.example.com/missing/slash")
       expect(subject.api_endpoint).to eq("https://api.example.com/missing/slash/")
@@ -39,46 +50,22 @@ describe Dnsimple::Client do
                          with { |req| req.headers["X-Dnsimple-Domain-Token"] == "domaintoken" }
     end
 
-    it "uses header authentication if there's an api token provided" do
+    it "uses access token if there's an access token provided" do
       stub_request(:any, %r[/test])
 
-      subject = described_class.new(username: "user", api_token: "token")
+      subject = described_class.new(access_token: "access-token")
       subject.execute(:get, "test", {})
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
-                         with { |req| req.headers["X-Dnsimple-Token"] == "user:token" }
+                         with { |req| req.headers["Authorization"] == "Bearer access-token" }
     end
 
-    it "uses HTTP authentication via exchange token if there's an exchange token provided" do
-      stub_request(:any, %r[/test])
-
-      subject = described_class.new(username: "user", password: "pass", exchange_token: "exchange-token")
-      subject.execute(:get, "test", {})
-
-      expect(WebMock).to have_requested(:get, "https://exchange-token:x-2fa-basic@api.dnsimple.com/test")
-    end
-
-    it "raises an error if there's no password or api token provided" do
-      subject = described_class.new(username: "user")
+    it "raises an error if there's no password, domain token or access token provided" do
+      subject = described_class.new(username: "user", oauth_client_id: "id", oauth_client_secret: "secret")
 
       expect {
         subject.execute(:get, "test", {})
-      }.to raise_error(Dnsimple::Error, 'A password or API token is required for all API requests.')
-    end
-
-    context "when 2FA is required" do
-      subject { described_class.new(username: "user", password: "pass") }
-
-      before do
-        stub_request(:any, %r[/test]).
-            to_return(read_fixture("2fa/error-required.http"))
-      end
-
-      it "raises a TwoFactorAuthenticationRequired error" do
-        expect {
-          subject.execute(:get, "test", {})
-        }.to raise_error(Dnsimple::TwoFactorAuthenticationRequired)
-      end
+      }.to raise_error(Dnsimple::Error, "A password, domain  API token or OAuth access token is required for all API requests.")
     end
   end
 

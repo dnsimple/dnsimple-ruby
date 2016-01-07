@@ -1,124 +1,59 @@
 module Dnsimple
   class Client
 
-    # @return [Dnsimple::Client::CertificatesService] The certificate-related API proxy.
-    def certificates
-      @services[:certificates] ||= Client::CertificatesService.new(self)
-    end
-
-    # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
-    def contacts
-      @services[:contacts] ||= Client::ContactsService.new(self)
-    end
-
     # @return [Dnsimple::Client::DomainsService] The domain-related API proxy.
     def domains
       @services[:domains] ||= Client::DomainsService.new(self)
     end
 
-    # @return [Dnsimple::Client::NameServersService] The name server-related API proxy.
-    def name_servers
-      @services[:name_servers] ||= Client::NameServersService.new(self)
-    end
-
-    # @return [Dnsimple::Client::RegistrarService] The registrar-related API proxy.
-    def registrar
-      @services[:registrar] ||= Client::RegistrarService.new(self)
-    end
-
-    # @return [Dnsimple::Client::ServicesService] The service-related API proxy.
-    def services
-      @services[:services] ||= Client::ServicesService.new(self)
-    end
-
-    # @return [Dnsimple::Client::TemplatesService] The template-related API proxy.
-    def templates
-      @services[:templates] ||= Client::TemplatesService.new(self)
-    end
-
-    # @return [Dnsimple::Client::UsersService] The user-related API proxy.
-    def users
-      @services[:users] ||= Client::UsersService.new(self)
+    # @return [Dnsimple::Client::MiscService] The miscellaneous-methods API proxy.
+    def misc
+      @services[:misc] ||= Client::MiscService.new(self)
     end
 
 
     class ClientService < ::Struct.new(:client)
+
+      # Internal helper that loops over a paginated response and returns all the records in the collection.
+      #
+      # @api private
+      #
+      # @param  [Symbol] method The client method to execute
+      # @param  [Array] args The args to call the method with
+      # @return [Dnsimple::CollectionResponse]
+      def paginate(method, *args)
+        current_page = 0
+        total_pages = nil
+        collection = []
+        options = args.pop
+        response = nil
+
+        begin
+          current_page += 1
+          query = Extra.deep_merge(options, query: { page: current_page, per_page: 100 })
+
+          response = send(method, *(args + [query]))
+          total_pages ||= response.total_pages
+          collection.concat(response.data)
+        end while current_page < total_pages
+
+        CollectionResponse.new(response.response, collection)
+      end
+
     end
 
 
-    require 'dnsimple/client/certificates'
-
-    class CertificatesService < ClientService
-      include Client::Certificates
-    end
-
-
-    require 'dnsimple/client/contacts'
-
-    class ContactsService < ClientService
-      include Client::Contacts
-    end
-
-
-    require 'dnsimple/client/domains'
-    require 'dnsimple/client/domains_records'
-    require 'dnsimple/client/domains_autorenewal'
-    require 'dnsimple/client/domains_privacy'
-    require 'dnsimple/client/domains_sharing'
-    require 'dnsimple/client/domains_forwards'
-    require 'dnsimple/client/domains_zones'
+    require_relative 'domains'
 
     class DomainsService < ClientService
       include Client::Domains
-      include Client::DomainsRecords
-      include Client::DomainsAutorenewal
-      include Client::DomainsPrivacy
-      include Client::DomainsSharing
-      include Client::DomainsForwards
-      include Client::DomainsZones
     end
 
 
-    require 'dnsimple/client/name_servers'
-    require 'dnsimple/client/vanity_name_servers'
+    require_relative 'misc'
 
-    class NameServersService < ClientService
-      include Client::NameServers
-      include Client::VanityNameServers
-    end
-
-
-    require 'dnsimple/client/registrar'
-
-    class RegistrarService < ClientService
-      include Client::Registrar
-    end
-
-
-    require 'dnsimple/client/services'
-    require 'dnsimple/client/services_domains'
-
-    class ServicesService < ClientService
-      include Client::Services
-      include Client::ServicesDomains
-    end
-
-
-    require 'dnsimple/client/templates'
-    require 'dnsimple/client/templates_domains'
-    require 'dnsimple/client/templates_records'
-
-    class TemplatesService < ClientService
-      include Client::Templates
-      include Client::TemplatesDomains
-      include Client::TemplatesRecords
-    end
-
-
-    require 'dnsimple/client/users'
-
-    class UsersService < ClientService
-      include Client::Users
+    class MiscService < ClientService
+      include Client::Misc
     end
 
   end
