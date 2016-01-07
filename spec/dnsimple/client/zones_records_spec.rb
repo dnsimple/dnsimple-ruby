@@ -62,7 +62,7 @@ describe Dnsimple::Client, ".zones" do
     #         .to_return(read_fixture("notfound-zone.http"))
     #
     #     expect {
-    #       subject.domain(account_id, zone_id)
+    #       subject.records(account_id, zone_id)
     #     }.to raise_error(Dnsimple::NotFoundError)
     #   end
     # end
@@ -108,11 +108,11 @@ describe Dnsimple::Client, ".zones" do
 
     # context "when the zone does not exist" do
     #   it "raises NotFoundError" do
-    #     stub_request(:get, %r[/v2])
+    #     stub_request(:post, %r[/v2])
     #         .to_return(read_fixture("notfound-zone.http"))
     #
     #     expect {
-    #       subject.domain(account_id, zone_id)
+    #       subject.create_zone(account_id, zone_id, attributes)
     #     }.to raise_error(Dnsimple::NotFoundError)
     #   end
     # end
@@ -159,7 +159,7 @@ describe Dnsimple::Client, ".zones" do
     #         .to_return(read_fixture("notfound-zone.http"))
     #
     #     expect {
-    #       subject.domain(account_id, zone_id, "0")
+    #       subject.record(account_id, zone_id, "0")
     #     }.to raise_error(Dnsimple::NotFoundError)
     #   end
     # end
@@ -170,7 +170,7 @@ describe Dnsimple::Client, ".zones" do
     #         .to_return(read_fixture("notfound-record.http"))
     #
     #     expect {
-    #       subject.domain(account_id, zone_id, "0")
+    #       subject.record(account_id, zone_id, "0")
     #     }.to raise_error(Dnsimple::NotFoundError)
     #   end
     # end
@@ -206,11 +206,11 @@ describe Dnsimple::Client, ".zones" do
 
     # context "when the zone does not exist" do
     #   it "raises NotFoundError" do
-    #     stub_request(:get, %r[/v2])
+    #     stub_request(:patch, %r[/v2])
     #         .to_return(read_fixture("notfound-zone.http"))
     #
     #     expect {
-    #       subject.domain(account_id, zone_id, "0")
+    #       subject.update_record(account_id, zone_id, "0", {})
     #     }.to raise_error(Dnsimple::NotFoundError)
     #   end
     # end
