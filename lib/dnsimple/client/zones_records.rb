@@ -104,6 +104,26 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
       end
 
+      # Deletes a zone record from the account.
+      #
+      # WARNING: this cannot be undone.
+      #
+      # @see https://developer.dnsimple.com/v2/zones/records/#delete
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [String] zone_id the zone name
+      # @param  [Fixnum] record_id the record ID
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def delete_record(account_id, zone_id, record_id, options = {})
+        response = client.delete(Client.versioned("/%s/zones/%s/records/%s" % [account_id, zone_id, record_id]), options)
+
+        Dnsimple::Response.new(response, nil)
+      end
+
     end
   end
 end

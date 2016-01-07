@@ -217,11 +217,58 @@ describe Dnsimple::Client, ".zones" do
 
     # context "when the record does not exist" do
     #   it "raises NotFoundError" do
-    #     stub_request(:get, %r[/v2])
+    #     stub_request(:patch, %r[/v2])
     #         .to_return(read_fixture("notfound-record.http"))
     #
     #     expect {
-    #       subject.domain(account_id, zone_id, "0")
+    #       subject.update_record(account_id, zone_id, "0", {})
+    #     }.to raise_error(Dnsimple::NotFoundError)
+    #   end
+    # end
+  end
+
+  describe "#delete_record" do
+    let(:account_id) { 1010 }
+    let(:zone_id) { "example.com" }
+
+    before do
+      stub_request(:delete, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
+          .to_return(read_fixture("zones/delete_record/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.delete_record(account_id, zone_id, record = "3")
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record}")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      response = subject.delete_record(account_id, zone_id, 3)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+
+    # context "when the zone does not exist" do
+    #   it "raises NotFoundError" do
+    #     stub_request(:delete, %r[/v2])
+    #         .to_return(read_fixture("notfound-zone.http"))
+    #
+    #     expect {
+    #       subject.delete_record(account_id, zone_id, "0")
+    #     }.to raise_error(Dnsimple::NotFoundError)
+    #   end
+    # end
+
+    # context "when the record does not exist" do
+    #   it "raises NotFoundError" do
+    #     stub_request(:delete, %r[/v2])
+    #         .to_return(read_fixture("notfound-record.http"))
+    #
+    #     expect {
+    #       subject.delete_record(account_id, zone_id, "0")
     #     }.to raise_error(Dnsimple::NotFoundError)
     #   end
     # end
