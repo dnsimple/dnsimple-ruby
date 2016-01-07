@@ -93,8 +93,8 @@ describe Dnsimple::Client, ".zones" do
       subject.create_record(account_id, zone_id, attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records")
-                             .with(body: attributes)
-                             .with(headers: { 'Accept' => 'application/json' })
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
@@ -103,7 +103,7 @@ describe Dnsimple::Client, ".zones" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Record)
-      expect(result.id).to be_a(Fixnum)
+      expect(result.id).to eq(64784)
     end
 
     # context "when the zone does not exist" do
@@ -151,6 +151,57 @@ describe Dnsimple::Client, ".zones" do
       expect(result.system_record).to eq(false)
       expect(result.created_at).to eq("2016-01-07T17:45:13.653Z")
       expect(result.updated_at).to eq("2016-01-07T17:45:13.653Z")
+    end
+
+    # context "when the zone does not exist" do
+    #   it "raises NotFoundError" do
+    #     stub_request(:get, %r[/v2])
+    #         .to_return(read_fixture("notfound-zone.http"))
+    #
+    #     expect {
+    #       subject.domain(account_id, zone_id, "0")
+    #     }.to raise_error(Dnsimple::NotFoundError)
+    #   end
+    # end
+
+    # context "when the record does not exist" do
+    #   it "raises NotFoundError" do
+    #     stub_request(:get, %r[/v2])
+    #         .to_return(read_fixture("notfound-record.http"))
+    #
+    #     expect {
+    #       subject.domain(account_id, zone_id, "0")
+    #     }.to raise_error(Dnsimple::NotFoundError)
+    #   end
+    # end
+  end
+
+  describe "#update_record" do
+    let(:account_id) { 1010 }
+    let(:zone_id) { "example.com" }
+
+    before do
+      stub_request(:patch, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
+          .to_return(read_fixture("zones/update_record/success.http"))
+    end
+
+    let(:attributes) { { content: "127.0.0.1", priority: "1" } }
+
+    it "builds the correct request" do
+      subject.update_record(account_id, zone_id, record = "3", attributes)
+
+      expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record}")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the record" do
+      response = subject.update_record(account_id, zone_id, "3")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Record)
+      expect(result.id).to eq(64784)
     end
 
     # context "when the zone does not exist" do

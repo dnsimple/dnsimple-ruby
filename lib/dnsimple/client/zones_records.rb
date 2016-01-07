@@ -84,6 +84,26 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
       end
 
+      # Updates a zone record in the account.
+      #
+      # @see https://developer.dnsimple.com/v2/zones/records/#update
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [String] zone_id the zone name
+      # @param  [Fixnum] record_id the record ID
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Record>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def update_record(account_id, zone_id, record_id, attributes = {}, options = {})
+        options  = options.merge(attributes)
+        response = client.patch(Client.versioned("/%s/zones/%s/records/%s" % [account_id, zone_id, record_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
+      end
+
     end
   end
 end
