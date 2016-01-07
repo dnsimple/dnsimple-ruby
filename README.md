@@ -1,4 +1,4 @@
-## :exclamation: :exclamation: :exclamation: Development Warning :exclamation: :exclamation: :exclamation:
+## :exclamation::exclamation::exclamation: Development Warning :exclamation::exclamation::exclamation:
 
 This branch targets the development of the API client for the [DNSimple API v2](https://developer.dnsimple.com/v2/). If you are looking for the stable version of the client for [DNSimple API v1](https://developer.dnsimple.com/v1/) then use the [`master-v1`](https://github.com/aetrion/dnsimple-ruby/tree/master-v1) branch.
 
