@@ -1,11 +1,11 @@
 module RSpecSupportHelpers
 
-  def fixture(*names)
-    File.join(SPEC_ROOT, "files", *names)
+  def http_fixture(*names)
+    File.join(SPEC_ROOT, "fixtures.http", *names)
   end
 
-  def read_fixture(*names)
-    File.read(fixture(*names))
+  def read_http_fixture(*names)
+    File.read(http_fixture(*names))
   end
 
 end

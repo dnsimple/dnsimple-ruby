@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".misc" do
   describe "#whoami" do
     before do
       stub_request(:get, %r[/v2/whoami$])
-          .to_return(read_fixture("misc/whoami/success.http"))
+          .to_return(read_http_fixture("misc/whoami/success.http"))
     end
 
     it "builds the correct request" do
@@ -29,7 +29,7 @@ describe Dnsimple::Client, ".misc" do
     context "when authenticated as account" do
       before do
         stub_request(:get, %r[/v2/whoami$])
-            .to_return(read_fixture("misc/whoami/success_account.http"))
+            .to_return(read_http_fixture("misc/whoami/success_account.http"))
       end
 
       it "sets the account" do
@@ -42,7 +42,7 @@ describe Dnsimple::Client, ".misc" do
     context "when authenticated as user" do
       before do
         stub_request(:get, %r[/v2/whoami$])
-            .to_return(read_fixture("misc/whoami/success_user.http"))
+            .to_return(read_http_fixture("misc/whoami/success_user.http"))
       end
 
       it "sets the user" do

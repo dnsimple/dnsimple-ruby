@@ -11,7 +11,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:get, %r[/v2/#{account_id}/zones/#{zone_id}/records])
-          .to_return(read_fixture("zones/records/success.http"))
+          .to_return(read_http_fixture("zones/records/success.http"))
     end
 
     it "builds the correct request" do
@@ -59,7 +59,7 @@ describe Dnsimple::Client, ".zones" do
     # context "when the zone does not exist" do
     #   it "raises NotFoundError" do
     #     stub_request(:get, %r[/v2])
-    #         .to_return(read_fixture("notfound-zone.http"))
+    #         .to_return(read_http_fixture("notfound-zone.http"))
     #
     #     expect {
     #       subject.records(account_id, zone_id)
@@ -84,7 +84,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:post, %r[/v2/#{account_id}/zones/#{zone_id}/records$])
-          .to_return(read_fixture("zones/create_record/created.http"))
+          .to_return(read_http_fixture("zones/create_record/created.http"))
     end
 
     let(:attributes) { { record_type: "A", name: "www", content: "127.0.0.1" } }
@@ -109,7 +109,7 @@ describe Dnsimple::Client, ".zones" do
     # context "when the zone does not exist" do
     #   it "raises NotFoundError" do
     #     stub_request(:post, %r[/v2])
-    #         .to_return(read_fixture("notfound-zone.http"))
+    #         .to_return(read_http_fixture("notfound-zone.http"))
     #
     #     expect {
     #       subject.create_zone(account_id, zone_id, attributes)
@@ -124,7 +124,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:get, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
-          .to_return(read_fixture("zones/record/success.http"))
+          .to_return(read_http_fixture("zones/record/success.http"))
     end
 
     it "builds the correct request" do
@@ -156,7 +156,7 @@ describe Dnsimple::Client, ".zones" do
     # context "when the zone does not exist" do
     #   it "raises NotFoundError" do
     #     stub_request(:get, %r[/v2])
-    #         .to_return(read_fixture("notfound-zone.http"))
+    #         .to_return(read_http_fixture("notfound-zone.http"))
     #
     #     expect {
     #       subject.record(account_id, zone_id, "0")
@@ -167,7 +167,7 @@ describe Dnsimple::Client, ".zones" do
     # context "when the record does not exist" do
     #   it "raises NotFoundError" do
     #     stub_request(:get, %r[/v2])
-    #         .to_return(read_fixture("notfound-record.http"))
+    #         .to_return(read_http_fixture("notfound-record.http"))
     #
     #     expect {
     #       subject.record(account_id, zone_id, "0")
@@ -182,7 +182,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:patch, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
-          .to_return(read_fixture("zones/update_record/success.http"))
+          .to_return(read_http_fixture("zones/update_record/success.http"))
     end
 
     let(:attributes) { { content: "127.0.0.1", priority: "1" } }
@@ -207,7 +207,7 @@ describe Dnsimple::Client, ".zones" do
     # context "when the zone does not exist" do
     #   it "raises NotFoundError" do
     #     stub_request(:patch, %r[/v2])
-    #         .to_return(read_fixture("notfound-zone.http"))
+    #         .to_return(read_http_fixture("notfound-zone.http"))
     #
     #     expect {
     #       subject.update_record(account_id, zone_id, "0", {})
@@ -218,7 +218,7 @@ describe Dnsimple::Client, ".zones" do
     # context "when the record does not exist" do
     #   it "raises NotFoundError" do
     #     stub_request(:patch, %r[/v2])
-    #         .to_return(read_fixture("notfound-record.http"))
+    #         .to_return(read_http_fixture("notfound-record.http"))
     #
     #     expect {
     #       subject.update_record(account_id, zone_id, "0", {})
@@ -233,7 +233,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:delete, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
-          .to_return(read_fixture("zones/delete_record/success.http"))
+          .to_return(read_http_fixture("zones/delete_record/success.http"))
     end
 
     it "builds the correct request" do
@@ -254,7 +254,7 @@ describe Dnsimple::Client, ".zones" do
     # context "when the zone does not exist" do
     #   it "raises NotFoundError" do
     #     stub_request(:delete, %r[/v2])
-    #         .to_return(read_fixture("notfound-zone.http"))
+    #         .to_return(read_http_fixture("notfound-zone.http"))
     #
     #     expect {
     #       subject.delete_record(account_id, zone_id, "0")
@@ -265,7 +265,7 @@ describe Dnsimple::Client, ".zones" do
     # context "when the record does not exist" do
     #   it "raises NotFoundError" do
     #     stub_request(:delete, %r[/v2])
-    #         .to_return(read_fixture("notfound-record.http"))
+    #         .to_return(read_http_fixture("notfound-record.http"))
     #
     #     expect {
     #       subject.delete_record(account_id, zone_id, "0")

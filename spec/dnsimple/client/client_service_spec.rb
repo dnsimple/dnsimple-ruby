@@ -20,11 +20,11 @@ describe Dnsimple::Client::ClientService do
 
     before do
       stub_request(:get, %r[/v2/#{account_id}/list\?page=1&per_page=100])
-          .to_return(read_fixture("pages-1of3.http"))
+          .to_return(read_http_fixture("pages-1of3.http"))
       stub_request(:get, %r[/v2/#{account_id}/list\?page=2&per_page=100])
-          .to_return(read_fixture("pages-2of3.http"))
+          .to_return(read_http_fixture("pages-2of3.http"))
       stub_request(:get, %r[/v2/#{account_id}/list\?page=3&per_page=100])
-          .to_return(read_fixture("pages-3of3.http"))
+          .to_return(read_http_fixture("pages-3of3.http"))
     end
 
     it "loops all the pages" do
