@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module Misc
+    module Auth
 
       # Gets the information about the current authenticated context.
       #

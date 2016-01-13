@@ -6,9 +6,9 @@ module Dnsimple
       @services[:domains] ||= Client::DomainsService.new(self)
     end
 
-    # @return [Dnsimple::Client::MiscService] The miscellaneous-methods API proxy.
-    def misc
-      @services[:misc] ||= Client::MiscService.new(self)
+    # @return [Dnsimple::Client::AuthService] The authentication-methods API proxy.
+    def auth
+      @services[:auth] ||= Client::AuthService.new(self)
     end
 
     # @return [Dnsimple::Client::ZonesService] The zone-related API proxy.
@@ -55,10 +55,10 @@ module Dnsimple
     end
 
 
-    require_relative 'misc'
+    require_relative 'auth'
 
-    class MiscService < ClientService
-      include Client::Misc
+    class AuthService < ClientService
+      include Client::Auth
     end
 
 
