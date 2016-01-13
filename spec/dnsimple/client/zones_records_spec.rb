@@ -11,7 +11,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:get, %r[/v2/#{account_id}/zones/#{zone_id}/records])
-          .to_return(read_http_fixture("zones/records/success.http"))
+          .to_return(read_http_fixture("listZoneRecords/success.http"))
     end
 
     it "builds the correct request" do
@@ -84,7 +84,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:post, %r[/v2/#{account_id}/zones/#{zone_id}/records$])
-          .to_return(read_http_fixture("zones/create_record/created.http"))
+          .to_return(read_http_fixture("createZoneRecord/created.http"))
     end
 
     let(:attributes) { { record_type: "A", name: "www", content: "127.0.0.1" } }
@@ -124,7 +124,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:get, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
-          .to_return(read_http_fixture("zones/record/success.http"))
+          .to_return(read_http_fixture("getRecord/success.http"))
     end
 
     it "builds the correct request" do
@@ -182,7 +182,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:patch, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
-          .to_return(read_http_fixture("zones/update_record/success.http"))
+          .to_return(read_http_fixture("updateZoneRecord/success.http"))
     end
 
     let(:attributes) { { content: "127.0.0.1", priority: "1" } }
@@ -233,7 +233,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:delete, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
-          .to_return(read_http_fixture("zones/delete_record/success.http"))
+          .to_return(read_http_fixture("deleteZoneRecord/success.http"))
     end
 
     it "builds the correct request" do

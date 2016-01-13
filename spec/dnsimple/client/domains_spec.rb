@@ -10,7 +10,7 @@ describe Dnsimple::Client, ".domains" do
 
     before do
       stub_request(:get, %r[/v2/#{account_id}/domains])
-          .to_return(read_http_fixture("domains/domains/success.http"))
+          .to_return(read_http_fixture("listDomains/success.http"))
     end
 
     it "builds the correct request" do
@@ -70,7 +70,7 @@ describe Dnsimple::Client, ".domains" do
 
     before do
       stub_request(:post, %r[/v2/#{account_id}/domains$])
-          .to_return(read_http_fixture("domains/create_domain/created.http"))
+          .to_return(read_http_fixture("createDomain/created.http"))
     end
 
     let(:attributes) { { name: "example.com" } }
@@ -98,7 +98,7 @@ describe Dnsimple::Client, ".domains" do
 
     before do
       stub_request(:get, %r[/v2/#{account_id}/domains/.+$])
-          .to_return(read_http_fixture("domains/domain/success.http"))
+          .to_return(read_http_fixture("getDomain/success.http"))
     end
 
     it "builds the correct request" do
@@ -143,7 +143,7 @@ describe Dnsimple::Client, ".domains" do
 
     before do
       stub_request(:delete, %r[/v2/#{account_id}/domains/.+$])
-          .to_return(read_http_fixture("domains/delete_domain/success.http"))
+          .to_return(read_http_fixture("deleteDomain/success.http"))
     end
 
     it "builds the correct request" do
