@@ -1,14 +1,19 @@
 module Dnsimple
   class Client
 
+    # @return [Dnsimple::Client::AuthService] The authentication-related API proxy.
+    def auth
+      @services[:auth] ||= Client::AuthService.new(self)
+    end
+
     # @return [Dnsimple::Client::DomainsService] The domain-related API proxy.
     def domains
       @services[:domains] ||= Client::DomainsService.new(self)
     end
 
-    # @return [Dnsimple::Client::AuthService] The authentication-methods API proxy.
-    def auth
-      @services[:auth] ||= Client::AuthService.new(self)
+    # @return [Dnsimple::Client::RegistrarService] The registrar-related API proxy.
+    def registrar
+      @services[:registrar] ||= Client::RegistrarService.new(self)
     end
 
     # @return [Dnsimple::Client::ZonesService] The zone-related API proxy.
@@ -48,6 +53,13 @@ module Dnsimple
     end
 
 
+    require_relative 'auth'
+
+    class AuthService < ClientService
+      include Client::Auth
+    end
+
+
     require_relative 'domains'
 
     class DomainsService < ClientService
@@ -55,10 +67,10 @@ module Dnsimple
     end
 
 
-    require_relative 'auth'
+    require_relative 'registrar'
 
-    class AuthService < ClientService
-      include Client::Auth
+    class RegistrarService < ClientService
+      include Client::Registrar
     end
 
 

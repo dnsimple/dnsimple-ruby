@@ -1,0 +1,17 @@
+HTTP/1.1 201 Created
+Server: nginx
+Date: Sat, 16 Jan 2016 16:09:02 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 201 Created
+X-RateLimit-Limit: 4000
+X-RateLimit-Remaining: 3965
+X-RateLimit-Reset: 1452960541
+ETag: W/"e034ef9fb32487cf4dc034050ba846c5"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 8b378ee7-d8fa-4459-a1b0-a18bfd2354bb
+X-Runtime: 13.365767
+Strict-Transport-Security: max-age=31536000
+
+{"data":{"id":1,"account_id":1010,"registrant_id":2,"name":"example.weppos","unicode_name":"example.weppos","token":"cc8h1jP8bDLw5rXycL16k8BivcGiT6K9","state":"registered","auto_renew":false,"private_whois":false,"expires_on":"2017-01-16","created_at":"2016-01-16T16:08:50.649Z","updated_at":"2016-01-16T16:09:01.161Z"}}
