@@ -6,6 +6,11 @@ module Dnsimple
       @services[:auth] ||= Client::AuthService.new(self)
     end
 
+    # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
+    def domains
+      @services[:domains] ||= Client::DomainsService.new(self)
+    end
+
     # @return [Dnsimple::Client::DomainsService] The domain-related API proxy.
     def domains
       @services[:domains] ||= Client::DomainsService.new(self)
@@ -57,6 +62,13 @@ module Dnsimple
 
     class AuthService < ClientService
       include Client::Auth
+    end
+
+
+    require_relative 'contacts'
+
+    class ContactsService < ClientService
+      include Client::Contacts
     end
 
 
