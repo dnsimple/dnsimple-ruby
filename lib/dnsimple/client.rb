@@ -7,7 +7,7 @@ module Dnsimple
 
   # Client for the DNSimple API
   #
-  # @see http://developer.dnsimple.com
+  # @see https://developer.dnsimple.com/
   class Client
 
     HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
