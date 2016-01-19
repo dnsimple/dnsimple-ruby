@@ -14,7 +14,7 @@ describe Dnsimple::Client::ClientService do
       end
     end
 
-    subject { service_class.new(Dnsimple::Client.new(api_endpoint: "https://api.example.com/", access_token: "a1b2c3")) }
+    subject { service_class.new(Dnsimple::Client.new(base_url: "https://api.example.com/", access_token: "a1b2c3")) }
 
     let(:account_id) { 1010 }
 

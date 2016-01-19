@@ -39,7 +39,7 @@ module Dnsimple
     # @!attribute access_token
     #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] Domain API access token for authentication
-    # @!attribute api_endpoint
+    # @!attribute base_url
     #   @return [String] Base URL for API requests. (default: https://api.dnsimple.com/)
     # @!attribute user_agent
     #   @return [String] Configure User-Agent header for requests.
@@ -47,7 +47,7 @@ module Dnsimple
     #   @return [String,nil] Configure address:port values for proxy server
 
     attr_accessor :username, :password, :domain_api_token, :access_token,
-                  :api_endpoint, :user_agent, :proxy
+                  :base_url, :user_agent, :proxy
 
 
     def initialize(options = {})
@@ -62,14 +62,14 @@ module Dnsimple
 
 
     # @return [String] Base URL for API requests.
-    def api_endpoint
-      Extra.join_uri(@api_endpoint, "")
+    def base_url
+      Extra.join_uri(@base_url, "")
     end
 
 
     # Make a HTTP GET request.
     #
-    # @param  [String] path The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#base_url}
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
     def get(path, options = {})
@@ -78,7 +78,7 @@ module Dnsimple
 
     # Make a HTTP POST request.
     #
-    # @param  [String] path The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#base_url}
     # @param  [Hash] options Body and header params for request
     # @return [HTTParty::Response]
     def post(path, options = {})
@@ -87,7 +87,7 @@ module Dnsimple
 
     # Make a HTTP PUT request.
     #
-    # @param  [String] path The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#base_url}
     # @param  [Hash] options Body and header params for request
     # @return [HTTParty::Response]
     def put(path, options = {})
@@ -96,7 +96,7 @@ module Dnsimple
 
     # Make a HTTP PATCH request.
     #
-    # @param  [String] path The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#base_url}
     # @param  [Hash] options Body and header params for request
     # @return [HTTParty::Response]
     def patch(path, options = {})
@@ -105,7 +105,7 @@ module Dnsimple
 
     # Make a HTTP DELETE request.
     #
-    # @param  [String] path The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#base_url}
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
     def delete(path, options = {})
@@ -115,7 +115,7 @@ module Dnsimple
     # Executes a request, validates and returns the response.
     #
     # @param  [String] method The HTTP method
-    # @param  [String] path The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#base_url}
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
     # @raise  [RequestError]
@@ -146,7 +146,7 @@ module Dnsimple
     # Therefore, it's up to the caller to properly handle and validate the response.
     #
     # @param  [String] method The HTTP method
-    # @param  [String] path The path, relative to {#api_endpoint}
+    # @param  [String] path The path, relative to {#base_url}
     # @param  [Hash] options Query and header params for request
     # @return [HTTParty::Response]
     def request(method, path, data, options = {})
@@ -158,7 +158,7 @@ module Dnsimple
         options[:body] = data
       end
 
-      HTTParty.send(method, api_endpoint + path, Extra.deep_merge!(base_options, options))
+      HTTParty.send(method, base_url + path, Extra.deep_merge!(base_options, options))
     end
 
 

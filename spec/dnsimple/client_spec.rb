@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Dnsimple::Client do
 
   describe "initialization" do
-    it "accepts :api_endpoint option" do
-      subject = described_class.new(api_endpoint: "https://api.example.com/")
-      expect(subject.api_endpoint).to eq("https://api.example.com/")
+    it "accepts :base_url option" do
+      subject = described_class.new(base_url: "https://api.example.com/")
+      expect(subject.base_url).to eq("https://api.example.com/")
     end
 
     it "access :access_token option" do
@@ -13,14 +13,14 @@ describe Dnsimple::Client do
       expect(subject.access_token).to eq("token")
     end
 
-    it "normalizes :api_endpoint trailing slash" do
-      subject = described_class.new(api_endpoint: "https://api.example.com/missing/slash")
-      expect(subject.api_endpoint).to eq("https://api.example.com/missing/slash/")
+    it "normalizes :base_url trailing slash" do
+      subject = described_class.new(base_url: "https://api.example.com/missing/slash")
+      expect(subject.base_url).to eq("https://api.example.com/missing/slash/")
     end
 
-    it "defaults :api_endpoint to production API" do
+    it "defaults :base_url to production API" do
       subject = described_class.new
-      expect(subject.api_endpoint).to eq("https://api.dnsimple.com/")
+      expect(subject.base_url).to eq("https://api.dnsimple.com/")
     end
   end
 
@@ -120,7 +120,7 @@ describe Dnsimple::Client do
       stub_request(:get, %r[/foo])
 
       expect(HTTParty).to receive(:get).
-                          with("#{subject.api_endpoint}foo",
+                          with("#{subject.base_url}foo",
                                format: :json,
                                basic_auth: { username: "user", password: "pass" },
                                headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
@@ -132,7 +132,7 @@ describe Dnsimple::Client do
 
     it "properly extracts options from data" do
       expect(HTTParty).to receive(:put).
-                          with("#{subject.api_endpoint}foo",
+                          with("#{subject.base_url}foo",
                                format: :json,
                                body: { something: "else" },
                                query: { foo: "bar" },

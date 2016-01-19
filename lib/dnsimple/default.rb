@@ -4,7 +4,7 @@ module Dnsimple
   module Default
 
     # Default API endpoint
-    API_ENDPOINT = "https://api.dnsimple.com/".freeze
+    BASE_URL = "https://api.dnsimple.com/".freeze
 
     # Default User Agent header
     USER_AGENT   = "dnsimple-ruby/#{VERSION}".freeze
@@ -15,7 +15,7 @@ module Dnsimple
       # @return [Array] of option keys
       def keys
         @keys ||= [
-            :api_endpoint,
+            :base_url,
             :username,
             :password,
             :access_token,
@@ -31,10 +31,10 @@ module Dnsimple
         Hash[keys.map { |key| [key, send(key)]}]
       end
 
-      # Default API endpoint from ENV or {API_ENDPOINT}
+      # Default API endpoint from ENV or {BASE_URL}
       # @return [String]
-      def api_endpoint
-        ENV['DNSIMPLE_API_ENDPOINT'] || API_ENDPOINT
+      def base_url
+        ENV['DNSIMPLE_BASE_URL'] || BASE_URL
       end
 
       # Default DNSimple username for Basic Auth from ENV

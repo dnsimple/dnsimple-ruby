@@ -7,6 +7,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Minimum Ruby version >= 2
 
+- CHANGED: Renamed `api_endpoint` to `base_url` to match the other clients.
+
 #### 2.1.1
 
 - FIXED: Paths may mistakenly be generated use \ on windows.

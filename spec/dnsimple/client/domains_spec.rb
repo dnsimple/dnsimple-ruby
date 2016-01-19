@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Dnsimple::Client, ".domains" do
 
-  subject { described_class.new(api_endpoint: "https://api.dnsimple.test", access_token: "a1b2c3").domains }
+  subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains }
 
 
   describe "#domains" do
