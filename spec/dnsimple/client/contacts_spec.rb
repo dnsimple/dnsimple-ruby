@@ -65,4 +65,32 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
+  describe "#create_contact" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:post, %r[/v2/#{account_id}/contacts$])
+          .to_return(read_http_fixture("createContact/created.http"))
+    end
+
+    let(:attributes) { { first_name: "Simone", last_name: "Carletti", address1: "Italian Street", city: "Rome", state_province: "RM", postal_code: "00171", country: "IT", email_address: "example@example.com", phone: "+393391234567" } }
+
+    it "builds the correct request" do
+      subject.create_contact(account_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/contacts")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the contact" do
+      response = subject.create_contact(account_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Contact)
+      expect(result.id).to be_a(Fixnum)
+    end
+  end
+
 end

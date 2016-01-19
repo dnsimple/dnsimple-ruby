@@ -47,6 +47,25 @@ module Dnsimple
       end
       alias :all :all_contacts
 
+      # Creates a contact in the account.
+      #
+      # @see https://developer.dnsimple.com/v2/contacts/#create
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def create_contact(account_id, attributes = {}, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email_address])
+        options  = options.merge(attributes)
+        response = client.post(Client.versioned("/%s/contacts" % [account_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Contact.new(response["data"]))
+      end
+      alias :create :create_contact
+
     end
   end
 end
