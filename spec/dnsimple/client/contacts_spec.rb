@@ -5,4 +5,64 @@ describe Dnsimple::Client, ".contacts" do
   subject { described_class.new(api_endpoint: "https://api.dnsimple.test", access_token: "a1b2c3").contacts }
 
 
+  describe "#contacts" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r[/v2/#{account_id}/contacts])
+          .to_return(read_http_fixture("listContacts/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.contacts(account_id)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/contacts")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "supports pagination" do
+      subject.contacts(account_id, query: { page: 2 })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/contacts?page=2")
+    end
+
+    it "supports extra request options" do
+      subject.contacts(account_id, query: { foo: "bar" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/contacts?foo=bar")
+    end
+
+    it "returns the contacts" do
+      response = subject.contacts(account_id)
+
+      expect(response).to be_a(Dnsimple::PaginatedResponse)
+      expect(response.data).to be_a(Array)
+      expect(response.data.size).to eq(2)
+
+      response.data.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::Contact)
+        expect(result.id).to be_a(Fixnum)
+      end
+    end
+
+    it "exposes the pagination information" do
+      response = subject.contacts(account_id)
+
+      expect(response.respond_to?(:page)).to be_truthy
+      expect(response.page).to eq(1)
+      expect(response.per_page).to be_a(Fixnum)
+      expect(response.total_entries).to be_a(Fixnum)
+      expect(response.total_pages).to be_a(Fixnum)
+    end
+  end
+
+  describe "#all_contacts" do
+    let(:account_id) { 1010 }
+
+    it "delegates to client.paginate" do
+      expect(subject).to receive(:paginate).with(:contacts, account_id, { foo: "bar" })
+      subject.all_contacts(account_id, { foo: "bar" })
+    end
+  end
+
 end
