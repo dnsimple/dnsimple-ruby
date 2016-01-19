@@ -114,9 +114,9 @@ describe Dnsimple::Client, ".domains" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to eq(1745)
-      expect(result.account_id).to eq(24)
-      expect(result.registrant_id).to eq(409)
+      expect(result.id).to eq(1)
+      expect(result.account_id).to eq(1010)
+      expect(result.registrant_id).to eq(2)
       expect(result.name).to eq("example-1417881397.com")
       expect(result.state).to eq("expired")
       expect(result.auto_renew).to eq(false)
