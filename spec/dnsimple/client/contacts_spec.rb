@@ -93,4 +93,43 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
+  describe "#contact" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r[/v2/#{account_id}/contacts/.+$])
+          .to_return(read_http_fixture("getContact/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.contact(account_id, contact = 1)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/contacts/#{contact}")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the contact" do
+      response = subject.contact(account_id, 0)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Contact)
+      expect(result.id).to eq(1)
+      expect(result.account_id).to eq(1010)
+      expect(result.created_at).to eq("2016-01-19T20:50:26.066Z")
+      expect(result.updated_at).to eq("2016-01-19T20:50:26.066Z")
+    end
+
+    context "when the contact does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r[/v2])
+            .to_return(read_http_fixture("notfound-contact.http"))
+
+        expect {
+          subject.contact(account_id, 0)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end

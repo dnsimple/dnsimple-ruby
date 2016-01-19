@@ -66,6 +66,23 @@ module Dnsimple
       end
       alias :create :create_contact
 
+      # Gets a contact from the account.
+      #
+      # @see https://developer.dnsimple.com/v2/contacts/#get
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [#to_s] contact_id The contact.
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def contact(account_id, contact_id, options = {})
+        response = client.get(Client.versioned("/%s/contacts/%s" % [account_id, contact_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Contact.new(response["data"]))
+      end
+
     end
   end
 end
