@@ -171,4 +171,39 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
+  describe "#delete_contact" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:delete, %r[/v2/#{account_id}/contacts/.+$])
+          .to_return(read_http_fixture("deleteContact/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.delete_contact(account_id, domain = "example.com")
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/contacts/#{domain}")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      response = subject.delete_contact(account_id, 1)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+
+    context "when the contact does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:delete, %r[/v2])
+            .to_return(read_http_fixture("notfound-contact.http"))
+
+        expect {
+          subject.delete_contact(account_id, 0)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end

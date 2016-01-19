@@ -102,6 +102,26 @@ module Dnsimple
       end
       alias :update :update_contact
 
+      # Deletes a contact from the account.
+      #
+      # WARNING: this cannot be undone.
+      #
+      # @see https://developer.dnsimple.com/v2/contacts/#delete
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [#to_s] contact_id The contact id.
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def delete_contact(account_id, contact_id, options = {})
+        response = client.delete(Client.versioned("/%s/contacts/%s" % [account_id, contact_id]), options)
+
+        Dnsimple::Response.new(response, nil)
+      end
+      alias :delete :delete_contact
+
     end
   end
 end
