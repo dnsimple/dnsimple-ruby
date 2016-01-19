@@ -132,4 +132,43 @@ describe Dnsimple::Client, ".contacts" do
     end
   end
 
+  describe "#update_contact" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:patch, %r[/v2/#{account_id}/contacts/.+$])
+          .to_return(read_http_fixture("updateContact/success.http"))
+    end
+
+    let(:attributes) { { first_name: "Updated" } }
+
+    it "builds the correct request" do
+      subject.update_contact(account_id, contact_id = 1, attributes)
+
+      expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/contacts/#{contact_id}")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the contact" do
+      response = subject.update_contact(account_id, 1)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Contact)
+      expect(result.id).to eq(1)
+    end
+
+    context "when the contact does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:patch, %r[/v2])
+            .to_return(read_http_fixture("notfound-contact.http"))
+
+        expect {
+          subject.update_contact(account_id, 0, {})
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end

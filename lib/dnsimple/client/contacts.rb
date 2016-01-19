@@ -83,6 +83,25 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Contact.new(response["data"]))
       end
 
+      # Updates a contact in the account.
+      #
+      # @see https://developer.dnsimple.com/v2/contacts/#update
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] contact_id The contact.
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def update_contact(account_id, contact_id, attributes = {}, options = {})
+        options  = options.merge(attributes)
+        response = client.patch(Client.versioned("/%s/contacts/%s" % [account_id, contact_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Contact.new(response["data"]))
+      end
+      alias :update :update_contact
+
     end
   end
 end

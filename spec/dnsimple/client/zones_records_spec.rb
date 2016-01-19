@@ -128,14 +128,14 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "builds the correct request" do
-      subject.record(account_id, zone_id, record = "3")
+      subject.record(account_id, zone_id, record_id = 2)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record}")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
-      response = subject.record(account_id, zone_id, "3")
+      response = subject.record(account_id, zone_id, 2)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -188,15 +188,15 @@ describe Dnsimple::Client, ".zones" do
     let(:attributes) { { content: "127.0.0.1", priority: "1" } }
 
     it "builds the correct request" do
-      subject.update_record(account_id, zone_id, record = "3", attributes)
+      subject.update_record(account_id, zone_id, record_id = 2, attributes)
 
-      expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record}")
+      expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
           .with(body: attributes)
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
-      response = subject.update_record(account_id, zone_id, "3")
+      response = subject.update_record(account_id, zone_id, 2)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -237,14 +237,14 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "builds the correct request" do
-      subject.delete_record(account_id, zone_id, record = "3")
+      subject.delete_record(account_id, zone_id, record_id = 2)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record}")
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
-      response = subject.delete_record(account_id, zone_id, 3)
+      response = subject.delete_record(account_id, zone_id, 2)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
