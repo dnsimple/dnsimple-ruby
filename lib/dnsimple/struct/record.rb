@@ -5,8 +5,8 @@ module Dnsimple
       # @return [Fixnum] The record ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated domain ID.
-      attr_accessor :domain_id
+      # @return [String] The associated zone ID.
+      attr_accessor :zone_id
 
       # @return [Fixnum] The ID of the parent record, if this record is dependent on another record.
       attr_accessor :parent_id

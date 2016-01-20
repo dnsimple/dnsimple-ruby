@@ -124,7 +124,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:get, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
-          .to_return(read_http_fixture("getRecord/success.http"))
+          .to_return(read_http_fixture("getZoneRecord/success.http"))
     end
 
     it "builds the correct request" do
@@ -141,7 +141,7 @@ describe Dnsimple::Client, ".zones" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Record)
       expect(result.id).to eq(64784)
-      expect(result.domain_id).to eq(5841)
+      expect(result.zone_id).to eq("example.com")
       expect(result.parent_id).to eq(nil)
       expect(result.type).to eq("A")
       expect(result.name).to eq("www")
