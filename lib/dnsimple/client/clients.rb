@@ -86,9 +86,11 @@ module Dnsimple
     end
 
 
+    require_relative 'zones'
     require_relative 'zones_records'
 
     class ZonesService < ClientService
+      include Client::Zones
       include Client::ZonesRecords
     end
 
