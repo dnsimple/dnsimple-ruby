@@ -1,12 +1,12 @@
-HTTP/1.1 500 Internal Server Error
+HTTP/1.1 404 Not Found
 Server: nginx
-Date: Thu, 07 Jan 2016 16:35:37 GMT
+Date: Fri, 22 Jan 2016 16:46:02 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
-Status: 500 Internal Server Error
+Status: 404 Not Found
 Cache-Control: no-cache
-X-Request-Id: 0de115b1-2143-44e5-b117-c7f9c51ea2ff
-X-Runtime: 0.022304
+X-Request-Id: 9c19bef5-6902-421c-9f91-dec3bae26102
+X-Runtime: 0.014705
 
-{"message":"Internal Server Error"}
+{"message":"Zone `0` not found"}

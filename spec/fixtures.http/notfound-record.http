@@ -1,12 +1,12 @@
-HTTP/1.1 500 Internal Server Error
+HTTP/1.1 404 Not Found
 Server: nginx
-Date: Thu, 07 Jan 2016 17:06:11 GMT
+Date: Fri, 22 Jan 2016 16:46:07 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
-Status: 500 Internal Server Error
+Status: 404 Not Found
 Cache-Control: no-cache
-X-Request-Id: 9ab528c2-affa-413b-8c6f-fc5a865c418f
-X-Runtime: 0.037865
+X-Request-Id: 35af0fd2-d020-4f70-861e-b6a42a190bf6
+X-Runtime: 0.018847
 
-{"message":"Internal Server Error"}
+{"message":"Record `0` not found"}

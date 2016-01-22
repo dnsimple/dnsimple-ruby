@@ -56,16 +56,16 @@ describe Dnsimple::Client, ".zones" do
       expect(response.total_pages).to be_a(Fixnum)
     end
 
-    # context "when the zone does not exist" do
-    #   it "raises NotFoundError" do
-    #     stub_request(:get, %r[/v2])
-    #         .to_return(read_http_fixture("notfound-zone.http"))
-    #
-    #     expect {
-    #       subject.records(account_id, zone_id)
-    #     }.to raise_error(Dnsimple::NotFoundError)
-    #   end
-    # end
+    context "when the zone does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r[/v2])
+            .to_return(read_http_fixture("notfound-zone.http"))
+
+        expect {
+          subject.records(account_id, zone_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
   end
 
   describe "#all_records" do
@@ -106,16 +106,16 @@ describe Dnsimple::Client, ".zones" do
       expect(result.id).to eq(64784)
     end
 
-    # context "when the zone does not exist" do
-    #   it "raises NotFoundError" do
-    #     stub_request(:post, %r[/v2])
-    #         .to_return(read_http_fixture("notfound-zone.http"))
-    #
-    #     expect {
-    #       subject.create_zone(account_id, zone_id, attributes)
-    #     }.to raise_error(Dnsimple::NotFoundError)
-    #   end
-    # end
+    context "when the zone does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:post, %r[/v2])
+            .to_return(read_http_fixture("notfound-zone.http"))
+
+        expect {
+          subject.create_record(account_id, zone_id, attributes)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
   end
 
   describe "#record" do
@@ -153,27 +153,27 @@ describe Dnsimple::Client, ".zones" do
       expect(result.updated_at).to eq("2016-01-07T17:45:13.653Z")
     end
 
-    # context "when the zone does not exist" do
-    #   it "raises NotFoundError" do
-    #     stub_request(:get, %r[/v2])
-    #         .to_return(read_http_fixture("notfound-zone.http"))
-    #
-    #     expect {
-    #       subject.record(account_id, zone_id, "0")
-    #     }.to raise_error(Dnsimple::NotFoundError)
-    #   end
-    # end
+    context "when the zone does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r[/v2])
+            .to_return(read_http_fixture("notfound-zone.http"))
 
-    # context "when the record does not exist" do
-    #   it "raises NotFoundError" do
-    #     stub_request(:get, %r[/v2])
-    #         .to_return(read_http_fixture("notfound-record.http"))
-    #
-    #     expect {
-    #       subject.record(account_id, zone_id, "0")
-    #     }.to raise_error(Dnsimple::NotFoundError)
-    #   end
-    # end
+        expect {
+          subject.record(account_id, zone_id, "0")
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+
+    context "when the record does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r[/v2])
+            .to_return(read_http_fixture("notfound-record.http"))
+
+        expect {
+          subject.record(account_id, zone_id, "0")
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
   end
 
   describe "#update_record" do
@@ -204,27 +204,27 @@ describe Dnsimple::Client, ".zones" do
       expect(result.id).to eq(64784)
     end
 
-    # context "when the zone does not exist" do
-    #   it "raises NotFoundError" do
-    #     stub_request(:patch, %r[/v2])
-    #         .to_return(read_http_fixture("notfound-zone.http"))
-    #
-    #     expect {
-    #       subject.update_record(account_id, zone_id, "0", {})
-    #     }.to raise_error(Dnsimple::NotFoundError)
-    #   end
-    # end
+    context "when the zone does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:patch, %r[/v2])
+            .to_return(read_http_fixture("notfound-zone.http"))
 
-    # context "when the record does not exist" do
-    #   it "raises NotFoundError" do
-    #     stub_request(:patch, %r[/v2])
-    #         .to_return(read_http_fixture("notfound-record.http"))
-    #
-    #     expect {
-    #       subject.update_record(account_id, zone_id, "0", {})
-    #     }.to raise_error(Dnsimple::NotFoundError)
-    #   end
-    # end
+        expect {
+          subject.update_record(account_id, zone_id, "0", {})
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+
+    context "when the record does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:patch, %r[/v2])
+            .to_return(read_http_fixture("notfound-record.http"))
+
+        expect {
+          subject.update_record(account_id, zone_id, "0", {})
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
   end
 
   describe "#delete_record" do
@@ -251,27 +251,27 @@ describe Dnsimple::Client, ".zones" do
       expect(result).to be_nil
     end
 
-    # context "when the zone does not exist" do
-    #   it "raises NotFoundError" do
-    #     stub_request(:delete, %r[/v2])
-    #         .to_return(read_http_fixture("notfound-zone.http"))
-    #
-    #     expect {
-    #       subject.delete_record(account_id, zone_id, "0")
-    #     }.to raise_error(Dnsimple::NotFoundError)
-    #   end
-    # end
+    context "when the zone does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:delete, %r[/v2])
+            .to_return(read_http_fixture("notfound-zone.http"))
 
-    # context "when the record does not exist" do
-    #   it "raises NotFoundError" do
-    #     stub_request(:delete, %r[/v2])
-    #         .to_return(read_http_fixture("notfound-record.http"))
-    #
-    #     expect {
-    #       subject.delete_record(account_id, zone_id, "0")
-    #     }.to raise_error(Dnsimple::NotFoundError)
-    #   end
-    # end
+        expect {
+          subject.delete_record(account_id, zone_id, "0")
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+
+    context "when the record does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:delete, %r[/v2])
+            .to_return(read_http_fixture("notfound-record.http"))
+
+        expect {
+          subject.delete_record(account_id, zone_id, "0")
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
   end
 
 end
