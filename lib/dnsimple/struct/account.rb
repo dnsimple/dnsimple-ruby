@@ -6,7 +6,7 @@ module Dnsimple
       attr_accessor :id
 
       # @return [String] The account email.
-      attr_accessor :name
+      attr_accessor :email
     end
 
   end
