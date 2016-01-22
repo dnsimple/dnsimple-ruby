@@ -46,6 +46,23 @@ module Dnsimple
         paginate(:zones, account_id, options)
       end
 
+      # Gets a zone from the account.
+      #
+      # @see https://developer.dnsimple.com/v2/zones/#get
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [#to_s] zone_id The zone name.
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Zone>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def zone(account_id, zone_id, options = {})
+        response = client.get(Client.versioned("/%s/zones/%s" % [account_id, zone_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Zone.new(response["data"]))
+      end
+
     end
   end
 end

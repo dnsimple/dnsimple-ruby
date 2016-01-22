@@ -65,4 +65,45 @@ describe Dnsimple::Client, ".zones" do
     end
   end
 
+  describe "#zone" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r[/v2/#{account_id}/zones/.+$])
+          .to_return(read_http_fixture("getZone/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.zone(account_id, zone = "example.com")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the zone" do
+      response = subject.zone(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Zone)
+      expect(result.id).to eq(1)
+      expect(result.account_id).to eq(1010)
+      expect(result.name).to eq("example-alpha.com")
+      expect(result.reverse).to eq(false)
+      expect(result.created_at).to eq("2015-04-23T07:40:03.045Z")
+      expect(result.updated_at).to eq("2015-04-23T07:40:03.051Z")
+    end
+
+    context "when the zone does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r[/v2])
+            .to_return(read_http_fixture("notfound-zone.http"))
+
+        expect {
+          subject.zone(account_id, "example.com")
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end
