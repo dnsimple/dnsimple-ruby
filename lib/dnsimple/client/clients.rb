@@ -16,6 +16,11 @@ module Dnsimple
       @services[:domains] ||= Client::DomainsService.new(self)
     end
 
+    # @return [Dnsimple::Client::OauthService] The oauth-related API proxy.
+    def oauth
+      @services[:oauth] ||= Client::OauthService.new(self)
+    end
+
     # @return [Dnsimple::Client::RegistrarService] The registrar-related API proxy.
     def registrar
       @services[:registrar] ||= Client::RegistrarService.new(self)
@@ -76,6 +81,13 @@ module Dnsimple
 
     class DomainsService < ClientService
       include Client::Domains
+    end
+
+
+    require_relative 'oauth'
+
+    class OauthService < ClientService
+      include Client::Oauth
     end
 
 
