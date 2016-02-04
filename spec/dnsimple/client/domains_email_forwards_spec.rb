@@ -76,4 +76,47 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
+  describe "#email_forward" do
+    let(:account_id) { 1010 }
+    let(:domain_id) { "example.com" }
+    let(:email_forward_id) { 17706 }
+
+    before do
+      stub_request(:get, %r[/v2/#{account_id}/domains/#{domain_id}/email_forwards.+$])
+          .to_return(read_http_fixture("getEmailForward/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.email_forward(account_id, domain_id, email_forward_id)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the email forward" do
+      response = subject.email_forward(account_id, domain_id, email_forward_id)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::EmailForward)
+      expect(result.id).to eq(17706)
+      expect(result.domain_id).to eq(228963)
+      expect(result.from).to eq("jim@a-domain.com")
+      expect(result.to).to eq("jim@another.com")
+      expect(result.created_at).to eq("2016-02-04T14:26:50.282Z")
+      expect(result.updated_at).to eq("2016-02-04T14:26:50.282Z")
+    end
+
+    context "when the email forward does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r[/v2])
+            .to_return(read_http_fixture("notfound-emailforward.http"))
+
+        expect {
+          subject.email_forward(account_id, domain_id, email_forward_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end

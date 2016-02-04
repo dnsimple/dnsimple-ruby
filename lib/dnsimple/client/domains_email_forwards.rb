@@ -43,6 +43,24 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::EmailForward.new(response["data"]))
       end
 
+      # Gets a email forward for the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#get
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [#to_s] domain_id The domain id or domain name.
+      # @param  [Fixnum] email_forward_id The email forward id.
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::EmailForward>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def email_forward(account_id, domain_id, email_forward_id, options = {})
+        response = client.get(Client.versioned("/%s/domains/%s/email_forwards/%s" % [account_id, domain_id, email_forward_id]), options)
+
+        Dnsimple::Response.new(response, Struct::EmailForward.new(response["data"]))
+      end
+
     end
   end
 end
