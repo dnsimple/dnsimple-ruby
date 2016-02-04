@@ -103,6 +103,23 @@ module Dnsimple
       end
       alias :delete :delete_domain
 
+      # Resets the domain token.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/#reset-token
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [#to_s] domain_id The domain id or domain name.
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def reset_domain_token(account_id, domain_id, options = {})
+        response = client.post(Client.versioned("/%s/domains/%s/token" % [account_id, domain_id]), options)
+
+        Dnsimple::Response.new(response, nil)
+      end
+
     end
   end
 end
