@@ -24,6 +24,27 @@ module Dnsimple
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::EmailForward.new(r) })
       end
 
+      # Lists ALL the email forwards for the domain.
+      #
+      # This method is similar to {#email_forwards}, but instead of returning the results of a specific page
+      # it iterates all the pages and returns the entire collection.
+      #
+      # Please use this method carefully, as fetching the entire collection will increase the number of requests
+      # you send to the API server and you may eventually risk to hit the throttle limit.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#list
+      # @see #email_forwards
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [#to_s] domain_id the domain id or domain name
+      # @param  [Hash] options the filtering and sorting option
+      # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::EmailForward>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def all_email_forwards(account_id, domain_id, options = {})
+        paginate(:email_forwards, account_id, domain_id, options)
+      end
+
       # Creates an email forward for the domain.
       #
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#create

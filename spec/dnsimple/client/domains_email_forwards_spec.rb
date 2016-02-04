@@ -45,6 +45,37 @@ describe Dnsimple::Client, ".domains" do
         expect(result.id).to be_a(Fixnum)
       end
     end
+
+    it "exposes the pagination information" do
+      response = subject.email_forwards(account_id, domain_id)
+
+      expect(response.respond_to?(:page)).to be_truthy
+      expect(response.page).to eq(1)
+      expect(response.per_page).to be_a(Fixnum)
+      expect(response.total_entries).to be_a(Fixnum)
+      expect(response.total_pages).to be_a(Fixnum)
+    end
+
+    context "when the domain does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r[/v2])
+            .to_return(read_http_fixture("notfound-domain.http"))
+
+        expect {
+          subject.email_forwards(account_id, domain_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
+  describe "#all_email_forwards" do
+    let(:account_id) { 1010 }
+    let(:domain_id) { "example.com" }
+
+    it "delegates to client.paginate" do
+      expect(subject).to receive(:paginate).with(:email_forwards, account_id, domain_id, { foo: "bar" })
+      subject.all_email_forwards(account_id, domain_id, { foo: "bar" })
+    end
   end
 
   describe "#create_email_forward" do
