@@ -61,6 +61,26 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::EmailForward.new(response["data"]))
       end
 
+      # Deletes an email forward for the domain.
+      #
+      # WARNING: this cannot be undone.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#delete
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [#to_s] domain_id The domain id or domain name
+      # @param  [Fixnum] email_forward_id The email forward id
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def delete_email_forward(account_id, domain_id, email_forward_id, options = {})
+        response = client.delete(Client.versioned("/%s/domains/%s/email_forwards/%s" % [account_id, domain_id, email_forward_id]), options)
+
+        Dnsimple::Response.new(response, nil)
+      end
+
     end
   end
 end

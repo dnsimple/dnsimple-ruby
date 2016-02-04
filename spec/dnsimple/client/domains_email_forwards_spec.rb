@@ -119,4 +119,41 @@ describe Dnsimple::Client, ".domains" do
     end
   end
 
+  describe "#delete_email_forward" do
+    let(:account_id) { 1010 }
+    let(:domain_id) { "example.com" }
+    let(:email_forward_id) { 1 }
+
+    before do
+      stub_request(:delete, %r[/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}$])
+          .to_return(read_http_fixture("deleteEmailForward/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.delete_email_forward(account_id, domain_id, email_forward_id)
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      response = subject.delete_email_forward(account_id, domain_id, email_forward_id)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+
+    context "when the email forward does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:delete, %r[/v2])
+            .to_return(read_http_fixture("notfound-emailforward.http"))
+
+        expect {
+          subject.delete_email_forward(account_id, domain_id, email_forward_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end
