@@ -41,4 +41,40 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
   
+  describe "#disable_autorenewal" do
+    let(:account_id) { 1010 }
+    let(:domain_id) { "example.com" }
+
+    before do
+      stub_request(:delete, %r[/v2/#{account_id}/domains/#{domain_id}])
+          .to_return(read_http_fixture("disableAutoRenewal/success.http"))
+    end
+
+
+    it "builds the correct request" do
+      subject.disable_autorenewal(account_id, domain_id)
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/auto_renewal")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      response = subject.disable_autorenewal(account_id, domain_id)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+
+    context "when the domain does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:delete, %r[/v2])
+            .to_return(read_http_fixture("notfound-domain.http"))
+
+        expect {
+          subject.disable_autorenewal(account_id, domain_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
 end
