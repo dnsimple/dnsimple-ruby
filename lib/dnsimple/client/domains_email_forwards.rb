@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the email forwards for the domain.
       #
-      # @see http://developer.dnsimple.com/v2/domains/email-forwards/#list
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#list
       #
       # @example List email forwards in the first page
       #   client.domains.email_forwards(1010, "example.com")
