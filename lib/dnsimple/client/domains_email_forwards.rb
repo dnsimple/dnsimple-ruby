@@ -17,6 +17,7 @@ module Dnsimple
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::EmailForward>]
       #
+      # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def email_forwards(account_id, domain_id, options = {})
         response = client.get(Client.versioned("/%s/domains/%s/email_forwards" % [account_id, domain_id]), options)
