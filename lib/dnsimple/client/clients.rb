@@ -92,9 +92,11 @@ module Dnsimple
 
 
     require_relative 'registrar'
+    require_relative 'registrar_autorenewal'
 
     class RegistrarService < ClientService
       include Client::Registrar
+      include Client::RegistrarAutorenewal
     end
 
 
