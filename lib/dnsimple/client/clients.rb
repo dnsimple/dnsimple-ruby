@@ -78,9 +78,11 @@ module Dnsimple
 
 
     require_relative 'domains'
+    require_relative 'domains_email_forwards'
 
     class DomainsService < ClientService
       include Client::Domains
+      include Client::DomainsEmailForwards
     end
 
 
