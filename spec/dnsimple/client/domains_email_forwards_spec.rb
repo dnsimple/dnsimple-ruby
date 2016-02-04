@@ -46,4 +46,34 @@ describe Dnsimple::Client, ".domains" do
       end
     end
   end
+
+  describe "#create_email_forward" do
+    let(:account_id) { 1010 }
+    let(:domain_id) { "example.com" }
+
+    before do
+      stub_request(:post, %r[/v2/#{account_id}/domains/#{domain_id}/email_forwards$])
+          .to_return(read_http_fixture("createEmailForward/created.http"))
+    end
+
+    let(:attributes) { { from: "jim", to: "jim@another.com" } }
+
+    it "builds the correct request" do
+      subject.create_email_forward(account_id, domain_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the email forward" do
+      response = subject.create_email_forward(account_id, domain_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::EmailForward)
+      expect(result.id).to be_a(Fixnum)
+    end
+  end
+
 end

@@ -24,6 +24,25 @@ module Dnsimple
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::EmailForward.new(r) })
       end
 
+      # Creates an email forward for the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#create
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_id The domain id or domain name
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::EmailForward>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def create_email_forward(account_id, domain_id, attributes = {}, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:from, :to])
+        options  = options.merge(attributes)
+        response = client.post(Client.versioned("/%s/domains/%s/email_forwards" % [account_id, domain_id]), options)
+
+        Dnsimple::Response.new(response, Struct::EmailForward.new(response["data"]))
+      end
+
     end
   end
 end
