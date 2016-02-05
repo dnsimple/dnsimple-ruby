@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module RegistrarAutorenewal
+    module RegistrarAutoRenewal
 
       # Enable auto renewal for the domain in the account.
       #
@@ -13,7 +13,7 @@ module Dnsimple
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
-      def enable_autorenewal(account_id, domain_id, options={})
+      def enable_auto_renewal(account_id, domain_id, options={})
         response = client.put(Client.versioned("/%s/domains/%s/auto_renewal" % [account_id, domain_id]), options)
 
         Dnsimple::Response.new(response, nil)
@@ -30,7 +30,7 @@ module Dnsimple
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
-      def disable_autorenewal(account_id, domain_id, options={})
+      def disable_auto_renewal(account_id, domain_id, options={})
         response = client.delete(Client.versioned("/%s/domains/%s/auto_renewal" % [account_id, domain_id]), options)
 
         Dnsimple::Response.new(response, nil)
