@@ -4,22 +4,24 @@
 
 ### Environment Setup
 
--   Clone the repository and move into it:
+Clone the repository and move into it:
 
-    ```
-    $ git clone git@github.com:aetrion/dnsimple-ruby.git
-    $ cd dnsimple-ruby
-    ```
+```
+$ git clone git@github.com:aetrion/dnsimple-ruby.git
+$ cd dnsimple-ruby
+```
 
--   Install the dependencies using [Bundler](http://bundler.io/):
+Install the dependencies using [Bundler](http://bundler.io/):
 
-    ```
-    $ bundle
-    ```
+```
+$ bundle
+```
 
--   [Run the test suite](#testing) to check everything works as expected.
+[Run the test suite](#testing) to check everything works as expected.
 
 ### Testing
+
+To run the test suite:
 
 ```
 $ rake

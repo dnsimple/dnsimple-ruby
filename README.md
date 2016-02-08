@@ -25,7 +25,7 @@ $ gem install dnsimple
 ```
 
 
-## Getting Started
+## Usage
 
 This library is a Ruby client you can use to interact with the [DNSimple API v2](https://developer.dnsimple.com/v2/). Here are some examples.
 
@@ -35,9 +35,9 @@ require 'dnsimple'
 client = Dnsimple::Client.new(access_token: "a1b2c3")
 
 # Fetch your details
-response = client.domains.whoami    # execute the call
+response = client.identity.whoami   # execute the call
 response.data                       # extract the relevant data from the response or
-client.domains.whoami.data          # execute the call and get the data in one line
+client.identity.whoami.data         # execute the call and get the data in one line
 
 # List your domains
 client.domains.list(1234).data                      # => domains from the account 1234, first page
