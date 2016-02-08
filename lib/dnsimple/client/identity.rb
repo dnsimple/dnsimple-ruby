@@ -1,10 +1,10 @@
 module Dnsimple
   class Client
-    module Auth
+    module Identity
 
       # Gets the information about the current authenticated context.
       #
-      # @see https://developer.dnsimple.com/v2/whoami/
+      # @see https://developer.dnsimple.com/v2/identity/
       #
       # @param  [Hash] options
       # @return [Dnsimple::Response<Hash>]
