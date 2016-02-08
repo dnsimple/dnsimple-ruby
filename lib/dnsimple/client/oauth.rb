@@ -12,8 +12,10 @@ module Dnsimple
       # @option options [String] :state A random string to protect against CSRF.
       # @return [String] The url to redirect the user to authorize.
       def authorize_url(client_id, options = {})
-        site_url = client.base_url.sub('api.', '')
+        site_url = client.base_url.sub("api.", "")
         url = URI.join(site_url, "/oauth/authorize?client_id=#{client_id}")
+
+        options = options.merge(response_type: "code")
         options.each do |key, value|
           url.query += "&#{key}=#{value}"
         end
