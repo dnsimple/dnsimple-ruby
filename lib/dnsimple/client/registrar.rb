@@ -16,7 +16,7 @@ module Dnsimple
       def register(account_id, domain_name, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:registrant_id])
         options  = options.merge(attributes)
-        response = client.post(Client.versioned("/%s/registrar/%s/registration" % [account_id, domain_name]), options)
+        response = client.post(Client.versioned("/%s/registrar/domains/%s/registration" % [account_id, domain_name]), options)
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end

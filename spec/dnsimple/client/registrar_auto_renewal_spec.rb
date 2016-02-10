@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:put, %r[/v2/#{account_id}/domains/#{domain_id}])
+      stub_request(:put, %r[/v2/#{account_id}/registrar/domains/#{domain_id}])
           .to_return(read_http_fixture("enableAutoRenewal/success.http"))
     end
 
@@ -17,7 +17,7 @@ describe Dnsimple::Client, ".registrar" do
     it "builds the correct request" do
       subject.enable_auto_renewal(account_id, domain_id)
 
-      expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/auto_renewal")
+      expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/auto_renewal")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
@@ -46,7 +46,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:delete, %r[/v2/#{account_id}/domains/#{domain_id}])
+      stub_request(:delete, %r[/v2/#{account_id}/registrar/domains/#{domain_id}])
           .to_return(read_http_fixture("disableAutoRenewal/success.http"))
     end
 
@@ -54,7 +54,7 @@ describe Dnsimple::Client, ".registrar" do
     it "builds the correct request" do
       subject.disable_auto_renewal(account_id, domain_id)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/auto_renewal")
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/auto_renewal")
           .with(headers: { 'Accept' => 'application/json' })
     end
 

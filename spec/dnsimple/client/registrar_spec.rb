@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/registrar/.+/registration$])
+      stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/registration$])
           .to_return(read_http_fixture("register/success.http"))
     end
 
@@ -18,7 +18,7 @@ describe Dnsimple::Client, ".registrar" do
     it "builds the correct request" do
       subject.register(account_id, domain_name = "example.com", attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/#{domain_name}/registration")
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/registration")
           .with(body: attributes)
           .with(headers: { 'Accept' => 'application/json' })
     end
