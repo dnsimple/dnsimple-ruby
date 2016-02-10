@@ -189,12 +189,13 @@ describe Dnsimple::Client, ".domains" do
           .with(headers: { 'Accept' => 'application/json' })
     end
 
-     it "returns nothing" do
+    it "returns the domain" do
       response = subject.reset_domain_token(account_id, domain_id)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_nil
+      expect(result).to be_a(Dnsimple::Struct::Domain)
+      expect(result.id).to be_a(Fixnum)
     end
   end
 

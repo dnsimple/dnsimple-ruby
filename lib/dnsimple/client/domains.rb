@@ -117,7 +117,7 @@ module Dnsimple
       def reset_domain_token(account_id, domain_id, options = {})
         response = client.post(Client.versioned("/%s/domains/%s/token" % [account_id, domain_id]), options)
 
-        Dnsimple::Response.new(response, nil)
+        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
     end
