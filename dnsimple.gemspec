@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.require_paths    = ['lib']
   s.files            = `git ls-files`.split("\n")
   s.test_files       = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.extra_rdoc_files = %w( *.md LICENSE.txt )
 
   s.add_dependency  'httparty'
 

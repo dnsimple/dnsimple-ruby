@@ -1,5 +1,9 @@
 # Changelog
 
+#### 2.2.0
+
+- NEW: Add support for Vanity Name Servers (GH-67, GH-63, GH-60). Thanks @iseem.
+
 #### 2.1.1
 
 - FIXED: Paths may mistakenly be generated use \ on windows.
