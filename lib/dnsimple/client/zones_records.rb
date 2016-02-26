@@ -59,7 +59,7 @@ module Dnsimple
       #
       # @raise  [Dnsimple::RequestError]
       def create_record(account_id, zone_id, attributes = {}, options = {})
-        Extra.validate_mandatory_attributes(attributes, [:record_type, :name, :content])
+        Extra.validate_mandatory_attributes(attributes, [:type, :name, :content])
         options  = options.merge(attributes)
         response = client.post(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), options)
 

@@ -87,7 +87,7 @@ describe Dnsimple::Client, ".zones" do
           .to_return(read_http_fixture("createZoneRecord/created.http"))
     end
 
-    let(:attributes) { { record_type: "A", name: "www", content: "127.0.0.1" } }
+    let(:attributes) { { type: "A", name: "www", content: "127.0.0.1" } }
 
     it "builds the correct request" do
       subject.create_record(account_id, zone_id, attributes)
