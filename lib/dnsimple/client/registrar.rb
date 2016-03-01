@@ -40,6 +40,13 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
+      def transfer(account_id, domain_name, attributes = {}, options = {})
+        options  = options.merge(attributes)
+        response = client.post(Client.versioned("/%s/registrar/domains/%s/transfer" % [account_id, domain_name]), options)
+
+        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+      end
+
     end
   end
 end

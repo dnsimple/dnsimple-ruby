@@ -17,7 +17,7 @@ describe Dnsimple::Client, ".registrar" do
       subject.check(account_id, domain_name = "example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/check")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the availability" do
@@ -47,7 +47,7 @@ describe Dnsimple::Client, ".registrar" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/registration")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the domain" do
@@ -57,6 +57,35 @@ describe Dnsimple::Client, ".registrar" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to be_a(Fixnum)
+    end
+  end
+
+  describe "#transfer" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/transfer$])
+          .to_return(read_http_fixture("transferDomain/success.http"))
+    end
+
+    let(:attributes) { { registrant_id: "10", auth_info: "x1y2z3" } }
+
+    it "builds the correct request" do
+      subject.transfer(account_id, domain_name = "example.com", attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfer")
+          .with(body: attributes)
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the domain" do
+      response = subject.transfer(account_id, "example.com", attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Domain)
+      expect(result.name).to eq("example.com")
+      expect(result.registrant_id).to eq(10)
     end
   end
 
