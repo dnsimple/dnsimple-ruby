@@ -41,6 +41,7 @@ module Dnsimple
       end
 
       def transfer(account_id, domain_name, attributes = {}, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:registrant_id, :auth_info])
         options  = options.merge(attributes)
         response = client.post(Client.versioned("/%s/registrar/domains/%s/transfer" % [account_id, domain_name]), options)
 

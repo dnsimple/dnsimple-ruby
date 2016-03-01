@@ -87,6 +87,13 @@ describe Dnsimple::Client, ".registrar" do
       expect(result.name).to eq("example.com")
       expect(result.registrant_id).to eq(10)
     end
+
+    context "when the attributes are incomplete" do
+      it "raises ArgumentError" do
+        expect { subject.transfer(account_id, "example.com", auth_info: "x1y2z3") }.to raise_error(ArgumentError)
+        expect { subject.transfer(account_id, "example.com", registrant_id: "10") }.to raise_error(ArgumentError)
+      end
+    end
   end
 
 end
