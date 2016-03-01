@@ -37,7 +37,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/registrar/domains/.+/availability$])
+      stub_request(:get, %r[/v2/#{account_id}/registrar/domains/.+/check$])
           .to_return(read_http_fixture("checkDomain/success.http"))
     end
 
