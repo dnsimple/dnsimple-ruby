@@ -53,7 +53,7 @@ describe Dnsimple::Client, ".registrar" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::Availability)
+      expect(result).to be_a(Dnsimple::Struct::DomainCheck)
       expect(result.domain).to eq("example.com")
       expect(result.available).to be_truthy
       expect(result.premium).to be_falsey

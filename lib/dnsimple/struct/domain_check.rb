@@ -1,7 +1,7 @@
 module Dnsimple
   module Struct
 
-    class Availability < Base
+    class DomainCheck < Base
       # @return [String] The domain name that was checked.
       attr_accessor :domain
 
