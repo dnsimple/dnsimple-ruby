@@ -22,8 +22,7 @@ module Dnsimple
       end
 
 
-      def check(account_id, domain_name, attributes = {}, options = {})
-        options  = options.merge(attributes)
+      def check(account_id, domain_name, options = {})
         response = client.get(Client.versioned("/%s/registrar/domains/%s/check" % [account_id, domain_name]), options)
 
         Dnsimple::Response.new(response, Struct::Availability.new(response["data"]))
