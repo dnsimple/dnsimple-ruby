@@ -1,0 +1,17 @@
+HTTP/1.1 201 Created
+Server: nginx
+Date: Sun, 21 Feb 2016 13:32:02 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Status: 201 Created
+X-RateLimit-Limit: 4000
+X-RateLimit-Remaining: 3992
+X-RateLimit-Reset: 1456063540
+ETag: W/"68e1aa1046c3f33f2ad796befc2b9f5b"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: c3401f82-d570-4998-a614-245f3a7677ba
+X-Runtime: 15.045124
+Strict-Transport-Security: max-age=31536000
+
+{"data":{"id":1,"account_id":1010,"registrant_id":2,"name":"example.com","unicode_name":"example.com","token":"domain-token","state":"hosted","auto_renew":false,"private_whois":false,"expires_on":null,"created_at":"2016-02-21T13:31:58.745Z","updated_at":"2016-02-21T13:31:58.745Z"}}
