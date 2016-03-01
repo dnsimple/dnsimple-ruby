@@ -14,6 +14,7 @@ module Dnsimple
 end
 
 require_relative 'struct/account'
+require_relative 'struct/availability'
 require_relative 'struct/contact'
 require_relative 'struct/domain'
 require_relative 'struct/email_forward'
