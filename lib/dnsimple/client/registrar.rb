@@ -21,6 +21,25 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
+      # Checks whether a domain is available to be registered.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#check
+      #
+      # @example Check whether example.com is available.
+      #   client.registrar.check(1010, "example.com")
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [Hash] options
+      # @return [Struct::DomainCheck]
+      #
+      # @raise  [RequestError] When the request fails.
+      def check(account_id, domain_name, options = {})
+        response = client.get(Client.versioned("/%s/registrar/domains/%s/check" % [account_id, domain_name]), options)
+
+        Dnsimple::Response.new(response, Struct::DomainCheck.new(response["data"]))
+      end
+
     end
   end
 end
