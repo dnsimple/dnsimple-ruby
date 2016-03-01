@@ -44,7 +44,7 @@ describe Dnsimple::Client, ".registrar" do
     it "builds the correct request" do
       subject.check(account_id, domain_name = "example.com")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/availability")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/check")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
