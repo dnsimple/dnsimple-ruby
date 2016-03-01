@@ -94,6 +94,17 @@ describe Dnsimple::Client, ".registrar" do
         expect { subject.transfer(account_id, "example.com", registrant_id: "10") }.to raise_error(ArgumentError)
       end
     end
+
+    context "when the domain is already in DNSimple" do
+      it "raises a BadRequestError" do
+        stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/transfer$])
+            .to_return(read_http_fixture("transferDomain/error-indnsimple.http"))
+
+        expect {
+          subject.transfer(account_id, "example.com", attributes)
+        }.to raise_error(Dnsimple::RequestError)
+      end
+    end
   end
 
 end
