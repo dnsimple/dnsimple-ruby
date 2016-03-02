@@ -58,6 +58,12 @@ describe Dnsimple::Client, ".registrar" do
       expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to be_a(Fixnum)
     end
+
+    context "when the attributes are incomplete" do
+      it "raises ArgumentError" do
+        expect { subject.register(account_id, "example.com") }.to raise_error(ArgumentError)
+      end
+    end
   end
 
   describe "#transfer" do
