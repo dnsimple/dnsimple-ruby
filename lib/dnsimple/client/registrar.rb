@@ -63,6 +63,12 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
+      def transfer_out(account_id, domain_name, attributes = {}, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/transfer_out" % [account_id, domain_name])
+        response = client.post(endpoint, options.merge(attributes))
+
+        Dnsimple::Response.new(response, nil)
+      end
     end
   end
 end
