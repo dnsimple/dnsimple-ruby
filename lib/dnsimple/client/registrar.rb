@@ -26,6 +26,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/registrar/#register
       #
+      # @example Initiate the registration of example.com using the contact 1234 as registrant
+      #   including WHOIS privacy for the domain and enabling auto renewal:
+      #   client.registrar.register(1010, "example.com", registrant_id: 1234, privacy: true, auto_renew: true)
+      #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_name The domain name to register.
       # @param  [Hash] attributes
