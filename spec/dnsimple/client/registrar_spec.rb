@@ -37,7 +37,7 @@ describe Dnsimple::Client, ".registrar" do
 
     before do
       stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/registration$])
-          .to_return(read_http_fixture("register/success.http"))
+          .to_return(read_http_fixture("registerDomain/success.http"))
     end
 
     let(:attributes) { { registrant_id: "10" } }
