@@ -133,7 +133,7 @@ describe Dnsimple::Client, ".registrar" do
       end
     end
 
-    context "when :auth_info wasn't provided an is required by the TLD" do
+    context "when :auth_info wasn't provided and is required by the TLD" do
       it "raises a BadRequestError" do
         stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/transfer$])
             .to_return(read_http_fixture("transferDomain/error-missing-authcode.http"))
