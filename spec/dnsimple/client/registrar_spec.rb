@@ -86,6 +86,17 @@ describe Dnsimple::Client, ".registrar" do
       expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to be_a(Fixnum)
     end
+
+    context "when it is too son for the domain to be renewed" do
+      it "raises a BadRequestError" do
+        stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/renew$])
+            .to_return(read_http_fixture("renewDomain/error-tooearly.http"))
+
+        expect {
+          subject.renew(account_id, "example.com", attributes)
+        }.to raise_error(Dnsimple::RequestError)
+      end
+    end
   end
 
   describe "#transfer" do
