@@ -41,6 +41,13 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
+      def renew(account_id, domain_name, attributes = {}, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/renew" % [account_id, domain_name])
+        response = client.post(endpoint, options.merge(attributes))
+
+        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+      end
+
       # Starts the transfer of a domain to DNSimple.
       #
       # @see https://developer.dnsimple.com/v2/registrar/#transfer

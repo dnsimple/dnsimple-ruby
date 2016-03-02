@@ -60,6 +60,34 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
+  describe "#renew" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/renew$])
+          .to_return(read_http_fixture("renewDomain/success.http"))
+    end
+
+    let(:attributes) { { period: "3" } }
+
+    it "builds the correct request" do
+      subject.renew(account_id, domain_name = "example.com", attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/renew")
+          .with(body: attributes)
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the domain" do
+      response = subject.renew(account_id, "example.com", attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Domain)
+      expect(result.id).to be_a(Fixnum)
+    end
+  end
+
   describe "#transfer" do
     let(:account_id) { 1010 }
 
