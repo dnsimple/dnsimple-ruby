@@ -63,6 +63,25 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
+      # Requests the transfer of a domain out of DNSimple.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#transfer_out
+      #
+      # @example Request to transfer of example.com out of DNSimple:
+      #   client.registrar.transfer_out(1010, "example.com")
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_name The domain name to transfer out.
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [RequestError] When the request fails.
+      def transfer_out(account_id, domain_name, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/transfer_out" % [account_id, domain_name])
+        response = client.post(endpoint, options)
+
+        Dnsimple::Response.new(response, nil)
+      end
     end
   end
 end
