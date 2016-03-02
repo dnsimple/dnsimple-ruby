@@ -19,7 +19,7 @@ describe Dnsimple::Client, ".oauth" do
       subject.exchange_authorization_for_token(code, client_id, client_secret)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token")
-          .with(body: { client_id: client_id, client_secret: client_secret, code: code })
+          .with(body: { client_id: client_id, client_secret: client_secret, code: code, grant_type: "authorization_code" })
           .with(headers: { 'Accept' => 'application/json' })
     end
 

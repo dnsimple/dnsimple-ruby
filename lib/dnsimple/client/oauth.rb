@@ -12,7 +12,7 @@ module Dnsimple
       # @option options [String] :redirect_uri The redirect URL sent for the authorization, used to validate the request.
       # @return [String] The url to redirect the user to authorize.
       def exchange_authorization_for_token(code, client_id, client_secret, options = {})
-        options  = options.merge({ code: code, client_id: client_id, client_secret: client_secret })
+        options  = options.merge({ code: code, client_id: client_id, client_secret: client_secret, grant_type: "authorization_code" })
         response = client.post(Client.versioned("/oauth/access_token"), options)
         Struct::OauthToken.new(response)
       end
