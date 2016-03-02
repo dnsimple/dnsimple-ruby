@@ -41,6 +41,20 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
+      # Renews a domain.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#renew
+      #
+      # @example Renew example.com for 3 years:
+      #   client.registrar.renew(1010, "example.com", period: 3)
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_name The domain name to register.
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Struct::Domain]
+      #
+      # @raise  [RequestError] When the request fails.
       def renew(account_id, domain_name, attributes = {}, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/renew" % [account_id, domain_name])
         response = client.post(endpoint, options.merge(attributes))
