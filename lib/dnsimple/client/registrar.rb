@@ -16,7 +16,8 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def check(account_id, domain_name, options = {})
-        response = client.get(Client.versioned("/%s/registrar/domains/%s/check" % [account_id, domain_name]), options)
+        endpoint = Client.versioned("/%s/registrar/domains/%s/check" % [account_id, domain_name])
+        response = client.get(endpoint, options)
 
         Dnsimple::Response.new(response, Struct::DomainCheck.new(response["data"]))
       end
@@ -34,8 +35,8 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def register(account_id, domain_name, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:registrant_id])
-        options  = options.merge(attributes)
-        response = client.post(Client.versioned("/%s/registrar/domains/%s/registration" % [account_id, domain_name]), options)
+        endpoint = Client.versioned("/%s/registrar/domains/%s/registration" % [account_id, domain_name])
+        response = client.post(endpoint, options.merge(attributes))
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
@@ -56,8 +57,8 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def transfer(account_id, domain_name, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:registrant_id, :auth_info])
-        options  = options.merge(attributes)
-        response = client.post(Client.versioned("/%s/registrar/domains/%s/transfer" % [account_id, domain_name]), options)
+        endpoint = Client.versioned("/%s/registrar/domains/%s/transfer" % [account_id, domain_name])
+        response = client.post(endpoint, options.merge(attributes))
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
