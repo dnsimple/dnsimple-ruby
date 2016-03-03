@@ -78,6 +78,26 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Webhook.new(response["data"]))
       end
 
+      # Deletes a webook from the account.
+      #
+      # WARNING: this cannot be undone.
+      #
+      # @see https://developer.dnsimple.com/v2/webooks/#delete
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] webhook_id The webhook ID.
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def delete_webhook(account_id, webhook_id, options = {})
+        response = client.delete(Client.versioned("/%s/webhooks/%s" % [account_id, webhook_id]), options)
+
+        Dnsimple::Response.new(response, nil)
+      end
+      alias :delete :delete_webhook
+
     end
   end
 end

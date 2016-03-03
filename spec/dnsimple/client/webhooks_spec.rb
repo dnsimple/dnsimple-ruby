@@ -113,4 +113,39 @@ describe Dnsimple::Client, ".webhooks" do
     end
   end
 
+  describe "#delete_webhook" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:delete, %r[/v2/#{account_id}/webhooks/.+$])
+          .to_return(read_http_fixture("deleteWebhook/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.delete_webhook(account_id, contact_id = "1")
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/webhooks/#{contact_id}")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      response = subject.delete_webhook(account_id, 1)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+
+    context "when the webhook does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:delete, %r[/v2])
+            .to_return(read_http_fixture("notfound-webhook.http"))
+
+        expect {
+          subject.delete_webhook(account_id, 0)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end
