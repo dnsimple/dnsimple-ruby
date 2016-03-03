@@ -42,6 +42,25 @@ module Dnsimple
       end
       alias :all :all_webhooks
 
+      # Creates a webhook in the account.
+      #
+      # @see https://developer.dnsimple.com/v2/webhooks/#create
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Webhook>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def create_webhook(account_id, attributes = {}, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:url])
+        options  = options.merge(attributes)
+        response = client.post(Client.versioned("/%s/webhooks" % [account_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Webhook.new(response["data"]))
+      end
+      alias :create :create_webhook
+
     end
   end
 end

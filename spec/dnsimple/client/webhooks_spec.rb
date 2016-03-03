@@ -48,4 +48,32 @@ describe Dnsimple::Client, ".webhooks" do
     end
   end
 
+  describe "#create_webhook" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:post, %r[/v2/#{account_id}/webhooks$])
+          .to_return(read_http_fixture("createWebhook/created.http"))
+    end
+
+    let(:attributes) { {url: "https://webhook.test"} }
+
+    it "builds the correct request" do
+      subject.create_webhook(account_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/webhooks")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the webhook" do
+      response = subject.create_webhook(account_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Webhook)
+      expect(result.id).to be_a(Fixnum)
+    end
+  end
+
 end
