@@ -22,6 +22,13 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::WhoisPrivacy.new(response["data"]))
       end
 
+      def enable_whois_privacy(account_id, domain_name, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/whois_privacy" % [account_id, domain_name])
+        response = client.put(endpoint, options)
+
+        Dnsimple::Response.new(response, Struct::WhoisPrivacy.new(response["data"]))
+      end
+
     end
   end
 end
