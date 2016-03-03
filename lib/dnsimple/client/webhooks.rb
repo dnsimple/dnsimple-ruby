@@ -61,6 +61,23 @@ module Dnsimple
       end
       alias :create :create_webhook
 
+      # Gets a webhook from the account.
+      #
+      # @see https://developer.dnsimple.com/v2/webhooks/#get
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] webhook_id The webhook ID.
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Webhook>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def webhook(account_id, webhook_id, options = {})
+        response = client.get(Client.versioned("/%s/webhooks/%s" % [account_id, webhook_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Webhook.new(response["data"]))
+      end
+
     end
   end
 end
