@@ -2,7 +2,7 @@ module Dnsimple
   class Client
     module RegistrarWhoisPrivacy
 
-      # Gets the whois privacy for the domain
+      # Gets the whois privacy for the domain.
       #
       # @see https://developer.dnsimple.com/v2/registrar/whois-privacy/#get
       #
