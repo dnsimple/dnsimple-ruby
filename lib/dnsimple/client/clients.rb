@@ -26,6 +26,11 @@ module Dnsimple
       @services[:registrar] ||= Client::RegistrarService.new(self)
     end
 
+    # @return [Dnsimple::Client::TldsService] The tld-related API proxy.
+    def tlds
+      @services[:tlds] ||= Client::TldsService.new(self)
+    end
+
     # @return [Dnsimple::Client::ZonesService] The zone-related API proxy.
     def zones
       @services[:zones] ||= Client::ZonesService.new(self)
@@ -99,6 +104,13 @@ module Dnsimple
     class RegistrarService < ClientService
       include Client::Registrar
       include Client::RegistrarAutoRenewal
+    end
+
+
+    require_relative 'tlds'
+
+    class TldsService < ClientService
+      include Client::Tlds
     end
 
 
