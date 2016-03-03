@@ -42,6 +42,12 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::WhoisPrivacy.new(response["data"]))
       end
 
+      def disable_whois_privacy(account_id, domain_name, options = {})
+        endpoint = whois_privacy_endpoint(account_id, domain_name)
+        response = client.delete(endpoint, options)
+
+        Dnsimple::Response.new(response, Struct::WhoisPrivacy.new(response["data"]))
+      end
 
       private
 
