@@ -59,4 +59,31 @@ describe Dnsimple::Client, ".tlds" do
       subject.all_tlds({ foo: "bar" })
     end
   end
+
+  describe "#tld" do
+    before do
+      stub_request(:get, %r[/v2/tlds/.+$])
+          .to_return(read_http_fixture("getTld/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.tld(tld = "com")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the tld" do
+      response = subject.tld("com")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Tld)
+      expect(result.tld).to eq('com')
+      expect(result.tld_type).to eq(1)
+      expect(result.whois_privacy).to eq(true)
+      expect(result.auto_renew_only).to eq(false)
+      expect(result.idn).to eq(true)
+    end
+  end
 end

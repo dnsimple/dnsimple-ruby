@@ -42,6 +42,23 @@ module Dnsimple
         paginate(:tlds, options)
       end
       alias :all :all_tlds
+
+      # Gets a TLD's details
+      #
+      # @see https://developer.dnsimple.com/v2/tlds/#get
+      #
+      # @param  tld [#to_s] The TLD name.
+      # @param  options [Hash]
+      # @return [Dnsimple::Response<Dnsimple::Struct::Tld>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def tld(tld, options = {})
+        response = client.get(Client.versioned("/tlds/%s" % tld), options)
+
+        Dnsimple::Response.new(response, Struct::Tld.new(response["data"]))
+      end
+
     end
   end
 end
