@@ -22,6 +22,19 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::WhoisPrivacy.new(response["data"]))
       end
 
+      # Enables whois privacy for the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/whois-privacy/#enable
+      #
+      # @example Enable whois privacy for "example.com":
+      #   client.registrar.enable_whois_privacy(1010, "example.com")
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [Hash] options
+      # @return [Struct::WhoisPrivacy]
+      #
+      # @raise  [RequestError] When the request fails.
       def enable_whois_privacy(account_id, domain_name, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/whois_privacy" % [account_id, domain_name])
         response = client.put(endpoint, options)
