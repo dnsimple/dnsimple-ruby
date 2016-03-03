@@ -31,6 +31,11 @@ module Dnsimple
       @services[:zones] ||= Client::ZonesService.new(self)
     end
 
+    # @return [Dnsimple::Client::WebhooksService] The webhooks-related API proxy.
+    def webhooks
+      @services[:webhooks] ||= Client::WebhooksService.new(self)
+    end
+
 
     class ClientService < ::Struct.new(:client)
 
@@ -108,6 +113,12 @@ module Dnsimple
     class ZonesService < ClientService
       include Client::Zones
       include Client::ZonesRecords
+    end
+
+    require_relative 'webhooks'
+
+    class WebhooksService < ClientService
+      include Client::Webhooks
     end
 
   end
