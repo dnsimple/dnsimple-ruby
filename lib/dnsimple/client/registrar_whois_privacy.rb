@@ -15,7 +15,7 @@ module Dnsimple
       # @return [Struct::WhoisPrivacy]
       #
       # @raise  [RequestError] When the request fails.
-      def get_whois_privacy(account_id, domain_name, options = {})
+      def whois_privacy(account_id, domain_name, options = {})
         endpoint = whois_privacy_endpoint(account_id, domain_name)
         response = client.get(endpoint, options)
 

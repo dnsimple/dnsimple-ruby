@@ -26,9 +26,19 @@ module Dnsimple
       @services[:registrar] ||= Client::RegistrarService.new(self)
     end
 
+    # @return [Dnsimple::Client::TldsService] The tld-related API proxy.
+    def tlds
+      @services[:tlds] ||= Client::TldsService.new(self)
+    end
+
     # @return [Dnsimple::Client::ZonesService] The zone-related API proxy.
     def zones
       @services[:zones] ||= Client::ZonesService.new(self)
+    end
+
+    # @return [Dnsimple::Client::WebhooksService] The webhooks-related API proxy.
+    def webhooks
+      @services[:webhooks] ||= Client::WebhooksService.new(self)
     end
 
 
@@ -104,12 +114,25 @@ module Dnsimple
     end
 
 
+    require_relative 'tlds'
+
+    class TldsService < ClientService
+      include Client::Tlds
+    end
+
+
     require_relative 'zones'
     require_relative 'zones_records'
 
     class ZonesService < ClientService
       include Client::Zones
       include Client::ZonesRecords
+    end
+
+    require_relative 'webhooks'
+
+    class WebhooksService < ClientService
+      include Client::Webhooks
     end
 
   end
