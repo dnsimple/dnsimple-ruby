@@ -76,14 +76,15 @@ describe Dnsimple::Client, ".webhooks" do
     end
 
     it "builds the correct request" do
-      subject.webhook(account_id, webhook = 1)
+      subject.webhook(account_id, webhook_id = 1)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks/#{webhook}")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks/#{webhook_id}")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the webhook" do
-      response = subject.webhook(account_id, 0)
+      webhook_id = 0
+      response   = subject.webhook(account_id, webhook_id)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -94,11 +95,12 @@ describe Dnsimple::Client, ".webhooks" do
 
     context "when the webhook does not exist" do
       it "raises NotFoundError" do
+        webhook_id = 0
         stub_request(:get, %r[/v2])
             .to_return(read_http_fixture("notfound-webhook.http"))
 
         expect {
-          subject.webhook(account_id, 0)
+          subject.webhook(account_id, webhook_id)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
