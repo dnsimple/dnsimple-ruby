@@ -39,15 +39,6 @@ describe Dnsimple::Client, ".webhooks" do
     end
   end
 
-  describe "#all_webhooks" do
-    let(:account_id) { 1010 }
-
-    it "delegates to client.webhooks" do
-      expect(subject).to receive(:webhooks).with(account_id, { foo: "bar" })
-      subject.all_webhooks(account_id, { foo: "bar" })
-    end
-  end
-
   describe "#create_webhook" do
     let(:account_id) { 1010 }
 
