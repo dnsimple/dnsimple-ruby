@@ -67,7 +67,7 @@ module Dnsimple
           collection.concat(response.data)
         end while current_page < total_pages
 
-        CollectionResponse.new(response.response, collection)
+        CollectionResponse.new(response.http_response, collection)
       end
 
     end

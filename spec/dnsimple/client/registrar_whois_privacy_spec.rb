@@ -51,7 +51,7 @@ describe Dnsimple::Client, ".registrar" do
       it "returns the whois privacy" do
         response = subject.enable_whois_privacy(account_id, "example.com")
         expect(response).to be_a(Dnsimple::Response)
-        expect(response.response.code).to eq(200)
+        expect(response.http_response.code).to eq(200)
 
         result = response.data
         expect(result).to be_a(Dnsimple::Struct::WhoisPrivacy)
@@ -77,7 +77,7 @@ describe Dnsimple::Client, ".registrar" do
       it "returns the whois privacy" do
         response = subject.enable_whois_privacy(account_id, "example.com")
         expect(response).to be_a(Dnsimple::Response)
-        expect(response.response.code).to eq(201)
+        expect(response.http_response.code).to eq(201)
 
         result = response.data
         expect(result).to be_a(Dnsimple::Struct::WhoisPrivacy)
@@ -87,6 +87,5 @@ describe Dnsimple::Client, ".registrar" do
       end
     end
   end
-
 
 end
