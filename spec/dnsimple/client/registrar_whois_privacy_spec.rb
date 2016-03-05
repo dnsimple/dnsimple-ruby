@@ -26,10 +26,67 @@ describe Dnsimple::Client, ".registrar" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::WhoisPrivacy)
-      expect(result.enabled).to be_truthy
       expect(result.domain_id).to be_kind_of(Fixnum)
+      expect(result.enabled).to be_truthy
       expect(result.expires_on).to be_kind_of(String)
     end
   end
+
+  describe "#enable_whois_privacy" do
+    let(:account_id) { 1010 }
+
+    context "when the whois privacy had already been purchased" do
+      before do
+        stub_request(:put, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
+            .to_return(read_http_fixture("enableWhoisPrivacy/success.http"))
+      end
+
+      it "builds the correct request" do
+        subject.enable_whois_privacy(account_id, domain_name = "example.com")
+
+        expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy")
+            .with(headers: { "Accept" => "application/json" })
+      end
+
+      it "returns the whois privacy" do
+        response = subject.enable_whois_privacy(account_id, "example.com")
+        expect(response).to be_a(Dnsimple::Response)
+        expect(response.response.code).to eq(200)
+
+        result = response.data
+        expect(result).to be_a(Dnsimple::Struct::WhoisPrivacy)
+        expect(result.domain_id).to be_kind_of(Fixnum)
+        expect(result.enabled).to be_truthy
+        expect(result.expires_on).to be_kind_of(String)
+      end
+    end
+
+    context "when the whois privacy is newly purchased" do
+      before do
+        stub_request(:put, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
+            .to_return(read_http_fixture("enableWhoisPrivacy/created.http"))
+      end
+
+      it "builds the correct request" do
+        subject.enable_whois_privacy(account_id, domain_name = "example.com")
+
+        expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy")
+            .with(headers: { "Accept" => "application/json" })
+      end
+
+      it "returns the whois privacy" do
+        response = subject.enable_whois_privacy(account_id, "example.com")
+        expect(response).to be_a(Dnsimple::Response)
+        expect(response.response.code).to eq(201)
+
+        result = response.data
+        expect(result).to be_a(Dnsimple::Struct::WhoisPrivacy)
+        expect(result.domain_id).to be_kind_of(Fixnum)
+        expect(result.enabled).to be_nil
+        expect(result.expires_on).to be_nil
+      end
+    end
+  end
+
 
 end
