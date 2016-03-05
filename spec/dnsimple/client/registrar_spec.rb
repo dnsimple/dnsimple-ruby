@@ -32,7 +32,7 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
-  describe "#register" do
+  describe "#register_domain" do
     let(:account_id) { 1010 }
 
     before do
@@ -43,7 +43,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:attributes) { { registrant_id: "10" } }
 
     it "builds the correct request" do
-      subject.register(account_id, domain_name = "example.com", attributes)
+      subject.register_domain(account_id, domain_name = "example.com", attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/registration")
           .with(body: attributes)
@@ -51,7 +51,7 @@ describe Dnsimple::Client, ".registrar" do
     end
 
     it "returns the domain" do
-      response = subject.register(account_id, "example.com", attributes)
+      response = subject.register_domain(account_id, "example.com", attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -61,7 +61,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the attributes are incomplete" do
       it "raises ArgumentError" do
-        expect { subject.register(account_id, "example.com") }.to raise_error(ArgumentError)
+        expect { subject.register_domain(account_id, "example.com") }.to raise_error(ArgumentError)
       end
     end
   end
