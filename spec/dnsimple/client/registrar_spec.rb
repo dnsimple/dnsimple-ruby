@@ -162,7 +162,7 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
-  describe "#transfer_out" do
+  describe "#transfer_domain_out" do
     let(:account_id) { 1010 }
 
     before do
@@ -171,14 +171,14 @@ describe Dnsimple::Client, ".registrar" do
     end
 
     it "builds the correct request" do
-      subject.transfer_out(account_id, domain_name = "example.com")
+      subject.transfer_domain_out(account_id, domain_name = "example.com")
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfer_out")
           .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do
-      response = subject.transfer_out(account_id, "example.com")
+      response = subject.transfer_domain_out(account_id, "example.com")
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
