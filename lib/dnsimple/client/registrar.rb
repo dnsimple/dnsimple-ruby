@@ -10,7 +10,7 @@ module Dnsimple
       #   client.registrar.check(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [#to_s] domain_name the domain name to check
       # @param  [Hash] options
       # @return [Struct::DomainCheck]
       #
@@ -31,7 +31,7 @@ module Dnsimple
       #   client.registrar.register(1010, "example.com", registrant_id: 1234, privacy: true, auto_renew: true)
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to register.
+      # @param  [#to_s] domain_name the domain name to register
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Struct::Domain]
@@ -53,7 +53,7 @@ module Dnsimple
       #   client.registrar.renew(1010, "example.com", period: 3)
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to register.
+      # @param  [#to_s] domain_name the domain name to renew
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Struct::Domain]
@@ -74,7 +74,7 @@ module Dnsimple
       #   client.registrar.transfer(1010, "example.com", registrant_id: 1234, auth_info: "x1y2z3")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to transfer.
+      # @param  [#to_s] domain_name the domain name to transfer
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Struct::Domain]
@@ -96,7 +96,7 @@ module Dnsimple
       #   client.registrar.transfer_out(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to transfer out.
+      # @param  [#to_s] domain_name the domain name to transfer out
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #

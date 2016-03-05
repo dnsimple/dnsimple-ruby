@@ -10,7 +10,7 @@ module Dnsimple
       #   client.registrar.get_whois_privacy(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [#to_s] domain_name the domain name
       # @param  [Hash] options
       # @return [Struct::WhoisPrivacy]
       #
@@ -30,7 +30,7 @@ module Dnsimple
       #   client.registrar.enable_whois_privacy(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [#to_s] domain_name the domain name
       # @param  [Hash] options
       # @return [Struct::WhoisPrivacy]
       #

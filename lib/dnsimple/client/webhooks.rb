@@ -46,7 +46,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/webhooks/#get
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] webhook_id The webhook ID.
+      # @param  [#to_s] webhook_id The webhook ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Webhook>]
       #
@@ -65,7 +65,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/webooks/#delete
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] webhook_id The webhook ID.
+      # @param  [#to_s] webhook_id The webhook ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #
