@@ -66,7 +66,7 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
-  describe "#renew" do
+  describe "#renew_domain" do
     let(:account_id) { 1010 }
 
     before do
@@ -77,7 +77,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:attributes) { { period: "3" } }
 
     it "builds the correct request" do
-      subject.renew(account_id, domain_name = "example.com", attributes)
+      subject.renew_domain(account_id, domain_name = "example.com", attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/renew")
           .with(body: attributes)
@@ -85,7 +85,7 @@ describe Dnsimple::Client, ".registrar" do
     end
 
     it "returns the domain" do
-      response = subject.renew(account_id, "example.com", attributes)
+      response = subject.renew_domain(account_id, "example.com", attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -99,7 +99,7 @@ describe Dnsimple::Client, ".registrar" do
             .to_return(read_http_fixture("renewDomain/error-tooearly.http"))
 
         expect {
-          subject.renew(account_id, "example.com", attributes)
+          subject.renew_domain(account_id, "example.com", attributes)
         }.to raise_error(Dnsimple::RequestError)
       end
     end
