@@ -80,7 +80,7 @@ module Dnsimple
       # @return [Struct::Domain]
       #
       # @raise  [RequestError] When the request fails.
-      def transfer(account_id, domain_name, attributes = {}, options = {})
+      def transfer_domain(account_id, domain_name, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:registrant_id])
         endpoint = Client.versioned("/%s/registrar/domains/%s/transfer" % [account_id, domain_name])
         response = client.post(endpoint, options.merge(attributes))
