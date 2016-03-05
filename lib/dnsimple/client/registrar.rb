@@ -15,7 +15,7 @@ module Dnsimple
       # @return [Struct::DomainCheck]
       #
       # @raise  [RequestError] When the request fails.
-      def check(account_id, domain_name, options = {})
+      def check_domain(account_id, domain_name, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/check" % [account_id, domain_name])
         response = client.get(endpoint, options)
 
