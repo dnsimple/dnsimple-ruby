@@ -86,4 +86,54 @@ describe Dnsimple::Client, ".tlds" do
       expect(result.idn).to eq(true)
     end
   end
+
+  describe "#extended_attributes" do
+    before do
+      stub_request(:get, %r[/v2/tlds/uk/extended_attributes$])
+          .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.extended_attributes(tld = "uk")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}/extended_attributes")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the extended attributes" do
+      response = subject.extended_attributes("uk")
+      expect(response).to be_a(Dnsimple::CollectionResponse)
+
+      response.data.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::ExtendedAttribute)
+        expect(result.name).to be_a(String)
+        expect(result.description).to be_a(String)
+        expect(result).to respond_to(:required)
+
+        if !result.options.empty?
+          result.options.each do |option|
+            expect(option).to be_a(Dnsimple::Struct::ExtendedAttribute::Option)
+            expect(option.title).to be_a(String)
+            expect(option.value).to be_a(String)
+            expect(option.description).to be_a(String)
+          end
+        end
+      end
+    end
+
+    context "when there are no extended attributes for a TLD" do
+      before do
+        stub_request(:get, %r[/v2/tlds/com/extended_attributes$])
+            .to_return(read_http_fixture("getTldExtendedAttributes/success-noattributes.http"))
+      end
+
+      it "returns an empty CollectionResponse" do
+        response = subject.extended_attributes("com")
+        expect(response).to be_a(Dnsimple::CollectionResponse)
+
+        result = response.data
+        expect(result).to be_empty
+      end
+    end
+  end
 end

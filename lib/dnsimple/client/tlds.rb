@@ -59,6 +59,21 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Tld.new(response["data"]))
       end
 
+      # Gets the extended attributes for a TLD.
+      #
+      # @see https://developer.dnsimple.com/v2/tlds/#extended-attributes
+      #
+      # @param  tld [#to_s] The TLD name.
+      # @param  options [Hash]
+      # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::ExtendedAttribute>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def extended_attributes(tld, options = {})
+        response = client.get(Client.versioned("/tlds/%s/extended_attributes" % tld), options)
+
+        Dnsimple::CollectionResponse.new(response, response["data"].map { |r| Struct::ExtendedAttribute.new(r) })
+      end
     end
   end
 end
