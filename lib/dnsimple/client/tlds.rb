@@ -5,10 +5,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/tlds/#list
       #
-      # @example List tlds in the first page
+      # @example List TLDs in the first page
       #   client.tlds.list
       #
-      # @example List zones, providing a specific page
+      # @example List TLDs, providing a specific page
       #   client.tlds.list(query: { page: 2 })
       #
       # @param  [Hash] options the filtering and sorting option
@@ -34,6 +34,9 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/tlds/#list
       # @see #tlds
       #
+      # @example List all TLDs in DNSimple
+      #     client.tlds.all
+      #
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Tld>]
       #
@@ -46,6 +49,9 @@ module Dnsimple
       # Gets a TLD's details
       #
       # @see https://developer.dnsimple.com/v2/tlds/#get
+      #
+      # @example Get information on a specific TLD
+      #     client.tlds.tld('com')
       #
       # @param  tld [#to_s] The TLD name.
       # @param  options [Hash]
@@ -62,6 +68,9 @@ module Dnsimple
       # Gets the extended attributes for a TLD.
       #
       # @see https://developer.dnsimple.com/v2/tlds/#extended-attributes
+      #
+      # @example Get extended attributes for a specific TLD
+      #     client.tlds.extended_attributes('uk')
       #
       # @param  tld [#to_s] The TLD name.
       # @param  options [Hash]
