@@ -93,7 +93,7 @@ describe Dnsimple::Client do
 
   describe "#delete" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:delete, "path", {}, { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:delete, "path", { foo: "bar" }, {}).and_return(:returned)
       expect(subject.delete("path", foo: "bar")).to eq(:returned)
     end
   end

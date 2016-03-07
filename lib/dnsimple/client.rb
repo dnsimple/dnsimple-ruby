@@ -111,8 +111,8 @@ module Dnsimple
     # @param  [String] path The path, relative to {#base_url}
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def delete(path, options = {})
-      execute :delete, path, {}, options
+    def delete(path, data, options = {})
+      execute :delete, path, data, options
     end
 
     # Executes a request, validates and returns the response.
