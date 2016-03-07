@@ -37,7 +37,7 @@ describe Dnsimple::Client, ".registrar" do
 
     before do
       stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/registration$])
-          .to_return(read_http_fixture("register/success.http"))
+          .to_return(read_http_fixture("registerDomain/success.http"))
     end
 
     let(:attributes) { { registrant_id: "10" } }
@@ -57,6 +57,51 @@ describe Dnsimple::Client, ".registrar" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Domain)
       expect(result.id).to be_a(Fixnum)
+    end
+
+    context "when the attributes are incomplete" do
+      it "raises ArgumentError" do
+        expect { subject.register(account_id, "example.com") }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe "#renew" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/renew$])
+          .to_return(read_http_fixture("renewDomain/success.http"))
+    end
+
+    let(:attributes) { { period: "3" } }
+
+    it "builds the correct request" do
+      subject.renew(account_id, domain_name = "example.com", attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/renew")
+          .with(body: attributes)
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the domain" do
+      response = subject.renew(account_id, "example.com", attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Domain)
+      expect(result.id).to be_a(Fixnum)
+    end
+
+    context "when it is too son for the domain to be renewed" do
+      it "raises a BadRequestError" do
+        stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/renew$])
+            .to_return(read_http_fixture("renewDomain/error-tooearly.http"))
+
+        expect {
+          subject.renew(account_id, "example.com", attributes)
+        }.to raise_error(Dnsimple::RequestError)
+      end
     end
   end
 
@@ -105,7 +150,7 @@ describe Dnsimple::Client, ".registrar" do
       end
     end
 
-    context "when :auth_info wasn't provided an is required by the TLD" do
+    context "when :auth_info wasn't provided and is required by the TLD" do
       it "raises a BadRequestError" do
         stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/transfer$])
             .to_return(read_http_fixture("transferDomain/error-missing-authcode.http"))

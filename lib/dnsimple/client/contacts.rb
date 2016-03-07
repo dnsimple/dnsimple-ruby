@@ -71,7 +71,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/contacts/#get
       #
       # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
-      # @param  [#to_s] contact_id The contact.
+      # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
       #
@@ -88,7 +88,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/contacts/#update
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] contact_id The contact.
+      # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
@@ -109,7 +109,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/contacts/#delete
       #
       # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
-      # @param  [#to_s] contact_id The contact id.
+      # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #

@@ -5,11 +5,11 @@ module Dnsimple
   # It wraps the content of the response data, as well other response metadata such as rate-limiting information.
   class Response
 
+    # @return [HTTParty::Response]
+    attr_reader :http_response
+
     # @return [Struct::Base, Array] The content of the response data field.
     attr_reader :data
-
-    # @return [HTTParty::Response]
-    attr_reader :response
 
     # @return [Fixnum] The maximum number of requests this authentication context can perform per hour.
     # @see https://developer.dnsimple.com/v2/#rate-limiting
@@ -26,20 +26,20 @@ module Dnsimple
 
     # @param  [Hash] response the HTTP response
     # @param  [Array] data the response data
-    def initialize(response, data)
-      @response = response
+    def initialize(http_response, data)
+      @http_response = http_response
       @data = data
 
-      @rate_limit = response.headers['X-RateLimit-Limit'].to_i
-      @rate_limit_remaining = response.headers['X-RateLimit-Remaining'].to_i
-      @rate_limit_reset = Time.at(response.headers['X-RateLimit-Reset'].to_i)
+      @rate_limit = http_response.headers['X-RateLimit-Limit'].to_i
+      @rate_limit_remaining = http_response.headers['X-RateLimit-Remaining'].to_i
+      @rate_limit_reset = Time.at(http_response.headers['X-RateLimit-Reset'].to_i)
     end
 
   end
 
   # The CollectionResponse is a specific type of Response where the data is a collection of enumerable objects.
   class CollectionResponse < Response
-    def initialize(response, collection)
+    def initialize(http_response, collection)
       super
     end
   end
@@ -63,12 +63,12 @@ module Dnsimple
     # Initializes a new paginated response from the response metadata,
     # and with given collection.
     #
-    # @param  [Hash] response the HTTP response
+    # @param  [Hash] http_response the HTTP response
     # @param  [Array] collection the enumerable collection of records returned in the response data
-    def initialize(response, collection)
+    def initialize(http_response, collection)
       super
 
-      pagination = response["pagination"]
+      pagination = http_response["pagination"]
       @page           = pagination["current_page"]
       @per_page       = pagination["per_page"]
       @total_entries  = pagination["total_entries"]

@@ -10,12 +10,12 @@ module Dnsimple
       #   client.registrar.get_whois_privacy(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [#to_s] domain_name the domain name
       # @param  [Hash] options
       # @return [Struct::WhoisPrivacy]
       #
       # @raise  [RequestError] When the request fails.
-      def get_whois_privacy(account_id, domain_name, options = {})
+      def whois_privacy(account_id, domain_name, options = {})
         endpoint = whois_privacy_endpoint(account_id, domain_name)
         response = client.get(endpoint, options)
 
@@ -30,7 +30,7 @@ module Dnsimple
       #   client.registrar.enable_whois_privacy(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [#to_s] domain_name the domain name
       # @param  [Hash] options
       # @return [Struct::WhoisPrivacy]
       #

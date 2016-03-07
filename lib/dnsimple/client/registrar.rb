@@ -10,7 +10,7 @@ module Dnsimple
       #   client.registrar.check(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [#to_s] domain_name the domain name to check
       # @param  [Hash] options
       # @return [Struct::DomainCheck]
       #
@@ -26,8 +26,12 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/registrar/#register
       #
+      # @example Initiate the registration of example.com using the contact 1234 as registrant
+      #   including WHOIS privacy for the domain and enabling auto renewal:
+      #   client.registrar.register(1010, "example.com", registrant_id: 1234, privacy: true, auto_renew: true)
+      #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to register.
+      # @param  [#to_s] domain_name the domain name to register
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Struct::Domain]
@@ -41,6 +45,27 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
 
+      # Renews a domain.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#renew
+      #
+      # @example Renew example.com for 3 years:
+      #   client.registrar.renew(1010, "example.com", period: 3)
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_name the domain name to renew
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Struct::Domain]
+      #
+      # @raise  [RequestError] When the request fails.
+      def renew(account_id, domain_name, attributes = {}, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/renew" % [account_id, domain_name])
+        response = client.post(endpoint, options.merge(attributes))
+
+        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+      end
+
       # Starts the transfer of a domain to DNSimple.
       #
       # @see https://developer.dnsimple.com/v2/registrar/#transfer
@@ -49,7 +74,7 @@ module Dnsimple
       #   client.registrar.transfer(1010, "example.com", registrant_id: 1234, auth_info: "x1y2z3")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to transfer.
+      # @param  [#to_s] domain_name the domain name to transfer
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Struct::Domain]
@@ -71,7 +96,7 @@ module Dnsimple
       #   client.registrar.transfer_out(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to transfer out.
+      # @param  [#to_s] domain_name the domain name to transfer out
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #
