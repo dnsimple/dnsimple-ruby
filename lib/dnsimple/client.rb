@@ -70,7 +70,7 @@ module Dnsimple
     # Make a HTTP GET request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] options Query and header params for request
+    # @param  [Hash] data The body, query and header params for the request
     # @return [HTTParty::Response]
     def get(path, options = {})
       execute :get, path, options
@@ -79,51 +79,51 @@ module Dnsimple
     # Make a HTTP POST request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] options Body and header params for request
+    # @param  [Hash] data The body, query and header params for the request
     # @return [HTTParty::Response]
-    def post(path, options = {})
-      execute :post, path, options
+    def post(path, data = {})
+      execute :post, path, data
     end
 
     # Make a HTTP PUT request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] options Body and header params for request
+    # @param  [Hash] data The body, query and header params for the request
     # @return [HTTParty::Response]
-    def put(path, options = {})
-      execute :put, path, options
+    def put(path, data = {})
+      execute :put, path, data
     end
 
     # Make a HTTP PATCH request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] options Body and header params for request
+    # @param  [Hash] data The body, query and header params for the request
     # @return [HTTParty::Response]
-    def patch(path, options = {})
-      execute :patch, path, options
+    def patch(path, data = {})
+      execute :patch, path, data
     end
 
     # Make a HTTP DELETE request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] options Query and header params for request
+    # @param  [Hash] data The body, query and header params for the request
     # @return [HTTParty::Response]
-    def delete(path, options = {})
-      execute :delete, path, options
+    def delete(path, data = {})
+      execute :delete, path, data
     end
 
     # Executes a request, validates and returns the response.
     #
     # @param  [String] method The HTTP method
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] options Query and header params for request
+    # @param  [Hash] data The body, query and header params for the request
     # @return [HTTParty::Response]
     # @raise  [RequestError]
     # @raise  [NotFoundError]
     # @raise  [AuthenticationFailed]
     # @raise  [TwoFactorAuthenticationRequired]
-    def execute(method, path, data, options = {})
-      response = request(method, path, data, options)
+    def execute(method, path, data)
+      response = request(method, path, data)
 
       case response.code
       when 200..299
@@ -147,9 +147,10 @@ module Dnsimple
     #
     # @param  [String] method The HTTP method
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] options Query and header params for request
+    # @param  [Hash] data The body, query and header params for the request
     # @return [HTTParty::Response]
-    def request(method, path, data, options = {})
+    def request(method, path, data)
+      options = {}
       if data.is_a?(Hash)
         options[:query]   = data.delete(:query)   if data.key?(:query)
         options[:headers] = data.delete(:headers) if data.key?(:headers)
