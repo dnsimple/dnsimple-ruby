@@ -70,60 +70,64 @@ module Dnsimple
     # Make a HTTP GET request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body, query and header params for the request
+    # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
     def get(path, options = {})
-      execute :get, path, options
+      execute :get, path, {}, options
     end
 
     # Make a HTTP POST request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body, query and header params for the request
+    # @param  [Hash] data The body for the request
+    # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def post(path, data = {})
-      execute :post, path, data
+    def post(path, data, options= {})
+      execute :post, path, data, options
     end
 
     # Make a HTTP PUT request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body, query and header params for the request
+    # @param  [Hash] data The body for the request
+    # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def put(path, data = {})
-      execute :put, path, data
+    def put(path, data, options = {})
+      execute :put, path, data, options
     end
 
     # Make a HTTP PATCH request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body, query and header params for the request
+    # @param  [Hash] data The body for the request
+    # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def patch(path, data = {})
-      execute :patch, path, data
+    def patch(path, data, options = {})
+      execute :patch, path, data, options
     end
 
     # Make a HTTP DELETE request.
     #
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body, query and header params for the request
+    # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def delete(path, data = {})
-      execute :delete, path, data
+    def delete(path, options = {})
+      execute :delete, path, {}, options
     end
 
     # Executes a request, validates and returns the response.
     #
     # @param  [String] method The HTTP method
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body, query and header params for the request
+    # @param  [Hash] data The body for the request
+    # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
     # @raise  [RequestError]
     # @raise  [NotFoundError]
     # @raise  [AuthenticationFailed]
     # @raise  [TwoFactorAuthenticationRequired]
-    def execute(method, path, data)
-      response = request(method, path, data)
+    def execute(method, path, data, options = {})
+      response = request(method, path, data, options)
 
       case response.code
       when 200..299
@@ -147,17 +151,11 @@ module Dnsimple
     #
     # @param  [String] method The HTTP method
     # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body, query and header params for the request
+    # @param  [Hash] data The body for the request
+    # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def request(method, path, data)
-      options = {}
-      if data.is_a?(Hash)
-        options[:query]   = data.delete(:query)   if data.key?(:query)
-        options[:headers] = data.delete(:headers) if data.key?(:headers)
-      end
-      if !data.empty?
-        options[:body] = data
-      end
+    def request(method, path, data, options = {})
+      options[:body] = data if !data.empty?
 
       HTTParty.send(method, base_url + path, Extra.deep_merge!(base_options, options))
     end

@@ -65,28 +65,28 @@ describe Dnsimple::Client do
 
   describe "#get" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:get, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:get, "path", {}, { foo: "bar" }).and_return(:returned)
       expect(subject.get("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#post" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:post, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:post, "path", { foo: "bar" }, {}).and_return(:returned)
       expect(subject.post("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#put" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:put, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:put, "path", { foo: "bar" }, {}).and_return(:returned)
       expect(subject.put("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#delete" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:delete, "path", { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:delete, "path", {}, { foo: "bar" }).and_return(:returned)
       expect(subject.delete("path", foo: "bar")).to eq(:returned)
     end
   end
@@ -141,7 +141,7 @@ describe Dnsimple::Client do
                           ).
                           and_return(double('response', code: 200))
 
-      subject.request(:put, 'foo', { something: "else", query: { foo: "bar" }, headers: { "Custom" => "Header" } })
+      subject.request(:put, 'foo', { something: "else" }, { query: { foo: "bar" }, headers: { "Custom" => "Header" } })
     end
   end
 
