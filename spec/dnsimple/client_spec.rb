@@ -84,6 +84,13 @@ describe Dnsimple::Client do
     end
   end
 
+  describe "#patch" do
+    it "delegates to #request" do
+      expect(subject).to receive(:execute).with(:patch, "path", { foo: "bar" }, {}).and_return(:returned)
+      expect(subject.patch("path", foo: "bar")).to eq(:returned)
+    end
+  end
+
   describe "#delete" do
     it "delegates to #request" do
       expect(subject).to receive(:execute).with(:delete, "path", {}, { foo: "bar" }).and_return(:returned)
