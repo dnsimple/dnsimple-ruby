@@ -40,7 +40,7 @@ module Dnsimple
       def register(account_id, domain_name, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:registrant_id])
         endpoint = Client.versioned("/%s/registrar/domains/%s/registration" % [account_id, domain_name])
-        response = client.post(endpoint, options.merge(attributes))
+        response = client.post(endpoint, attributes, options)
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
@@ -61,7 +61,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def renew(account_id, domain_name, attributes = {}, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/renew" % [account_id, domain_name])
-        response = client.post(endpoint, options.merge(attributes))
+        response = client.post(endpoint, attributes, options)
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
@@ -83,7 +83,7 @@ module Dnsimple
       def transfer(account_id, domain_name, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:registrant_id])
         endpoint = Client.versioned("/%s/registrar/domains/%s/transfer" % [account_id, domain_name])
-        response = client.post(endpoint, options.merge(attributes))
+        response = client.post(endpoint, attributes, options)
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
@@ -103,7 +103,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def transfer_out(account_id, domain_name, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/transfer_out" % [account_id, domain_name])
-        response = client.post(endpoint, options)
+        response = client.post(endpoint, {}, options)
 
         Dnsimple::Response.new(response, nil)
       end
