@@ -37,7 +37,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def enable_whois_privacy(account_id, domain_name, options = {})
         endpoint = whois_privacy_endpoint(account_id, domain_name)
-        response = client.put(endpoint, options)
+        response = client.put(endpoint, {}, options)
 
         Dnsimple::Response.new(response, Struct::WhoisPrivacy.new(response["data"]))
       end
@@ -57,7 +57,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def disable_whois_privacy(account_id, domain_name, options = {})
         endpoint = whois_privacy_endpoint(account_id, domain_name)
-        response = client.delete(endpoint, options)
+        response = client.delete(endpoint, {}, options)
 
         Dnsimple::Response.new(response, Struct::WhoisPrivacy.new(response["data"]))
       end
