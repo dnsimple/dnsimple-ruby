@@ -34,8 +34,7 @@ module Dnsimple
       # @raise  [Dnsimple::RequestError]
       def create_webhook(account_id, attributes = {}, options = {})
         Extra.validate_mandatory_attributes(attributes, [:url])
-        options  = options.merge(attributes)
-        response = client.post(Client.versioned("/%s/webhooks" % [account_id]), options)
+        response = client.post(Client.versioned("/%s/webhooks" % [account_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::Webhook.new(response["data"]))
       end
@@ -72,7 +71,7 @@ module Dnsimple
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def delete_webhook(account_id, webhook_id, options = {})
-        response = client.delete(Client.versioned("/%s/webhooks/%s" % [account_id, webhook_id]), options)
+        response = client.delete(Client.versioned("/%s/webhooks/%s" % [account_id, webhook_id]), {}, options)
 
         Dnsimple::Response.new(response, nil)
       end
