@@ -53,8 +53,8 @@ module Dnsimple
       # @example Get information on a specific TLD
       #     client.tlds.tld('com')
       #
-      # @param  tld [#to_s] The TLD name.
-      # @param  options [Hash]
+      # @param  [#to_s] tld The TLD name.
+      # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Tld>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -72,8 +72,8 @@ module Dnsimple
       # @example Get extended attributes for a specific TLD
       #     client.tlds.extended_attributes('uk')
       #
-      # @param  tld [#to_s] The TLD name.
-      # @param  options [Hash]
+      # @param  [#to_s] tld The TLD name.
+      # @param  [Hash] options
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::ExtendedAttribute>]
       #
       # @raise  [Dnsimple::NotFoundError]
