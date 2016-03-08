@@ -134,7 +134,7 @@ describe Dnsimple::Client do
                           ).
                           and_return(double('response', code: 200))
 
-      subject.request(:get, 'foo', {})
+      subject.request(:get, 'foo')
     end
 
     it "properly extracts options from data" do

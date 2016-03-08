@@ -82,7 +82,7 @@ module Dnsimple
     # @param  [Hash] data The body for the request
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def post(path, data, options= {})
+    def post(path, data = nil, options= {})
       execute :post, path, data, options
     end
 
@@ -92,7 +92,7 @@ module Dnsimple
     # @param  [Hash] data The body for the request
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def put(path, data, options = {})
+    def put(path, data = nil, options = {})
       execute :put, path, data, options
     end
 
@@ -102,7 +102,7 @@ module Dnsimple
     # @param  [Hash] data The body for the request
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def patch(path, data, options = {})
+    def patch(path, data = nil, options = {})
       execute :patch, path, data, options
     end
 
@@ -111,7 +111,7 @@ module Dnsimple
     # @param  [String] path The path, relative to {#base_url}
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def delete(path, data, options = {})
+    def delete(path, data = nil, options = {})
       execute :delete, path, data, options
     end
 
@@ -126,7 +126,7 @@ module Dnsimple
     # @raise  [NotFoundError]
     # @raise  [AuthenticationFailed]
     # @raise  [TwoFactorAuthenticationRequired]
-    def execute(method, path, data, options = {})
+    def execute(method, path, data = nil, options = {})
       response = request(method, path, data, options)
 
       case response.code
@@ -154,8 +154,8 @@ module Dnsimple
     # @param  [Hash] data The body for the request
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def request(method, path, data, options = {})
-      options[:body] = data if !data.empty?
+    def request(method, path, data = nil, options = {})
+      options[:body] = data if data
 
       HTTParty.send(method, base_url + path, Extra.deep_merge!(base_options, options))
     end
