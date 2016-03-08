@@ -57,7 +57,7 @@ module Dnsimple
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
       #
       # @raise  [Dnsimple::RequestError]
-      def create_contact(account_id, attributes = {}, options = {})
+      def create_contact(account_id, attributes = nil, options = {})
         Extra.validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email_address])
         response = client.post(Client.versioned("/%s/contacts" % [account_id]), attributes, options)
 
@@ -93,7 +93,7 @@ module Dnsimple
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
       #
       # @raise  [Dnsimple::RequestError]
-      def update_contact(account_id, contact_id, attributes = {}, options = {})
+      def update_contact(account_id, contact_id, attributes = nil, options = {})
         response = client.patch(Client.versioned("/%s/contacts/%s" % [account_id, contact_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::Contact.new(response["data"]))
