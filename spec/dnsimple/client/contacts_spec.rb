@@ -151,7 +151,7 @@ describe Dnsimple::Client, ".contacts" do
     end
 
     it "returns the contact" do
-      response = subject.update_contact(account_id, 1)
+      response = subject.update_contact(account_id, 1, attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
