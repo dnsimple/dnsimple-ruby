@@ -2,8 +2,6 @@
 
 ## Getting started
 
-### Environment Setup
-
 Clone the repository and move into it:
 
 ```
@@ -19,13 +17,15 @@ $ bundle
 
 [Run the test suite](#testing) to check everything works as expected.
 
-### Testing
+
+## Testing
 
 To run the test suite:
 
 ```
 $ rake
 ```
+
 
 ## Tests
 
