@@ -57,7 +57,7 @@ module Dnsimple
       # @return [Dnsimple::Response<Dnsimple::Struct::EmailForward>]
       #
       # @raise  [Dnsimple::RequestError]
-      def create_email_forward(account_id, domain_id, attributes = {}, options = {})
+      def create_email_forward(account_id, domain_id, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:from, :to])
         response = client.post(Client.versioned("/%s/domains/%s/email_forwards" % [account_id, domain_id]), attributes, options)
 
@@ -97,7 +97,7 @@ module Dnsimple
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def delete_email_forward(account_id, domain_id, email_forward_id, options = {})
-        response = client.delete(Client.versioned("/%s/domains/%s/email_forwards/%s" % [account_id, domain_id, email_forward_id]), {}, options)
+        response = client.delete(Client.versioned("/%s/domains/%s/email_forwards/%s" % [account_id, domain_id, email_forward_id]), nil, options)
 
         Dnsimple::Response.new(response, nil)
       end
