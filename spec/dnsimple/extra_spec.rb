@@ -35,6 +35,12 @@ describe Dnsimple::Extra do
         described_class.validate_mandatory_attributes({name: "foo", email: "bar"}, mandatory_attributes)
       }.not_to raise_error
     end
+
+    it "handles nil as attributes value" do
+      expect {
+        described_class.validate_mandatory_attributes(nil, mandatory_attributes)
+      }.to raise_error(ArgumentError, ":name is required")
+    end
   end
 
 end
