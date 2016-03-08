@@ -5,7 +5,7 @@ describe Dnsimple::Client, ".registrar" do
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar }
 
 
-  describe "#check" do
+  describe "#check_domain" do
     let(:account_id) { 1010 }
 
     before do
@@ -14,14 +14,14 @@ describe Dnsimple::Client, ".registrar" do
     end
 
     it "builds the correct request" do
-      subject.check(account_id, domain_name = "example.com")
+      subject.check_domain(account_id, domain_name = "example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/check")
           .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the availability" do
-      response = subject.check(account_id, "example.com")
+      response = subject.check_domain(account_id, "example.com")
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -32,7 +32,7 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
-  describe "#register" do
+  describe "#register_domain" do
     let(:account_id) { 1010 }
 
     before do
@@ -43,7 +43,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:attributes) { { registrant_id: "10" } }
 
     it "builds the correct request" do
-      subject.register(account_id, domain_name = "example.com", attributes)
+      subject.register_domain(account_id, domain_name = "example.com", attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/registration")
           .with(body: attributes)
@@ -51,7 +51,7 @@ describe Dnsimple::Client, ".registrar" do
     end
 
     it "returns the domain" do
-      response = subject.register(account_id, "example.com", attributes)
+      response = subject.register_domain(account_id, "example.com", attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -61,12 +61,12 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the attributes are incomplete" do
       it "raises ArgumentError" do
-        expect { subject.register(account_id, "example.com") }.to raise_error(ArgumentError)
+        expect { subject.register_domain(account_id, "example.com") }.to raise_error(ArgumentError)
       end
     end
   end
 
-  describe "#renew" do
+  describe "#renew_domain" do
     let(:account_id) { 1010 }
 
     before do
@@ -77,7 +77,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:attributes) { { period: "3" } }
 
     it "builds the correct request" do
-      subject.renew(account_id, domain_name = "example.com", attributes)
+      subject.renew_domain(account_id, domain_name = "example.com", attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/renew")
           .with(body: attributes)
@@ -85,7 +85,7 @@ describe Dnsimple::Client, ".registrar" do
     end
 
     it "returns the domain" do
-      response = subject.renew(account_id, "example.com", attributes)
+      response = subject.renew_domain(account_id, "example.com", attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -99,13 +99,13 @@ describe Dnsimple::Client, ".registrar" do
             .to_return(read_http_fixture("renewDomain/error-tooearly.http"))
 
         expect {
-          subject.renew(account_id, "example.com", attributes)
+          subject.renew_domain(account_id, "example.com", attributes)
         }.to raise_error(Dnsimple::RequestError)
       end
     end
   end
 
-  describe "#transfer" do
+  describe "#transfer_domain" do
     let(:account_id) { 1010 }
 
     before do
@@ -116,7 +116,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:attributes) { { registrant_id: "10", auth_info: "x1y2z3" } }
 
     it "builds the correct request" do
-      subject.transfer(account_id, domain_name = "example.com", attributes)
+      subject.transfer_domain(account_id, domain_name = "example.com", attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfer")
           .with(body: attributes)
@@ -124,7 +124,7 @@ describe Dnsimple::Client, ".registrar" do
     end
 
     it "returns the domain" do
-      response = subject.transfer(account_id, "example.com", attributes)
+      response = subject.transfer_domain(account_id, "example.com", attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -135,7 +135,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the attributes are incomplete" do
       it "raises ArgumentError" do
-        expect { subject.transfer(account_id, "example.com", auth_info: "x1y2z3") }.to raise_error(ArgumentError)
+        expect { subject.transfer_domain(account_id, "example.com", auth_info: "x1y2z3") }.to raise_error(ArgumentError)
       end
     end
 
@@ -145,7 +145,7 @@ describe Dnsimple::Client, ".registrar" do
             .to_return(read_http_fixture("transferDomain/error-indnsimple.http"))
 
         expect {
-          subject.transfer(account_id, "example.com", attributes)
+          subject.transfer_domain(account_id, "example.com", attributes)
         }.to raise_error(Dnsimple::RequestError)
       end
     end
@@ -156,13 +156,13 @@ describe Dnsimple::Client, ".registrar" do
             .to_return(read_http_fixture("transferDomain/error-missing-authcode.http"))
 
         expect {
-          subject.transfer(account_id, "example.com", registrant_id: 10)
+          subject.transfer_domain(account_id, "example.com", registrant_id: 10)
         }.to raise_error(Dnsimple::RequestError)
       end
     end
   end
 
-  describe "#transfer_out" do
+  describe "#transfer_domain_out" do
     let(:account_id) { 1010 }
 
     before do
@@ -171,14 +171,14 @@ describe Dnsimple::Client, ".registrar" do
     end
 
     it "builds the correct request" do
-      subject.transfer_out(account_id, domain_name = "example.com")
+      subject.transfer_domain_out(account_id, domain_name = "example.com")
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfer_out")
           .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do
-      response = subject.transfer_out(account_id, "example.com")
+      response = subject.transfer_domain_out(account_id, "example.com")
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data

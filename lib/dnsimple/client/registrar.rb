@@ -15,7 +15,7 @@ module Dnsimple
       # @return [Struct::DomainCheck]
       #
       # @raise  [RequestError] When the request fails.
-      def check(account_id, domain_name, options = {})
+      def check_domain(account_id, domain_name, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/check" % [account_id, domain_name])
         response = client.get(endpoint, options)
 
@@ -37,7 +37,7 @@ module Dnsimple
       # @return [Struct::Domain]
       #
       # @raise  [RequestError] When the request fails.
-      def register(account_id, domain_name, attributes, options = {})
+      def register_domain(account_id, domain_name, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:registrant_id])
         endpoint = Client.versioned("/%s/registrar/domains/%s/registration" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
@@ -59,7 +59,7 @@ module Dnsimple
       # @return [Struct::Domain]
       #
       # @raise  [RequestError] When the request fails.
-      def renew(account_id, domain_name, attributes = nil, options = {})
+      def renew_domain(account_id, domain_name, attributes = nil, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/renew" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
 
@@ -80,7 +80,7 @@ module Dnsimple
       # @return [Struct::Domain]
       #
       # @raise  [RequestError] When the request fails.
-      def transfer(account_id, domain_name, attributes, options = {})
+      def transfer_domain(account_id, domain_name, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:registrant_id])
         endpoint = Client.versioned("/%s/registrar/domains/%s/transfer" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
@@ -101,7 +101,7 @@ module Dnsimple
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.
-      def transfer_out(account_id, domain_name, options = {})
+      def transfer_domain_out(account_id, domain_name, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/transfer_out" % [account_id, domain_name])
         response = client.post(endpoint, nil, options)
 
