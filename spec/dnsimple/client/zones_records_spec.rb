@@ -196,7 +196,7 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "returns the record" do
-      response = subject.update_record(account_id, zone_id, 2)
+      response = subject.update_record(account_id, zone_id, 2, attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
