@@ -1,7 +1,6 @@
 # Bundler
 .bundle
 pkg/*
-Gemfile.lock
 
 # YARD
 .yardoc
