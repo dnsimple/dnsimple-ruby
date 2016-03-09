@@ -11,8 +11,9 @@ module Dnsimple
       # @param  client_secret [String] Client Secret you received when the application was registered with DNSimple.
       # @option options [String] :redirect_uri The redirect URL sent for the authorization, used to validate the request.
       # @return [String] The url to redirect the user to authorize.
-      def exchange_authorization_for_token(code, client_id, client_secret, options = {})
+      def exchange_authorization_for_token(code, client_id, client_secret, state = nil, options = {})
         attributes = { code: code, client_id: client_id, client_secret: client_secret, grant_type: "authorization_code" }
+        attributes[:state] = state if state
         response = client.post(Client.versioned("/oauth/access_token"), attributes, options)
         Struct::OauthToken.new(response)
       end
