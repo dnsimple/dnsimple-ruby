@@ -136,4 +136,13 @@ module Dnsimple
     end
 
   end
+
+  # This module exposes static helpers for the API v2.
+  #
+  # Compared to the full, extended API methods provided by the various client services,
+  # these static methods return directly the underlying data objects.
+  # Therefore, it's not possible to access response metadata such as throttling or pagination info.
+  module V2
+    extend Client::Identity::StaticHelpers
+  end
 end
