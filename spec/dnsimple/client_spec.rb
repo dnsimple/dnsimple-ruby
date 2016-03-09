@@ -65,7 +65,7 @@ describe Dnsimple::Client do
 
   describe "#get" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:get, "path", {}, { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:get, "path", nil, { foo: "bar" }).and_return(:returned)
       expect(subject.get("path", foo: "bar")).to eq(:returned)
     end
   end
