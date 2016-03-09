@@ -76,6 +76,7 @@ DEPENDENCIES
   dnsimple!
   rake
   rspec
+  rspec-core (>= 3.4.4)
   webmock
   yard
 
