@@ -121,7 +121,6 @@ module Dnsimple
     # @raise  [RequestError]
     # @raise  [NotFoundError]
     # @raise  [AuthenticationFailed]
-    # @raise  [TwoFactorAuthenticationRequired]
     def execute(method, path, data, options = {})
       response = request(method, path, data, options)
 
