@@ -1,5 +1,3 @@
-require 'httparty'
-
 module Dnsimple
 
   # Echoes a deprecation warning message.

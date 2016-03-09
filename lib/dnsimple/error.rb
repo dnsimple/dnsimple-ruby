@@ -3,12 +3,13 @@ module Dnsimple
   class Error < StandardError
   end
 
+  # RequestError is raised when an API request fails for an client, a server error or invalid request information.
   class RequestError < Error
-    attr_reader :response
+    attr_reader :http_response
 
-    def initialize(response)
-      @response = response
-      super("#{response.code}")
+    def initialize(http_response)
+      @http_response = http_response
+      super(http_response.code.to_s)
     end
   end
 
@@ -19,10 +20,6 @@ module Dnsimple
   end
 
   class AuthenticationFailed < AuthenticationError
-  end
-
-  # An exception that is raised if a request is executed for an account that requires two-factor authentication.
-  class TwoFactorAuthenticationRequired < AuthenticationError
   end
 
 end

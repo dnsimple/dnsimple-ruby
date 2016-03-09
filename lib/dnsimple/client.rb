@@ -1,3 +1,4 @@
+require 'httparty'
 require 'dnsimple/extra'
 require 'dnsimple/struct'
 require 'dnsimple/response'
