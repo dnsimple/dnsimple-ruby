@@ -57,10 +57,10 @@ module Dnsimple
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
       #
       # @raise  [Dnsimple::RequestError]
-      def create_domain(account_id, attributes = {}, options = {})
+      def create_domain(account_id, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:name])
         options  = options.merge(attributes)
-        response = client.post(Client.versioned("/%s/domains" % [account_id]), options)
+        response = client.post(Client.versioned("/%s/domains" % [account_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
@@ -97,7 +97,7 @@ module Dnsimple
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def delete_domain(account_id, domain_id, options = {})
-        response = client.delete(Client.versioned("/%s/domains/%s" % [account_id, domain_id]), options)
+        response = client.delete(Client.versioned("/%s/domains/%s" % [account_id, domain_id]), nil, options)
 
         Dnsimple::Response.new(response, nil)
       end
@@ -115,7 +115,7 @@ module Dnsimple
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def reset_domain_token(account_id, domain_id, options = {})
-        response = client.post(Client.versioned("/%s/domains/%s/token" % [account_id, domain_id]), options)
+        response = client.post(Client.versioned("/%s/domains/%s/token" % [account_id, domain_id]), nil, options)
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end

@@ -58,10 +58,9 @@ module Dnsimple
       # @return [Dnsimple::Response<Dnsimple::Struct::Record>]
       #
       # @raise  [Dnsimple::RequestError]
-      def create_record(account_id, zone_id, attributes = {}, options = {})
+      def create_record(account_id, zone_id, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:type, :name, :content])
-        options  = options.merge(attributes)
-        response = client.post(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), options)
+        response = client.post(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
       end
@@ -97,9 +96,8 @@ module Dnsimple
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
-      def update_record(account_id, zone_id, record_id, attributes = {}, options = {})
-        options  = options.merge(attributes)
-        response = client.patch(Client.versioned("/%s/zones/%s/records/%s" % [account_id, zone_id, record_id]), options)
+      def update_record(account_id, zone_id, record_id, attributes, options = {})
+        response = client.patch(Client.versioned("/%s/zones/%s/records/%s" % [account_id, zone_id, record_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
       end
@@ -119,7 +117,7 @@ module Dnsimple
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def delete_record(account_id, zone_id, record_id, options = {})
-        response = client.delete(Client.versioned("/%s/zones/%s/records/%s" % [account_id, zone_id, record_id]), options)
+        response = client.delete(Client.versioned("/%s/zones/%s/records/%s" % [account_id, zone_id, record_id]), nil, options)
 
         Dnsimple::Response.new(response, nil)
       end
