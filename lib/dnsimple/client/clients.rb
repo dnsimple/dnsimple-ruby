@@ -42,6 +42,7 @@ module Dnsimple
     end
 
 
+    # @!class Struct
     class ClientService < ::Struct.new(:client)
 
       # Internal helper that loops over a paginated response and returns all the records in the collection.

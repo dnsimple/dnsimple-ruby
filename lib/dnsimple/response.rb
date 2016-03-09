@@ -24,8 +24,8 @@ module Dnsimple
     attr_reader :rate_limit_reset
 
 
-    # @param  [Hash] response the HTTP response
-    # @param  [Array] data the response data
+    # @param  [HTTParty::Response] http_response the HTTP response
+    # @param  [Object] data the response data
     def initialize(http_response, data)
       @http_response = http_response
       @data = data
