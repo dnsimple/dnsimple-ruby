@@ -3,11 +3,17 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
-#### 3.x
+#### 3.0
+
+##### beta1
 
 - CHANGED: Minimum Ruby version >= 2
 
 - CHANGED: Renamed `api_endpoint` to `base_url` to match the other clients.
+
+The client has been completely redesigned to support the [API v2](https://developer.dnsimple.com/v2). Overall, the client behaves like the previous version, however it has been rewritten to leverage the API v2 features specifically.
+
+Internal changes were made to match conventions adopted in other clients, such as the Go one and the Elixir one.
 
 #### 2.1.1
 
