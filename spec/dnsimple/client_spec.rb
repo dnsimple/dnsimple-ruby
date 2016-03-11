@@ -137,18 +137,31 @@ describe Dnsimple::Client do
       subject.request(:get, 'foo')
     end
 
-    it "properly extracts options from data" do
+    it "properly extracts processes options and encodes data" do
       expect(HTTParty).to receive(:put).
                           with("#{subject.base_url}foo",
                                format: :json,
-                               body: { something: "else" },
+                               body: JSON.dump({ something: "else" }),
                                query: { foo: "bar" },
                                basic_auth: { username: "user", password: "pass" },
-                               headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
+                               headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
                           ).
                           and_return(double('response', code: 200))
 
       subject.request(:put, 'foo', { something: "else" }, { query: { foo: "bar" }, headers: { "Custom" => "Header" } })
+    end
+
+    it "handles non application/json content types" do
+      expect(HTTParty).to receive(:post).
+                          with("#{subject.base_url}foo",
+                               format: :json,
+                               body: { something: "else" },
+                               basic_auth: { username: "user", password: "pass" },
+                               headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+                          ).
+                          and_return(double('response', code: 200))
+
+      subject.request(:post, 'foo', { something: "else" }, headers: { "Content-Type" => "application/x-www-form-urlencoded" })
     end
   end
 

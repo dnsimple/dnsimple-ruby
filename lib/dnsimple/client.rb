@@ -156,9 +156,14 @@ module Dnsimple
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
     def request(method, path, data = nil, options = {})
-      options[:body] = data if data
+      request_options = Extra.deep_merge!(base_options, options)
 
-      HTTParty.send(method, base_url + path, Extra.deep_merge!(base_options, options))
+      if data
+        request_options[:headers]["Content-Type"] = content_type(request_options[:headers])
+        request_options[:body] = content_data(request_options[:headers], data)
+      end
+
+      HTTParty.send(method, base_url + path, request_options)
     end
 
 
@@ -167,7 +172,10 @@ module Dnsimple
     def base_options
       options = {
           format:   :json,
-          headers:  { 'Accept' => 'application/json', 'User-Agent' => user_agent },
+          headers:  {
+            'Accept' => 'application/json',
+            'User-Agent' => user_agent
+          },
       }
 
       if proxy
@@ -186,6 +194,14 @@ module Dnsimple
       end
 
       options
+    end
+
+    def content_type(headers)
+      headers["Content-Type"] || "application/json"
+    end
+
+    def content_data(headers, data)
+      headers["Content-Type"] == "application/json" ? JSON.dump(data) : data
     end
 
   end
