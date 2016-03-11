@@ -156,9 +156,10 @@ module Dnsimple
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
     def request(method, path, data = nil, options = {})
-      options[:body] = JSON.dump(data) if data
+      request_options        = Extra.deep_merge!(base_options, options)
+      request_options[:body] = encoded_data(data, request_options[:headers]) if data
 
-      HTTParty.send(method, base_url + path, Extra.deep_merge!(base_options, options))
+      HTTParty.send(method, base_url + path, request_options)
     end
 
 
@@ -190,6 +191,10 @@ module Dnsimple
       end
 
       options
+    end
+
+    def encoded_data(data, headers)
+      headers["Content-Type"] == "application/json" ? JSON.dump(data) : data
     end
 
   end
