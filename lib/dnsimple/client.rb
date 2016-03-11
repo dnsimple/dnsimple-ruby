@@ -167,7 +167,11 @@ module Dnsimple
     def base_options
       options = {
           format:   :json,
-          headers:  { 'Accept' => 'application/json', 'User-Agent' => user_agent },
+          headers:  {
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'User-Agent' => user_agent
+          },
       }
 
       if proxy
