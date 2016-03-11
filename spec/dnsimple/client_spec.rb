@@ -141,7 +141,7 @@ describe Dnsimple::Client do
       expect(HTTParty).to receive(:put).
                           with("#{subject.base_url}foo",
                                format: :json,
-                               body: { something: "else" },
+                               body: JSON.dump({ something: "else" }),
                                query: { foo: "bar" },
                                basic_auth: { username: "user", password: "pass" },
                                headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }

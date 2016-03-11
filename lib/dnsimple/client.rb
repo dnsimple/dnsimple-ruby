@@ -156,7 +156,7 @@ module Dnsimple
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
     def request(method, path, data = nil, options = {})
-      options[:body] = data if data
+      options[:body] = JSON.dump(data) if data
 
       HTTParty.send(method, base_url + path, Extra.deep_merge!(base_options, options))
     end
