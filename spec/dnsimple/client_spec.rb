@@ -130,14 +130,14 @@ describe Dnsimple::Client do
                           with("#{subject.base_url}foo",
                                format: :json,
                                basic_auth: { username: "user", password: "pass" },
-                               headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+                               headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
                           ).
                           and_return(double('response', code: 200))
 
       subject.request(:get, 'foo')
     end
 
-    it "properly extracts options from data" do
+    it "properly extracts processes options and encodes data" do
       expect(HTTParty).to receive(:put).
                           with("#{subject.base_url}foo",
                                format: :json,
