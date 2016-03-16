@@ -9,6 +9,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - FIXED: `state` and `redirect_uri` are not properly passed in the request to exchang the code for an access token (GH-89, GH-90).
 
+- FIXED: Request body is not properly serialized to JSON, and the "Content-Type" header was omissed (GH-91).
+
 ##### beta1
 
 - CHANGED: Minimum Ruby version >= 2
