@@ -110,13 +110,12 @@ describe Dnsimple::Client, ".tlds" do
         expect(result.description).to be_a(String)
         expect(result).to respond_to(:required)
 
-        if !result.options.empty?
-          result.options.each do |option|
-            expect(option).to be_a(Dnsimple::Struct::ExtendedAttribute::Option)
-            expect(option.title).to be_a(String)
-            expect(option.value).to be_a(String)
-            expect(option.description).to be_a(String)
-          end
+        next if result.options.empty?
+        result.options.each do |option|
+          expect(option).to be_a(Dnsimple::Struct::ExtendedAttribute::Option)
+          expect(option.title).to be_a(String)
+          expect(option.value).to be_a(String)
+          expect(option.description).to be_a(String)
         end
       end
     end
