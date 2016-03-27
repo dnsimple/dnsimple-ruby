@@ -201,12 +201,6 @@ Style/MutableConstant:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/NegatedIf:
-  Exclude:
-    - 'spec/dnsimple/client/tlds_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, MinBodyLength, SupportedStyles.
 # SupportedStyles: skip_modifier_ifs, always
 Style/Next:

@@ -23,6 +23,10 @@ Lint/EndAlignment:
 Performance/RedundantMerge:
   Enabled: false
 
+# unless is not always cool.
+Style/NegatedIf:
+  Enabled: false
+
 # There are cases were the inline rescue is ok. We can either downgrade the severity,
 # or rely on the developer judgement on a case-by-case basis.
 Style/RescueModifier:
