@@ -61,6 +61,12 @@ Style/MultilineMethodCallIndentation:
 Style/NegatedIf:
   Enabled: false
 
+# Magic numbers are not welcomed
+Style/NumericLiterals:
+    # however tests can use numeric literals for method calls,
+    # without the need to define a variable just for that.
+    - 'spec/**/*_spec.rb'
+
 # There are cases were the inline rescue is ok. We can either downgrade the severity,
 # or rely on the developer judgement on a case-by-case basis.
 Style/RescueModifier:

@@ -130,11 +130,6 @@ Style/IfUnlessModifier:
   Exclude:
     - 'spec/spec_helper.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/NumericLiterals:
-  MinDigits: 7
-
 # Offense count: 3
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: compact, exploded
