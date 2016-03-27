@@ -72,6 +72,11 @@ Style/IndentArray:
 Style/IndentHash:
   IndentationWidth: 4
 
+# [codesmell]
+# It's not always that bad.
+Style/IfInsideElse:
+  Enabled: false
+
 # Multi-line differs from standard indentation, they are indented twice.
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented

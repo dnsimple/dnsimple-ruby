@@ -69,17 +69,6 @@ Style/DotPosition:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/ElseAlignment:
-  Exclude:
-    - 'lib/dnsimple/extra.rb'
-
-# Offense count: 1
-Style/IfInsideElse:
-  Exclude:
-    - 'lib/dnsimple/extra.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:
   Exclude:
