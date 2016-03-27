@@ -83,11 +83,6 @@ Style/ElseAlignment:
   Exclude:
     - 'lib/dnsimple/extra.rb'
 
-# Offense count: 34
-# Cop supports --auto-correct.
-Style/EmptyLines:
-  Enabled: false
-
 # Offense count: 27
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
