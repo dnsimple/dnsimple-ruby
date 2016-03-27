@@ -73,27 +73,6 @@ Style/ElseAlignment:
   Exclude:
     - 'lib/dnsimple/extra.rb'
 
-# Offense count: 27
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'spec/dnsimple/client/client_service_spec.rb'
-    - 'spec/dnsimple/client/contacts_spec.rb'
-    - 'spec/dnsimple/client/domains_email_forwards_spec.rb'
-    - 'spec/dnsimple/client/domains_spec.rb'
-    - 'spec/dnsimple/client/identity_spec.rb'
-    - 'spec/dnsimple/client/oauth_spec.rb'
-    - 'spec/dnsimple/client/registrar_auto_renewal_spec.rb'
-    - 'spec/dnsimple/client/registrar_spec.rb'
-    - 'spec/dnsimple/client/registrar_whois_privacy_spec.rb'
-    - 'spec/dnsimple/client/webhooks_spec.rb'
-    - 'spec/dnsimple/client/zones_records_spec.rb'
-    - 'spec/dnsimple/client/zones_spec.rb'
-    - 'spec/dnsimple/client_spec.rb'
-    - 'spec/dnsimple/extra_spec.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, UseHashRocketsWithSymbolValues.

@@ -32,6 +32,12 @@ Performance/RedundantMerge:
 Style/EmptyLines:
   Enabled: false
 
+Style/EmptyLinesAroundBlockBody:
+  Exclude:
+    # RSpec is all made of blocks. Disable this config in RSpec
+    # to be consistent with EmptyLinesAroundClassBody and EmptyLinesAroundModuleBody
+    - 'spec/**/*_spec.rb'
+
 # In most cases, a space is nice. Sometimes, it's not.
 # Just be consistent with the rest of the surrounding code.
 Style/EmptyLinesAroundClassBody:
