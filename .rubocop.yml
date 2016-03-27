@@ -1,1 +1,11 @@
 inherit_from: .rubocop_todo.yml
+
+AllCops:
+  Exclude:
+    # Exclude .gemspec files because they are generally auto-generated
+    - '*.gemspec'
+
+# There are cases were the inline rescue is ok. We can either downgrade the severity,
+# or rely on the developer judgement on a case-by-case basis.
+Style/RescueModifier:
+  Enabled: false
