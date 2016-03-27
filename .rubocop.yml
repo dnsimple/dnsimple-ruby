@@ -18,6 +18,11 @@ AllCops:
 Lint/EndAlignment:
   AlignWith: variable
 
+# [codesmell]
+# I don't really get the point of this cop.
+Performance/RedundantMerge:
+  Enabled: false
+
 # There are cases were the inline rescue is ok. We can either downgrade the severity,
 # or rely on the developer judgement on a case-by-case basis.
 Style/RescueModifier:

@@ -28,13 +28,6 @@ Metrics/MethodLength:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: MaxKeyValuePairs.
-Performance/RedundantMerge:
-  Exclude:
-    - 'lib/dnsimple/client.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: always, conditionals
 Style/AndOr:
