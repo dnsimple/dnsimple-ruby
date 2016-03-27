@@ -27,6 +27,7 @@ Metrics/AbcSize:
 
 # [codesmell]
 Metrics/ClassLength:
+  Enabled: false
   Exclude:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
@@ -140,3 +141,13 @@ Style/RescueModifier:
 # and doesn't cause a diff in Git when you add a line to the bottom.
 Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: consistent_comma
+
+Style/TrivialAccessors:
+  # IgnoreClassMethods because I want to be able to define class-level accessors
+  # that sets an instance variable on the metaclass, such as:
+  #
+  #    def self.default=(value)
+  #      @default = value
+  #    end
+  #
+  IgnoreClassMethods: true
