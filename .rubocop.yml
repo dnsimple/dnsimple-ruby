@@ -23,6 +23,16 @@ Lint/EndAlignment:
 Performance/RedundantMerge:
   Enabled: false
 
+# Array indentation should be considered like multi-line indentation
+# and use 4 spaces instead of 2.
+Style/IndentArray:
+  IndentationWidth: 4
+
+# Hash indentation should be considered like multi-line indentation
+# and use 4 spaces instead of 2.
+Style/IndentHash:
+  IndentationWidth: 4
+
 # unless is not always cool.
 Style/NegatedIf:
   Enabled: false

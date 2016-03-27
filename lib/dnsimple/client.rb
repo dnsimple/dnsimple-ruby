@@ -173,8 +173,8 @@ module Dnsimple
       options = {
           format:   :json,
           headers:  {
-            'Accept' => 'application/json',
-            'User-Agent' => user_agent,
+              'Accept' => 'application/json',
+              'User-Agent' => user_agent,
           },
       }
 
