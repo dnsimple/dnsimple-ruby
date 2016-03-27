@@ -42,14 +42,19 @@ Style/EmptyLinesAroundClassBody:
 Style/EmptyLinesAroundModuleBody:
   Enabled: false
 
-# Array indentation should be considered like multi-line indentation
+# Array indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
 Style/IndentArray:
   IndentationWidth: 4
 
-# Hash indentation should be considered like multi-line indentation
+# Hash indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
 Style/IndentHash:
+  IndentationWidth: 4
+
+# Multi-line differs from standard indentation, they are indented twice.
+Style/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
   IndentationWidth: 4
 
 # unless is not always cool.

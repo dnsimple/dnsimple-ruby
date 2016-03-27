@@ -130,13 +130,6 @@ Style/IfUnlessModifier:
   Exclude:
     - 'spec/spec_helper.rb'
 
-# Offense count: 135
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
-# SupportedStyles: aligned, indented
-Style/MultilineMethodCallIndentation:
-  Enabled: false
-
 # Offense count: 6
 # Cop supports --auto-correct.
 Style/NumericLiterals:
