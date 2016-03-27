@@ -368,11 +368,6 @@ Style/SpecialGlobalVars:
 Style/StringLiterals:
   Enabled: false
 
-# Offense count: 1
-Style/StructInheritance:
-  Exclude:
-    - 'lib/dnsimple/client/clients.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
