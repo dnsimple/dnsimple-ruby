@@ -1,7 +1,7 @@
 require 'bundler/gem_tasks'
 
-# Run test by default.
-task :default => :spec
+# By default, run tests and linter.
+task default: [:spec, :rubocop]
 
 
 require 'rspec/core/rake_task'
