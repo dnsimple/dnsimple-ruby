@@ -11,13 +11,13 @@ module Dnsimple
   # @see https://developer.dnsimple.com/
   class Client
 
-    HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
-    HEADER_AUTHORIZATION = "Authorization"
-    WILDCARD_ACCOUNT = "_"
+    HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token".freeze
+    HEADER_AUTHORIZATION = "Authorization".freeze
+    WILDCARD_ACCOUNT = "_".freeze
 
 
     # @return [String] The current API version.
-    API_VERSION = "v2"
+    API_VERSION = "v2".freeze
 
 
     # Prepends the correct API version to +path+.
