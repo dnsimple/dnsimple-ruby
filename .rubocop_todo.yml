@@ -294,12 +294,6 @@ Style/PercentLiteralDelimiters:
 Style/RaiseArgs:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Exclude:
-    - 'lib/dnsimple/struct.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/RescueModifier:
