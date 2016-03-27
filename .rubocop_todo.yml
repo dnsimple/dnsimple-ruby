@@ -6,27 +6,9 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Discuss
+# I don't have a preference.
 Lint/Loop:
   Enabled: false
-
-# Offense count: 262
-# Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
-# URISchemes: http, https
-Metrics/LineLength:
-  Max: 235
-
-# Offense count: 4
-# Configuration parameters: CountComments.
-Metrics/MethodLength:
-  Max: 21
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: always, conditionals
-Style/AndOr:
-  EnforcedStyle: conditionals
 
 # Offense count: 29
 # Cop supports --auto-correct.
@@ -48,9 +30,7 @@ Style/BlockDelimiters:
     - 'spec/dnsimple/client_spec.rb'
     - 'spec/dnsimple/extra_spec.rb'
 
-# Offense count: 16
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
+# I'd rather use context_dependent, even if I'm not even sure we should enforce a style.
 # SupportedStyles: braces, no_braces, context_dependent
 Style/BracesAroundHashParameters:
   Enabled: false
@@ -59,37 +39,31 @@ Style/BracesAroundHashParameters:
 # Offense count: 39
 Style/Documentation:
   Enabled: false
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
+# I was a big fan of leading, but after I had some weird compile issues, I reverted
+# to trailing. Any proposal?
 # SupportedStyles: leading, trailing
 Style/DotPosition:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: MaxLineLength.
+# It doesn't seem to work as expected.
 Style/IfUnlessModifier:
-  Exclude:
-    - 'spec/spec_helper.rb'
+  Enabled: false
+  MaxLineLength: 80
 
-# Offense count: 3
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: compact, exploded
+# raise Foo, "bar" is cool, but when we have multiple args it collapses.
 Style/RaiseArgs:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles.
-# SupportedStyles: use_perl_names, use_english_names
+# I don't have a preference.
 Style/SpecialGlobalVars:
   EnforcedStyle: use_perl_names
 
-# Offense count: 736
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
+# We generally use double quotes, sometimes single quotes.
+# Should we enforce it at code level?
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false

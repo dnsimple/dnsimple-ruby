@@ -21,11 +21,41 @@ Lint/EndAlignment:
 # [codesmell]
 Metrics/AbcSize:
   Enabled: false
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
+
+# [codesmell]
+Metrics/ClassLength:
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
+
+# [codesmell]
+Metrics/MethodLength:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
+  Max: 15
+
+# [codesmell]
+Metrics/LineLength:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
+  Max: 100
 
 # [codesmell]
 # I don't really get the point of this cop.
 Performance/RedundantMerge:
   Enabled: false
+
+# Do not use "and" or "or" in conditionals, but for readability we can use it
+# to chain executions. Just beware of operator order.
+Style/AndOr:
+  EnforcedStyle: conditionals
 
 # Double empty lines are useful to separate conceptually different methods
 # in the same class or module.
@@ -37,6 +67,7 @@ Style/EmptyLinesAroundBlockBody:
     # RSpec is all made of blocks. Disable this config in RSpec
     # to be consistent with EmptyLinesAroundClassBody and EmptyLinesAroundModuleBody
     - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
 
 # In most cases, a space is nice. Sometimes, it's not.
 # Just be consistent with the rest of the surrounding code.
@@ -92,6 +123,7 @@ Style/NumericLiterals:
     # however tests can use numeric literals for method calls,
     # without the need to define a variable just for that.
     - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
 
 # There are cases were the inline rescue is ok. We can either downgrade the severity,
 # or rely on the developer judgement on a case-by-case basis.
