@@ -11,6 +11,11 @@ RSpec::Core::RakeTask.new do |t|
 end
 
 
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new
+
+
 require 'yard'
 
 YARD::Rake::YardocTask.new(:yardoc) do |y|
