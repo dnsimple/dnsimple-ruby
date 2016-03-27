@@ -94,23 +94,6 @@ Style/EmptyLinesAroundBlockBody:
     - 'spec/dnsimple/client_spec.rb'
     - 'spec/dnsimple/extra_spec.rb'
 
-# Offense count: 36
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: format, sprintf, percent
-Style/FormatString:
-  Exclude:
-    - 'lib/dnsimple/client/contacts.rb'
-    - 'lib/dnsimple/client/domains.rb'
-    - 'lib/dnsimple/client/domains_email_forwards.rb'
-    - 'lib/dnsimple/client/registrar.rb'
-    - 'lib/dnsimple/client/registrar_auto_renewal.rb'
-    - 'lib/dnsimple/client/registrar_whois_privacy.rb'
-    - 'lib/dnsimple/client/tlds.rb'
-    - 'lib/dnsimple/client/webhooks.rb'
-    - 'lib/dnsimple/client/zones.rb'
-    - 'lib/dnsimple/client/zones_records.rb'
-    - 'spec/dnsimple/client/client_service_spec.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, UseHashRocketsWithSymbolValues.

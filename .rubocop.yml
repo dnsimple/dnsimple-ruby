@@ -42,6 +42,12 @@ Style/EmptyLinesAroundClassBody:
 Style/EmptyLinesAroundModuleBody:
   Enabled: false
 
+# I personally don't care about the format style.
+# In most cases I like to use %, but not at the point I want to enforce it
+# as a convention in the entire code.
+Style/FormatString:
+  Enabled: false
+
 # Array indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
 Style/IndentArray:
@@ -63,6 +69,7 @@ Style/NegatedIf:
 
 # Magic numbers are not welcomed
 Style/NumericLiterals:
+  Exclude:
     # however tests can use numeric literals for method calls,
     # without the need to define a variable just for that.
     - 'spec/**/*_spec.rb'
