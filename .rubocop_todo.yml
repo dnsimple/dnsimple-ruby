@@ -109,25 +109,6 @@ Style/EmptyLinesAroundBlockBody:
     - 'spec/dnsimple/client_spec.rb'
     - 'spec/dnsimple/extra_spec.rb'
 
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundClassBody:
-  Exclude:
-    - 'lib/dnsimple/client.rb'
-    - 'lib/dnsimple/client/clients.rb'
-    - 'lib/dnsimple/default.rb'
-    - 'lib/dnsimple/response.rb'
-    - 'lib/dnsimple/struct/extended_attribute.rb'
-
-# Offense count: 62
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundModuleBody:
-  Enabled: false
-
 # Offense count: 36
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: format, sprintf, percent

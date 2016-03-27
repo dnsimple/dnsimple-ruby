@@ -23,6 +23,16 @@ Lint/EndAlignment:
 Performance/RedundantMerge:
   Enabled: false
 
+# In most cases, a space is nice. Sometimes, it's not.
+# Just be consistent with the rest of the surrounding code.
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+
+# In most cases, a space is nice. Sometimes, it's not.
+# Just be consistent with the rest of the surrounding code.
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+
 # Array indentation should be considered like multi-line indentation
 # and use 4 spaces instead of 2.
 Style/IndentArray:
