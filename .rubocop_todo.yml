@@ -258,12 +258,3 @@ Style/SpecialGlobalVars:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
-# SupportedStyles: comma, consistent_comma, no_comma
-Style/TrailingCommaInLiteral:
-  Exclude:
-    - 'lib/dnsimple/client.rb'
-    - 'lib/dnsimple/default.rb'

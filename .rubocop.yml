@@ -27,3 +27,8 @@ Performance/RedundantMerge:
 # or rely on the developer judgement on a case-by-case basis.
 Style/RescueModifier:
   Enabled: false
+
+# It's nice to be consistent. The trailing comma also allows easy reordering,
+# and doesn't cause a diff in Git when you add a line to the bottom.
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: consistent_comma

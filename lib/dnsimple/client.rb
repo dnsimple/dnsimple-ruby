@@ -174,7 +174,7 @@ module Dnsimple
           format:   :json,
           headers:  {
             'Accept' => 'application/json',
-            'User-Agent' => user_agent
+            'User-Agent' => user_agent,
           },
       }
 
