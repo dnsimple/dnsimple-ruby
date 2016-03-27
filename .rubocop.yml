@@ -19,6 +19,10 @@ Lint/EndAlignment:
   AlignWith: variable
 
 # [codesmell]
+Metrics/AbcSize:
+  Enabled: false
+
+# [codesmell]
 # I don't really get the point of this cop.
 Performance/RedundantMerge:
   Enabled: false

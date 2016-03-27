@@ -6,14 +6,9 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
+# Discuss
 Lint/Loop:
-  Exclude:
-    - 'lib/dnsimple/client/clients.rb'
-
-# Offense count: 1
-Metrics/AbcSize:
-  Max: 18
+  Enabled: false
 
 # Offense count: 262
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
