@@ -5,6 +5,19 @@ AllCops:
     # Exclude .gemspec files because they are generally auto-generated
     - '*.gemspec'
 
+# Generally, the keyword style uses a lot of space. This is particularly true when
+# you use case/if statements, in combination with a long-name variable.
+#
+#   invoice_error_message = case error
+#                           when 1 == 1
+#                             do_something
+#                           else
+#                             do_else
+#                           end
+#
+Lint/EndAlignment:
+  AlignWith: variable
+
 # There are cases were the inline rescue is ok. We can either downgrade the severity,
 # or rely on the developer judgement on a case-by-case basis.
 Style/RescueModifier:
