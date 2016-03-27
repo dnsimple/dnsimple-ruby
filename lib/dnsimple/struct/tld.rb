@@ -7,7 +7,7 @@ module Dnsimple
 
       # @return [Fixnum] The TLD type.
       attr_accessor :tld_type
-      
+
       # @return [Boolean] True if Whois Privacy Protection is available.
       attr_accessor :whois_privacy
 

@@ -47,7 +47,7 @@ describe Dnsimple::Client, ".webhooks" do
           .to_return(read_http_fixture("createWebhook/created.http"))
     end
 
-    let(:attributes) { {url: "https://webhook.test"} }
+    let(:attributes) { { url: "https://webhook.test" } }
 
     it "builds the correct request" do
       subject.create_webhook(account_id, attributes)

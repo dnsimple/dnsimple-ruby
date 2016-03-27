@@ -40,7 +40,7 @@ describe Dnsimple::Client, ".registrar" do
       end
     end
   end
-  
+
   describe "#disable_auto_renewal" do
     let(:account_id) { 1010 }
     let(:domain_id) { "example.com" }

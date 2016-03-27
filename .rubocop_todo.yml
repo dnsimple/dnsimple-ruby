@@ -59,8 +59,7 @@ Style/Alias:
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: always, conditionals
 Style/AndOr:
-  Exclude:
-    - 'lib/dnsimple/extra.rb'
+  EnforcedStyle: conditionals
 
 # Offense count: 29
 # Cop supports --auto-correct.
@@ -309,44 +308,10 @@ Style/RescueModifier:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/SpaceAfterColon:
-  Exclude:
-    - 'spec/dnsimple/client/oauth_spec.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: space, no_space
-Style/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Style/SpaceAroundOperators:
-  Exclude:
-    - 'lib/dnsimple/default.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment.
 Style/SpaceBeforeFirstArg:
   Exclude:
     - 'dnsimple.gemspec'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-# SupportedStyles: space, no_space
-Style/SpaceInsideBlockBraces:
-  Enabled: false
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, EnforcedStyleForEmptyBraces, SupportedStyles.
-# SupportedStyles: space, no_space
-Style/SpaceInsideHashLiteralBraces:
-  Enabled: false
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -370,10 +335,3 @@ Style/TrailingCommaInLiteral:
   Exclude:
     - 'lib/dnsimple/client.rb'
     - 'lib/dnsimple/default.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/TrailingWhitespace:
-  Exclude:
-    - 'lib/dnsimple/struct/tld.rb'
-    - 'spec/dnsimple/client/registrar_auto_renewal_spec.rb'

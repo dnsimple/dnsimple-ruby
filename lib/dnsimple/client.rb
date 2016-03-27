@@ -83,7 +83,7 @@ module Dnsimple
     # @param  [Hash] data The body for the request
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def post(path, data = nil, options= {})
+    def post(path, data = nil, options = {})
       execute :post, path, data, options
     end
 

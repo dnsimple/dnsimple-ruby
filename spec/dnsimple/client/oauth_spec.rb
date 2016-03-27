@@ -37,7 +37,7 @@ describe Dnsimple::Client, ".oauth" do
       let(:redirect_uri) { "super-redirect-uri" }
 
       it "builds the correct request" do
-        subject.exchange_authorization_for_token(code, client_id, client_secret, state:state, redirect_uri: redirect_uri)
+        subject.exchange_authorization_for_token(code, client_id, client_secret, state: state, redirect_uri: redirect_uri)
 
         expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token")
             .with(body: { client_id: client_id, client_secret: client_secret, code: code, state: state, redirect_uri: redirect_uri, grant_type: "authorization_code" })
