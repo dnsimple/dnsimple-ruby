@@ -178,13 +178,6 @@ Style/IndentArray:
 Style/IndentHash:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: Width.
-Style/IndentationWidth:
-  Exclude:
-    - 'lib/dnsimple/extra.rb'
-
 # Offense count: 135
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, IndentationWidth.
