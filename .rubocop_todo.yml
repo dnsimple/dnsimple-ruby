@@ -73,11 +73,6 @@ Style/DotPosition:
   Enabled: false
 
 # Offense count: 1
-Style/DoubleNegation:
-  Exclude:
-    - 'Rakefile'
-
-# Offense count: 1
 # Cop supports --auto-correct.
 Style/ElseAlignment:
   Exclude:
