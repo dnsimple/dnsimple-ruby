@@ -79,15 +79,8 @@ Style/BlockDelimiters:
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: braces, no_braces, context_dependent
 Style/BracesAroundHashParameters:
-  Exclude:
-    - 'lib/dnsimple/client/identity.rb'
-    - 'spec/dnsimple/client/contacts_spec.rb'
-    - 'spec/dnsimple/client/domains_email_forwards_spec.rb'
-    - 'spec/dnsimple/client/domains_spec.rb'
-    - 'spec/dnsimple/client/tlds_spec.rb'
-    - 'spec/dnsimple/client/zones_records_spec.rb'
-    - 'spec/dnsimple/client/zones_spec.rb'
-    - 'spec/dnsimple/client_spec.rb'
+  Enabled: false
+  EnforcedStyle: context_dependent
 
 # Offense count: 2
 # Cop supports --auto-correct.
