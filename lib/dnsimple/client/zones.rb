@@ -23,8 +23,8 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Zone.new(r) })
       end
-      alias :list :zones
-      alias :list_zones :zones
+      alias list zones
+      alias list_zones zones
 
       # Lists ALL the zones in the account.
       #

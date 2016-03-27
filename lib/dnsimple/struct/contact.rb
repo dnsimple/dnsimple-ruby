@@ -56,8 +56,8 @@ module Dnsimple
       # @return [String] When the contact was last updated in DNSimple.
       attr_accessor :updated_at
 
-      alias :email_address :email
-      alias :email_address= :email=
+      alias email_address email
+      alias email_address= email=
     end
 
   end

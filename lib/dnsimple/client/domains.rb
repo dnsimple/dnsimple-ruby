@@ -23,8 +23,8 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Domain.new(r) })
       end
-      alias :list :domains
-      alias :list_domains :domains
+      alias list domains
+      alias list_domains domains
 
       # Lists ALL the domains in the account.
       #
@@ -45,7 +45,7 @@ module Dnsimple
       def all_domains(account_id, options = {})
         paginate(:domains, account_id, options)
       end
-      alias :all :all_domains
+      alias all all_domains
 
       # Creates a domain in the account.
       #
@@ -64,7 +64,7 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
       end
-      alias :create :create_domain
+      alias create create_domain
 
       # Gets a domain from the account.
       #
@@ -101,7 +101,7 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-      alias :delete :delete_domain
+      alias delete delete_domain
 
       # Resets the domain token.
       #

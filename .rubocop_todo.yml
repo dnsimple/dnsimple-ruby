@@ -33,20 +33,6 @@ Performance/RedundantMerge:
   Exclude:
     - 'lib/dnsimple/client.rb'
 
-# Offense count: 23
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: prefer_alias, prefer_alias_method
-Style/Alias:
-  Exclude:
-    - 'lib/dnsimple/client/contacts.rb'
-    - 'lib/dnsimple/client/domains.rb'
-    - 'lib/dnsimple/client/tlds.rb'
-    - 'lib/dnsimple/client/webhooks.rb'
-    - 'lib/dnsimple/client/zones.rb'
-    - 'lib/dnsimple/client/zones_records.rb'
-    - 'lib/dnsimple/struct/contact.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

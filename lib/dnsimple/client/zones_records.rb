@@ -24,7 +24,7 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Record.new(r) })
       end
-      alias :list_records :records
+      alias list_records records
 
       # Lists ALL the zone records in the account.
       #
