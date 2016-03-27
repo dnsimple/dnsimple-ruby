@@ -82,12 +82,6 @@ Style/BracesAroundHashParameters:
   Enabled: false
   EnforcedStyle: context_dependent
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/DeprecatedHashMethods:
-  Exclude:
-    - 'lib/dnsimple/client/oauth.rb'
-
 # Offense count: 39
 Style/Documentation:
   Enabled: false
