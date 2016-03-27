@@ -57,6 +57,12 @@ Performance/RedundantMerge:
 Style/AndOr:
   EnforcedStyle: conditionals
 
+# braces_for_chaining seems a good fit of what we've been doing so far.
+Style/BlockDelimiters:
+  EnforcedStyle: braces_for_chaining
+  IgnoredMethods:
+    - expect
+
 # Double empty lines are useful to separate conceptually different methods
 # in the same class or module.
 Style/EmptyLines:

@@ -10,26 +10,6 @@
 Lint/Loop:
   Enabled: false
 
-# Offense count: 29
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods, FunctionalMethods, IgnoredMethods.
-# SupportedStyles: line_count_based, semantic, braces_for_chaining
-# ProceduralMethods: benchmark, bm, bmbm, create, each_with_object, measure, new, realtime, tap, with_object
-# FunctionalMethods: let, let!, subject, watch
-# IgnoredMethods: lambda, proc, it
-Style/BlockDelimiters:
-  Exclude:
-    - 'spec/dnsimple/client/contacts_spec.rb'
-    - 'spec/dnsimple/client/domains_email_forwards_spec.rb'
-    - 'spec/dnsimple/client/domains_spec.rb'
-    - 'spec/dnsimple/client/registrar_auto_renewal_spec.rb'
-    - 'spec/dnsimple/client/registrar_spec.rb'
-    - 'spec/dnsimple/client/webhooks_spec.rb'
-    - 'spec/dnsimple/client/zones_records_spec.rb'
-    - 'spec/dnsimple/client/zones_spec.rb'
-    - 'spec/dnsimple/client_spec.rb'
-    - 'spec/dnsimple/extra_spec.rb'
-
 # I'd rather use context_dependent, even if I'm not even sure we should enforce a style.
 # SupportedStyles: braces, no_braces, context_dependent
 Style/BracesAroundHashParameters:
