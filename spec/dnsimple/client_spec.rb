@@ -26,7 +26,7 @@ describe Dnsimple::Client do
 
   describe "authentication" do
     it "uses HTTP authentication if there's a password provided" do
-      stub_request(:any, %r[/test])
+      stub_request(:any, %r{/test})
 
       subject = described_class.new(username: "user", password: "pass")
       subject.execute(:get, "test", {})
@@ -35,7 +35,7 @@ describe Dnsimple::Client do
     end
 
     it "uses header authentication if there's a domain api token provided" do
-      stub_request(:any, %r[/test])
+      stub_request(:any, %r{/test})
 
       subject = described_class.new(domain_api_token: "domaintoken")
       subject.execute(:get, "test", {})
@@ -45,7 +45,7 @@ describe Dnsimple::Client do
     end
 
     it "uses access token if there's an access token provided" do
-      stub_request(:any, %r[/test])
+      stub_request(:any, %r{/test})
 
       subject = described_class.new(access_token: "access-token")
       subject.execute(:get, "test", {})
@@ -102,7 +102,7 @@ describe Dnsimple::Client do
     subject { described_class.new(username: "user", password: "pass") }
 
     it "raises RequestError in case of error" do
-      stub_request(:get, %r[/foo]).
+      stub_request(:get, %r{/foo}).
           to_return(status: [500, "Internal Server Error"])
 
       expect {
@@ -115,7 +115,7 @@ describe Dnsimple::Client do
     subject { described_class.new(username: "user", password: "pass") }
 
     it "performs a request" do
-      stub_request(:get, %r[/foo])
+      stub_request(:get, %r{/foo})
 
       subject.request(:get, 'foo', {})
 
@@ -124,7 +124,7 @@ describe Dnsimple::Client do
     end
 
     it "delegates to HTTParty" do
-      stub_request(:get, %r[/foo])
+      stub_request(:get, %r{/foo})
 
       expect(HTTParty).to receive(:get).
           with(

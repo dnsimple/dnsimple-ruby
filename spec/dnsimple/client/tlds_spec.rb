@@ -5,7 +5,7 @@ describe Dnsimple::Client, ".tlds" do
 
   describe "#tlds" do
     before do
-      stub_request(:get, %r[/v2/tlds])
+      stub_request(:get, %r{/v2/tlds})
           .to_return(read_http_fixture("listTlds/success.http"))
     end
 
@@ -62,7 +62,7 @@ describe Dnsimple::Client, ".tlds" do
 
   describe "#tld" do
     before do
-      stub_request(:get, %r[/v2/tlds/.+$])
+      stub_request(:get, %r{/v2/tlds/.+$})
           .to_return(read_http_fixture("getTld/success.http"))
     end
 
@@ -89,7 +89,7 @@ describe Dnsimple::Client, ".tlds" do
 
   describe "#extended_attributes" do
     before do
-      stub_request(:get, %r[/v2/tlds/uk/extended_attributes$])
+      stub_request(:get, %r{/v2/tlds/uk/extended_attributes$})
           .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
     end
 
@@ -122,7 +122,7 @@ describe Dnsimple::Client, ".tlds" do
 
     context "when there are no extended attributes for a TLD" do
       before do
-        stub_request(:get, %r[/v2/tlds/com/extended_attributes$])
+        stub_request(:get, %r{/v2/tlds/com/extended_attributes$})
             .to_return(read_http_fixture("getTldExtendedAttributes/success-noattributes.http"))
       end
 

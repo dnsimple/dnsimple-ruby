@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/registrar/domains/.+/check$])
+      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/check$})
           .to_return(read_http_fixture("checkDomain/success.http"))
     end
 
@@ -36,7 +36,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/registration$])
+      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/registration$})
           .to_return(read_http_fixture("registerDomain/success.http"))
     end
 
@@ -70,7 +70,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/renew$])
+      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/renew$})
           .to_return(read_http_fixture("renewDomain/success.http"))
     end
 
@@ -95,7 +95,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when it is too son for the domain to be renewed" do
       it "raises a BadRequestError" do
-        stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/renew$])
+        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/renew$})
             .to_return(read_http_fixture("renewDomain/error-tooearly.http"))
 
         expect {
@@ -109,7 +109,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/transfer$])
+      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfer$})
           .to_return(read_http_fixture("transferDomain/success.http"))
     end
 
@@ -141,7 +141,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the domain is already in DNSimple" do
       it "raises a BadRequestError" do
-        stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/transfer$])
+        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfer$})
             .to_return(read_http_fixture("transferDomain/error-indnsimple.http"))
 
         expect {
@@ -152,7 +152,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when :auth_info wasn't provided and is required by the TLD" do
       it "raises a BadRequestError" do
-        stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/transfer$])
+        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfer$})
             .to_return(read_http_fixture("transferDomain/error-missing-authcode.http"))
 
         expect {
@@ -166,7 +166,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/registrar/domains/.+/transfer_out$])
+      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfer_out$})
           .to_return(read_http_fixture("transferDomainOut/success.http"))
     end
 

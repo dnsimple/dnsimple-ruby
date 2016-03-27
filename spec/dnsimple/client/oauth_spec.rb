@@ -11,7 +11,7 @@ describe Dnsimple::Client, ".oauth" do
     let(:code) { "super-code" }
 
     before do
-      stub_request(:post, %r[/v2/oauth/access_token$])
+      stub_request(:post, %r{/v2/oauth/access_token$})
           .to_return(read_http_fixture("oauthAccessToken/success.http"))
     end
 

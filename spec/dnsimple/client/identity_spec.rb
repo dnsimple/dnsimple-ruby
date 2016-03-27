@@ -7,7 +7,7 @@ describe Dnsimple::Client, ".identity" do
 
   describe "#whoami" do
     before do
-      stub_request(:get, %r[/v2/whoami$])
+      stub_request(:get, %r{/v2/whoami$})
           .to_return(read_http_fixture("whoami/success.http"))
     end
 
@@ -28,7 +28,7 @@ describe Dnsimple::Client, ".identity" do
 
     context "when authenticated as account" do
       before do
-        stub_request(:get, %r[/v2/whoami$])
+        stub_request(:get, %r{/v2/whoami$})
             .to_return(read_http_fixture("whoami/success_account.http"))
       end
 
@@ -41,7 +41,7 @@ describe Dnsimple::Client, ".identity" do
 
     context "when authenticated as user" do
       before do
-        stub_request(:get, %r[/v2/whoami$])
+        stub_request(:get, %r{/v2/whoami$})
             .to_return(read_http_fixture("whoami/success_user.http"))
       end
 

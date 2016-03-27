@@ -142,27 +142,6 @@ Style/MultilineMethodCallIndentation:
 Style/NumericLiterals:
   MinDigits: 7
 
-# Offense count: 78
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'spec/dnsimple/client/client_service_spec.rb'
-    - 'spec/dnsimple/client/contacts_spec.rb'
-    - 'spec/dnsimple/client/domains_email_forwards_spec.rb'
-    - 'spec/dnsimple/client/domains_spec.rb'
-    - 'spec/dnsimple/client/identity_spec.rb'
-    - 'spec/dnsimple/client/oauth_spec.rb'
-    - 'spec/dnsimple/client/registrar_auto_renewal_spec.rb'
-    - 'spec/dnsimple/client/registrar_spec.rb'
-    - 'spec/dnsimple/client/registrar_whois_privacy_spec.rb'
-    - 'spec/dnsimple/client/tlds_spec.rb'
-    - 'spec/dnsimple/client/webhooks_spec.rb'
-    - 'spec/dnsimple/client/zones_records_spec.rb'
-    - 'spec/dnsimple/client/zones_spec.rb'
-    - 'spec/dnsimple/client_spec.rb'
-    - 'spec/dnsimple/extra_spec.rb'
-
 # Offense count: 3
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: compact, exploded

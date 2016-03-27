@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".zones" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/zones])
+      stub_request(:get, %r{/v2/#{account_id}/zones})
           .to_return(read_http_fixture("listZones/success.http"))
     end
 
@@ -69,7 +69,7 @@ describe Dnsimple::Client, ".zones" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/zones/.+$])
+      stub_request(:get, %r{/v2/#{account_id}/zones/.+$})
           .to_return(read_http_fixture("getZone/success.http"))
     end
 
@@ -96,7 +96,7 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r[/v2])
+        stub_request(:get, %r{/v2})
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {

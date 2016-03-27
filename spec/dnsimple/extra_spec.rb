@@ -22,7 +22,7 @@ describe Dnsimple::Extra do
   end
 
   describe ".validate_mandatory_attributes" do
-    let(:mandatory_attributes) { %i{name email} }
+    let(:mandatory_attributes) { %i(name email) }
 
     it "raises an error if a mandatory attribute is not present " do
       expect {

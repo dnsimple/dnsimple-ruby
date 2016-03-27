@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
+      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy$})
           .to_return(read_http_fixture("getWhoisPrivacy/success.http"))
     end
 
@@ -37,7 +37,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the whois privacy had already been purchased" do
       before do
-        stub_request(:put, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
+        stub_request(:put, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy$})
             .to_return(read_http_fixture("enableWhoisPrivacy/success.http"))
       end
 
@@ -63,7 +63,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the whois privacy is newly purchased" do
       before do
-        stub_request(:put, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
+        stub_request(:put, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy$})
             .to_return(read_http_fixture("enableWhoisPrivacy/created.http"))
       end
 
@@ -93,7 +93,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:delete, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
+      stub_request(:delete, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy$})
           .to_return(read_http_fixture("disableWhoisPrivacy/success.http"))
     end
 

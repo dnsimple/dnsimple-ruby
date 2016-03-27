@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".domains" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/domains])
+      stub_request(:get, %r{/v2/#{account_id}/domains})
           .to_return(read_http_fixture("listDomains/success.http"))
     end
 
@@ -69,7 +69,7 @@ describe Dnsimple::Client, ".domains" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/domains$])
+      stub_request(:post, %r{/v2/#{account_id}/domains$})
           .to_return(read_http_fixture("createDomain/created.http"))
     end
 
@@ -97,7 +97,7 @@ describe Dnsimple::Client, ".domains" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/domains/.+$])
+      stub_request(:get, %r{/v2/#{account_id}/domains/.+$})
           .to_return(read_http_fixture("getDomain/success.http"))
     end
 
@@ -128,7 +128,7 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the domain does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r[/v2])
+        stub_request(:get, %r{/v2})
             .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {
@@ -142,7 +142,7 @@ describe Dnsimple::Client, ".domains" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:delete, %r[/v2/#{account_id}/domains/.+$])
+      stub_request(:delete, %r{/v2/#{account_id}/domains/.+$})
           .to_return(read_http_fixture("deleteDomain/success.http"))
     end
 
@@ -163,7 +163,7 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the domain does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r[/v2])
+        stub_request(:delete, %r{/v2})
             .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {
@@ -178,7 +178,7 @@ describe Dnsimple::Client, ".domains" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/domains/#{domain_id}/token])
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/token})
           .to_return(read_http_fixture("resetDomainToken/success.http"))
     end
 

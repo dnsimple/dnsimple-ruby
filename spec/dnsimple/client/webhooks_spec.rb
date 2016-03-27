@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".webhooks" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/webhooks])
+      stub_request(:get, %r{/v2/#{account_id}/webhooks})
           .to_return(read_http_fixture("listWebhooks/success.http"))
     end
 
@@ -43,7 +43,7 @@ describe Dnsimple::Client, ".webhooks" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/webhooks$])
+      stub_request(:post, %r{/v2/#{account_id}/webhooks$})
           .to_return(read_http_fixture("createWebhook/created.http"))
     end
 
@@ -71,7 +71,7 @@ describe Dnsimple::Client, ".webhooks" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/webhooks/.+$])
+      stub_request(:get, %r{/v2/#{account_id}/webhooks/.+$})
           .to_return(read_http_fixture("getWebhook/success.http"))
     end
 
@@ -94,7 +94,7 @@ describe Dnsimple::Client, ".webhooks" do
 
     context "when the webhook does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r[/v2])
+        stub_request(:get, %r{/v2})
             .to_return(read_http_fixture("notfound-webhook.http"))
 
         expect {
@@ -108,7 +108,7 @@ describe Dnsimple::Client, ".webhooks" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:delete, %r[/v2/#{account_id}/webhooks/.+$])
+      stub_request(:delete, %r{/v2/#{account_id}/webhooks/.+$})
           .to_return(read_http_fixture("deleteWebhook/success.http"))
     end
 
@@ -129,7 +129,7 @@ describe Dnsimple::Client, ".webhooks" do
 
     context "when the webhook does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r[/v2])
+        stub_request(:delete, %r{/v2})
             .to_return(read_http_fixture("notfound-webhook.http"))
 
         expect {

@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:put, %r[/v2/#{account_id}/registrar/domains/#{domain_id}])
+      stub_request(:put, %r{/v2/#{account_id}/registrar/domains/#{domain_id}})
           .to_return(read_http_fixture("enableAutoRenewal/success.http"))
     end
 
@@ -31,7 +31,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the domain does not exist" do
       it "raises NotFoundError" do
-        stub_request(:put, %r[/v2])
+        stub_request(:put, %r{/v2})
             .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {
@@ -46,7 +46,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:delete, %r[/v2/#{account_id}/registrar/domains/#{domain_id}])
+      stub_request(:delete, %r{/v2/#{account_id}/registrar/domains/#{domain_id}})
           .to_return(read_http_fixture("disableAutoRenewal/success.http"))
     end
 
@@ -68,7 +68,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the domain does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r[/v2])
+        stub_request(:delete, %r{/v2})
             .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {

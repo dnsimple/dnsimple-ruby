@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".contacts" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/contacts])
+      stub_request(:get, %r{/v2/#{account_id}/contacts})
           .to_return(read_http_fixture("listContacts/success.http"))
     end
 
@@ -69,7 +69,7 @@ describe Dnsimple::Client, ".contacts" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/contacts$])
+      stub_request(:post, %r{/v2/#{account_id}/contacts$})
           .to_return(read_http_fixture("createContact/created.http"))
     end
 
@@ -97,7 +97,7 @@ describe Dnsimple::Client, ".contacts" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/contacts/.+$])
+      stub_request(:get, %r{/v2/#{account_id}/contacts/.+$})
           .to_return(read_http_fixture("getContact/success.http"))
     end
 
@@ -122,7 +122,7 @@ describe Dnsimple::Client, ".contacts" do
 
     context "when the contact does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r[/v2])
+        stub_request(:get, %r{/v2})
             .to_return(read_http_fixture("notfound-contact.http"))
 
         expect {
@@ -136,7 +136,7 @@ describe Dnsimple::Client, ".contacts" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:patch, %r[/v2/#{account_id}/contacts/.+$])
+      stub_request(:patch, %r{/v2/#{account_id}/contacts/.+$})
           .to_return(read_http_fixture("updateContact/success.http"))
     end
 
@@ -161,7 +161,7 @@ describe Dnsimple::Client, ".contacts" do
 
     context "when the contact does not exist" do
       it "raises NotFoundError" do
-        stub_request(:patch, %r[/v2])
+        stub_request(:patch, %r{/v2})
             .to_return(read_http_fixture("notfound-contact.http"))
 
         expect {
@@ -175,7 +175,7 @@ describe Dnsimple::Client, ".contacts" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:delete, %r[/v2/#{account_id}/contacts/.+$])
+      stub_request(:delete, %r{/v2/#{account_id}/contacts/.+$})
           .to_return(read_http_fixture("deleteContact/success.http"))
     end
 
@@ -196,7 +196,7 @@ describe Dnsimple::Client, ".contacts" do
 
     context "when the contact does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r[/v2])
+        stub_request(:delete, %r{/v2})
             .to_return(read_http_fixture("notfound-contact.http"))
 
         expect {

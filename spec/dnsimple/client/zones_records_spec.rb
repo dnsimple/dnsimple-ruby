@@ -10,7 +10,7 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/zones/#{zone_id}/records])
+      stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records})
           .to_return(read_http_fixture("listZoneRecords/success.http"))
     end
 
@@ -58,7 +58,7 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r[/v2])
+        stub_request(:get, %r{/v2})
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
@@ -83,7 +83,7 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     before do
-      stub_request(:post, %r[/v2/#{account_id}/zones/#{zone_id}/records$])
+      stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/records$})
           .to_return(read_http_fixture("createZoneRecord/created.http"))
     end
 
@@ -108,7 +108,7 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:post, %r[/v2])
+        stub_request(:post, %r{/v2})
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
@@ -123,7 +123,7 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
+      stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$})
           .to_return(read_http_fixture("getZoneRecord/success.http"))
     end
 
@@ -155,7 +155,7 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r[/v2])
+        stub_request(:get, %r{/v2})
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
@@ -166,7 +166,7 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the record does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r[/v2])
+        stub_request(:get, %r{/v2})
             .to_return(read_http_fixture("notfound-record.http"))
 
         expect {
@@ -181,7 +181,7 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     before do
-      stub_request(:patch, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
+      stub_request(:patch, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$})
           .to_return(read_http_fixture("updateZoneRecord/success.http"))
     end
 
@@ -206,7 +206,7 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:patch, %r[/v2])
+        stub_request(:patch, %r{/v2})
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
@@ -217,7 +217,7 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the record does not exist" do
       it "raises NotFoundError" do
-        stub_request(:patch, %r[/v2])
+        stub_request(:patch, %r{/v2})
             .to_return(read_http_fixture("notfound-record.http"))
 
         expect {
@@ -232,7 +232,7 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     before do
-      stub_request(:delete, %r[/v2/#{account_id}/zones/#{zone_id}/records/.+$])
+      stub_request(:delete, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$})
           .to_return(read_http_fixture("deleteZoneRecord/success.http"))
     end
 
@@ -253,7 +253,7 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r[/v2])
+        stub_request(:delete, %r{/v2})
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
@@ -264,7 +264,7 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the record does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r[/v2])
+        stub_request(:delete, %r{/v2})
             .to_return(read_http_fixture("notfound-record.http"))
 
         expect {
