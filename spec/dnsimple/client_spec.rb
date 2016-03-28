@@ -103,11 +103,11 @@ describe Dnsimple::Client do
 
     it "raises RequestError in case of error" do
       stub_request(:get, %r[/foo]).
-          to_return(status: [500, "Internal Server Error"])
+          to_return(status: 500, body: '{"message": "Internal Server Error"}')
 
       expect {
         subject.execute(:get, "foo", {})
-      }.to raise_error(Dnsimple::RequestError, "500")
+      }.to raise_error(Dnsimple::RequestError, "Internal Server Error")
     end
   end
 
