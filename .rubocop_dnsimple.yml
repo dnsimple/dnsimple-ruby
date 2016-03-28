@@ -62,6 +62,10 @@ Style/BlockDelimiters:
   IgnoredMethods:
     - expect
 
+# I'd rather use context_dependent, even if I'm not even sure we should enforce a style.
+Style/BracesAroundHashParameters:
+  EnforcedStyle: context_dependent
+
 # I was a big fan of leading, but trailing seems to be more commonly adopted.
 # At least at the time being.
 Style/DotPosition:

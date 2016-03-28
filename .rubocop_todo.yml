@@ -10,12 +10,6 @@
 Lint/Loop:
   Enabled: false
 
-# I'd rather use context_dependent, even if I'm not even sure we should enforce a style.
-# SupportedStyles: braces, no_braces, context_dependent
-Style/BracesAroundHashParameters:
-  Enabled: false
-  EnforcedStyle: context_dependent
-
 # Offense count: 39
 Style/Documentation:
   Enabled: false

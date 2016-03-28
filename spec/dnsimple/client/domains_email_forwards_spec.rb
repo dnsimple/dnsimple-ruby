@@ -73,8 +73,8 @@ describe Dnsimple::Client, ".domains" do
     let(:domain_id) { "example.com" }
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:email_forwards, account_id, domain_id, { foo: "bar" })
-      subject.all_email_forwards(account_id, domain_id, { foo: "bar" })
+      expect(subject).to receive(:paginate).with(:email_forwards, account_id, domain_id, foo: "bar")
+      subject.all_email_forwards(account_id, domain_id, foo: "bar")
     end
   end
 
