@@ -9,7 +9,7 @@ module Dnsimple
 
     def initialize(http_response)
       @http_response = http_response
-      super(http_response.code.to_s)
+      super(http_response.parsed_response["message"])
     end
   end
 
