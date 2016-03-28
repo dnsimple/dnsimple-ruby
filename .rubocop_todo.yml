@@ -10,8 +10,8 @@
 Lint/Loop:
   Enabled: false
 
-# Offense count: 39
 Style/Documentation:
+  # Silence this check for now until we fix it.
   Enabled: false
   Exclude:
     - 'spec/**/*'
@@ -21,17 +21,3 @@ Style/Documentation:
 Style/IfUnlessModifier:
   Enabled: false
   MaxLineLength: 80
-
-# raise Foo, "bar" is cool, but when we have multiple args it collapses.
-Style/RaiseArgs:
-  Enabled: false
-
-# I don't have a preference.
-Style/SpecialGlobalVars:
-  EnforcedStyle: use_perl_names
-
-# We generally use double quotes, sometimes single quotes.
-# Should we enforce it at code level?
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false

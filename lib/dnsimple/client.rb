@@ -134,11 +134,11 @@ module Dnsimple
       when 200..299
         response
       when 401
-        raise AuthenticationFailed.new(response["message"])
+        raise AuthenticationFailed, response["message"]
       when 404
-        raise NotFoundError.new(response)
+        raise NotFoundError, response
       else
-        raise RequestError.new(response)
+        raise RequestError, response
       end
     end
 
