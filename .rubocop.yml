@@ -38,7 +38,7 @@ Metrics/MethodLength:
   Exclude:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
-  Max: 15
+  Max: 10
 
 # [codesmell]
 Metrics/LineLength:
