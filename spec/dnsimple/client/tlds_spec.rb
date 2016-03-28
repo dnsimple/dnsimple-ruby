@@ -5,15 +5,15 @@ describe Dnsimple::Client, ".tlds" do
 
   describe "#tlds" do
     before do
-      stub_request(:get, %r{/v2/tlds})
-          .to_return(read_http_fixture("listTlds/success.http"))
+      stub_request(:get, %r{/v2/tlds}).
+          to_return(read_http_fixture("listTlds/success.http"))
     end
 
     it "builds the correct request" do
       subject.tlds
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds")
-          .with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds").
+          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
@@ -62,15 +62,15 @@ describe Dnsimple::Client, ".tlds" do
 
   describe "#tld" do
     before do
-      stub_request(:get, %r{/v2/tlds/.+$})
-          .to_return(read_http_fixture("getTld/success.http"))
+      stub_request(:get, %r{/v2/tlds/.+$}).
+          to_return(read_http_fixture("getTld/success.http"))
     end
 
     it "builds the correct request" do
       subject.tld(tld = "com")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}")
-          .with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}").
+          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the tld" do
@@ -89,15 +89,15 @@ describe Dnsimple::Client, ".tlds" do
 
   describe "#extended_attributes" do
     before do
-      stub_request(:get, %r{/v2/tlds/uk/extended_attributes$})
-          .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
+      stub_request(:get, %r{/v2/tlds/uk/extended_attributes$}).
+          to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
     end
 
     it "builds the correct request" do
       subject.extended_attributes(tld = "uk")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}/extended_attributes")
-          .with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}/extended_attributes").
+          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the extended attributes" do
@@ -122,8 +122,8 @@ describe Dnsimple::Client, ".tlds" do
 
     context "when there are no extended attributes for a TLD" do
       before do
-        stub_request(:get, %r{/v2/tlds/com/extended_attributes$})
-            .to_return(read_http_fixture("getTldExtendedAttributes/success-noattributes.http"))
+        stub_request(:get, %r{/v2/tlds/com/extended_attributes$}).
+            to_return(read_http_fixture("getTldExtendedAttributes/success-noattributes.http"))
       end
 
       it "returns an empty CollectionResponse" do

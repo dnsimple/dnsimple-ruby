@@ -9,15 +9,15 @@ describe Dnsimple::Client, ".zones" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/zones})
-          .to_return(read_http_fixture("listZones/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/zones}).
+          to_return(read_http_fixture("listZones/success.http"))
     end
 
     it "builds the correct request" do
       subject.zones(account_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones")
-          .with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones").
+          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
@@ -69,15 +69,15 @@ describe Dnsimple::Client, ".zones" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/zones/.+$})
-          .to_return(read_http_fixture("getZone/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/zones/.+$}).
+          to_return(read_http_fixture("getZone/success.http"))
     end
 
     it "builds the correct request" do
       subject.zone(account_id, zone = "example.com")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}")
-          .with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}").
+          with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the zone" do
@@ -96,8 +96,8 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2})
-            .to_return(read_http_fixture("notfound-zone.http"))
+        stub_request(:get, %r{/v2}).
+            to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
           subject.zone(account_id, "example.com")

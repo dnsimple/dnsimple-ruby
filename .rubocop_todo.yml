@@ -23,12 +23,6 @@ Style/Documentation:
     - 'spec/**/*'
     - 'test/**/*'
 
-# I was a big fan of leading, but after I had some weird compile issues, I reverted
-# to trailing. Any proposal?
-# SupportedStyles: leading, trailing
-Style/DotPosition:
-  Enabled: false
-
 # It doesn't seem to work as expected.
 Style/IfUnlessModifier:
   Enabled: false
