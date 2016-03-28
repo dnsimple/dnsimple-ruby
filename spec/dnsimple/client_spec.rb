@@ -26,7 +26,7 @@ describe Dnsimple::Client do
 
   describe "authentication" do
     it "uses HTTP authentication if there's a password provided" do
-      stub_request(:any, %r[/test])
+      stub_request(:any, %r{/test})
 
       subject = described_class.new(username: "user", password: "pass")
       subject.execute(:get, "test", {})
@@ -35,23 +35,23 @@ describe Dnsimple::Client do
     end
 
     it "uses header authentication if there's a domain api token provided" do
-      stub_request(:any, %r[/test])
+      stub_request(:any, %r{/test})
 
       subject = described_class.new(domain_api_token: "domaintoken")
       subject.execute(:get, "test", {})
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
-                         with { |req| req.headers["X-Dnsimple-Domain-Token"] == "domaintoken" }
+          with { |req| req.headers["X-Dnsimple-Domain-Token"] == "domaintoken" }
     end
 
     it "uses access token if there's an access token provided" do
-      stub_request(:any, %r[/test])
+      stub_request(:any, %r{/test})
 
       subject = described_class.new(access_token: "access-token")
       subject.execute(:get, "test", {})
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
-                         with { |req| req.headers["Authorization"] == "Bearer access-token" }
+          with { |req| req.headers["Authorization"] == "Bearer access-token" }
     end
 
     it "raises an error if there's no password, domain token or access token provided" do
@@ -65,7 +65,7 @@ describe Dnsimple::Client do
 
   describe "#get" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:get, "path", nil, { foo: "bar" }).and_return(:returned)
+      expect(subject).to receive(:execute).with(:get, "path", nil, foo: "bar").and_return(:returned)
       expect(subject.get("path", foo: "bar")).to eq(:returned)
     end
   end
@@ -102,7 +102,7 @@ describe Dnsimple::Client do
     subject { described_class.new(username: "user", password: "pass") }
 
     it "raises RequestError in case of error" do
-      stub_request(:get, %r[/foo]).
+      stub_request(:get, %r{/foo}).
           to_return(status: [500, "Internal Server Error"])
 
       expect {
@@ -115,53 +115,56 @@ describe Dnsimple::Client do
     subject { described_class.new(username: "user", password: "pass") }
 
     it "performs a request" do
-      stub_request(:get, %r[/foo])
+      stub_request(:get, %r{/foo})
 
       subject.request(:get, 'foo', {})
 
       expect(WebMock).to have_requested(:get, "https://user:pass@api.dnsimple.com/foo").
-                         with(headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" })
+          with(headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" })
     end
 
     it "delegates to HTTParty" do
-      stub_request(:get, %r[/foo])
+      stub_request(:get, %r{/foo})
 
       expect(HTTParty).to receive(:get).
-                          with("#{subject.base_url}foo",
-                               format: :json,
-                               basic_auth: { username: "user", password: "pass" },
-                               headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
-                          ).
-                          and_return(double('response', code: 200))
+          with(
+            "#{subject.base_url}foo",
+            format: :json,
+            basic_auth: { username: "user", password: "pass" },
+            headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+          ).
+          and_return(double('response', code: 200))
 
       subject.request(:get, 'foo')
     end
 
     it "properly extracts processes options and encodes data" do
       expect(HTTParty).to receive(:put).
-                          with("#{subject.base_url}foo",
-                               format: :json,
-                               body: JSON.dump({ something: "else" }),
-                               query: { foo: "bar" },
-                               basic_auth: { username: "user", password: "pass" },
-                               headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
-                          ).
-                          and_return(double('response', code: 200))
+          with(
+            "#{subject.base_url}foo",
+            format: :json,
+            body: JSON.dump(something: "else"),
+            query: { foo: "bar" },
+            basic_auth: { username: "user", password: "pass" },
+            headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
+          ).
+          and_return(double('response', code: 200))
 
       subject.request(:put, 'foo', { something: "else" }, { query: { foo: "bar" }, headers: { "Custom" => "Header" } })
     end
 
     it "handles non application/json content types" do
       expect(HTTParty).to receive(:post).
-                          with("#{subject.base_url}foo",
-                               format: :json,
-                               body: { something: "else" },
-                               basic_auth: { username: "user", password: "pass" },
-                               headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
-                          ).
-                          and_return(double('response', code: 200))
+          with(
+            "#{subject.base_url}foo",
+            format: :json,
+            body: { something: "else" },
+            basic_auth: { username: "user", password: "pass" },
+            headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+          ).
+          and_return(double('response', code: 200))
 
-      subject.request(:post, 'foo', { something: "else" }, headers: { "Content-Type" => "application/x-www-form-urlencoded" })
+      subject.request(:post, 'foo', { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
     end
   end
 

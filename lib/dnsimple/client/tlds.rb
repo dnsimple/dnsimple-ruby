@@ -20,8 +20,8 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Tld.new(r) })
       end
-      alias :list :tlds
-      alias :list_tlds :tlds
+      alias list tlds
+      alias list_tlds tlds
 
       # Lists ALL the TLDs in DNSimple.
       #
@@ -44,7 +44,7 @@ module Dnsimple
       def all_tlds(options = {})
         paginate(:tlds, options)
       end
-      alias :all :all_tlds
+      alias all all_tlds
 
       # Gets a TLD's details
       #

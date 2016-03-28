@@ -1,14 +1,19 @@
 require 'bundler/gem_tasks'
 
-# Run test by default.
-task :default => :spec
+# By default, run tests and linter.
+task default: [:spec, :rubocop]
 
 
 require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new do |t|
-  t.verbose = !!ENV["VERBOSE"]
+  t.verbose = !ENV["VERBOSE"].nil?
 end
+
+
+require 'rubocop/rake_task'
+
+RuboCop::RakeTask.new
 
 
 require 'yard'

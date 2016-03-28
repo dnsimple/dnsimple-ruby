@@ -7,7 +7,7 @@ module Dnsimple
     BASE_URL = "https://api.dnsimple.com/".freeze
 
     # Default User Agent header
-    USER_AGENT   = "dnsimple-ruby/#{VERSION}".freeze
+    USER_AGENT = "dnsimple-ruby/#{VERSION}".freeze
 
     class << self
 
@@ -28,7 +28,7 @@ module Dnsimple
       # Configuration options
       # @return [Hash]
       def options
-        Hash[keys.map { |key| [key, send(key)]}]
+        Hash[keys.map { |key| [key, send(key)] }]
       end
 
       # Default API endpoint from ENV or {BASE_URL}

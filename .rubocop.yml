@@ -1,0 +1,13 @@
+inherit_from:
+  - .rubocop_todo.yml
+  - .rubocop_dnsimple.yml
+
+# [codesmell]
+# It's irrelevant here, but it could be a code smell.
+# Hence keep it disabled, but don't include it in the DNSimple suite.
+Lint/Loop:
+  Enabled: false
+
+# It doesn't seem to work as expected.
+Style/IfUnlessModifier:
+  Enabled: false

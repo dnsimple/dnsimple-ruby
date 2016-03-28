@@ -23,8 +23,8 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Contact.new(r) })
       end
-      alias :list :contacts
-      alias :list_contacts :contacts
+      alias list contacts
+      alias list_contacts contacts
 
       # Lists ALL the contacts in the account.
       #
@@ -45,7 +45,7 @@ module Dnsimple
       def all_contacts(account_id, options = {})
         paginate(:contacts, account_id, options)
       end
-      alias :all :all_contacts
+      alias all all_contacts
 
       # Creates a contact in the account.
       #
@@ -63,7 +63,7 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Contact.new(response["data"]))
       end
-      alias :create :create_contact
+      alias create create_contact
 
       # Gets a contact from the account.
       #
@@ -98,7 +98,7 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Contact.new(response["data"]))
       end
-      alias :update :update_contact
+      alias update update_contact
 
       # Deletes a contact from the account.
       #
@@ -118,7 +118,7 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-      alias :delete :delete_contact
+      alias delete delete_contact
 
     end
   end
