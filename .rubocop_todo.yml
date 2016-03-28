@@ -12,8 +12,3 @@ Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
-
-# It doesn't seem to work as expected.
-Style/IfUnlessModifier:
-  Enabled: false
-  MaxLineLength: 80
