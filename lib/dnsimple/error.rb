@@ -18,7 +18,8 @@ module Dnsimple
       if http_response.headers["Content-Type"] == "application/json"
         http_response.parsed_response["message"]
       else
-        http_response.code
+        net_http_response = http_response.response
+        "#{net_http_response.code} #{net_http_response.message}"
       end
     end
 
