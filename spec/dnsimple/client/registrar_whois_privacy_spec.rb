@@ -9,15 +9,15 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
-          .to_return(read_http_fixture("getWhoisPrivacy/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy$}).
+          to_return(read_http_fixture("getWhoisPrivacy/success.http"))
     end
 
     it "builds the correct request" do
       subject.whois_privacy(account_id, domain_name = "example.com")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy")
-          .with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy").
+          with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the whois privacy" do
@@ -37,15 +37,15 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the whois privacy had already been purchased" do
       before do
-        stub_request(:put, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
-            .to_return(read_http_fixture("enableWhoisPrivacy/success.http"))
+        stub_request(:put, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy$}).
+            to_return(read_http_fixture("enableWhoisPrivacy/success.http"))
       end
 
       it "builds the correct request" do
         subject.enable_whois_privacy(account_id, domain_name = "example.com")
 
-        expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy")
-            .with(headers: { "Accept" => "application/json" })
+        expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy").
+            with(headers: { "Accept" => "application/json" })
       end
 
       it "returns the whois privacy" do
@@ -63,15 +63,15 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the whois privacy is newly purchased" do
       before do
-        stub_request(:put, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
-            .to_return(read_http_fixture("enableWhoisPrivacy/created.http"))
+        stub_request(:put, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy$}).
+            to_return(read_http_fixture("enableWhoisPrivacy/created.http"))
       end
 
       it "builds the correct request" do
         subject.enable_whois_privacy(account_id, domain_name = "example.com")
 
-        expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy")
-            .with(headers: { "Accept" => "application/json" })
+        expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy").
+            with(headers: { "Accept" => "application/json" })
       end
 
       it "returns the whois privacy" do
@@ -93,15 +93,15 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:delete, %r[/v2/#{account_id}/registrar/domains/.+/whois_privacy$])
-          .to_return(read_http_fixture("disableWhoisPrivacy/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy$}).
+          to_return(read_http_fixture("disableWhoisPrivacy/success.http"))
     end
 
     it "builds the correct request" do
       subject.disable_whois_privacy(account_id, domain_name = "example.com")
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy")
-          .with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy").
+          with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the whois privacy" do

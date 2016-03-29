@@ -4,3 +4,4 @@ gemspec
 
 gem 'rake', '< 11'
 gem 'coveralls', require: false
+gem 'rubocop', require: false

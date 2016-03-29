@@ -11,13 +11,13 @@ module Dnsimple
   # @see https://developer.dnsimple.com/
   class Client
 
-    HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token"
-    HEADER_AUTHORIZATION = "Authorization"
-    WILDCARD_ACCOUNT = "_"
+    HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token".freeze
+    HEADER_AUTHORIZATION = "Authorization".freeze
+    WILDCARD_ACCOUNT = "_".freeze
 
 
     # @return [String] The current API version.
-    API_VERSION = "v2"
+    API_VERSION = "v2".freeze
 
 
     # Prepends the correct API version to +path+.
@@ -83,7 +83,7 @@ module Dnsimple
     # @param  [Hash] data The body for the request
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
-    def post(path, data = nil, options= {})
+    def post(path, data = nil, options = {})
       execute :post, path, data, options
     end
 
@@ -134,11 +134,11 @@ module Dnsimple
       when 200..299
         response
       when 401
-        raise AuthenticationFailed.new(response["message"])
+        raise AuthenticationFailed, response["message"]
       when 404
-        raise NotFoundError.new(response)
+        raise NotFoundError, response
       else
-        raise RequestError.new(response)
+        raise RequestError, response
       end
     end
 
@@ -173,8 +173,8 @@ module Dnsimple
       options = {
           format:   :json,
           headers:  {
-            'Accept' => 'application/json',
-            'User-Agent' => user_agent
+              'Accept' => 'application/json',
+              'User-Agent' => user_agent,
           },
       }
 

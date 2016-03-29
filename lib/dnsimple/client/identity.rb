@@ -15,7 +15,7 @@ module Dnsimple
         data = response["data"]
         account = data["account"] ? Struct::Account.new(data["account"]) : nil
         user = data["user"] ? Struct::User.new(data["user"]) : nil
-        Response.new(response, { account: account, user: user })
+        Response.new(response, account: account, user: user)
       end
 
 

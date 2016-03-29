@@ -43,7 +43,14 @@ module Dnsimple
 
 
     # @!class Struct
-    class ClientService < ::Struct.new(:client)
+    class ClientService
+
+      # @return [Dnsimple::Client]
+      attr_reader :client
+
+      def initialize(client)
+        @client = client
+      end
 
       # Internal helper that loops over a paginated response and returns all the records in the collection.
       #
