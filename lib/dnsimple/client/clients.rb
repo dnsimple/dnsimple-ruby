@@ -3,7 +3,7 @@ module Dnsimple
 
     # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
     def contacts
-      @services[:domains] ||= Client::ContactsService.new(self)
+      @services[:contacts] ||= Client::ContactsService.new(self)
     end
 
     # @return [Dnsimple::Client::DomainsService] The domain-related API proxy.
