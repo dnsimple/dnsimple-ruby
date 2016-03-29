@@ -5,6 +5,10 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 #### 3.0
 
+##### master
+
+- FIXED: The client was using the wrong key to store the ContactsService which could cause conflicts with the DomainsService.
+
 ##### beta2
 
 - FIXED: `state` and `redirect_uri` are not properly passed in the request to exchang the code for an access token (GH-89, GH-90).
