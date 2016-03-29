@@ -114,15 +114,11 @@ describe Dnsimple::Client do
     end
 
     it "raises RequestError in case of error with an HTML response" do
-      stub_request(:get, %r{/foo}).to_return(
-        status: 502,
-        body: "<html>...</html>",
-        headers: { "Content-Type" => "text/html" }
-      )
+      stub_request(:get, %r{/foo}).to_return(read_http_fixture("badgateway.http"))
 
       expect {
         subject.execute(:get, "foo", {})
-      }.to raise_error(Dnsimple::RequestError, "502")
+      }.to raise_error(Dnsimple::RequestError, "502 Bad Gateway")
     end
 
   end
