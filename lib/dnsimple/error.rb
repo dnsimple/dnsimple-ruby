@@ -9,8 +9,20 @@ module Dnsimple
 
     def initialize(http_response)
       @http_response = http_response
-      super(http_response.code.to_s)
+      super(message_from(http_response))
     end
+
+    private
+
+    def message_from(http_response)
+      if http_response.headers["Content-Type"] == "application/json"
+        http_response.parsed_response["message"]
+      else
+        net_http_response = http_response.response
+        "#{net_http_response.code} #{net_http_response.message}"
+      end
+    end
+
   end
 
   class NotFoundError < RequestError

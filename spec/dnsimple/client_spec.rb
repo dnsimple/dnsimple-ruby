@@ -101,14 +101,26 @@ describe Dnsimple::Client do
   describe "#execute" do
     subject { described_class.new(username: "user", password: "pass") }
 
-    it "raises RequestError in case of error" do
-      stub_request(:get, %r{/foo}).
-          to_return(status: [500, "Internal Server Error"])
+    it "raises RequestError in case of error with a JSON response" do
+      stub_request(:get, %r{/foo}).to_return(
+        status: 500,
+        body: '{"message": "Internal Server Error"}',
+        headers: { "Content-Type" => "application/json" }
+      )
 
       expect {
         subject.execute(:get, "foo", {})
-      }.to raise_error(Dnsimple::RequestError, "500")
+      }.to raise_error(Dnsimple::RequestError, "Internal Server Error")
     end
+
+    it "raises RequestError in case of error with an HTML response" do
+      stub_request(:get, %r{/foo}).to_return(read_http_fixture("badgateway.http"))
+
+      expect {
+        subject.execute(:get, "foo", {})
+      }.to raise_error(Dnsimple::RequestError, "502 Bad Gateway")
+    end
+
   end
 
   describe "#request" do
