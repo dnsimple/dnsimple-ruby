@@ -34,16 +34,6 @@ describe Dnsimple::Client do
       expect(WebMock).to have_requested(:get, "https://user:pass@api.dnsimple.com/test")
     end
 
-    it "uses header authentication if there's a domain api token provided" do
-      stub_request(:any, %r{/test})
-
-      subject = described_class.new(domain_api_token: "domaintoken")
-      subject.execute(:get, "test", {})
-
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
-          with { |req| req.headers["X-Dnsimple-Domain-Token"] == "domaintoken" }
-    end
-
     it "uses access token if there's an access token provided" do
       stub_request(:any, %r{/test})
 
