@@ -23,6 +23,19 @@ Metrics/AbcSize:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
+# For the same reason of EndAlignment, aligning with the case may have a bad impact
+# on a case after a very long variable.
+#
+#   invoice_error_message = case error
+#                           when 1 == 1
+#                             do_something
+#                           else
+#                             do_else
+#                           end
+#
+Style/CaseIndentation:
+  IndentWhenRelativeTo: end
+
 # [codesmell]
 Metrics/ClassLength:
   Enabled: false
@@ -37,6 +50,13 @@ Metrics/MethodLength:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
   Max: 10
+
+# [codesmell]
+Metrics/ModuleLength:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
 
 # [codesmell]
 Metrics/LineLength:
@@ -56,6 +76,10 @@ Performance/RedundantMerge:
 Style/AndOr:
   EnforcedStyle: conditionals
 
+# No specific reason, except that %q() is easier to grep than %()
+Style/BarePercentLiterals:
+  EnforcedStyle: percent_q
+
 # braces_for_chaining seems a good fit of what we've been doing so far.
 Style/BlockDelimiters:
   EnforcedStyle: braces_for_chaining
@@ -70,6 +94,10 @@ Style/BracesAroundHashParameters:
 # At least at the time being.
 Style/DotPosition:
   EnforcedStyle: trailing
+
+# Warn on empty else.
+Style/EmptyElse:
+  EnforcedStyle: empty
 
 # Double empty lines are useful to separate conceptually different methods
 # in the same class or module.
@@ -99,6 +127,10 @@ Style/EmptyLinesAroundModuleBody:
 Style/FormatString:
   Enabled: false
 
+# Multi-line differs from standard indentation, they are indented twice.
+Style/FirstParameterIndentation:
+  IndentationWidth: 4
+
 # Prefer the latest Hash syntax
 Style/HashSyntax:
   Exclude:
@@ -106,6 +138,10 @@ Style/HashSyntax:
     #   :default => :test
     # that looks nicer with the old rocket syntax.
     - 'Rakefile'
+
+# We want to be able to decide when to use one-line if/unless modifiers.
+Style/IfUnlessModifier:
+  Enabled: false
 
 # Array indentation should be considered like MultilineMethodCallIndentation indentation
 # and use 4 spaces instead of 2.
@@ -127,6 +163,11 @@ Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
   IndentationWidth: 4
 
+# Multi-line differs from standard indentation, they are indented twice.
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
 # unless is not always cool.
 Style/NegatedIf:
   Enabled: false
@@ -138,6 +179,10 @@ Style/NumericLiterals:
     # without the need to define a variable just for that.
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
+
+# Do we care?
+Style/RegexpLiteral:
+  Enabled: false
 
 # There are cases were the inline rescue is ok. We can either downgrade the severity,
 # or rely on the developer judgement on a case-by-case basis.

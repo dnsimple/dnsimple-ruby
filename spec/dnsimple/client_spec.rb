@@ -103,9 +103,9 @@ describe Dnsimple::Client do
 
     it "raises RequestError in case of error with a JSON response" do
       stub_request(:get, %r{/foo}).to_return(
-        status: 500,
-        body: '{"message": "Internal Server Error"}',
-        headers: { "Content-Type" => "application/json" }
+          status: 500,
+          body: '{"message": "Internal Server Error"}',
+          headers: { "Content-Type" => "application/json" }
       )
 
       expect {
@@ -140,10 +140,10 @@ describe Dnsimple::Client do
 
       expect(HTTParty).to receive(:get).
           with(
-            "#{subject.base_url}foo",
-            format: :json,
-            basic_auth: { username: "user", password: "pass" },
-            headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+              "#{subject.base_url}foo",
+              format: :json,
+              basic_auth: { username: "user", password: "pass" },
+              headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
           ).
           and_return(double('response', code: 200))
 
@@ -153,12 +153,12 @@ describe Dnsimple::Client do
     it "properly extracts processes options and encodes data" do
       expect(HTTParty).to receive(:put).
           with(
-            "#{subject.base_url}foo",
-            format: :json,
-            body: JSON.dump(something: "else"),
-            query: { foo: "bar" },
-            basic_auth: { username: "user", password: "pass" },
-            headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
+              "#{subject.base_url}foo",
+              format: :json,
+              body: JSON.dump(something: "else"),
+              query: { foo: "bar" },
+              basic_auth: { username: "user", password: "pass" },
+              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
           ).
           and_return(double('response', code: 200))
 
@@ -168,11 +168,11 @@ describe Dnsimple::Client do
     it "handles non application/json content types" do
       expect(HTTParty).to receive(:post).
           with(
-            "#{subject.base_url}foo",
-            format: :json,
-            body: { something: "else" },
-            basic_auth: { username: "user", password: "pass" },
-            headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+              "#{subject.base_url}foo",
+              format: :json,
+              body: { something: "else" },
+              basic_auth: { username: "user", password: "pass" },
+              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
           ).
           and_return(double('response', code: 200))
 
