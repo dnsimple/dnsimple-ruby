@@ -11,7 +11,6 @@ module Dnsimple
   # @see https://developer.dnsimple.com/
   class Client
 
-    HEADER_DOMAIN_API_TOKEN = "X-DNSimple-Domain-Token".freeze
     HEADER_AUTHORIZATION = "Authorization".freeze
     WILDCARD_ACCOUNT = "_".freeze
 
@@ -185,8 +184,6 @@ module Dnsimple
 
       if password
         options[:basic_auth] = { username: username, password: password }
-      elsif domain_api_token
-        options[:headers][HEADER_DOMAIN_API_TOKEN] = domain_api_token
       elsif access_token
         options[:headers][HEADER_AUTHORIZATION] = "Bearer #{access_token}"
       else

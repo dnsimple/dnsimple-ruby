@@ -34,16 +34,6 @@ describe Dnsimple::Client do
       expect(WebMock).to have_requested(:get, "https://user:pass@api.dnsimple.com/test")
     end
 
-    it "uses header authentication if there's a domain api token provided" do
-      stub_request(:any, %r{/test})
-
-      subject = described_class.new(domain_api_token: "domaintoken")
-      subject.execute(:get, "test", {})
-
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
-          with { |req| req.headers["X-Dnsimple-Domain-Token"] == "domaintoken" }
-    end
-
     it "uses access token if there's an access token provided" do
       stub_request(:any, %r{/test})
 
@@ -136,10 +126,10 @@ describe Dnsimple::Client do
 
       expect(HTTParty).to receive(:get).
           with(
-            "#{subject.base_url}foo",
-            format: :json,
-            basic_auth: { username: "user", password: "pass" },
-            headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+              "#{subject.base_url}foo",
+              format: :json,
+              basic_auth: { username: "user", password: "pass" },
+              headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
           ).
           and_return(double('response', code: 200))
 
@@ -149,12 +139,12 @@ describe Dnsimple::Client do
     it "properly extracts processes options and encodes data" do
       expect(HTTParty).to receive(:put).
           with(
-            "#{subject.base_url}foo",
-            format: :json,
-            body: JSON.dump(something: "else"),
-            query: { foo: "bar" },
-            basic_auth: { username: "user", password: "pass" },
-            headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
+              "#{subject.base_url}foo",
+              format: :json,
+              body: JSON.dump(something: "else"),
+              query: { foo: "bar" },
+              basic_auth: { username: "user", password: "pass" },
+              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
           ).
           and_return(double('response', code: 200))
 
@@ -164,11 +154,11 @@ describe Dnsimple::Client do
     it "handles non application/json content types" do
       expect(HTTParty).to receive(:post).
           with(
-            "#{subject.base_url}foo",
-            format: :json,
-            body: { something: "else" },
-            basic_auth: { username: "user", password: "pass" },
-            headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+              "#{subject.base_url}foo",
+              format: :json,
+              body: { something: "else" },
+              basic_auth: { username: "user", password: "pass" },
+              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
           ).
           and_return(double('response', code: 200))
 
