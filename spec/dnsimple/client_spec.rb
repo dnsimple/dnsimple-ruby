@@ -92,15 +92,11 @@ describe Dnsimple::Client do
     subject { described_class.new(username: "user", password: "pass") }
 
     it "raises RequestError in case of error with a JSON response" do
-      stub_request(:get, %r{/foo}).to_return(
-          status: 500,
-          body: '{"message": "Internal Server Error"}',
-          headers: { "Content-Type" => "application/json" }
-      )
+      stub_request(:post, %r{/foo}).to_return(read_http_fixture("transferDomain/error-indnsimple.http"))
 
       expect {
-        subject.execute(:get, "foo", {})
-      }.to raise_error(Dnsimple::RequestError, "Internal Server Error")
+        subject.execute(:post, "foo", {})
+      }.to raise_error(Dnsimple::RequestError, "The domain google.com is already in DNSimple and cannot be added")
     end
 
     it "raises RequestError in case of error with an HTML response" do
