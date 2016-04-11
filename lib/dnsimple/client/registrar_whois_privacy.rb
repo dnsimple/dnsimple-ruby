@@ -7,7 +7,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/registrar/whois-privacy/#get
       #
       # @example Get the whois privacy for "example.com":
-      #   client.registrar.get_whois_privacy(1010, "example.com")
+      #   client.registrar.whois_privacy(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_name the domain name
