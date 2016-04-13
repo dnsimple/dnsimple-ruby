@@ -70,7 +70,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/renew$}).
+      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/renewal$}).
           to_return(read_http_fixture("renewDomain/success.http"))
     end
 
@@ -79,7 +79,7 @@ describe Dnsimple::Client, ".registrar" do
     it "builds the correct request" do
       subject.renew_domain(account_id, domain_name = "example.com", attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/renew").
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/renewal").
           with(body: attributes).
           with(headers: { "Accept" => "application/json" })
     end
@@ -95,7 +95,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when it is too son for the domain to be renewed" do
       it "raises a BadRequestError" do
-        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/renew$}).
+        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/renewal$}).
             to_return(read_http_fixture("renewDomain/error-tooearly.http"))
 
         expect {
