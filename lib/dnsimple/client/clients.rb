@@ -26,6 +26,11 @@ module Dnsimple
       @services[:registrar] ||= Client::RegistrarService.new(self)
     end
 
+    # @return [Dnsimple::Client::TemplatesService] The templates-related API proxy.
+    def templates
+      @services[:templates] ||= Client::TemplatesService.new(self)
+    end
+
     # @return [Dnsimple::Client::TldsService] The tld-related API proxy.
     def tlds
       @services[:tlds] ||= Client::TldsService.new(self)
@@ -119,6 +124,13 @@ module Dnsimple
       include Client::Registrar
       include Client::RegistrarAutoRenewal
       include Client::RegistrarWhoisPrivacy
+    end
+
+
+    require_relative 'templates'
+
+    class TemplatesService < ClientService
+      include Client::Templates
     end
 
 
