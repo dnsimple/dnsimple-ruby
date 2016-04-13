@@ -23,7 +23,7 @@ describe Dnsimple::Client, ".registrar" do
       response = subject.domain_delegation(account_id, "example.com")
       expect(response).to be_a(Dnsimple::Response)
 
-      expect(response.data).to match_array(%w{ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com})
+      expect(response.data).to match_array(%w(ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com))
     end
   end
 
