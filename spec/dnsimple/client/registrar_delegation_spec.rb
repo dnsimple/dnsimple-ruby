@@ -27,4 +27,29 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
+  describe "#change_domain_delegation" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:put, %r{/v2/#{account_id}/registrar/domains/.+/delegation$}).
+          to_return(read_http_fixture("changeDomainDelegation/success.http"))
+    end
+
+    let(:attributes) { %w(ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com) }
+
+    it "builds the correct request" do
+      subject.change_domain_delegation(account_id, domain_name = "example.com", attributes)
+
+      expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/delegation").
+          with(body: JSON.dump(attributes)).
+          with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the name servers of the domain" do
+      response = subject.change_domain_delegation(account_id, "example.com", attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      expect(response.data).to match_array(%w(ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com))
+    end
+  end
 end

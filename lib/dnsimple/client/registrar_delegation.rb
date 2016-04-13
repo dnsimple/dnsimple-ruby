@@ -9,6 +9,13 @@ module Dnsimple
         Dnsimple::Response.new(response, response["data"])
       end
 
+      def change_domain_delegation(account_id, domain_name, attributes, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/delegation" % [account_id, domain_name])
+        response = client.put(endpoint, attributes, options)
+
+        Dnsimple::Response.new(response, response["data"])
+      end
+
     end
   end
 end
