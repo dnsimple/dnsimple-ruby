@@ -35,6 +35,15 @@ describe Dnsimple::Client, ".templates" do
     end
   end
 
+  describe "#all_templates" do
+    let(:account_id) { 1010 }
+
+    it "delegates to client.paginate" do
+      expect(subject).to receive(:paginate).with(:templates, account_id, foo: "bar")
+      subject.all_templates(account_id, foo: "bar")
+    end
+  end
+
   describe "#template" do
     let(:account_id) { 1010 }
     let(:template_id) { 1 }

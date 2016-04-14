@@ -7,7 +7,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/templates/#list
       #
       # @example List the templates for account 1010:
-      #   client.templates.list_templates(1010, "example.com")
+      #   client.templates.list_templates(1010)
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options
@@ -22,6 +22,30 @@ module Dnsimple
       end
       alias list templates
       alias list_templates templates
+
+      # Lists ALL the templates in the account.
+      #
+      # This method is similar to {#templates}, but instead of returning the results of a specific page
+      # it iterates all the pages and returns the entire collection.
+      #
+      # Please use this method carefully, as fetching the entire collection will increase the number of requests
+      # you send to the API server and you may eventually risk to hit the throttle limit.
+      #
+      # @example List all the templates for account 1010:
+      #   client.all_templates.list_templates(1010)
+      #
+      # @see https://developer.dnsimple.com/v2/templates/#list
+      # @see #templates
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [Hash] options
+      # @return [Dnsimple::PaginatedResponse<Struct::Template>]
+      #
+      # @raise  [RequestError] When the request fails.
+      def all_templates(account_id, options = {})
+        paginate(:templates, account_id, options)
+      end
+      alias all all_templates
 
       # Gets the template with specified ID.
       #
