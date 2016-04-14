@@ -11,7 +11,7 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options
-      # @return [Dnsimple::PaginatedResponse<Struct::Template>]
+      # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Template>]
       #
       # @raise  [RequestError] When the request fails.
       def templates(account_id, options = {})
@@ -28,8 +28,8 @@ module Dnsimple
       # This method is similar to {#templates}, but instead of returning the results of a specific page
       # it iterates all the pages and returns the entire collection.
       #
-      # Please use this method carefully, as fetching the entire collection will increase the number of requests
-      # you send to the API server and you may eventually risk to hit the throttle limit.
+      # Please use this method carefully, as fetching the entire collection will increase the number of
+      # requests you send to the API server and you may eventually risk to hit the throttle limit.
       #
       # @example List all the templates for account 1010:
       #   client.all_templates.list_templates(1010)
@@ -39,7 +39,7 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options
-      # @return [Dnsimple::PaginatedResponse<Struct::Template>]
+      # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Template>]
       #
       # @raise  [RequestError] When the request fails.
       def all_templates(account_id, options = {})
@@ -57,7 +57,7 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [Fixnum] template_id the template ID
       # @param  [Hash] options
-      # @return [Dnsimple::Response<Struct::Template>]
+      # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
       #
       # @raise  [RequestError] When the request fails.
       def template(account_id, template_id, options = {})
