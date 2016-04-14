@@ -73,4 +73,36 @@ describe Dnsimple::Client, ".templates" do
       expect(template.description).to eq("An alpha template.")
     end
   end
+
+  describe "#create_template" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/templates$}).
+          to_return(read_http_fixture("createTemplate/created.http"))
+    end
+
+    let(:attributes) { { name: "Beta", short_name: "beta", description: "A beta template." } }
+
+    it "builds the correct request" do
+      subject.create_template(account_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/templates").
+          with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the list of templates" do
+      response = subject.create_template(account_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      template = response.data
+      expect(template).to be_a(Dnsimple::Struct::Template)
+      expect(template.id).to eq(1)
+      expect(template.account_id).to eq(1010)
+      expect(template.name).to eq("Beta")
+      expect(template.short_name).to eq("beta")
+      expect(template.description).to eq("A beta template.")
+    end
+  end
+
 end

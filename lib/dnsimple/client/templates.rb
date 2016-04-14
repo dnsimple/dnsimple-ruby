@@ -47,6 +47,26 @@ module Dnsimple
       end
       alias all all_templates
 
+      # Creates a template in the account.
+      #
+      # @see https://developer.dnsimple.com/v2/templates/#create
+      #
+      # @example Creating a template:
+      #   client.templates.create_template(1010, name: "Pi", short_name: "pi", description: "Pi template")
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def create_template(account_id, attributes, options = {})
+        endpoint = Client.versioned("/%s/templates" % [account_id])
+        response = client.post(endpoint, attributes, options)
+
+        Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
+      end
+
       # Gets the template with specified ID.
       #
       # @see https://developer.dnsimple.com/v2/templates/#get
