@@ -44,36 +44,6 @@ describe Dnsimple::Client, ".templates" do
     end
   end
 
-  describe "#template" do
-    let(:account_id) { 1010 }
-    let(:template_id) { 1 }
-
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}$}).
-          to_return(read_http_fixture("getTemplate/success.http"))
-    end
-
-    it "builds the correct request" do
-      subject.template(account_id, template_id)
-
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}").
-          with(headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the list of templates" do
-      response = subject.template(account_id, template_id)
-      expect(response).to be_a(Dnsimple::Response)
-
-      template = response.data
-      expect(template).to be_a(Dnsimple::Struct::Template)
-      expect(template.id).to eq(1)
-      expect(template.account_id).to eq(1010)
-      expect(template.name).to eq("Alpha")
-      expect(template.short_name).to eq("alpha")
-      expect(template.description).to eq("An alpha template.")
-    end
-  end
-
   describe "#create_template" do
     let(:account_id) { 1010 }
 
@@ -102,6 +72,36 @@ describe Dnsimple::Client, ".templates" do
       expect(template.name).to eq("Beta")
       expect(template.short_name).to eq("beta")
       expect(template.description).to eq("A beta template.")
+    end
+  end
+
+  describe "#template" do
+    let(:account_id) { 1010 }
+    let(:template_id) { 1 }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}$}).
+          to_return(read_http_fixture("getTemplate/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.template(account_id, template_id)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}").
+          with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the list of templates" do
+      response = subject.template(account_id, template_id)
+      expect(response).to be_a(Dnsimple::Response)
+
+      template = response.data
+      expect(template).to be_a(Dnsimple::Struct::Template)
+      expect(template.id).to eq(1)
+      expect(template.account_id).to eq(1010)
+      expect(template.name).to eq("Alpha")
+      expect(template.short_name).to eq("alpha")
+      expect(template.description).to eq("An alpha template.")
     end
   end
 
