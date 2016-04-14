@@ -105,4 +105,27 @@ describe Dnsimple::Client, ".templates" do
     end
   end
 
+  describe "#delete_template" do
+    let(:account_id) { 1010 }
+    let(:template_id) { 5410 }
+
+    before do
+      stub_request(:delete, %r{/v2/#{account_id}/templates/#{template_id}$}).
+          to_return(read_http_fixture("deleteTemplate/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.delete_template(account_id, template_id)
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}").
+          with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the list of templates" do
+      response = subject.delete_template(account_id, template_id)
+      expect(response).to be_a(Dnsimple::Response)
+      expect(response.data).to be_nil
+    end
+  end
+
 end

@@ -87,6 +87,30 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
       end
 
+      # Deletes a template from the account.
+      #
+      # WARNING: this cannot be undone.
+      #
+      # @see https://developer.dnsimple.com/v2/templates/#delete
+      #
+      # @example Delete template 5401 in account 1010:
+      #   client.templates.delete_template(1010, 5401)
+      #
+      # @param  [Fixnum] account_id The account ID
+      # @param  [#to_s] template_id The template ID
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def delete_template(account_id, template_id, options = {})
+        endpoint = Client.versioned("/%s/templates/%s" % [account_id, template_id])
+        response = client.delete(endpoint, options)
+
+        Dnsimple::Response.new(response, nil)
+      end
+      alias delete delete_template
+
     end
   end
 end
