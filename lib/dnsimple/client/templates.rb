@@ -32,7 +32,7 @@ module Dnsimple
       # requests you send to the API server and you may eventually risk to hit the throttle limit.
       #
       # @example List all the templates for account 1010:
-      #   client.all_templates.list_templates(1010)
+      #   client.templates.all_templates(1010)
       #
       # @see https://developer.dnsimple.com/v2/templates/#list
       # @see #templates
