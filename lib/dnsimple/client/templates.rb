@@ -87,6 +87,28 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
       end
 
+      # Updates template with specified ID with provided data.
+      #
+      # @see https://developer.dnsimple.com/v2/templates/#update
+      #
+      # @example Change the name of template 1 in account 1010:
+      #   client.templates.update_template(1010, 1, name: "New name")
+      #
+      # @param  [Fixnum] account_iduthe account ID
+      # @param  [Fixnum] template_id the template ID
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
+      #
+      # @raise  [RequestError] When the request fails.
+      def update_template(account_id, template_id, attributes, options = {})
+        endpoint = Client.versioned("/%s/templates/%s" % [account_id, template_id])
+        response = client.put(endpoint, attributes, options)
+
+        Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
+      end
+      alias update update_template
+
       # Deletes a template from the account.
       #
       # WARNING: this cannot be undone.

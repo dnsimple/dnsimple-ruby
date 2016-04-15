@@ -105,6 +105,38 @@ describe Dnsimple::Client, ".templates" do
     end
   end
 
+  describe "#update_template" do
+    let(:account_id) { 1010 }
+    let(:template_id) { 1 }
+
+    before do
+      stub_request(:put, %r{/v2/#{account_id}/templates/#{template_id}$}).
+          to_return(read_http_fixture("updateTemplate/success.http"))
+    end
+
+    let(:attributes) { { name: "Alpha", short_name: "alpha", description: "An alpha template." } }
+
+    it "builds the correct request" do
+      subject.update_template(account_id, template_id, attributes)
+
+      expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}").
+          with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the list of templates" do
+      response = subject.update_template(account_id, template_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      template = response.data
+      expect(template).to be_a(Dnsimple::Struct::Template)
+      expect(template.id).to eq(1)
+      expect(template.account_id).to eq(1010)
+      expect(template.name).to eq("Alpha")
+      expect(template.short_name).to eq("alpha")
+      expect(template.description).to eq("An alpha template.")
+    end
+  end
+
   describe "#delete_template" do
     let(:account_id) { 1010 }
     let(:template_id) { 5410 }
