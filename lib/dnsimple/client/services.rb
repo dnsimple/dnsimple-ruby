@@ -45,6 +45,12 @@ module Dnsimple
       end
       alias all all_services
 
+      def service(service_id, options = {})
+        endpoint = Client.versioned("/services/%s" % [service_id])
+        response = client.get(endpoint, options)
+
+        Dnsimple::Response.new(response, Struct::Service.new(response["data"]))
+      end
     end
   end
 end

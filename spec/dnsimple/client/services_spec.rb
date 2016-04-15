@@ -43,4 +43,36 @@ describe Dnsimple::Client, ".services" do
     end
   end
 
+  describe "#service" do
+    let(:service_id) { 1 }
+
+    before do
+      stub_request(:get, %r{/v2/services/#{service_id}$}).
+          to_return(read_http_fixture("getService/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.service(service_id)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services/#{service_id}").
+          with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the service" do
+      response = subject.service(service_id)
+      expect(response).to be_a(Dnsimple::Response)
+
+      service = response.data
+      expect(service).to be_a(Dnsimple::Struct::Service)
+      expect(service.id).to eq(1)
+      expect(service.name).to eq("Service 1")
+      expect(service.short_name).to eq("service1")
+      expect(service.description).to eq("First service example.")
+      expect(service.setup_description).to be_nil
+      expect(service.requires_setup).to be_falsey
+      expect(service.default_subdomain).to be_nil
+      expect(service.settings).to eq([])
+    end
+  end
+
 end
