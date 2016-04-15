@@ -1,0 +1,60 @@
+module Dnsimple
+  module Struct
+
+    class Service < Base
+
+      class Setting < Base
+        # @return [String] The setting name.
+        attr_accessor :name
+
+        # @return [String] The setting label.
+        attr_accessor :label
+
+        # @return [String] A suffix to be appended to the setting value.
+        attr_accessor :append
+
+        # @return [String] The setting description.
+        attr_accessor :description
+
+        # @return [String] An example of the setting value.
+        attr_accessor :example
+
+        # @return [Boolean] Whether the setting requires a password.
+        attr_accessor :password
+      end
+
+      # @return [Fixnum] The service ID in DNSimple.
+      attr_accessor :id
+
+      # @return [String] The service name.
+      attr_accessor :name
+
+      # @return [String] A short name for the service.
+      attr_accessor :short_name
+
+      # @return [String] The service description.
+      attr_accessor :description
+
+      # @return [String] The service setup description.
+      attr_accessor :setup_description
+
+      # @return [Boolean] Whether the service requires extra setup.
+      attr_accessor :requires_setup
+
+      # @return [String] The default subdomain where the service will be applied.
+      attr_accessor :default_subdomain
+
+      def settings
+        @settings ||= []
+      end
+
+      def settings=(settings)
+        @settings = settings.map do |setting|
+          Setting.new(setting)
+        end
+      end
+
+    end
+
+  end
+end
