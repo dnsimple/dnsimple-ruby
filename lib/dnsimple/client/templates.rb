@@ -66,7 +66,7 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
       end
-      alias template create_template
+      alias create create_template
 
       # Gets the template with specified ID.
       #
