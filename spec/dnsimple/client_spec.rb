@@ -171,9 +171,6 @@ describe Dnsimple::Client do
 
       subject.request(:post, 'foo', { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
     end
-
-    
-
   end
 
 end
