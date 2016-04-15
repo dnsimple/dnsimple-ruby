@@ -110,7 +110,7 @@ describe Dnsimple::Client, ".templates" do
     let(:template_id) { 1 }
 
     before do
-      stub_request(:put, %r{/v2/#{account_id}/templates/#{template_id}$}).
+      stub_request(:patch, %r{/v2/#{account_id}/templates/#{template_id}$}).
           to_return(read_http_fixture("updateTemplate/success.http"))
     end
 
@@ -119,7 +119,7 @@ describe Dnsimple::Client, ".templates" do
     it "builds the correct request" do
       subject.update_template(account_id, template_id, attributes)
 
-      expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}").
+      expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}").
           with(headers: { "Accept" => "application/json" })
     end
 

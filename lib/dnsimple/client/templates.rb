@@ -103,7 +103,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def update_template(account_id, template_id, attributes, options = {})
         endpoint = Client.versioned("/%s/templates/%s" % [account_id, template_id])
-        response = client.put(endpoint, attributes, options)
+        response = client.patch(endpoint, attributes, options)
 
         Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
       end
