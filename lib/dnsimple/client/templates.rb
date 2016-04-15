@@ -76,7 +76,7 @@ module Dnsimple
       #   client.templates.template(1010, 5401)
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [Fixnum] template_id the template ID
+      # @param  [#to_s] template_id The template ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
       #
@@ -96,7 +96,7 @@ module Dnsimple
       #   client.templates.update_template(1010, 1, name: "New name")
       #
       # @param  [Fixnum] account_iduthe account ID
-      # @param  [Fixnum] template_id the template ID
+      # @param  [#to_s] template_id The template ID
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
