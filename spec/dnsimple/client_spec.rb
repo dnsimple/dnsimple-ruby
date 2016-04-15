@@ -107,6 +107,13 @@ describe Dnsimple::Client do
       }.to raise_error(Dnsimple::RequestError, "502 Bad Gateway")
     end
 
+    it "raises RequestError in absence of content types" do
+      stub_request(:put, %r{/foo}).to_return(read_http_fixture("method-not-allowed.http"))
+
+      expect {
+        subject.execute(:put, "foo", {})
+      }.to raise_error(Dnsimple::RequestError, "405 Method Not Allowed")
+    end
   end
 
   describe "#request" do
