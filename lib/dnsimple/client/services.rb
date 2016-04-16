@@ -45,6 +45,18 @@ module Dnsimple
       end
       alias all all_services
 
+      # Gets the service with specified ID.
+      #
+      # @see https://developer.dnsimple.com/v2/services/#get
+      #
+      # @example Get service 43:
+      #   client.services.service(43)
+      #
+      # @param  [#to_s] service_id The service ID
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Service>]
+      #
+      # @raise  [RequestError] When the request fails.
       def service(service_id, options = {})
         endpoint = Client.versioned("/services/%s" % [service_id])
         response = client.get(endpoint, options)
