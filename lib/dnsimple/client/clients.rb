@@ -119,11 +119,13 @@ module Dnsimple
     require_relative 'registrar'
     require_relative 'registrar_auto_renewal'
     require_relative 'registrar_whois_privacy'
+    require_relative 'registrar_delegation'
 
     class RegistrarService < ClientService
       include Client::Registrar
       include Client::RegistrarAutoRenewal
       include Client::RegistrarWhoisPrivacy
+      include Client::RegistrarDelegation
     end
 
 
