@@ -23,8 +23,12 @@ module Dnsimple
       # Boolean indicating if the extended attribute is required
       attr_accessor :required
 
-      def options
+      # @return [Array<Options>] The array of options with possible values for the extended attribute
+      attr_accessor :options
+
+      def initialize(*)
         @options ||= []
+        super
       end
 
       def options=(opts)
