@@ -11,6 +11,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - FIXED: `renewDomain` used a wrong path (GH-96).
 
+- CHANGED: Error detection is now smarter. If the error is deserializable and contains a message, the message is attached to the exception (GH-94, GH-95, GH-100).
+
 ##### beta2
 
 - FIXED: `state` and `redirect_uri` are not properly passed in the request to exchang the code for an access token (GH-89, GH-90).
