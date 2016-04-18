@@ -11,7 +11,12 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - FIXED: `renewDomain` used a wrong path (GH-96).
 
+- NEW: Added registrar delegation support (GH-98).
+
+- NEW: Added template support (GH-99).
+
 - CHANGED: Error detection is now smarter. If the error is deserializable and contains a message, the message is attached to the exception (GH-94, GH-95, GH-100).
+
 
 ##### beta2
 
