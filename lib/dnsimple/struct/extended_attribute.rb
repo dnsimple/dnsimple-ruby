@@ -27,8 +27,8 @@ module Dnsimple
       attr_accessor :options
 
       def initialize(*)
-        @options ||= []
         super
+        @options ||= []
       end
 
       def options=(opts)
