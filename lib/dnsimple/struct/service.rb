@@ -44,7 +44,11 @@ module Dnsimple
       # @return [String] The default subdomain where the service will be applied.
       attr_accessor :default_subdomain
 
-      def settings
+      # @return [Array<Settings>] The array of settings to setup this service, if setup is required.
+      attr_accessor :settings
+
+      def initialize(*)
+        super
         @settings ||= []
       end
 
