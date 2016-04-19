@@ -26,6 +26,11 @@ module Dnsimple
       @services[:registrar] ||= Client::RegistrarService.new(self)
     end
 
+    # @return [Dnsimple::Client::ServicesService] The one-click-service-related API proxy.
+    def services
+      @services[:services] ||= Client::ServicesService.new(self)
+    end
+
     # @return [Dnsimple::Client::TemplatesService] The templates-related API proxy.
     def templates
       @services[:templates] ||= Client::TemplatesService.new(self)
@@ -129,6 +134,13 @@ module Dnsimple
     end
 
 
+    require_relative 'services'
+
+    class ServicesService < ClientService
+      include Client::Services
+    end
+
+
     require_relative 'templates'
 
     class TemplatesService < ClientService
@@ -150,6 +162,7 @@ module Dnsimple
       include Client::Zones
       include Client::ZonesRecords
     end
+
 
     require_relative 'webhooks'
 
