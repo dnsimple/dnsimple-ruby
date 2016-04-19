@@ -1,3 +1,3 @@
 module Dnsimple
-  VERSION = "3.0.0-beta2".freeze
+  VERSION = "3.0.0".freeze
 end
