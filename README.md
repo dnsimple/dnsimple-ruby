@@ -18,16 +18,16 @@ This library is currently in beta version, the methods and the implementation sh
 
 ## Installation
 
-During the initial beta period, releases of this gem are flagged as [prerelease](http://guides.rubygems.org/patterns/#prerelease-gems). You will need to append `--pre` in order to install the beta client.
+You can install the gem manually:
 
 ```
-$ gem install dnsimple --pre
+$ gem install dnsimple
 ```
 
-Also note that Bundler ignores pre-releases by default. To use a pre-release gem, make sure to explicitly add the release version.
+Or use Bundler and define it as a dependency in your Gemfile:
 
 ```
-gem 'dnsimple', '~> 3.0', '>= 3.0.0.pre.beta1'
+gem 'dnsimple', '~> 3.0'
 ```
 
 ## Usage
