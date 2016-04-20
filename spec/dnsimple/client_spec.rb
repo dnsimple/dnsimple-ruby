@@ -59,7 +59,6 @@ describe Dnsimple::Client do
         subject.execute(:get, "test", nil, authenticate: false)
       }.not_to raise_error
     end
-
   end
 
   describe "#get" do
@@ -179,6 +178,21 @@ describe Dnsimple::Client do
           and_return(double('response', code: 200))
 
       subject.request(:post, 'foo', { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
+    end
+
+    it "includes options for proxy support" do
+      expect(HTTParty).to receive(:get).
+          with(
+              "#{subject.base_url}test",
+              format: :json,
+              http_proxyaddr: "example-proxy.com",
+              http_proxyport: "4321",
+              headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+          ).
+          and_return(double('response', code: 200))
+
+      subject = described_class.new(proxy: "example-proxy.com:4321")
+      subject.request(:get, "test", nil, authenticate: false)
     end
   end
 

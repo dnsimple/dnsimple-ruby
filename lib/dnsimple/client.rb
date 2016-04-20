@@ -192,7 +192,7 @@ module Dnsimple
 
       if proxy
         address, port = proxy.split(":")
-        { http_proxyaddr: address, http_proxyport: port }
+        options = { http_proxyaddr: address, http_proxyport: port }
       end
 
       options
