@@ -51,6 +51,15 @@ describe Dnsimple::Client do
         subject.execute(:get, "test", {})
       }.to raise_error(Dnsimple::Error, "A password, domain API token or access token is required for all API requests.")
     end
+
+    it "can perform requests without requiring authentication" do
+      stub_request(:any, %r{/test})
+
+      expect {
+        subject.execute(:get, "test", nil, authenticate: false)
+      }.not_to raise_error
+    end
+
   end
 
   describe "#get" do

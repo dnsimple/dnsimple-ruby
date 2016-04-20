@@ -169,9 +169,11 @@ module Dnsimple
     private
 
     def request_options(custom_options = {})
+      authenticate = custom_options.delete(:authenticate) { true }
+
       options = base_options
+      Extra.deep_merge!(options, auth_options(authenticate))
       Extra.deep_merge!(options, proxy_options)
-      Extra.deep_merge!(options, auth_options)
       Extra.deep_merge!(custom_options, options)
     end
 
@@ -186,22 +188,28 @@ module Dnsimple
     end
 
     def proxy_options
+      options = {}
+
       if proxy
         address, port = proxy.split(":")
         { http_proxyaddr: address, http_proxyport: port }
-      else
-        {}
       end
+
+      options
     end
 
-    def auth_options
+    def auth_options(authenticate)
+      options = {}
+
       if password
-        { basic_auth: { username: username, password: password } }
+        options = { basic_auth: { username: username, password: password } }
       elsif access_token
-        { headers: { HEADER_AUTHORIZATION => "Bearer #{access_token}" } }
+        options = { headers: { HEADER_AUTHORIZATION => "Bearer #{access_token}" } }
       else
-        raise Error, 'A password, domain API token or access token is required for all API requests.'
+        !authenticate or raise Error, "A password, domain API token or access token is required for all API requests."
       end
+
+      options
     end
 
     def content_type(headers)
