@@ -155,7 +155,7 @@ module Dnsimple
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
     def request(method, path, data = nil, options = {})
-      request_options = Extra.deep_merge!(base_options, options)
+      request_options = request_options(options)
 
       if data
         request_options[:headers]["Content-Type"] = content_type(request_options[:headers])
@@ -168,29 +168,40 @@ module Dnsimple
 
     private
 
+    def request_options(custom_options = {})
+      options = base_options
+      Extra.deep_merge!(options, proxy_options)
+      Extra.deep_merge!(options, auth_options)
+      Extra.deep_merge!(custom_options, options)
+    end
+
     def base_options
-      options = {
+      {
           format:   :json,
           headers:  {
               'Accept' => 'application/json',
               'User-Agent' => user_agent,
           },
       }
+    end
 
+    def proxy_options
       if proxy
         address, port = proxy.split(":")
-        options.merge!(http_proxyaddr: address, http_proxyport: port)
+        { http_proxyaddr: address, http_proxyport: port }
+      else
+        {}
       end
+    end
 
+    def auth_options
       if password
-        options[:basic_auth] = { username: username, password: password }
+        { basic_auth: { username: username, password: password } }
       elsif access_token
-        options[:headers][HEADER_AUTHORIZATION] = "Bearer #{access_token}"
+        { headers: { HEADER_AUTHORIZATION => "Bearer #{access_token}" } }
       else
         raise Error, 'A password, domain API token or access token is required for all API requests.'
       end
-
-      options
     end
 
     def content_type(headers)
