@@ -178,6 +178,19 @@ describe Dnsimple::Client do
       subject = described_class.new(proxy: "example-proxy.com:4321")
       subject.request(:get, "test", nil, {})
     end
+
+    it "default options can be overriden" do
+      expect(HTTParty).to receive(:get).
+          with(
+              "#{subject.base_url}test",
+              format: :json,
+              headers: { "Accept" => "application/json", "User-Agent" => "dnsimple-custom-integration" }
+          ).
+          and_return(double("response", code: 200))
+
+      subject = described_class.new
+      subject.request(:get, "test", nil, headers: { "User-Agent" => "dnsimple-custom-integration" })
+    end
   end
 
 end

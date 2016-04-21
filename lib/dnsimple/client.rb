@@ -172,7 +172,7 @@ module Dnsimple
       options = base_options
       Extra.deep_merge!(options, auth_options)
       Extra.deep_merge!(options, proxy_options)
-      Extra.deep_merge!(custom_options, options)
+      Extra.deep_merge!(options, custom_options)
     end
 
     def base_options
