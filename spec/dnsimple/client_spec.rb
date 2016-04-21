@@ -43,22 +43,6 @@ describe Dnsimple::Client do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
           with { |req| req.headers["Authorization"] == "Bearer access-token" }
     end
-
-    it "raises an error if there's no password, domain token or access token provided" do
-      subject = described_class.new(username: "user", oauth_client_id: "id", oauth_client_secret: "secret")
-
-      expect {
-        subject.execute(:get, "test", {})
-      }.to raise_error(Dnsimple::Error, "A password, domain API token or access token is required.")
-    end
-
-    it "can perform requests without requiring authentication" do
-      stub_request(:any, %r{/test})
-
-      expect {
-        subject.execute(:get, "test", nil, authenticate: false)
-      }.not_to raise_error
-    end
   end
 
   describe "#get" do
@@ -192,7 +176,7 @@ describe Dnsimple::Client do
           and_return(double('response', code: 200))
 
       subject = described_class.new(proxy: "example-proxy.com:4321")
-      subject.request(:get, "test", nil, authenticate: false)
+      subject.request(:get, "test", nil, {})
     end
   end
 
