@@ -170,8 +170,8 @@ module Dnsimple
 
     def request_options(custom_options = {})
       options = base_options
-      Extra.deep_merge!(options, auth_options)
-      Extra.deep_merge!(options, proxy_options)
+      add_auth_options!(options)
+      add_proxy_options!(options)
       Extra.deep_merge!(options, custom_options)
     end
 
@@ -185,27 +185,20 @@ module Dnsimple
       }
     end
 
-    def proxy_options
-      options = {}
-
+    def add_proxy_options!(options)
       if proxy
         address, port = proxy.split(":")
-        options = { http_proxyaddr: address, http_proxyport: port }
+        options[:http_proxyaddr] = address
+        options[:http_proxyport] = port
       end
-
-      options
     end
 
-    def auth_options
-      options = {}
-
+    def add_auth_options!(options)
       if password
-        options = { basic_auth: { username: username, password: password } }
+        options[:basic_auth] = { username: username, password: password }
       elsif access_token
-        options = { headers: { HEADER_AUTHORIZATION => "Bearer #{access_token}" } }
+        options[:headers][HEADER_AUTHORIZATION] = "Bearer #{access_token}"
       end
-
-      options
     end
 
     def content_type(headers)
