@@ -43,14 +43,6 @@ describe Dnsimple::Client do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
           with { |req| req.headers["Authorization"] == "Bearer access-token" }
     end
-
-    it "raises an error if there's no password, domain token or access token provided" do
-      subject = described_class.new(username: "user", oauth_client_id: "id", oauth_client_secret: "secret")
-
-      expect {
-        subject.execute(:get, "test", {})
-      }.to raise_error(Dnsimple::Error, "A password, domain API token or access token is required for all API requests.")
-    end
   end
 
   describe "#get" do
@@ -170,6 +162,34 @@ describe Dnsimple::Client do
           and_return(double('response', code: 200))
 
       subject.request(:post, 'foo', { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
+    end
+
+    it "includes options for proxy support" do
+      expect(HTTParty).to receive(:get).
+          with(
+              "#{subject.base_url}test",
+              format: :json,
+              http_proxyaddr: "example-proxy.com",
+              http_proxyport: "4321",
+              headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+          ).
+          and_return(double('response', code: 200))
+
+      subject = described_class.new(proxy: "example-proxy.com:4321")
+      subject.request(:get, "test", nil, {})
+    end
+
+    it "default options can be overriden" do
+      expect(HTTParty).to receive(:get).
+          with(
+              "#{subject.base_url}test",
+              format: :json,
+              headers: { "Accept" => "application/json", "User-Agent" => "dnsimple-custom-integration" }
+          ).
+          and_return(double("response", code: 200))
+
+      subject = described_class.new
+      subject.request(:get, "test", nil, headers: { "User-Agent" => "dnsimple-custom-integration" })
     end
   end
 
