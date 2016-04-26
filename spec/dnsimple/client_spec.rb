@@ -31,7 +31,7 @@ describe Dnsimple::Client do
       subject = described_class.new(username: "user", password: "pass")
       subject.execute(:get, "test", {})
 
-      expect(WebMock).to have_requested(:get, "https://user:pass@api.dnsimple.com/test")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").with(basic_auth: %w(user pass))
     end
 
     it "uses access token if there's an access token provided" do
@@ -116,8 +116,9 @@ describe Dnsimple::Client do
 
       subject.request(:get, 'foo', {})
 
-      expect(WebMock).to have_requested(:get, "https://user:pass@api.dnsimple.com/foo").
-          with(headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/foo").
+          with(basic_auth: %w(user pass),
+               headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" })
     end
 
     it "delegates to HTTParty" do
