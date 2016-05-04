@@ -44,8 +44,8 @@ module Dnsimple
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::TemplateRecord>]
       #
       # @raise  [Dnsimple::RequestError]
-      def all_records(account_id, zone_id, options = {})
-        paginate(:records, account_id, zone_id, options)
+      def all_records(account_id, template_id, options = {})
+        paginate(:records, account_id, template_id, options)
       end
 
     end
