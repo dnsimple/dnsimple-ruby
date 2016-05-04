@@ -5,6 +5,9 @@ module Dnsimple
       # @return [Fixnum] The template record ID in DNSimple.
       attr_accessor :id
 
+      # @return [Fixnum] The template ID in DNSimple.
+      attr_accessor :template_id
+
       # @return [String] The type of template record, in uppercase.
       attr_accessor :type
 
