@@ -45,4 +45,41 @@ describe Dnsimple::Client, ".templates" do
     end
   end
 
+  describe "#create_record" do
+    let(:account_id) { 1010 }
+    let(:template_id) { "alpha" }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/templates/#{template_id}/records$}).
+          to_return(read_http_fixture("createTemplateRecord/created.http"))
+    end
+
+    let(:attributes) { { type: "MX", name: "", content: "mx.example.com", priority: 10, ttl: 600 } }
+
+    it "builds the correct request" do
+      subject.create_record(account_id, template_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records").
+          with(body: attributes).
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the record" do
+      response = subject.create_record(account_id, template_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::TemplateRecord)
+      expect(result.id).to eq(300)
+      expect(result.template_id).to eq(268)
+      expect(result.name).to eq("")
+      expect(result.type).to eq("MX")
+      expect(result.content).to eq("mx.example.com")
+      expect(result.ttl).to eq(600)
+      expect(result.priority).to eq(10)
+      expect(result.created_at).to eq("2016-05-03T07:51:33.202Z")
+      expect(result.updated_at).to eq("2016-05-03T07:51:33.202Z")
+    end
+  end
+
 end

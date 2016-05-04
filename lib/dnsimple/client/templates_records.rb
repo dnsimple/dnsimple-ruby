@@ -48,6 +48,23 @@ module Dnsimple
         paginate(:records, account_id, template_id, options)
       end
 
+      # Creates a record in the template.
+      #
+      # @see https://developer.dnsimple.com/v2/templates/records/#create
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [String] template_id the zone name
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::TemplateRecord>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def create_record(account_id, template_id, attributes, options = {})
+        endpoint = Client.versioned("/%s/templates/%s/records" % [account_id, template_id])
+        response = client.post(endpoint, attributes, options)
+
+        Dnsimple::Response.new(response, Struct::TemplateRecord.new(response["data"]))
+      end
     end
   end
 end
