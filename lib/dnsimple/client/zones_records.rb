@@ -73,7 +73,7 @@ module Dnsimple
       # @param  [String] zone_id the zone name
       # @param  [Fixnum] record_id the record ID
       # @param  [Hash] options
-      # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
+      # @return [Dnsimple::Response<Dnsimple::Struct::Record>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]

@@ -29,10 +29,10 @@ module Dnsimple
       # @return [Bool] True if this is a system record created by DNSimple. System records are read-only.
       attr_accessor :system_record
 
-      # @return [String] When the domain was created in DNSimple.
+      # @return [String] When the record was created in DNSimple.
       attr_accessor :created_at
 
-      # @return [String] When the domain was last updated in DNSimple.
+      # @return [String] When the record was last updated in DNSimple.
       attr_accessor :updated_at
     end
 
