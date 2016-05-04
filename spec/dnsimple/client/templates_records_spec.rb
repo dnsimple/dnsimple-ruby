@@ -84,12 +84,46 @@ describe Dnsimple::Client, ".templates" do
     context "when the template does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r{/v2}).
-            to_return(read_http_fixture("notfound-zone.http"))
+            to_return(read_http_fixture("notfound-template.http"))
 
         expect {
           subject.create_record(account_id, template_id, attributes)
         }.to raise_error(Dnsimple::NotFoundError)
       end
+    end
+  end
+
+  describe "#record" do
+    let(:account_id) { 1010 }
+    let(:template_id) { "alpha.com" }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}/records/.+$}).
+          to_return(read_http_fixture("getTemplateRecord/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.record(account_id, template_id, record_id = 301)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records/#{record_id}").
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the record" do
+      response = subject.record(account_id, template_id, 301)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::TemplateRecord)
+      expect(result.id).to eq(301)
+      expect(result.template_id).to eq(268)
+      expect(result.type).to eq("MX")
+      expect(result.name).to eq("")
+      expect(result.content).to eq("mx.example.com")
+      expect(result.ttl).to eq(600)
+      expect(result.priority).to eq(10)
+      expect(result.created_at).to eq("2016-05-03T08:03:26.444Z")
+      expect(result.updated_at).to eq("2016-05-03T08:03:26.444Z")
     end
   end
 

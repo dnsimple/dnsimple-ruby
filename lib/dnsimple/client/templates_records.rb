@@ -53,7 +53,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/templates/records/#create
       #
       # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
-      # @param  [String] template_id the zone name
+      # @param  [String] template_id the template name
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::TemplateRecord>]
@@ -62,6 +62,25 @@ module Dnsimple
       def create_record(account_id, template_id, attributes, options = {})
         endpoint = Client.versioned("/%s/templates/%s/records" % [account_id, template_id])
         response = client.post(endpoint, attributes, options)
+
+        Dnsimple::Response.new(response, Struct::TemplateRecord.new(response["data"]))
+      end
+
+      # Gets a record from the template.
+      #
+      # @see https://developer.dnsimple.com/v2/templates/records/#get
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [String] template_id the template name
+      # @param  [Fixnum] record_id the record ID
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::TemplateRecord>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def record(account_id, template_id, record_id, options = {})
+        endpoint = Client.versioned("/%s/templates/%s/records/%s" % [account_id, template_id, record_id])
+        response = client.get(endpoint, options)
 
         Dnsimple::Response.new(response, Struct::TemplateRecord.new(response["data"]))
       end
