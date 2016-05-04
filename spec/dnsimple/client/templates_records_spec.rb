@@ -80,6 +80,17 @@ describe Dnsimple::Client, ".templates" do
       expect(result.created_at).to eq("2016-05-03T07:51:33.202Z")
       expect(result.updated_at).to eq("2016-05-03T07:51:33.202Z")
     end
+
+    context "when the template does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:post, %r{/v2}).
+            to_return(read_http_fixture("notfound-zone.http"))
+
+        expect {
+          subject.create_record(account_id, template_id, attributes)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
   end
 
 end
