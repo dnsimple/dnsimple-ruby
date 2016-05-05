@@ -84,6 +84,27 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::TemplateRecord.new(response["data"]))
       end
+
+      # Deletes a record from the template.
+      #
+      # WARNING: this cannot be undone.
+      #
+      # @see https://developer.dnsimple.com/v2/templates/records/#delete
+      #
+      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [String] template_id the template name
+      # @param  [Fixnum] record_id the record ID
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def delete_record(account_id, template_id, record_id, options = {})
+        endpoint = Client.versioned("/%s/templates/%s/records/%s" % [account_id, template_id, record_id])
+        response = client.delete(endpoint, options)
+
+        Dnsimple::Response.new(response, nil)
+      end
     end
   end
 end
