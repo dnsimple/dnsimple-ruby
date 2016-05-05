@@ -81,6 +81,26 @@ describe Dnsimple::Client, ".templates" do
       expect(result.updated_at).to eq("2016-05-03T07:51:33.202Z")
     end
 
+    context "with missing data" do
+      it "raises an error when the type is missing" do
+        expect {
+          subject.create_record(account_id, template_id, name: "", content: "192.168.1.1")
+        }.to raise_error(ArgumentError)
+      end
+
+      it "raises an error when the name is missing" do
+        expect {
+          subject.create_record(account_id, template_id, type: "A", content: "192.168.1.1")
+        }.to raise_error(ArgumentError)
+      end
+
+      it "raises an error when the content is missing" do
+        expect {
+          subject.create_record(account_id, template_id, type: "A", name: "")
+        }.to raise_error(ArgumentError)
+      end
+    end
+
     context "when the template does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r{/v2}).

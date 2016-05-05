@@ -66,6 +66,7 @@ module Dnsimple
       #
       # @raise  [Dnsimple::RequestError]
       def create_record(account_id, template_id, attributes, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:type, :name, :content])
         endpoint = Client.versioned("/%s/templates/%s/records" % [account_id, template_id])
         response = client.post(endpoint, attributes, options)
 
