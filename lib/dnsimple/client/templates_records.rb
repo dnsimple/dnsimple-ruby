@@ -38,6 +38,9 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/templates/records/#list
       # @see #all_records
       #
+      # @example List all the records for "alpha template
+      #   client.templates.all_records(1010, "alpha")
+      #
       # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
       # @param  [String] template_id the template name
       # @param  [Hash] options
@@ -51,6 +54,9 @@ module Dnsimple
       # Creates a record in the template.
       #
       # @see https://developer.dnsimple.com/v2/templates/records/#create
+      #
+      # @example Create an A record for "alpha" template
+      #   client.templates.create_record(1010, "alpha", name: "", type: "A", content: "192.168.1.1", ttl: 600)
       #
       # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
       # @param  [String] template_id the template name
@@ -69,6 +75,9 @@ module Dnsimple
       # Gets a record from the template.
       #
       # @see https://developer.dnsimple.com/v2/templates/records/#get
+      #
+      # @example Get record 123 in "alpha template
+      #   client.templates.record(1010, "alpha", 123)
       #
       # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
       # @param  [String] template_id the template name
@@ -90,6 +99,9 @@ module Dnsimple
       # WARNING: this cannot be undone.
       #
       # @see https://developer.dnsimple.com/v2/templates/records/#delete
+      #
+      # @example Delete record 123 in "alpha template
+      #   client.templates.delete_record(1010, "alpha", 123)
       #
       # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
       # @param  [String] template_id the template name
