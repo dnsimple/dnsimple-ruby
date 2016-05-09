@@ -18,6 +18,7 @@ module Dnsimple
       # @param  [Hash] options
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::TemplateRecord>]
       #
+      # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def records(account_id, template_id, options = {})
         endpoint = Client.versioned("/%s/templates/%s/records" % [account_id, template_id])
@@ -46,6 +47,7 @@ module Dnsimple
       # @param  [Hash] options
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::TemplateRecord>]
       #
+      # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def all_records(account_id, template_id, options = {})
         paginate(:records, account_id, template_id, options)
@@ -64,6 +66,7 @@ module Dnsimple
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::TemplateRecord>]
       #
+      # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def create_record(account_id, template_id, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:type, :name, :content])
