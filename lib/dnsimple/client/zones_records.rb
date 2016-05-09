@@ -18,6 +18,7 @@ module Dnsimple
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Record>]
       #
+      # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def records(account_id, zone_id, options = {})
         response = client.get(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), options)
@@ -46,6 +47,7 @@ module Dnsimple
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Record>]
       #
+      # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def all_records(account_id, zone_id, options = {})
         paginate(:records, account_id, zone_id, options)
@@ -65,6 +67,7 @@ module Dnsimple
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Record>]
       #
+      # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def create_record(account_id, zone_id, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:type, :name, :content])
