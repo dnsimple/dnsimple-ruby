@@ -95,7 +95,7 @@ module Dnsimple
       # @example Change the name of template 1 in account 1010:
       #   client.templates.update_template(1010, 1, name: "New name")
       #
-      # @param  [Fixnum] account_iduthe account ID
+      # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] template_id The template ID
       # @param  [Hash] attributes
       # @param  [Hash] options
