@@ -2,6 +2,11 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
+#### master
+
+- NEW: Added template record support (GH-104).
+
+- CHANGED: Authentication credentials presence is no longer validated on the client as it was causing an error getting the access token (GH-74 and GH-102).
 
 #### 3.0.0
 
@@ -42,7 +47,7 @@ Internal changes were made to match conventions adopted in other clients, such a
 
 #### 2.1.0
 
-- NEW: Add the ability to set headers and pass extra connection params in each API method (GH-64) 
+- NEW: Add the ability to set headers and pass extra connection params in each API method (GH-64)
 
 #### 2.0.0
 
