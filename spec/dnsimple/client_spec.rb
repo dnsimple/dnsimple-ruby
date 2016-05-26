@@ -118,7 +118,7 @@ describe Dnsimple::Client do
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/foo").
           with(basic_auth: %w(user pass),
-               headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" })
+               headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT })
     end
 
     it "delegates to HTTParty" do
@@ -129,7 +129,7 @@ describe Dnsimple::Client do
               "#{subject.base_url}foo",
               format: :json,
               basic_auth: { username: "user", password: "pass" },
-              headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+              headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
           ).
           and_return(double('response', code: 200))
 
@@ -144,7 +144,7 @@ describe Dnsimple::Client do
               body: JSON.dump(something: "else"),
               query: { foo: "bar" },
               basic_auth: { username: "user", password: "pass" },
-              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}", "Custom" => "Header" }
+              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT, "Custom" => "Header" }
           ).
           and_return(double('response', code: 200))
 
@@ -158,7 +158,7 @@ describe Dnsimple::Client do
               format: :json,
               body: { something: "else" },
               basic_auth: { username: "user", password: "pass" },
-              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => Dnsimple::Default::USER_AGENT }
           ).
           and_return(double('response', code: 200))
 
@@ -172,7 +172,7 @@ describe Dnsimple::Client do
               format: :json,
               http_proxyaddr: "example-proxy.com",
               http_proxyport: "4321",
-              headers: { 'Accept' => 'application/json', 'User-Agent' => "dnsimple-ruby/#{Dnsimple::VERSION}" }
+              headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
           ).
           and_return(double('response', code: 200))
 
@@ -180,17 +180,17 @@ describe Dnsimple::Client do
       subject.request(:get, "test", nil, {})
     end
 
-    it "default options can be overriden" do
+    it "supports custom user agent" do
       expect(HTTParty).to receive(:get).
           with(
               "#{subject.base_url}test",
               format: :json,
-              headers: { "Accept" => "application/json", "User-Agent" => "dnsimple-custom-integration" }
+              headers: hash_including("User-Agent" => "#{Dnsimple::Default::USER_AGENT} customAgent")
           ).
           and_return(double("response", code: 200))
 
-      subject = described_class.new
-      subject.request(:get, "test", nil, headers: { "User-Agent" => "dnsimple-custom-integration" })
+      subject = described_class.new(user_agent: "customAgent")
+      subject.request(:get, "test", nil)
     end
   end
 

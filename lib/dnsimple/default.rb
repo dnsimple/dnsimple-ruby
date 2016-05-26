@@ -61,10 +61,10 @@ module Dnsimple
         ENV['DNSIMPLE_API_DOMAIN_TOKEN']
       end
 
-      # Default User-Agent header string from ENV or {USER_AGENT}
+      # Default User-Agent header string from ENV
       # @return [String]
       def user_agent
-        ENV['DNSIMPLE_USER_AGENT'] || USER_AGENT
+        ENV['DNSIMPLE_USER_AGENT']
       end
 
       # Default Proxy address:port from ENV
