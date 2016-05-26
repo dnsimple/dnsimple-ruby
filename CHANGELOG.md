@@ -2,11 +2,15 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
+
 #### master
 
 - NEW: Added template record support (GH-104).
 
 - CHANGED: Authentication credentials presence is no longer validated on the client as it was causing an error getting the access token (GH-74 and GH-102).
+
+- CHANGED: Setting a custom user-agent no longer overrides the origina user-agent (GH-105)
+
 
 #### 3.0.0
 
@@ -23,7 +27,6 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 - NEW: Added service support (GH-101).
 
 - CHANGED: Error detection is now smarter. If the error is deserializable and contains a message, the message is attached to the exception (GH-94, GH-95, GH-100).
-
 
 ##### beta2
 
