@@ -169,18 +169,19 @@ module Dnsimple
     private
 
     def request_options(custom_options = {})
-      options = base_options
-      add_auth_options!(options)
-      add_proxy_options!(options)
-      Extra.deep_merge!(options, custom_options)
+      base_options.tap do |options|
+        Extra.deep_merge!(options, custom_options)
+        Extra.deep_merge!(options, headers: { "User-Agent" => format_user_agent })
+        add_auth_options!(options)
+        add_proxy_options!(options)
+      end
     end
 
     def base_options
       {
           format:   :json,
           headers:  {
-              'Accept' => 'application/json',
-              'User-Agent' => user_agent,
+              "Accept" => "application/json",
           },
       }
     end
@@ -198,6 +199,25 @@ module Dnsimple
         options[:basic_auth] = { username: username, password: password }
       elsif access_token
         options[:headers][HEADER_AUTHORIZATION] = "Bearer #{access_token}"
+      end
+    end
+
+    # Builds the final user agent to use for HTTP requests.
+    #
+    # If no custom user agent is provided, the default user agent is used.
+    #
+    #     dnsimple-ruby/1.0
+    #
+    # If a custom user agent is provided, the final user agent is the combination
+    # of the custom user agent prepended by the default user agent.
+    #
+    #     dnsimple-ruby/1.0 customAgentFlag
+    #
+    def format_user_agent
+      if user_agent.to_s.empty?
+        Dnsimple::Default::USER_AGENT
+      else
+        "#{Dnsimple::Default::USER_AGENT} #{user_agent}"
       end
     end
 
