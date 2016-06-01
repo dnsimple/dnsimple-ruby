@@ -13,7 +13,7 @@ module Dnsimple
       # @example List records for the template "alpha", providing a specific page
       #   client.templates.records(1010, "alpha", query: { page: 2 })
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Hash] options
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::TemplateRecord>]
@@ -42,7 +42,7 @@ module Dnsimple
       # @example List all the records for "alpha template
       #   client.templates.all_records(1010, "alpha")
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Hash] options
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::TemplateRecord>]
@@ -60,7 +60,7 @@ module Dnsimple
       # @example Create an A record for "alpha" template
       #   client.templates.create_record(1010, "alpha", name: "", type: "A", content: "192.168.1.1", ttl: 600)
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -83,7 +83,7 @@ module Dnsimple
       # @example Get record 123 in "alpha template
       #   client.templates.record(1010, "alpha", 123)
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Fixnum] record_id the record ID
       # @param  [Hash] options
@@ -107,7 +107,7 @@ module Dnsimple
       # @example Delete record 123 in "alpha template
       #   client.templates.delete_record(1010, "alpha", 123)
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Fixnum] record_id the record ID
       # @param  [Hash] options

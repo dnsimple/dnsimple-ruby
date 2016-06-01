@@ -12,8 +12,6 @@ module Dnsimple
   class Client
 
     HEADER_AUTHORIZATION = "Authorization".freeze
-    WILDCARD_ACCOUNT = "_".freeze
-
 
     # @return [String] The current API version.
     API_VERSION = "v2".freeze
