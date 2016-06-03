@@ -9,7 +9,9 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Authentication credentials presence is no longer validated on the client as it was causing an error getting the access token (GH-74 and GH-102).
 
-- CHANGED: Setting a custom user-agent no longer overrides the origina user-agent (GH-105)
+- CHANGED: Setting a custom user-agent no longer overrides the origina user-agent (GH-105).
+
+- REMOVED: Removed support for wildcard accounts (GH-107).
 
 
 #### 3.0.0
