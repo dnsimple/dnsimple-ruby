@@ -50,7 +50,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/zones/#get
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] zone_id the zone name
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Zone>]

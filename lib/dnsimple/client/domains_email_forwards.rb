@@ -12,7 +12,7 @@ module Dnsimple
       # @example List email forwards, provide a specific page
       #   client.domains.email_forwards(1010, "example.com", query: { page: 2 })
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::EmailForward>]
@@ -36,7 +36,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#list
       # @see #email_forwards
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::EmailForward>]
@@ -50,7 +50,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#create
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -68,7 +68,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#get
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [#to_s] email_forward_id The email forward ID
       # @param  [Hash] options
@@ -88,7 +88,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#delete
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [#to_s] email_forward_id The email forward ID
       # @param  [Hash] options

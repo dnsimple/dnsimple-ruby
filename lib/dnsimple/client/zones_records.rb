@@ -13,7 +13,7 @@ module Dnsimple
       # @example List records for the zone "example.com", provide a specific page
       #   client.zones.records(1010, "example.com", query: { page: 2 })
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] zone_id the zone name
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Record>]
@@ -42,7 +42,7 @@ module Dnsimple
       # @example List all records for the zone "example.com"
       #   client.zones.all_records(1010, "example.com")
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] zone_id the zone name
       # @param  [Hash] options the filtering and sorting option
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Record>]
@@ -61,7 +61,7 @@ module Dnsimple
       # @example Create a URL record in zone "example.com"
       #   client.zones.create_record(1010, "example.com", name: "www", type: "url", content: "example.com")
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] zone_id the zone name
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -84,7 +84,7 @@ module Dnsimple
       # @example Get record 123 in zone "example.com"
       #   client.zones.record(1010, "example.com", 123)
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] zone_id the zone name
       # @param  [Fixnum] record_id the record ID
       # @param  [Hash] options
@@ -105,7 +105,7 @@ module Dnsimple
       # @example Update the TTL to 600 of record 123 in zone "example.com"
       #   client.zones.update_record(1010, "example.com", 123, ttl: 600)
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] zone_id the zone name
       # @param  [Fixnum] record_id the record ID
       # @param  [Hash] attributes
@@ -130,7 +130,7 @@ module Dnsimple
       # @example Delete record 123 in zone "example.com"
       #   client.zones.delete_record(1010, "example.com", 123)
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [String] zone_id the zone name
       # @param  [Fixnum] record_id the record ID
       # @param  [Hash] options

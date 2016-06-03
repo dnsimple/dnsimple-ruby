@@ -6,7 +6,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/registrar/auto-renewal/
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_name the domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
@@ -23,7 +23,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/registrar/auto-renewal/
       #
-      # @param  [Fixnum, Dnsimple::Client::WILDCARD_ACCOUNT] account_id the account ID or wildcard
+      # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_name the domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
