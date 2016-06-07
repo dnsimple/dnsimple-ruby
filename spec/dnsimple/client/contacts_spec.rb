@@ -73,7 +73,7 @@ describe Dnsimple::Client, ".contacts" do
           to_return(read_http_fixture("createContact/created.http"))
     end
 
-    let(:attributes) { { first_name: "Simone", last_name: "Carletti", address1: "Italian Street", city: "Rome", state_province: "RM", postal_code: "00171", country: "IT", email_address: "example@example.com", phone: "+393391234567" } }
+    let(:attributes) { { first_name: "Simone", last_name: "Carletti", address1: "Italian Street", city: "Rome", state_province: "RM", postal_code: "00171", country: "IT", email: "example@example.com", phone: "+393391234567" } }
 
     it "builds the correct request" do
       subject.create_contact(account_id, attributes)

@@ -58,7 +58,7 @@ module Dnsimple
       #
       # @raise  [Dnsimple::RequestError]
       def create_contact(account_id, attributes, options = {})
-        Extra.validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email_address])
+        Extra.validate_mandatory_attributes(attributes, [:first_name, :last_name, :address1, :city, :state_province, :postal_code, :country, :phone, :email])
         response = client.post(Client.versioned("/%s/contacts" % [account_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::Contact.new(response["data"]))
