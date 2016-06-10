@@ -11,6 +11,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Setting a custom user-agent no longer overrides the origina user-agent (GH-105).
 
+- CHANGED: Updated client to use Contact#email (GH-108).
+
 - REMOVED: Removed support for wildcard accounts (GH-107).
 
 
