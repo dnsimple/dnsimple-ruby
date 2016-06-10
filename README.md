@@ -48,6 +48,7 @@ client.identity.whoami.data         # execute the call and get the data in one l
 account_id = 1010
 
 # You can also fetch it from the whoami response
+# as long as you authenticate with an Account access token
 whoami = client.identity.whoami.data
 account_id = whoami.account.id
 
