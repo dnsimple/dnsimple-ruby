@@ -18,12 +18,12 @@ describe Dnsimple::Client, ".identity" do
           with(headers: { 'Accept' => 'application/json' })
     end
 
-    it "returns a response" do
+    it "returns the whoami" do
       response = subject.whoami
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Hash)
+      expect(result).to be_a(Dnsimple::Struct::Whoami)
     end
 
     context "when authenticated as account" do
@@ -34,8 +34,8 @@ describe Dnsimple::Client, ".identity" do
 
       it "sets the account" do
         result = subject.whoami.data
-        expect(result[:account]).to be_a(Dnsimple::Struct::Account)
-        expect(result[:user]).to be_nil
+        expect(result.account).to be_a(Dnsimple::Struct::Account)
+        expect(result.user).to be_nil
       end
     end
 
@@ -47,8 +47,8 @@ describe Dnsimple::Client, ".identity" do
 
       it "sets the user" do
         result = subject.whoami.data
-        expect(result[:account]).to be_nil
-        expect(result[:user]).to be_a(Dnsimple::Struct::User)
+        expect(result.account).to be_nil
+        expect(result.user).to be_a(Dnsimple::Struct::User)
       end
     end
   end
