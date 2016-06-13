@@ -13,13 +13,17 @@ module Dnsimple
       # @example List zones, provide a specific page
       #   client.zones.list(1010, "example.com", query: { page: 2 })
       #
+      # @example List zones, provide sorting policy
+      #   client.zones.list(1010, "example.com", sort: "name:desc")
+      #
       # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Zone>]
       #
       # @raise  [Dnsimple::RequestError]
       def zones(account_id, options = {})
-        response = client.get(Client.versioned("/%s/zones" % [account_id]), options)
+        response = client.get(Client.versioned("/%s/zones" % [account_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Zone.new(r) })
       end
@@ -38,7 +42,8 @@ module Dnsimple
       # @see #zones
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Zone>]
       #
       # @raise  [Dnsimple::RequestError]

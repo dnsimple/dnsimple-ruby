@@ -32,6 +32,12 @@ describe Dnsimple::Client, ".contacts" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/contacts?foo=bar")
     end
 
+    it "supports sorting" do
+      subject.contacts(account_id, sort: "label:desc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/contacts?sort=label:desc")
+    end
+
     it "returns the contacts" do
       response = subject.contacts(account_id)
 
@@ -57,11 +63,22 @@ describe Dnsimple::Client, ".contacts" do
   end
 
   describe "#all_contacts" do
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/contacts}).
+          to_return(read_http_fixture("listContacts/success.http"))
+    end
+
     let(:account_id) { 1010 }
 
     it "delegates to client.paginate" do
       expect(subject).to receive(:paginate).with(:contacts, account_id, foo: "bar")
       subject.all_contacts(account_id, foo: "bar")
+    end
+
+    it "supports sorting" do
+      subject.all_contacts(account_id, sort: "label:desc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/contacts?page=1&per_page=100&sort=label:desc")
     end
   end
 

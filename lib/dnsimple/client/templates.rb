@@ -9,14 +9,18 @@ module Dnsimple
       # @example List the templates for account 1010:
       #   client.templates.list_templates(1010)
       #
+      # @example List the templates for account 1010, provide sorting policy:
+      #   client.templates.list_templates(1010, sort: "short_name:asc")
+      #
       # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Template>]
       #
       # @raise  [RequestError] When the request fails.
       def templates(account_id, options = {})
         endpoint = Client.versioned("/%s/templates" % [account_id])
-        response = client.get(endpoint, options)
+        response = client.get(endpoint, Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Template.new(r) })
       end
@@ -38,7 +42,8 @@ module Dnsimple
       # @see #templates
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Template>]
       #
       # @raise  [RequestError] When the request fails.

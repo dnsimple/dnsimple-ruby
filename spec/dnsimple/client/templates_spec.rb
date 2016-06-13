@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".templates" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/templates$}).
+      stub_request(:get, %r{/v2/#{account_id}/templates}).
           to_return(read_http_fixture("listTemplates/success.http"))
     end
 
@@ -18,6 +18,18 @@ describe Dnsimple::Client, ".templates" do
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates").
           with(headers: { "Accept" => "application/json" })
+    end
+
+    it "supports extra request options" do
+      subject.templates(account_id, query: { foo: "bar" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?foo=bar")
+    end
+
+    it "supports sorting" do
+      subject.templates(account_id, sort: "short_name:desc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?sort=short_name:desc")
     end
 
     it "returns the list of templates" do
@@ -36,11 +48,22 @@ describe Dnsimple::Client, ".templates" do
   end
 
   describe "#all_templates" do
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/templates}).
+          to_return(read_http_fixture("listTemplates/success.http"))
+    end
+
     let(:account_id) { 1010 }
 
     it "delegates to client.paginate" do
       expect(subject).to receive(:paginate).with(:templates, account_id, foo: "bar")
       subject.all_templates(account_id, foo: "bar")
+    end
+
+    it "supports sorting" do
+      subject.all_templates(account_id, sort: "short_name:desc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?page=1&per_page=100&sort=short_name:desc")
     end
   end
 

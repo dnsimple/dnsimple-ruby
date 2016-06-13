@@ -25,6 +25,12 @@ describe Dnsimple::Client, ".webhooks" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks?foo=bar")
     end
 
+    it "supports sorting" do
+      subject.webhooks(account_id, sort: "id:asc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks?sort=id:asc")
+    end
+
     it "returns the webhooks" do
       response = subject.webhooks(account_id)
 

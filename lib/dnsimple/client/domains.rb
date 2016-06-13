@@ -13,13 +13,17 @@ module Dnsimple
       # @example List domains, provide a specific page
       #   client.domains.list(1010, query: { page: 2 })
       #
+      # @example List domains, provide a sorting policy
+      #   client.domains.list(1010, sort: "expires_on:asc")
+      #
       # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Domain>]
       #
       # @raise  [Dnsimple::RequestError]
       def domains(account_id, options = {})
-        response = client.get(Client.versioned("/%s/domains" % [account_id]), options)
+        response = client.get(Client.versioned("/%s/domains" % [account_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Domain.new(r) })
       end
@@ -39,6 +43,7 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting option
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Domain>]
       #
       # @raise  [Dnsimple::RequestError]

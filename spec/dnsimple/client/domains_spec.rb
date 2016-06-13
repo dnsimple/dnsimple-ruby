@@ -32,6 +32,12 @@ describe Dnsimple::Client, ".domains" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?foo=bar")
     end
 
+    it "supports sorting" do
+      subject.domains(account_id, sort: "expires_on:asc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?sort=expires_on:asc")
+    end
+
     it "returns the domains" do
       response = subject.domains(account_id)
 
@@ -57,11 +63,22 @@ describe Dnsimple::Client, ".domains" do
   end
 
   describe "#all_domains" do
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/domains}).
+          to_return(read_http_fixture("listDomains/success.http"))
+    end
+
     let(:account_id) { 1010 }
 
     it "delegates to client.paginate" do
       expect(subject).to receive(:paginate).with(:domains, account_id, foo: "bar")
       subject.all_domains(account_id, foo: "bar")
+    end
+
+    it "supports sorting" do
+      subject.all_domains(account_id, sort: "expires_on:asc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?page=1&per_page=100&sort=expires_on:asc")
     end
   end
 

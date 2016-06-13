@@ -71,7 +71,7 @@ module Dnsimple
     # @param  [Hash] options The query and header params for the request
     # @return [HTTParty::Response]
     def get(path, options = {})
-      execute :get, path, nil, options
+      execute :get, path, nil, options.to_h
     end
 
     # Make a HTTP POST request.

@@ -13,15 +13,19 @@ module Dnsimple
       # @example List records for the zone "example.com", provide a specific page
       #   client.zones.records(1010, "example.com", query: { page: 2 })
       #
+      # @example List records for the zone "example.com", provide sorting policy
+      #   client.zones.records(1010, "example.com", sort: "type:asc")
+      #
       # @param  [Fixnum] account_id the account ID
       # @param  [String] zone_id the zone name
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Record>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def records(account_id, zone_id, options = {})
-        response = client.get(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), options)
+        response = client.get(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Record.new(r) })
       end
@@ -44,7 +48,8 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [String] zone_id the zone name
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Record>]
       #
       # @raise  [Dnsimple::NotFoundError]

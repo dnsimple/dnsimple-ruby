@@ -13,13 +13,17 @@ module Dnsimple
       # @example List contacts, provide a specific page
       #   client.contacts.list(1010, query: { page: 2 })
       #
+      # @example List contacts, provide a sorting policy
+      #   client.contacts.list(1010, sort: "email:asc")
+      #
       # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Contact>]
       #
       # @raise  [Dnsimple::RequestError]
       def contacts(account_id, options = {})
-        response = client.get(Client.versioned("/%s/contacts" % [account_id]), options)
+        response = client.get(Client.versioned("/%s/contacts" % [account_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Contact.new(r) })
       end
@@ -38,7 +42,8 @@ module Dnsimple
       # @see #contacts
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Contact>]
       #
       # @raise  [Dnsimple::RequestError]

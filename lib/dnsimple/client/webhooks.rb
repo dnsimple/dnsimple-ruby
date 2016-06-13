@@ -9,13 +9,17 @@ module Dnsimple
       # @example List all webhooks
       #   client.webhooks.list(1010)
       #
+      # @example List all webhooks, provide sorting policy
+      #   client.webhooks.list(1010, sort: "id:asc")
+      #
       # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Webhook>]
       #
       # @raise  [Dnsimple::RequestError]
       def webhooks(account_id, options = {})
-        response = client.get(Client.versioned("/%s/webhooks" % [account_id]), options)
+        response = client.get(Client.versioned("/%s/webhooks" % [account_id]), Options::ListOptions.new(options))
 
         Dnsimple::CollectionResponse.new(response, response["data"].map { |r| Struct::Webhook.new(r) })
       end
