@@ -39,6 +39,12 @@ describe Dnsimple::Client, ".zones" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?sort=type:asc")
     end
 
+    it "supports filtering" do
+      subject.records(account_id, zone_id, filter: { type: "A" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?type=A")
+    end
+
     it "returns the records" do
       response = subject.records(account_id, zone_id)
 
@@ -92,6 +98,12 @@ describe Dnsimple::Client, ".zones" do
       subject.all_records(account_id, zone_id, sort: "type:asc")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?page=1&per_page=100&sort=type:asc")
+    end
+
+    it "supports filtering" do
+      subject.all_records(account_id, zone_id, filter: { name: "foo", type: "AAAA" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?page=1&per_page=100&name=foo&type=AAAA")
     end
   end
 

@@ -16,9 +16,13 @@ module Dnsimple
       # @example List zones, provide sorting policy
       #   client.zones.list(1010, "example.com", sort: "name:desc")
       #
+      # @example List zones, provide filtering policy
+      #   client.zones.list(1010, "example.com", filter: { name_like: "example" })
+      #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
       # @option options [String] :sort sorting policy
+      # @option options [Hash] :filter filtering policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Zone>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -44,6 +48,7 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
       # @option options [String] :sort sorting policy
+      # @option options [Hash] :filter filtering policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Zone>]
       #
       # @raise  [Dnsimple::RequestError]

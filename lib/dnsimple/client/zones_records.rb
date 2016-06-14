@@ -16,10 +16,14 @@ module Dnsimple
       # @example List records for the zone "example.com", provide sorting policy
       #   client.zones.records(1010, "example.com", sort: "type:asc")
       #
+      # @example List records for the zone "example.com", provide filtering policy
+      #   client.zones.records(1010, "example.com", sort: "type:asc")
+      #
       # @param  [Fixnum] account_id the account ID
       # @param  [String] zone_id the zone name
       # @param  [Hash] options the filtering and sorting options
       # @option options [String] :sort sorting policy
+      # @option options [Hash] :filter filtering policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Record>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -50,6 +54,7 @@ module Dnsimple
       # @param  [String] zone_id the zone name
       # @param  [Hash] options the filtering and sorting options
       # @option options [String] :sort sorting policy
+      # @option options [Hash] :filter filtering policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Record>]
       #
       # @raise  [Dnsimple::NotFoundError]

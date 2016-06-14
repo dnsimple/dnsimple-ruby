@@ -38,6 +38,12 @@ describe Dnsimple::Client, ".zones" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones?sort=name:desc")
     end
 
+    it "supports filtering" do
+      subject.zones(account_id, filter: { name_like: "example" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones?name_like=example")
+    end
+
     it "returns the zones" do
       response = subject.zones(account_id)
 
@@ -79,6 +85,12 @@ describe Dnsimple::Client, ".zones" do
       subject.all_zones(account_id, sort: "name:desc")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones?page=1&per_page=100&sort=name:desc")
+    end
+
+    it "supports sorting" do
+      subject.all_zones(account_id, filter: { name_like: "zone.test" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones?page=1&per_page=100&name_like=zone.test")
     end
   end
 

@@ -38,6 +38,12 @@ describe Dnsimple::Client, ".domains" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?sort=expires_on:asc")
     end
 
+    it "supports filtering" do
+      subject.domains(account_id, filter: { name_like: 'example' })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?name_like=example")
+    end
+
     it "returns the domains" do
       response = subject.domains(account_id)
 
@@ -79,6 +85,12 @@ describe Dnsimple::Client, ".domains" do
       subject.all_domains(account_id, sort: "expires_on:asc")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?page=1&per_page=100&sort=expires_on:asc")
+    end
+
+    it "supports filtering" do
+      subject.all_domains(account_id, filter: { registrant_id: 99 })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?page=1&per_page=100&registrant_id=99")
     end
   end
 
