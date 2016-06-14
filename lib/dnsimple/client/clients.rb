@@ -1,6 +1,11 @@
 module Dnsimple
   class Client
 
+    # @return [Dnsimple::Client::AccountsService] The account-related API proxy.
+    def accounts
+      @services[:accounts] ||= Client::AccountsService.new(self)
+    end
+
     # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
     def contacts
       @services[:contacts] ||= Client::ContactsService.new(self)
@@ -88,6 +93,13 @@ module Dnsimple
         CollectionResponse.new(response.http_response, collection)
       end
 
+    end
+
+
+    require_relative 'accounts'
+
+    class AccountsService < ClientService
+      include Client::Accounts
     end
 
 
