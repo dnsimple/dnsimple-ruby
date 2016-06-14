@@ -13,16 +13,20 @@ module Dnsimple
       # @example List records for the template "alpha", providing a specific page
       #   client.templates.records(1010, "alpha", query: { page: 2 })
       #
+      # @example List records for the template "alpha", providing sorting policy
+      #   client.templates.records(1010, "alpha", sort: "type:asc")
+      #
       # @param  [Fixnum] account_id the account ID
       # @param  [String] template_id the template name
-      # @param  [Hash] options
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::TemplateRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def records(account_id, template_id, options = {})
         endpoint = Client.versioned("/%s/templates/%s/records" % [account_id, template_id])
-        response = client.get(endpoint, options)
+        response = client.get(endpoint, Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::TemplateRecord.new(r) })
       end
@@ -44,7 +48,8 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [String] template_id the template name
-      # @param  [Hash] options
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::TemplateRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]

@@ -33,6 +33,12 @@ describe Dnsimple::Client, ".domains" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards?foo=bar")
     end
 
+    it "supports sorting" do
+      subject.email_forwards(account_id, domain_id, sort: "id:asc,from:desc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards?sort=id:asc,from:desc")
+    end
+
     it "returns the email forwards" do
       response = subject.email_forwards(account_id, domain_id)
 
@@ -69,12 +75,23 @@ describe Dnsimple::Client, ".domains" do
   end
 
   describe "#all_email_forwards" do
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards}).
+          to_return(read_http_fixture("listEmailForwards/success.http"))
+    end
+
     let(:account_id) { 1010 }
     let(:domain_id) { "example.com" }
 
     it "delegates to client.paginate" do
       expect(subject).to receive(:paginate).with(:email_forwards, account_id, domain_id, foo: "bar")
       subject.all_email_forwards(account_id, domain_id, foo: "bar")
+    end
+
+    it "supports sorting" do
+      subject.all_email_forwards(account_id, domain_id, sort: "id:asc,from:desc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards?page=1&per_page=100&sort=id:asc,from:desc")
     end
   end
 

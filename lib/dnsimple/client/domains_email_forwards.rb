@@ -12,15 +12,19 @@ module Dnsimple
       # @example List email forwards, provide a specific page
       #   client.domains.email_forwards(1010, "example.com", query: { page: 2 })
       #
+      # @example List email forwards, provide a sorting policy
+      #   client.domains.email_forwards(1010, "example.com", sort: "from:asc")
+      #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::EmailForward>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def email_forwards(account_id, domain_id, options = {})
-        response = client.get(Client.versioned("/%s/domains/%s/email_forwards" % [account_id, domain_id]), options)
+        response = client.get(Client.versioned("/%s/domains/%s/email_forwards" % [account_id, domain_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::EmailForward.new(r) })
       end
@@ -39,6 +43,7 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options the filtering and sorting option
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::EmailForward>]
       #
       # @raise  [Dnsimple::RequestError]

@@ -7,7 +7,7 @@ describe Dnsimple::Client, ".services" do
 
   describe "#list_services" do
     before do
-      stub_request(:get, %r{/v2/services$}).
+      stub_request(:get, %r{/v2/services}).
           to_return(read_http_fixture("listServices/success.http"))
     end
 
@@ -16,6 +16,18 @@ describe Dnsimple::Client, ".services" do
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services").
           with(headers: { "Accept" => "application/json" })
+    end
+
+    it "supports extra request options" do
+      subject.services(query: { foo: "bar" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services?foo=bar")
+    end
+
+    it "supports sorting" do
+      subject.services(sort: "short_name:asc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services?sort=short_name:asc")
     end
 
     it "returns the list of available services" do
@@ -37,9 +49,20 @@ describe Dnsimple::Client, ".services" do
   end
 
   describe "#all_services" do
+    before do
+      stub_request(:get, %r{/v2/services}).
+          to_return(read_http_fixture("listServices/success.http"))
+    end
+
     it "delegates to client.paginate" do
       expect(subject).to receive(:paginate).with(:services, foo: "bar")
       subject.all_services(foo: "bar")
+    end
+
+    it "supports sorting" do
+      subject.all_services(sort: "short_name:asc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services?page=1&per_page=100&sort=short_name:asc")
     end
   end
 

@@ -28,6 +28,12 @@ describe Dnsimple::Client, ".tlds" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds?foo=bar")
     end
 
+    it "supports sorting" do
+      subject.tlds(sort: "tld:asc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds?sort=tld:asc")
+    end
+
     it "returns the tlds" do
       response = subject.tlds
 
@@ -54,9 +60,20 @@ describe Dnsimple::Client, ".tlds" do
   end
 
   describe "#all_tlds" do
+    before do
+      stub_request(:get, %r{/v2/tlds}).
+          to_return(read_http_fixture("listTlds/success.http"))
+    end
+
     it "delegates to client.paginate" do
       expect(subject).to receive(:paginate).with(:tlds, foo: "bar")
       subject.all_tlds(foo: "bar")
+    end
+
+    it "supports sorting" do
+      subject.all_tlds(sort: "tld:asc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds?page=1&per_page=100&sort=tld:asc")
     end
   end
 

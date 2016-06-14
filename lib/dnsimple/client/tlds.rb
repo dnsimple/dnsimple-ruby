@@ -11,12 +11,16 @@ module Dnsimple
       # @example List TLDs, providing a specific page
       #   client.tlds.list(query: { page: 2 })
       #
-      # @param  [Hash] options the filtering and sorting option
+      # @example List TLDs, providing sorting policy
+      #   client.tlds.list(sort: "tld:asc")
+      #
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Tld>]
       #
       # @raise [Dnsimple::RequestError]
       def tlds(options = {})
-        response = client.get(Client.versioned("/tlds"), options)
+        response = client.get(Client.versioned("/tlds"), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Tld.new(r) })
       end
@@ -37,7 +41,8 @@ module Dnsimple
       # @example List all TLDs in DNSimple
       #     client.tlds.all
       #
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Tld>]
       #
       # @raise [Dnsimple::RequestError]

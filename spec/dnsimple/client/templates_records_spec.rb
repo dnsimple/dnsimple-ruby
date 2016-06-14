@@ -10,7 +10,7 @@ describe Dnsimple::Client, ".templates" do
     let(:template_id) { "alpha" }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}/records$}).
+      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}/records}).
           to_return(read_http_fixture("listTemplateRecords/success.http"))
     end
 
@@ -19,6 +19,18 @@ describe Dnsimple::Client, ".templates" do
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records").
           with(headers: { "Accept" => "application/json" })
+    end
+
+    it "supports extra request options" do
+      subject.records(account_id, template_id, query: { foo: "bar" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records?foo=bar")
+    end
+
+    it "supports sorting" do
+      subject.records(account_id, template_id, sort: "type:asc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records?sort=type:asc")
     end
 
     it "returns the list of template's records" do
@@ -36,12 +48,23 @@ describe Dnsimple::Client, ".templates" do
   end
 
   describe "#all_templates" do
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}/records}).
+          to_return(read_http_fixture("listTemplateRecords/success.http"))
+    end
+
     let(:account_id) { 1010 }
     let(:template_id) { "alpha" }
 
     it "delegates to client.paginate" do
       expect(subject).to receive(:paginate).with(:records, account_id, template_id, option: "value")
       subject.all_records(account_id, template_id, option: "value")
+    end
+
+    it "supports sorting" do
+      subject.all_records(account_id, template_id, sort: "type:asc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records?page=1&per_page=100&sort=type:asc")
     end
   end
 
