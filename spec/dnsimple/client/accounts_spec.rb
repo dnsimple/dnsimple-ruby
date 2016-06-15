@@ -18,7 +18,7 @@ describe Dnsimple::Client, ".accounts" do
           with(headers: { 'Accept' => 'application/json' })
     end
 
-    it "returns the accouts" do
+    it "returns the accounts" do
       response = subject.accounts
       expect(response).to be_a(Dnsimple::Response)
 
