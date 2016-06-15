@@ -20,7 +20,6 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Template.new(r) })
       end
-      alias list templates
       alias list_templates templates
 
       # Lists ALL the templates in the account.
@@ -45,7 +44,6 @@ module Dnsimple
       def all_templates(account_id, options = {})
         paginate(:templates, account_id, options)
       end
-      alias all all_templates
 
       # Creates a template in the account.
       #
@@ -66,7 +64,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
       end
-      alias create create_template
 
       # Gets the template with specified ID.
       #
@@ -108,7 +105,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
       end
-      alias update update_template
 
       # Deletes a template from the account.
       #
@@ -132,7 +128,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-      alias delete delete_template
 
     end
   end

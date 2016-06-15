@@ -25,7 +25,6 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Record.new(r) })
       end
-      alias list records
       alias list_records records
 
       # Lists ALL the zone records in the account.
@@ -52,7 +51,6 @@ module Dnsimple
       def all_records(account_id, zone_id, options = {})
         paginate(:records, account_id, zone_id, options)
       end
-      alias all all_records
 
       # Creates a zone record in the account.
       #
@@ -75,7 +73,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
       end
-      alias create create_record
 
       # Gets a zone record from the account.
       #
@@ -119,7 +116,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
       end
-      alias update update_record
 
       # Deletes a zone record from the account.
       #
@@ -143,7 +139,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-      alias delete delete_record
 
     end
   end

@@ -19,7 +19,6 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Service.new(r) })
       end
-      alias list services
       alias list_services services
 
       # Lists ALL the available one-click services.
@@ -43,7 +42,6 @@ module Dnsimple
       def all_services(options = {})
         paginate(:services, options)
       end
-      alias all all_services
 
       # Gets the service with specified ID.
       #
