@@ -11,7 +11,7 @@ module Dnsimple
       #   client.templates.records(1010, "alpha")
       #
       # @example List records for the template "alpha", providing a specific page
-      #   client.templates.records(1010, "alpha", query: { page: 2 })
+      #   client.templates.records(1010, "alpha", page: 2)
       #
       # @example List records for the template "alpha", providing sorting policy
       #   client.templates.records(1010, "alpha", sort: "type:asc")
@@ -19,6 +19,8 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::TemplateRecord>]
       #
@@ -49,6 +51,8 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::TemplateRecord>]
       #

@@ -18,6 +18,12 @@ describe Dnsimple::Client, ".services" do
           with(headers: { "Accept" => "application/json" })
     end
 
+    it "supports pagination" do
+      subject.services(page: 2)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services?page=2")
+    end
+
     it "supports extra request options" do
       subject.services(query: { foo: "bar" })
 

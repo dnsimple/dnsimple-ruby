@@ -9,12 +9,14 @@ module Dnsimple
       #   client.tlds.list
       #
       # @example List TLDs, providing a specific page
-      #   client.tlds.list(query: { page: 2 })
+      #   client.tlds.list(page: 2)
       #
       # @example List TLDs, providing sorting policy
       #   client.tlds.list(sort: "tld:asc")
       #
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Tld>]
       #
@@ -42,6 +44,8 @@ module Dnsimple
       #     client.tlds.all
       #
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Tld>]
       #
