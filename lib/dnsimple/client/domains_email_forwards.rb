@@ -10,7 +10,7 @@ module Dnsimple
       #   client.domains.email_forwards(1010, "example.com")
       #
       # @example List email forwards, provide a specific page
-      #   client.domains.email_forwards(1010, "example.com", query: { page: 2 })
+      #   client.domains.email_forwards(1010, "example.com", page: 2)
       #
       # @example List email forwards, provide a sorting policy
       #   client.domains.email_forwards(1010, "example.com", sort: "from:asc")
@@ -18,6 +18,8 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::EmailForward>]
       #
@@ -43,6 +45,8 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options the filtering and sorting option
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::EmailForward>]
       #

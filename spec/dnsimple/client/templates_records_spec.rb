@@ -21,6 +21,12 @@ describe Dnsimple::Client, ".templates" do
           with(headers: { "Accept" => "application/json" })
     end
 
+    it "supports pagination" do
+      subject.records(account_id, template_id, page: 2)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records?page=2")
+    end
+
     it "supports extra request options" do
       subject.records(account_id, template_id, query: { foo: "bar" })
 

@@ -9,10 +9,15 @@ module Dnsimple
       # @example List one-click services:
       #   client.services.list_services
       #
+      # @example List one-click services, provide a specific page:
+      #   client.services.list_services(page: 2)
+      #
       # @example List one-click services, provide a sorting policy:
       #   client.services.list_services(sort: "short_name:asc")
       #
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Service>]
       #
@@ -41,6 +46,8 @@ module Dnsimple
       # @see #services
       #
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Service>]
       #

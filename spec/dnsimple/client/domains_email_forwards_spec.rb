@@ -22,7 +22,7 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "supports pagination" do
-      subject.email_forwards(account_id, domain_id, query: { page: 2 })
+      subject.email_forwards(account_id, domain_id, page: 2)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards?page=2")
     end

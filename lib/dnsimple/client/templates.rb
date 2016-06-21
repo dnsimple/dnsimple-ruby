@@ -9,11 +9,16 @@ module Dnsimple
       # @example List the templates for account 1010:
       #   client.templates.list_templates(1010)
       #
+      # @example List the templates for account 1010, provide a specific page:
+      #   client.templates.list_templates(1010, page: 2)
+      #
       # @example List the templates for account 1010, provide sorting policy:
       #   client.templates.list_templates(1010, sort: "short_name:asc")
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Template>]
       #
@@ -43,6 +48,8 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Template>]
       #

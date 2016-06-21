@@ -11,13 +11,15 @@ module Dnsimple
       #   client.contacts.list(1010)
       #
       # @example List contacts, provide a specific page
-      #   client.contacts.list(1010, query: { page: 2 })
+      #   client.contacts.list(1010, page: 2)
       #
       # @example List contacts, provide a sorting policy
       #   client.contacts.list(1010, sort: "email:asc")
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Contact>]
       #
@@ -43,6 +45,8 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Contact>]
       #
