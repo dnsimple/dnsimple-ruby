@@ -3,7 +3,11 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
-#### master
+#### 3.1.0
+
+- NEW: Added accounts support (GH-113).
+
+- NEW: Added sorting and filtering support (GH-112).
 
 - NEW: Added template record support (GH-104).
 
