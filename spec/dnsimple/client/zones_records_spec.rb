@@ -22,7 +22,7 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "supports pagination" do
-      subject.records(account_id, zone_id, query: { page: 2 })
+      subject.records(account_id, zone_id, page: 2)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?page=2")
     end

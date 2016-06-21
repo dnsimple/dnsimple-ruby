@@ -21,7 +21,7 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "supports pagination" do
-      subject.domains(account_id, query: { page: 2 })
+      subject.domains(account_id, page: 2)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?page=2")
     end

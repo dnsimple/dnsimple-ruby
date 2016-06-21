@@ -11,7 +11,7 @@ module Dnsimple
       #   client.zones.list(1010, "example.com")
       #
       # @example List zones, provide a specific page
-      #   client.zones.list(1010, "example.com", query: { page: 2 })
+      #   client.zones.list(1010, "example.com", page: 2)
       #
       # @example List zones, provide sorting policy
       #   client.zones.list(1010, "example.com", sort: "name:desc")
@@ -21,6 +21,8 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @option options [Hash] :filter filtering policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Zone>]
@@ -47,6 +49,8 @@ module Dnsimple
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @option options [Hash] :filter filtering policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Zone>]

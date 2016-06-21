@@ -17,7 +17,7 @@ describe Dnsimple::Client, ".tlds" do
     end
 
     it "supports pagination" do
-      subject.tlds(query: { page: 2 })
+      subject.tlds(page: 2)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds?page=2")
     end

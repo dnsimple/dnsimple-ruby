@@ -9,11 +9,16 @@ module Dnsimple
       # @example List all webhooks
       #   client.webhooks.list(1010)
       #
+      # @example List all webhooks, provide a specific page
+      #   client.webhooks.list(1010, page: 2)
+      #
       # @example List all webhooks, provide sorting policy
       #   client.webhooks.list(1010, sort: "id:asc")
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Webhook>]
       #

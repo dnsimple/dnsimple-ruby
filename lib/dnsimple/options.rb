@@ -15,6 +15,7 @@ module Dnsimple
       def initialize(options)
         super
         _prepare_query
+        _prepare_pagination
         _prepare_sort
         _prepare_filter
       end
@@ -23,6 +24,14 @@ module Dnsimple
 
       def _prepare_query
         @options[:query] ||= {} if @options.any?
+      end
+
+      def _prepare_pagination
+        @page = @options.delete(:page)
+        _merge(page: @page) unless @page.nil?
+
+        @per_page = @options.delete(:per_page)
+        _merge(per_page: @per_page) unless @per_page.nil?
       end
 
       def _prepare_sort
