@@ -57,7 +57,7 @@ module Dnsimple
     end
 
 
-    # @!class Struct
+    # Struct
     class ClientService
 
       # @return [Dnsimple::Client]
