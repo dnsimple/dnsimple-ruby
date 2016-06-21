@@ -10,8 +10,6 @@ module Dnsimple
       #   client.accounts.list
       #
       # @param  [Hash] options
-      # @option options [Integer] :page current page (pagination)
-      # @option options [Integer] :per_page number of entries to return (pagination)
       # @return [Dnsimple::Response<Dnsimple::Struct::Account>]
       #
       # @raise  [Dnsimple::RequestError]
