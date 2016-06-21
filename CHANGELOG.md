@@ -3,9 +3,15 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
-#### master
+#### 3.1.0
+
+- NEW: Added accounts support (GH-113).
+
+- NEW: Added sorting and filtering support (GH-112).
 
 - NEW: Added template record support (GH-104).
+
+- CHANGED: Pagination params must be passed as top level options. Previously they were passed inside `:query` options (GH-116).
 
 - CHANGED: Authentication credentials presence is no longer validated on the client as it was causing an error getting the access token (GH-74 and GH-102).
 

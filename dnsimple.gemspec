@@ -5,8 +5,8 @@ require 'dnsimple/version'
 Gem::Specification.new do |s|
   s.name        = 'dnsimple'
   s.version     = Dnsimple::VERSION
-  s.authors     = ['Anthony Eden', 'Simone Carletti']
-  s.email       = ['anthony.eden@dnsimple.com', 'simone.carletti@dnsimple.com']
+  s.authors     = ['Anthony Eden', 'Simone Carletti', 'Javier Acero', 'Joseph Caudle', 'Luca Guidi']
+  s.email       = ['anthony.eden@dnsimple.com', 'simone.carletti@dnsimple.com', 'javier.acero@dnsimple.com', 'joseph.caudle@dnsimple.com', 'luca.guidi@dnsimple.com']
   s.homepage    = 'https://github.com/aetrion/dnsimple-ruby'
   s.summary     = 'The DNSimple API client for Ruby'
   s.description = 'The DNSimple API client for Ruby.'
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.test_files       = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.extra_rdoc_files = %w( LICENSE.txt )
 
-  s.add_dependency  'httparty'
+  s.add_dependency 'httparty'
 
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
