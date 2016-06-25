@@ -2,6 +2,9 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
+#### master
+
+- CHANGED: Record struct renamed to ZoneRecord (GH-117).
 
 #### 3.1.0
 

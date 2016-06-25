@@ -26,14 +26,14 @@ module Dnsimple
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @option options [Hash] :filter filtering policy
-      # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Record>]
+      # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::ZoneRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def records(account_id, zone_id, options = {})
         response = client.get(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), Options::ListOptions.new(options))
 
-        Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Record.new(r) })
+        Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::ZoneRecord.new(r) })
       end
       alias list records
       alias list_records records
@@ -59,7 +59,7 @@ module Dnsimple
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
       # @option options [Hash] :filter filtering policy
-      # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Record>]
+      # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::ZoneRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
@@ -79,7 +79,7 @@ module Dnsimple
       # @param  [String] zone_id the zone name
       # @param  [Hash] attributes
       # @param  [Hash] options
-      # @return [Dnsimple::Response<Dnsimple::Struct::Record>]
+      # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
@@ -87,7 +87,7 @@ module Dnsimple
         Extra.validate_mandatory_attributes(attributes, [:type, :name, :content])
         response = client.post(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), attributes, options)
 
-        Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::ZoneRecord.new(response["data"]))
       end
       alias create create_record
 
@@ -102,14 +102,14 @@ module Dnsimple
       # @param  [String] zone_id the zone name
       # @param  [Fixnum] record_id the record ID
       # @param  [Hash] options
-      # @return [Dnsimple::Response<Dnsimple::Struct::Record>]
+      # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def record(account_id, zone_id, record_id, options = {})
         response = client.get(Client.versioned("/%s/zones/%s/records/%s" % [account_id, zone_id, record_id]), options)
 
-        Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::ZoneRecord.new(response["data"]))
       end
 
       # Updates a zone record in the account.
@@ -124,14 +124,14 @@ module Dnsimple
       # @param  [Fixnum] record_id the record ID
       # @param  [Hash] attributes
       # @param  [Hash] options
-      # @return [Dnsimple::Response<Dnsimple::Struct::Record>]
+      # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def update_record(account_id, zone_id, record_id, attributes, options = {})
         response = client.patch(Client.versioned("/%s/zones/%s/records/%s" % [account_id, zone_id, record_id]), attributes, options)
 
-        Dnsimple::Response.new(response, Struct::Record.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::ZoneRecord.new(response["data"]))
       end
       alias update update_record
 
