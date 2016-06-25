@@ -53,7 +53,7 @@ describe Dnsimple::Client, ".zones" do
       expect(response.data.size).to eq(5)
 
       response.data.each do |result|
-        expect(result).to be_a(Dnsimple::Struct::Record)
+        expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
         expect(result.id).to be_a(Fixnum)
       end
     end
@@ -131,7 +131,7 @@ describe Dnsimple::Client, ".zones" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::Record)
+      expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
       expect(result.id).to eq(64784)
     end
 
@@ -168,7 +168,7 @@ describe Dnsimple::Client, ".zones" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::Record)
+      expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
       expect(result.id).to eq(64784)
       expect(result.zone_id).to eq("example.com")
       expect(result.parent_id).to eq(nil)
@@ -229,7 +229,7 @@ describe Dnsimple::Client, ".zones" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::Record)
+      expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
       expect(result.id).to eq(64784)
     end
 

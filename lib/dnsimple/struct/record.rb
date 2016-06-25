@@ -1,7 +1,7 @@
 module Dnsimple
   module Struct
 
-    class Record < Base
+    class ZoneRecord < Base
       # @return [Fixnum] The record ID in DNSimple.
       attr_accessor :id
 
