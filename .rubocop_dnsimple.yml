@@ -23,25 +23,20 @@ Metrics/AbcSize:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
-# For the same reason of EndAlignment, aligning with the case may have a bad impact
-# on a case after a very long variable.
-#
-#   invoice_error_message = case error
-#                           when 1 == 1
-#                             do_something
-#                           else
-#                             do_else
-#                           end
-#
-Style/CaseIndentation:
-  IndentWhenRelativeTo: end
-
 # [codesmell]
 Metrics/ClassLength:
   Enabled: false
   Exclude:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
+
+# [codesmell]
+Metrics/LineLength:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
+  Max: 100
 
 # [codesmell]
 Metrics/MethodLength:
@@ -57,14 +52,6 @@ Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
-
-# [codesmell]
-Metrics/LineLength:
-  Enabled: false
-  Exclude:
-    - 'spec/**/*_spec.rb'
-    - 'test/**/*_test.rb'
-  Max: 100
 
 # [codesmell]
 # I don't really get the point of this cop.
@@ -89,6 +76,19 @@ Style/BlockDelimiters:
 # I'd rather use context_dependent, even if I'm not even sure we should enforce a style.
 Style/BracesAroundHashParameters:
   EnforcedStyle: context_dependent
+
+# For the same reason of EndAlignment, aligning with the case may have a bad impact
+# on a case after a very long variable.
+#
+#   invoice_error_message = case error
+#                           when 1 == 1
+#                             do_something
+#                           else
+#                             do_else
+#                           end
+#
+Style/CaseIndentation:
+  IndentWhenRelativeTo: end
 
 # I was a big fan of leading, but trailing seems to be more commonly adopted.
 # At least at the time being.
@@ -130,6 +130,12 @@ Style/FormatString:
 # Multi-line differs from standard indentation, they are indented twice.
 Style/FirstParameterIndentation:
   IndentationWidth: 4
+
+# We don't support frozen strings.
+# This is an experimental feature and we don't know if it will be shipped with
+# Ruby 3.0 or not.
+Style/FrozenStringLiteralComment:
+  Enabled: false
 
 # Prefer the latest Hash syntax
 Style/HashSyntax:
@@ -214,9 +220,3 @@ Style/TrivialAccessors:
   #    end
   #
   IgnoreClassMethods: true
-
-# We don't support frozen strings.
-# This is an experimental feature and we don't know if it will be shipped with
-# Ruby 3.0 or not.
-Style/FrozenStringLiteralComment:
-  Enabled: false
