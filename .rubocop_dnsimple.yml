@@ -214,3 +214,9 @@ Style/TrivialAccessors:
   #    end
   #
   IgnoreClassMethods: true
+
+# We don't support frozen strings.
+# This is an experimental feature and we don't know if it will be shipped with
+# Ruby 3.0 or not.
+Style/FrozenStringLiteralComment:
+  Enabled: false
