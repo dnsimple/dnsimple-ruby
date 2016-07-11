@@ -79,4 +79,28 @@ describe Dnsimple::Client, ".registrar" do
       expect(vanity_name_servers).to match_array(%w(ns1.example.com ns2.example.com))
     end
   end
+
+  describe "#change_domain_delegation_from_vanity" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:delete, %r{/v2/#{account_id}/registrar/domains/.+/delegation/vanity$}).
+          to_return(read_http_fixture("changeDomainDelegationFromVanity/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.change_domain_delegation_from_vanity(account_id, domain_name = "example.com")
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/delegation/vanity").
+          with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns empty response" do
+      response = subject.change_domain_delegation_from_vanity(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+  end
 end
