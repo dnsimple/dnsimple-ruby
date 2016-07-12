@@ -76,7 +76,7 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_name the domain name to check
       # @param  [Hash] options
-      # @return [Dnsimple::Response<Array>]
+      # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.
       def change_domain_delegation_from_vanity(account_id, domain_name, options = {})
