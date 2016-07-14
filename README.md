@@ -2,8 +2,8 @@
 
 A Ruby client for the [DNSimple API v2](https://developer.dnsimple.com/v2/).
 
-[![Build Status](https://travis-ci.org/aetrion/dnsimple-ruby.svg?branch=master)](https://travis-ci.org/aetrion/dnsimple-ruby)
-[![Coverage Status](https://img.shields.io/coveralls/aetrion/dnsimple-ruby.svg)](https://coveralls.io/r/aetrion/dnsimple-ruby?branch=master)
+[![Build Status](https://travis-ci.org/dnsimple/dnsimple-ruby.svg?branch=master)](https://travis-ci.org/dnsimple/dnsimple-ruby)
+[![Coverage Status](https://img.shields.io/coveralls/dnsimple/dnsimple-ruby.svg)](https://coveralls.io/r/dnsimple/dnsimple-ruby?branch=master)
 
 [DNSimple](https://dnsimple.com/) provides DNS hosting and domain registration that is simple and friendly.
 We provide a full API and an easy-to-use web interface so you can get your domain registered and set up with a minimal amount of effort.
@@ -11,7 +11,7 @@ We provide a full API and an easy-to-use web interface so you can get your domai
 
 ## :warning: Beta Warning
 
-This branch targets the development of the API client for the [DNSimple API v2](https://developer.dnsimple.com/v2/). If you are looking for the stable version of the client for [DNSimple API v1](https://developer.dnsimple.com/v1/) then use the [`master-v1`](https://github.com/aetrion/dnsimple-ruby/tree/master-v1) branch.
+This branch targets the development of the API client for the [DNSimple API v2](https://developer.dnsimple.com/v2/). If you are looking for the stable version of the client for [DNSimple API v1](https://developer.dnsimple.com/v1/) then use the [`master-v1`](https://github.com/dnsimple/dnsimple-ruby/tree/master-v1) branch.
 
 This library is currently in beta version, the methods and the implementation should be considered a work-in-progress. Changes in the method naming, method signatures, public or internal APIs may happen during the beta period.
 
