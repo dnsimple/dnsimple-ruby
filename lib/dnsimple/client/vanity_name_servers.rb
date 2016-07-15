@@ -15,7 +15,7 @@ module Dnsimple
       # @return [Dnsimple::Response<Array>]
       #
       # @raise  [RequestError] When the request fails.
-      def enable(account_id, domain_name, options = {})
+      def enable_vanity_name_servers(account_id, domain_name, options = {})
         endpoint = Client.versioned("/%s/vanity/%s" % [account_id, domain_name])
         response = client.put(endpoint, options)
 
@@ -35,7 +35,7 @@ module Dnsimple
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.
-      def disable(account_id, domain_name, options = {})
+      def disable_vanity_name_servers(account_id, domain_name, options = {})
         endpoint = Client.versioned("/%s/vanity/%s" % [account_id, domain_name])
         response = client.delete(endpoint, options)
 

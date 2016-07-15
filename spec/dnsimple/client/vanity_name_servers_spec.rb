@@ -4,7 +4,7 @@ describe Dnsimple::Client, ".vanity_name_servers" do
 
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").vanity_name_servers }
 
-  describe "#enable" do
+  describe "#enable_vanity_name_servers" do
     let(:account_id) { 1010 }
 
     before do
@@ -13,14 +13,14 @@ describe Dnsimple::Client, ".vanity_name_servers" do
     end
 
     it "builds the correct request" do
-      subject.enable(account_id, domain_name = "example.com")
+      subject.enable_vanity_name_servers(account_id, domain_name = "example.com")
 
       expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/vanity/#{domain_name}").
           with(headers: { "Accept" => "application/json" })
     end
 
     it "returns vanity name servers of the domain" do
-      response = subject.enable(account_id, "example.com")
+      response = subject.enable_vanity_name_servers(account_id, "example.com")
       expect(response).to be_a(Dnsimple::Response)
 
       vanity_name_servers = response.data.map { |ns| ns["name"] }
@@ -28,7 +28,7 @@ describe Dnsimple::Client, ".vanity_name_servers" do
     end
   end
 
-  describe "#disable" do
+  describe "#disable_vanity_name_servers" do
     let(:account_id) { 1010 }
 
     before do
@@ -37,14 +37,14 @@ describe Dnsimple::Client, ".vanity_name_servers" do
     end
 
     it "builds the correct request" do
-      subject.disable(account_id, domain_name = "example.com")
+      subject.disable_vanity_name_servers(account_id, domain_name = "example.com")
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/vanity/#{domain_name}").
           with(headers: { "Accept" => "application/json" })
     end
 
     it "returns empty response" do
-      response = subject.disable(account_id, "example.com")
+      response = subject.disable_vanity_name_servers(account_id, "example.com")
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
