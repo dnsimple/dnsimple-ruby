@@ -57,4 +57,33 @@ describe Dnsimple::Client, ".domain_services" do
     end
   end
 
+  describe "#apply_service" do
+    let(:account_id) { 1010 }
+    let(:domain_id)  { "example.com" }
+    let(:service_id) { "service1" }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}$}).
+          to_return(read_http_fixture("applyService/created.http"))
+    end
+
+    let(:settings) { { app: "foo" } }
+
+    it "builds the correct request" do
+      subject.apply_service(account_id, domain_id, service_id, settings)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}").
+          with(body: settings).
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns empty response" do
+      response = subject.apply_service(account_id, domain_id, service_id, settings)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+  end
+
 end

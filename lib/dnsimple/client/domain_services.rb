@@ -30,6 +30,30 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Service.new(r) })
       end
+
+      # Apply a given one-click service to the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/services/domains/#apply
+      #
+      # @example Apply one-click service service1 to example.com:
+      #   client.domain_services.applied_services(1010, "example.com", "service1")
+      #
+      # @example Apply one-click service service1 to example.com, provide optional settings:
+      #   client.domain_services.applied_services(1010, "example.com", "service1", app: "foo")
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_name the domain name
+      # @param  [#to_s] service_name the service name (or ID)
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [RequestError] When the request fails.
+      def apply_service(account_id, domain_name, service_name, settings = {}, options = {})
+        response = client.post(Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_name, service_name]), settings, options)
+
+        Dnsimple::Response.new(response, response["data"])
+      end
+
     end
   end
 end
