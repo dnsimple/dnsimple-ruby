@@ -15,6 +15,7 @@ end
 
 require_relative 'struct/account'
 require_relative 'struct/contact'
+require_relative 'struct/certificate'
 require_relative 'struct/domain'
 require_relative 'struct/domain_check'
 require_relative 'struct/email_forward'
