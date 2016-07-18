@@ -44,12 +44,34 @@ module Dnsimple
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_name the domain name
       # @param  [#to_s] service_name the service name (or ID)
+      # @param  [Hash] settings optional settings to apply the one-click service
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.
       def apply_service(account_id, domain_name, service_name, settings = {}, options = {})
         response = client.post(Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_name, service_name]), settings, options)
+
+        Dnsimple::Response.new(response, response["data"])
+      end
+
+      # Unapply a given one-click service from the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/services/domains/#unapply
+      #
+      # @example Unapply one-click service service1 from example.com:
+      #   client.domain_services.applied_services(1010, "example.com", "service1")
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_name the domain name
+      # @param  [#to_s] service_name the service name (or ID)
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [RequestError] When the request fails.
+      def unapply_service(account_id, domain_name, service_name, options = {})
+        endpoint = Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_name, service_name])
+        response = client.delete(endpoint, options)
 
         Dnsimple::Response.new(response, response["data"])
       end
