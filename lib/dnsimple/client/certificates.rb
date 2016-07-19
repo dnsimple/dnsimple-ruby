@@ -30,6 +30,23 @@ module Dnsimple
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Certificate.new(r) })
       end
 
+      # Gets a certificate from the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#get
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_id the domain ID or domain name
+      # @param  [Fixnum] certificate_id the certificate ID
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def certificate(account_id, domain_id, certificate_id, options = {})
+        response = client.get(Client.versioned("/%s/domains/%s/certificates/%s" % [account_id, domain_id, certificate_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
+      end
     end
   end
 end
