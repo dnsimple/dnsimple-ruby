@@ -66,6 +66,24 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::CertificateBundle.new(response["data"]))
       end
 
+      # Get certificate private key associated to the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#get-private-key
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_id the domain ID or domain name
+      # @param  [Fixnum] certificate_id the certificate ID
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::CertificateBundle>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def certificate_private_key(account_id, domain_id, certificate_id, options = {})
+        response = client.get(Client.versioned("/%s/domains/%s/certificates/%s/private_key" % [account_id, domain_id, certificate_id]), options)
+
+        Dnsimple::Response.new(response, Struct::CertificateBundle.new(response["data"]))
+      end
+
     end
   end
 end

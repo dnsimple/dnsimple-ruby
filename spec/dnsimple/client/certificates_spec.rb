@@ -157,4 +157,51 @@ describe Dnsimple::Client, ".certificates" do
     end
   end
 
+  describe "#certificate_private_key" do
+    let(:account_id)     { 1010 }
+    let(:domain_id)      { "weppos.net" }
+    let(:certificate_id) { 1 }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key}).
+          to_return(read_http_fixture("getCertificatePrivateKey/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.certificate_private_key(account_id, domain_id, certificate_id)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key").
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "supports extra request options" do
+      subject.certificate_private_key(account_id, domain_id, certificate_id, query: { foo: "bar" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key?foo=bar")
+    end
+
+    it "returns the certificate bundle" do
+      response = subject.certificate_private_key(account_id, domain_id, certificate_id)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::CertificateBundle)
+      expect(result.private_key).to eq("-----BEGIN RSA PRIVATE KEY-----\nMIIEowIBAAKCAQEAtzCcMfWoQRt5AMEY0HUb2GaraL1GsWOo6YXdPfe+YDvtnmDw\n23NcoTX7VSeCgU9M3RKs19AsCJcRNTLJ2dmDrAuyCTud9YTAaXQcTOLUhtO8T8+9\nAFVIva2OmAlKCR5saBW3JaRxW7V2aHEd/d1ss1CvNOO7jNppc9NwGSnDHcn3rqNv\n/U3MaU0gpJJRqsKkvcLU6IHJGgxyQ6AbpwJDIqBnzkjHu2IuhGEbRuMjyWLA2qts\njyVlfPotDxUdVouUQpz7dGHUFrLR7ma8QAYuOfl1ZMyrc901HGMa7zwbnFWurs3f\ned7vAosTRZIjnn72/3Wo7L9RiMB+vwr3NX7c9QIDAQABAoIBAEQx32OlzK34GTKT\nr7Yicmw7xEGofIGa1Q2h3Lut13whsxKLif5X0rrcyqRnoeibacS+qXXrJolIG4rP\nTl8/3wmUDQHs5J+6fJqFM+fXZUCP4AFiFzzhgsPBsVyd0KbWYYrZ0qU7s0ttoRe+\nTGjuHgIe3ip1QKNtx2Xr50YmytDydknmro79J5Gfrub1l2iA8SDm1eBrQ4SFaNQ2\nU709pHeSwX8pTihUX2Zy0ifpr0O1wYQjGLneMoG4rrNQJG/z6iUdhYczwwt1kDRQ\n4WkM2sovFOyxbBfoCQ3Gy/eem7OXfjNKUe47DAVLnPkKbqL/3Lo9FD7kcB8K87Ap\nr/vYrl0CgYEA413RAk7571w5dM+VftrdbFZ+Yi1OPhUshlPSehavro8kMGDEG5Ts\n74wEz2X3cfMxauMpMrBk/XnUCZ20AnWQClK73RB5fzPw5XNv473Tt/AFmt7eLOzl\nOcYrhpEHegtsD/ZaljlGtPqsjQAL9Ijhao03m1cGB1+uxI7FgacdckcCgYEAzkKP\n6xu9+WqOol73cnlYPS3sSZssyUF+eqWSzq2YJGRmfr1fbdtHqAS1ZbyC5fZVNZYV\nml1vfXi2LDcU0qS04JazurVyQr2rJZMTlCWVET1vhik7Y87wgCkLwKpbwamPDmlI\n9GY+fLNEa4yfAOOpvpTJpenUScxyKWH2cdYFOOMCgYBhrJnvffINC/d64Pp+BpP8\nyKN+lav5K6t3AWd4H2rVeJS5W7ijiLTIq8QdPNayUyE1o+S8695WrhGTF/aO3+ZD\nKQufikZHiQ7B43d7xL7BVBF0WK3lateGnEVyh7dIjMOdj92Wj4B6mv2pjQ2VvX/p\nAEWVLCtg24/+zL64VgxmXQKBgGosyXj1Zu2ldJcQ28AJxup3YVLilkNje4AXC2No\n6RCSvlAvm5gpcNGE2vvr9lX6YBKdl7FGt8WXBe/sysNEFfgmm45ZKOBCUn+dHk78\nqaeeQHKHdxMBy7utZWdgSqt+ZS299NgaacA3Z9kVIiSLDS4V2VeW7riujXXP/9TJ\nnxaRAoGBAMWXOfNVzfTyrKff6gvDWH+hqNICLyzvkEn2utNY9Q6WwqGuY9fvP/4Z\nXzc48AOBzUr8OeA4sHKJ79sJirOiWHNfD1swtvyVzsFZb6moiNwD3Ce/FzYCa3lQ\nU8blTH/uqpR2pSC6whzJ/lnSdqHUqhyp00000000000000000000\n-----END RSA PRIVATE KEY-----\n")
+      expect(result.server_certificate).to be_nil
+      expect(result.root_certificate).to be_nil
+      expect(result.intermediate_certificates).to be_nil
+    end
+
+    context "when the certificate does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r{/v2}).
+            to_return(read_http_fixture("notfound-certificate.http"))
+
+        expect {
+          subject.certificate_private_key(account_id, domain_id, certificate_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end
