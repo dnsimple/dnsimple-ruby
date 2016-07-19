@@ -8,9 +8,6 @@ module Dnsimple
       # @return [Fixnum] The associated domain ID.
       attr_accessor :domain_id
 
-      # @return [String] The certificate name.
-      attr_accessor :name
-
       # @return [String] The certificate common name.
       attr_accessor :common_name
 
