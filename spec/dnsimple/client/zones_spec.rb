@@ -135,4 +135,40 @@ describe Dnsimple::Client, ".zones" do
     end
   end
 
+  describe "#zone_file" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/zones/.+$}).
+          to_return(read_http_fixture("getZoneFile/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.zone_file(account_id, zone = "example.com")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}/file").
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the zone id" do
+      response = subject.zone_file(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::ZoneFile)
+      expect(result.zone).to eq("$ORIGIN example.com.\n$TTL 1h\nexample.com. 3600 IN SOA ns1.dnsimple.com. admin.dnsimple.com. 1453132552 86400 7200 604800 300\nexample.com. 3600 IN NS ns1.dnsimple.com.\nexample.com. 3600 IN NS ns2.dnsimple.com.\nexample.com. 3600 IN NS ns3.dnsimple.com.\nexample.com. 3600 IN NS ns4.dnsimple.com.\n")
+    end
+
+    context "when the zone file does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r{/v2}).
+            to_return(read_http_fixture("notfound-zone.http"))
+
+        expect {
+          subject.zone_file(account_id, "example.com")
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end
