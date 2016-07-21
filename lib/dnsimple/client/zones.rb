@@ -82,14 +82,14 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/zones/#get-file
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] zone_id the zone name
+      # @param  [#to_s] zone_name the zone name
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::ZoneFile>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
-      def zone_file(account_id, zone_id, options = {})
-        response = client.get(Client.versioned("/%s/zones/%s/file" % [account_id, zone_id]), options)
+      def zone_file(account_id, zone_name, options = {})
+        response = client.get(Client.versioned("/%s/zones/%s/file" % [account_id, zone_name]), options)
 
         Dnsimple::Response.new(response, Struct::ZoneFile.new(response["data"]))
       end
