@@ -6,13 +6,13 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/services/domains/#applied
       #
-      # @example List one-click applied services for example.com:
+      # @example List applied one-click services for example.com:
       #   client.domain_services.applied_services(1010, "example.com")
       #
-      # @example List one-click applied services for example.com, provide a specific page:
+      # @example List applied one-click services for example.com, provide a specific page:
       #   client.services.list_services(1010, "example.com", page: 2)
       #
-      # @example List one-click applied services for example.com, provide a sorting policy:
+      # @example List applied one-click services for example.com, provide a sorting policy:
       #   client.services.list_services(1010, "example.com", sort: "short_name:asc")
       #
       # @param  [Fixnum] account_id the account ID
@@ -50,9 +50,10 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def apply_service(account_id, domain_name, service_name, settings = {}, options = {})
-        response = client.post(Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_name, service_name]), settings, options)
+        endpoint = Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_name, service_name])
+        response = client.post(endpoint, settings, options)
 
-        Dnsimple::Response.new(response, response["data"])
+        Dnsimple::Response.new(response, nil)
       end
 
       # Unapply a given one-click service from the domain.
@@ -73,7 +74,7 @@ module Dnsimple
         endpoint = Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_name, service_name])
         response = client.delete(endpoint, options)
 
-        Dnsimple::Response.new(response, response["data"])
+        Dnsimple::Response.new(response, nil)
       end
 
     end
