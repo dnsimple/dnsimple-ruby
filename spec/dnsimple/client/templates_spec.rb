@@ -182,7 +182,7 @@ describe Dnsimple::Client, ".templates" do
           with(headers: { "Accept" => "application/json" })
     end
 
-    it "returns the list of templates" do
+    it "returns nil" do
       response = subject.delete_template(account_id, template_id)
       expect(response).to be_a(Dnsimple::Response)
       expect(response.data).to be_nil
@@ -206,7 +206,7 @@ describe Dnsimple::Client, ".templates" do
           with(headers: { "Accept" => "application/json" })
     end
 
-    it "returns the list of templates" do
+    it "returns nil" do
       response = subject.apply_template(account_id, domain_id, template_id)
       expect(response).to be_a(Dnsimple::Response)
       expect(response.data).to be_nil
