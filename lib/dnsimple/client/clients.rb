@@ -21,6 +21,11 @@ module Dnsimple
       @services[:domains] ||= Client::DomainsService.new(self)
     end
 
+    # @return [Dnsimple::Client::DomainServicesService] The domain-services-related API proxy.
+    def domain_services
+      @services[:domains] ||= Client::DomainServicesService.new(self)
+    end
+
     # @return [Dnsimple::Client::IdentityService] The identity-related API proxy.
     def identity
       @services[:auth] ||= Client::IdentityService.new(self)
@@ -128,6 +133,13 @@ module Dnsimple
     class DomainsService < ClientService
       include Client::Domains
       include Client::DomainsEmailForwards
+    end
+
+
+    require_relative 'domain_services'
+
+    class DomainServicesService < ClientService
+      include Client::DomainServices
     end
 
 
