@@ -182,8 +182,32 @@ describe Dnsimple::Client, ".templates" do
           with(headers: { "Accept" => "application/json" })
     end
 
-    it "returns the list of templates" do
+    it "returns nil" do
       response = subject.delete_template(account_id, template_id)
+      expect(response).to be_a(Dnsimple::Response)
+      expect(response.data).to be_nil
+    end
+  end
+
+  describe "#apply_template" do
+    let(:account_id)  { 1010 }
+    let(:domain_id)   { 'example.com' }
+    let(:template_id) { 5410 }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}$}).
+          to_return(read_http_fixture("applyTemplate/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.apply_template(account_id, domain_id, template_id)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}").
+          with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns nil" do
+      response = subject.apply_template(account_id, domain_id, template_id)
       expect(response).to be_a(Dnsimple::Response)
       expect(response.data).to be_nil
     end
