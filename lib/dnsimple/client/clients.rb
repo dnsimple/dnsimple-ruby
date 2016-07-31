@@ -178,10 +178,12 @@ module Dnsimple
 
 
     require_relative 'templates'
+    require_relative 'templates_domains'
     require_relative 'templates_records'
 
     class TemplatesService < ClientService
       include Client::Templates
+      include Client::TemplatesDomains
       include Client::TemplatesRecords
     end
 

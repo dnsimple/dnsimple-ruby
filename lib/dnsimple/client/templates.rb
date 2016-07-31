@@ -29,7 +29,6 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Template.new(r) })
       end
-      alias list templates
       alias list_templates templates
 
       # Lists ALL the templates in the account.
@@ -57,7 +56,6 @@ module Dnsimple
       def all_templates(account_id, options = {})
         paginate(:templates, account_id, options)
       end
-      alias all all_templates
 
       # Creates a template in the account.
       #
@@ -78,7 +76,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
       end
-      alias create create_template
 
       # Gets the template with specified ID.
       #
@@ -120,7 +117,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Template.new(response["data"]))
       end
-      alias update update_template
 
       # Deletes a template from the account.
       #
@@ -141,29 +137,6 @@ module Dnsimple
       def delete_template(account_id, template_id, options = {})
         endpoint = Client.versioned("/%s/templates/%s" % [account_id, template_id])
         response = client.delete(endpoint, options)
-
-        Dnsimple::Response.new(response, nil)
-      end
-      alias delete delete_template
-
-      # Applies a template to the domain.
-      #
-      # @see https://developer.dnsimple.com/v2/templates/domains/#apply
-      #
-      # @example Apply template 5401 for example.com in account 1010:
-      #   client.templates.apply_template(1010, "example.com", 5401)
-      #
-      # @param  [Fixnum] account_id The account ID
-      # @param  [#to_s] template_id The template ID
-      # @param  [#to_s] domain_id The Domain ID or name
-      # @param  [Hash] options
-      # @return [Dnsimple::Response<nil>]
-      #
-      # @raise  [Dnsimple::NotFoundError]
-      # @raise  [Dnsimple::RequestError]
-      def apply_template(account_id, template_id, domain_id, options = {})
-        endpoint = Client.versioned("/%s/domains/%s/templates/%s" % [account_id, domain_id, template_id])
-        response = client.post(endpoint, options)
 
         Dnsimple::Response.new(response, nil)
       end
