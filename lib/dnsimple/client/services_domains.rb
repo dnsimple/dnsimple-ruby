@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module DomainServices
+    module ServicesDomains
 
       # Lists the one-click services applied to the domain.
       #
@@ -16,7 +16,7 @@ module Dnsimple
       #   client.services.list_services(1010, "example.com", sort: "short_name:asc")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
+      # @param  [#to_s] domain_id the domain name
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -24,8 +24,8 @@ module Dnsimple
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Service>]
       #
       # @raise  [RequestError] When the request fails.
-      def applied_services(account_id, domain_name, options = {})
-        endpoint = Client.versioned("/%s/domains/%s/services" % [account_id, domain_name])
+      def applied_services(account_id, domain_id, options = {})
+        endpoint = Client.versioned("/%s/domains/%s/services" % [account_id, domain_id])
         response = client.get(endpoint, Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Service.new(r) })
@@ -42,15 +42,15 @@ module Dnsimple
       #   client.domain_services.applied_services(1010, "example.com", "service1", app: "foo")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [#to_s] service_name the service name (or ID)
+      # @param  [#to_s] service_id the service name (or ID)
+      # @param  [#to_s] domain_id the domain name
       # @param  [Hash] settings optional settings to apply the one-click service
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.
-      def apply_service(account_id, domain_name, service_name, settings = {}, options = {})
-        endpoint = Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_name, service_name])
+      def apply_service(account_id, service_id, domain_id, settings = {}, options = {})
+        endpoint = Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_id, service_id])
         response = client.post(endpoint, settings, options)
 
         Dnsimple::Response.new(response, nil)
@@ -64,14 +64,14 @@ module Dnsimple
       #   client.domain_services.applied_services(1010, "example.com", "service1")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [#to_s] service_name the service name (or ID)
+      # @param  [#to_s] service_id the service name (or ID)
+      # @param  [#to_s] domain_id the domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.
-      def unapply_service(account_id, domain_name, service_name, options = {})
-        endpoint = Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_name, service_name])
+      def unapply_service(account_id, service_id, domain_id, options = {})
+        endpoint = Client.versioned("/%s/domains/%s/services/%s" % [account_id, domain_id, service_id])
         response = client.delete(endpoint, options)
 
         Dnsimple::Response.new(response, nil)

@@ -141,13 +141,6 @@ module Dnsimple
     end
 
 
-    require_relative 'domain_services'
-
-    class DomainServicesService < ClientService
-      include Client::DomainServices
-    end
-
-
     require_relative 'identity'
 
     class IdentityService < ClientService
@@ -176,9 +169,11 @@ module Dnsimple
 
 
     require_relative 'services'
+    require_relative 'services_domains'
 
     class ServicesService < ClientService
       include Client::Services
+      include Client::ServicesDomains
     end
 
 

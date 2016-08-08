@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Dnsimple::Client, ".domain_services" do
+describe Dnsimple::Client, ".services" do
 
-  subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domain_services }
+  subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").services }
 
 
   describe "#applied_services" do
@@ -70,7 +70,7 @@ describe Dnsimple::Client, ".domain_services" do
     let(:settings) { { app: "foo" } }
 
     it "builds the correct request" do
-      subject.apply_service(account_id, domain_id, service_id, settings)
+      subject.apply_service(account_id, service_id, domain_id, settings)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}").
           with(body: settings).
@@ -78,7 +78,7 @@ describe Dnsimple::Client, ".domain_services" do
     end
 
     it "returns empty response" do
-      response = subject.apply_service(account_id, domain_id, service_id, settings)
+      response = subject.apply_service(account_id, service_id, domain_id, settings)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -97,14 +97,14 @@ describe Dnsimple::Client, ".domain_services" do
     end
 
     it "builds the correct request" do
-      subject.unapply_service(account_id, domain_id, service_id)
+      subject.unapply_service(account_id, service_id, domain_id)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}").
           with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns empty response" do
-      response = subject.unapply_service(account_id, domain_id, service_id)
+      response = subject.unapply_service(account_id, service_id, domain_id)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
