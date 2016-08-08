@@ -56,6 +56,11 @@ module Dnsimple
       @services[:tlds] ||= Client::TldsService.new(self)
     end
 
+    # @return [Dnsimple::Client::VanityNameServersService] The vanity-name-server-related API proxy.
+    def vanity_name_servers
+      @services[:vanity_name_servers] ||= Client::VanityNameServersService.new(self)
+    end
+
     # @return [Dnsimple::Client::ZonesService] The zone-related API proxy.
     def zones
       @services[:zones] ||= Client::ZonesService.new(self)
@@ -192,6 +197,13 @@ module Dnsimple
 
     class TldsService < ClientService
       include Client::Tlds
+    end
+
+
+    require_relative 'vanity_name_servers'
+
+    class VanityNameServersService < ClientService
+      include Client::VanityNameServers
     end
 
 
