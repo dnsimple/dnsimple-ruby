@@ -68,6 +68,17 @@ puts response.data
 
 For the full library documentation visit http://rubydoc.info/gems/dnsimple
 
+## Sandbox Usage
+
+If you would like to test the [DNSimple sandbox environment](https://developer.dnsimple.com/sandbox/) then pass the `base_url` named argument when you construct the client. For example:
+
+```ruby
+require 'dnsimple'
+
+client = Dnsimple::Client.new(base_url: "https://api.sandbox.dnsimple.com", access_token: "a1b2c3")
+```
+
+You will need to ensure that you are using an access token created in the sandbox environment. Production tokens will *not* work in the sandbox environment.
 
 ## License
 
