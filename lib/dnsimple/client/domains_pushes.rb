@@ -48,6 +48,29 @@ module Dnsimple
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::DomainPush.new(r) })
       end
 
+      # Accept a domain push.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/pushes/#accept
+      #
+      # @example Accept a domain push in the target account:
+      #   client.domains.accept_push(2020, 1, contact_id: 2)
+      #
+      # @param  [Fixnum] account_id the target account ID
+      # @param  [Fixnum] push_id the domain push ID
+      # @param  [Hash] options
+      # @param  [Hash] attributes
+      # @option attributes [Integer] :contact_id the contact ID (mandatory)
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def accept_push(account_id, push_id, attributes, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:contact_id])
+        response = client.post(Client.versioned("/%s/pushes/%s" % [account_id, push_id]), attributes, options)
+
+        Dnsimple::Response.new(response, nil)
+      end
+
     end
 
   end
