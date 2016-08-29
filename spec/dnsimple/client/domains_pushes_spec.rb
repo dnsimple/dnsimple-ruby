@@ -4,6 +4,35 @@ describe Dnsimple::Client, ".domains" do
 
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains }
 
+  describe "#initiate_push" do
+    let(:account_id) { 1010 }
+    let(:domain_id) { "example.com" }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/pushes$}).
+          to_return(read_http_fixture("initiatePush/success.http"))
+    end
+
+    let(:attributes) { { new_account_email: "admin@target-account.test" } }
+
+    it "builds the correct request" do
+      subject.initiate_push(account_id, domain_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/pushes").
+          with(body: attributes).
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the domain push" do
+      response = subject.initiate_push(account_id, domain_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::DomainPush)
+      expect(result.id).to be_a(Fixnum)
+    end
+  end
+
   describe "#pushes" do
     let(:account_id) { 2020 }
 

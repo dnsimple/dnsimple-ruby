@@ -2,6 +2,28 @@ module Dnsimple
   class Client
     module DomainsPushes
 
+      # Initiate a push for the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/pushes/#initiate
+      #
+      # @example Initiate a domain pushe for example.com:
+      #   client.domains.initiate_push(1010, "example.com", new_account_email: "admin@target-account.test")
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_id The domain ID or domain name
+      # @param  [Hash] attributes
+      # @option attributes [String] :new_account_email the target account email (mandatory)
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::DomainPush>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def initiate_push(account_id, domain_id, attributes, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:new_account_email])
+        response = client.post(Client.versioned("/%s/domains/%s/pushes" % [account_id, domain_id]), attributes, options)
+
+        Dnsimple::Response.new(response, Struct::DomainPush.new(response["data"]))
+      end
+
       # Lists the pushes for the domain.
       #
       # @see https://developer.dnsimple.com/v2/domains/pushes/#list
@@ -25,6 +47,7 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::DomainPush.new(r) })
       end
+
     end
 
   end
