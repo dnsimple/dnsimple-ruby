@@ -8,7 +8,7 @@ describe Dnsimple::Client, ".accounts" do
   describe "#accounts" do
     before do
       stub_request(:get, %r{/v2/accounts$}).
-          to_return(read_http_fixture("accounts/success-user.http"))
+          to_return(read_http_fixture("listAccounts/success-user.http"))
     end
 
     it "builds the correct request" do
