@@ -93,7 +93,7 @@ describe Dnsimple::Client, ".registrar" do
       expect(result.id).to be_a(Fixnum)
     end
 
-    context "when it is too son for the domain to be renewed" do
+    context "when it is too soon for the domain to be renewed" do
       it "raises a BadRequestError" do
         stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/renewal$}).
             to_return(read_http_fixture("renewDomain/error-tooearly.http"))
