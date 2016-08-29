@@ -9,4 +9,4 @@ Cache-Control: no-cache
 X-Request-Id: 50eea494-cc14-4db0-bc11-306aa525bbfd
 X-Runtime: 0.028036
 
-{"message":"Email forward `0` not found"}
+{"message":"Domain push `0` not found"}

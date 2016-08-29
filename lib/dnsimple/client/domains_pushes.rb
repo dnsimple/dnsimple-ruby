@@ -71,6 +71,26 @@ module Dnsimple
         Dnsimple::Response.new(response, nil)
       end
 
+      # Reject a domain push.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/pushes/#reject
+      #
+      # @example Reject a domain push in the target account:
+      #   client.domains.reject_push(2020, 1, contact_id: 2)
+      #
+      # @param  [Fixnum] account_id the target account ID
+      # @param  [Fixnum] push_id the domain push ID
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def reject_push(account_id, push_id, options = {})
+        response = client.delete(Client.versioned("/%s/pushes/%s" % [account_id, push_id]), options)
+
+        Dnsimple::Response.new(response, nil)
+      end
+
     end
 
   end
