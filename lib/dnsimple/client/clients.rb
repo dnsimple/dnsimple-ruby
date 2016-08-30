@@ -134,10 +134,12 @@ module Dnsimple
 
     require_relative 'domains'
     require_relative 'domains_email_forwards'
+    require_relative 'domains_pushes'
 
     class DomainsService < ClientService
       include Client::Domains
       include Client::DomainsEmailForwards
+      include Client::DomainsPushes
     end
 
 
