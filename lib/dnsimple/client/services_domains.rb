@@ -7,13 +7,13 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/services/domains/#applied
       #
       # @example List applied one-click services for example.com:
-      #   client.domain_services.applied_services(1010, "example.com")
+      #   client.service.applied_services(1010, "example.com")
       #
       # @example List applied one-click services for example.com, provide a specific page:
-      #   client.services.list_services(1010, "example.com", page: 2)
+      #   client.services.applied_services(1010, "example.com", page: 2)
       #
       # @example List applied one-click services for example.com, provide a sorting policy:
-      #   client.services.list_services(1010, "example.com", sort: "short_name:asc")
+      #   client.services.applied_services(1010, "example.com", sort: "short_name:asc")
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id the domain name
