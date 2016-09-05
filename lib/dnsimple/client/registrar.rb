@@ -90,7 +90,7 @@ module Dnsimple
 
       # Requests the transfer of a domain out of DNSimple.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/#transfer_out
+      # @see https://developer.dnsimple.com/v2/registrar/#transfer-out
       #
       # @example Request to transfer of example.com out of DNSimple:
       #   client.registrar.transfer_out(1010, "example.com")
