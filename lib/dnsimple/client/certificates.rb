@@ -2,19 +2,19 @@ module Dnsimple
   class Client
     module Certificates
 
-      # Lists the certificates in the account.
+      # Lists the certificates associated to the domain.
       #
-      # @see https://developer.dnsimple.com/v2/certificates/#list
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#list
       # @see #all_certificates
       #
       # @example List certificates in the first page
-      #   client.certificates.list(1010)
+      #   client.certificates.list(1010, "example.com")
       #
       # @example List certificates, provide a specific page
-      #   client.certificates.list(1010, page: 2)
+      #   client.certificates.list(1010, "example.com", page: 2)
       #
       # @example List certificates, provide a sorting policy
-      #   client.certificates.list(1010, sort: "email:asc")
+      #   client.certificates.list(1010, "example.com", sort: "email:asc")
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_name the domain name
