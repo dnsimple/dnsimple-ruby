@@ -16,6 +16,9 @@ module Dnsimple
 
       # @return [Boolean] True if IDN is available.
       attr_accessor :idn
+
+      # @return [Fixnum] The minimum registration period, in years.
+      attr_accessor :minimum_registration
     end
 
   end
