@@ -10,7 +10,7 @@ module Dnsimple
       #   client.vanity_name_servers.enable(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to check
+      # @param  [#to_s] domain_name the domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<Array>]
       #
@@ -30,7 +30,7 @@ module Dnsimple
       #   client.vanity_name_servers.disable(1010, "example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to check
+      # @param  [#to_s] domain_name the domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #
