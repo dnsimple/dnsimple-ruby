@@ -101,6 +101,7 @@ describe Dnsimple::Client, ".tlds" do
       expect(result.whois_privacy).to eq(true)
       expect(result.auto_renew_only).to eq(false)
       expect(result.idn).to eq(true)
+      expect(result.minimum_registration).to eq(1)
     end
   end
 
