@@ -19,6 +19,15 @@ module Dnsimple
 
       # @return [Fixnum] The minimum registration period, in years.
       attr_accessor :minimum_registration
+
+      # @return [Boolean] True if it allows to register a domain.
+      attr_accessor :registration_enabled
+
+      # @return [Boolean] True if it allows to renew a domain.
+      attr_accessor :renewal_enabled
+
+      # @return [Boolean] True if it allows to transfer a domain.
+      attr_accessor :transfer_enabled
     end
 
   end
