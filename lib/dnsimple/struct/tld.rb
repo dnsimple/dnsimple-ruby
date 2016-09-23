@@ -19,6 +19,15 @@ module Dnsimple
 
       # @return [Fixnum] The minimum registration period, in years.
       attr_accessor :minimum_registration
+
+      # @return [Boolean] True if DNSimple supports registrations for this TLD.
+      attr_accessor :registration_enabled
+
+      # @return [Boolean] True if DNSimple supports renewals for this TLD.
+      attr_accessor :renewal_enabled
+
+      # @return [Boolean] True if DNSimple supports inbound transfers for this TLD.
+      attr_accessor :transfer_enabled
     end
 
   end
