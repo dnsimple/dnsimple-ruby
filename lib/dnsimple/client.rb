@@ -185,11 +185,11 @@ module Dnsimple
     end
 
     def add_proxy_options!(options)
-      if proxy
-        address, port = proxy.split(":")
-        options[:http_proxyaddr] = address
-        options[:http_proxyport] = port
-      end
+      return if proxy.nil?
+
+      address, port = proxy.split(":")
+      options[:http_proxyaddr] = address
+      options[:http_proxyport] = port
     end
 
     def add_auth_options!(options)

@@ -45,7 +45,7 @@ describe Dnsimple::Client, ".templates" do
 
       response.data.each do |result|
         expect(result).to be_a(Dnsimple::Struct::TemplateRecord)
-        expect(result.id).to be_a(Fixnum)
+        expect(result.id).to be_a(Integer)
         expect(result.type).to be_a(String)
         expect(result.name).to be_a(String)
         expect(result.content).to be_a(String)

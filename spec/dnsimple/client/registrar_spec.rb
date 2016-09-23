@@ -56,7 +56,7 @@ describe Dnsimple::Client, ".registrar" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to be_a(Fixnum)
+      expect(result.id).to be_a(Integer)
     end
 
     context "when the attributes are incomplete" do
@@ -90,7 +90,7 @@ describe Dnsimple::Client, ".registrar" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to be_a(Fixnum)
+      expect(result.id).to be_a(Integer)
     end
 
     context "when it is too soon for the domain to be renewed" do

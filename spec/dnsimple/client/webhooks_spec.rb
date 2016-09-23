@@ -40,7 +40,7 @@ describe Dnsimple::Client, ".webhooks" do
 
       response.data.each do |result|
         expect(result).to be_a(Dnsimple::Struct::Webhook)
-        expect(result.id).to be_a(Fixnum)
+        expect(result.id).to be_a(Integer)
       end
     end
   end
@@ -69,7 +69,7 @@ describe Dnsimple::Client, ".webhooks" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Webhook)
-      expect(result.id).to be_a(Fixnum)
+      expect(result.id).to be_a(Integer)
     end
   end
 
