@@ -102,6 +102,9 @@ describe Dnsimple::Client, ".tlds" do
       expect(result.auto_renew_only).to eq(false)
       expect(result.idn).to eq(true)
       expect(result.minimum_registration).to eq(1)
+      expect(result.registration_enabled).to eq(true)
+      expect(result.renewal_enabled).to eq(true)
+      expect(result.transfer_enabled).to eq(true)
     end
   end
 
