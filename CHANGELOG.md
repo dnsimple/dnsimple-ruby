@@ -5,14 +5,16 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 #### master
 
-- NEW: Added minimum_registration attribute to TLDs (GH-129).
 - NEW: Added domain services support (GH-122).
 - NEW: Added domain templates support (GH-125).
 - NEW: Added zone file support (GH-124).
 - NEW: Added certificate support (GH-123).
 - NEW: Added domain delegation support (GH-120).
+- NEW: Added domain push support (GH-127).
+- NEW: Added vanity name server support (GH-121).
 
 - CHANGED: Record struct renamed to ZoneRecord (GH-117).
+- CHANGED: Updated Tld payload (GH-133, GH-129).
 
 
 #### 3.1.0
