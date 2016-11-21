@@ -13,7 +13,7 @@ module Dnsimple
       #   client.collaborators.collaborators(1010, "example.com", page: 2)
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
+      # @param  [#to_s] domain_id the domain ID or name
       # @param  [Hash] request options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -34,7 +34,7 @@ module Dnsimple
       #   client.collaborators.add_collaborator(1010, "example.com", email: "user@example.com")
       #
       # @param  [Fixnum] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
+      # @param  [#to_s] domain_id the domain ID or name
       # @param  [Hash] user attributes
       # @param  attributes [String] :email user email (mandatory)
       # @param  [Hash] request options
@@ -46,6 +46,26 @@ module Dnsimple
         response = client.post(Client.versioned("/%s/domains/%s/collaborators" % [account_id, domain_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::Collaborator.new(response["data"]))
+      end
+
+      # Removes a collaborator from the domain.
+      #
+      # WARNING: this cannot be undone.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/collaborators/#remove
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_id the domain ID or name
+      # @param  [#to_s] contact_id the contact ID
+      # @param  [Hash] request options
+      # @return [Dnsimple::Response<nil>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def remove_collaborator(account_id, domain_id, contact_id, options = {})
+        response = client.delete(Client.versioned("/%s/domains/%s/collaborators/%s" % [account_id, domain_id, contact_id]), options)
+
+        Dnsimple::Response.new(response, nil)
       end
 
     end

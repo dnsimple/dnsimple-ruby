@@ -122,4 +122,41 @@ describe Dnsimple::Client, ".collaborators" do
     end
   end
 
+  describe "#remove_collaborator" do
+    let(:account_id)      { 1010 }
+    let(:domain_id)       { "example.com" }
+    let(:collaborator_id) { 100 }
+
+    before do
+      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators/.+$}).
+          to_return(read_http_fixture("removeCollaborator/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.remove_collaborator(account_id, domain_id, collaborator_id)
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators/#{collaborator_id}").
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns nothing" do
+      response = subject.remove_collaborator(account_id, domain_id, collaborator_id)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+
+    context "when the collaborator does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:delete, %r{/v2}).
+            to_return(read_http_fixture("notfound-collaborator.http"))
+
+        expect {
+          subject.remove_collaborator(account_id, domain_id, collaborator_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end
