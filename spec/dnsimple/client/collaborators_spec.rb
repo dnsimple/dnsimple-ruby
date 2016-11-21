@@ -57,4 +57,69 @@ describe Dnsimple::Client, ".collaborators" do
     end
   end
 
+  describe "#add_collaborator" do
+    let(:account_id) { 1010 }
+    let(:domain_id)  { "example.com" }
+
+    context "invite user already registered on DNSimple" do
+      before do
+        stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators$}).
+            to_return(read_http_fixture("addCollaborator/success.http"))
+      end
+
+      let(:attributes) { { email: "existing-user@example.com" } }
+
+      it "builds the correct request" do
+        subject.add_collaborator(account_id, domain_id, attributes)
+
+        expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators").
+            with(body: attributes).
+            with(headers: { 'Accept' => 'application/json' })
+      end
+
+      it "returns the contact" do
+        response = subject.add_collaborator(account_id, domain_id, attributes)
+        expect(response).to be_a(Dnsimple::Response)
+
+        result = response.data
+        expect(result).to be_a(Dnsimple::Struct::Collaborator)
+        expect(result.id).to          be_a(Integer)
+        expect(result.user_id).to     be_a(Integer)
+        expect(result.accepted_at).to be_a(String)
+        expect(result.user_email).to  eq(attributes.fetch(:email))
+        expect(result.invitation).to  be(false)
+      end
+    end
+
+    context "invite not registered on DNSimple" do
+      before do
+        stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators$}).
+            to_return(read_http_fixture("addCollaborator/invite-success.http"))
+      end
+
+      let(:attributes) { { email: "invited-user@example.com" } }
+
+      it "builds the correct request" do
+        subject.add_collaborator(account_id, domain_id, attributes)
+
+        expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators").
+            with(body: attributes).
+            with(headers: { 'Accept' => 'application/json' })
+      end
+
+      it "returns the contact" do
+        response = subject.add_collaborator(account_id, domain_id, attributes)
+        expect(response).to be_a(Dnsimple::Response)
+
+        result = response.data
+        expect(result).to be_a(Dnsimple::Struct::Collaborator)
+        expect(result.id).to          be_a(Integer)
+        expect(result.user_id).to     be(nil)
+        expect(result.accepted_at).to be(nil)
+        expect(result.user_email).to  eq(attributes.fetch(:email))
+        expect(result.invitation).to  be(true)
+      end
+    end
+  end
+
 end

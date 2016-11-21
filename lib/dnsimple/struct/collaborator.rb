@@ -14,7 +14,7 @@ module Dnsimple
       # @return [Fixnum,NilClass] The user ID, if the collaborator accepted the invitation.
       attr_accessor :user_id
 
-      # @return [String,NilClass] The user email, if the the invitation is still pending.
+      # @return [String] The user email.
       attr_accessor :user_email
 
       # @return [TrueClass,FalseClass] Invitation

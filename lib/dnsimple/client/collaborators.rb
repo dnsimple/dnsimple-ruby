@@ -7,10 +7,10 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/collaborators/#list
       #
       # @example List collaborators in the first page
-      #   client.collaborators.list(1010, "example.com")
+      #   client.collaborators.collaborators(1010, "example.com")
       #
       # @example List collaborators, provide a specific page
-      #   client.collaborators.list(1010, "example.com", page: 2)
+      #   client.collaborators.collaborators(1010, "example.com", page: 2)
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_name the domain name
@@ -24,6 +24,28 @@ module Dnsimple
         response = client.get(Client.versioned("/%s/domains/%s/collaborators" % [account_id, domain_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Collaborator.new(r) })
+      end
+
+      # Add a collaborator to the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/collaborators/#add
+      #
+      # @example Add collaborator
+      #   client.collaborators.add_collaborator(1010, "example.com", email: "user@example.com")
+      #
+      # @param  [Fixnum] account_id the account ID
+      # @param  [#to_s] domain_name the domain name
+      # @param  [Hash] user attributes
+      # @param  attributes [String] :email user email (mandatory)
+      # @param  [Hash] request options
+      # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Collaborator>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def add_collaborator(account_id, domain_id, attributes, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:email])
+        response = client.post(Client.versioned("/%s/domains/%s/collaborators" % [account_id, domain_id]), attributes, options)
+
+        Dnsimple::Response.new(response, Struct::Collaborator.new(response["data"]))
       end
 
     end
