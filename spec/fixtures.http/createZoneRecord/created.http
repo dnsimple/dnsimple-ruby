@@ -1,17 +1,21 @@
 HTTP/1.1 201 Created
 Server: nginx
-Date: Thu, 07 Jan 2016 17:45:13 GMT
+Date: Wed, 05 Oct 2016 09:51:35 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
-Status: 201 Created
-X-RateLimit-Limit: 4000
-X-RateLimit-Remaining: 3990
-X-RateLimit-Reset: 1452188712
-ETag: W/"a7ddff4ee5dc28bbebf3d416e8bd0f04"
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2395
+X-RateLimit-Reset: 1475662530
+ETag: W/"d4d22097268cd23fab63ef3e9982b5c1"
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: f96f5034-bf0c-4201-9564-493c162e3cb4
-X-Runtime: 0.099095
+X-Request-Id: f76d9f35-92e4-4a9c-adc8-adfcd7fa9e3b
+X-Runtime: 0.252286
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Frame-Options: DENY
+X-Permitted-Cross-Domain-Policies: none
+X-XSS-Protection: 1; mode=block
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":64784,"zone_id":"example.com","parent_id":null,"name":"www","content":"127.0.0.1","ttl":600,"priority":null,"type":"A","system_record":false,"created_at":"2016-01-07T17:45:13.653Z","updated_at":"2016-01-07T17:45:13.653Z"}}
+{"data":{"id":5,"zone_id":"example.com","parent_id":null,"name":"","content":"mxa.example.com","ttl":600,"priority":10,"type":"MX","regions":["SV1", "IAD"],"system_record":false,"created_at":"2016-10-05T09:51:35.313Z","updated_at":"2016-10-05T09:51:35.313Z"}}

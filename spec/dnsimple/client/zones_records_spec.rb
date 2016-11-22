@@ -55,6 +55,7 @@ describe Dnsimple::Client, ".zones" do
       response.data.each do |result|
         expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
         expect(result.id).to be_a(Integer)
+        expect(result.regions).to be_a(Array)
       end
     end
 
@@ -116,7 +117,7 @@ describe Dnsimple::Client, ".zones" do
           to_return(read_http_fixture("createZoneRecord/created.http"))
     end
 
-    let(:attributes) { { type: "A", name: "www", content: "127.0.0.1" } }
+    let(:attributes) { { type: "MX", name: "", content: "mxa.example.com", regions: %w(SV1 IAD) } }
 
     it "builds the correct request" do
       subject.create_record(account_id, zone_id, attributes)
@@ -132,7 +133,11 @@ describe Dnsimple::Client, ".zones" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
-      expect(result.id).to eq(64784)
+      expect(result.id).to eq(5)
+      expect(result.type).to eq(attributes.fetch(:type))
+      expect(result.name).to eq(attributes.fetch(:name))
+      expect(result.content).to eq(attributes.fetch(:content))
+      expect(result.regions).to eq(attributes.fetch(:regions))
     end
 
     context "when the zone does not exist" do
@@ -150,6 +155,7 @@ describe Dnsimple::Client, ".zones" do
   describe "#record" do
     let(:account_id) { 1010 }
     let(:zone_id) { "example.com" }
+    let(:record_id) { 5 }
 
     before do
       stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$}).
@@ -157,29 +163,30 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "builds the correct request" do
-      subject.record(account_id, zone_id, record_id = 2)
+      subject.record(account_id, zone_id, record_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}").
           with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
-      response = subject.record(account_id, zone_id, 2)
+      response = subject.record(account_id, zone_id, record_id)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
-      expect(result.id).to eq(64784)
+      expect(result.id).to eq(record_id)
       expect(result.zone_id).to eq("example.com")
       expect(result.parent_id).to eq(nil)
-      expect(result.type).to eq("A")
-      expect(result.name).to eq("www")
-      expect(result.content).to eq("127.0.0.1")
+      expect(result.type).to eq("MX")
+      expect(result.name).to eq("")
+      expect(result.content).to eq("mxa.example.com")
       expect(result.ttl).to eq(600)
-      expect(result.priority).to eq(nil)
+      expect(result.priority).to eq(10)
       expect(result.system_record).to eq(false)
-      expect(result.created_at).to eq("2016-01-07T17:45:13.653Z")
-      expect(result.updated_at).to eq("2016-01-07T17:45:13.653Z")
+      expect(result.regions).to eq(%w(SV1 IAD))
+      expect(result.created_at).to eq("2016-10-05T09:51:35.313Z")
+      expect(result.updated_at).to eq("2016-10-05T09:51:35.313Z")
     end
 
     context "when the zone does not exist" do
@@ -208,16 +215,17 @@ describe Dnsimple::Client, ".zones" do
   describe "#update_record" do
     let(:account_id) { 1010 }
     let(:zone_id) { "example.com" }
+    let(:record_id) { 5 }
 
     before do
       stub_request(:patch, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$}).
           to_return(read_http_fixture("updateZoneRecord/success.http"))
     end
 
-    let(:attributes) { { content: "127.0.0.1", priority: "1" } }
+    let(:attributes) { { content: "mxb.example.com", priority: "20", regions: ['global'] } }
 
     it "builds the correct request" do
-      subject.update_record(account_id, zone_id, record_id = 2, attributes)
+      subject.update_record(account_id, zone_id, record_id, attributes)
 
       expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}").
           with(body: attributes).
@@ -225,12 +233,15 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "returns the record" do
-      response = subject.update_record(account_id, zone_id, 2, attributes)
+      response = subject.update_record(account_id, zone_id, record_id, attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
-      expect(result.id).to eq(64784)
+      expect(result.id).to eq(record_id)
+      expect(result.content).to eq(attributes.fetch(:content))
+      expect(result.priority).to eq(attributes.fetch(:priority).to_i)
+      expect(result.regions).to eq(attributes.fetch(:regions))
     end
 
     context "when the zone does not exist" do
