@@ -6,6 +6,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 #### master
 
 - NEW: Added domain collaborators support (GH-137).
+- NEW: Added regions support for zone records (GH-135, GH-139).
 - NEW: Added domain services support (GH-122).
 - NEW: Added domain templates support (GH-125).
 - NEW: Added zone file support (GH-124).

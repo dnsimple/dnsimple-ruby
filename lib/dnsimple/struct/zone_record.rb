@@ -29,6 +29,9 @@ module Dnsimple
       # @return [Bool] True if this is a system record created by DNSimple. System records are read-only.
       attr_accessor :system_record
 
+      # @return [Array<String>] The regions where the record is propagated. This is optional.
+      attr_accessor :regions
+
       # @return [String] When the record was created in DNSimple.
       attr_accessor :created_at
 
