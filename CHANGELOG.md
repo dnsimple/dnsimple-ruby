@@ -5,6 +5,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 #### master
 
+- NEW: Added domain collaborators support (GH-137).
 - NEW: Added regions support for zone records (GH-135, GH-139).
 - NEW: Added domain services support (GH-122).
 - NEW: Added domain templates support (GH-125).
@@ -16,6 +17,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Record struct renamed to ZoneRecord (GH-117).
 - CHANGED: Updated Tld payload (GH-133, GH-129).
+- CHANGED: Renamed registrar `auth_info` into `auth_code` (GH-136).
 
 
 #### 3.1.0
