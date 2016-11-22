@@ -113,7 +113,7 @@ describe Dnsimple::Client, ".registrar" do
           to_return(read_http_fixture("transferDomain/success.http"))
     end
 
-    let(:attributes) { { registrant_id: "10", auth_info: "x1y2z3" } }
+    let(:attributes) { { registrant_id: "10", auth_code: "x1y2z3" } }
 
     it "builds the correct request" do
       subject.transfer_domain(account_id, domain_name = "example.com", attributes)
@@ -135,7 +135,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the attributes are incomplete" do
       it "raises ArgumentError" do
-        expect { subject.transfer_domain(account_id, "example.com", auth_info: "x1y2z3") }.to raise_error(ArgumentError)
+        expect { subject.transfer_domain(account_id, "example.com", auth_code: "x1y2z3") }.to raise_error(ArgumentError)
       end
     end
 
@@ -150,7 +150,7 @@ describe Dnsimple::Client, ".registrar" do
       end
     end
 
-    context "when :auth_info wasn't provided and is required by the TLD" do
+    context "when :auth_code wasn't provided and is required by the TLD" do
       it "raises a BadRequestError" do
         stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfer$}).
             to_return(read_http_fixture("transferDomain/error-missing-authcode.http"))
