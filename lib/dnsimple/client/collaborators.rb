@@ -7,10 +7,10 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/collaborators/#list
       #
       # @example List collaborators in the first page
-      #   client.collaborators.collaborators(1010, "example.com")
+      #   client.domains.collaborators(1010, "example.com")
       #
       # @example List collaborators, provide a specific page
-      #   client.collaborators.collaborators(1010, "example.com", page: 2)
+      #   client.domains.collaborators(1010, "example.com", page: 2)
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or name
@@ -31,7 +31,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/collaborators/#add
       #
       # @example Add collaborator
-      #   client.collaborators.add_collaborator(1010, "example.com", email: "user@example.com")
+      #   client.domains.add_collaborator(1010, "example.com", email: "user@example.com")
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or name
@@ -53,6 +53,9 @@ module Dnsimple
       # WARNING: this cannot be undone.
       #
       # @see https://developer.dnsimple.com/v2/domains/collaborators/#remove
+      #
+      # @example Remove collaborator
+      #   client.domains.remove_collaborator(1010, "example.com", 999)
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or name

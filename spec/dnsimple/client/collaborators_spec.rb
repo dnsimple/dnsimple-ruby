@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Dnsimple::Client, ".collaborators" do
+describe Dnsimple::Client, ".domains" do
 
-  subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").collaborators }
+  subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains }
 
 
   describe "#collaborators" do

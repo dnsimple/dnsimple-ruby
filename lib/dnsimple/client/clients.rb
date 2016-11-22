@@ -11,11 +11,6 @@ module Dnsimple
       @services[:certificates] ||= Client::CertificatesService.new(self)
     end
 
-    # @return [Dnsimple::Client::CollaboratorsService] The collaborator-related API proxy.
-    def collaborators
-      @services[:collaborators] ||= Client::CollaboratorsService.new(self)
-    end
-
     # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
     def contacts
       @services[:contacts] ||= Client::ContactsService.new(self)
@@ -130,13 +125,6 @@ module Dnsimple
     end
 
 
-    require_relative 'collaborators'
-
-    class CollaboratorsService < ClientService
-      include Client::Collaborators
-    end
-
-
     require_relative 'contacts'
 
     class ContactsService < ClientService
@@ -147,11 +135,13 @@ module Dnsimple
     require_relative 'domains'
     require_relative 'domains_email_forwards'
     require_relative 'domains_pushes'
+    require_relative 'collaborators'
 
     class DomainsService < ClientService
       include Client::Domains
       include Client::DomainsEmailForwards
       include Client::DomainsPushes
+      include Client::Collaborators
     end
 
 
