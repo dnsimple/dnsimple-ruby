@@ -71,7 +71,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/registrar/#transfer
       #
       # @example Initiate the transfer for example.com using the contact 1234 as registrant:
-      #   client.registrar.transfer(1010, "example.com", registrant_id: 1234, auth_info: "x1y2z3")
+      #   client.registrar.transfer(1010, "example.com", registrant_id: 1234, auth_code: "x1y2z3")
       #
       # @param  [Fixnum] account_id the account ID
       # @param  [#to_s] domain_name the domain name to transfer

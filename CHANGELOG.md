@@ -16,6 +16,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Record struct renamed to ZoneRecord (GH-117).
 - CHANGED: Updated Tld payload (GH-133, GH-129).
+- CHANGED: Renamed registrar `auth_info` into `auth_code` (GH-136).
 
 
 #### 3.1.0
