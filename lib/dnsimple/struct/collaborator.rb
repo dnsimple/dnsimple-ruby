@@ -11,7 +11,7 @@ module Dnsimple
       # @return [String] The associated domain name.
       attr_accessor :domain_name
 
-      # @return [Fixnum,NilClass] The user ID, if the collaborator accepted the invitation.
+      # @return [Integer, NilClass] The user ID, if the collaborator accepted the invitation.
       attr_accessor :user_id
 
       # @return [String] The user email.

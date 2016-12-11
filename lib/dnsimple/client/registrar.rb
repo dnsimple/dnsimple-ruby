@@ -34,7 +34,7 @@ module Dnsimple
       # @param  [#to_s] domain_name the domain name to register
       # @param  [Hash] attributes
       # @param  [Hash] options
-      # @return [Struct::Domain]
+      # @return [Struct::DomainRegistration]
       #
       # @raise  [RequestError] When the request fails.
       def register_domain(account_id, domain_name, attributes, options = {})
@@ -42,7 +42,7 @@ module Dnsimple
         endpoint = Client.versioned("/%s/registrar/domains/%s/registration" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
 
-        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::DomainRegistration.new(response["data"]))
       end
 
       # Renews a domain.
@@ -56,14 +56,14 @@ module Dnsimple
       # @param  [#to_s] domain_name the domain name to renew
       # @param  [Hash] attributes
       # @param  [Hash] options
-      # @return [Struct::Domain]
+      # @return [Struct::DomainRenewal]
       #
       # @raise  [RequestError] When the request fails.
       def renew_domain(account_id, domain_name, attributes = nil, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/renewal" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
 
-        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::DomainRenewal.new(response["data"]))
       end
 
       # Starts the transfer of a domain to DNSimple.
@@ -77,7 +77,7 @@ module Dnsimple
       # @param  [#to_s] domain_name the domain name to transfer
       # @param  [Hash] attributes
       # @param  [Hash] options
-      # @return [Struct::Domain]
+      # @return [Struct::DomainTransfer]
       #
       # @raise  [RequestError] When the request fails.
       def transfer_domain(account_id, domain_name, attributes, options = {})
@@ -85,7 +85,7 @@ module Dnsimple
         endpoint = Client.versioned("/%s/registrar/domains/%s/transfer" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
 
-        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::DomainTransfer.new(response["data"]))
       end
 
       # Requests the transfer of a domain out of DNSimple.
