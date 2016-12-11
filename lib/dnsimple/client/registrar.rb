@@ -56,14 +56,14 @@ module Dnsimple
       # @param  [#to_s] domain_name the domain name to renew
       # @param  [Hash] attributes
       # @param  [Hash] options
-      # @return [Struct::Domain]
+      # @return [Struct::DomainRenewal]
       #
       # @raise  [RequestError] When the request fails.
       def renew_domain(account_id, domain_name, attributes = nil, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/renewal" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
 
-        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::DomainRenewal.new(response["data"]))
       end
 
       # Starts the transfer of a domain to DNSimple.

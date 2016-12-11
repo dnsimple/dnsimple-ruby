@@ -89,8 +89,9 @@ describe Dnsimple::Client, ".registrar" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::Domain)
+      expect(result).to be_a(Dnsimple::Struct::DomainRenewal)
       expect(result.id).to be_a(Integer)
+      expect(result.domain_id).to be_a(Integer)
     end
 
     context "when it is too soon for the domain to be renewed" do
