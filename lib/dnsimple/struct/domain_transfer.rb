@@ -18,7 +18,7 @@ module Dnsimple
       attr_accessor :auto_renew
 
       # @return [Bool] True if the domain WHOIS privacy was requested.
-      attr_accessor :private_whois
+      attr_accessor :whois_privacy
 
       # @return [String] The premium price requested for the registration.
       attr_accessor :premium_price

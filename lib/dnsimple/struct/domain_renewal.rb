@@ -14,9 +14,6 @@ module Dnsimple
       # @return [String] The state of the renewal.
       attr_accessor :state
 
-      # @return [Bool] True if the domain WHOIS privacy was requested to be renewed.
-      attr_accessor :private_whois
-
       # @return [String] The premium price requested for the renewal.
       attr_accessor :premium_price
 
