@@ -27,7 +27,7 @@ $ gem install dnsimple
 Or use Bundler and define it as a dependency in your Gemfile:
 
 ```
-gem 'dnsimple', '~> 3.0'
+gem 'dnsimple', '~> 4.0'
 ```
 
 ## Usage
