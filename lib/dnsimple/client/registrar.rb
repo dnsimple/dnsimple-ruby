@@ -34,7 +34,7 @@ module Dnsimple
       # @param  [#to_s] domain_name the domain name to register
       # @param  [Hash] attributes
       # @param  [Hash] options
-      # @return [Struct::Domain]
+      # @return [Struct::DomainRegistration]
       #
       # @raise  [RequestError] When the request fails.
       def register_domain(account_id, domain_name, attributes, options = {})
@@ -42,7 +42,7 @@ module Dnsimple
         endpoint = Client.versioned("/%s/registrar/domains/%s/registration" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
 
-        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::DomainRegistration.new(response["data"]))
       end
 
       # Renews a domain.
