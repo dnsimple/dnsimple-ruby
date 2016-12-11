@@ -2,6 +2,10 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
+#### master
+
+- CHANGED: Updated registration, transfer, renewal response payload (dnsimple/dnsimple-developer#111, dnsimple/dnsimple-ruby#140).
+
 
 #### 4.0.0
 
