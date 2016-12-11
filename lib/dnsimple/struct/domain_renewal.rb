@@ -17,7 +17,7 @@ module Dnsimple
       # @return [Bool] True if the domain WHOIS privacy was requested to be renewed.
       attr_accessor :private_whois
 
-      # @return [Float] The premium price requested for the renewal.
+      # @return [String] The premium price requested for the renewal.
       attr_accessor :premium_price
 
       # @return [String] When the domain renewal was created in DNSimple.
