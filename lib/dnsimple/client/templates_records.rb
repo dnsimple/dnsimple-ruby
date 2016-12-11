@@ -16,7 +16,7 @@ module Dnsimple
       # @example List records for the template "alpha", providing sorting policy
       #   client.templates.records(1010, "alpha", sort: "type:asc")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
@@ -48,7 +48,7 @@ module Dnsimple
       # @example List all the records for "alpha template
       #   client.templates.all_records(1010, "alpha")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
@@ -69,7 +69,7 @@ module Dnsimple
       # @example Create an A record for "alpha" template
       #   client.templates.create_record(1010, "alpha", name: "", type: "A", content: "192.168.1.1", ttl: 600)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -92,9 +92,9 @@ module Dnsimple
       # @example Get record 123 in "alpha template
       #   client.templates.record(1010, "alpha", 123)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
-      # @param  [Fixnum] record_id the record ID
+      # @param  [Integer] record_id the record ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::TemplateRecord>]
       #
@@ -116,9 +116,9 @@ module Dnsimple
       # @example Delete record 123 in "alpha template
       #   client.templates.delete_record(1010, "alpha", 123)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
-      # @param  [Fixnum] record_id the record ID
+      # @param  [Integer] record_id the record ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #

@@ -11,15 +11,15 @@ module Dnsimple
     # @return [Struct::Base, Array] The content of the response data field.
     attr_reader :data
 
-    # @return [Fixnum] The maximum number of requests this authentication context can perform per hour.
+    # @return [Integer] The maximum number of requests this authentication context can perform per hour.
     # @see https://developer.dnsimple.com/v2/#rate-limiting
     attr_reader :rate_limit
 
-    # @return [Fixnum] The number of requests remaining in the current rate limit window.
+    # @return [Integer] The number of requests remaining in the current rate limit window.
     # @see https://developer.dnsimple.com/v2/#rate-limiting
     attr_reader :rate_limit_remaining
 
-    # @return [Fixnum] The time at which the current rate limit window in Unix time format.
+    # @return [Integer] The time at which the current rate limit window in Unix time format.
     # @see https://developer.dnsimple.com/v2/#rate-limiting
     attr_reader :rate_limit_reset
 
@@ -47,16 +47,16 @@ module Dnsimple
   # The PaginatedResponse is a specific type of Response that also exposes pagination metadata.
   class PaginatedResponse < CollectionResponse
 
-    # @return [Fixnum] The current page.
+    # @return [Integer] The current page.
     attr_reader :page
 
-    # @return [Fixnum] The number of records per page.
+    # @return [Integer] The number of records per page.
     attr_reader :per_page
 
-    # @return [Fixnum] The total number of records.
+    # @return [Integer] The total number of records.
     attr_reader :total_entries
 
-    # @return [Fixnum] The total number of pages.
+    # @return [Integer] The total number of pages.
     attr_reader :total_pages
 
 

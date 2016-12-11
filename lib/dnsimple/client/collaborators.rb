@@ -12,7 +12,7 @@ module Dnsimple
       # @example List collaborators, provide a specific page
       #   client.domains.collaborators(1010, "example.com", page: 2)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or name
       # @param  [Hash] request options
       # @option options [Integer] :page current page (pagination)
@@ -33,7 +33,7 @@ module Dnsimple
       # @example Add collaborator
       #   client.domains.add_collaborator(1010, "example.com", email: "user@example.com")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or name
       # @param  [Hash] user attributes
       # @param  attributes [String] :email user email (mandatory)
@@ -57,7 +57,7 @@ module Dnsimple
       # @example Remove collaborator
       #   client.domains.remove_collaborator(1010, "example.com", 999)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or name
       # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] request options

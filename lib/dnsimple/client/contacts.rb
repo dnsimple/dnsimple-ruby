@@ -16,7 +16,7 @@ module Dnsimple
       # @example List contacts, provide a sorting policy
       #   client.contacts.list(1010, sort: "email:asc")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -43,7 +43,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/contacts/#list
       # @see #contacts
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -60,7 +60,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#create
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
@@ -78,7 +78,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#get
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
@@ -95,7 +95,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#update
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -115,7 +115,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#delete
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]

@@ -2,10 +2,10 @@ module Dnsimple
   module Struct
 
     class Collaborator < Base
-      # @return [Fixnum] The collaborator ID in DNSimple.
+      # @return [Integer] The collaborator ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated domain ID.
+      # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
       # @return [String] The associated domain name.

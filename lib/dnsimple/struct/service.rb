@@ -23,7 +23,7 @@ module Dnsimple
         attr_accessor :password
       end
 
-      # @return [Fixnum] The service ID in DNSimple.
+      # @return [Integer] The service ID in DNSimple.
       attr_accessor :id
 
       # @return [String] The service name.

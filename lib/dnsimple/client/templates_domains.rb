@@ -9,7 +9,7 @@ module Dnsimple
       # @example Apply template 5401 for example.com in account 1010:
       #   client.templates.apply_template(1010, 5401, "example.com")
       #
-      # @param  [Fixnum] account_id The account ID
+      # @param  [Integer] account_id The account ID
       # @param  [#to_s] template_id The template ID
       # @param  [#to_s] domain_id The Domain ID or name
       # @param  [Hash] options

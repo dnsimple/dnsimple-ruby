@@ -19,7 +19,7 @@ module Dnsimple
       # @example List zones, provide filtering policy
       #   client.zones.list(1010, "example.com", filter: { name_like: "example" })
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -47,7 +47,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/zones/#list
       # @see #zones
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -64,7 +64,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/zones/#get
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] zone_id the zone name
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Zone>]
@@ -81,7 +81,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/zones/#get-file
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] zone_name the zone name
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::ZoneFile>]

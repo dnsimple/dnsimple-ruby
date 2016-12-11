@@ -2,16 +2,16 @@ module Dnsimple
   module Struct
 
     class Certificate < Base
-      # @return [Fixnum] The certificate ID in DNSimple.
+      # @return [Integer] The certificate ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated domain ID.
+      # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
       # @return [String] The certificate common name.
       attr_accessor :common_name
 
-      # @return [Fixnum] The years the certificate will last.
+      # @return [Integer] The years the certificate will last.
       attr_accessor :years
 
       # @return [String] The certificate CSR.

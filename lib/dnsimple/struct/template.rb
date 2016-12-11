@@ -2,10 +2,10 @@ module Dnsimple
   module Struct
 
     class Template < Base
-      # @return [Fixnum] The template ID in DNSimple.
+      # @return [Integer] The template ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated account ID.
+      # @return [Integer] The associated account ID.
       attr_accessor :account_id
 
       # @return [String] The template name.

@@ -2,10 +2,10 @@ module Dnsimple
   module Struct
 
     class Zone < Base
-      # @return [Fixnum] The zone ID in DNSimple.
+      # @return [Integer] The zone ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated account ID.
+      # @return [Integer] The associated account ID.
       attr_accessor :account_id
 
       # @return [String] The zone name.

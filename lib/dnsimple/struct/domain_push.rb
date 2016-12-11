@@ -2,16 +2,16 @@ module Dnsimple
   module Struct
 
     class DomainPush < Base
-      # @return [Fixnum] The domain push ID in DNSimple.
+      # @return [Integer] The domain push ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated domain ID.
+      # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
-      # @return [Fixnum] The associated contact ID.
+      # @return [Integer] The associated contact ID.
       attr_accessor :contact_id
 
-      # @return [Fixnum] The associated account ID.
+      # @return [Integer] The associated account ID.
       attr_accessor :account_id
 
       # @return [String] When the domain push was created in DNSimple.

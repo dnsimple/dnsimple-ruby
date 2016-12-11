@@ -9,7 +9,7 @@ module Dnsimple
       # @example Check whether example.com is available:
       #   client.registrar.check(1010, "example.com")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to check
       # @param  [Hash] options
       # @return [Struct::DomainCheck]
@@ -30,7 +30,7 @@ module Dnsimple
       #   including WHOIS privacy for the domain and enabling auto renewal:
       #   client.registrar.register(1010, "example.com", registrant_id: 1234, private_whois: true, auto_renew: true)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to register
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -52,7 +52,7 @@ module Dnsimple
       # @example Renew example.com for 3 years:
       #   client.registrar.renew(1010, "example.com", period: 3)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to renew
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -73,7 +73,7 @@ module Dnsimple
       # @example Initiate the transfer for example.com using the contact 1234 as registrant:
       #   client.registrar.transfer(1010, "example.com", registrant_id: 1234, auth_code: "x1y2z3")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to transfer
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -95,7 +95,7 @@ module Dnsimple
       # @example Request to transfer of example.com out of DNSimple:
       #   client.registrar.transfer_out(1010, "example.com")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to transfer out
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]

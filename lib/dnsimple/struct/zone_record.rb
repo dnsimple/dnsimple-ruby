@@ -2,13 +2,13 @@ module Dnsimple
   module Struct
 
     class ZoneRecord < Base
-      # @return [Fixnum] The record ID in DNSimple.
+      # @return [Integer] The record ID in DNSimple.
       attr_accessor :id
 
       # @return [String] The associated zone ID.
       attr_accessor :zone_id
 
-      # @return [Fixnum] The ID of the parent record, if this record is dependent on another record.
+      # @return [Integer] The ID of the parent record, if this record is dependent on another record.
       attr_accessor :parent_id
 
       # @return [String] The type of record, in uppercase.
@@ -20,10 +20,10 @@ module Dnsimple
       # @return [String] The plain-text record content.
       attr_accessor :content
 
-      # @return [Fixnum] The TTL value.
+      # @return [Integer] The TTL value.
       attr_accessor :ttl
 
-      # @return [Fixnum] The priority value, if the type of record accepts a priority.
+      # @return [Integer] The priority value, if the type of record accepts a priority.
       attr_accessor :priority
 
       # @return [Bool] True if this is a system record created by DNSimple. System records are read-only.

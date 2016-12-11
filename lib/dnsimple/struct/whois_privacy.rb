@@ -2,7 +2,7 @@ module Dnsimple
   module Struct
 
     class WhoisPrivacy < Base
-      # @return [Fixnum] The associated domain ID.
+      # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
       # @return [Boolean] Whether the whois privacy is enabled for the domain.

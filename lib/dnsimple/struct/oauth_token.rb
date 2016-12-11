@@ -11,7 +11,7 @@ module Dnsimple
       # @return [String] The token scope (not used for now).
       attr_accessor :scope
 
-      # @return [Fixnum] The account ID in DNSimple this token belongs to.
+      # @return [Integer] The account ID in DNSimple this token belongs to.
       attr_accessor :account_id
     end
 

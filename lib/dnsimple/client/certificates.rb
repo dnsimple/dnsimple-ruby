@@ -16,7 +16,7 @@ module Dnsimple
       # @example List certificates, provide a sorting policy
       #   client.certificates.list(1010, "example.com", sort: "email:asc")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
@@ -34,9 +34,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#get
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Fixnum] certificate_id the certificate ID
+      # @param  [Integer] certificate_id the certificate ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
       #
@@ -52,9 +52,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#download
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Fixnum] certificate_id the certificate ID
+      # @param  [Integer] certificate_id the certificate ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::CertificateBundle>]
       #
@@ -70,9 +70,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#get-private-key
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Fixnum] certificate_id the certificate ID
+      # @param  [Integer] certificate_id the certificate ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::CertificateBundle>]
       #

@@ -15,7 +15,7 @@ module Dnsimple
       # @example List the templates for account 1010, provide sorting policy:
       #   client.templates.list_templates(1010, sort: "short_name:asc")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -45,7 +45,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/templates/#list
       # @see #templates
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -64,7 +64,7 @@ module Dnsimple
       # @example Creating a template:
       #   client.templates.create_template(1010, name: "Pi", short_name: "pi", description: "Pi template")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
@@ -84,7 +84,7 @@ module Dnsimple
       # @example Get template 5401 in account 1010:
       #   client.templates.template(1010, 5401)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] template_id The template ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
@@ -104,7 +104,7 @@ module Dnsimple
       # @example Change the name of template 1 in account 1010:
       #   client.templates.update_template(1010, 1, name: "New name")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] template_id The template ID
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -127,7 +127,7 @@ module Dnsimple
       # @example Delete template 5401 in account 1010:
       #   client.templates.delete_template(1010, 5401)
       #
-      # @param  [Fixnum] account_id The account ID
+      # @param  [Integer] account_id The account ID
       # @param  [#to_s] template_id The template ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]

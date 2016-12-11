@@ -19,7 +19,7 @@ module Dnsimple
       # @example List domains, provide a filtering policy
       #   client.domains.list(1010, filter: { name_like: "example" })
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -47,7 +47,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/#list
       # @see #domains
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting option
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -65,7 +65,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#create
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
@@ -84,7 +84,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#get
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
@@ -103,7 +103,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#delete
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
@@ -121,7 +121,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#reset-token
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]

@@ -9,7 +9,7 @@ module Dnsimple
       # @example Initiate a domain pushe for example.com:
       #   client.domains.initiate_push(1010, "example.com", new_account_email: "admin@target-account.test")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] attributes
       # @option attributes [String] :new_account_email the target account email (mandatory)
@@ -34,7 +34,7 @@ module Dnsimple
       # @example List domain pushes, provide a specific page
       #   client.domains.pushes(2020, page: 2)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
@@ -55,8 +55,8 @@ module Dnsimple
       # @example Accept a domain push in the target account:
       #   client.domains.accept_push(2020, 1, contact_id: 2)
       #
-      # @param  [Fixnum] account_id the target account ID
-      # @param  [Fixnum] push_id the domain push ID
+      # @param  [Integer] account_id the target account ID
+      # @param  [Integer] push_id the domain push ID
       # @param  [Hash] options
       # @param  [Hash] attributes
       # @option attributes [Integer] :contact_id the contact ID (mandatory)
@@ -78,8 +78,8 @@ module Dnsimple
       # @example Reject a domain push in the target account:
       #   client.domains.reject_push(2020, 1, contact_id: 2)
       #
-      # @param  [Fixnum] account_id the target account ID
-      # @param  [Fixnum] push_id the domain push ID
+      # @param  [Integer] account_id the target account ID
+      # @param  [Integer] push_id the domain push ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #

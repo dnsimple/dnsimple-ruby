@@ -15,7 +15,7 @@ module Dnsimple
       # @example List applied one-click services for example.com, provide a sorting policy:
       #   client.services.applied_services(1010, "example.com", sort: "short_name:asc")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain name
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
@@ -41,7 +41,7 @@ module Dnsimple
       # @example Apply one-click service service1 to example.com, provide optional settings:
       #   client.domain_services.applied_services(1010, "example.com", "service1", app: "foo")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] service_id the service name (or ID)
       # @param  [#to_s] domain_id the domain name
       # @param  [Hash] settings optional settings to apply the one-click service
@@ -63,7 +63,7 @@ module Dnsimple
       # @example Unapply one-click service service1 from example.com:
       #   client.domain_services.applied_services(1010, "example.com", "service1")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] service_id the service name (or ID)
       # @param  [#to_s] domain_id the domain name
       # @param  [Hash] options
