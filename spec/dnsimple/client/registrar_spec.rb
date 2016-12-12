@@ -68,7 +68,7 @@ describe Dnsimple::Client, ".registrar" do
       it "raises error" do
         expect {
           subject.domain_premium_price(account_id, "example.com")
-        }.to raise_error(Dnsimple::RequestError, "`example.com' is not a premium domain for registration.")
+        }.to raise_error(Dnsimple::RequestError, "`example.com` is not a premium domain for registration")
       end
     end
   end
