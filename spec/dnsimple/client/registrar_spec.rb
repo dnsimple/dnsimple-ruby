@@ -32,7 +32,7 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
-  describe "#get_domain_premium_price" do
+  describe "#domain_premium_price" do
     let(:account_id) { 1010 }
 
     context "when premium price" do
@@ -42,14 +42,14 @@ describe Dnsimple::Client, ".registrar" do
       end
 
       it "builds the correct request" do
-        subject.get_domain_premium_price(account_id, domain_name = "ruby.codes")
+        subject.domain_premium_price(account_id, domain_name = "ruby.codes")
 
         expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/premium_price").
             with(headers: { "Accept" => "application/json" })
       end
 
       it "returns the premium price" do
-        response = subject.get_domain_premium_price(account_id, "ruby.codes")
+        response = subject.domain_premium_price(account_id, "ruby.codes")
         expect(response).to be_a(Dnsimple::Response)
 
         result = response.data
@@ -67,7 +67,7 @@ describe Dnsimple::Client, ".registrar" do
 
       it "raises error" do
         expect {
-          subject.get_domain_premium_price(account_id, "example.com")
+          subject.domain_premium_price(account_id, "example.com")
         }.to raise_error(Dnsimple::RequestError, "`example.com' is not a premium domain for registration.")
       end
     end
