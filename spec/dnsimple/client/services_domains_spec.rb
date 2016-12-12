@@ -64,7 +64,7 @@ describe Dnsimple::Client, ".services" do
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}$}).
-          to_return(read_http_fixture("applyService/created.http"))
+          to_return(read_http_fixture("applyService/success.http"))
     end
 
     let(:settings) { { app: "foo" } }

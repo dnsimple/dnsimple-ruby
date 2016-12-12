@@ -117,7 +117,7 @@ describe Dnsimple::Client, ".zones" do
           to_return(read_http_fixture("createZoneRecord/created.http"))
     end
 
-    let(:attributes) { { type: "MX", name: "", content: "mxa.example.com", regions: %w(SV1 IAD) } }
+    let(:attributes) { { type: "A", name: "www", content: "127.0.0.1", regions: %w(global) } }
 
     it "builds the correct request" do
       subject.create_record(account_id, zone_id, attributes)
@@ -133,7 +133,7 @@ describe Dnsimple::Client, ".zones" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
-      expect(result.id).to eq(5)
+      expect(result.id).to eq(1)
       expect(result.type).to eq(attributes.fetch(:type))
       expect(result.name).to eq(attributes.fetch(:name))
       expect(result.content).to eq(attributes.fetch(:content))
