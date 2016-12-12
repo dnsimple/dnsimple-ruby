@@ -14,4 +14,4 @@ X-Request-Id: 741b849f-dba6-4d0b-a68c-f47fe1aa3a54
 X-Runtime: 0.140632
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":1,"name":"Service 1","short_name":"service1","description":"First service example.","setup_description":null,"requires_setup":false,"default_subdomain":null,"created_at":"2014-02-14T19:15:19.953Z","updated_at":"2016-03-04T09:23:27.655Z","settings":[]}}
+{"data":{"id":1,"name":"Service 1","sid":"service1","description":"First service example.","setup_description":null,"requires_setup":false,"default_subdomain":null,"created_at":"2014-02-14T19:15:19Z","updated_at":"2016-03-04T09:23:27Z","settings":[]}}

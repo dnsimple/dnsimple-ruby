@@ -14,4 +14,4 @@ X-Request-Id: 3a7993e7-8b1e-47ce-a7a8-cc86b02904de
 X-Runtime: 0.324954
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":1,"account_id":1010,"name":"Alpha","short_name":"alpha","description":"An alpha template.","created_at":"2016-03-22T11:08:58.262Z","updated_at":"2016-03-22T11:08:58.262Z"}}
+{"data":{"id":1,"account_id":1010,"name":"Alpha","sid":"alpha","description":"An alpha template.","created_at":"2016-03-22T11:08:58Z","updated_at":"2016-03-22T11:08:58Z"}}

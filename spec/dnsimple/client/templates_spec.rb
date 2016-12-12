@@ -47,7 +47,7 @@ describe Dnsimple::Client, ".templates" do
         expect(result.id).to be_a(Numeric)
         expect(result.account_id).to be_a(Numeric)
         expect(result.name).to be_a(String)
-        expect(result.short_name).to be_a(String)
+        expect(result.sid).to be_a(String)
         expect(result.description).to be_a(String)
       end
     end
@@ -99,7 +99,7 @@ describe Dnsimple::Client, ".templates" do
       expect(template.id).to eq(1)
       expect(template.account_id).to eq(1010)
       expect(template.name).to eq("Beta")
-      expect(template.short_name).to eq("beta")
+      expect(template.sid).to eq("beta")
       expect(template.description).to eq("A beta template.")
     end
   end
@@ -129,7 +129,7 @@ describe Dnsimple::Client, ".templates" do
       expect(template.id).to eq(1)
       expect(template.account_id).to eq(1010)
       expect(template.name).to eq("Alpha")
-      expect(template.short_name).to eq("alpha")
+      expect(template.sid).to eq("alpha")
       expect(template.description).to eq("An alpha template.")
     end
   end
@@ -161,7 +161,7 @@ describe Dnsimple::Client, ".templates" do
       expect(template.id).to eq(1)
       expect(template.account_id).to eq(1010)
       expect(template.name).to eq("Alpha")
-      expect(template.short_name).to eq("alpha")
+      expect(template.sid).to eq("alpha")
       expect(template.description).to eq("An alpha template.")
     end
   end

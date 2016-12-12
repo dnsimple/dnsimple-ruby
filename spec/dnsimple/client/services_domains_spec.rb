@@ -47,7 +47,7 @@ describe Dnsimple::Client, ".services" do
         expect(service).to be_a(Dnsimple::Struct::Service)
         expect(service.id).to be_a(Integer)
         expect(service.name).to be_a(String)
-        expect(service.short_name).to be_a(String)
+        expect(service.sid).to be_a(String)
         expect(service.description).to be_a(String)
 
         service.settings.each do |service_setting|
