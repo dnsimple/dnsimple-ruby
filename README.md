@@ -9,13 +9,6 @@ A Ruby client for the [DNSimple API v2](https://developer.dnsimple.com/v2/).
 We provide a full API and an easy-to-use web interface so you can get your domain registered and set up with a minimal amount of effort.
 
 
-## :warning: Beta Warning
-
-This branch targets the development of the API client for the [DNSimple API v2](https://developer.dnsimple.com/v2/). If you are looking for the stable version of the client for [DNSimple API v1](https://developer.dnsimple.com/v1/) then use the [`master-v1`](https://github.com/dnsimple/dnsimple-ruby/tree/master-v1) branch.
-
-This library is currently in beta version, the methods and the implementation should be considered a work-in-progress. Changes in the method naming, method signatures, public or internal APIs may happen during the beta period.
-
-
 ## Installation
 
 You can install the gem manually:
