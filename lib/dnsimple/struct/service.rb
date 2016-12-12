@@ -29,8 +29,8 @@ module Dnsimple
       # @return [String] The service name.
       attr_accessor :name
 
-      # @return [String] A short name for the service.
-      attr_accessor :short_name
+      # @return [String] A string ID for the service.
+      attr_accessor :sid
 
       # @return [String] The service description.
       attr_accessor :description

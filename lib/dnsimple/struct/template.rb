@@ -11,8 +11,8 @@ module Dnsimple
       # @return [String] The template name.
       attr_accessor :name
 
-      # @return [String] The short name for the template.
-      attr_accessor :short_name
+      # @return [String] The string ID for the template.
+      attr_accessor :sid
 
       # @return [String] The template description.
       attr_accessor :description
