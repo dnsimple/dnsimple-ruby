@@ -14,4 +14,4 @@ X-Request-Id: fde15363-9332-4b91-bd8f-00b144eb8081
 X-Runtime: 0.022117
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":17706,"domain_id":228963,"from":"jim@a-domain.com","to":"jim@another.com","created_at":"2016-02-04T14:26:50.282Z","updated_at":"2016-02-04T14:26:50.282Z"}}
+{"data":{"id":17706,"domain_id":228963,"from":"jim@a-domain.com","to":"jim@another.com","created_at":"2016-02-04T14:26:50Z","updated_at":"2016-02-04T14:26:50Z"}}

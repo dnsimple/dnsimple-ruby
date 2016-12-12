@@ -151,8 +151,8 @@ describe Dnsimple::Client, ".domains" do
       expect(result.domain_id).to eq(228963)
       expect(result.from).to eq("jim@a-domain.com")
       expect(result.to).to eq("jim@another.com")
-      expect(result.created_at).to eq("2016-02-04T14:26:50.282Z")
-      expect(result.updated_at).to eq("2016-02-04T14:26:50.282Z")
+      expect(result.created_at).to eq("2016-02-04T14:26:50Z")
+      expect(result.updated_at).to eq("2016-02-04T14:26:50Z")
     end
 
     context "when the email forward does not exist" do

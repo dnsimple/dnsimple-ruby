@@ -106,8 +106,8 @@ describe Dnsimple::Client, ".templates" do
       expect(result.content).to eq("mx.example.com")
       expect(result.ttl).to eq(600)
       expect(result.priority).to eq(10)
-      expect(result.created_at).to eq("2016-05-03T07:51:33.202Z")
-      expect(result.updated_at).to eq("2016-05-03T07:51:33.202Z")
+      expect(result.created_at).to eq("2016-05-03T07:51:33Z")
+      expect(result.updated_at).to eq("2016-05-03T07:51:33Z")
     end
 
     context "with missing data" do
@@ -171,8 +171,8 @@ describe Dnsimple::Client, ".templates" do
       expect(result.content).to eq("mx.example.com")
       expect(result.ttl).to eq(600)
       expect(result.priority).to eq(10)
-      expect(result.created_at).to eq("2016-05-03T08:03:26.444Z")
-      expect(result.updated_at).to eq("2016-05-03T08:03:26.444Z")
+      expect(result.created_at).to eq("2016-05-03T08:03:26Z")
+      expect(result.updated_at).to eq("2016-05-03T08:03:26Z")
     end
   end
 

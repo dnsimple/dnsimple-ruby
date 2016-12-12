@@ -14,4 +14,4 @@ X-Request-Id: 01be9fa5-3a00-4d51-a927-f17587cb67ec
 X-Runtime: 0.037083
 Strict-Transport-Security: max-age=31536000
 
-{"data":[{"id":1,"account_id":1010,"name":"example-alpha.com","reverse":false,"created_at":"2015-04-23T07:40:03.045Z","updated_at":"2015-04-23T07:40:03.051Z"},{"id":2,"account_id":1010,"name":"example-beta.com","reverse":true,"created_at":"2015-04-23T07:40:03.061Z","updated_at":"2015-04-23T07:40:03.067Z"}],"pagination":{"current_page":1,"per_page":30,"total_entries":2,"total_pages":1}}
+{"data":[{"id":1,"account_id":1010,"name":"example-alpha.com","reverse":false,"created_at":"2015-04-23T07:40:03Z","updated_at":"2015-04-23T07:40:03Z"},{"id":2,"account_id":1010,"name":"example-beta.com","reverse":true,"created_at":"2015-04-23T07:40:03Z","updated_at":"2015-04-23T07:40:03Z"}],"pagination":{"current_page":1,"per_page":30,"total_entries":2,"total_pages":1}}

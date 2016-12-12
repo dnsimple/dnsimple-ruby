@@ -133,8 +133,8 @@ describe Dnsimple::Client, ".contacts" do
       expect(result).to be_a(Dnsimple::Struct::Contact)
       expect(result.id).to eq(1)
       expect(result.account_id).to eq(1010)
-      expect(result.created_at).to eq("2016-01-19T20:50:26.066Z")
-      expect(result.updated_at).to eq("2016-01-19T20:50:26.066Z")
+      expect(result.created_at).to eq("2016-01-19T20:50:26Z")
+      expect(result.updated_at).to eq("2016-01-19T20:50:26Z")
     end
 
     context "when the contact does not exist" do

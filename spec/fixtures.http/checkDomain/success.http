@@ -14,4 +14,4 @@ X-Request-Id: e3c6fac1-a36d-42c3-8a04-d68f127add18
 X-Runtime: 0.605907
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"domain":"example.com","available":true,"premium":false}}
+{"data":{"domain":"ruby.codes","available":true,"premium":true}}

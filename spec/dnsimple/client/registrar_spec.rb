@@ -26,9 +26,9 @@ describe Dnsimple::Client, ".registrar" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::DomainCheck)
-      expect(result.domain).to eq("example.com")
+      expect(result.domain).to eq("ruby.codes")
       expect(result.available).to be_truthy
-      expect(result.premium).to be_falsey
+      expect(result.premium).to be_truthy
     end
   end
 

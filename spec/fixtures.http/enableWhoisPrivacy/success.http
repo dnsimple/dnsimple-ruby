@@ -14,4 +14,4 @@ X-Request-Id: 34453d13-76ba-4f64-ad94-2d536c61826c
 X-Runtime: 1.408974
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":1,"domain_id":2,"expires_on":"2017-02-13","enabled":true,"created_at":"2016-02-13T14:34:50.135Z","updated_at":"2016-02-13T14:36:48.940Z"}}
+{"data":{"id":1,"domain_id":2,"expires_on":"2017-02-13","enabled":true,"created_at":"2016-02-13T14:34:50Z","updated_at":"2016-02-13T14:36:48Z"}}
