@@ -4,7 +4,10 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 #### master
 
+- NEW: Added domain premium price support (dnsimple/dnsimple-ruby#143)
+
 - CHANGED: Updated registration, transfer, renewal response payload (dnsimple/dnsimple-developer#111, dnsimple/dnsimple-ruby#140).
+- CHANGED: Normalize unique string identifiers to SID (dnsimple/dnsimple-ruby#141)
 
 
 #### 4.0.0
