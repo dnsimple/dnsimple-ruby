@@ -37,7 +37,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when premium price" do
       before do
-        stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/premium_price$}).
+        stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/premium_price[\?action]*}).
             to_return(read_http_fixture("getDomainPremiumPrice/success.http"))
       end
 
@@ -56,6 +56,13 @@ describe Dnsimple::Client, ".registrar" do
         expect(result).to be_a(Dnsimple::Struct::DomainPremiumPrice)
         expect(result.premium_price).to eq("109.00")
         expect(result.action).to        eq("registration")
+      end
+
+      it "builds the correct request when action is passed" do
+        subject.domain_premium_price(account_id, domain_name = "ruby.codes", action: "registration")
+
+        expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/premium_price?action=registration").
+            with(headers: { "Accept" => "application/json" })
       end
     end
 
