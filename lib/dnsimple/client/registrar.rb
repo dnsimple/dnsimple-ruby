@@ -22,6 +22,26 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::DomainCheck.new(response["data"]))
       end
 
+      # Checks the premium price for a domain
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#premium-price
+      #
+      # @example Check whether example.com is available:
+      #   client.registrar.domain_premium_price(1010, "ruby.codes")
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_name the domain name to check
+      # @param  [Hash] options
+      # @return [Struct::DomainPremiumPrice]
+      #
+      # @raise  [RequestError] When the request fails.
+      def domain_premium_price(account_id, domain_name, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/premium_price" % [account_id, domain_name])
+        response = client.get(endpoint, options)
+
+        Dnsimple::Response.new(response, Struct::DomainPremiumPrice.new(response["data"]))
+      end
+
       # Registers a domain.
       #
       # @see https://developer.dnsimple.com/v2/registrar/#register
