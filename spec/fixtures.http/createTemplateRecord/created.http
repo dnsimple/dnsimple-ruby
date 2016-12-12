@@ -14,4 +14,4 @@ X-Request-Id: b2d51e79-b3d2-4abe-9184-155fb5546617
 X-Runtime: 0.190813
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":300,"template_id":268,"name":"","content":"mx.example.com","ttl":600,"priority":10,"type":"MX","created_at":"2016-05-03T07:51:33.202Z","updated_at":"2016-05-03T07:51:33.202Z"}}
+{"data":{"id":300,"template_id":268,"name":"","content":"mx.example.com","ttl":600,"priority":10,"type":"MX","created_at":"2016-05-03T07:51:33Z","updated_at":"2016-05-03T07:51:33Z"}}

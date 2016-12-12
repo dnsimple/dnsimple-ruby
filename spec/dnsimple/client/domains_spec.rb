@@ -151,8 +151,8 @@ describe Dnsimple::Client, ".domains" do
       expect(result.auto_renew).to eq(false)
       expect(result.private_whois).to eq(false)
       expect(result.expires_on).to eq(nil)
-      expect(result.created_at).to eq("2014-12-06T15:56:55.573Z")
-      expect(result.updated_at).to eq("2015-12-09T00:20:56.056Z")
+      expect(result.created_at).to eq("2014-12-06T15:56:55Z")
+      expect(result.updated_at).to eq("2015-12-09T00:20:56Z")
     end
 
     context "when the domain does not exist" do

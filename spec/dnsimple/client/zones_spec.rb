@@ -119,8 +119,8 @@ describe Dnsimple::Client, ".zones" do
       expect(result.account_id).to eq(1010)
       expect(result.name).to eq("example-alpha.com")
       expect(result.reverse).to eq(false)
-      expect(result.created_at).to eq("2015-04-23T07:40:03.045Z")
-      expect(result.updated_at).to eq("2015-04-23T07:40:03.051Z")
+      expect(result.created_at).to eq("2015-04-23T07:40:03Z")
+      expect(result.updated_at).to eq("2015-04-23T07:40:03Z")
     end
 
     context "when the zone does not exist" do

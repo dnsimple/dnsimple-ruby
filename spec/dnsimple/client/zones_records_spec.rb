@@ -185,8 +185,8 @@ describe Dnsimple::Client, ".zones" do
       expect(result.priority).to eq(10)
       expect(result.system_record).to eq(false)
       expect(result.regions).to eq(%w(SV1 IAD))
-      expect(result.created_at).to eq("2016-10-05T09:51:35.313Z")
-      expect(result.updated_at).to eq("2016-10-05T09:51:35.313Z")
+      expect(result.created_at).to eq("2016-10-05T09:51:35Z")
+      expect(result.updated_at).to eq("2016-10-05T09:51:35Z")
     end
 
     context "when the zone does not exist" do

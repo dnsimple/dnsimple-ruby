@@ -10,7 +10,7 @@ describe Dnsimple::Client, ".registrar" do
 
     before do
       stub_request(:put, %r{/v2/#{account_id}/registrar/domains/#{domain_id}}).
-          to_return(read_http_fixture("enableAutoRenewal/success.http"))
+          to_return(read_http_fixture("enableDomainAutoRenewal/success.http"))
     end
 
 
@@ -47,7 +47,7 @@ describe Dnsimple::Client, ".registrar" do
 
     before do
       stub_request(:delete, %r{/v2/#{account_id}/registrar/domains/#{domain_id}}).
-          to_return(read_http_fixture("disableAutoRenewal/success.http"))
+          to_return(read_http_fixture("disableDomainAutoRenewal/success.http"))
     end
 
 
