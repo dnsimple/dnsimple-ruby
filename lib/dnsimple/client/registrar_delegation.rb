@@ -56,19 +56,19 @@ module Dnsimple
       # @param  [#to_s] domain_name the domain name to check
       # @param  [Array] attributes
       # @param  [Hash] options
-      # @return [Dnsimple::Response<Array>]
+      # @return [Dnsimple::Response<Array<Dnsimple::Struct::VanityNameServer>>]
       #
       # @raise  [RequestError] When the request fails.
       def change_domain_delegation_to_vanity(account_id, domain_name, attributes, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/delegation/vanity" % [account_id, domain_name])
         response = client.put(endpoint, attributes, options)
 
-        Dnsimple::Response.new(response, response["data"])
+        Dnsimple::Response.new(response, response["data"].map { |r| Struct::VanityNameServer.new(r) })
       end
 
       # Disable vanity name servers for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/delegation/#delegateFromVanity
+      # @see https://developer.dnsimple.com/v2/registrar/delegation/#dedelegateFromVanity
       #
       # @example Disable vanity name servers for example.com:
       #   client.registrar.change_domain_delegation_from_vanity(1010, "example.com")
@@ -83,7 +83,7 @@ module Dnsimple
         endpoint = Client.versioned("/%s/registrar/domains/%s/delegation/vanity" % [account_id, domain_name])
         response = client.delete(endpoint, options)
 
-        Dnsimple::Response.new(response, response["data"])
+        Dnsimple::Response.new(response, nil)
       end
 
     end
