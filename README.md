@@ -61,9 +61,11 @@ puts response.data
 
 For the full library documentation visit http://rubydoc.info/gems/dnsimple
 
-## Sandbox Usage
+## Sandbox Environment
 
-If you would like to test the [DNSimple sandbox environment](https://developer.dnsimple.com/sandbox/) then pass the `base_url` named argument when you construct the client. For example:
+We highly recommend testing against our [sandbox environment](https://developer.dnsimple.com/sandbox/) before using our production environment. This will allow you to avoid real purchases, live charges on your credit card, and reduce the chance of your running up against rate limits.
+
+The client supports both the production and sandbox environment. To switch to sandbox pass the sandbox API host using the `base_url` option when you construct the client:
 
 ```ruby
 require 'dnsimple'
