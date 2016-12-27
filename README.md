@@ -68,8 +68,6 @@ We highly recommend testing against our [sandbox environment](https://developer.
 The client supports both the production and sandbox environment. To switch to sandbox pass the sandbox API host using the `base_url` option when you construct the client:
 
 ```ruby
-require 'dnsimple'
-
 client = Dnsimple::Client.new(base_url: "https://api.sandbox.dnsimple.com", access_token: "a1b2c3")
 ```
 
