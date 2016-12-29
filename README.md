@@ -61,6 +61,7 @@ puts response.data
 
 For the full library documentation visit http://rubydoc.info/gems/dnsimple
 
+
 ## Sandbox Environment
 
 We highly recommend testing against our [sandbox environment](https://developer.dnsimple.com/sandbox/) before using our production environment. This will allow you to avoid real purchases, live charges on your credit card, and reduce the chance of your running up against rate limits.
@@ -72,6 +73,18 @@ client = Dnsimple::Client.new(base_url: "https://api.sandbox.dnsimple.com", acce
 ```
 
 You will need to ensure that you are using an access token created in the sandbox environment. Production tokens will *not* work in the sandbox environment.
+
+
+## Setting a custom `User-Agent` header
+
+You customize the `User-Agent` header for the calls made to the DNSimple API:
+
+```ruby
+client = Dnsimple::Client.new(user_agent: "my-app")
+```
+
+The value you provide will be appended to the default `User-Agent` the client uses. For example, if you use `my-app`, the final header value will be `dnsimple-ruby/4.1.0 my-app` (note that it will vary depending on the client version).
+
 
 ## License
 
