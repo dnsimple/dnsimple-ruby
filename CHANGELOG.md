@@ -35,7 +35,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Pagination params must be passed as top level options. Previously they were passed inside `:query` options (GH-116).
 - CHANGED: Authentication credentials presence is no longer validated on the client as it was causing an error getting the access token (GH-74 and GH-102).
-- CHANGED: Setting a custom user-agent no longer overrides the origina user-agent (GH-105).
+- CHANGED: Setting a custom user-agent no longer overrides the original user-agent (GH-105).
 - CHANGED: Updated client to use Contact#email (GH-108).
 
 - REMOVED: Removed support for wildcard accounts (GH-107).
