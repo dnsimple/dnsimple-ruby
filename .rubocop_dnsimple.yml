@@ -14,7 +14,7 @@ AllCops:
 #                           end
 #
 Lint/EndAlignment:
-  AlignWith: variable
+  EnforcedStyleAlignWith: variable
 
 # [codesmell]
 Metrics/AbcSize:
@@ -88,7 +88,7 @@ Style/BracesAroundHashParameters:
 #                           end
 #
 Style/CaseIndentation:
-  IndentWhenRelativeTo: end
+  EnforcedStyle: end
 
 # I was a big fan of leading, but trailing seems to be more commonly adopted.
 # At least at the time being.
