@@ -54,6 +54,10 @@ Metrics/ModuleLength:
     - 'test/**/*_test.rb'
 
 # [codesmell]
+Metrics/BlockLength:
+  Enabled: false
+
+# [codesmell]
 # I don't really get the point of this cop.
 Performance/RedundantMerge:
   Enabled: false
