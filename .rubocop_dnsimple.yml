@@ -24,6 +24,17 @@ Metrics/AbcSize:
     - 'test/**/*_test.rb'
 
 # [codesmell]
+Metrics/BlockLength:
+  Enabled: false
+
+# [codesmell]
+Metrics/CyclomaticComplexity:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
+
+# [codesmell]
 Metrics/ClassLength:
   Enabled: false
   Exclude:
@@ -54,7 +65,12 @@ Metrics/ModuleLength:
     - 'test/**/*_test.rb'
 
 # [codesmell]
-Metrics/BlockLength:
+Metrics/ParameterLists:
+  Enabled: false
+  Max: 5
+
+# [codesmell]
+Metrics/PerceivedComplexity:
   Enabled: false
 
 # [codesmell]
@@ -125,6 +141,11 @@ Style/EmptyLinesAroundClassBody:
 Style/EmptyLinesAroundModuleBody:
   Enabled: false
 
+# There is no specific preference for empty methods.
+# One-line methods are not exceptionally nice in Ruby. Just ignore this cop for now.
+Style/EmptyMethod:
+  Enabled: false
+
 # I personally don't care about the format style.
 # In most cases I like to use %, but not at the point I want to enforce it
 # as a convention in the entire code.
@@ -168,6 +189,16 @@ Style/IndentHash:
 Style/IfInsideElse:
   Enabled: false
 
+# module_function doesn't respect the visibility of the methods,
+# and doesn't work well when the module contain both public/private methods.
+Style/ModuleFunction:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Exclude:
+    # RSpec uses multi-line blocks for certain features
+    - 'spec/**/*_spec.rb'
+
 # Multi-line differs from standard indentation, they are indented twice.
 Style/MultilineMethodCallIndentation:
   EnforcedStyle: indented
@@ -199,6 +230,17 @@ Style/RegexpLiteral:
 Style/RescueModifier:
   Enabled: false
 
+# Sorry, but using trailing spaces helps readability.
+#
+#   %w( foo bar )
+#
+# looks better to me than
+#
+#   %w( foo bar )
+#
+Style/SpaceInsidePercentLiteralDelimiters:
+  Enabled: false
+
 # We don't have a preference.
 Style/SpecialGlobalVars:
   Enabled: false
@@ -224,3 +266,7 @@ Style/TrivialAccessors:
   #    end
   #
   IgnoreClassMethods: true
+
+Style/WordArray:
+  EnforcedStyle: percent
+  MinSize: 3
