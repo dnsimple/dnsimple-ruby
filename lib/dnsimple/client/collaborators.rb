@@ -14,7 +14,7 @@ module Dnsimple
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or name
-      # @param  [Hash] request options
+      # @param  [Hash] options request options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Collaborator>]
@@ -35,9 +35,9 @@ module Dnsimple
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or name
-      # @param  [Hash] user attributes
-      # @param  attributes [String] :email user email (mandatory)
-      # @param  [Hash] request options
+      # @param  [Hash] attributes user attributes
+      # @option attributes [String] :email user email (mandatory)
+      # @param  [Hash] options request options
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Collaborator>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -60,7 +60,7 @@ module Dnsimple
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or name
       # @param  [#to_s] contact_id the contact ID
-      # @param  [Hash] request options
+      # @param  [Hash] options request options
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [Dnsimple::NotFoundError]
