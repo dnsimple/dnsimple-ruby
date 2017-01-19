@@ -9,6 +9,18 @@ module Dnsimple
   # Client for the DNSimple API
   #
   # @see https://developer.dnsimple.com/
+  # @see https://developer.dnsimple.com/sandbox/
+  # @see #base_url
+  #
+  # @example Default (Production)
+  #   require "dnsimple"
+  #
+  #   client = Dnsimple::Client.new(access_token: "abc")
+  #
+  # @example Custom Base URL (Sandbox)
+  #   require 'dnsimple'
+  #
+  #   client = Dnsimple::Client.new(base_url: "https://api.sandbox.dnsimple.com", access_token: "abc")
   class Client
 
     HEADER_AUTHORIZATION = "Authorization".freeze
@@ -37,15 +49,13 @@ module Dnsimple
     # @!attribute access_token
     #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] Domain API access token for authentication
-    # @!attribute base_url
-    #   @return [String] Base URL for API requests. (default: https://api.dnsimple.com/)
     # @!attribute user_agent
     #   @return [String] Configure User-Agent header for requests.
     # @!attribute proxy
     #   @return [String,nil] Configure address:port values for proxy server
 
     attr_accessor :username, :password, :domain_api_token, :access_token,
-                  :base_url, :user_agent, :proxy
+                  :user_agent, :proxy
 
 
     def initialize(options = {})
@@ -59,7 +69,24 @@ module Dnsimple
     end
 
 
-    # @return [String] Base URL for API requests.
+    # Base URL for API requests.
+    #
+    # It defaults to <tt>"https://api.dnsimple.com"</tt>.
+    # For testing purposes use <tt>"https://api.sandbox.dnsimple.com"</tt>.
+    #
+    # @return [String] Base URL
+    #
+    # @see https://developer.dnsimple.com/sandbox/
+    #
+    # @example Default (Production)
+    #   require "dnsimple"
+    #
+    #   client = Dnsimple::Client.new(access_token: "abc")
+    #
+    # @example Custom Base URL (Sandbox)
+    #   require 'dnsimple'
+    #
+    #   client = Dnsimple::Client.new(base_url: "https://api.sandbox.dnsimple.com", access_token: "abc")
     def base_url
       Extra.join_uri(@base_url, "")
     end
