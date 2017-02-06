@@ -183,7 +183,6 @@ module Dnsimple
       request_options = request_options(options)
 
       if data
-        request_options[:headers]["Content-Type"] = content_type(request_options[:headers])
         request_options[:body] = content_data(request_options[:headers], data)
       end
 
@@ -207,6 +206,7 @@ module Dnsimple
           format:   :json,
           headers:  {
               "Accept" => "application/json",
+              "Content-Type" => "application/json",
           },
       }
     end
@@ -244,10 +244,6 @@ module Dnsimple
       else
         "#{Dnsimple::Default::USER_AGENT} #{user_agent}"
       end
-    end
-
-    def content_type(headers)
-      headers["Content-Type"] || "application/json"
     end
 
     def content_data(headers, data)
