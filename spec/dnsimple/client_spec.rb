@@ -123,7 +123,7 @@ describe Dnsimple::Client do
                   'Accept' => 'application/json',
                   'Content-Type' => 'application/json',
                   'User-Agent' => Dnsimple::Default::USER_AGENT,
-              },
+              }
           )
     end
 
@@ -139,7 +139,7 @@ describe Dnsimple::Client do
                   'Accept' => 'application/json',
                   'Content-Type' => 'application/json',
                   'User-Agent' => Dnsimple::Default::USER_AGENT,
-              },
+              }
           ).
           and_return(double('response', code: 200))
 
@@ -186,7 +186,7 @@ describe Dnsimple::Client do
                   'Accept' => 'application/json',
                   'Content-Type' => 'application/json',
                   'User-Agent' => Dnsimple::Default::USER_AGENT,
-              },
+              }
           ).
           and_return(double('response', code: 200))
 
