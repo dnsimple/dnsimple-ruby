@@ -13,11 +13,11 @@ module Dnsimple
       # @example List records for the zone "example.com", provide a specific page
       #   client.zones.records(1010, "example.com", page: 2)
       #
-      # @example List records for the zone "example.com", provide sorting policy
+      # @example List records for the zone "example.com", sorting in ascending order
       #   client.zones.records(1010, "example.com", sort: "type:asc")
       #
-      # @example List records for the zone "example.com", provide filtering policy
-      #   client.zones.records(1010, "example.com", sort: "type:asc")
+      # @example List records for the zone "example.com", filtering by 'A' record type
+      #   client.zones.records(1010, "example.com", filter: { type: 'A' })
       #
       # @param  [Integer] account_id the account ID
       # @param  [String] zone_id the zone name
