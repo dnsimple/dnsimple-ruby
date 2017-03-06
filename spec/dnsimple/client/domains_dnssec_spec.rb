@@ -98,7 +98,7 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "returns the dnssec status" do
-      response = subject.enable_dnssec(account_id, domain_id)
+      response = subject.get_dnssec(account_id, domain_id)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data

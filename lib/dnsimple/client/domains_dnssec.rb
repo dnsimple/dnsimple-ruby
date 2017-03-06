@@ -48,7 +48,7 @@ module Dnsimple
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def get_dnssec(account_id, domain_name, options = {})
-        response = client.get(Client.versioned("/%s/domains/%s/dnssec" % [account_id, domain_name]), nil, options)
+        response = client.get(Client.versioned("/%s/domains/%s/dnssec" % [account_id, domain_name]), options)
 
         Dnsimple::Response.new(response, Struct::Dnssec.new(response["data"]))
       end
