@@ -79,4 +79,44 @@ describe Dnsimple::Client, ".domains" do
       end
     end
   end
+
+  describe "#get_dnssec" do
+    let(:account_id) { 1010 }
+    let(:domain_id) { "example.com" }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec}).
+          to_return(read_http_fixture("getDnssec/success.http"))
+    end
+
+
+    it "builds the correct request" do
+      subject.get_dnssec(account_id, domain_id)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec").
+          with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the dnssec status" do
+      response = subject.enable_dnssec(account_id, domain_id)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Dnssec)
+      expect(result.enabled).to be_truthy
+    end
+
+    context "when the domain does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:get, %r{/v2}).
+            to_return(read_http_fixture("notfound-domain.http"))
+
+        expect {
+          subject.get_dnssec(account_id, domain_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+
+  end
+
 end
