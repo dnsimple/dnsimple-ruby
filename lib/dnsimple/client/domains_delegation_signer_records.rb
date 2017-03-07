@@ -58,14 +58,16 @@ module Dnsimple
       # Creates a delegation signer record for the domain.
       #
       # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-create
+      # @see http://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xhtml
+      # @see http://www.iana.org/assignments/ds-rr-types/ds-rr-types.xhtml
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] attributes
-      # @option attributes [Integer] :algorithm the algorithm to use (required)
-      # @option attributes [String] :digest the digest of the record (required)
-      # @option attributes [Integer] :digest_type the digest type (required)
-      # @option attributes [String] :keytag the keytag (required)
+      # @option attributes [Integer] :algorithm DNSSEC algorithm as number (required)
+      # @option attributes [String] :digest The hexidecimal representation of the digest of the corresponding DNSKEY record (required)
+      # @option attributes [Integer] :digest_type DNSSEC digest type (required)
+      # @option attributes [String] :keytag A keytag that references the corresponding DNSKEY record (required)
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::DelegationSignerRecord>]
       #
