@@ -5,7 +5,7 @@ module Dnsimple
       # @return [Integer] The ID of the delegation signer record in DNSimple.
       attr_accessor :id
 
-       # @return [Integer] The associated domain ID.
+      # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
       # @return [String] The signing algorithm used.
