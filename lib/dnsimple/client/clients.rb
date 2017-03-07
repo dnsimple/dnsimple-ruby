@@ -133,12 +133,16 @@ module Dnsimple
 
 
     require_relative 'domains'
+    require_relative 'domains_delegation_signer_records'
+    require_relative 'domains_dnssec'
     require_relative 'domains_email_forwards'
     require_relative 'domains_pushes'
     require_relative 'collaborators'
 
     class DomainsService < ClientService
       include Client::Domains
+      include Client::DomainsDelegationSignerRecords
+      include Client::DomainsDnssec
       include Client::DomainsEmailForwards
       include Client::DomainsPushes
       include Client::Collaborators

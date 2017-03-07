@@ -2,6 +2,10 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
+#### 4.2.0
+
+- NEW: Added DNSSEC support support (dnsimple/dnsimple-ruby#152)
+
 #### 4.1.0
 
 - NEW: Added domain premium price support (dnsimple/dnsimple-ruby#143)
