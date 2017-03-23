@@ -65,7 +65,7 @@ module Dnsimple
       # @raise  [RequestError] When the request fails.
       def register_domain(account_id, domain_name, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:registrant_id])
-        endpoint = Client.versioned("/%s/registrar/domains/%s/registration" % [account_id, domain_name])
+        endpoint = Client.versioned("/%s/registrar/domains/%s/registrations" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
 
         Dnsimple::Response.new(response, Struct::DomainRegistration.new(response["data"]))
