@@ -159,7 +159,7 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfer$}).
+      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfers$}).
           to_return(read_http_fixture("transferDomain/success.http"))
     end
 
@@ -168,7 +168,7 @@ describe Dnsimple::Client, ".registrar" do
     it "builds the correct request" do
       subject.transfer_domain(account_id, domain_name = "example.com", attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfer").
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfers").
           with(body: attributes).
           with(headers: { "Accept" => "application/json" })
     end
@@ -191,7 +191,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when the domain is already in DNSimple" do
       it "raises a BadRequestError" do
-        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfer$}).
+        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfers$}).
             to_return(read_http_fixture("transferDomain/error-indnsimple.http"))
 
         expect {
@@ -202,7 +202,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when :auth_code wasn't provided and is required by the TLD" do
       it "raises a BadRequestError" do
-        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfer$}).
+        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfers$}).
             to_return(read_http_fixture("transferDomain/error-missing-authcode.http"))
 
         expect {
