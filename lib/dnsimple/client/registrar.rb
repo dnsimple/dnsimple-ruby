@@ -86,7 +86,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def renew_domain(account_id, domain_name, attributes = nil, options = {})
-        endpoint = Client.versioned("/%s/registrar/domains/%s/renewal" % [account_id, domain_name])
+        endpoint = Client.versioned("/%s/registrar/domains/%s/renewals" % [account_id, domain_name])
         response = client.post(endpoint, attributes, options)
 
         Dnsimple::Response.new(response, Struct::DomainRenewal.new(response["data"]))
