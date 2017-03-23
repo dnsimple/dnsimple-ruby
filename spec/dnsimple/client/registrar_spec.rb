@@ -216,14 +216,14 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfer_out$}).
+      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/authorize_transfer_out$}).
           to_return(read_http_fixture("transferDomainOut/success.http"))
     end
 
     it "builds the correct request" do
       subject.transfer_domain_out(account_id, domain_name = "example.com")
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfer_out").
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/authorize_transfer_out").
           with(headers: { "Accept" => "application/json" })
     end
 

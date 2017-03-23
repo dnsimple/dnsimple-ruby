@@ -128,7 +128,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def transfer_domain_out(account_id, domain_name, options = {})
-        endpoint = Client.versioned("/%s/registrar/domains/%s/transfer_out" % [account_id, domain_name])
+        endpoint = Client.versioned("/%s/registrar/domains/%s/authorize_transfer_out" % [account_id, domain_name])
         response = client.post(endpoint, nil, options)
 
         Dnsimple::Response.new(response, nil)
