@@ -2,6 +2,10 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
+#### master
+
+- CHANGED: Updated registrar URLs (dnsimple/dnsimple-ruby#153)
+
 #### 4.2.0
 
 - NEW: Added DNSSEC support support (dnsimple/dnsimple-ruby#152)
