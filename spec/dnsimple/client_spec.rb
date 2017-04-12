@@ -114,11 +114,17 @@ describe Dnsimple::Client do
     it "performs a request" do
       stub_request(:get, %r{/foo})
 
-      subject.request(:get, 'foo', {})
+      subject.request(:get, 'foo')
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/foo").
-          with(basic_auth: %w(user pass),
-               headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT })
+          with(
+              basic_auth: %w(user pass),
+              headers: {
+                  'Accept' => 'application/json',
+                  'Content-Type' => 'application/json',
+                  'User-Agent' => Dnsimple::Default::USER_AGENT,
+              }
+          )
     end
 
     it "delegates to HTTParty" do
@@ -129,7 +135,11 @@ describe Dnsimple::Client do
               "#{subject.base_url}foo",
               format: :json,
               basic_auth: { username: "user", password: "pass" },
-              headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
+              headers: {
+                  'Accept' => 'application/json',
+                  'Content-Type' => 'application/json',
+                  'User-Agent' => Dnsimple::Default::USER_AGENT,
+              }
           ).
           and_return(double('response', code: 200))
 
@@ -172,7 +182,11 @@ describe Dnsimple::Client do
               format: :json,
               http_proxyaddr: "example-proxy.com",
               http_proxyport: "4321",
-              headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
+              headers: {
+                  'Accept' => 'application/json',
+                  'Content-Type' => 'application/json',
+                  'User-Agent' => Dnsimple::Default::USER_AGENT,
+              }
           ).
           and_return(double('response', code: 200))
 
