@@ -43,7 +43,7 @@ account_id = 1010
 # You can also fetch it from the whoami response
 # as long as you authenticate with an Account access token
 whoami = client.identity.whoami.data
-account_id = whoami.account.id
+account_id = whoami.user.id
 
 # List your domains
 puts client.domains.list_domains(account_id).data                      # => domains from the account 1234, first page
