@@ -30,6 +30,30 @@ module Dnsimple
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Certificate.new(r) })
       end
 
+      # Lists ALL the certificates for the domain.
+      #
+      # This method is similar to {#certificates}, but instead of returning the results of a specific page
+      # it iterates all the pages and returns the entire collection.
+      #
+      # Please use this method carefully, as fetching the entire collection will increase the number of requests
+      # you send to the API server and you may eventually risk to hit the throttle limit.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#list
+      # @see #certificates
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_name The domain ID or domain name
+      # @param  [Hash] options the filtering and sorting option
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
+      # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Certificate>]
+      #
+      # @raise  [Dnsimple::RequestError]
+      def all_certificates(account_id, domain_name, options = {})
+        paginate(:certificates, account_id, domain_name, options)
+      end
+
       # Gets a certificate associated to the domain.
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#get

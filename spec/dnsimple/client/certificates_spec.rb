@@ -56,6 +56,27 @@ describe Dnsimple::Client, ".certificates" do
     end
   end
 
+  describe "#all_certificates" do
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates}).
+          to_return(read_http_fixture("listCertificates/success.http"))
+    end
+
+    let(:account_id) { 1010 }
+    let(:domain_id) { "example.com" }
+
+    it "delegates to client.paginate" do
+      expect(subject).to receive(:paginate).with(:certificates, account_id, domain_id, foo: "bar")
+      subject.all_certificates(account_id, domain_id, foo: "bar")
+    end
+
+    it "supports sorting" do
+      subject.all_certificates(account_id, domain_id, sort: "id:asc,expires_on:desc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates?page=1&per_page=100&sort=id:asc,expires_on:desc")
+    end
+  end
+
   describe "#certificate" do
     let(:account_id)     { 1010 }
     let(:domain_id)      { "weppos.net" }
