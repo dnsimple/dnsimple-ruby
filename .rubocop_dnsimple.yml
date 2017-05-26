@@ -1,7 +1,14 @@
+# Defaults https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+
 AllCops:
   Exclude:
     # Exclude .gemspec files because they are generally auto-generated
     - '*.gemspec'
+
+# In most cases, Gems are sorted alphabetically.
+# However, in some few cases the order is relevant due to dependencies.
+Bundler/OrderedGems:
+  Enabled: false
 
 # Generally, the keyword style uses a lot of space. This is particularly true when
 # you use case/if statements, in combination with a long-name variable.
@@ -15,6 +22,10 @@ AllCops:
 #
 Lint/EndAlignment:
   EnforcedStyleAlignWith: variable
+
+# [codesmell]
+Lint/HandleExceptions:
+  Enabled: false
 
 # [codesmell]
 Metrics/AbcSize:
@@ -93,53 +104,15 @@ Style/BlockDelimiters:
   IgnoredMethods:
     - expect
 
-# I'd rather use context_dependent, even if I'm not even sure we should enforce a style.
+# I'm not sure we should enforce a style,
+# but if we do, context_dependent offers a good compromise on readability.
 Style/BracesAroundHashParameters:
+  Enabled: false
   EnforcedStyle: context_dependent
-
-# For the same reason of EndAlignment, aligning with the case may have a bad impact
-# on a case after a very long variable.
-#
-#   invoice_error_message = case error
-#                           when 1 == 1
-#                             do_something
-#                           else
-#                             do_else
-#                           end
-#
-Style/CaseIndentation:
-  EnforcedStyle: end
-
-# I was a big fan of leading, but trailing seems to be more commonly adopted.
-# At least at the time being.
-Style/DotPosition:
-  EnforcedStyle: trailing
 
 # Warn on empty else.
 Style/EmptyElse:
   EnforcedStyle: empty
-
-# Double empty lines are useful to separate conceptually different methods
-# in the same class or module.
-Style/EmptyLines:
-  Enabled: false
-
-Style/EmptyLinesAroundBlockBody:
-  Exclude:
-    # RSpec is all made of blocks. Disable this config in RSpec
-    # to be consistent with EmptyLinesAroundClassBody and EmptyLinesAroundModuleBody
-    - 'spec/**/*_spec.rb'
-    - 'test/**/*_test.rb'
-
-# In most cases, a space is nice. Sometimes, it's not.
-# Just be consistent with the rest of the surrounding code.
-Style/EmptyLinesAroundClassBody:
-  Enabled: false
-
-# In most cases, a space is nice. Sometimes, it's not.
-# Just be consistent with the rest of the surrounding code.
-Style/EmptyLinesAroundModuleBody:
-  Enabled: false
 
 # There is no specific preference for empty methods.
 # One-line methods are not exceptionally nice in Ruby. Just ignore this cop for now.
@@ -151,10 +124,6 @@ Style/EmptyMethod:
 # as a convention in the entire code.
 Style/FormatString:
   Enabled: false
-
-# Multi-line differs from standard indentation, they are indented twice.
-Style/FirstParameterIndentation:
-  IndentationWidth: 4
 
 # We don't support frozen strings.
 # This is an experimental feature and we don't know if it will be shipped with
@@ -174,16 +143,6 @@ Style/HashSyntax:
 Style/IfUnlessModifier:
   Enabled: false
 
-# Array indentation should be considered like MultilineMethodCallIndentation indentation
-# and use 4 spaces instead of 2.
-Style/IndentArray:
-  IndentationWidth: 4
-
-# Hash indentation should be considered like MultilineMethodCallIndentation indentation
-# and use 4 spaces instead of 2.
-Style/IndentHash:
-  IndentationWidth: 4
-
 # [codesmell]
 # It's not always that bad.
 Style/IfInsideElse:
@@ -199,16 +158,6 @@ Style/MultilineBlockChain:
     # RSpec uses multi-line blocks for certain features
     - 'spec/**/*_spec.rb'
 
-# Multi-line differs from standard indentation, they are indented twice.
-Style/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
-  IndentationWidth: 4
-
-# Multi-line differs from standard indentation, they are indented twice.
-Style/MultilineOperationIndentation:
-  EnforcedStyle: indented
-  IndentationWidth: 4
-
 # unless is not always cool.
 Style/NegatedIf:
   Enabled: false
@@ -221,6 +170,11 @@ Style/NumericLiterals:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
+# For years, %w() has been the de-facto standard. A lot of libraries are using ().
+# Switching to [] would be a nightmare.
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
 # Do we care?
 Style/RegexpLiteral:
   Enabled: false
@@ -230,15 +184,8 @@ Style/RegexpLiteral:
 Style/RescueModifier:
   Enabled: false
 
-# Sorry, but using trailing spaces helps readability.
-#
-#   %w( foo bar )
-#
-# looks better to me than
-#
-#   %w( foo bar )
-#
-Style/SpaceInsidePercentLiteralDelimiters:
+# This is quite annoying, especially in cases where we don't control it (e.g. schema.rb).
+Style/SymbolArray:
   Enabled: false
 
 # We don't have a preference.
@@ -249,6 +196,11 @@ Style/SpecialGlobalVars:
 # We generally use double quotes, sometimes single quotes.
 # Should we enforce it at code level?
 Style/StringLiterals:
+  Enabled: false
+  EnforcedStyle: double_quotes
+
+# As before.
+Style/StringLiteralsInInterpolation:
   Enabled: false
   EnforcedStyle: double_quotes
 
@@ -270,3 +222,98 @@ Style/TrivialAccessors:
 Style/WordArray:
   EnforcedStyle: percent
   MinSize: 3
+
+# Forces the order of comparison arguments.
+#
+# According to this cop, the following statement is bad:
+#
+#   "https" == uri.scheme
+#
+# Whereas the following is considered good:
+#
+#   uri.scheme == "https"
+Style/YodaCondition:
+  Enabled: false
+
+# For the same reason of EndAlignment, aligning with the case may have a bad impact
+# on a case after a very long variable.
+#
+#   invoice_error_message = case error
+#                           when 1 == 1
+#                             do_something
+#                           else
+#                             do_else
+#                           end
+#
+Layout/CaseIndentation:
+  EnforcedStyle: end
+
+# I was a big fan of leading, but trailing seems to be more commonly adopted.
+# At least at the time being.
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+# Double empty lines are useful to separate conceptually different methods
+# in the same class or module.
+Layout/EmptyLines:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Exclude:
+    # RSpec is all made of blocks. Disable this config in RSpec
+    # to be consistent with EmptyLinesAroundClassBody and EmptyLinesAroundModuleBody
+    - 'spec/**/*_spec.rb'
+    - 'test/**/*_test.rb'
+
+# In most cases, a space is nice. Sometimes, it's not.
+# Just be consistent with the rest of the surrounding code.
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+# We're ok with it. We use it quite often for method-level rescue statements.
+Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: false
+
+# In most cases, a space is nice. Sometimes, it's not.
+# Just be consistent with the rest of the surrounding code.
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# This is quite buggy, as it doesn't recognize double lines.
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+
+# Multi-line differs from standard indentation, they are indented twice.
+Layout/FirstParameterIndentation:
+  IndentationWidth: 4
+
+# Array indentation should be considered like MultilineMethodCallIndentation indentation
+# and use 4 spaces instead of 2.
+Layout/IndentArray:
+  IndentationWidth: 4
+
+# Hash indentation should be considered like MultilineMethodCallIndentation indentation
+# and use 4 spaces instead of 2.
+Layout/IndentHash:
+  IndentationWidth: 4
+
+# Multi-line differs from standard indentation, they are indented twice.
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
+# Multi-line differs from standard indentation, they are indented twice.
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+  IndentationWidth: 4
+
+# Sorry, but using trailing spaces helps readability.
+#
+#   %w( foo bar )
+#
+# looks better to me than
+#
+#   %w( foo bar )
+#
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: false

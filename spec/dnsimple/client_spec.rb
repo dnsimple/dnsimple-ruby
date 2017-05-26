@@ -40,8 +40,8 @@ describe Dnsimple::Client do
       subject = described_class.new(access_token: "access-token")
       subject.execute(:get, "test", {})
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/test").
-          with { |req| req.headers["Authorization"] == "Bearer access-token" }
+      expect(WebMock).to(have_requested(:get, "https://api.dnsimple.com/test").
+          with { |req| req.headers["Authorization"] == "Bearer access-token" })
     end
   end
 
