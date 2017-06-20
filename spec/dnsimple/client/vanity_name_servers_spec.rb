@@ -8,15 +8,15 @@ describe Dnsimple::Client, ".vanity_name_servers" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:put, %r{/v2/#{account_id}/vanity/.+$}).
-          to_return(read_http_fixture("enableVanityNameServers/success.http"))
+      stub_request(:put, %r{/v2/#{account_id}/vanity/.+$})
+          .to_return(read_http_fixture("enableVanityNameServers/success.http"))
     end
 
     it "builds the correct request" do
       subject.enable_vanity_name_servers(account_id, domain_name = "example.com")
 
-      expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/vanity/#{domain_name}").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/vanity/#{domain_name}")
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns vanity name servers of the domain" do
@@ -32,15 +32,15 @@ describe Dnsimple::Client, ".vanity_name_servers" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/vanity/.+$}).
-          to_return(read_http_fixture("disableVanityNameServers/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/vanity/.+$})
+          .to_return(read_http_fixture("disableVanityNameServers/success.http"))
     end
 
     it "builds the correct request" do
       subject.disable_vanity_name_servers(account_id, domain_name = "example.com")
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/vanity/#{domain_name}").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/vanity/#{domain_name}")
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns empty response" do

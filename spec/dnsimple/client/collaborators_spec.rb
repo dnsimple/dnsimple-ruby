@@ -10,15 +10,15 @@ describe Dnsimple::Client, ".domains" do
     let(:domain_id)  { "example.com" }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators}).
-          to_return(read_http_fixture("listCollaborators/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators})
+          .to_return(read_http_fixture("listCollaborators/success.http"))
     end
 
     it "builds the correct request" do
       subject.collaborators(account_id, domain_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
@@ -63,8 +63,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "invite user already registered on DNSimple" do
       before do
-        stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators$}).
-            to_return(read_http_fixture("addCollaborator/success.http"))
+        stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators$})
+            .to_return(read_http_fixture("addCollaborator/success.http"))
       end
 
       let(:attributes) { { email: "existing-user@example.com" } }
@@ -72,9 +72,9 @@ describe Dnsimple::Client, ".domains" do
       it "builds the correct request" do
         subject.add_collaborator(account_id, domain_id, attributes)
 
-        expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators").
-            with(body: attributes).
-            with(headers: { 'Accept' => 'application/json' })
+        expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators")
+            .with(body: attributes)
+            .with(headers: { 'Accept' => 'application/json' })
       end
 
       it "returns the contact" do
@@ -93,8 +93,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "invite not registered on DNSimple" do
       before do
-        stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators$}).
-            to_return(read_http_fixture("addCollaborator/invite-success.http"))
+        stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators$})
+            .to_return(read_http_fixture("addCollaborator/invite-success.http"))
       end
 
       let(:attributes) { { email: "invited-user@example.com" } }
@@ -102,9 +102,9 @@ describe Dnsimple::Client, ".domains" do
       it "builds the correct request" do
         subject.add_collaborator(account_id, domain_id, attributes)
 
-        expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators").
-            with(body: attributes).
-            with(headers: { 'Accept' => 'application/json' })
+        expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators")
+            .with(body: attributes)
+            .with(headers: { 'Accept' => 'application/json' })
       end
 
       it "returns the contact" do
@@ -128,15 +128,15 @@ describe Dnsimple::Client, ".domains" do
     let(:collaborator_id) { 100 }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators/.+$}).
-          to_return(read_http_fixture("removeCollaborator/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators/.+$})
+          .to_return(read_http_fixture("removeCollaborator/success.http"))
     end
 
     it "builds the correct request" do
       subject.remove_collaborator(account_id, domain_id, collaborator_id)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators/#{collaborator_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/collaborators/#{collaborator_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
@@ -149,8 +149,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the collaborator does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2}).
-            to_return(read_http_fixture("notfound-collaborator.http"))
+        stub_request(:delete, %r{/v2})
+            .to_return(read_http_fixture("notfound-collaborator.http"))
 
         expect {
           subject.remove_collaborator(account_id, domain_id, collaborator_id)

@@ -9,8 +9,8 @@ describe Dnsimple::Client, ".domains" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/pushes$}).
-          to_return(read_http_fixture("initiatePush/success.http"))
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/pushes$})
+          .to_return(read_http_fixture("initiatePush/success.http"))
     end
 
     let(:attributes) { { new_account_email: "admin@target-account.test" } }
@@ -18,9 +18,9 @@ describe Dnsimple::Client, ".domains" do
     it "builds the correct request" do
       subject.initiate_push(account_id, domain_id, attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/pushes").
-          with(body: attributes).
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/pushes")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the domain push" do
@@ -37,15 +37,15 @@ describe Dnsimple::Client, ".domains" do
     let(:account_id) { 2020 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/pushes}).
-          to_return(read_http_fixture("listPushes/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/pushes})
+          .to_return(read_http_fixture("listPushes/success.http"))
     end
 
     it "builds the correct request" do
       subject.pushes(account_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
@@ -89,8 +89,8 @@ describe Dnsimple::Client, ".domains" do
     let(:push_id) { 1 }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/pushes/#{push_id}$}).
-          to_return(read_http_fixture("acceptPush/success.http"))
+      stub_request(:post, %r{/v2/#{account_id}/pushes/#{push_id}$})
+          .to_return(read_http_fixture("acceptPush/success.http"))
     end
 
     let(:attributes) { { contact_id: 2 } }
@@ -98,9 +98,9 @@ describe Dnsimple::Client, ".domains" do
     it "builds the correct request" do
       subject.accept_push(account_id, push_id, attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}").
-          with(body: attributes).
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
@@ -113,8 +113,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the domain push does not exist" do
       it "raises NotFoundError" do
-        stub_request(:post, %r{/v2}).
-            to_return(read_http_fixture("notfound-domainpush.http"))
+        stub_request(:post, %r{/v2})
+            .to_return(read_http_fixture("notfound-domainpush.http"))
 
         expect {
           subject.accept_push(account_id, push_id, attributes)
@@ -128,15 +128,15 @@ describe Dnsimple::Client, ".domains" do
     let(:push_id) { 1 }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/pushes/#{push_id}$}).
-          to_return(read_http_fixture("rejectPush/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/pushes/#{push_id}$})
+          .to_return(read_http_fixture("rejectPush/success.http"))
     end
 
     it "builds the correct request" do
       subject.reject_push(account_id, push_id)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
@@ -149,8 +149,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the domain push does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2}).
-            to_return(read_http_fixture("notfound-domainpush.http"))
+        stub_request(:delete, %r{/v2})
+            .to_return(read_http_fixture("notfound-domainpush.http"))
 
         expect {
           subject.reject_push(account_id, push_id)

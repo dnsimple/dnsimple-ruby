@@ -11,15 +11,15 @@ describe Dnsimple::Client, ".templates" do
     let(:domain_id)   { 'example.com' }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}$}).
-          to_return(read_http_fixture("applyTemplate/success.http"))
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}$})
+          .to_return(read_http_fixture("applyTemplate/success.http"))
     end
 
     it "builds the correct request" do
       subject.apply_template(account_id, template_id, domain_id)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}")
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nil" do

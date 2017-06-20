@@ -10,15 +10,15 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records}).
-          to_return(read_http_fixture("listZoneRecords/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records})
+          .to_return(read_http_fixture("listZoneRecords/success.http"))
     end
 
     it "builds the correct request" do
       subject.records(account_id, zone_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
@@ -71,8 +71,8 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-zone.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
           subject.records(account_id, zone_id)
@@ -83,8 +83,8 @@ describe Dnsimple::Client, ".zones" do
 
   describe "#all_records" do
     before do
-      stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records}).
-          to_return(read_http_fixture("listZoneRecords/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records})
+          .to_return(read_http_fixture("listZoneRecords/success.http"))
     end
 
     let(:account_id) { 1010 }
@@ -113,8 +113,8 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/records$}).
-          to_return(read_http_fixture("createZoneRecord/created.http"))
+      stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/records$})
+          .to_return(read_http_fixture("createZoneRecord/created.http"))
     end
 
     let(:attributes) { { type: "A", name: "www", content: "127.0.0.1", regions: %w(global) } }
@@ -122,9 +122,9 @@ describe Dnsimple::Client, ".zones" do
     it "builds the correct request" do
       subject.create_record(account_id, zone_id, attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records").
-          with(body: attributes).
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
@@ -142,8 +142,8 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:post, %r{/v2}).
-            to_return(read_http_fixture("notfound-zone.http"))
+        stub_request(:post, %r{/v2})
+            .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
           subject.create_record(account_id, zone_id, attributes)
@@ -158,15 +158,15 @@ describe Dnsimple::Client, ".zones" do
     let(:record_id) { 5 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$}).
-          to_return(read_http_fixture("getZoneRecord/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$})
+          .to_return(read_http_fixture("getZoneRecord/success.http"))
     end
 
     it "builds the correct request" do
       subject.record(account_id, zone_id, record_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
@@ -191,8 +191,8 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-zone.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
           subject.record(account_id, zone_id, "0")
@@ -202,8 +202,8 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the record does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-record.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-record.http"))
 
         expect {
           subject.record(account_id, zone_id, "0")
@@ -218,8 +218,8 @@ describe Dnsimple::Client, ".zones" do
     let(:record_id) { 5 }
 
     before do
-      stub_request(:patch, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$}).
-          to_return(read_http_fixture("updateZoneRecord/success.http"))
+      stub_request(:patch, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$})
+          .to_return(read_http_fixture("updateZoneRecord/success.http"))
     end
 
     let(:attributes) { { content: "mxb.example.com", priority: "20", regions: ['global'] } }
@@ -227,9 +227,9 @@ describe Dnsimple::Client, ".zones" do
     it "builds the correct request" do
       subject.update_record(account_id, zone_id, record_id, attributes)
 
-      expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}").
-          with(body: attributes).
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
@@ -246,8 +246,8 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:patch, %r{/v2}).
-            to_return(read_http_fixture("notfound-zone.http"))
+        stub_request(:patch, %r{/v2})
+            .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
           subject.update_record(account_id, zone_id, "0", {})
@@ -257,8 +257,8 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the record does not exist" do
       it "raises NotFoundError" do
-        stub_request(:patch, %r{/v2}).
-            to_return(read_http_fixture("notfound-record.http"))
+        stub_request(:patch, %r{/v2})
+            .to_return(read_http_fixture("notfound-record.http"))
 
         expect {
           subject.update_record(account_id, zone_id, "0", {})
@@ -272,15 +272,15 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$}).
-          to_return(read_http_fixture("deleteZoneRecord/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/zones/#{zone_id}/records/.+$})
+          .to_return(read_http_fixture("deleteZoneRecord/success.http"))
     end
 
     it "builds the correct request" do
       subject.delete_record(account_id, zone_id, record_id = 2)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
@@ -293,8 +293,8 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the zone does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2}).
-            to_return(read_http_fixture("notfound-zone.http"))
+        stub_request(:delete, %r{/v2})
+            .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
           subject.delete_record(account_id, zone_id, "0")
@@ -304,8 +304,8 @@ describe Dnsimple::Client, ".zones" do
 
     context "when the record does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2}).
-            to_return(read_http_fixture("notfound-record.http"))
+        stub_request(:delete, %r{/v2})
+            .to_return(read_http_fixture("notfound-record.http"))
 
         expect {
           subject.delete_record(account_id, zone_id, "0")

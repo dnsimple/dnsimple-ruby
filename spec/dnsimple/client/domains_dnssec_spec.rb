@@ -9,16 +9,16 @@ describe Dnsimple::Client, ".domains" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec}).
-          to_return(read_http_fixture("enableDnssec/success.http"))
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec})
+          .to_return(read_http_fixture("enableDnssec/success.http"))
     end
 
 
     it "builds the correct request" do
       subject.enable_dnssec(account_id, domain_id)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the dnssec status" do
@@ -32,8 +32,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the domain does not exist" do
       it "raises NotFoundError" do
-        stub_request(:post, %r{/v2}).
-            to_return(read_http_fixture("notfound-domain.http"))
+        stub_request(:post, %r{/v2})
+            .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {
           subject.enable_dnssec(account_id, domain_id)
@@ -48,16 +48,16 @@ describe Dnsimple::Client, ".domains" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec}).
-          to_return(read_http_fixture("disableDnssec/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec})
+          .to_return(read_http_fixture("disableDnssec/success.http"))
     end
 
 
     it "builds the correct request" do
       subject.disable_dnssec(account_id, domain_id)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
@@ -70,8 +70,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the domain does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2}).
-            to_return(read_http_fixture("notfound-domain.http"))
+        stub_request(:delete, %r{/v2})
+            .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {
           subject.disable_dnssec(account_id, domain_id)
@@ -85,16 +85,16 @@ describe Dnsimple::Client, ".domains" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec}).
-          to_return(read_http_fixture("getDnssec/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec})
+          .to_return(read_http_fixture("getDnssec/success.http"))
     end
 
 
     it "builds the correct request" do
       subject.get_dnssec(account_id, domain_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the dnssec status" do
@@ -108,8 +108,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the domain does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-domain.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {
           subject.get_dnssec(account_id, domain_id)

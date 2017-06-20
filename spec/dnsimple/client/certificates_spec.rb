@@ -9,15 +9,15 @@ describe Dnsimple::Client, ".certificates" do
     let(:domain_id)  { "example.com" }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates}).
-          to_return(read_http_fixture("listCertificates/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates})
+          .to_return(read_http_fixture("listCertificates/success.http"))
     end
 
     it "builds the correct request" do
       subject.certificates(account_id, domain_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
@@ -58,8 +58,8 @@ describe Dnsimple::Client, ".certificates" do
 
   describe "#all_certificates" do
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates}).
-          to_return(read_http_fixture("listCertificates/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates})
+          .to_return(read_http_fixture("listCertificates/success.http"))
     end
 
     let(:account_id) { 1010 }
@@ -83,15 +83,15 @@ describe Dnsimple::Client, ".certificates" do
     let(:certificate_id) { 1 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}}).
-          to_return(read_http_fixture("getCertificate/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}})
+          .to_return(read_http_fixture("getCertificate/success.http"))
     end
 
     it "builds the correct request" do
       subject.certificate(account_id, domain_id, certificate_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports extra request options" do
@@ -120,8 +120,8 @@ describe Dnsimple::Client, ".certificates" do
 
     context "when the certificate does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-certificate.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-certificate.http"))
 
         expect {
           subject.certificate(account_id, domain_id, certificate_id)
@@ -136,15 +136,15 @@ describe Dnsimple::Client, ".certificates" do
     let(:certificate_id) { 1 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/download}).
-          to_return(read_http_fixture("downloadCertificate/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/download})
+          .to_return(read_http_fixture("downloadCertificate/success.http"))
     end
 
     it "builds the correct request" do
       subject.download_certificate(account_id, domain_id, certificate_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/download").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/download")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports extra request options" do
@@ -167,8 +167,8 @@ describe Dnsimple::Client, ".certificates" do
 
     context "when the certificate does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-certificate.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-certificate.http"))
 
         expect {
           subject.download_certificate(account_id, domain_id, certificate_id)
@@ -183,15 +183,15 @@ describe Dnsimple::Client, ".certificates" do
     let(:certificate_id) { 1 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key}).
-          to_return(read_http_fixture("getCertificatePrivateKey/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key})
+          .to_return(read_http_fixture("getCertificatePrivateKey/success.http"))
     end
 
     it "builds the correct request" do
       subject.certificate_private_key(account_id, domain_id, certificate_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports extra request options" do
@@ -214,8 +214,8 @@ describe Dnsimple::Client, ".certificates" do
 
     context "when the certificate does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-certificate.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-certificate.http"))
 
         expect {
           subject.certificate_private_key(account_id, domain_id, certificate_id)

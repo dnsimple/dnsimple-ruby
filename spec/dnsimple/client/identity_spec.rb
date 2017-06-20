@@ -7,15 +7,15 @@ describe Dnsimple::Client, ".identity" do
 
   describe "#whoami" do
     before do
-      stub_request(:get, %r{/v2/whoami$}).
-          to_return(read_http_fixture("whoami/success.http"))
+      stub_request(:get, %r{/v2/whoami$})
+          .to_return(read_http_fixture("whoami/success.http"))
     end
 
     it "builds the correct request" do
       subject.whoami
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/whoami").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/whoami")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the whoami" do
@@ -28,8 +28,8 @@ describe Dnsimple::Client, ".identity" do
 
     context "when authenticated as account" do
       before do
-        stub_request(:get, %r{/v2/whoami$}).
-            to_return(read_http_fixture("whoami/success-account.http"))
+        stub_request(:get, %r{/v2/whoami$})
+            .to_return(read_http_fixture("whoami/success-account.http"))
       end
 
       it "sets the account" do
@@ -41,8 +41,8 @@ describe Dnsimple::Client, ".identity" do
 
     context "when authenticated as user" do
       before do
-        stub_request(:get, %r{/v2/whoami$}).
-            to_return(read_http_fixture("whoami/success-user.http"))
+        stub_request(:get, %r{/v2/whoami$})
+            .to_return(read_http_fixture("whoami/success-user.http"))
       end
 
       it "sets the user" do

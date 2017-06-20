@@ -10,15 +10,15 @@ describe Dnsimple::Client, ".domains" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards}).
-          to_return(read_http_fixture("listEmailForwards/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards})
+          .to_return(read_http_fixture("listEmailForwards/success.http"))
     end
 
     it "builds the correct request" do
       subject.email_forwards(account_id, domain_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
@@ -64,8 +64,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the domain does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-domain.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {
           subject.email_forwards(account_id, domain_id)
@@ -76,8 +76,8 @@ describe Dnsimple::Client, ".domains" do
 
   describe "#all_email_forwards" do
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards}).
-          to_return(read_http_fixture("listEmailForwards/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards})
+          .to_return(read_http_fixture("listEmailForwards/success.http"))
     end
 
     let(:account_id) { 1010 }
@@ -100,8 +100,8 @@ describe Dnsimple::Client, ".domains" do
     let(:domain_id) { "example.com" }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards$}).
-          to_return(read_http_fixture("createEmailForward/created.http"))
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards$})
+          .to_return(read_http_fixture("createEmailForward/created.http"))
     end
 
     let(:attributes) { { from: "jim", to: "jim@another.com" } }
@@ -109,9 +109,9 @@ describe Dnsimple::Client, ".domains" do
     it "builds the correct request" do
       subject.create_email_forward(account_id, domain_id, attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards").
-          with(body: attributes).
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the email forward" do
@@ -130,15 +130,15 @@ describe Dnsimple::Client, ".domains" do
     let(:email_forward_id) { 17706 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards.+$}).
-          to_return(read_http_fixture("getEmailForward/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards.+$})
+          .to_return(read_http_fixture("getEmailForward/success.http"))
     end
 
     it "builds the correct request" do
       subject.email_forward(account_id, domain_id, email_forward_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the email forward" do
@@ -157,8 +157,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the email forward does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-emailforward.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-emailforward.http"))
 
         expect {
           subject.email_forward(account_id, domain_id, email_forward_id)
@@ -173,15 +173,15 @@ describe Dnsimple::Client, ".domains" do
     let(:email_forward_id) { 1 }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}$}).
-          to_return(read_http_fixture("deleteEmailForward/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}$})
+          .to_return(read_http_fixture("deleteEmailForward/success.http"))
     end
 
     it "builds the correct request" do
       subject.delete_email_forward(account_id, domain_id, email_forward_id)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
@@ -194,8 +194,8 @@ describe Dnsimple::Client, ".domains" do
 
     context "when the email forward does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2}).
-            to_return(read_http_fixture("notfound-emailforward.http"))
+        stub_request(:delete, %r{/v2})
+            .to_return(read_http_fixture("notfound-emailforward.http"))
 
         expect {
           subject.delete_email_forward(account_id, domain_id, email_forward_id)

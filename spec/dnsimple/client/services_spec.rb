@@ -7,15 +7,15 @@ describe Dnsimple::Client, ".services" do
 
   describe "#list_services" do
     before do
-      stub_request(:get, %r{/v2/services}).
-          to_return(read_http_fixture("listServices/success.http"))
+      stub_request(:get, %r{/v2/services})
+          .to_return(read_http_fixture("listServices/success.http"))
     end
 
     it "builds the correct request" do
       subject.list_services
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services")
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -56,8 +56,8 @@ describe Dnsimple::Client, ".services" do
 
   describe "#all_services" do
     before do
-      stub_request(:get, %r{/v2/services}).
-          to_return(read_http_fixture("listServices/success.http"))
+      stub_request(:get, %r{/v2/services})
+          .to_return(read_http_fixture("listServices/success.http"))
     end
 
     it "delegates to client.paginate" do
@@ -76,15 +76,15 @@ describe Dnsimple::Client, ".services" do
     let(:service_id) { 1 }
 
     before do
-      stub_request(:get, %r{/v2/services/#{service_id}$}).
-          to_return(read_http_fixture("getService/success.http"))
+      stub_request(:get, %r{/v2/services/#{service_id}$})
+          .to_return(read_http_fixture("getService/success.http"))
     end
 
     it "builds the correct request" do
       subject.service(service_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services/#{service_id}").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/services/#{service_id}")
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the service" do

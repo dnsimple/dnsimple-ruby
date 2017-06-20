@@ -2,15 +2,18 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
-#### master
+
+#### 4.3.0
 
 - NEW: Added `certificates.all_certificates` (dnsimple/dnsimple-ruby#155)
 
 - CHANGED: Updated registrar URLs (dnsimple/dnsimple-ruby#153)
 
+
 #### 4.2.0
 
 - NEW: Added DNSSEC support support (dnsimple/dnsimple-ruby#152)
+
 
 #### 4.1.0
 

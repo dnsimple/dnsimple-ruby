@@ -8,15 +8,15 @@ describe Dnsimple::Client, ".webhooks" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/webhooks}).
-          to_return(read_http_fixture("listWebhooks/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/webhooks})
+          .to_return(read_http_fixture("listWebhooks/success.http"))
     end
 
     it "builds the correct request" do
       subject.webhooks(account_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports extra request options" do
@@ -49,8 +49,8 @@ describe Dnsimple::Client, ".webhooks" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/webhooks$}).
-          to_return(read_http_fixture("createWebhook/created.http"))
+      stub_request(:post, %r{/v2/#{account_id}/webhooks$})
+          .to_return(read_http_fixture("createWebhook/created.http"))
     end
 
     let(:attributes) { { url: "https://webhook.test" } }
@@ -58,9 +58,9 @@ describe Dnsimple::Client, ".webhooks" do
     it "builds the correct request" do
       subject.create_webhook(account_id, attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/webhooks").
-          with(body: attributes).
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/webhooks")
+          .with(body: attributes)
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the webhook" do
@@ -77,15 +77,15 @@ describe Dnsimple::Client, ".webhooks" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/webhooks/.+$}).
-          to_return(read_http_fixture("getWebhook/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/webhooks/.+$})
+          .to_return(read_http_fixture("getWebhook/success.http"))
     end
 
     it "builds the correct request" do
       subject.webhook(account_id, webhook_id = "1")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks/#{webhook_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks/#{webhook_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the webhook" do
@@ -100,8 +100,8 @@ describe Dnsimple::Client, ".webhooks" do
 
     context "when the webhook does not exist" do
       it "raises NotFoundError" do
-        stub_request(:get, %r{/v2}).
-            to_return(read_http_fixture("notfound-webhook.http"))
+        stub_request(:get, %r{/v2})
+            .to_return(read_http_fixture("notfound-webhook.http"))
 
         expect {
           subject.webhook(account_id, 0)
@@ -114,15 +114,15 @@ describe Dnsimple::Client, ".webhooks" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/webhooks/.+$}).
-          to_return(read_http_fixture("deleteWebhook/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/webhooks/.+$})
+          .to_return(read_http_fixture("deleteWebhook/success.http"))
     end
 
     it "builds the correct request" do
       subject.delete_webhook(account_id, webhook_id = "1")
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/webhooks/#{webhook_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/webhooks/#{webhook_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
@@ -135,8 +135,8 @@ describe Dnsimple::Client, ".webhooks" do
 
     context "when the webhook does not exist" do
       it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2}).
-            to_return(read_http_fixture("notfound-webhook.http"))
+        stub_request(:delete, %r{/v2})
+            .to_return(read_http_fixture("notfound-webhook.http"))
 
         expect {
           subject.delete_webhook(account_id, 0)

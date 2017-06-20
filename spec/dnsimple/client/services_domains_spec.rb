@@ -10,15 +10,15 @@ describe Dnsimple::Client, ".services" do
     let(:domain_id)  { 'example.com' }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/services}).
-          to_return(read_http_fixture("appliedServices/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/services})
+          .to_return(read_http_fixture("appliedServices/success.http"))
     end
 
     it "builds the correct request" do
       subject.applied_services(account_id, domain_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services")
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -63,8 +63,8 @@ describe Dnsimple::Client, ".services" do
     let(:service_id) { "service1" }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}$}).
-          to_return(read_http_fixture("applyService/success.http"))
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}$})
+          .to_return(read_http_fixture("applyService/success.http"))
     end
 
     let(:settings) { { app: "foo" } }
@@ -72,9 +72,9 @@ describe Dnsimple::Client, ".services" do
     it "builds the correct request" do
       subject.apply_service(account_id, service_id, domain_id, settings)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}").
-          with(body: settings).
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}")
+          .with(body: settings)
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns empty response" do
@@ -92,15 +92,15 @@ describe Dnsimple::Client, ".services" do
     let(:service_id) { "service1" }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}$}).
-          to_return(read_http_fixture("unapplyService/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}$})
+          .to_return(read_http_fixture("unapplyService/success.http"))
     end
 
     it "builds the correct request" do
       subject.unapply_service(account_id, service_id, domain_id)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}").
-          with(headers: { 'Accept' => 'application/json' })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}")
+          .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns empty response" do
