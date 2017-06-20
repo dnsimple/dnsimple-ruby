@@ -175,6 +175,13 @@ Style/NumericLiterals:
 Style/PercentLiteralDelimiters:
   Enabled: false
 
+# We use it from time to time, as it's not always possible (or maintainable)
+# to use simple ? methods.
+# Moreover, it's actually more efficient to not-use predicates:
+# https://github.com/bbatsov/rubocop/issues/3633
+Style/PredicateName:
+  Enabled: false
+
 # Do we care?
 Style/RegexpLiteral:
   Enabled: false
@@ -251,7 +258,7 @@ Layout/CaseIndentation:
 # I was a big fan of leading, but trailing seems to be more commonly adopted.
 # At least at the time being.
 Layout/DotPosition:
-  EnforcedStyle: trailing
+  EnforcedStyle: leading
 
 # Double empty lines are useful to separate conceptually different methods
 # in the same class or module.
