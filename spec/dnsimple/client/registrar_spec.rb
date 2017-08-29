@@ -20,6 +20,20 @@ describe Dnsimple::Client, ".registrar" do
           .with(headers: { "Accept" => "application/json" })
     end
 
+    it "works with UTF-8 chars" do
+      subject.check_domain(account_id, domain_name = "dnsimplé.ch")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/check")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "works with escaped UTF-8 chars" do
+      subject.check_domain(account_id, domain_name = "dnsimpl\u{e9}.ch")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/check")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
     it "returns the availability" do
       response = subject.check_domain(account_id, "example.com")
       expect(response).to be_a(Dnsimple::Response)
