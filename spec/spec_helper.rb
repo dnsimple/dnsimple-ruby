@@ -13,3 +13,7 @@ unless defined?(SPEC_ROOT)
 end
 
 Dir[File.join(SPEC_ROOT, "support/**/*.rb")].each { |f| require f }
+
+RSpec.configure do |config|
+  config.warnings = true
+end

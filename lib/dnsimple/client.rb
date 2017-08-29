@@ -1,3 +1,4 @@
+require 'uri'
 require 'httparty'
 require 'dnsimple/extra'
 require 'dnsimple/struct'
@@ -66,6 +67,7 @@ module Dnsimple
       end
 
       @services = {}
+      @uri_parser = URI::Parser.new
     end
 
 
@@ -187,7 +189,8 @@ module Dnsimple
         request_options[:body] = content_data(request_options[:headers], data)
       end
 
-      HTTParty.send(method, base_url + path, request_options)
+      url = @uri_parser.escape(base_url + path)
+      HTTParty.send(method, url, request_options)
     end
 
 
