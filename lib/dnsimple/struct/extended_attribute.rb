@@ -24,7 +24,7 @@ module Dnsimple
       attr_accessor :required
 
       # @return [Array<Options>] The array of options with possible values for the extended attribute
-      attr_accessor :options
+      attr_reader :options
 
       def initialize(*)
         super

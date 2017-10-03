@@ -84,6 +84,13 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+# We use it from time to time, as it's not always possible (or maintainable)
+# to use simple ? methods.
+# Moreover, it's actually more efficient to not-use predicates:
+# https://github.com/bbatsov/rubocop/issues/3633
+Naming/PredicateName:
+  Enabled: false
+
 # [codesmell]
 # I don't really get the point of this cop.
 Performance/RedundantMerge:
@@ -173,13 +180,6 @@ Style/NumericLiterals:
 # For years, %w() has been the de-facto standard. A lot of libraries are using ().
 # Switching to [] would be a nightmare.
 Style/PercentLiteralDelimiters:
-  Enabled: false
-
-# We use it from time to time, as it's not always possible (or maintainable)
-# to use simple ? methods.
-# Moreover, it's actually more efficient to not-use predicates:
-# https://github.com/bbatsov/rubocop/issues/3633
-Style/PredicateName:
   Enabled: false
 
 # Do we care?

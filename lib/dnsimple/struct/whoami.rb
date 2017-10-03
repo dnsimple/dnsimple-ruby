@@ -3,10 +3,10 @@ module Dnsimple
 
     class Whoami < Base
       # @return [Account] The account, if present.
-      attr_accessor :account
+      attr_reader :account
 
       # @return [String] The user, if present.
-      attr_accessor :user
+      attr_reader :user
 
 
       # Converts account to a Struct::Account and sets it.

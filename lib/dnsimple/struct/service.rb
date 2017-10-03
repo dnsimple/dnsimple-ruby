@@ -45,7 +45,7 @@ module Dnsimple
       attr_accessor :default_subdomain
 
       # @return [Array<Settings>] The array of settings to setup this service, if setup is required.
-      attr_accessor :settings
+      attr_reader :settings
 
       def initialize(*)
         super
