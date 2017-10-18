@@ -119,6 +119,7 @@ module Dnsimple
       # @option attributes [String] :name the certificate name (optional)
       # @option attributes [Array<String>] :alternate_names the certificate alternate names (optional)
       # @option attributes [TrueClass,FalseClass] :auto_renew enable certificate auto renew (optional)
+      # @param  [Hash] options
       #
       # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
       #
@@ -167,6 +168,31 @@ module Dnsimple
       def letsencrypt_purchase(account_id, domain_id, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:contact_id])
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt" % [account_id, domain_id]), attributes, options)
+
+        Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
+      end
+
+      # Issue a Let's Encrypt certificate.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-issue
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_id the domain ID or domain name
+      # @param  [Integer] certificate_id the account ID
+      # @param  [Hash] options
+      #
+      # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      #
+      # @example Basic usage
+      #   reponse     = client.certificates.letsencrypt_issue(1010, "example.com", 100)
+      #   certificate = response.data
+      #
+      #   certificate.state # => "requesting"
+      def letsencrypt_issue(account_id, domain_id, certificate_id, options = {})
+        response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/issue" % [account_id, domain_id, certificate_id]), options)
 
         Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
       end
