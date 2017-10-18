@@ -8,8 +8,14 @@ module Dnsimple
       # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
+      # @return [String] The certificate name.
+      attr_accessor :name
+
       # @return [String] The certificate common name.
       attr_accessor :common_name
+
+      # @return [Array<String>] The certificate alternate names.
+      attr_accessor :alternate_names
 
       # @return [Integer] The years the certificate will last.
       attr_accessor :years
@@ -22,6 +28,9 @@ module Dnsimple
 
       # @return [String] The Certificate Authority (CA) that issued the certificate.
       attr_accessor :authority_identifier
+
+      # @return [TrueClass,FalseClass] The certificate auto renew flag.
+      attr_accessor :auto_renew
 
       # @return [String] When the certificate was created in DNSimple.
       attr_accessor :created_at

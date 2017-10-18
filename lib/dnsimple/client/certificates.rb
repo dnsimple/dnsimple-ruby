@@ -108,6 +108,69 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::CertificateBundle.new(response["data"]))
       end
 
+      # Purchase a Let's Encrypt certificate.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-purchase
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_id the domain ID or domain name
+      # @param  [Hash] attributes
+      # @option attributes [Integer] :contact_id the contact ID (mandatory)
+      # @option attributes [String] :name the certificate name (optional)
+      # @option attributes [Array<String>] :alternate_names the certificate alternate names (optional)
+      # @option attributes [TrueClass,FalseClass] :auto_renew enable certificate auto renew (optional)
+      #
+      # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      #
+      # @example Basic usage
+      #   reponse     = client.certificates.letsencrypt_purchase(1010, "example.com", contact_id: 1)
+      #   certificate = response.data
+      #
+      #   certificate.id              # => 100
+      #   certificate.name            # => "www"
+      #   certificate.common_name     # => "www.example.com"
+      #   certificate.alternate_names # => []
+      #   certificate.auto_renew      # => false
+      #
+      # @example Custom name
+      #   reponse     = client.certificates.letsencrypt_purchase(1010, "example.com", contact_id: 1, name: "docs")
+      #   certificate = response.data
+      #
+      #   certificate.id              # => 100
+      #   certificate.name            # => "docs"
+      #   certificate.common_name     # => "docs.example.com"
+      #   certificate.alternate_names # => []
+      #   certificate.auto_renew      # => false
+      #
+      # @example Alternamte names
+      #   reponse     = client.certificates.letsencrypt_purchase(1010, "example.com", contact_id: 1, alternate_names: ["api.example.com", "status.example.com"])
+      #   certificate = response.data
+      #
+      #   certificate.id              # => 100
+      #   certificate.name            # => "www"
+      #   certificate.common_name     # => "www.example.com"
+      #   certificate.alternate_names # => ["api.example.com", "status.example.com"]
+      #   certificate.auto_renew      # => false
+      #
+      # @example Auto renew
+      #   reponse     = client.certificates.letsencrypt_purchase(1010, "example.com", contact_id: 1, auto_renew: true)
+      #   certificate = response.data
+      #
+      #   certificate.id              # => 100
+      #   certificate.name            # => "www"
+      #   certificate.common_name     # => "www.example.com"
+      #   certificate.alternate_names # => []
+      #   certificate.auto_renew      # => true
+      def letsencrypt_purchase(account_id, domain_id, attributes, options = {})
+        Extra.validate_mandatory_attributes(attributes, [:contact_id])
+        response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt" % [account_id, domain_id]), attributes, options)
+
+        Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
+      end
+
     end
   end
 end
