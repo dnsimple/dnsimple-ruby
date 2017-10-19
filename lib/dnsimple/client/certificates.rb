@@ -16,9 +16,9 @@ module Dnsimple
       # @example List certificates, provide a sorting policy
       #   client.certificates.list(1010, "example.com", sort: "email:asc")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id  [Integer] the account ID
+      # @param  domain_name [#to_s] The domain ID or domain name
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Certificate>]
@@ -41,9 +41,9 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/certificates/#list
       # @see #certificates
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name The domain ID or domain name
-      # @param  [Hash] options the filtering and sorting option
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] The domain ID or domain name
+      # @param  options [Hash] the filtering and sorting option
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -58,10 +58,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#get
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Integer] certificate_id the certificate ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] the domain ID or domain name
+      # @param  certificate_id [Integer] the certificate ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -76,10 +76,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#download
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Integer] certificate_id the certificate ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] the domain ID or domain name
+      # @param  certificate_id [Integer] the certificate ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::CertificateBundle>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -94,10 +94,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#get-private-key
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Integer] certificate_id the certificate ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] the domain ID or domain name
+      # @param  certificate_id [Integer] the certificate ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::CertificateBundle>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -110,16 +110,19 @@ module Dnsimple
 
       # Purchase a Let's Encrypt certificate.
       #
+      # This method creates a new certificate order. The certificate ID should be used to
+      # request the issuance of the certificate using {#letsencrypt_issue}.
+      #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-purchase
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Hash] attributes
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] the domain ID or domain name
+      # @param  attributes [Hash]
       # @option attributes [Integer] :contact_id the contact ID (mandatory)
       # @option attributes [String] :name the certificate name (optional)
       # @option attributes [Array<String>] :alternate_names the certificate alternate names (optional)
       # @option attributes [TrueClass,FalseClass] :auto_renew enable certificate auto renew (optional)
-      # @param  [Hash] options
+      # @param  options[Hash]
       #
       # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
       #
@@ -146,7 +149,7 @@ module Dnsimple
       #   certificate.alternate_names # => []
       #   certificate.auto_renew      # => false
       #
-      # @example Alternamte names
+      # @example SAN names
       #   reponse     = client.certificates.letsencrypt_purchase(1010, "example.com", contact_id: 1, alternate_names: ["api.example.com", "status.example.com"])
       #   certificate = response.data
       #
@@ -172,14 +175,17 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
       end
 
-      # Issue a Let's Encrypt certificate.
+      # Issue a pending Let's Encrypt certificate order.
+      #
+      # Note that the issuance process is async. A successful response means the issuance
+      # request has been successfully acknowledged and queued for processing.
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-issue
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Integer] certificate_id the certificate ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] the domain ID or domain name
+      # @param  certificate_id [Integer] the certificate ID returned by the purchase method
+      # @param  options [Hash]
       #
       # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
       #
@@ -201,12 +207,12 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-purchase-renewal
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Integer] certificate_id the certificate ID
-      # @param  [Hash] attributes
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] the domain ID or domain name
+      # @param  certificate_id [Integer] the certificate ID
+      # @param  attributes [Hash]
       # @option attributes [TrueClass,FalseClass] :auto_renew enable certificate auto renew (optional)
-      # @param  [Hash] options
+      # @param  options [Hash]
       #
       # @return [Dnsimple::Response<Dnsimple::Struct::CertificateRenewal>]
       #
@@ -234,15 +240,18 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::CertificateRenewal.new(response["data"]))
       end
 
-      # Issue a Let's Encrypt certificate renewal.
+      # Issue a pending Let's Encrypt certificate renewal order.
+      #
+      # Note that the issuance process is async. A successful response means the issuance
+      # request has been successfully acknowledged and queued for processing.
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-issue-renewal
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Integer] certificate_id the certificate ID
-      # @param  [Integer] certificate_renewal_id the certificate renewal ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] the domain ID or domain name
+      # @param  certificate_id [Integer] the certificate ID
+      # @param  certificate_renewal_id [Integer] the certificate renewal ID
+      # @param  options [Hash]
       #
       # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
       #
