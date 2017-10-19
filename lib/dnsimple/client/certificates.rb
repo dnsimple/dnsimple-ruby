@@ -178,7 +178,7 @@ module Dnsimple
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id the domain ID or domain name
-      # @param  [Integer] certificate_id the account ID
+      # @param  [Integer] certificate_id the certificate ID
       # @param  [Hash] options
       #
       # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
@@ -197,7 +197,7 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
       end
 
-      # Purchase a Let's Encrypt renewal certificate.
+      # Purchase a Let's Encrypt certificate renewal.
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-purchase-renewal
       #
@@ -232,6 +232,32 @@ module Dnsimple
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/renewals" % [account_id, domain_id, certificate_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::CertificateRenewal.new(response["data"]))
+      end
+
+      # Issue a Let's Encrypt certificate renewal.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-issue-renewal
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_id the domain ID or domain name
+      # @param  [Integer] certificate_id the certificate ID
+      # @param  [Integer] certificate_renewal_id the certificate renewal ID
+      # @param  [Hash] options
+      #
+      # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      #
+      # @example Basic usage
+      #   reponse     = client.certificates.letsencrypt_issue_renewal(1010, "example.com", 100, 999)
+      #   certificate = response.data
+      #
+      #   certificate.state # => "requesting"
+      def letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id, options = {})
+        response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/renewals/%s/issue" % [account_id, domain_id, certificate_id, certificate_renewal_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
       end
 
     end

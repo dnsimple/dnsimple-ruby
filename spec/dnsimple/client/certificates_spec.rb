@@ -426,4 +426,86 @@ describe Dnsimple::Client, ".certificates" do
     end
   end
 
+  describe "#letsencrypt_issue_renewal" do
+    let(:account_id) { 1010 }
+    let(:domain_id)  { "example.com" }
+    let(:certificate_id) { 300 }
+    let(:certificate_renewal_id) { 999 }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals/#{certificate_renewal_id}/issue})
+          .to_return(read_http_fixture("issueRenewalLetsencryptCertificate/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals/#{certificate_renewal_id}/issue")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the certificate" do
+      response = subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Certificate)
+
+      expect(result.id).to eq(300)
+      expect(result.domain_id).to eq(300)
+      expect(result.name).to eq("www")
+      expect(result.common_name).to eq("www.example.com")
+      expect(result.alternate_names).to eq([])
+      expect(result.years).to eq(1)
+      expect(result.csr).to be(nil)
+      expect(result.state).to eq("requesting")
+      expect(result.authority_identifier).to eq("letsencrypt")
+      expect(result.auto_renew).to be(false)
+    end
+
+    context "when the domain does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:post, %r{/v2})
+            .to_return(read_http_fixture("notfound-domain.http"))
+
+        expect {
+          subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+
+    context "when the certificate does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:post, %r{/v2})
+            .to_return(read_http_fixture("notfound-certificate.http"))
+
+        expect {
+          subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+
+    context "when the certificate renewal does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:post, %r{/v2})
+            .to_return(read_http_fixture("notfound-certificate-renewal.http"))
+
+        expect {
+          subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+
+    context "when the feature isn't enabled" do
+      it "returns an error" do
+        stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals/#{certificate_renewal_id}/issue})
+            .to_return(read_http_fixture("purchaseLetsencryptCertificate/failure-feature.http"))
+
+        expect {
+          subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+        }.to raise_error(Dnsimple::RequestError)
+      end
+    end
+  end
+
 end

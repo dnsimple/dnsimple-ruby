@@ -1,0 +1,19 @@
+HTTP/1.1 404 Not Found
+Server: nginx
+Date: Thu, 19 Oct 2017 08:54:08 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2398
+X-RateLimit-Reset: 1508404733
+Cache-Control: no-cache
+X-Request-Id: 4a005005-14a5-4148-9f5e-428288c3ab5c
+X-Runtime: 0.043778
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Frame-Options: DENY
+X-Permitted-Cross-Domain-Policies: none
+X-XSS-Protection: 1; mode=block
+
+{"message":"Certificate renewal `0` not found"}
