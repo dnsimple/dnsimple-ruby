@@ -197,6 +197,43 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
       end
 
+      # Purchase a Let's Encrypt renewal certificate.
+      #
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-purchase-renewal
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_id the domain ID or domain name
+      # @param  [Integer] certificate_id the certificate ID
+      # @param  [Hash] attributes
+      # @option attributes [TrueClass,FalseClass] :auto_renew enable certificate auto renew (optional)
+      # @param  [Hash] options
+      #
+      # @return [Dnsimple::Response<Dnsimple::Struct::CertificateRenewal>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      #
+      # @example Basic usage
+      #   reponse             = client.certificates.letsencrypt_purchase(1010, "example.com", 200)
+      #   certificate_renewal = response.data
+      #
+      #   certificate_renewal.id                 # => 999
+      #   certificate_renewal.old_certificate_id # => 200
+      #   certificate_renewal.new_certificate_id # => 200
+      #
+      # @example Auto renew
+      #   reponse             = client.certificates.letsencrypt_purchase(1010, "example.com", 200, auto_renew: true)
+      #   certificate_renewal = response.data
+      #
+      #   certificate_renewal.id                 # => 999
+      #   certificate_renewal.old_certificate_id # => 200
+      #   certificate_renewal.new_certificate_id # => 200
+      def letsencrypt_purchase_renewal(account_id, domain_id, certificate_id, attributes = {}, options = {})
+        response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/renewals" % [account_id, domain_id, certificate_id]), attributes, options)
+
+        Dnsimple::Response.new(response, Struct::CertificateRenewal.new(response["data"]))
+      end
+
     end
   end
 end
