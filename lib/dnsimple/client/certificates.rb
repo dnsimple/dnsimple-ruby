@@ -255,11 +255,11 @@ module Dnsimple
       # @raise  [Dnsimple::RequestError]
       #
       # @example Basic usage
-      #   reponse     = client.certificates.letsencrypt_issue_renewal(1010, "example.com", 100, 999)
+      #   reponse     = client.certificates.letsencrypt_issue_renew(1010, "example.com", 100, 999)
       #   certificate = response.data
       #
       #   certificate.state # => "requesting"
-      def letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id, options = {})
+      def letsencrypt_issue_renew(account_id, domain_id, certificate_id, certificate_renewal_id, options = {})
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/renewals/%s/issue" % [account_id, domain_id, certificate_id, certificate_renewal_id]), options)
 
         Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))

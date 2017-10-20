@@ -424,7 +424,7 @@ describe Dnsimple::Client, ".certificates" do
     end
   end
 
-  describe "#letsencrypt_issue_renewal" do
+  describe "#letsencrypt_issue_renew" do
     let(:account_id) { 1010 }
     let(:domain_id)  { "example.com" }
     let(:certificate_id) { 300 }
@@ -436,14 +436,14 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     it "builds the correct request" do
-      subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+      subject.letsencrypt_issue_renew(account_id, domain_id, certificate_id, certificate_renewal_id)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals/#{certificate_renewal_id}/issue")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the certificate" do
-      response = subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+      response = subject.letsencrypt_issue_renew(account_id, domain_id, certificate_id, certificate_renewal_id)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -466,7 +466,7 @@ describe Dnsimple::Client, ".certificates" do
             .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {
-          subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+          subject.letsencrypt_issue_renew(account_id, domain_id, certificate_id, certificate_renewal_id)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
@@ -477,7 +477,7 @@ describe Dnsimple::Client, ".certificates" do
             .to_return(read_http_fixture("notfound-certificate.http"))
 
         expect {
-          subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+          subject.letsencrypt_issue_renew(account_id, domain_id, certificate_id, certificate_renewal_id)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
@@ -488,7 +488,7 @@ describe Dnsimple::Client, ".certificates" do
             .to_return(read_http_fixture("notfound-certificate-renewal.http"))
 
         expect {
-          subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+          subject.letsencrypt_issue_renew(account_id, domain_id, certificate_id, certificate_renewal_id)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
@@ -499,7 +499,7 @@ describe Dnsimple::Client, ".certificates" do
             .to_return(read_http_fixture("purchaseLetsencryptCertificate/failure-feature.http"))
 
         expect {
-          subject.letsencrypt_issue_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
+          subject.letsencrypt_issue_renew(account_id, domain_id, certificate_id, certificate_renewal_id)
         }.to raise_error(Dnsimple::RequestError)
       end
     end
