@@ -221,7 +221,7 @@ module Dnsimple
       #
       #   certificate_renewal.id                 # => 999
       #   certificate_renewal.old_certificate_id # => 200
-      #   certificate_renewal.new_certificate_id # => 200
+      #   certificate_renewal.new_certificate_id # => 300
       #
       # @example Auto renew
       #   reponse             = client.certificates.letsencrypt_purchase(1010, "example.com", 200, auto_renew: true)
@@ -229,7 +229,7 @@ module Dnsimple
       #
       #   certificate_renewal.id                 # => 999
       #   certificate_renewal.old_certificate_id # => 200
-      #   certificate_renewal.new_certificate_id # => 200
+      #   certificate_renewal.new_certificate_id # => 300
       def letsencrypt_purchase_renewal(account_id, domain_id, certificate_id, attributes = {}, options = {})
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/renewals" % [account_id, domain_id, certificate_id]), attributes, options)
 
