@@ -134,7 +134,6 @@ module Dnsimple
       #   certificate = response.data
       #
       #   certificate.id              # => 100
-      #   certificate.name            # => "www"
       #   certificate.common_name     # => "www.example.com"
       #   certificate.alternate_names # => []
       #   certificate.auto_renew      # => false
@@ -144,7 +143,6 @@ module Dnsimple
       #   certificate = response.data
       #
       #   certificate.id              # => 100
-      #   certificate.name            # => "docs"
       #   certificate.common_name     # => "docs.example.com"
       #   certificate.alternate_names # => []
       #   certificate.auto_renew      # => false
@@ -154,7 +152,6 @@ module Dnsimple
       #   certificate = response.data
       #
       #   certificate.id              # => 100
-      #   certificate.name            # => "www"
       #   certificate.common_name     # => "www.example.com"
       #   certificate.alternate_names # => ["api.example.com", "status.example.com"]
       #   certificate.auto_renew      # => false
@@ -164,7 +161,6 @@ module Dnsimple
       #   certificate = response.data
       #
       #   certificate.id              # => 100
-      #   certificate.name            # => "www"
       #   certificate.common_name     # => "www.example.com"
       #   certificate.alternate_names # => []
       #   certificate.auto_renew      # => true

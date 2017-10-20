@@ -261,7 +261,6 @@ describe Dnsimple::Client, ".certificates" do
 
       expect(result.id).to eq(200)
       expect(result.domain_id).to eq(300)
-      expect(result.name).to eq("www")
       expect(result.common_name).to eq("www.example.com")
       expect(result.alternate_names).to eq([])
       expect(result.years).to eq(1)
@@ -320,7 +319,6 @@ describe Dnsimple::Client, ".certificates" do
 
       expect(result.id).to eq(200)
       expect(result.domain_id).to eq(300)
-      expect(result.name).to eq("www")
       expect(result.common_name).to eq("www.example.com")
       expect(result.alternate_names).to eq([])
       expect(result.years).to eq(1)
@@ -453,7 +451,6 @@ describe Dnsimple::Client, ".certificates" do
 
       expect(result.id).to eq(300)
       expect(result.domain_id).to eq(300)
-      expect(result.name).to eq("www")
       expect(result.common_name).to eq("www.example.com")
       expect(result.alternate_names).to eq([])
       expect(result.years).to eq(1)
