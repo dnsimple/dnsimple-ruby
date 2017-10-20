@@ -216,7 +216,7 @@ module Dnsimple
       # @raise  [Dnsimple::RequestError]
       #
       # @example Basic usage
-      #   reponse             = client.certificates.letsencrypt_purchase(1010, "example.com", 200)
+      #   reponse             = client.certificates.letsencrypt_purchase_renew(1010, "example.com", 200)
       #   certificate_renewal = response.data
       #
       #   certificate_renewal.id                 # => 999
@@ -224,13 +224,13 @@ module Dnsimple
       #   certificate_renewal.new_certificate_id # => 300
       #
       # @example Auto renew
-      #   reponse             = client.certificates.letsencrypt_purchase(1010, "example.com", 200, auto_renew: true)
+      #   reponse             = client.certificates.letsencrypt_purchase_renew(1010, "example.com", 200, auto_renew: true)
       #   certificate_renewal = response.data
       #
       #   certificate_renewal.id                 # => 999
       #   certificate_renewal.old_certificate_id # => 200
       #   certificate_renewal.new_certificate_id # => 300
-      def letsencrypt_purchase_renewal(account_id, domain_id, certificate_id, attributes = {}, options = {})
+      def letsencrypt_purchase_renew(account_id, domain_id, certificate_id, attributes = {}, options = {})
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/renewals" % [account_id, domain_id, certificate_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::CertificateRenewal.new(response["data"]))
