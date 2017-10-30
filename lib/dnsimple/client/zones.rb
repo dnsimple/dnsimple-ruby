@@ -94,6 +94,23 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::ZoneFile.new(response["data"]))
       end
 
+      # Checks if a zone is fully distributed across DNSimple nodes
+      #
+      # @see https://developer.dnsimple.com/v2/zones/#get-zone-resolution
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] zone_id the zone name
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::ZoneDistribution>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def zone_distribution(account_id, zone_id, options = {})
+        response = client.get(Client.versioned("/%s/zones/%s/distribution" % [account_id, zone_id]), options)
+
+        Dnsimple::Response.new(response, Struct::ZoneDistribution.new(response["data"]))
+      end
+
     end
   end
 end
