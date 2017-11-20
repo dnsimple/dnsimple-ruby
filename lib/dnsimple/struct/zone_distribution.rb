@@ -2,7 +2,8 @@ module Dnsimple
   module Struct
 
     class ZoneDistribution < Base
-      # @return [Boolean] The result of the check.
+      # @return [Boolean] true if the zone is properly distributed across
+      #         all DNSimple name servers.
       attr_accessor :distributed
     end
 
