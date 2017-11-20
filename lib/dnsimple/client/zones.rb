@@ -94,13 +94,13 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::ZoneFile.new(response["data"]))
       end
 
-      # Checks if a zone is fully distributed across DNSimple nodes
+      # Check if a zone is fully distributed across all DNSimple name servers.
       #
-      # @see https://developer.dnsimple.com/v2/zones/#get-zone-resolution
+      # @see https://developer.dnsimple.com/v2/zones/#checkZoneDistribution
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] zone_id the zone name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [#to_s] the zone name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::ZoneDistribution>]
       #
       # @raise  [Dnsimple::NotFoundError]
