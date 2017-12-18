@@ -126,10 +126,15 @@ Style/EmptyElse:
 Style/EmptyMethod:
   Enabled: false
 
-# I personally don't care about the format style.
-# In most cases I like to use %, but not at the point I want to enforce it
+# We don't care about the format style.
+# In most cases we use %, but not at the point we want to enforce it
 # as a convention in the entire code.
 Style/FormatString:
+  Enabled: false
+
+# Annotated tokens (like %<foo>s) are a good thing, but in most cases we don't need them.
+# %s is a simpler and straightforward version that works in almost all cases. So don't complain.
+Style/FormatStringToken:
   Enabled: false
 
 # We don't support frozen strings.
@@ -181,6 +186,17 @@ Style/NumericLiterals:
 # Switching to [] would be a nightmare.
 Style/PercentLiteralDelimiters:
   Enabled: false
+
+# Enable but only for multiple returns value.
+#
+#   return foo, bar
+#
+# reads much better than
+#
+#   [foo, bar]
+#
+Style/RedundantReturn:
+  AllowMultipleReturnValues: true
 
 # Do we care?
 Style/RegexpLiteral:
@@ -263,6 +279,10 @@ Layout/DotPosition:
 # Double empty lines are useful to separate conceptually different methods
 # in the same class or module.
 Layout/EmptyLines:
+  Enabled: false
+
+# This is buggy. It detects as a style violation a few `class` and `module` definitions
+Layout/EmptyLinesAroundArguments:
   Enabled: false
 
 Layout/EmptyLinesAroundBlockBody:
