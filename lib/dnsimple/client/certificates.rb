@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the certificates associated to the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#list
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#listCertificates
       # @see #all_certificates
       #
       # @example List certificates in the first page
@@ -38,7 +38,7 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#list
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#listCertificates
       # @see #certificates
       #
       # @param  account_id [Integer] the account ID
@@ -56,7 +56,7 @@ module Dnsimple
 
       # Gets a certificate associated to the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#get
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#getCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -74,7 +74,7 @@ module Dnsimple
 
       # Downloads a certificate associated to the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#download
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#downloadCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -92,7 +92,7 @@ module Dnsimple
 
       # Get certificate private key associated to the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#get-private-key
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#getCertificatePrivateKey
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -113,7 +113,7 @@ module Dnsimple
       # This method creates a new certificate order. The certificate ID should be used to
       # request the issuance of the certificate using {#letsencrypt_issue}.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-purchase
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#purchaseLetsencryptCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -130,7 +130,7 @@ module Dnsimple
       # @raise  [Dnsimple::RequestError]
       #
       # @example Basic usage
-      #   reponse     = client.certificates.letsencrypt_purchase(1010, "example.com", contact_id: 1)
+      #   response    = client.certificates.purchase_letsencrypt_certificate(1010, "example.com", contact_id: 1)
       #   certificate = response.data
       #
       #   certificate.id              # => 100
@@ -139,7 +139,7 @@ module Dnsimple
       #   certificate.auto_renew      # => false
       #
       # @example Custom name
-      #   reponse     = client.certificates.letsencrypt_purchase(1010, "example.com", contact_id: 1, name: "docs")
+      #   response    = client.certificates.purchase_letsencrypt_certificate(1010, "example.com", contact_id: 1, name: "docs")
       #   certificate = response.data
       #
       #   certificate.id              # => 100
@@ -148,7 +148,7 @@ module Dnsimple
       #   certificate.auto_renew      # => false
       #
       # @example SAN names
-      #   reponse     = client.certificates.letsencrypt_purchase(1010, "example.com", contact_id: 1, alternate_names: ["api.example.com", "status.example.com"])
+      #   response    = client.certificates.purchase_letsencrypt_certificate(1010, "example.com", contact_id: 1, alternate_names: ["api.example.com", "status.example.com"])
       #   certificate = response.data
       #
       #   certificate.id              # => 100
@@ -157,14 +157,14 @@ module Dnsimple
       #   certificate.auto_renew      # => false
       #
       # @example Auto renew
-      #   reponse     = client.certificates.letsencrypt_purchase(1010, "example.com", contact_id: 1, auto_renew: true)
+      #   response    = client.certificates.purchase_letsencrypt_certificate(1010, "example.com", contact_id: 1, auto_renew: true)
       #   certificate = response.data
       #
       #   certificate.id              # => 100
       #   certificate.common_name     # => "www.example.com"
       #   certificate.alternate_names # => []
       #   certificate.auto_renew      # => true
-      def letsencrypt_purchase(account_id, domain_id, attributes, options = {})
+      def purchase_letsencrypt_certificate(account_id, domain_id, attributes, options = {})
         Extra.validate_mandatory_attributes(attributes, [:contact_id])
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt" % [account_id, domain_id]), attributes, options)
 
@@ -176,7 +176,7 @@ module Dnsimple
       # Note that the issuance process is async. A successful response means the issuance
       # request has been successfully acknowledged and queued for processing.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-issue
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#issueLetsencryptCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -189,11 +189,11 @@ module Dnsimple
       # @raise  [Dnsimple::RequestError]
       #
       # @example Basic usage
-      #   reponse     = client.certificates.letsencrypt_issue(1010, "example.com", 100)
+      #   reponse     = client.certificates.issue_letsencrypt_certificate(1010, "example.com", 100)
       #   certificate = response.data
       #
       #   certificate.state # => "requesting"
-      def letsencrypt_issue(account_id, domain_id, certificate_id, options = {})
+      def issue_letsencrypt_certificate(account_id, domain_id, certificate_id, options = {})
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/issue" % [account_id, domain_id, certificate_id]), options)
 
         Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
@@ -201,7 +201,7 @@ module Dnsimple
 
       # Purchase a Let's Encrypt certificate renewal.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-purchase-renewal
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#purchaseRenewalLetsencryptCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -216,7 +216,7 @@ module Dnsimple
       # @raise  [Dnsimple::RequestError]
       #
       # @example Basic usage
-      #   reponse             = client.certificates.letsencrypt_purchase_renew(1010, "example.com", 200)
+      #   response            = client.certificates.purchase_letsencrypt_certificate_renewal(1010, "example.com", 200)
       #   certificate_renewal = response.data
       #
       #   certificate_renewal.id                 # => 999
@@ -224,13 +224,13 @@ module Dnsimple
       #   certificate_renewal.new_certificate_id # => 300
       #
       # @example Auto renew
-      #   reponse             = client.certificates.letsencrypt_purchase_renew(1010, "example.com", 200, auto_renew: true)
+      #   response            = client.certificates.purchase_letsencrypt_certificate_renewal(1010, "example.com", 200, auto_renew: true)
       #   certificate_renewal = response.data
       #
       #   certificate_renewal.id                 # => 999
       #   certificate_renewal.old_certificate_id # => 200
       #   certificate_renewal.new_certificate_id # => 300
-      def letsencrypt_purchase_renew(account_id, domain_id, certificate_id, attributes = {}, options = {})
+      def purchase_letsencrypt_certificate_renewal(account_id, domain_id, certificate_id, attributes = {}, options = {})
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/renewals" % [account_id, domain_id, certificate_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::CertificateRenewal.new(response["data"]))
@@ -241,7 +241,7 @@ module Dnsimple
       # Note that the issuance process is async. A successful response means the issuance
       # request has been successfully acknowledged and queued for processing.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#letsencrypt-issue-renewal
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#purchase_letsencrypt_certificate_renewal
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -255,11 +255,11 @@ module Dnsimple
       # @raise  [Dnsimple::RequestError]
       #
       # @example Basic usage
-      #   reponse     = client.certificates.letsencrypt_issue_renew(1010, "example.com", 100, 999)
+      #   response    = client.certificates.issue_letsencrypt_certificate_renewal(1010, "example.com", 100, 999)
       #   certificate = response.data
       #
       #   certificate.state # => "requesting"
-      def letsencrypt_issue_renew(account_id, domain_id, certificate_id, certificate_renewal_id, options = {})
+      def issue_letsencrypt_certificate_renewal(account_id, domain_id, certificate_id, certificate_renewal_id, options = {})
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt/%s/renewals/%s/issue" % [account_id, domain_id, certificate_id, certificate_renewal_id]), options)
 
         Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
