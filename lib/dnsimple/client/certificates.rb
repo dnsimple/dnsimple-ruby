@@ -2,7 +2,7 @@ module Dnsimple
   class Client
     module Certificates
 
-      # Lists the certificates associated to the domain.
+      # List the certificates for the domain in the account.
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#listCertificates
       # @see #all_certificates
@@ -30,7 +30,7 @@ module Dnsimple
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Certificate.new(r) })
       end
 
-      # Lists ALL the certificates for the domain.
+      # List ALL the certificates for the domain in the account.
       #
       # This method is similar to {#certificates}, but instead of returning the results of a specific page
       # it iterates all the pages and returns the entire collection.
@@ -54,7 +54,7 @@ module Dnsimple
         paginate(:certificates, account_id, domain_name, options)
       end
 
-      # Gets a certificate associated to the domain.
+      # Get the details of a certificate.
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#getCertificate
       #
@@ -72,7 +72,7 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
       end
 
-      # Downloads a certificate associated to the domain.
+      # Get the PEM-encoded certificate, along with the root certificate and intermediate chain.
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#downloadCertificate
       #
@@ -90,7 +90,7 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::CertificateBundle.new(response["data"]))
       end
 
-      # Get certificate private key associated to the domain.
+      # Get the PEM-encoded certificate private key.
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#getCertificatePrivateKey
       #
