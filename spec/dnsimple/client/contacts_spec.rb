@@ -54,7 +54,7 @@ describe Dnsimple::Client, ".contacts" do
     it "exposes the pagination information" do
       response = subject.contacts(account_id)
 
-      expect(response.respond_to?(:page)).to be_truthy
+      expect(response.respond_to?(:page)).to be(true)
       expect(response.page).to eq(1)
       expect(response.per_page).to be_a(Integer)
       expect(response.total_entries).to be_a(Integer)

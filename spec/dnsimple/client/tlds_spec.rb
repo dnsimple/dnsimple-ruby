@@ -51,7 +51,7 @@ describe Dnsimple::Client, ".tlds" do
     it "exposes the pagination information" do
       response = subject.tlds
 
-      expect(response.respond_to?(:page)).to be_truthy
+      expect(response.respond_to?(:page)).to be(true)
       expect(response.page).to eq(1)
       expect(response.per_page).to be_a(Integer)
       expect(response.total_entries).to be_a(Integer)
@@ -98,13 +98,13 @@ describe Dnsimple::Client, ".tlds" do
       expect(result).to be_a(Dnsimple::Struct::Tld)
       expect(result.tld).to eq('com')
       expect(result.tld_type).to eq(1)
-      expect(result.whois_privacy).to eq(true)
-      expect(result.auto_renew_only).to eq(false)
-      expect(result.idn).to eq(true)
+      expect(result.whois_privacy).to be(true)
+      expect(result.auto_renew_only).to be(false)
+      expect(result.idn).to be(true)
       expect(result.minimum_registration).to eq(1)
-      expect(result.registration_enabled).to eq(true)
-      expect(result.renewal_enabled).to eq(true)
-      expect(result.transfer_enabled).to eq(true)
+      expect(result.registration_enabled).to be(true)
+      expect(result.renewal_enabled).to be(true)
+      expect(result.transfer_enabled).to be(true)
     end
   end
 

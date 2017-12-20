@@ -98,7 +98,7 @@ describe Dnsimple::Client, ".services" do
       expect(service.sid).to eq("service1")
       expect(service.description).to eq("First service example.")
       expect(service.setup_description).to be_nil
-      expect(service.requires_setup).to eq(true)
+      expect(service.requires_setup).to be(true)
       expect(service.default_subdomain).to be_nil
 
       settings = service.settings

@@ -27,7 +27,7 @@ describe Dnsimple::Client, ".domains" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Dnssec)
-      expect(result.enabled).to be_truthy
+      expect(result.enabled).to be(true)
     end
 
     context "when the domain does not exist" do
@@ -103,7 +103,7 @@ describe Dnsimple::Client, ".domains" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Dnssec)
-      expect(result.enabled).to be_truthy
+      expect(result.enabled).to be(true)
     end
 
     context "when the domain does not exist" do

@@ -62,7 +62,7 @@ describe Dnsimple::Client, ".zones" do
     it "exposes the pagination information" do
       response = subject.records(account_id, zone_id)
 
-      expect(response.respond_to?(:page)).to be_truthy
+      expect(response.respond_to?(:page)).to be(true)
       expect(response.page).to eq(1)
       expect(response.per_page).to be_a(Integer)
       expect(response.total_entries).to be_a(Integer)
@@ -183,7 +183,7 @@ describe Dnsimple::Client, ".zones" do
       expect(result.content).to eq("mxa.example.com")
       expect(result.ttl).to eq(600)
       expect(result.priority).to eq(10)
-      expect(result.system_record).to eq(false)
+      expect(result.system_record).to be(false)
       expect(result.regions).to eq(%w(SV1 IAD))
       expect(result.created_at).to eq("2016-10-05T09:51:35Z")
       expect(result.updated_at).to eq("2016-10-05T09:51:35Z")
