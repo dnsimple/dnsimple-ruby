@@ -111,7 +111,7 @@ module Dnsimple
       # Purchase a Let's Encrypt certificate.
       #
       # This method creates a new certificate order. The certificate ID should be used to
-      # request the issuance of the certificate using {#letsencrypt_issue}.
+      # request the issuance of the certificate using {#issue_letsencrypt_certificate}.
       #
       # @see https://developer.dnsimple.com/v2/domains/certificates/#purchaseLetsencryptCertificate
       #
