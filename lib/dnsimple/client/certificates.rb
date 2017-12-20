@@ -241,7 +241,7 @@ module Dnsimple
       # Note that the issuance process is async. A successful response means the issuance
       # request has been successfully acknowledged and queued for processing.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#purchase_letsencrypt_certificate_renewal
+      # @see https://developer.dnsimple.com/v2/domains/certificates/#issueRenewalLetsencryptCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
