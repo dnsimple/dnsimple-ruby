@@ -4,7 +4,7 @@ module Dnsimple
 
       # List the certificates for the domain in the account.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#listCertificates
+      # @see https://developer.dnsimple.com/v2/certificates/#listCertificates
       # @see #all_certificates
       #
       # @example List certificates in the first page
@@ -38,7 +38,7 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#listCertificates
+      # @see https://developer.dnsimple.com/v2/certificates/#listCertificates
       # @see #certificates
       #
       # @param  account_id [Integer] the account ID
@@ -56,7 +56,7 @@ module Dnsimple
 
       # Get the details of a certificate.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#getCertificate
+      # @see https://developer.dnsimple.com/v2/certificates/#getCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -74,7 +74,7 @@ module Dnsimple
 
       # Get the PEM-encoded certificate, along with the root certificate and intermediate chain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#downloadCertificate
+      # @see https://developer.dnsimple.com/v2/certificates/#downloadCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -92,7 +92,7 @@ module Dnsimple
 
       # Get the PEM-encoded certificate private key.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#getCertificatePrivateKey
+      # @see https://developer.dnsimple.com/v2/certificates/#getCertificatePrivateKey
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -113,7 +113,7 @@ module Dnsimple
       # This method creates a new certificate order. The certificate ID should be used to
       # request the issuance of the certificate using {#issue_letsencrypt_certificate}.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#purchaseLetsencryptCertificate
+      # @see https://developer.dnsimple.com/v2/certificates/#purchaseLetsencryptCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -176,7 +176,7 @@ module Dnsimple
       # Note that the issuance process is async. A successful response means the issuance
       # request has been successfully acknowledged and queued for processing.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#issueLetsencryptCertificate
+      # @see https://developer.dnsimple.com/v2/certificates/#issueLetsencryptCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -201,7 +201,7 @@ module Dnsimple
 
       # Purchase a Let's Encrypt certificate renewal.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#purchaseRenewalLetsencryptCertificate
+      # @see https://developer.dnsimple.com/v2/certificates/#purchaseRenewalLetsencryptCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
@@ -241,7 +241,7 @@ module Dnsimple
       # Note that the issuance process is async. A successful response means the issuance
       # request has been successfully acknowledged and queued for processing.
       #
-      # @see https://developer.dnsimple.com/v2/domains/certificates/#issueRenewalLetsencryptCertificate
+      # @see https://developer.dnsimple.com/v2/certificates/#issueRenewalLetsencryptCertificate
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] the domain ID or domain name
