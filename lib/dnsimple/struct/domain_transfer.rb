@@ -20,9 +20,6 @@ module Dnsimple
       # @return [Bool] True if the domain WHOIS privacy was requested.
       attr_accessor :whois_privacy
 
-      # @return [String] The premium price requested for the registration.
-      attr_accessor :premium_price
-
       # @return [String] When the domain renewal was created in DNSimple.
       attr_accessor :created_at
 
