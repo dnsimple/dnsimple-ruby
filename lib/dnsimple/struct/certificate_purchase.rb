@@ -1,15 +1,12 @@
 module Dnsimple
   module Struct
 
-    class CertificateRenewal < Base
-      # @return [Integer] The certificate renewal ID in DNSimple.
+    class CertificatePurchase < Base
+      # @return [Integer] The certificate purchase ID in DNSimple.
       attr_accessor :id
 
-      # @return [Integer] The old certificate ID.
-      attr_accessor :old_certificate_id
-
-      # @return [Integer] The new certificate ID.
-      attr_accessor :new_certificate_id
+      # @return [Integer] The certificate ID.
+      attr_accessor :certificate_id
 
       # @return [String] The certificate renewal state.
       attr_accessor :state

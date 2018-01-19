@@ -18,4 +18,4 @@ X-Permitted-Cross-Domain-Policies: none
 X-XSS-Protection: 1; mode=block
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":999,"old_certificate_id":200,"new_certificate_id":300,"state":"new","created_at":"2017-10-19T08:18:53Z","updated_at":"2017-10-19T08:18:53Z"}}
+{"data":{"id":999,"old_certificate_id":200,"new_certificate_id":300,"state":"new","auto_renew":false,"created_at":"2017-10-19T08:18:53Z","updated_at":"2017-10-19T08:18:53Z"}}

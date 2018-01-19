@@ -124,7 +124,7 @@ module Dnsimple
       # @option attributes [TrueClass,FalseClass] :auto_renew enable certificate auto renew (optional)
       # @param  options[Hash]
       #
-      # @return [Dnsimple::Response<Dnsimple::Struct::Certificate>]
+      # @return [Dnsimple::Response<Dnsimple::Struct::CertificatPurchase>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
@@ -168,7 +168,7 @@ module Dnsimple
         Extra.validate_mandatory_attributes(attributes, [:contact_id])
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt" % [account_id, domain_id]), attributes, options)
 
-        Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::CertificatePurchase.new(response["data"]))
       end
 
       # Issue a pending Let's Encrypt certificate order.

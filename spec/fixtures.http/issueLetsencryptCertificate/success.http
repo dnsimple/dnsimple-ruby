@@ -1,4 +1,4 @@
-HTTP/1.1 200 OK
+HTTP/1.1 202 Accepted
 Server: nginx
 Date: Wed, 18 Oct 2017 15:42:19 GMT
 Content-Type: application/json; charset=utf-8
