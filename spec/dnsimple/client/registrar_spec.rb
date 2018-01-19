@@ -217,7 +217,7 @@ describe Dnsimple::Client, ".registrar" do
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/authorize_transfer_out$})
-          .to_return(read_http_fixture("transferDomainOut/success.http"))
+          .to_return(read_http_fixture("authorizeDomainTransferOut/success.http"))
     end
 
     it "builds the correct request" do
