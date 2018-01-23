@@ -3,7 +3,7 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
-#### master
+#### 4.4.0
 
 - NEW: Added Let's Encrypt certificate methods (GH-159)
 
