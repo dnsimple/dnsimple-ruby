@@ -14,7 +14,7 @@ We provide a full API and an easy-to-use web interface so you can get your domai
 You can install the gem manually:
 
 ```
-$ gem install dnsimple
+gem install dnsimple
 ```
 
 Or use Bundler and define it as a dependency in your Gemfile:
