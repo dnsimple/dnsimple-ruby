@@ -17,3 +17,7 @@ before_install:
   - rvm get latest
   - gem update --system
   - gem install bundler
+
+notifications:
+  slack:
+    secure: "N9zPR5jnF1TBiqvb3mCV6Wem3TIvqu4tXiob2P66vBMwmj1ewWvyUzNLwAEOCDc3mRfsI50IYXHewckAUpCWW7XEJlT/pv8llMsoiHqArb7SGJyDdy3ZRr35L7glixs/ikod+xhRKXMM3jML/2MgSa+Culzhl42tMUFDk+bBBQU="
