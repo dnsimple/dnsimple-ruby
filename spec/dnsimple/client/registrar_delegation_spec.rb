@@ -75,8 +75,9 @@ describe Dnsimple::Client, ".registrar" do
       response = subject.change_domain_delegation_to_vanity(account_id, "example.com", attributes)
       expect(response).to be_a(Dnsimple::Response)
 
-      vanity_name_servers = response.data.map { |ns| ns["name"] }
-      expect(vanity_name_servers).to match_array(%w(ns1.example.com ns2.example.com))
+      vanity_name_server = response.data.first
+      expect(vanity_name_server).to be_a(Dnsimple::Struct::VanityNameServer)
+      expect(vanity_name_server.name).to eq("ns1.example.com")
     end
   end
 
