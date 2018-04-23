@@ -137,7 +137,7 @@ module Dnsimple
     require_relative 'domains_dnssec'
     require_relative 'domains_email_forwards'
     require_relative 'domains_pushes'
-    require_relative 'collaborators'
+    require_relative 'domains_collaborators'
 
     class DomainsService < ClientService
       include Client::Domains
@@ -145,7 +145,7 @@ module Dnsimple
       include Client::DomainsDnssec
       include Client::DomainsEmailForwards
       include Client::DomainsPushes
-      include Client::Collaborators
+      include Client::DomainsCollaborators
     end
 
 

@@ -7,6 +7,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - Bump minimum Ruby requirement to 2.1
 - Introduce Dnsimple::Struct::VanityNameServer (GH-144)
+- Fix name inconsistency of the Collaborator module (GH-154)
 
 
 #### 4.4.0
