@@ -4,7 +4,7 @@ module Dnsimple
 
       # Lists the zone records in the account.
       #
-      # @see https://developer.dnsimple.com/v2/zones/records/#list
+      # @see https://developer.dnsimple.com/v2/zones/records/#listZoneRecords
       # @see #all_records
       #
       # @example List records for the zone "example.com" in the first page
@@ -44,7 +44,7 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/zones/records/#list
+      # @see https://developer.dnsimple.com/v2/zones/records/#listZoneRecords
       # @see #records
       #
       # @example List all records for the zone "example.com"
@@ -67,7 +67,7 @@ module Dnsimple
 
       # Creates a zone record in the account.
       #
-      # @see https://developer.dnsimple.com/v2/zones/records/#create
+      # @see https://developer.dnsimple.com/v2/zones/records/#createZoneRecord
       #
       # @example Create a URL record in zone "example.com"
       #   client.zones.create_zone_record(1010, "example.com", name: "www", type: "url", content: "example.com")
@@ -89,7 +89,7 @@ module Dnsimple
 
       # Gets a zone record from the account.
       #
-      # @see https://developer.dnsimple.com/v2/zones/records/#get
+      # @see https://developer.dnsimple.com/v2/zones/records/#getZoneRecord
       #
       # @example Get record 123 in zone "example.com"
       #   client.zones.zone_record(1010, "example.com", 123)
@@ -110,7 +110,7 @@ module Dnsimple
 
       # Updates a zone record in the account.
       #
-      # @see https://developer.dnsimple.com/v2/zones/records/#update
+      # @see https://developer.dnsimple.com/v2/zones/records/#updateZoneRecord
       #
       # @example Update the TTL to 600 of record 123 in zone "example.com"
       #   client.zones.update_zone_record(1010, "example.com", 123, ttl: 600)
@@ -134,7 +134,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see https://developer.dnsimple.com/v2/zones/records/#delete
+      # @see https://developer.dnsimple.com/v2/zones/records/#deleteZoneRecord
       #
       # @example Delete record 123 in zone "example.com"
       #   client.zones.delete_zone_record(1010, "example.com", 123)
