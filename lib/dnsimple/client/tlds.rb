@@ -1,18 +1,18 @@
 module Dnsimple
   class Client
     module Tlds
-      # Lists the tlds available for registration
+      # Lists the TLDs available for registration
       #
-      # @see https://developer.dnsimple.com/v2/tlds/#list
+      # @see https://developer.dnsimple.com/v2/tlds/#listTlds
       #
       # @example List TLDs in the first page
-      #   client.tlds.list
+      #   client.tlds.list_tlds
       #
       # @example List TLDs, providing a specific page
-      #   client.tlds.list(page: 2)
+      #   client.tlds.list_tlds(page: 2)
       #
       # @example List TLDs, providing sorting policy
-      #   client.tlds.list(sort: "tld:asc")
+      #   client.tlds.list_tlds(sort: "tld:asc")
       #
       # @param  [Hash] options the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
@@ -21,13 +21,11 @@ module Dnsimple
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Tld>]
       #
       # @raise [Dnsimple::RequestError]
-      def tlds(options = {})
+      def list_tlds(options = {})
         response = client.get(Client.versioned("/tlds"), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Tld.new(r) })
       end
-      alias list tlds
-      alias list_tlds tlds
 
       # Lists ALL the TLDs in DNSimple.
       #
@@ -37,8 +35,8 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/tlds/#list
-      # @see #tlds
+      # @see https://developer.dnsimple.com/v2/tlds/#listTlds
+      # @see #list_tlds
       #
       # @example List all TLDs in DNSimple
       #     client.tlds.all
@@ -51,13 +49,12 @@ module Dnsimple
       #
       # @raise [Dnsimple::RequestError]
       def all_tlds(options = {})
-        paginate(:tlds, options)
+        paginate(:list_tlds, options)
       end
-      alias all all_tlds
 
-      # Gets a TLD's details
+      # Gets a TLD details
       #
-      # @see https://developer.dnsimple.com/v2/tlds/#get
+      # @see https://developer.dnsimple.com/v2/tlds/#getTld
       #
       # @example Get information on a specific TLD
       #     client.tlds.tld('com')
@@ -76,10 +73,10 @@ module Dnsimple
 
       # Gets the extended attributes for a TLD.
       #
-      # @see https://developer.dnsimple.com/v2/tlds/#extended-attributes
+      # @see https://developer.dnsimple.com/v2/tlds/#getTldExtendedAttributes
       #
       # @example Get extended attributes for a specific TLD
-      #     client.tlds.extended_attributes('uk')
+      #     client.tlds.tld_extended_attributes('uk')
       #
       # @param  [#to_s] tld The TLD name.
       # @param  [Hash] options
@@ -87,7 +84,7 @@ module Dnsimple
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
-      def extended_attributes(tld, options = {})
+      def tld_extended_attributes(tld, options = {})
         response = client.get(Client.versioned("/tlds/%s/extended_attributes" % tld), options)
 
         Dnsimple::CollectionResponse.new(response, response["data"].map { |r| Struct::ExtendedAttribute.new(r) })

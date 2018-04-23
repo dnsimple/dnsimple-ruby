@@ -3,39 +3,39 @@ require 'spec_helper'
 describe Dnsimple::Client, ".tlds" do
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").tlds }
 
-  describe "#tlds" do
+  describe "#list_tlds" do
     before do
       stub_request(:get, %r{/v2/tlds})
           .to_return(read_http_fixture("listTlds/success.http"))
     end
 
     it "builds the correct request" do
-      subject.tlds
+      subject.list_tlds
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
-      subject.tlds(page: 2)
+      subject.list_tlds(page: 2)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds?page=2")
     end
 
     it "supports additional options" do
-      subject.tlds(query: { foo: "bar" })
+      subject.list_tlds(query: { foo: "bar" })
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds?foo=bar")
     end
 
     it "supports sorting" do
-      subject.tlds(sort: "tld:asc")
+      subject.list_tlds(sort: "tld:asc")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds?sort=tld:asc")
     end
 
     it "returns the tlds" do
-      response = subject.tlds
+      response = subject.list_tlds
 
       expect(response).to be_a(Dnsimple::PaginatedResponse)
       expect(response.data).to be_an(Array)
@@ -49,7 +49,7 @@ describe Dnsimple::Client, ".tlds" do
     end
 
     it "exposes the pagination information" do
-      response = subject.tlds
+      response = subject.list_tlds
 
       expect(response.respond_to?(:page)).to be(true)
       expect(response.page).to eq(1)
@@ -66,7 +66,7 @@ describe Dnsimple::Client, ".tlds" do
     end
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:tlds, foo: "bar")
+      expect(subject).to receive(:paginate).with(:list_tlds, foo: "bar")
       subject.all_tlds(foo: "bar")
     end
 
@@ -108,21 +108,21 @@ describe Dnsimple::Client, ".tlds" do
     end
   end
 
-  describe "#extended_attributes" do
+  describe "#tld_extended_attributes" do
     before do
       stub_request(:get, %r{/v2/tlds/uk/extended_attributes$})
           .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
     end
 
     it "builds the correct request" do
-      subject.extended_attributes(tld = "uk")
+      subject.tld_extended_attributes(tld = "uk")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}/extended_attributes")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the extended attributes" do
-      response = subject.extended_attributes("uk")
+      response = subject.tld_extended_attributes("uk")
       expect(response).to be_a(Dnsimple::CollectionResponse)
 
       response.data.each do |result|
@@ -148,7 +148,7 @@ describe Dnsimple::Client, ".tlds" do
       end
 
       it "returns an empty CollectionResponse" do
-        response = subject.extended_attributes("com")
+        response = subject.tld_extended_attributes("com")
         expect(response).to be_a(Dnsimple::CollectionResponse)
 
         result = response.data
