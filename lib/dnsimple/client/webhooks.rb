@@ -9,13 +9,22 @@ module Dnsimple
       # @example List all webhooks
       #   client.webhooks.list(1010)
       #
-      # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @example List all webhooks, provide a specific page
+      #   client.webhooks.list(1010, page: 2)
+      #
+      # @example List all webhooks, provide sorting policy
+      #   client.webhooks.list(1010, sort: "id:asc")
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Webhook>]
       #
       # @raise  [Dnsimple::RequestError]
       def webhooks(account_id, options = {})
-        response = client.get(Client.versioned("/%s/webhooks" % [account_id]), options)
+        response = client.get(Client.versioned("/%s/webhooks" % [account_id]), Options::ListOptions.new(options))
 
         Dnsimple::CollectionResponse.new(response, response["data"].map { |r| Struct::Webhook.new(r) })
       end
@@ -26,7 +35,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/webhooks/#create
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Webhook>]
@@ -44,7 +53,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/webhooks/#get
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] webhook_id The webhook ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Webhook>]
@@ -63,7 +72,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/webooks/#delete
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] webhook_id The webhook ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]

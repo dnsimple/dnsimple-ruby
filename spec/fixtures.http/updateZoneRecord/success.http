@@ -1,17 +1,21 @@
 HTTP/1.1 200 OK
 Server: nginx
-Date: Thu, 07 Jan 2016 17:54:46 GMT
+Date: Wed, 05 Oct 2016 09:59:48 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
-Status: 200 OK
-X-RateLimit-Limit: 4000
-X-RateLimit-Remaining: 3988
-X-RateLimit-Reset: 1452189285
-ETag: W/"e870cbe9707d7c1acd0bdb3e4b756cf9"
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2393
+X-RateLimit-Reset: 1475662530
+ETag: W/"92c807156882e555af8f7a5b93350e44"
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: f320b46c-a7cd-41fe-a061-f38b7a92391f
-X-Runtime: 0.103506
+X-Request-Id: 3b630702-46a9-4449-a320-b7ac903d2127
+X-Runtime: 0.405810
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Frame-Options: DENY
+X-Permitted-Cross-Domain-Policies: none
+X-XSS-Protection: 1; mode=block
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":64784,"domain_id":5841,"parent_id":null,"name":"www","content":"127.0.0.1","ttl":600,"priority":null,"type":"A","system_record":false,"created_at":"2016-01-07T17:45:13.653Z","updated_at":"2016-01-07T17:54:46.722Z"}}
+{"data":{"id":5,"zone_id":"example.com","parent_id":null,"name":"","content":"mxb.example.com","ttl":3600,"priority":20,"type":"MX","regions":["global"],"system_record":false,"created_at":"2016-10-05T09:51:35Z","updated_at":"2016-10-05T09:51:35Z"}}

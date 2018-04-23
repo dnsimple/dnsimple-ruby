@@ -2,10 +2,10 @@ module Dnsimple
   module Struct
 
     class Contact < Base
-      # @return [Fixnum] The contact ID in DNSimple.
+      # @return [Integer] The contact ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated account ID.
+      # @return [Integer] The associated account ID.
       attr_accessor :account_id
 
       # @return [String] The label to represent the contact.

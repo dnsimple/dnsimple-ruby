@@ -2,10 +2,10 @@ module Dnsimple
   module Struct
 
     class EmailForward < Base
-      # @return [Fixnum] The email forward ID in DNSimple.
+      # @return [Integer] The email forward ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated domain ID.
+      # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
       # @return [String] The "local part" of the originating email address. Anything to the left of the @ symbol.

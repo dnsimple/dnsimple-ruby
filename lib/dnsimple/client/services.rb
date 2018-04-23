@@ -9,13 +9,22 @@ module Dnsimple
       # @example List one-click services:
       #   client.services.list_services
       #
-      # @param  [Hash] options
+      # @example List one-click services, provide a specific page:
+      #   client.services.list_services(page: 2)
+      #
+      # @example List one-click services, provide a sorting policy:
+      #   client.services.list_services(sort: "short_name:asc")
+      #
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Service>]
       #
       # @raise  [RequestError] When the request fails.
       def services(options = {})
         endpoint = Client.versioned("/services")
-        response = client.get(endpoint, options)
+        response = client.get(endpoint, Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Service.new(r) })
       end
@@ -35,7 +44,10 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/services/#list
       # @see #services
       #
-      # @param  [Hash] options
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Service>]
       #
       # @raise  [RequestError] When the request fails.

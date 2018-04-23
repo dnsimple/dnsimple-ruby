@@ -11,18 +11,24 @@ module Dnsimple
       #   client.templates.records(1010, "alpha")
       #
       # @example List records for the template "alpha", providing a specific page
-      #   client.templates.records(1010, "alpha", query: { page: 2 })
+      #   client.templates.records(1010, "alpha", page: 2)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @example List records for the template "alpha", providing sorting policy
+      #   client.templates.records(1010, "alpha", sort: "type:asc")
+      #
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
-      # @param  [Hash] options
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::TemplateRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def records(account_id, template_id, options = {})
         endpoint = Client.versioned("/%s/templates/%s/records" % [account_id, template_id])
-        response = client.get(endpoint, options)
+        response = client.get(endpoint, Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::TemplateRecord.new(r) })
       end
@@ -42,9 +48,12 @@ module Dnsimple
       # @example List all the records for "alpha template
       #   client.templates.all_records(1010, "alpha")
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
-      # @param  [Hash] options
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::TemplateRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -60,7 +69,7 @@ module Dnsimple
       # @example Create an A record for "alpha" template
       #   client.templates.create_record(1010, "alpha", name: "", type: "A", content: "192.168.1.1", ttl: 600)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -83,9 +92,9 @@ module Dnsimple
       # @example Get record 123 in "alpha template
       #   client.templates.record(1010, "alpha", 123)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
-      # @param  [Fixnum] record_id the record ID
+      # @param  [Integer] record_id the record ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::TemplateRecord>]
       #
@@ -107,9 +116,9 @@ module Dnsimple
       # @example Delete record 123 in "alpha template
       #   client.templates.delete_record(1010, "alpha", 123)
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [String] template_id the template name
-      # @param  [Fixnum] record_id the record ID
+      # @param  [Integer] record_id the record ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
       #

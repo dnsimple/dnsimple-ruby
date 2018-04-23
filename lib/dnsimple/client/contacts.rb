@@ -11,15 +11,21 @@ module Dnsimple
       #   client.contacts.list(1010)
       #
       # @example List contacts, provide a specific page
-      #   client.contacts.list(1010, query: { page: 2 })
+      #   client.contacts.list(1010, page: 2)
       #
-      # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @example List contacts, provide a sorting policy
+      #   client.contacts.list(1010, sort: "email:asc")
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Contact>]
       #
       # @raise  [Dnsimple::RequestError]
       def contacts(account_id, options = {})
-        response = client.get(Client.versioned("/%s/contacts" % [account_id]), options)
+        response = client.get(Client.versioned("/%s/contacts" % [account_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Contact.new(r) })
       end
@@ -36,8 +42,11 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/contacts/#list
       # @see #contacts
       #
-      # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @param  [Integer] account_id the account ID
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Contact>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -49,7 +58,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#create
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
@@ -66,7 +75,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#get
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
@@ -83,7 +92,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#update
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] attributes
       # @param  [Hash] options
@@ -102,7 +111,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#delete
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] contact_id the contact ID
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]

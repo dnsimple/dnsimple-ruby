@@ -2,18 +2,11 @@
 
 A Ruby client for the [DNSimple API v2](https://developer.dnsimple.com/v2/).
 
-[![Build Status](https://travis-ci.org/aetrion/dnsimple-ruby.svg?branch=master)](https://travis-ci.org/aetrion/dnsimple-ruby)
-[![Coverage Status](https://img.shields.io/coveralls/aetrion/dnsimple-ruby.svg)](https://coveralls.io/r/aetrion/dnsimple-ruby?branch=master)
+[![Build Status](https://travis-ci.org/dnsimple/dnsimple-ruby.svg?branch=master)](https://travis-ci.org/dnsimple/dnsimple-ruby)
+[![Coverage Status](https://img.shields.io/coveralls/dnsimple/dnsimple-ruby.svg)](https://coveralls.io/r/dnsimple/dnsimple-ruby?branch=master)
 
 [DNSimple](https://dnsimple.com/) provides DNS hosting and domain registration that is simple and friendly.
 We provide a full API and an easy-to-use web interface so you can get your domain registered and set up with a minimal amount of effort.
-
-
-## :warning: Beta Warning
-
-This branch targets the development of the API client for the [DNSimple API v2](https://developer.dnsimple.com/v2/). If you are looking for the stable version of the client for [DNSimple API v1](https://developer.dnsimple.com/v1/) then use the [`master-v1`](https://github.com/aetrion/dnsimple-ruby/tree/master-v1) branch.
-
-This library is currently in beta version, the methods and the implementation should be considered a work-in-progress. Changes in the method naming, method signatures, public or internal APIs may happen during the beta period.
 
 
 ## Installation
@@ -21,13 +14,13 @@ This library is currently in beta version, the methods and the implementation sh
 You can install the gem manually:
 
 ```
-$ gem install dnsimple
+gem install dnsimple
 ```
 
 Or use Bundler and define it as a dependency in your Gemfile:
 
 ```
-gem 'dnsimple', '~> 3.0'
+gem 'dnsimple', '~> 4.0'
 ```
 
 ## Usage
@@ -69,6 +62,30 @@ puts response.data
 For the full library documentation visit http://rubydoc.info/gems/dnsimple
 
 
+## Sandbox Environment
+
+We highly recommend testing against our [sandbox environment](https://developer.dnsimple.com/sandbox/) before using our production environment. This will allow you to avoid real purchases, live charges on your credit card, and reduce the chance of your running up against rate limits.
+
+The client supports both the production and sandbox environment. To switch to sandbox pass the sandbox API host using the `base_url` option when you construct the client:
+
+```ruby
+client = Dnsimple::Client.new(base_url: "https://api.sandbox.dnsimple.com", access_token: "a1b2c3")
+```
+
+You will need to ensure that you are using an access token created in the sandbox environment. Production tokens will *not* work in the sandbox environment.
+
+
+## Setting a custom `User-Agent` header
+
+You customize the `User-Agent` header for the calls made to the DNSimple API:
+
+```ruby
+client = Dnsimple::Client.new(user_agent: "my-app")
+```
+
+The value you provide will be appended to the default `User-Agent` the client uses. For example, if you use `my-app`, the final header value will be `dnsimple-ruby/4.1.0 my-app` (note that it will vary depending on the client version).
+
+
 ## License
 
-Copyright (c) 2010-2016 Aetrion LLC. This is Free Software distributed under the MIT license.
+Copyright (c) 2010-2018 Aetrion LLC. This is Free Software distributed under the MIT license.

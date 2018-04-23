@@ -11,15 +11,25 @@ module Dnsimple
       #   client.domains.list(1010)
       #
       # @example List domains, provide a specific page
-      #   client.domains.list(1010, query: { page: 2 })
+      #   client.domains.list(1010, page: 2)
       #
-      # @param  [Fixnum] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @example List domains, provide a sorting policy
+      #   client.domains.list(1010, sort: "expires_on:asc")
+      #
+      # @example List domains, provide a filtering policy
+      #   client.domains.list(1010, filter: { name_like: "example" })
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [Hash] options the filtering and sorting options
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
+      # @option options [Hash] :filter filtering policy
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Domain>]
       #
       # @raise  [Dnsimple::RequestError]
       def domains(account_id, options = {})
-        response = client.get(Client.versioned("/%s/domains" % [account_id]), options)
+        response = client.get(Client.versioned("/%s/domains" % [account_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Domain.new(r) })
       end
@@ -36,8 +46,12 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/#list
       # @see #domains
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting option
+      # @option options [Integer] :page current page (pagination)
+      # @option options [Integer] :per_page number of entries to return (pagination)
+      # @option options [String] :sort sorting policy
+      # @option options [Hash] :filter filtering policy
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::Domain>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -49,7 +63,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#create
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
@@ -67,7 +81,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#get
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
@@ -86,7 +100,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#delete
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]
@@ -103,7 +117,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/#reset-token
       #
-      # @param  [Fixnum] account_id the account ID
+      # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] options
       # @return [Dnsimple::Response<nil>]

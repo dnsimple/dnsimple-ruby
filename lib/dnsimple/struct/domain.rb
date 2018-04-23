@@ -2,13 +2,13 @@ module Dnsimple
   module Struct
 
     class Domain < Base
-      # @return [Fixnum] The domain ID in DNSimple.
+      # @return [Integer] The domain ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The associated account ID.
+      # @return [Integer] The associated account ID.
       attr_accessor :account_id
 
-      # @return [Fixnum] The associated registrant (contact) ID.
+      # @return [Integer] The associated registrant (contact) ID.
       attr_accessor :registrant_id
 
       # @return [String] The domain name.

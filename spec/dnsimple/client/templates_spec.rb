@@ -9,15 +9,33 @@ describe Dnsimple::Client, ".templates" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/templates$}).
-          to_return(read_http_fixture("listTemplates/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/templates})
+          .to_return(read_http_fixture("listTemplates/success.http"))
     end
 
     it "builds the correct request" do
       subject.list_templates(account_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "supports pagination" do
+      subject.templates(account_id, page: 2)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?page=2")
+    end
+
+    it "supports extra request options" do
+      subject.templates(account_id, query: { foo: "bar" })
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?foo=bar")
+    end
+
+    it "supports sorting" do
+      subject.templates(account_id, sort: "short_name:desc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?sort=short_name:desc")
     end
 
     it "returns the list of templates" do
@@ -29,18 +47,29 @@ describe Dnsimple::Client, ".templates" do
         expect(result.id).to be_a(Numeric)
         expect(result.account_id).to be_a(Numeric)
         expect(result.name).to be_a(String)
-        expect(result.short_name).to be_a(String)
+        expect(result.sid).to be_a(String)
         expect(result.description).to be_a(String)
       end
     end
   end
 
   describe "#all_templates" do
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/templates})
+          .to_return(read_http_fixture("listTemplates/success.http"))
+    end
+
     let(:account_id) { 1010 }
 
     it "delegates to client.paginate" do
       expect(subject).to receive(:paginate).with(:templates, account_id, foo: "bar")
       subject.all_templates(account_id, foo: "bar")
+    end
+
+    it "supports sorting" do
+      subject.all_templates(account_id, sort: "short_name:desc")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?page=1&per_page=100&sort=short_name:desc")
     end
   end
 
@@ -48,8 +77,8 @@ describe Dnsimple::Client, ".templates" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:post, %r{/v2/#{account_id}/templates$}).
-          to_return(read_http_fixture("createTemplate/created.http"))
+      stub_request(:post, %r{/v2/#{account_id}/templates$})
+          .to_return(read_http_fixture("createTemplate/created.http"))
     end
 
     let(:attributes) { { name: "Beta", short_name: "beta", description: "A beta template." } }
@@ -57,8 +86,8 @@ describe Dnsimple::Client, ".templates" do
     it "builds the correct request" do
       subject.create_template(account_id, attributes)
 
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/templates").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/templates")
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the list of templates" do
@@ -70,7 +99,7 @@ describe Dnsimple::Client, ".templates" do
       expect(template.id).to eq(1)
       expect(template.account_id).to eq(1010)
       expect(template.name).to eq("Beta")
-      expect(template.short_name).to eq("beta")
+      expect(template.sid).to eq("beta")
       expect(template.description).to eq("A beta template.")
     end
   end
@@ -80,15 +109,15 @@ describe Dnsimple::Client, ".templates" do
     let(:template_id) { 1 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}$}).
-          to_return(read_http_fixture("getTemplate/success.http"))
+      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}$})
+          .to_return(read_http_fixture("getTemplate/success.http"))
     end
 
     it "builds the correct request" do
       subject.template(account_id, template_id)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}")
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the list of templates" do
@@ -100,7 +129,7 @@ describe Dnsimple::Client, ".templates" do
       expect(template.id).to eq(1)
       expect(template.account_id).to eq(1010)
       expect(template.name).to eq("Alpha")
-      expect(template.short_name).to eq("alpha")
+      expect(template.sid).to eq("alpha")
       expect(template.description).to eq("An alpha template.")
     end
   end
@@ -110,8 +139,8 @@ describe Dnsimple::Client, ".templates" do
     let(:template_id) { 1 }
 
     before do
-      stub_request(:patch, %r{/v2/#{account_id}/templates/#{template_id}$}).
-          to_return(read_http_fixture("updateTemplate/success.http"))
+      stub_request(:patch, %r{/v2/#{account_id}/templates/#{template_id}$})
+          .to_return(read_http_fixture("updateTemplate/success.http"))
     end
 
     let(:attributes) { { name: "Alpha", short_name: "alpha", description: "An alpha template." } }
@@ -119,8 +148,8 @@ describe Dnsimple::Client, ".templates" do
     it "builds the correct request" do
       subject.update_template(account_id, template_id, attributes)
 
-      expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}")
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the list of templates" do
@@ -132,7 +161,7 @@ describe Dnsimple::Client, ".templates" do
       expect(template.id).to eq(1)
       expect(template.account_id).to eq(1010)
       expect(template.name).to eq("Alpha")
-      expect(template.short_name).to eq("alpha")
+      expect(template.sid).to eq("alpha")
       expect(template.description).to eq("An alpha template.")
     end
   end
@@ -142,19 +171,43 @@ describe Dnsimple::Client, ".templates" do
     let(:template_id) { 5410 }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/templates/#{template_id}$}).
-          to_return(read_http_fixture("deleteTemplate/success.http"))
+      stub_request(:delete, %r{/v2/#{account_id}/templates/#{template_id}$})
+          .to_return(read_http_fixture("deleteTemplate/success.http"))
     end
 
     it "builds the correct request" do
       subject.delete_template(account_id, template_id)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}").
-          with(headers: { "Accept" => "application/json" })
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}")
+          .with(headers: { "Accept" => "application/json" })
     end
 
-    it "returns the list of templates" do
+    it "returns nil" do
       response = subject.delete_template(account_id, template_id)
+      expect(response).to be_a(Dnsimple::Response)
+      expect(response.data).to be_nil
+    end
+  end
+
+  describe "#apply_template" do
+    let(:account_id)  { 1010 }
+    let(:template_id) { 5410 }
+    let(:domain_id)   { 'example.com' }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}$})
+          .to_return(read_http_fixture("applyTemplate/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.apply_template(account_id, template_id, domain_id)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns nil" do
+      response = subject.apply_template(account_id, template_id, domain_id)
       expect(response).to be_a(Dnsimple::Response)
       expect(response.data).to be_nil
     end

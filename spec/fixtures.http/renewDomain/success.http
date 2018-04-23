@@ -1,17 +1,21 @@
 HTTP/1.1 201 Created
 Server: nginx
-Date: Mon, 15 Feb 2016 15:19:24 GMT
+Date: Fri, 09 Dec 2016 19:46:57 GMT
 Content-Type: application/json; charset=utf-8
 Transfer-Encoding: chunked
 Connection: keep-alive
-Status: 201 Created
-X-RateLimit-Limit: 4000
-X-RateLimit-Remaining: 3996
-X-RateLimit-Reset: 1455552316
-ETag: W/"3ee240b342a641fbc69f9c35fa77b53f"
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2394
+X-RateLimit-Reset: 1481315245
+ETag: W/"179d85ea8a26a3d5dc76e42de2d7918e"
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: f888665c-8fcc-4ff1-a954-8ce7d7e19af6
-X-Runtime: 3.506408
+X-Request-Id: ba6f2707-5df0-4ffa-b91b-51d4460bab8e
+X-Runtime: 13.571302
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Frame-Options: DENY
+X-Permitted-Cross-Domain-Policies: none
+X-XSS-Protection: 1; mode=block
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":1,"account_id":1010,"registrant_id":2,"name":"example.com","unicode_name":"example.com","token":"domain-token","state":"registered","auto_renew":false,"private_whois":false,"expires_on":"2018-01-16","created_at":"2016-01-16T16:08:50.649Z","updated_at":"2016-02-15T15:19:24.689Z"}}
+{"data":{"id":1,"domain_id":999,"period":1,"state":"new","premium_price":null,"created_at":"2016-12-09T19:46:45Z","updated_at":"2016-12-09T19:46:45Z"}}

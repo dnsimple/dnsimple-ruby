@@ -2,6 +2,11 @@ inherit_from:
   - .rubocop_todo.yml
   - .rubocop_dnsimple.yml
 
+AllCops:
+  Exclude:
+    - '*.gemspec'
+    - 'Rakefile'
+
 # [codesmell]
 # It's irrelevant here, but it could be a code smell.
 # Hence keep it disabled, but don't include it in the DNSimple suite.
@@ -10,4 +15,9 @@ Lint/Loop:
 
 # It doesn't seem to work as expected.
 Style/IfUnlessModifier:
+  Enabled: false
+
+# This rule suggest to use safe navigation (&.) operator which was introduced
+# with Ruby 2.3. Because we are supporting Ruby 2.0+ we can't use this operator.
+Style/SafeNavigation:
   Enabled: false

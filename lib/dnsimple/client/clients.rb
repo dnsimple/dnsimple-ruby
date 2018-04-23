@@ -1,6 +1,16 @@
 module Dnsimple
   class Client
 
+    # @return [Dnsimple::Client::AccountsService] The account-related API proxy.
+    def accounts
+      @services[:accounts] ||= Client::AccountsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::CertificatesService] The certificate-related API proxy.
+    def certificates
+      @services[:certificates] ||= Client::CertificatesService.new(self)
+    end
+
     # @return [Dnsimple::Client::ContactsService] The contact-related API proxy.
     def contacts
       @services[:contacts] ||= Client::ContactsService.new(self)
@@ -9,6 +19,11 @@ module Dnsimple
     # @return [Dnsimple::Client::DomainsService] The domain-related API proxy.
     def domains
       @services[:domains] ||= Client::DomainsService.new(self)
+    end
+
+    # @return [Dnsimple::Client::DomainServicesService] The domain-services-related API proxy.
+    def domain_services
+      @services[:domains] ||= Client::DomainServicesService.new(self)
     end
 
     # @return [Dnsimple::Client::IdentityService] The identity-related API proxy.
@@ -41,6 +56,11 @@ module Dnsimple
       @services[:tlds] ||= Client::TldsService.new(self)
     end
 
+    # @return [Dnsimple::Client::VanityNameServersService] The vanity-name-server-related API proxy.
+    def vanity_name_servers
+      @services[:vanity_name_servers] ||= Client::VanityNameServersService.new(self)
+    end
+
     # @return [Dnsimple::Client::ZonesService] The zone-related API proxy.
     def zones
       @services[:zones] ||= Client::ZonesService.new(self)
@@ -52,7 +72,7 @@ module Dnsimple
     end
 
 
-    # @!class Struct
+    # Struct
     class ClientService
 
       # @return [Dnsimple::Client]
@@ -91,6 +111,20 @@ module Dnsimple
     end
 
 
+    require_relative 'accounts'
+
+    class AccountsService < ClientService
+      include Client::Accounts
+    end
+
+
+    require_relative 'certificates'
+
+    class CertificatesService < ClientService
+      include Client::Certificates
+    end
+
+
     require_relative 'contacts'
 
     class ContactsService < ClientService
@@ -99,11 +133,19 @@ module Dnsimple
 
 
     require_relative 'domains'
+    require_relative 'domains_delegation_signer_records'
+    require_relative 'domains_dnssec'
     require_relative 'domains_email_forwards'
+    require_relative 'domains_pushes'
+    require_relative 'domains_collaborators'
 
     class DomainsService < ClientService
       include Client::Domains
+      include Client::DomainsDelegationSignerRecords
+      include Client::DomainsDnssec
       include Client::DomainsEmailForwards
+      include Client::DomainsPushes
+      include Client::DomainsCollaborators
     end
 
 
@@ -135,17 +177,21 @@ module Dnsimple
 
 
     require_relative 'services'
+    require_relative 'services_domains'
 
     class ServicesService < ClientService
       include Client::Services
+      include Client::ServicesDomains
     end
 
 
     require_relative 'templates'
+    require_relative 'templates_domains'
     require_relative 'templates_records'
 
     class TemplatesService < ClientService
       include Client::Templates
+      include Client::TemplatesDomains
       include Client::TemplatesRecords
     end
 
@@ -154,6 +200,13 @@ module Dnsimple
 
     class TldsService < ClientService
       include Client::Tlds
+    end
+
+
+    require_relative 'vanity_name_servers'
+
+    class VanityNameServersService < ClientService
+      include Client::VanityNameServers
     end
 
 

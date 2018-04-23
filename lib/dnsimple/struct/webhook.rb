@@ -2,7 +2,7 @@ module Dnsimple
   module Struct
 
     class Webhook < Base
-      # @return [Fixnum] The contact ID in DNSimple.
+      # @return [Integer] The contact ID in DNSimple.
       attr_accessor :id
 
       # @return [String] The callback URL.

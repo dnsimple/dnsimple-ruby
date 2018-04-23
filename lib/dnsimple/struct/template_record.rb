@@ -2,10 +2,10 @@ module Dnsimple
   module Struct
 
     class TemplateRecord < Base
-      # @return [Fixnum] The template record ID in DNSimple.
+      # @return [Integer] The template record ID in DNSimple.
       attr_accessor :id
 
-      # @return [Fixnum] The template ID in DNSimple.
+      # @return [Integer] The template ID in DNSimple.
       attr_accessor :template_id
 
       # @return [String] The type of template record, in uppercase.
@@ -17,10 +17,10 @@ module Dnsimple
       # @return [String] The plain-text template record content.
       attr_accessor :content
 
-      # @return [Fixnum] The template record TTL value.
+      # @return [Integer] The template record TTL value.
       attr_accessor :ttl
 
-      # @return [Fixnum] The priority value, if the type of template record accepts a priority.
+      # @return [Integer] The priority value, if the type of template record accepts a priority.
       attr_accessor :priority
 
       # @return [String] When the template record was created in DNSimple.

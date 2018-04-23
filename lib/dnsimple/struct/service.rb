@@ -23,14 +23,14 @@ module Dnsimple
         attr_accessor :password
       end
 
-      # @return [Fixnum] The service ID in DNSimple.
+      # @return [Integer] The service ID in DNSimple.
       attr_accessor :id
 
       # @return [String] The service name.
       attr_accessor :name
 
-      # @return [String] A short name for the service.
-      attr_accessor :short_name
+      # @return [String] A string ID for the service.
+      attr_accessor :sid
 
       # @return [String] The service description.
       attr_accessor :description
@@ -45,7 +45,7 @@ module Dnsimple
       attr_accessor :default_subdomain
 
       # @return [Array<Settings>] The array of settings to setup this service, if setup is required.
-      attr_accessor :settings
+      attr_reader :settings
 
       def initialize(*)
         super

@@ -3,14 +3,66 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
-#### master
+### master
 
+- Bump minimum Ruby requirement to 2.1
+- Introduce Dnsimple::Struct::VanityNameServer (GH-144)
+- Fix name inconsistency of the Collaborator module (GH-154)
+
+
+#### 4.4.0
+
+- NEW: Added Let's Encrypt certificate methods (GH-159)
+
+- REMOVED: Removed premium_price attribute from registrar order responses (GH-163). Please do not rely on that attribute, as it returned an incorrect value. The attribute is going to be removed, and the API now returns a null value.
+
+
+#### 4.3.0
+
+- NEW: Added `certificates.all_certificates` (dnsimple/dnsimple-ruby#155)
+
+- CHANGED: Updated registrar URLs (dnsimple/dnsimple-ruby#153)
+
+
+#### 4.2.0
+
+- NEW: Added DNSSEC support support (dnsimple/dnsimple-ruby#152)
+
+
+#### 4.1.0
+
+- NEW: Added domain premium price support (dnsimple/dnsimple-ruby#143)
+
+- CHANGED: Updated registration, transfer, renewal response payload (dnsimple/dnsimple-developer#111, dnsimple/dnsimple-ruby#140).
+- CHANGED: Normalize unique string identifiers to SID (dnsimple/dnsimple-ruby#141)
+
+
+#### 4.0.0
+
+- NEW: Added domain collaborators support (GH-137).
+- NEW: Added regions support for zone records (GH-135, GH-139).
+- NEW: Added domain services support (GH-122).
+- NEW: Added domain templates support (GH-125).
+- NEW: Added zone file support (GH-124).
+- NEW: Added certificate support (GH-123).
+- NEW: Added domain delegation support (GH-120).
+- NEW: Added domain push support (GH-127).
+- NEW: Added vanity name server support (GH-121).
+
+- CHANGED: Record struct renamed to ZoneRecord (GH-117).
+- CHANGED: Updated Tld payload (GH-133, GH-129).
+- CHANGED: Renamed registrar `auth_info` into `auth_code` (GH-136).
+
+
+#### 3.1.0
+
+- NEW: Added accounts support (GH-113).
+- NEW: Added sorting and filtering support (GH-112).
 - NEW: Added template record support (GH-104).
 
+- CHANGED: Pagination params must be passed as top level options. Previously they were passed inside `:query` options (GH-116).
 - CHANGED: Authentication credentials presence is no longer validated on the client as it was causing an error getting the access token (GH-74 and GH-102).
-
-- CHANGED: Setting a custom user-agent no longer overrides the origina user-agent (GH-105).
-
+- CHANGED: Setting a custom user-agent no longer overrides the original user-agent (GH-105).
 - CHANGED: Updated client to use Contact#email (GH-108).
 
 - REMOVED: Removed support for wildcard accounts (GH-107).
