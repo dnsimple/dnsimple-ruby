@@ -3,6 +3,10 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
+### master
+
+- Bump minimum Ruby requirement to 2.1
+
 #### 4.4.0
 
 - NEW: Added Let's Encrypt certificate methods (GH-159)

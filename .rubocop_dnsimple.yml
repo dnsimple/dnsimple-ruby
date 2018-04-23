@@ -20,7 +20,7 @@ Bundler/OrderedGems:
 #                             do_else
 #                           end
 #
-Lint/EndAlignment:
+Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
 
 # [codesmell]
@@ -84,11 +84,24 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+# We tend to use @_name to represent a variable that is memoized,
+# but it should not be accessed directly and kept as private.
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
 # We use it from time to time, as it's not always possible (or maintainable)
 # to use simple ? methods.
 # Moreover, it's actually more efficient to not-use predicates:
 # https://github.com/bbatsov/rubocop/issues/3633
 Naming/PredicateName:
+  Enabled: false
+
+# This cop triggers several false positives that make sense in our domain model.
+# For instance, ip is considered an uncommunicative parameter name:
+#
+#   ipv4_to_arpa_name(ip)
+#
+Naming/UncommunicativeMethodParamName:
   Enabled: false
 
 # [codesmell]
@@ -229,7 +242,12 @@ Style/StringLiteralsInInterpolation:
 
 # It's nice to be consistent. The trailing comma also allows easy reordering,
 # and doesn't cause a diff in Git when you add a line to the bottom.
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+# It's nice to be consistent. The trailing comma also allows easy reordering,
+# and doesn't cause a diff in Git when you add a line to the bottom.
+Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
 
 Style/TrivialAccessors:

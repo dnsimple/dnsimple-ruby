@@ -61,7 +61,7 @@ module Dnsimple
     def initialize(options = {})
       defaults = Dnsimple::Default.options
 
-      Dnsimple::Default.keys.each do |key| # rubocop:disable Performance/HashEachMethods
+      Dnsimple::Default.keys.each do |key|
         instance_variable_set(:"@#{key}", options[key] || defaults[key])
       end
 
