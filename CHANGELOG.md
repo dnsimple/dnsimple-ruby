@@ -6,6 +6,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 ### master
 
 - Bump minimum Ruby requirement to 2.1
+- Introduce Dnsimple::Struct::VanityNameServer (GH-144)
+
 
 #### 4.4.0
 
