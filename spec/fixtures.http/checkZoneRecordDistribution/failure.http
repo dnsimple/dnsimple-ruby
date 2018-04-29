@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Mon, 18 Dec 2017 10:54:13 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2398
+X-RateLimit-Reset: 1513597686
+ETag: W/"10fc650d019e6bffa876f08bce8f3380"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: f5a86610-0e22-4047-a27c-350769eaa6d5
+X-Runtime: 0.425440
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Frame-Options: DENY
+X-Permitted-Cross-Domain-Policies: none
+X-XSS-Protection: 1; mode=block
+Strict-Transport-Security: max-age=31536000
+
+{"data":{"distributed":false}}
