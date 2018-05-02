@@ -14,9 +14,6 @@ module Dnsimple
       # @return [String] The state of the renewal.
       attr_accessor :state
 
-      # @return [String] The premium price requested for the renewal.
-      attr_accessor :premium_price
-
       # @return [String] When the domain renewal was created in DNSimple.
       attr_accessor :created_at
 

@@ -1,6 +1,6 @@
 module Dnsimple
   class Client
-    module Collaborators
+    module DomainsCollaborators
 
       # Lists the collaborators for a domain.
       #

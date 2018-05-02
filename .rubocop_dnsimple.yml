@@ -20,7 +20,7 @@ Bundler/OrderedGems:
 #                             do_else
 #                           end
 #
-Lint/EndAlignment:
+Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
 
 # [codesmell]
@@ -84,11 +84,24 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+# We tend to use @_name to represent a variable that is memoized,
+# but it should not be accessed directly and kept as private.
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
 # We use it from time to time, as it's not always possible (or maintainable)
 # to use simple ? methods.
 # Moreover, it's actually more efficient to not-use predicates:
 # https://github.com/bbatsov/rubocop/issues/3633
 Naming/PredicateName:
+  Enabled: false
+
+# This cop triggers several false positives that make sense in our domain model.
+# For instance, ip is considered an uncommunicative parameter name:
+#
+#   ipv4_to_arpa_name(ip)
+#
+Naming/UncommunicativeMethodParamName:
   Enabled: false
 
 # [codesmell]
@@ -126,10 +139,15 @@ Style/EmptyElse:
 Style/EmptyMethod:
   Enabled: false
 
-# I personally don't care about the format style.
-# In most cases I like to use %, but not at the point I want to enforce it
+# We don't care about the format style.
+# In most cases we use %, but not at the point we want to enforce it
 # as a convention in the entire code.
 Style/FormatString:
+  Enabled: false
+
+# Annotated tokens (like %<foo>s) are a good thing, but in most cases we don't need them.
+# %s is a simpler and straightforward version that works in almost all cases. So don't complain.
+Style/FormatStringToken:
   Enabled: false
 
 # We don't support frozen strings.
@@ -182,6 +200,17 @@ Style/NumericLiterals:
 Style/PercentLiteralDelimiters:
   Enabled: false
 
+# Enable but only for multiple returns value.
+#
+#   return foo, bar
+#
+# reads much better than
+#
+#   [foo, bar]
+#
+Style/RedundantReturn:
+  AllowMultipleReturnValues: true
+
 # Do we care?
 Style/RegexpLiteral:
   Enabled: false
@@ -213,7 +242,12 @@ Style/StringLiteralsInInterpolation:
 
 # It's nice to be consistent. The trailing comma also allows easy reordering,
 # and doesn't cause a diff in Git when you add a line to the bottom.
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+
+# It's nice to be consistent. The trailing comma also allows easy reordering,
+# and doesn't cause a diff in Git when you add a line to the bottom.
+Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
 
 Style/TrivialAccessors:
@@ -263,6 +297,10 @@ Layout/DotPosition:
 # Double empty lines are useful to separate conceptually different methods
 # in the same class or module.
 Layout/EmptyLines:
+  Enabled: false
+
+# This is buggy. It detects as a style violation a few `class` and `module` definitions
+Layout/EmptyLinesAroundArguments:
   Enabled: false
 
 Layout/EmptyLinesAroundBlockBody:

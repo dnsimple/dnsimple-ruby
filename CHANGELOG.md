@@ -3,6 +3,20 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
+### master
+
+- Bump minimum Ruby requirement to 2.1
+- Introduce Dnsimple::Struct::VanityNameServer (GH-144)
+- Fix name inconsistency of the Collaborator module (GH-154)
+
+
+#### 4.4.0
+
+- NEW: Added Let's Encrypt certificate methods (GH-159)
+
+- REMOVED: Removed premium_price attribute from registrar order responses (GH-163). Please do not rely on that attribute, as it returned an incorrect value. The attribute is going to be removed, and the API now returns a null value.
+
+
 #### 4.3.0
 
 - NEW: Added `certificates.all_certificates` (dnsimple/dnsimple-ruby#155)

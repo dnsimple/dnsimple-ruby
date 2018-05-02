@@ -27,8 +27,8 @@ describe Dnsimple::Client, ".registrar" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::DomainCheck)
       expect(result.domain).to eq("ruby.codes")
-      expect(result.available).to be_truthy
-      expect(result.premium).to be_truthy
+      expect(result.available).to be(true)
+      expect(result.premium).to be(true)
     end
   end
 
@@ -217,7 +217,7 @@ describe Dnsimple::Client, ".registrar" do
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/authorize_transfer_out$})
-          .to_return(read_http_fixture("transferDomainOut/success.http"))
+          .to_return(read_http_fixture("authorizeDomainTransferOut/success.http"))
     end
 
     it "builds the correct request" do

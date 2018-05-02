@@ -5,7 +5,7 @@ describe Dnsimple::Client, ".zones" do
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").zones }
 
 
-  describe "#records" do
+  describe "#list_zone_records" do
     let(:account_id) { 1010 }
     let(:zone_id) { "example.com" }
 
@@ -15,38 +15,38 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "builds the correct request" do
-      subject.records(account_id, zone_id)
+      subject.list_zone_records(account_id, zone_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
-      subject.records(account_id, zone_id, page: 2)
+      subject.list_zone_records(account_id, zone_id, page: 2)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?page=2")
     end
 
     it "supports extra request options" do
-      subject.records(account_id, zone_id, query: { foo: "bar" })
+      subject.list_zone_records(account_id, zone_id, query: { foo: "bar" })
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?foo=bar")
     end
 
     it "supports sorting" do
-      subject.records(account_id, zone_id, sort: "type:asc")
+      subject.list_zone_records(account_id, zone_id, sort: "type:asc")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?sort=type:asc")
     end
 
     it "supports filtering" do
-      subject.records(account_id, zone_id, filter: { type: "A" })
+      subject.list_zone_records(account_id, zone_id, filter: { type: "A" })
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?type=A")
     end
 
     it "returns the records" do
-      response = subject.records(account_id, zone_id)
+      response = subject.list_zone_records(account_id, zone_id)
 
       expect(response).to be_a(Dnsimple::PaginatedResponse)
       expect(response.data).to be_a(Array)
@@ -60,9 +60,9 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "exposes the pagination information" do
-      response = subject.records(account_id, zone_id)
+      response = subject.list_zone_records(account_id, zone_id)
 
-      expect(response.respond_to?(:page)).to be_truthy
+      expect(response.respond_to?(:page)).to be(true)
       expect(response.page).to eq(1)
       expect(response.per_page).to be_a(Integer)
       expect(response.total_entries).to be_a(Integer)
@@ -75,13 +75,13 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
-          subject.records(account_id, zone_id)
+          subject.list_zone_records(account_id, zone_id)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
 
-  describe "#all_records" do
+  describe "#all_zone_records" do
     before do
       stub_request(:get, %r{/v2/#{account_id}/zones/#{zone_id}/records})
           .to_return(read_http_fixture("listZoneRecords/success.http"))
@@ -91,24 +91,24 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:records, account_id, zone_id, foo: "bar")
-      subject.all_records(account_id, zone_id, foo: "bar")
+      expect(subject).to receive(:paginate).with(:list_zone_records, account_id, zone_id, foo: "bar")
+      subject.all_zone_records(account_id, zone_id, foo: "bar")
     end
 
     it "supports sorting" do
-      subject.all_records(account_id, zone_id, sort: "type:asc")
+      subject.all_zone_records(account_id, zone_id, sort: "type:asc")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?page=1&per_page=100&sort=type:asc")
     end
 
     it "supports filtering" do
-      subject.all_records(account_id, zone_id, filter: { name: "foo", type: "AAAA" })
+      subject.all_zone_records(account_id, zone_id, filter: { name: "foo", type: "AAAA" })
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records?page=1&per_page=100&name=foo&type=AAAA")
     end
   end
 
-  describe "#create_record" do
+  describe "#create_zone_record" do
     let(:account_id) { 1010 }
     let(:zone_id) { "example.com" }
 
@@ -120,7 +120,7 @@ describe Dnsimple::Client, ".zones" do
     let(:attributes) { { type: "A", name: "www", content: "127.0.0.1", regions: %w(global) } }
 
     it "builds the correct request" do
-      subject.create_record(account_id, zone_id, attributes)
+      subject.create_zone_record(account_id, zone_id, attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records")
           .with(body: attributes)
@@ -128,7 +128,7 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "returns the record" do
-      response = subject.create_record(account_id, zone_id, attributes)
+      response = subject.create_zone_record(account_id, zone_id, attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -146,13 +146,13 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
-          subject.create_record(account_id, zone_id, attributes)
+          subject.create_zone_record(account_id, zone_id, attributes)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
 
-  describe "#record" do
+  describe "#zone_record" do
     let(:account_id) { 1010 }
     let(:zone_id) { "example.com" }
     let(:record_id) { 5 }
@@ -163,14 +163,14 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "builds the correct request" do
-      subject.record(account_id, zone_id, record_id)
+      subject.zone_record(account_id, zone_id, record_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the record" do
-      response = subject.record(account_id, zone_id, record_id)
+      response = subject.zone_record(account_id, zone_id, record_id)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -183,7 +183,7 @@ describe Dnsimple::Client, ".zones" do
       expect(result.content).to eq("mxa.example.com")
       expect(result.ttl).to eq(600)
       expect(result.priority).to eq(10)
-      expect(result.system_record).to eq(false)
+      expect(result.system_record).to be(false)
       expect(result.regions).to eq(%w(SV1 IAD))
       expect(result.created_at).to eq("2016-10-05T09:51:35Z")
       expect(result.updated_at).to eq("2016-10-05T09:51:35Z")
@@ -195,7 +195,7 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
-          subject.record(account_id, zone_id, "0")
+          subject.zone_record(account_id, zone_id, "0")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
@@ -206,13 +206,13 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("notfound-record.http"))
 
         expect {
-          subject.record(account_id, zone_id, "0")
+          subject.zone_record(account_id, zone_id, "0")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
 
-  describe "#update_record" do
+  describe "#update_zone_record" do
     let(:account_id) { 1010 }
     let(:zone_id) { "example.com" }
     let(:record_id) { 5 }
@@ -225,7 +225,7 @@ describe Dnsimple::Client, ".zones" do
     let(:attributes) { { content: "mxb.example.com", priority: "20", regions: ['global'] } }
 
     it "builds the correct request" do
-      subject.update_record(account_id, zone_id, record_id, attributes)
+      subject.update_zone_record(account_id, zone_id, record_id, attributes)
 
       expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
           .with(body: attributes)
@@ -233,7 +233,7 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "returns the record" do
-      response = subject.update_record(account_id, zone_id, record_id, attributes)
+      response = subject.update_zone_record(account_id, zone_id, record_id, attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -250,7 +250,7 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
-          subject.update_record(account_id, zone_id, "0", {})
+          subject.update_zone_record(account_id, zone_id, "0", {})
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
@@ -261,13 +261,13 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("notfound-record.http"))
 
         expect {
-          subject.update_record(account_id, zone_id, "0", {})
+          subject.update_zone_record(account_id, zone_id, "0", {})
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
   end
 
-  describe "#delete_record" do
+  describe "#delete_zone_record" do
     let(:account_id) { 1010 }
     let(:zone_id) { "example.com" }
 
@@ -277,14 +277,14 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "builds the correct request" do
-      subject.delete_record(account_id, zone_id, record_id = 2)
+      subject.delete_zone_record(account_id, zone_id, record_id = 2)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns nothing" do
-      response = subject.delete_record(account_id, zone_id, 2)
+      response = subject.delete_zone_record(account_id, zone_id, 2)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -297,7 +297,7 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
-          subject.delete_record(account_id, zone_id, "0")
+          subject.delete_zone_record(account_id, zone_id, "0")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
@@ -308,7 +308,7 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("notfound-record.http"))
 
         expect {
-          subject.delete_record(account_id, zone_id, "0")
+          subject.delete_zone_record(account_id, zone_id, "0")
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end

@@ -2,18 +2,24 @@
 
 ## Getting started
 
+#### 1. Clone the repository
+
 Clone the repository and move into it:
 
+```shell
+git clone git@github.com:dnsimple/dnsimple-ruby.git
+cd dnsimple-ruby
 ```
-$ git clone git@github.com:dnsimple/dnsimple-ruby.git
-$ cd dnsimple-ruby
-```
+
+#### 2. Install the dependencies
 
 Install the dependencies using [Bundler](http://bundler.io/):
 
 ```
-$ bundle
+bundle
 ```
+
+#### 3. Build and test
 
 [Run the test suite](#testing) to check everything works as expected.
 
@@ -23,7 +29,7 @@ $ bundle
 To run the test suite:
 
 ```
-$ rake
+rake
 ```
 
 
@@ -31,5 +37,4 @@ $ rake
 
 Submit unit tests for your changes. You can test your changes on your machine by [running the test suite](#testing).
 
-When you submit a PR, tests will also be run on the continuous integration environment [through Travis](https://travis-ci.org/dnsimple/dnsimple-ruby).
-
+When you submit a PR, tests will also be run on the [continuous integration environment via Travis](https://travis-ci.org/dnsimple/dnsimple-ruby).

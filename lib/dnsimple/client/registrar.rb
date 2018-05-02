@@ -7,7 +7,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/registrar/#check
       #
       # @example Check whether example.com is available:
-      #   client.registrar.check(1010, "example.com")
+      #   client.registrar.check_domain(1010, "example.com")
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to check
@@ -54,7 +54,7 @@ module Dnsimple
       #
       # @example Initiate the registration of example.com using the contact 1234 as registrant
       #   including WHOIS privacy for the domain and enabling auto renewal:
-      #   client.registrar.register(1010, "example.com", registrant_id: 1234, private_whois: true, auto_renew: true)
+      #   client.registrar.register_domain(1010, "example.com", registrant_id: 1234, private_whois: true, auto_renew: true)
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to register
@@ -76,7 +76,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/registrar/#renew
       #
       # @example Renew example.com for 3 years:
-      #   client.registrar.renew(1010, "example.com", period: 3)
+      #   client.registrar.renew_domain(1010, "example.com", period: 3)
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to renew
@@ -97,7 +97,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/registrar/#transfer
       #
       # @example Initiate the transfer for example.com using the contact 1234 as registrant:
-      #   client.registrar.transfer(1010, "example.com", registrant_id: 1234, auth_code: "x1y2z3")
+      #   client.registrar.transfer_domain(1010, "example.com", registrant_id: 1234, auth_code: "x1y2z3")
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to transfer
@@ -119,7 +119,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/registrar/#transfer-out
       #
       # @example Request to transfer of example.com out of DNSimple:
-      #   client.registrar.transfer_out(1010, "example.com")
+      #   client.registrar.transfer_domain_out(1010, "example.com")
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_name the domain name to transfer out

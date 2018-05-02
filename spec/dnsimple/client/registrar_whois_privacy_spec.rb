@@ -27,7 +27,7 @@ describe Dnsimple::Client, ".registrar" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::WhoisPrivacy)
       expect(result.domain_id).to be_kind_of(Integer)
-      expect(result.enabled).to be_truthy
+      expect(result.enabled).to be(true)
       expect(result.expires_on).to be_kind_of(String)
     end
   end
@@ -56,7 +56,7 @@ describe Dnsimple::Client, ".registrar" do
         result = response.data
         expect(result).to be_a(Dnsimple::Struct::WhoisPrivacy)
         expect(result.domain_id).to be_kind_of(Integer)
-        expect(result.enabled).to be_truthy
+        expect(result.enabled).to be(true)
         expect(result.expires_on).to be_kind_of(String)
       end
     end
@@ -111,7 +111,7 @@ describe Dnsimple::Client, ".registrar" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::WhoisPrivacy)
       expect(result.domain_id).to be_kind_of(Integer)
-      expect(result.enabled).to be_falsey
+      expect(result.enabled).to be(false)
       expect(result.expires_on).to be_kind_of(String)
     end
   end

@@ -14,7 +14,7 @@ We provide a full API and an easy-to-use web interface so you can get your domai
 You can install the gem manually:
 
 ```
-$ gem install dnsimple
+gem install dnsimple
 ```
 
 Or use Bundler and define it as a dependency in your Gemfile:
@@ -88,4 +88,4 @@ The value you provide will be appended to the default `User-Agent` the client us
 
 ## License
 
-Copyright (c) 2010-2017 Aetrion LLC. This is Free Software distributed under the MIT license.
+Copyright (c) 2010-2018 Aetrion LLC. This is Free Software distributed under the MIT license.

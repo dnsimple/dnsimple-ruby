@@ -60,7 +60,7 @@ describe Dnsimple::Client, ".domains" do
     it "exposes the pagination information" do
       response = subject.domains(account_id)
 
-      expect(response.respond_to?(:page)).to be_truthy
+      expect(response.respond_to?(:page)).to be(true)
       expect(response.page).to eq(1)
       expect(response.per_page).to be_a(Integer)
       expect(response.total_entries).to be_a(Integer)
@@ -148,8 +148,8 @@ describe Dnsimple::Client, ".domains" do
       expect(result.registrant_id).to eq(nil)
       expect(result.name).to eq("example-alpha.com")
       expect(result.state).to eq("hosted")
-      expect(result.auto_renew).to eq(false)
-      expect(result.private_whois).to eq(false)
+      expect(result.auto_renew).to be(false)
+      expect(result.private_whois).to be(false)
       expect(result.expires_on).to eq(nil)
       expect(result.created_at).to eq("2014-12-06T15:56:55Z")
       expect(result.updated_at).to eq("2015-12-09T00:20:56Z")
