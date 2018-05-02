@@ -176,7 +176,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:get, %r{/v2/#{account_id}/zones/.+$})
-          .to_return(read_http_fixture("getZoneDistribution/success.http"))
+          .to_return(read_http_fixture("checkZoneDistribution/success.http"))
     end
 
     it "builds the correct request" do
@@ -197,7 +197,7 @@ describe Dnsimple::Client, ".zones" do
 
     it "returns the zone distribution check with false when the zone isn't fully distributed" do
       stub_request(:get, %r{/v2/#{account_id}/zones/.+$})
-          .to_return(read_http_fixture("getZoneDistribution/failure.http"))
+          .to_return(read_http_fixture("checkZoneDistribution/failure.http"))
 
       response = subject.zone_distribution(account_id, "example.com")
       expect(response).to be_a(Dnsimple::Response)
@@ -209,7 +209,7 @@ describe Dnsimple::Client, ".zones" do
 
     it "raises an error when the server wasn't able to complete the check" do
       stub_request(:get, %r{/v2/#{account_id}/zones/.+$})
-          .to_return(read_http_fixture("getZoneDistribution/error.http"))
+          .to_return(read_http_fixture("checkZoneDistribution/error.http"))
 
       expect {
         subject.zone_distribution(account_id, "example.com")
