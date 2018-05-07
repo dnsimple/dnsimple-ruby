@@ -2,7 +2,8 @@ module Dnsimple
   class Client
     module ZonesDistributions
 
-      # Check if a zone is fully distributed across all DNSimple name servers.
+      # Checks if a zone change is fully distributed to all DNSimple name
+      # servers across the globe.
       #
       # @see https://developer.dnsimple.com/v2/zones/#checkZoneDistribution
       #
@@ -19,7 +20,8 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::ZoneDistribution.new(response["data"]))
       end
 
-      # Gets a zone record distribution state
+      # Checks if a zone record is fully distributed to all DNSimple name
+      # servers across the globe.
       #
       # @see https://developer.dnsimple.com/v2/zones/records/#checkZoneRecordDistribution
       #
