@@ -28,7 +28,6 @@ module Dnsimple
 
         Dnsimple::CollectionResponse.new(response, response["data"].map { |r| Struct::Webhook.new(r) })
       end
-      alias list webhooks
       alias list_webhooks webhooks
 
       # Creates a webhook in the account.
@@ -47,7 +46,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Webhook.new(response["data"]))
       end
-      alias create create_webhook
 
       # Gets a webhook from the account.
       #
@@ -84,7 +82,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-      alias delete delete_webhook
 
     end
   end

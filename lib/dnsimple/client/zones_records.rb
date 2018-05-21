@@ -30,11 +30,12 @@ module Dnsimple
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
-      def list_zone_records(account_id, zone_id, options = {})
+      def zone_records(account_id, zone_id, options = {})
         response = client.get(Client.versioned("/%s/zones/%s/records" % [account_id, zone_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::ZoneRecord.new(r) })
       end
+      alias list_zone_records zone_records
 
       # Lists ALL the zone records in the account.
       #

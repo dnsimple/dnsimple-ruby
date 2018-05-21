@@ -18,7 +18,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, response["data"].map { |r| Struct::Account.new(r) })
       end
-      alias list accounts
       alias list_accounts accounts
 
     end
