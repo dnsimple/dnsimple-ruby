@@ -5,9 +5,11 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ### master
 
-- Bump minimum Ruby requirement to 2.1
-- Introduce Dnsimple::Struct::VanityNameServer (GH-144)
-- Fix name inconsistency of the Collaborator module (GH-154)
+- CHANGED: Bump minimum Ruby requirement to 2.1
+- CHANGED: Introduce Dnsimple::Struct::VanityNameServer (GH-144)
+- CHANGED: Fix name inconsistency of the Collaborator module (GH-154)
+
+- REMOVED: Removed extra alias (GH-168). You should use `dnsimple.foo.list_foo` instead of `dnsimple.foo.list`. Same for create/update. The change ensures consistency across the various clients. We prefer fully qualified methods.
 
 
 #### 4.4.0
