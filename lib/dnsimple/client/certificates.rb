@@ -29,6 +29,7 @@ module Dnsimple
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Certificate.new(r) })
       end
+      alias list_certificates certificates
 
       # List ALL the certificates for the domain in the account.
       #
