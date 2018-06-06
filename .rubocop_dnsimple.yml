@@ -1,4 +1,8 @@
 # Defaults https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+#
+# References:
+#  * https://github.com/bbatsov/ruby-style-guide
+#  * https://rubocop.readthedocs.io/
 
 AllCops:
   Exclude:
@@ -8,6 +12,11 @@ AllCops:
 # In most cases, Gems are sorted alphabetically.
 # However, in some few cases the order is relevant due to dependencies.
 Bundler/OrderedGems:
+  Enabled: false
+
+# This cop requires odd code indentations (as of rubocop 0.57.0)
+# https://github.com/rubocop-hq/rubocop/issues/5956
+Layout/AccessModifierIndentation:
   Enabled: false
 
 # Generally, the keyword style uses a lot of space. This is particularly true when
@@ -107,6 +116,11 @@ Naming/UncommunicativeMethodParamName:
 # [codesmell]
 # I don't really get the point of this cop.
 Performance/RedundantMerge:
+  Enabled: false
+
+# This cop returns false positive violations (as of rubocop 0.57.0)
+# https://github.com/rubocop-hq/rubocop/issues/5953
+Style/AccessModifierDeclarations:
   Enabled: false
 
 # Do not use "and" or "or" in conditionals, but for readability we can use it
