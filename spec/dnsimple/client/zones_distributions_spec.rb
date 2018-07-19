@@ -84,7 +84,7 @@ describe Dnsimple::Client, ".zones" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::ZoneRecordDistribution)
+      expect(result).to be_a(Dnsimple::Struct::ZoneDistribution)
       expect(result.distributed).to be(true)
     end
 
@@ -96,7 +96,7 @@ describe Dnsimple::Client, ".zones" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::ZoneRecordDistribution)
+      expect(result).to be_a(Dnsimple::Struct::ZoneDistribution)
       expect(result.distributed).to be(false)
     end
 

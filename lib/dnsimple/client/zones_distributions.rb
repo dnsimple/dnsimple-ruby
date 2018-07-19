@@ -32,14 +32,14 @@ module Dnsimple
       # @param  [String] zone_id the zone name
       # @param  [Integer] record_id the record ID
       # @param  [Hash] options
-      # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecordDistribution>]
+      # @return [Dnsimple::Response<Dnsimple::Struct::ZoneDistribution>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def zone_record_distribution(account_id, zone_id, record_id, options = {})
         response = client.get(Client.versioned("/%s/zones/%s/records/%s/distribution" % [account_id, zone_id, record_id]), options)
 
-        Dnsimple::Response.new(response, Struct::ZoneRecordDistribution.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::ZoneDistribution.new(response["data"]))
       end
 
     end
