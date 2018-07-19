@@ -130,7 +130,7 @@ describe Dnsimple::Client do
               format: :json,
               basic_auth: { username: "user", password: "pass" },
               headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
-          )
+            )
           .and_return(double('response', code: 200))
 
       subject.request(:get, 'foo')
@@ -145,7 +145,7 @@ describe Dnsimple::Client do
               query: { foo: "bar" },
               basic_auth: { username: "user", password: "pass" },
               headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT, "Custom" => "Header" }
-          )
+            )
           .and_return(double('response', code: 200))
 
       subject.request(:put, 'foo', { something: "else" }, { query: { foo: "bar" }, headers: { "Custom" => "Header" } })
@@ -159,7 +159,7 @@ describe Dnsimple::Client do
               body: { something: "else" },
               basic_auth: { username: "user", password: "pass" },
               headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => Dnsimple::Default::USER_AGENT }
-          )
+            )
           .and_return(double('response', code: 200))
 
       subject.request(:post, 'foo', { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
@@ -173,7 +173,7 @@ describe Dnsimple::Client do
               http_proxyaddr: "example-proxy.com",
               http_proxyport: "4321",
               headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
-          )
+            )
           .and_return(double('response', code: 200))
 
       subject = described_class.new(proxy: "example-proxy.com:4321")
@@ -186,7 +186,7 @@ describe Dnsimple::Client do
               "#{subject.base_url}test",
               format: :json,
               headers: hash_including("User-Agent" => "#{Dnsimple::Default::USER_AGENT} customAgent")
-          )
+            )
           .and_return(double("response", code: 200))
 
       subject = described_class.new(user_agent: "customAgent")
