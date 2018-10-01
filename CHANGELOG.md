@@ -5,6 +5,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ### master
 
+- NEW: Added zone distribution and zone record distribution (GH-160)
+
 - CHANGED: Bump minimum Ruby requirement to 2.1
 - CHANGED: Introduce Dnsimple::Struct::VanityNameServer (GH-144)
 - CHANGED: Fix name inconsistency of the Collaborator module (GH-154)
