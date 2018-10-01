@@ -132,6 +132,7 @@ describe Dnsimple::Client, ".tlds" do
         expect(result).to respond_to(:required)
 
         next if result.options.empty?
+
         result.options.each do |option|
           expect(option).to be_a(Dnsimple::Struct::ExtendedAttribute::Option)
           expect(option.title).to be_a(String)
