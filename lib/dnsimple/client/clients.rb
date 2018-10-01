@@ -212,10 +212,12 @@ module Dnsimple
 
     require_relative 'zones'
     require_relative 'zones_records'
+    require_relative 'zones_distributions'
 
     class ZonesService < ClientService
       include Client::Zones
       include Client::ZonesRecords
+      include Client::ZonesDistributions
     end
 
 
