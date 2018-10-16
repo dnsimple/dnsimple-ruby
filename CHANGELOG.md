@@ -3,7 +3,7 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
-### master
+### 4.5.0
 
 - NEW: Added zone distribution and zone record distribution (GH-160)
 
