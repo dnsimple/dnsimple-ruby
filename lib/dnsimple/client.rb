@@ -204,8 +204,8 @@ module Dnsimple
 
     def base_options
       {
-          format:   :json,
-          headers:  {
+          format: :json,
+          headers: {
               "Accept" => "application/json",
           },
       }
