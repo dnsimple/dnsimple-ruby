@@ -50,7 +50,7 @@ module Dnsimple
       #   client.registrar.disable_whois_privacy(1010, "example.com")
       #
       # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [#to_s] domain_name The domain name
       # @param  [Hash] options
       # @return [Struct::WhoisPrivacy]
       #
@@ -69,9 +69,9 @@ module Dnsimple
       # @example Renew whois privacy for "example.com":
       #   client.registrar.renew_whois_privacy(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name The domain name to check.
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] The domain name
+      # @param  options [Hash]
       # @return [Struct::WhoisPrivacy]
       #
       # @raise  [RequestError] When the request fails.
