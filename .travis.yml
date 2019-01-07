@@ -12,7 +12,7 @@ env:
   - COVERALL=1
 
 before_install:
-  - gem install bundler
+  - gem install bundler -v 1.17.3
 
 notifications:
   slack:
