@@ -62,6 +62,26 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::WhoisPrivacy.new(response["data"]))
       end
 
+      # Renews whois privacy for the domain.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/whois-privacy/#renew
+      #
+      # @example Renew whois privacy for "example.com":
+      #   client.registrar.renew_whois_privacy(1010, "example.com")
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_name The domain name to check.
+      # @param  [Hash] options
+      # @return [Struct::WhoisPrivacy]
+      #
+      # @raise  [RequestError] When the request fails.
+      def renew_whois_privacy(account_id, domain_name, options = {})
+        endpoint = whois_privacy_endpoint(account_id, domain_name) + "/renewals"
+        response = client.post(endpoint, nil, options)
+
+        Dnsimple::Response.new(response, Struct::WhoisPrivacyOrder.new(response["data"]))
+      end
+
 
       private
 
