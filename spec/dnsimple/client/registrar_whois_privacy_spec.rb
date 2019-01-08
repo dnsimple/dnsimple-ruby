@@ -137,7 +137,7 @@ describe Dnsimple::Client, ".registrar" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::WhoisPrivacyOrder)
+      expect(result).to be_a(Dnsimple::Struct::WhoisPrivacyRenewal)
       expect(result.domain_id).to be_kind_of(Integer)
       expect(result.whois_privacy_id).to be_kind_of(Integer)
       expect(result.enabled).to be(true)

@@ -1,7 +1,7 @@
 module Dnsimple
   module Struct
 
-    class WhoisPrivacyOrder < Base
+    class WhoisPrivacyRenewal < Base
       # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 

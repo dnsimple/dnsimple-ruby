@@ -79,7 +79,7 @@ module Dnsimple
         endpoint = whois_privacy_endpoint(account_id, domain_name) + "/renewals"
         response = client.post(endpoint, nil, options)
 
-        Dnsimple::Response.new(response, Struct::WhoisPrivacyOrder.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::WhoisPrivacyRenewal.new(response["data"]))
       end
 
 
