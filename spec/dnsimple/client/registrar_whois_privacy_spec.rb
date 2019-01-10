@@ -147,7 +147,7 @@ describe Dnsimple::Client, ".registrar" do
     context "when whois privacy was't previously purchased" do
       before do
         stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy/renewals$})
-            .to_return(read_http_fixture("renewWhoisPrivacy/whois-privacy-was-not-found.http"))
+            .to_return(read_http_fixture("renewWhoisPrivacy/whois-privacy-not-found.http"))
       end
 
       it "raises error" do
@@ -160,7 +160,7 @@ describe Dnsimple::Client, ".registrar" do
     context "when there is already a whois privacy renewal order in progress" do
       before do
         stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy/renewals$})
-            .to_return(read_http_fixture("renewWhoisPrivacy/duplicated-order.http"))
+            .to_return(read_http_fixture("renewWhoisPrivacy/whois-privacy-duplicated-order.http"))
       end
 
       it "raises error" do

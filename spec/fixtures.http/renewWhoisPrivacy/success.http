@@ -1,19 +1,21 @@
-HTTP/1.1 200 
-server: nginx
-date: Fri, 21 Dec 2018 14:10:06 GMT
-content-type: application/json; charset=utf-8
-x-ratelimit-limit: 2400
-x-ratelimit-remaining: 2397
-x-ratelimit-reset: 1545404617
-etag: W/"23030fb7c68d7b7da22a374b5f1b1743"
-cache-control: max-age=0, private, must-revalidate
-x-request-id: 0c31a341-8078-4851-b232-d0f3819910c8
-x-runtime: 2.015707
-x-frame-options: DENY
-x-content-type-options: nosniff
-x-xss-protection: 1; mode=block
-x-download-options: noopen
-x-permitted-cross-domain-policies: none
-strict-transport-security: max-age=31536000
+HTTP/1.1 201 Created
+Server: nginx
+Date: Thu, 10 Jan 2019 12:12:50 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2398
+X-RateLimit-Reset: 1547125899
+ETag: W/"e5bf5d90a6c95e5f1443dcbaf2cc27c6"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 6e80e830-21ae-46ea-9191-98811884808a
+X-Runtime: 1.459325
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":9,"domain_id":35879,"whois_privacy_id":478,"state":"new","expires_on":"2018-12-27","enabled":true,"created_at":"2018-12-21T14:10:04Z","updated_at":"2018-12-21T14:10:04Z"}}
+{"data":{"id":1,"domain_id":100,"whois_privacy_id":999,"state":"new","expires_on":"2020-01-10","enabled":true,"created_at":"2019-01-10T12:12:48Z","updated_at":"2019-01-10T12:12:48Z"}}

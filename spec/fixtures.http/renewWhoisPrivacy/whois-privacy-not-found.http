@@ -1,0 +1,19 @@
+HTTP/1.1 400 Bad Request
+Server: nginx
+Date: Thu, 10 Jan 2019 12:11:39 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2399
+X-RateLimit-Reset: 1547125899
+Cache-Control: no-cache
+X-Request-Id: 2727b7c4-97af-4e22-9c7f-bd84e20f2dc1
+X-Runtime: 0.139925
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+
+{"message":"WHOIS privacy not found for example.com","errors":{}}
