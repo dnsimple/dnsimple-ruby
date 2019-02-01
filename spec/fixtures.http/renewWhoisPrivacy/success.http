@@ -1,0 +1,21 @@
+HTTP/1.1 201 Created
+Server: nginx
+Date: Thu, 10 Jan 2019 12:12:50 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2398
+X-RateLimit-Reset: 1547125899
+ETag: W/"e5bf5d90a6c95e5f1443dcbaf2cc27c6"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 6e80e830-21ae-46ea-9191-98811884808a
+X-Runtime: 1.459325
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Strict-Transport-Security: max-age=31536000
+
+{"data":{"id":1,"domain_id":100,"whois_privacy_id":999,"state":"new","expires_on":"2020-01-10","enabled":true,"created_at":"2019-01-10T12:12:48Z","updated_at":"2019-01-10T12:12:48Z"}}

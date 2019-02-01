@@ -116,4 +116,59 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
+
+  describe "#renew_whois_privacy" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy/renewals$})
+          .to_return(read_http_fixture("renewWhoisPrivacy/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.renew_whois_privacy(account_id, domain_name = "example.com")
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/whois_privacy/renewals")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the whois privacy order" do
+      response = subject.renew_whois_privacy(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::WhoisPrivacyRenewal)
+      expect(result.domain_id).to be_kind_of(Integer)
+      expect(result.whois_privacy_id).to be_kind_of(Integer)
+      expect(result.enabled).to be(true)
+      expect(result.expires_on).to be_kind_of(String)
+    end
+
+    context "when whois privacy was't previously purchased" do
+      before do
+        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy/renewals$})
+            .to_return(read_http_fixture("renewWhoisPrivacy/whois-privacy-not-found.http"))
+      end
+
+      it "raises error" do
+        expect do
+          subject.renew_whois_privacy(account_id, "example.com")
+        end.to raise_error(Dnsimple::RequestError, "WHOIS privacy not found for example.com")
+      end
+    end
+
+    context "when there is already a whois privacy renewal order in progress" do
+      before do
+        stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/whois_privacy/renewals$})
+            .to_return(read_http_fixture("renewWhoisPrivacy/whois-privacy-duplicated-order.http"))
+      end
+
+      it "raises error" do
+        expect do
+          subject.renew_whois_privacy(account_id, "example.com")
+        end.to raise_error(Dnsimple::RequestError, "The whois privacy for example.com has just been renewed, a new renewal cannot be started at this time")
+      end
+    end
+  end
+
 end
