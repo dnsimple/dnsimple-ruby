@@ -16,4 +16,4 @@ X-XSS-Protection: 1; mode=block
 X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 
-{"message":"The whois privacy for example.com has just been renewed, a new renewal cannot be started at this time","errors":{}}
+{"message":"The whois privacy for example.com has just been renewed, a new renewal cannot be started at this time"}

@@ -16,4 +16,4 @@ X-XSS-Protection: 1; mode=block
 X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 
-{"message":"WHOIS privacy not found for example.com","errors":{}}
+{"message":"WHOIS privacy not found for example.com"}
