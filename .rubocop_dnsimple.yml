@@ -19,6 +19,10 @@ Bundler/OrderedGems:
 Layout/AccessModifierIndentation:
   Enabled: false
 
+# It causes weird aligments, especially for specs.
+Layout/BlockEndNewline:
+  Enabled: false
+
 # Generally, the keyword style uses a lot of space. This is particularly true when
 # you use case/if statements, in combination with a long-name variable.
 #
@@ -105,17 +109,16 @@ Naming/MemoizedInstanceVariableName:
 Naming/PredicateName:
   Enabled: false
 
+# The team agreed decided to use exception
+Naming/RescuedExceptionsVariableName:
+  PreferredName: 'exception'
+
 # This cop triggers several false positives that make sense in our domain model.
 # For instance, ip is considered an uncommunicative parameter name:
 #
 #   ipv4_to_arpa_name(ip)
 #
 Naming/UncommunicativeMethodParamName:
-  Enabled: false
-
-# [codesmell]
-# I don't really get the point of this cop.
-Performance/RedundantMerge:
   Enabled: false
 
 # This cop returns false positive violations (as of rubocop 0.57.0)
@@ -343,18 +346,16 @@ Layout/EmptyLineBetweenDefs:
   Enabled: false
 
 # Multi-line differs from standard indentation, they are indented twice.
-Layout/FirstParameterIndentation:
+Layout/IndentFirstArgument:
   IndentationWidth: 4
 
-# Array indentation should be considered like MultilineMethodCallIndentation indentation
-# and use 4 spaces instead of 2.
-Layout/IndentArray:
-  IndentationWidth: 4
+# Array indentation should be consistent with method/variable definition.
+Layout/IndentFirstArrayElement:
+  EnforcedStyle: consistent
 
-# Hash indentation should be considered like MultilineMethodCallIndentation indentation
-# and use 4 spaces instead of 2.
-Layout/IndentHash:
-  IndentationWidth: 4
+# Hash indentation should be consistent with method/variable definition.
+Layout/IndentFirstHashElement:
+  EnforcedStyle: consistent
 
 # Multi-line differs from standard indentation, they are indented twice.
 Layout/MultilineMethodCallIndentation:
@@ -370,9 +371,9 @@ Layout/MultilineOperationIndentation:
 #
 #   %w( foo bar )
 #
-# looks better to me than
+# looks better than:
 #
-#   %w( foo bar )
+#   %w(foo bar)
 #
 Layout/SpaceInsidePercentLiteralDelimiters:
   Enabled: false
