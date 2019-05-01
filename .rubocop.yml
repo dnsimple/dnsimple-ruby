@@ -1,7 +1,6 @@
 inherit_from:
   - .rubocop_todo.yml
   - .rubocop_dnsimple.yml
-  - .rubocop_ruby21.yml
 
 AllCops:
   Exclude:

@@ -1,3 +1,0 @@
-Layout/FirstParameterIndentation:
-  Exclude:
-    - spec/dnsimple/client_spec.rb
