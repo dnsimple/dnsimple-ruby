@@ -16,12 +16,12 @@ module Dnsimple
       def keys
         @keys ||= [
           :base_url,
-            :username,
-            :password,
-            :access_token,
-            :domain_api_token,
-            :user_agent,
-            :proxy,
+          :username,
+          :password,
+          :access_token,
+          :domain_api_token,
+          :user_agent,
+          :proxy,
         ]
       end
 
