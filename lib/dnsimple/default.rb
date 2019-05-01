@@ -15,7 +15,7 @@ module Dnsimple
       # @return [Array] of option keys
       def keys
         @keys ||= [
-            :base_url,
+          :base_url,
             :username,
             :password,
             :access_token,
