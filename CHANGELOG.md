@@ -3,12 +3,17 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 
-### 4.6.0
+## master
+
+- CHANGED: Minimum Ruby version is now 2.4
+
+
+## 4.6.0
 
 - NEW: Added WHOIS privacy renewal (GH-171)
 
 
-### 4.5.0
+## 4.5.0
 
 - NEW: Added zone distribution and zone record distribution (GH-160)
 
@@ -19,26 +24,26 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 - REMOVED: Removed extra alias (GH-168). You should use `dnsimple.foo.list_foo` instead of `dnsimple.foo.list`. Same for create/update. The change ensures consistency across the various clients. We prefer fully qualified methods.
 
 
-#### 4.4.0
+## 4.4.0
 
 - NEW: Added Let's Encrypt certificate methods (GH-159)
 
 - REMOVED: Removed premium_price attribute from registrar order responses (GH-163). Please do not rely on that attribute, as it returned an incorrect value. The attribute is going to be removed, and the API now returns a null value.
 
 
-#### 4.3.0
+## 4.3.0
 
 - NEW: Added `certificates.all_certificates` (dnsimple/dnsimple-ruby#155)
 
 - CHANGED: Updated registrar URLs (dnsimple/dnsimple-ruby#153)
 
 
-#### 4.2.0
+## 4.2.0
 
 - NEW: Added DNSSEC support support (dnsimple/dnsimple-ruby#152)
 
 
-#### 4.1.0
+## 4.1.0
 
 - NEW: Added domain premium price support (dnsimple/dnsimple-ruby#143)
 
@@ -46,7 +51,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 - CHANGED: Normalize unique string identifiers to SID (dnsimple/dnsimple-ruby#141)
 
 
-#### 4.0.0
+## 4.0.0
 
 - NEW: Added domain collaborators support (GH-137).
 - NEW: Added regions support for zone records (GH-135, GH-139).
@@ -63,7 +68,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 - CHANGED: Renamed registrar `auth_info` into `auth_code` (GH-136).
 
 
-#### 3.1.0
+## 3.1.0
 
 - NEW: Added accounts support (GH-113).
 - NEW: Added sorting and filtering support (GH-112).
@@ -77,9 +82,9 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 - REMOVED: Removed support for wildcard accounts (GH-107).
 
 
-#### 3.0.0
+## 3.0.0
 
-##### stable
+### stable
 
 - FIXED: The client was using the wrong key to store the ContactsService which could cause conflicts with the DomainsService.
 
@@ -93,13 +98,13 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Error detection is now smarter. If the error is deserializable and contains a message, the message is attached to the exception (GH-94, GH-95, GH-100).
 
-##### beta2
+### beta2
 
 - FIXED: `state` and `redirect_uri` are not properly passed in the request to exchang the code for an access token (GH-89, GH-90).
 
 - FIXED: Request body is not properly serialized to JSON, and the "Content-Type" header was omissed (GH-91).
 
-##### beta1
+### beta1
 
 - CHANGED: Minimum Ruby version >= 2
 
@@ -109,15 +114,15 @@ The client has been completely redesigned to support the [API v2](https://develo
 
 Internal changes were made to match conventions adopted in other clients, such as the Go one and the Elixir one.
 
-#### 2.1.1
+## 2.1.1
 
 - FIXED: Paths may mistakenly be generated use \ on windows.
 
-#### 2.1.0
+## 2.1.0
 
 - NEW: Add the ability to set headers and pass extra connection params in each API method (GH-64)
 
-#### 2.0.0
+## 2.0.0
 
 **2.0.0.alpha**
 
@@ -141,23 +146,23 @@ Internal changes were made to match conventions adopted in other clients, such a
 
 - FIXED: Fixed a bug where API token environment variables were not properly detected (GH-59, GH-62). Thanks @oguzbilgic and @rupurt.
 
-#### Release 1.7.1
+## Release 1.7.1
 
 - FIXED: Updated Certificate to match the serialized attributes (GH-53).
 
-#### Release 1.7.0
+## Release 1.7.0
 
 - NEW: Add support for Domain-based authentication (GH-40, GH-46). Thanks @dwradcliffe and @samsonasu.
 
-#### Release 1.6.0
+## Release 1.6.0
 
 - NEW: Add support for 2FA (GH-44)
 
-#### Release 1.5.5
+## Release 1.5.5
 
 - NEW: Add notice about the CLI moving to a new location
 
-#### Release 1.5.4
+## Release 1.5.4
 
 - NEW: Added domain#expires_on attribute (GH-34). Thanks @alkema
 
@@ -167,23 +172,23 @@ Internal changes were made to match conventions adopted in other clients, such a
 
 - CHANGED: User.me now uses the correct patch for API v1.
 
-#### Release 1.5.3
+## Release 1.5.3
 
 - FIXED: In some cases the client crashed with NoMethodError VERSION (GH-35).
 
-#### Release 1.5.2
+## Release 1.5.2
 
 - NEW: Provide a meaningful user-agent.
 
-#### Release 1.5.1
+## Release 1.5.1
 
 - FIXED: Invalid base URI.
 
-#### Release 1.5.0
+## Release 1.5.0
 
 - CHANGED: Added support for versioned API (GH-33)
 
-#### Release 1.4.0
+## Release 1.4.0
 
 - CHANGED: Normalized exception handling. No more RuntimeError.
   In case of request error, the client raises RequestError, RecordExists or RecodNotFound
