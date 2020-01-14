@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dnsimple
 
   # The Response represents a response returned by a client request.
@@ -69,10 +71,10 @@ module Dnsimple
       super
 
       pagination = http_response["pagination"]
-      @page           = pagination["current_page"]
-      @per_page       = pagination["per_page"]
-      @total_entries  = pagination["total_entries"]
-      @total_pages    = pagination["total_pages"]
+      @page = pagination["current_page"]
+      @per_page = pagination["per_page"]
+      @total_entries = pagination["total_entries"]
+      @total_pages = pagination["total_pages"]
     end
 
   end

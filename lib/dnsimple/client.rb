@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'dnsimple/extra'
 require 'dnsimple/struct'
@@ -23,10 +25,10 @@ module Dnsimple
   #   client = Dnsimple::Client.new(base_url: "https://api.sandbox.dnsimple.com", access_token: "abc")
   class Client
 
-    HEADER_AUTHORIZATION = "Authorization".freeze
+    HEADER_AUTHORIZATION = "Authorization"
 
     # @return [String] The current API version.
-    API_VERSION = "v2".freeze
+    API_VERSION = "v2"
 
 
     # Prepends the correct API version to +path+.
@@ -204,10 +206,10 @@ module Dnsimple
 
     def base_options
       {
-          format: :json,
-          headers: {
-              "Accept" => "application/json",
-          },
+        format: :json,
+        headers: {
+          "Accept" => "application/json",
+        },
       }
     end
 

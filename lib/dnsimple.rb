@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Dnsimple
 
   # Echoes a deprecation warning message.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module RSpecSupportHelpers
 
   def http_fixture(*names)

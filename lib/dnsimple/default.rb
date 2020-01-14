@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module Dnsimple
 
   # Default configuration options for {Client}
   module Default
 
     # Default API endpoint
-    BASE_URL = "https://api.dnsimple.com/".freeze
+    BASE_URL = "https://api.dnsimple.com/"
 
     # Default User Agent header
-    USER_AGENT = "dnsimple-ruby/#{VERSION}".freeze
+    USER_AGENT = "dnsimple-ruby/#{VERSION}"
 
     class << self
 
@@ -15,13 +17,13 @@ module Dnsimple
       # @return [Array] of option keys
       def keys
         @keys ||= [
-            :base_url,
-            :username,
-            :password,
-            :access_token,
-            :domain_api_token,
-            :user_agent,
-            :proxy,
+          :base_url,
+          :username,
+          :password,
+          :access_token,
+          :domain_api_token,
+          :user_agent,
+          :proxy,
         ]
       end
 
