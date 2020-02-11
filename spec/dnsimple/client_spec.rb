@@ -187,7 +187,7 @@ describe Dnsimple::Client do
           .with(
               "#{subject.base_url}test",
               format: :json,
-              headers: hash_including("User-Agent" => "#{Dnsimple::Default::USER_AGENT} customAgent")
+              headers: hash_including("User-Agent" => "customAgent #{Dnsimple::Default::USER_AGENT}")
             )
           .and_return(double("response", code: 200))
 

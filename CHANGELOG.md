@@ -6,6 +6,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 ## master
 
 - CHANGED: Minimum Ruby version is now 2.4
+- CHANGED: User-agent format has been changed to prepend custom token before default token.
 
 
 ## 4.6.0

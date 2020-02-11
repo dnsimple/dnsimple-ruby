@@ -236,15 +236,15 @@ module Dnsimple
     #     dnsimple-ruby/1.0
     #
     # If a custom user agent is provided, the final user agent is the combination
-    # of the custom user agent prepended by the default user agent.
+    # of the default user agent prepended by the custom user agent.
     #
-    #     dnsimple-ruby/1.0 customAgentFlag
+    #     customAgentFlag dnsimple-ruby/1.0
     #
     def format_user_agent
       if user_agent.to_s.empty?
         Dnsimple::Default::USER_AGENT
       else
-        "#{Dnsimple::Default::USER_AGENT} #{user_agent}"
+        "#{user_agent} #{Dnsimple::Default::USER_AGENT}"
       end
     end
 
