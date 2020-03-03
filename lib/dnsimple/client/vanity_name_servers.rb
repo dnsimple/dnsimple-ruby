@@ -6,14 +6,14 @@ module Dnsimple
 
       # Enable vanity name servers for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/vanity/#enable
+      # @see https://developer.dnsimple.com/v2/vanity/#enableVanityNameServers
       #
       # @example Enable vanity name servers for example.com:
-      #   client.vanity_name_servers.enable(1010, "example.com")
+      #   client.vanity_name_servers.enable_vanity_name_servers(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Array>]
       #
       # @raise  [RequestError] When the request fails.
@@ -26,14 +26,14 @@ module Dnsimple
 
       # Disable vanity name servers for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/vanity/#disable
+      # @see https://developer.dnsimple.com/v2/vanity/#disableVanityNameServers
       #
       # @example Disable vanity name servers for example.com:
-      #   client.vanity_name_servers.disable(1010, "example.com")
+      #   client.vanity_name_servers.disable_vanity_name_servers(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.
