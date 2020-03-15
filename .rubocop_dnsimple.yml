@@ -141,12 +141,6 @@ Style/BlockDelimiters:
   IgnoredMethods:
     - expect
 
-# I'm not sure we should enforce a style,
-# but if we do, context_dependent offers a good compromise on readability.
-Style/BracesAroundHashParameters:
-  Enabled: false
-  EnforcedStyle: context_dependent
-
 # Warn on empty else.
 Style/EmptyElse:
   EnforcedStyle: empty
