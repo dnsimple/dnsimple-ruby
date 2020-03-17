@@ -13,10 +13,10 @@ module Dnsimple
 
     class << self
 
-      # List of configurable settings for {Client}
-      # @return [Array] of option settings
-      def settings
-        @settings ||= [
+      # List of configurable keys for {Client}
+      # @return [Array] of option keys
+      def keys
+        @keys ||= [
           :base_url,
           :username,
           :password,
@@ -30,7 +30,7 @@ module Dnsimple
       # Configuration options
       # @return [Hash]
       def options
-        Hash[settings.map { |setting| [setting, send(setting)] }]
+        Hash[keys.map { |key| [key, send(key)] }]
       end
 
       # Default API endpoint from ENV or {BASE_URL}

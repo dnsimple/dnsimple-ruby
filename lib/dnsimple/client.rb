@@ -63,8 +63,8 @@ module Dnsimple
     def initialize(options = {})
       defaults = Dnsimple::Default.options
 
-      Dnsimple::Default.settings.each do |setting|
-        instance_variable_set(:"@#{setting}", options[setting] || defaults[setting])
+      Dnsimple::Default.keys.each do |key|
+        instance_variable_set(:"@#{key}", options[key] || defaults[key])
       end
 
       @services = {}
