@@ -63,7 +63,7 @@ module Dnsimple
     def initialize(options = {})
       defaults = Dnsimple::Default.options
 
-      Dnsimple::Default.keys.each do |key|
+      Dnsimple::Default.keys.each do |key| # rubocop:disable Style/HashEachMethods
         instance_variable_set(:"@#{key}", options[key] || defaults[key])
       end
 

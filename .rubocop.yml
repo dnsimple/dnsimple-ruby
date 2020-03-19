@@ -2,6 +2,8 @@ inherit_from:
   - .rubocop_todo.yml
   - .rubocop_dnsimple.yml
 
+require: rubocop-performance
+
 AllCops:
   Exclude:
     - '*.gemspec'

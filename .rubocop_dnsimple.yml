@@ -141,12 +141,6 @@ Style/BlockDelimiters:
   IgnoredMethods:
     - expect
 
-# I'm not sure we should enforce a style,
-# but if we do, context_dependent offers a good compromise on readability.
-Style/BracesAroundHashParameters:
-  Enabled: false
-  EnforcedStyle: context_dependent
-
 # Warn on empty else.
 Style/EmptyElse:
   EnforcedStyle: empty
@@ -174,6 +168,18 @@ Style/HashSyntax:
     #   :default => :test
     # that looks nicer with the old rocket syntax.
     - 'Rakefile'
+
+# Enforces usage of Hash#each_key and Hash#each_value (vs. Hash#keys.each and Hash#values.each).
+Style/HashEachMethods:
+  Enabled: true
+
+# Enforce the use of Hash#TransformKeys introduced in Ruby 2.5 to transform Hash keys.
+Style/HashTransformKeys:
+  Enabled: true
+
+# Enforce the use of Hash#TransformValues introduced in Ruby 2.5 to transform Hash values.
+Style/HashTransformValues:
+  Enabled: true
 
 # We want to be able to decide when to use one-line if/unless modifiers.
 Style/IfUnlessModifier:
