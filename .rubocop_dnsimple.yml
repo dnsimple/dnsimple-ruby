@@ -377,3 +377,11 @@ Layout/MultilineOperationIndentation:
 #
 Layout/SpaceInsidePercentLiteralDelimiters:
   Enabled: false
+
+# Disallow overriding the `Struct` built-in methods via `Struct.new`
+Lint/StructNewOverride:
+  Enabled: True
+
+# Checks for `raise` or `fail` statements which are raising `Exception` class.
+Lint/RaiseException:
+  Enabled: True
