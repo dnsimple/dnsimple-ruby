@@ -378,10 +378,20 @@ Layout/MultilineOperationIndentation:
 Layout/SpaceInsidePercentLiteralDelimiters:
   Enabled: false
 
-# Disallow overriding the `Struct` built-in methods via `Struct.new`
-Lint/StructNewOverride:
-  Enabled: True
 
-# Checks for `raise` or `fail` statements which are raising `Exception` class.
+# New cops
+# We'll remove them once they become defaults.
+# See https://docs.rubocop.org/en/latest/versioning/
+
+
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
 Lint/RaiseException:
-  Enabled: True
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/ExponentialNotation:
+  Enabled: true
