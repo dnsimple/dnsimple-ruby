@@ -2,7 +2,7 @@
 
 A Ruby client for the [DNSimple API v2](https://developer.dnsimple.com/v2/).
 
-[![Build Status](https://travis-ci.org/dnsimple/dnsimple-ruby.svg?branch=master)](https://travis-ci.org/dnsimple/dnsimple-ruby)
+[![Build Status](https://travis-ci.com/dnsimple/dnsimple-ruby.svg?branch=master)](https://travis-ci.com/dnsimple/dnsimple-ruby)
 [![Coverage Status](https://img.shields.io/coveralls/dnsimple/dnsimple-ruby.svg)](https://coveralls.io/r/dnsimple/dnsimple-ruby?branch=master)
 
 [DNSimple](https://dnsimple.com/) provides DNS hosting and domain registration that is simple and friendly.
