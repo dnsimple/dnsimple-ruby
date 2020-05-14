@@ -132,7 +132,7 @@ module Dnsimple
       # @raise  [NotFoundError] When record is not found.
       # @raise  [RequestError]  When the request fails.
       def get_domain_transfer(account_id, domain_name, domain_transfer_id, options = {})
-        endpoint = Client.versioned("/%s/registrar/domains/%s/transfer/%s" % [account_id, domain_name, domain_transfer_id])
+        endpoint = Client.versioned("/%s/registrar/domains/%s/transfers/%s" % [account_id, domain_name, domain_transfer_id])
         response = client.get(endpoint, options)
 
         Dnsimple::Response.new(response, Struct::DomainTransfer.new(response["data"]))
@@ -154,7 +154,7 @@ module Dnsimple
       # @raise  [NotFoundError] When record is not found.
       # @raise  [RequestError]  When the request fails.
       def cancel_domain_transfer(account_id, domain_name, domain_transfer_id, options = {})
-        endpoint = Client.versioned("/%s/registrar/domains/%s/transfer/%s" % [account_id, domain_name, domain_transfer_id])
+        endpoint = Client.versioned("/%s/registrar/domains/%s/transfers/%s" % [account_id, domain_name, domain_transfer_id])
         response = client.delete(endpoint, options)
 
         Dnsimple::Response.new(response, Struct::DomainTransfer.new(response["data"]))

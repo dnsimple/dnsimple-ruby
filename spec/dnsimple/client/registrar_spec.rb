@@ -218,14 +218,14 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/transfer/.+$})
+      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/transfers/.+$})
           .to_return(read_http_fixture("getDomainTransfer/success.http"))
     end
 
     it "builds the correct request" do
       subject.get_domain_transfer(account_id, domain_name = "example.com", transfer_id = 42)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfer/#{transfer_id}")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfers/#{transfer_id}")
           .with(headers: { "Accept" => "application/json" })
     end
 
@@ -251,14 +251,14 @@ describe Dnsimple::Client, ".registrar" do
     let(:account_id) { 1010 }
 
     before do
-      stub_request(:delete, %r{/v2/#{account_id}/registrar/domains/.+/transfer/.+$})
+      stub_request(:delete, %r{/v2/#{account_id}/registrar/domains/.+/transfers/.+$})
           .to_return(read_http_fixture("cancelDomainTransfer/success.http"))
     end
 
     it "builds the correct request" do
       subject.cancel_domain_transfer(account_id, domain_name = "example.com", transfer_id = 42)
 
-      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfer/#{transfer_id}")
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfers/#{transfer_id}")
           .with(headers: { "Accept" => "application/json" })
     end
 
