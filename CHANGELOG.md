@@ -7,7 +7,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Minimum Ruby version is now 2.4
 - CHANGED: User-agent format has been changed to prepend custom token before default token.
-
+- NEW: Added `registrar.get_domain_transfer` to retrieve a domain transfer. (dnsimple/dnsimple-ruby#180)
+- NEW: Added `registrar.cancel_domain_transfer` to cancel an in progress domain transfer. (dnsimple/dnsimple-ruby#180)
 
 ## 4.6.0
 

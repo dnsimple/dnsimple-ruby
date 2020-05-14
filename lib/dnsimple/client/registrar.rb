@@ -116,6 +116,50 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::DomainTransfer.new(response["data"]))
       end
 
+      # Retrieves the details of an existing domain transfer.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#getDomainTransfer
+      #
+      # @example Retrieve the transfer 42 for example.com:
+      #   client.registrar.get_domain_transfer(1010, "example.com", 42)
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_name the domain name
+      # @param  [Integer] domain_transfer_id the domain transfer ID
+      # @param  [Hash] options
+      # @return [Struct::DomainTransfer]
+      #
+      # @raise  [NotFoundError] When record is not found.
+      # @raise  [RequestError]  When the request fails.
+      def get_domain_transfer(account_id, domain_name, domain_transfer_id, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/transfer/%s" % [account_id, domain_name, domain_transfer_id])
+        response = client.get(endpoint, options)
+
+        Dnsimple::Response.new(response, Struct::DomainTransfer.new(response["data"]))
+      end
+
+      # Cancels an in progress domain transfer.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#cancelDomainTransfer
+      #
+      # @example Cancel the transfer 42 for example.com:
+      #   client.registrar.cancel_domain_transfer(1010, "example.com", 42)
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_name the domain name
+      # @param  [Integer] domain_transfer_id the domain transfer ID
+      # @param  [Hash] options
+      # @return [Struct::DomainTransfer]
+      #
+      # @raise  [NotFoundError] When record is not found.
+      # @raise  [RequestError]  When the request fails.
+      def cancel_domain_transfer(account_id, domain_name, domain_transfer_id, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/transfer/%s" % [account_id, domain_name, domain_transfer_id])
+        response = client.delete(endpoint, options)
+
+        Dnsimple::Response.new(response, Struct::DomainTransfer.new(response["data"]))
+      end
+
       # Requests the transfer of a domain out of DNSimple.
       #
       # @see https://developer.dnsimple.com/v2/registrar/#transfer-out
