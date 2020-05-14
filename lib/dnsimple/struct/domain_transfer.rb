@@ -22,7 +22,7 @@ module Dnsimple
       # @return [Bool] True if the domain WHOIS privacy was requested.
       attr_accessor :whois_privacy
 
-      # @return [String] The reason if transfer failed.
+      # @return [String,nil] The reason if transfer failed.
       attr_accessor :status_description
 
       # @return [String] When the domain renewal was created in DNSimple.
