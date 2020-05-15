@@ -214,6 +214,73 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
+  describe "#get_transfer_domain" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/transfers/.+$})
+          .to_return(read_http_fixture("getDomainTransfer/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.get_domain_transfer(account_id, domain_name = "example.com", transfer_id = 42)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfers/#{transfer_id}")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the domain transfer" do
+      response = subject.get_domain_transfer(account_id, "example.com", 42)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::DomainTransfer)
+      expect(result.id).to eq(42)
+      expect(result.domain_id).to eq(2)
+      expect(result.registrant_id).to eq(3)
+      expect(result.state).to eq("cancelled")
+      expect(result.auto_renew).to be(false)
+      expect(result.whois_privacy).to be(false)
+      expect(result.status_description).to eq("Canceled by customer")
+      expect(result.created_at).to eq("2020-04-27T18:08:44Z")
+      expect(result.updated_at).to eq("2020-04-27T18:20:01Z")
+    end
+  end
+
+  describe "#cancel_domain_transfer" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:delete, %r{/v2/#{account_id}/registrar/domains/.+/transfers/.+$})
+          .to_return(read_http_fixture("cancelDomainTransfer/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.cancel_domain_transfer(account_id, domain_name = "example.com", transfer_id = 42)
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/transfers/#{transfer_id}")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the domain transfer" do
+      response = subject.cancel_domain_transfer(account_id, "example.com", 42)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::DomainTransfer)
+      expect(result.id).to eq(42)
+      expect(result.domain_id).to eq(6)
+      expect(result.registrant_id).to eq(1)
+      expect(result.state).to eq("transferring")
+      expect(result.auto_renew).to be(true)
+      expect(result.whois_privacy).to be(false)
+      expect(result.status_description).to eq(nil)
+      expect(result.created_at).to eq("2020-04-24T19:19:03Z")
+      expect(result.updated_at).to eq("2020-04-24T19:19:15Z")
+    end
+  end
+
+
   describe "#transfer_domain_out" do
     let(:account_id) { 1010 }
 
