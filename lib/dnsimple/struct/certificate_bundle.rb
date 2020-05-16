@@ -10,14 +10,17 @@ module Dnsimple
 
       # @return [String] The server certificate
       attr_accessor :server
+
       alias server_certificate server
 
       # @return [String] The root certificate
       attr_accessor :root
+
       alias root_certificate root
 
       # @return [Array<String>] Intermediate certificates
       attr_accessor :chain
+
       alias intermediate_certificates chain
 
     end
