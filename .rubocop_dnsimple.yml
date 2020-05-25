@@ -383,6 +383,7 @@ Layout/SpaceInsidePercentLiteralDelimiters:
 # We'll remove them once they become defaults.
 # See https://docs.rubocop.org/en/latest/versioning/
 
+
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
 
@@ -399,4 +400,8 @@ Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true
 
 Style/SlicingWithRange:
+  Enabled: true
+
+# Introduced in rubocop 0.84.0
+Lint/DeprecatedOpenSSLConstant:
   Enabled: true
