@@ -39,7 +39,7 @@ describe Dnsimple::Client, ".registrar" do
 
     context "when premium price" do
       before do
-        stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/premium_price[\?action]*})
+        stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/premium_price[?action]*})
             .to_return(read_http_fixture("getDomainPremiumPrice/success.http"))
       end
 
