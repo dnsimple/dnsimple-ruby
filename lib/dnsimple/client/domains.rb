@@ -16,7 +16,7 @@ module Dnsimple
       #   client.domains.list(1010, page: 2)
       #
       # @example List domains, provide a sorting policy
-      #   client.domains.list(1010, sort: "expires_on:asc")
+      #   client.domains.list(1010, sort: "expiration:asc")
       #
       # @example List domains, provide a filtering policy
       #   client.domains.list(1010, filter: { name_like: "example" })

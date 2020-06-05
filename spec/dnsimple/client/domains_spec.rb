@@ -35,9 +35,9 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "supports sorting" do
-      subject.domains(account_id, sort: "expires_on:asc")
+      subject.domains(account_id, sort: "expiration:asc")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?sort=expires_on:asc")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?sort=expiration:asc")
     end
 
     it "supports filtering" do
@@ -84,9 +84,9 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "supports sorting" do
-      subject.all_domains(account_id, sort: "expires_on:asc")
+      subject.all_domains(account_id, sort: "expiration:asc")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?page=1&per_page=100&sort=expires_on:asc")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?page=1&per_page=100&sort=expiration:asc")
     end
 
     it "supports filtering" do
@@ -133,28 +133,28 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "builds the correct request" do
-      subject.domain(account_id, domain = "example.com")
+      subject.domain(account_id, domain = "example-alpha.com")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain}")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "returns the domain" do
-      response = subject.domain(account_id, "example.com")
+      response = subject.domain(account_id, "example-alpha.com")
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to eq(1)
-      expect(result.account_id).to eq(1010)
-      expect(result.registrant_id).to eq(nil)
+      expect(result.id).to eq(181984)
+      expect(result.account_id).to eq(1385)
+      expect(result.registrant_id).to eq(2715)
       expect(result.name).to eq("example-alpha.com")
-      expect(result.state).to eq("hosted")
+      expect(result.state).to eq("registered")
       expect(result.auto_renew).to be(false)
       expect(result.private_whois).to be(false)
-      expect(result.expires_on).to eq(nil)
-      expect(result.created_at).to eq("2014-12-06T15:56:55Z")
-      expect(result.updated_at).to eq("2015-12-09T00:20:56Z")
+      expect(result.expires_at).to eq("2021-06-05T02:15:00Z")
+      expect(result.created_at).to eq("2020-06-04T19:15:14Z")
+      expect(result.updated_at).to eq("2020-06-04T19:15:21Z")
     end
 
     context "when the domain does not exist" do

@@ -28,8 +28,8 @@ module Dnsimple
       # @return [Bool] True if the domain WHOIS privacy is enabled, false otherwise.
       attr_accessor :private_whois
 
-      # @return [String] The date the domain will expire.
-      attr_accessor :expires_on
+      # @return [String] The timestamp when domain will expire.
+      attr_accessor :expires_at
 
       # @return [String] When the domain was created in DNSimple.
       attr_accessor :created_at

@@ -1,16 +1,21 @@
 HTTP/1.1 201 Created
 Server: nginx
-Date: Fri, 18 Dec 2015 16:38:07 GMT
+Date: Thu, 04 Jun 2020 19:47:05 GMT
 Content-Type: application/json; charset=utf-8
-Transfer-Encoding: chunked
+Transfer-Encoding: identity
 Connection: keep-alive
-X-RateLimit-Limit: 4000
-X-RateLimit-Remaining: 3986
-X-RateLimit-Reset: 1450456686
-ETag: W/"87e018b900e5f210c3236f63d3b2f4df"
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2378
+X-RateLimit-Reset: 1591300248
+ETag: W/"399e70627412fa31dba332feca5e8ec1"
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 0d6f1ea7-f702-4317-85f0-04874b69315d
-X-Runtime: 0.257489
+X-Request-Id: ee897eee-36cc-4b7f-be15-f4627f344bf9
+X-Runtime: 0.194561
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":1,"account_id":1010,"registrant_id":null,"name":"example-alpha.com","unicode_name":"example-alpha.com","token":"domain-token","state":"hosted","auto_renew":false,"private_whois":false,"expires_on":null,"created_at":"2014-12-06T15:56:55Z","updated_at":"2015-12-09T00:20:56Z"}}
+{"data":{"id":181985,"account_id":1385,"registrant_id":null,"name":"example-beta.com","unicode_name":"example-beta.com","state":"hosted","auto_renew":false,"private_whois":false,"expires_on":null,"expires_at":null,"created_at":"2020-06-04T19:47:05Z","updated_at":"2020-06-04T19:47:05Z"}}

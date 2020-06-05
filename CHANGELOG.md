@@ -2,6 +2,9 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
+## master
+
+- CHANGED: `Domain` now have `expires_at` (timestamp) instead of `expires_on` (date only). (dnsimple/dnsimple-ruby#186)
 
 ## 5.0.0
 
