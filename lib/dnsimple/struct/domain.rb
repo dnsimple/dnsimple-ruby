@@ -48,7 +48,7 @@ module Dnsimple
       # @param expiration_date The date the domain will expire
       def expires_on=(expiration_date)
         warn "[DEPRECATION] Domain#expires_on= is deprecated. Please use `expires_at=` instead."
-        expires_at = DateTime.parse(expiration_date) if expiration_date
+        @expires_at = DateTime.parse(expiration_date) if expiration_date
       end
     end
   end
