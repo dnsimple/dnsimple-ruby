@@ -153,6 +153,7 @@ describe Dnsimple::Client, ".domains" do
       expect(result.auto_renew).to be(false)
       expect(result.private_whois).to be(false)
       expect(result.expires_at).to eq("2021-06-05T02:15:00Z")
+      expect(result.expires_on).to eq("2021-06-05")
       expect(result.created_at).to eq("2020-06-04T19:15:14Z")
       expect(result.updated_at).to eq("2020-06-04T19:15:21Z")
     end
