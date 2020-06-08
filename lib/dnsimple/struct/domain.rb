@@ -37,8 +37,6 @@ module Dnsimple
       # @return [String] When the domain was last updated in DNSimple.
       attr_accessor :updated_at
 
-      attr_writer :expires_on
-
       # @deprecated Please use #expires_at instead.
       # @return [String] The date the domain will expire.
       def expires_on
