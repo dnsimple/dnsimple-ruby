@@ -4,6 +4,13 @@ module Dnsimple
   module Struct
 
     class Domain < Base
+
+      def initialize(attributes = {})
+        attributes.delete("expires_on")
+        super
+        @expires_on = Date.parse(expires_at).to_s if expires_at
+      end
+
       # @return [Integer] The domain ID in DNSimple.
       attr_accessor :id
 
@@ -41,7 +48,12 @@ module Dnsimple
       # @return [String] The date the domain will expire.
       def expires_on
         warn "[DEPRECATION] Domain#expires_on is deprecated. Please use `expires_at` instead."
-        Date.parse(expires_at).to_s if expires_at
+        @expires_on
+      end
+
+      def expires_on=(expiration_date)
+        warn "[DEPRECATION] Domain#expires_on= is deprecated. Please use `expires_at=` instead."
+        @expires_on = expiration_date
       end
 
     end
