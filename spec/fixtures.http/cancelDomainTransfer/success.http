@@ -1,30 +1,19 @@
 HTTP/1.1 202 Accepted
 Server: nginx
-Date: Wed, 29 Apr 2020 19:49:41 GMT
+Date: Fri, 05 Jun 2020 18:09:42 GMT
 Content-Type: application/json; charset=utf-8
-Transfer-Encoding: chunked
+Transfer-Encoding: identity
 Connection: keep-alive
-Status: 202 Accepted
 X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2397
-X-RateLimit-Reset: 1588193270
-ETag: W/"8404bf2739e44e9f69f3a5199466776d"
-Cache-Control: no-store, must-revalidate, private, max-age=0
-X-Request-Id: 10d75bcf-0066-4d38-98a2-dc18dd5b6f4c
-X-Runtime: 1.752154
-Strict-Transport-Security: max-age=31536000
+X-RateLimit-Remaining: 2394
+X-RateLimit-Reset: 1591384034
+Cache-Control: no-cache
+X-Request-Id: 3cf6dcfa-0bb5-439e-863a-af2ef08bc830
+X-Runtime: 0.912731
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
 
-{
-  "data": {
-    "id": 42,
-    "domain_id": 6,
-    "registrant_id": 1,
-    "state": "transferring",
-    "auto_renew": true,
-    "whois_privacy": false,
-    "premium_price": null,
-    "status_description": null,
-    "created_at": "2020-04-24T19:19:03Z",
-    "updated_at": "2020-04-24T19:19:15Z"
-  }
-}
+{"data":{"id":361,"domain_id":182245,"registrant_id":2715,"state":"transferring","auto_renew":false,"whois_privacy":false,"status_description":null,"created_at":"2020-06-05T18:08:00Z","updated_at":"2020-06-05T18:08:04Z"}}
