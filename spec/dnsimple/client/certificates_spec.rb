@@ -65,7 +65,7 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
+    let(:domain_id) { "dnsimple.us" }
 
     it "delegates to client.paginate" do
       expect(subject).to receive(:paginate).with(:certificates, account_id, domain_id, foo: "bar")
@@ -73,16 +73,16 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     it "supports sorting" do
-      subject.all_certificates(account_id, domain_id, sort: "id:asc,expires_on:desc")
+      subject.all_certificates(account_id, domain_id, sort: "id:asc,expiration:desc")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates?page=1&per_page=100&sort=id:asc,expires_on:desc")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates?page=1&per_page=100&sort=id:asc,expiration:desc")
     end
   end
 
   describe "#certificate" do
     let(:account_id)     { 1010 }
-    let(:domain_id)      { "weppos.net" }
-    let(:certificate_id) { 1 }
+    let(:domain_id)      { "bingo.pizza" }
+    let(:certificate_id) { 101967 }
 
     before do
       stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}})
@@ -108,19 +108,20 @@ describe Dnsimple::Client, ".certificates" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Certificate)
-      expect(result.id).to eq(1)
-      expect(result.domain_id).to eq(2)
-      expect(result.contact_id).to eq(3)
-      expect(result.common_name).to eq("www.weppos.net")
-      expect(result.alternate_names).to eq(%w( weppos.net www.weppos.net ))
+      expect(result.id).to eq(101967)
+      expect(result.domain_id).to eq(289333)
+      expect(result.contact_id).to eq(2511)
+      expect(result.common_name).to eq("www.bingo.pizza")
+      expect(result.alternate_names).to eq([])
       expect(result.years).to eq(1)
-      expect(result.csr).to eq("-----BEGIN CERTIFICATE REQUEST-----\nMIICljCCAX4CAQAwGTEXMBUGA1UEAwwOd3d3LndlcHBvcy5uZXQwggEiMA0GCSqG\nSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC3MJwx9ahBG3kAwRjQdRvYZqtovUaxY6jp\nhd09975gO+2eYPDbc1yhNftVJ4KBT0zdEqzX0CwIlxE1MsnZ2YOsC7IJO531hMBp\ndBxM4tSG07xPz70AVUi9rY6YCUoJHmxoFbclpHFbtXZocR393WyzUK8047uM2mlz\n03AZKcMdyfeuo2/9TcxpTSCkklGqwqS9wtTogckaDHJDoBunAkMioGfOSMe7Yi6E\nYRtG4yPJYsDaq2yPJWV8+i0PFR1Wi5RCnPt0YdQWstHuZrxABi45+XVkzKtz3TUc\nYxrvPBucVa6uzd953u8CixNFkiOefvb/dajsv1GIwH6/Cvc1ftz1AgMBAAGgODA2\nBgkqhkiG9w0BCQ4xKTAnMCUGA1UdEQQeMByCDnd3dy53ZXBwb3MubmV0ggp3ZXBw\nb3MubmV0MA0GCSqGSIb3DQEBCwUAA4IBAQCDnVBO9RdJX0eFeZzlv5c8yG8duhKP\nl0Vl+V88fJylb/cbNj9qFPkKTK0vTXmS2XUFBChKPtLucp8+Z754UswX+QCsdc7U\nTTSG0CkyilcSubdZUERGej1XfrVQhrokk7Fu0Jh3BdT6REP0SIDTpA8ku/aRQiAp\np+h19M37S7+w/DMGDAq2LSX8jOpJ1yIokRDyLZpmwyLxutC21DXMGoJ3xZeUFrUT\nqRNwzkn2dJzgTrPkzhaXalUBqv+nfXHqHaWljZa/O0NVCFrHCdTdd53/6EE2Yabv\nq5SFTkRCpaxrvM/7a8Tr4ixD1/VKD6rw3+WC00000000000000000000\n-----END CERTIFICATE REQUEST-----\n")
+      expect(result.csr).to eq("-----BEGIN CERTIFICATE REQUEST-----\nMIICmTCCAYECAQAwGjEYMBYGA1UEAwwPd3d3LmJpbmdvLnBpenphMIIBIjANBgkq\nhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAw4+KoZ9IDCK2o5qAQpi+Icu5kksmjQzx\n5o5g4B6XhRxhsfHlK/i3iU5hc8CONjyVv8j82835RNsiKrflnxGa9SH68vbQfcn4\nIpbMz9c+Eqv5h0Euqlc3A4DBzp0unEu5QAUhR6Xu1TZIWDPjhrBOGiszRlLQcp4F\nzy6fD6j5/d/ylpzTp5v54j+Ey31Bz86IaBPtSpHI+Qk87Hs8DVoWxZk/6RlAkyur\nXDGWnPu9n3RMfs9ag5anFhggLIhCNtVN4+0vpgPQ59pqwYo8TfdYzK7WSKeL7geu\nCqVE3bHAqU6dLtgHOZfTkLwGycUh4p9aawuc6fsXHHYDpIL8s3vAvwIDAQABoDow\nOAYJKoZIhvcNAQkOMSswKTAnBgNVHREEIDAeggtiaW5nby5waXp6YYIPd3d3LmJp\nbmdvLnBpenphMA0GCSqGSIb3DQEBCwUAA4IBAQBwOLKv+PO5hSJkgqS6wL/wRqLh\nQ1zbcHRHAjRjnpRz06cDvN3X3aPI+lpKSNFCI0A1oKJG7JNtgxX3Est66cuO8ESQ\nPIb6WWN7/xlVlBCe7ZkjAFgN6JurFdclwCp/NI5wBCwj1yb3Ar5QQMFIZOezIgTI\nAWkQSfCmgkB96d6QlDWgidYDDjcsXugQveOQRPlHr0TsElu47GakxZdJCFZU+WPM\nodQQf5SaqiIK2YaH1dWO//4KpTS9QoTy1+mmAa27apHcmz6X6+G5dvpHZ1qH14V0\nJoMWIK+39HRPq6mDo1UMVet/xFUUrG/H7/tFlYIDVbSpVlpVAFITd/eQkaW/\n-----END CERTIFICATE REQUEST-----\n")
       expect(result.state).to eq("issued")
       expect(result.authority_identifier).to eq("letsencrypt")
       expect(result.auto_renew).to be(false)
-      expect(result.created_at).to eq("2016-06-11T18:47:08Z")
-      expect(result.updated_at).to eq("2016-06-11T18:47:37Z")
-      expect(result.expires_on).to eq("2016-09-09")
+      expect(result.created_at).to eq("2020-06-18T18:54:17Z")
+      expect(result.updated_at).to eq("2020-06-18T19:10:14Z")
+      expect(result.expires_on).to eq("2020-09-16")
+      expect(result.expires_at).to eq("2020-09-16T18:10:13Z")
     end
 
     context "when the certificate does not exist" do
@@ -231,7 +232,7 @@ describe Dnsimple::Client, ".certificates" do
 
   describe "#purchase_letsencrypt_certificate" do
     let(:account_id) { 1010 }
-    let(:domain_id)  { "example.com" }
+    let(:domain_id)  { "bingo.pizza" }
     let(:contact_id) { 100 }
 
     before do
@@ -264,9 +265,9 @@ describe Dnsimple::Client, ".certificates" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::CertificatePurchase)
 
-      expect(result.id).to eq(300)
-      expect(result.certificate_id).to eq(300)
-      expect(result.state).to eq("requesting")
+      expect(result.id).to eq(101967)
+      expect(result.certificate_id).to eq(101967)
+      expect(result.state).to eq("new")
       expect(result.auto_renew).to be(false)
     end
 
@@ -284,8 +285,8 @@ describe Dnsimple::Client, ".certificates" do
 
   describe "#issue_letsencrypt_certificate" do
     let(:account_id) { 1010 }
-    let(:domain_id)  { "example.com" }
-    let(:certificate_id) { 200 }
+    let(:domain_id)  { "bingo.pizza" }
+    let(:certificate_id) { 101967 }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/issue})
@@ -306,9 +307,9 @@ describe Dnsimple::Client, ".certificates" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Certificate)
 
-      expect(result.id).to eq(200)
-      expect(result.domain_id).to eq(300)
-      expect(result.common_name).to eq("www.example.com")
+      expect(result.id).to eq(101967)
+      expect(result.domain_id).to eq(289333)
+      expect(result.common_name).to eq("www.bingo.pizza")
       expect(result.alternate_names).to eq([])
       expect(result.years).to eq(1)
       expect(result.csr).to be(nil)
@@ -342,8 +343,8 @@ describe Dnsimple::Client, ".certificates" do
 
   describe "#purchase_letsencrypt_certificate_renewal" do
     let(:account_id) { 1010 }
-    let(:domain_id)  { "example.com" }
-    let(:certificate_id) { 200 }
+    let(:domain_id)  { "bingo.pizza" }
+    let(:certificate_id) { 101967 }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals})
@@ -373,9 +374,9 @@ describe Dnsimple::Client, ".certificates" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::CertificateRenewal)
 
-      expect(result.id).to eq(999)
+      expect(result.id).to eq(65082)
       expect(result.old_certificate_id).to eq(certificate_id)
-      expect(result.new_certificate_id).to eq(300)
+      expect(result.new_certificate_id).to eq(101972)
       expect(result.state).to eq("new")
     end
 
@@ -393,9 +394,9 @@ describe Dnsimple::Client, ".certificates" do
 
   describe "#issue_letsencrypt_certificate_renewal" do
     let(:account_id) { 1010 }
-    let(:domain_id)  { "example.com" }
-    let(:certificate_id) { 300 }
-    let(:certificate_renewal_id) { 999 }
+    let(:domain_id)  { "bingo.pizza" }
+    let(:certificate_id) { 101972 }
+    let(:certificate_renewal_id) { 65082 }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals/#{certificate_renewal_id}/issue})
@@ -416,9 +417,9 @@ describe Dnsimple::Client, ".certificates" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Certificate)
 
-      expect(result.id).to eq(300)
-      expect(result.domain_id).to eq(300)
-      expect(result.common_name).to eq("www.example.com")
+      expect(result.id).to eq(101972)
+      expect(result.domain_id).to eq(289333)
+      expect(result.common_name).to eq("www.bingo.pizza")
       expect(result.alternate_names).to eq([])
       expect(result.years).to eq(1)
       expect(result.csr).to be(nil)

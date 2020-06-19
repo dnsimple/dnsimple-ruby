@@ -4,6 +4,13 @@ module Dnsimple
   module Struct
 
     class Certificate < Base
+
+      def initialize(attributes = {})
+        attributes.delete("expires_on")
+        super
+        @expires_on = Date.parse(expires_at).to_s if expires_at
+      end
+
       # @return [Integer] The certificate ID in DNSimple.
       attr_accessor :id
 
@@ -40,8 +47,20 @@ module Dnsimple
       # @return [String] When the certificate was last updated in DNSimple.
       attr_accessor :updated_at
 
-      # @return [String] When the certificate will expire.
-      attr_accessor :expires_on
+      # @return [String] The timestamp when certificate will expire.
+      attr_accessor :expires_at
+
+      # @deprecated Please use #expires_at instead.
+      # @return [String] The date the certificate will expire.
+      def expires_on
+        warn "[DEPRECATION] Certificate#expires_on is deprecated. Please use `expires_at` instead."
+        @expires_on
+      end
+
+      def expires_on=(expiration_date)
+        warn "[DEPRECATION] Certificate#expires_on= is deprecated. Please use `expires_at=` instead."
+        @expires_on = expiration_date
+      end
     end
 
   end
