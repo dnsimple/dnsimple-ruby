@@ -47,11 +47,11 @@ module Dnsimple
       # @return [String] When the certificate was last updated in DNSimple.
       attr_accessor :updated_at
 
-      # @return [String] The timestamp when certificate will expire.
+      # @return [String] The timestamp when the certificate will expire.
       attr_accessor :expires_at
 
       # @deprecated Please use #expires_at instead.
-      # @return [String] The date the certificate will expire.
+      # @return [String] The date when the certificate will expire.
       def expires_on
         warn "[DEPRECATION] Certificate#expires_on is deprecated. Please use `expires_at` instead."
         @expires_on
