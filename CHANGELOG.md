@@ -2,6 +2,9 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
+## master
+- CHANGED: `Certificate#expires_on` (date only) is deprecated in favor of `Certificate#expires_at` (timestamp). (dnsimple/dnsimple-ruby#190)
+
 ## 5.1.0
 
 - CHANGED: `Domain#expires_on` (date only) is deprecated in favor of `Domain#expires_at` (timestamp). (dnsimple/dnsimple-ruby#186)
