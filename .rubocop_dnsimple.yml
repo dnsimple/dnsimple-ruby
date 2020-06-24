@@ -415,3 +415,7 @@ Style/RedundantRegexpCharacterClass:
 
 Style/RedundantRegexpEscape:
   Enabled: true
+
+# Introduced in rubocop 0.86.0
+Style/RedundantFetchBlock:
+  Enabled: true
