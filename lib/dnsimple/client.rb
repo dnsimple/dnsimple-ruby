@@ -42,22 +42,30 @@ module Dnsimple
     # @!attribute username
     #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] DNSimple username for Basic Authentication
+    attr_accessor :username
+
     # @!attribute password
     #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] DNSimple password for Basic Authentication
+    attr_accessor :password
+
     # @!attribute domain_api_token
     #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] Domain API access token for authentication
+    attr_accessor :domain_api_token
+
     # @!attribute access_token
     #   @see https://developer.dnsimple.com/v2/#authentication
     #   @return [String] Domain API access token for authentication
+    attr_accessor :access_token
+
     # @!attribute user_agent
     #   @return [String] Configure User-Agent header for requests.
+    attr_accessor :user_agent
+
     # @!attribute proxy
     #   @return [String,nil] Configure address:port values for proxy server
-
-    attr_accessor :username, :password, :domain_api_token, :access_token,
-                  :user_agent, :proxy
+    attr_accessor :proxy
 
 
     def initialize(options = {})
