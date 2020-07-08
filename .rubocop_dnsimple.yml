@@ -402,11 +402,9 @@ Layout/EmptyLinesAroundAttributeAccessor:
 Style/SlicingWithRange:
   Enabled: true
 
-# Introduced in rubocop 0.84.0
 Lint/DeprecatedOpenSSLConstant:
   Enabled: true
 
-# Introduced in rubocop 0.85.0
 Lint/MixedRegexpCaptureTypes:
   Enabled: true
 
@@ -416,6 +414,15 @@ Style/RedundantRegexpCharacterClass:
 Style/RedundantRegexpEscape:
   Enabled: true
 
-# Introduced in rubocop 0.86.0
 Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/AccessorGrouping:
+  Enabled: true
+  EnforcedStyle: separated
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/RedundantAssignment:
   Enabled: true
