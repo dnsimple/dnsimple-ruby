@@ -36,13 +36,13 @@ The following instructions uses `$VERSION` as a placeholder, where `$VERSION` is
 
 1. Run the test suite and ensure all the tests pass.
 
-1. Finalize the `## master` section in `CHANGELOG.md` assigning the version.
+1. Finalize the `## main` section in `CHANGELOG.md` assigning the version.
 
 1. Commit and push the changes
 
     ```shell
     git commit -a -m "Release $VERSION"
-    git push origin master
+    git push origin main
     ```
 
 1. Wait for CI to complete.
