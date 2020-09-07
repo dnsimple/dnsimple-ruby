@@ -8,6 +8,7 @@ AllCops:
   Exclude:
     # Exclude .gemspec files because they are generally auto-generated
     - '*.gemspec'
+  NewCops: enable
 
 # In most cases, Gems are sorted alphabetically.
 # However, in some few cases the order is relevant due to dependencies.
@@ -376,95 +377,4 @@ Layout/MultilineOperationIndentation:
 #   %w(foo bar)
 #
 Layout/SpaceInsidePercentLiteralDelimiters:
-  Enabled: false
-
-
-# New cops
-# We'll remove them once they become defaults.
-# See https://docs.rubocop.org/en/latest/versioning/
-
-
-Layout/SpaceAroundMethodCallOperator:
-  Enabled: true
-
-Lint/RaiseException:
-  Enabled: true
-
-Lint/StructNewOverride:
-  Enabled: true
-
-Style/ExponentialNotation:
-  Enabled: true
-
-Layout/EmptyLinesAroundAttributeAccessor:
-  Enabled: true
-
-Style/SlicingWithRange:
-  Enabled: true
-
-Lint/DeprecatedOpenSSLConstant:
-  Enabled: true
-
-Lint/MixedRegexpCaptureTypes:
-  Enabled: true
-
-Style/RedundantRegexpCharacterClass:
-  Enabled: true
-
-Style/RedundantRegexpEscape:
-  Enabled: true
-
-Style/RedundantFetchBlock:
-  Enabled: true
-
-Style/AccessorGrouping:
-  Enabled: true
-  EnforcedStyle: separated
-
-Style/BisectedAttrAccessor:
-  Enabled: true
-
-Style/RedundantAssignment:
-  Enabled: false
-
-Performance/AncestorsInclude:
-  Enabled: true
-
-Performance/BigDecimalWithNumericArgument:
-  Enabled: true
-
-Performance/RedundantSortBlock:
-  Enabled: true
-
-Performance/RedundantStringChars:
-  Enabled: true
-
-Performance/ReverseFirst:
-  Enabled: true
-
-Performance/SortReverse:
-  Enabled: true
-
-Performance/Squeeze:
-  Enabled: true
-
-Performance/StringInclude:
-  Enabled: true
-
-Style/RedundantFileExtensionInRequire:
-  Enabled: true
-
-Style/ArrayCoercion:
-  Enabled: true
-
-Lint/DuplicateElsifCondition:
-  Enabled: true
-
-Style/CaseLikeIf:
-  Enabled: true
-
-Style/HashAsLastArrayItem:
-  Enabled: true
-
-Style/HashLikeCase:
   Enabled: false
