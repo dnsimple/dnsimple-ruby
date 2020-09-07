@@ -7,7 +7,7 @@ if ENV['COVERALL']
   Coveralls.wear!
 end
 
-$:.unshift(File.dirname(__FILE__) + '/lib')
+$:.unshift("#{File.dirname(__FILE__)}/lib")
 require 'dnsimple'
 
 unless defined?(SPEC_ROOT)
