@@ -41,9 +41,7 @@ module Dnsimple
 
   # The CollectionResponse is a specific type of Response where the data is a collection of enumerable objects.
   class CollectionResponse < Response
-    def initialize(http_response, collection)
-      super
-    end
+
   end
 
   # The PaginatedResponse is a specific type of Response that also exposes pagination metadata.

@@ -78,7 +78,7 @@ module Dnsimple
       #
       # @raise  [RequestError] When the request fails.
       def renew_whois_privacy(account_id, domain_name, options = {})
-        endpoint = whois_privacy_endpoint(account_id, domain_name) + "/renewals"
+        endpoint = "#{whois_privacy_endpoint(account_id, domain_name)}/renewals"
         response = client.post(endpoint, nil, options)
 
         Dnsimple::Response.new(response, Struct::WhoisPrivacyRenewal.new(response["data"]))
