@@ -6,7 +6,7 @@ describe Dnsimple::Client::ClientService do
 
   describe "#paginate" do
     service_class = Class.new(Dnsimple::Client::ClientService) do
-      Item = Class.new(Dnsimple::Struct::Base) do
+      Item = Class.new(Dnsimple::Struct::Base) do # rubocop:disable Lint/ConstantDefinitionInBlock
         attr_accessor :id
       end
 
