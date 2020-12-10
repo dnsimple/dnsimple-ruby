@@ -5,5 +5,5 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'coveralls', require: false
-gem 'rubocop', '1.4.2', require: false
+gem 'rubocop', '1.6.1', require: false
 gem 'rubocop-performance', require: false
