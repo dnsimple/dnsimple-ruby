@@ -19,12 +19,6 @@ RSpec/ContextWording:
 RSpec/ExampleLength:
   Enabled: false
 
-# Offense count: 2
-RSpec/IteratedExpectation:
-  Exclude:
-    - 'spec/dnsimple/client/services_domains_spec.rb'
-    - 'spec/dnsimple/client/services_spec.rb'
-
 # Offense count: 1
 RSpec/LeakyConstantDeclaration:
   Exclude:
