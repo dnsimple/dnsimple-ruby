@@ -86,13 +86,13 @@ describe Dnsimple::Client, ".contacts" do
 
   describe "#create_contact" do
     let(:account_id) { 1010 }
+    let(:attributes) { { first_name: "Simone", last_name: "Carletti", address1: "Italian Street", city: "Rome", state_province: "RM", postal_code: "00171", country: "IT", email: "example@example.com", phone: "+393391234567" } }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/contacts$})
           .to_return(read_http_fixture("createContact/created.http"))
     end
 
-    let(:attributes) { { first_name: "Simone", last_name: "Carletti", address1: "Italian Street", city: "Rome", state_province: "RM", postal_code: "00171", country: "IT", email: "example@example.com", phone: "+393391234567" } }
 
     it "builds the correct request" do
       subject.create_contact(account_id, attributes)
@@ -153,13 +153,13 @@ describe Dnsimple::Client, ".contacts" do
 
   describe "#update_contact" do
     let(:account_id) { 1010 }
+    let(:attributes) { { first_name: "Updated" } }
 
     before do
       stub_request(:patch, %r{/v2/#{account_id}/contacts/.+$})
           .to_return(read_http_fixture("updateContact/success.http"))
     end
 
-    let(:attributes) { { first_name: "Updated" } }
 
     it "builds the correct request" do
       subject.update_contact(account_id, contact_id = 1, attributes)

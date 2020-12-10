@@ -84,13 +84,13 @@ describe Dnsimple::Client, ".registrar" do
 
   describe "#register_domain" do
     let(:account_id) { 1010 }
+    let(:attributes) { { registrant_id: "10" } }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/registrations$})
           .to_return(read_http_fixture("registerDomain/success.http"))
     end
 
-    let(:attributes) { { registrant_id: "10" } }
 
     it "builds the correct request" do
       subject.register_domain(account_id, domain_name = "example.com", attributes)
@@ -119,13 +119,13 @@ describe Dnsimple::Client, ".registrar" do
 
   describe "#renew_domain" do
     let(:account_id) { 1010 }
+    let(:attributes) { { period: "3" } }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/renewals$})
           .to_return(read_http_fixture("renewDomain/success.http"))
     end
 
-    let(:attributes) { { period: "3" } }
 
     it "builds the correct request" do
       subject.renew_domain(account_id, domain_name = "example.com", attributes)
@@ -159,13 +159,13 @@ describe Dnsimple::Client, ".registrar" do
 
   describe "#transfer_domain" do
     let(:account_id) { 1010 }
+    let(:attributes) { { registrant_id: "10", auth_code: "x1y2z3" } }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/transfers$})
           .to_return(read_http_fixture("transferDomain/success.http"))
     end
 
-    let(:attributes) { { registrant_id: "10", auth_code: "x1y2z3" } }
 
     it "builds the correct request" do
       subject.transfer_domain(account_id, domain_name = "example.com", attributes)

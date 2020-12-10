@@ -78,6 +78,7 @@ describe Dnsimple::Client, ".templates" do
 
   describe "#create_record" do
     let(:account_id) { 1010 }
+    let(:attributes) { { type: "MX", name: "", content: "mx.example.com", priority: 10, ttl: 600 } }
     let(:template_id) { "alpha" }
 
     before do
@@ -85,7 +86,6 @@ describe Dnsimple::Client, ".templates" do
           .to_return(read_http_fixture("createTemplateRecord/created.http"))
     end
 
-    let(:attributes) { { type: "MX", name: "", content: "mx.example.com", priority: 10, ttl: 600 } }
 
     it "builds the correct request" do
       subject.create_record(account_id, template_id, attributes)

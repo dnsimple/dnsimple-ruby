@@ -61,6 +61,7 @@ describe Dnsimple::Client, ".services" do
 
   describe "#apply_service" do
     let(:account_id) { 1010 }
+    let(:settings) { { app: "foo" } }
     let(:domain_id)  { "example.com" }
     let(:service_id) { "service1" }
 
@@ -69,7 +70,6 @@ describe Dnsimple::Client, ".services" do
           .to_return(read_http_fixture("applyService/success.http"))
     end
 
-    let(:settings) { { app: "foo" } }
 
     it "builds the correct request" do
       subject.apply_service(account_id, service_id, domain_id, settings)
