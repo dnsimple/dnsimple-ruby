@@ -49,13 +49,13 @@ describe Dnsimple::Client, ".webhooks" do
 
   describe "#create_webhook" do
     let(:account_id) { 1010 }
+    let(:attributes) { { url: "https://webhook.test" } }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/webhooks$})
           .to_return(read_http_fixture("createWebhook/created.http"))
     end
 
-    let(:attributes) { { url: "https://webhook.test" } }
 
     it "builds the correct request" do
       subject.create_webhook(account_id, attributes)

@@ -52,15 +52,14 @@ describe Dnsimple::Client, ".services" do
         expect(service.sid).to be_a(String)
         expect(service.description).to be_a(String)
 
-        service.settings.each do |service_setting|
-          expect(service_setting).to be_a(Dnsimple::Struct::Service::Setting)
-        end
+        expect(service.settings).to all(be_a(Dnsimple::Struct::Service::Setting))
       end
     end
   end
 
   describe "#apply_service" do
     let(:account_id) { 1010 }
+    let(:settings) { { app: "foo" } }
     let(:domain_id)  { "example.com" }
     let(:service_id) { "service1" }
 
@@ -69,7 +68,6 @@ describe Dnsimple::Client, ".services" do
           .to_return(read_http_fixture("applyService/success.http"))
     end
 
-    let(:settings) { { app: "foo" } }
 
     it "builds the correct request" do
       subject.apply_service(account_id, service_id, domain_id, settings)

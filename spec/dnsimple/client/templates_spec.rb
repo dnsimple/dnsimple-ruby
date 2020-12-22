@@ -77,13 +77,13 @@ describe Dnsimple::Client, ".templates" do
 
   describe "#create_template" do
     let(:account_id) { 1010 }
+    let(:attributes) { { name: "Beta", short_name: "beta", description: "A beta template." } }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/templates$})
           .to_return(read_http_fixture("createTemplate/created.http"))
     end
 
-    let(:attributes) { { name: "Beta", short_name: "beta", description: "A beta template." } }
 
     it "builds the correct request" do
       subject.create_template(account_id, attributes)
@@ -138,6 +138,7 @@ describe Dnsimple::Client, ".templates" do
 
   describe "#update_template" do
     let(:account_id) { 1010 }
+    let(:attributes) { { name: "Alpha", short_name: "alpha", description: "An alpha template." } }
     let(:template_id) { 1 }
 
     before do
@@ -145,7 +146,6 @@ describe Dnsimple::Client, ".templates" do
           .to_return(read_http_fixture("updateTemplate/success.http"))
     end
 
-    let(:attributes) { { name: "Alpha", short_name: "alpha", description: "An alpha template." } }
 
     it "builds the correct request" do
       subject.update_template(account_id, template_id, attributes)

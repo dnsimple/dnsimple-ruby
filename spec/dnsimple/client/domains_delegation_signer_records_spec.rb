@@ -99,6 +99,7 @@ describe Dnsimple::Client, ".domains" do
 
   describe "#create_delegation_signer_record" do
     let(:account_id) { 1010 }
+    let(:attributes) { { algorithm: "13", digest: "ABC123", digest_type: "2", keytag: "1111" } }
     let(:domain_id) { "example.com" }
 
     before do
@@ -106,7 +107,6 @@ describe Dnsimple::Client, ".domains" do
           .to_return(read_http_fixture("createDelegationSignerRecord/created.http"))
     end
 
-    let(:attributes) { { algorithm: "13", digest: "ABC123", digest_type: "2", keytag: "1111" } }
 
     it "builds the correct request" do
       subject.create_delegation_signer_record(account_id, domain_id, attributes)

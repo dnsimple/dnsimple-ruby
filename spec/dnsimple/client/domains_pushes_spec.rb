@@ -8,6 +8,7 @@ describe Dnsimple::Client, ".domains" do
 
   describe "#initiate_push" do
     let(:account_id) { 1010 }
+    let(:attributes) { { new_account_email: "admin@target-account.test" } }
     let(:domain_id) { "example.com" }
 
     before do
@@ -15,7 +16,6 @@ describe Dnsimple::Client, ".domains" do
           .to_return(read_http_fixture("initiatePush/success.http"))
     end
 
-    let(:attributes) { { new_account_email: "admin@target-account.test" } }
 
     it "builds the correct request" do
       subject.initiate_push(account_id, domain_id, attributes)
@@ -88,6 +88,7 @@ describe Dnsimple::Client, ".domains" do
 
   describe "#accept_push" do
     let(:account_id) { 2020 }
+    let(:attributes) { { contact_id: 2 } }
     let(:push_id) { 1 }
 
     before do
@@ -95,7 +96,6 @@ describe Dnsimple::Client, ".domains" do
           .to_return(read_http_fixture("acceptPush/success.http"))
     end
 
-    let(:attributes) { { contact_id: 2 } }
 
     it "builds the correct request" do
       subject.accept_push(account_id, push_id, attributes)

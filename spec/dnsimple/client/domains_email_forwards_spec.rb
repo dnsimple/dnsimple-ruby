@@ -99,6 +99,7 @@ describe Dnsimple::Client, ".domains" do
 
   describe "#create_email_forward" do
     let(:account_id) { 1010 }
+    let(:attributes) { { from: "jim", to: "jim@another.com" } }
     let(:domain_id) { "example.com" }
 
     before do
@@ -106,7 +107,6 @@ describe Dnsimple::Client, ".domains" do
           .to_return(read_http_fixture("createEmailForward/created.http"))
     end
 
-    let(:attributes) { { from: "jim", to: "jim@another.com" } }
 
     it "builds the correct request" do
       subject.create_email_forward(account_id, domain_id, attributes)

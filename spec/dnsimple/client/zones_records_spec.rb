@@ -112,6 +112,7 @@ describe Dnsimple::Client, ".zones" do
 
   describe "#create_zone_record" do
     let(:account_id) { 1010 }
+    let(:attributes) { { type: "A", name: "www", content: "127.0.0.1", regions: %w(global) } }
     let(:zone_id) { "example.com" }
 
     before do
@@ -119,7 +120,6 @@ describe Dnsimple::Client, ".zones" do
           .to_return(read_http_fixture("createZoneRecord/created.http"))
     end
 
-    let(:attributes) { { type: "A", name: "www", content: "127.0.0.1", regions: %w(global) } }
 
     it "builds the correct request" do
       subject.create_zone_record(account_id, zone_id, attributes)
@@ -216,6 +216,7 @@ describe Dnsimple::Client, ".zones" do
 
   describe "#update_zone_record" do
     let(:account_id) { 1010 }
+    let(:attributes) { { content: "mxb.example.com", priority: "20", regions: ['global'] } }
     let(:zone_id) { "example.com" }
     let(:record_id) { 5 }
 
@@ -224,7 +225,6 @@ describe Dnsimple::Client, ".zones" do
           .to_return(read_http_fixture("updateZoneRecord/success.http"))
     end
 
-    let(:attributes) { { content: "mxb.example.com", priority: "20", regions: ['global'] } }
 
     it "builds the correct request" do
       subject.update_zone_record(account_id, zone_id, record_id, attributes)

@@ -98,13 +98,13 @@ describe Dnsimple::Client, ".domains" do
 
   describe "#create_domain" do
     let(:account_id) { 1010 }
+    let(:attributes) { { name: "example.com" } }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/domains$})
           .to_return(read_http_fixture("createDomain/created.http"))
     end
 
-    let(:attributes) { { name: "example.com" } }
 
     it "builds the correct request" do
       subject.create_domain(account_id, attributes)
