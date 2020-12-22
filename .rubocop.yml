@@ -4,6 +4,7 @@ inherit_from:
 
 require:
   - rubocop-performance
+  - rubocop-rake
   - rubocop-rspec
 
 AllCops:
