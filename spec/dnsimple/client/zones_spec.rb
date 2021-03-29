@@ -89,7 +89,7 @@ describe Dnsimple::Client, ".zones" do
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones?page=1&per_page=100&sort=name:desc")
     end
 
-    it "supports sorting" do
+    it "supports filtering" do
       subject.all_zones(account_id, filter: { name_like: "zone.test" })
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones?page=1&per_page=100&name_like=zone.test")
