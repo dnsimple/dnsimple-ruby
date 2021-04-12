@@ -4,7 +4,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
-- NEW: Added `registrar.get_domain_prices` to retrieve if domain is premium and prices to register, transfer, and renewal. (dnsimple/dnsimple-ruby#230)
+- NEW: Added `registrar.get_domain_prices` to retrieve whether a domain is premium and the prices to register, transfer, and renew. (dnsimple/dnsimple-ruby#230)
 
 ## 5.2.0
 
