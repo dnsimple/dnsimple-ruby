@@ -204,31 +204,4 @@ describe Dnsimple::Client, ".domains" do
       end
     end
   end
-
-  describe "#reset_domain_token" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
-
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/token})
-          .to_return(read_http_fixture("resetDomainToken/success.http"))
-    end
-
-    it "builds the correct request" do
-      subject.reset_domain_token(account_id, domain_id)
-
-      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/token")
-          .with(headers: { 'Accept' => 'application/json' })
-    end
-
-    it "returns the domain" do
-      response = subject.reset_domain_token(account_id, domain_id)
-      expect(response).to be_a(Dnsimple::Response)
-
-      result = response.data
-      expect(result).to be_a(Dnsimple::Struct::Domain)
-      expect(result.id).to be_a(Integer)
-    end
-  end
-
 end

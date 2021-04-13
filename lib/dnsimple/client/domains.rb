@@ -114,24 +114,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
-      # Resets the domain token.
-      #
-      # @see https://developer.dnsimple.com/v2/domains/#reset-token
-      #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] options
-      # @return [Dnsimple::Response<nil>]
-      #
-      # @raise  [Dnsimple::NotFoundError]
-      # @raise  [Dnsimple::RequestError]
-      def reset_domain_token(account_id, domain_id, options = {})
-        response = client.post(Client.versioned("/%s/domains/%s/token" % [account_id, domain_id]), nil, options)
-
-        Dnsimple::Response.new(response, Struct::Domain.new(response["data"]))
-      end
-
     end
   end
 end
