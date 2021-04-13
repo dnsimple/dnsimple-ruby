@@ -57,7 +57,7 @@ module Dnsimple
       #   client.registrar.get_domain_prices(1010, "example.com")
       #
       # @param [Integer] account_id the Account id
-      # @param [#to_s] domain_name the domain name to find the prices
+      # @param [String] domain_name the domain name to find the prices
       # @param [Hash] options
       #
       # @return [Struct::DomainPrice]
