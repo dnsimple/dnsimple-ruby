@@ -6,6 +6,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - REMOVED: `domain.reset_domain_token` endpoint no longer exists and the client method is removed.
   (dnsimple/dnsimple-ruby#231)
+- REMOVED: The deprecated `Domain.expires_on` is removed. (dnsimple/dnsimple-ruby#232)
+- REMOVED: The deprecated `Certificate.expires_on` is removed. (dnsimple/dnsimple-ruby#232)
 
 ## 5.2.0
 
