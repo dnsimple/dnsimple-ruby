@@ -1,13 +1,18 @@
 HTTP/1.1 204 No Content
 Server: nginx
-Date: Thu, 04 Feb 2016 17:14:52 GMT
+Date: Mon, 25 Jan 2021 13:56:43 GMT
 Connection: keep-alive
-Status: 204 No Content
-X-RateLimit-Limit: 4000
-X-RateLimit-Remaining: 3999
-X-RateLimit-Reset: 1454609692
+X-RateLimit-Limit: 4800
+X-RateLimit-Remaining: 4765
+X-RateLimit-Reset: 1611583416
 Cache-Control: no-cache
-X-Request-Id: 716d181c-495d-47ab-ab79-391a70e8abe1
-X-Runtime: 0.145208
+X-Request-Id: bfaceb73-4fd3-4490-8528-472ec1df3526
+X-Runtime: 0.506670
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Content-Security-Policy: frame-ancestors 'none'
 Strict-Transport-Security: max-age=31536000
 

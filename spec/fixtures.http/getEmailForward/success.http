@@ -1,17 +1,21 @@
 HTTP/1.1 200 OK
 Server: nginx
-Date: Thu, 04 Feb 2016 14:42:46 GMT
+Date: Mon, 25 Jan 2021 13:56:24 GMT
 Content-Type: application/json; charset=utf-8
-Transfer-Encoding: chunked
 Connection: keep-alive
-Status: 200 OK
-X-RateLimit-Limit: 4000
-X-RateLimit-Remaining: 3999
-X-RateLimit-Reset: 1454600566
-ETag: W/"10dd958c5a3a43eec0af1d8da655cab0"
+X-RateLimit-Limit: 4800
+X-RateLimit-Remaining: 4766
+X-RateLimit-Reset: 1611583416
+ETag: W/"80ad3ad1e115a8123193447fa003f68a"
 Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: fde15363-9332-4b91-bd8f-00b144eb8081
-X-Runtime: 0.022117
+X-Request-Id: 8f3a9517-f623-4d14-be2b-3f332a4d7873
+X-Runtime: 0.010653
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Content-Security-Policy: frame-ancestors 'none'
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":17706,"domain_id":228963,"from":"jim@a-domain.com","to":"jim@another.com","created_at":"2016-02-04T14:26:50Z","updated_at":"2016-02-04T14:26:50Z"}}
+{"data":{"id":41872,"domain_id":235146,"alias_email":"example@dnsimple.xyz","destination_email":"example@example.com","created_at":"2021-01-25T13:54:40Z","updated_at":"2021-01-25T13:54:40Z","from":"example@dnsimple.xyz","to":"example@example.com"}}
