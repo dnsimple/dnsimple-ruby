@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 17 Mar 2021 23:36:43 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2383
+X-RateLimit-Reset: 1616024599
+ETag: W/"ceda02163217bdb9e6850e2c36cbf163"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: 789c6feb-63e1-40d6-b2b6-f569b23a507c
+X-Runtime: 0.270968
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Content-Security-Policy: frame-ancestors 'none'
+Strict-Transport-Security: max-age=31536000
+
+{"data":{"id":4,"account_id":531,"name":"PrimaryProduction","ip":"1.2.3.4","port":53,"linked_secondary_zones":[],"created_at":"2021-03-17T23:08:42Z","updated_at":"2021-03-17T23:08:42Z"}}

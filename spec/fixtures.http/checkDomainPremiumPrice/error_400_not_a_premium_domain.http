@@ -1,0 +1,18 @@
+HTTP/1.1 400 Bad Request
+Server: nginx
+Date: Mon, 27 Jul 2020 13:43:02 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+X-RateLimit-Limit: 4800
+X-RateLimit-Remaining: 4786
+X-RateLimit-Reset: 1595859922
+Cache-Control: no-cache
+X-Request-Id: 382b409c-0f90-4758-af3b-0bccd31a9d0d
+X-Runtime: 1.346405
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+
+{"message":"`cocotero.love` is not a premium domain for registration"}

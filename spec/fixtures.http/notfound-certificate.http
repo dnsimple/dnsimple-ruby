@@ -2,7 +2,6 @@ HTTP/1.1 404 Not Found
 Server: nginx
 Date: Tue, 19 Jul 2016 08:56:34 GMT
 Content-Type: application/json; charset=utf-8
-Transfer-Encoding: chunked
 Connection: keep-alive
 Cache-Control: no-cache
 X-Request-Id: 9a51fa7e-cc9b-498b-bf8d-ee3b2819c0c6
