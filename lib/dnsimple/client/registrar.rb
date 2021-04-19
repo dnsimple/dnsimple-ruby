@@ -50,6 +50,26 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::DomainPremiumPrice.new(response["data"]))
       end
 
+      # Get prices for a domain.
+      # @see https://developer.dnsimple.com/v2/registrar/#getDomainPrices
+      #
+      # @example Check prices for example.com:
+      #   client.registrar.get_domain_prices(1010, "example.com")
+      #
+      # @param [Integer] account_id the Account id
+      # @param [String] domain_name the domain name to find the prices
+      # @param [Hash] options
+      #
+      # @return [Struct::DomainPrice]
+      #
+      # @raise [RequestError] When the request fails.
+      def get_domain_prices(account_id, domain_name, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/prices" % [account_id, domain_name])
+        response = client.get(endpoint, options)
+
+        Dnsimple::Response.new(response, Struct::DomainPrice.new(response["data"]))
+      end
+
       # Registers a domain.
       #
       # @see https://developer.dnsimple.com/v2/registrar/#register

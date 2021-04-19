@@ -82,6 +82,49 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
+  describe "#get_domain_prices" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/bingo.pizza/prices$})
+          .to_return(read_http_fixture("getDomainPrices/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.get_domain_prices(account_id, "bingo.pizza")
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/bingo.pizza/prices")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the prices" do
+      response = subject.get_domain_prices(account_id, "bingo.pizza")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+
+      expect(result).to be_a(Dnsimple::Struct::DomainPrice)
+      expect(result.domain).to eq("bingo.pizza")
+      expect(result.premium).to be(true)
+      expect(result.registration_price).to eq(20.0)
+      expect(result.renewal_price).to eq(20.0)
+      expect(result.transfer_price).to eq(20.0)
+    end
+
+    context "when the TLD is not supported" do
+      before do
+        stub_request(:get, %r{/v2/#{account_id}/registrar/domains/bingo.pineapple/prices$})
+            .to_return(read_http_fixture("getDomainPrices/failure.http"))
+      end
+
+      it "raises error" do
+        expect {
+          subject.get_domain_prices(account_id, "bingo.pineapple")
+        }.to raise_error(Dnsimple::RequestError, "TLD .PINEAPPLE is not supported")
+      end
+    end
+  end
+
   describe "#register_domain" do
     let(:account_id) { 1010 }
     let(:attributes) { { registrant_id: "10" } }
