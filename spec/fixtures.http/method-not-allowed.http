@@ -1,7 +1,6 @@
 HTTP/1.1 405 Method Not Allowed
 Server: nginx
 Date: Fri, 15 Apr 2016 14:15:04 GMT
-Transfer-Encoding: chunked
 Connection: keep-alive
 Status: 405 Method Not Allowed
 Allow: DELETE, GET, HEAD, PATCH, POST

@@ -129,7 +129,7 @@ describe Dnsimple::Client, ".domains" do
   describe "#email_forward" do
     let(:account_id) { 1010 }
     let(:domain_id) { "example.com" }
-    let(:email_forward_id) { 17706 }
+    let(:email_forward_id) { 41872 }
 
     before do
       stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards.+$})
@@ -149,12 +149,12 @@ describe Dnsimple::Client, ".domains" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::EmailForward)
-      expect(result.id).to eq(17706)
-      expect(result.domain_id).to eq(228963)
-      expect(result.from).to eq("jim@a-domain.com")
-      expect(result.to).to eq("jim@another.com")
-      expect(result.created_at).to eq("2016-02-04T14:26:50Z")
-      expect(result.updated_at).to eq("2016-02-04T14:26:50Z")
+      expect(result.id).to eq(41872)
+      expect(result.domain_id).to eq(235146)
+      expect(result.from).to eq("example@dnsimple.xyz")
+      expect(result.to).to eq("example@example.com")
+      expect(result.created_at).to eq("2021-01-25T13:54:40Z")
+      expect(result.updated_at).to eq("2021-01-25T13:54:40Z")
     end
 
     context "when the email forward does not exist" do

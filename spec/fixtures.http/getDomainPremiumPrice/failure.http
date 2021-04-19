@@ -2,7 +2,6 @@ HTTP/1.1 400 Bad Request
 Server: nginx
 Date: Tue, 22 Nov 2016 10:48:27 GMT
 Content-Type: application/json; charset=utf-8
-Transfer-Encoding: chunked
 Connection: keep-alive
 Cache-Control: no-cache
 X-Request-Id: 1304138f-0fc7-4845-b9ed-e3803409cb5a
