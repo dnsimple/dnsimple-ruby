@@ -120,7 +120,6 @@ describe Dnsimple::Client, ".certificates" do
       expect(result.auto_renew).to be(false)
       expect(result.created_at).to eq("2020-06-18T18:54:17Z")
       expect(result.updated_at).to eq("2020-06-18T19:10:14Z")
-      expect(result.expires_on).to eq("2020-09-16")
       expect(result.expires_at).to eq("2020-09-16T18:10:13Z")
     end
 
