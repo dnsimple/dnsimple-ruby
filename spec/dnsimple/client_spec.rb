@@ -133,7 +133,7 @@ describe Dnsimple::Client do
               basic_auth: { username: "user", password: "pass" },
               headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
             )
-          .and_return(double('response', code: 200))
+          .and_return(instance_double('response', code: 200))
 
       subject.request(:get, 'foo')
     end
@@ -148,7 +148,7 @@ describe Dnsimple::Client do
               basic_auth: { username: "user", password: "pass" },
               headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT, "Custom" => "Header" }
             )
-          .and_return(double('response', code: 200))
+          .and_return(instance_double('response', code: 200))
 
       subject.request(:put, 'foo', { something: "else" }, { query: { foo: "bar" }, headers: { "Custom" => "Header" } })
     end
@@ -162,7 +162,7 @@ describe Dnsimple::Client do
               basic_auth: { username: "user", password: "pass" },
               headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => Dnsimple::Default::USER_AGENT }
             )
-          .and_return(double('response', code: 200))
+          .and_return(instance_double('response', code: 200))
 
       subject.request(:post, 'foo', { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
     end
@@ -176,7 +176,7 @@ describe Dnsimple::Client do
               http_proxyport: "4321",
               headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
             )
-          .and_return(double('response', code: 200))
+          .and_return(instance_double('response', code: 200))
 
       subject = described_class.new(proxy: "example-proxy.com:4321")
       subject.request(:get, "test", nil, {})
@@ -189,7 +189,7 @@ describe Dnsimple::Client do
               format: :json,
               headers: hash_including("User-Agent" => "customAgent #{Dnsimple::Default::USER_AGENT}")
             )
-          .and_return(double("response", code: 200))
+          .and_return(instance_double("response", code: 200))
 
       subject = described_class.new(user_agent: "customAgent")
       subject.request(:get, "test", nil)
