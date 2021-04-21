@@ -49,35 +49,35 @@ describe Dnsimple::Client do
 
   describe "#get" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:get, "path", nil, foo: "bar").and_return(:returned)
+      allow(subject).to receive(:execute).with(:get, "path", nil, foo: "bar").and_return(:returned)
       expect(subject.get("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#post" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:post, "path", { foo: "bar" }, {}).and_return(:returned)
+      allow(subject).to receive(:execute).with(:post, "path", { foo: "bar" }, {}).and_return(:returned)
       expect(subject.post("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#put" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:put, "path", { foo: "bar" }, {}).and_return(:returned)
+      allow(subject).to receive(:execute).with(:put, "path", { foo: "bar" }, {}).and_return(:returned)
       expect(subject.put("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#patch" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:patch, "path", { foo: "bar" }, {}).and_return(:returned)
+      allow(subject).to receive(:execute).with(:patch, "path", { foo: "bar" }, {}).and_return(:returned)
       expect(subject.patch("path", foo: "bar")).to eq(:returned)
     end
   end
 
   describe "#delete" do
     it "delegates to #request" do
-      expect(subject).to receive(:execute).with(:delete, "path", { foo: "bar" }, {}).and_return(:returned)
+      allow(subject).to receive(:execute).with(:delete, "path", { foo: "bar" }, {}).and_return(:returned)
       expect(subject.delete("path", foo: "bar")).to eq(:returned)
     end
   end
@@ -126,7 +126,7 @@ describe Dnsimple::Client do
     it "delegates to HTTParty" do
       stub_request(:get, %r{/foo})
 
-      expect(HTTParty).to receive(:get)
+      allow(HTTParty).to receive(:get)
           .with(
               "#{subject.base_url}foo",
               format: :json,
@@ -139,7 +139,7 @@ describe Dnsimple::Client do
     end
 
     it "properly extracts processes options and encodes data" do
-      expect(HTTParty).to receive(:put)
+      allow(HTTParty).to receive(:put)
           .with(
               "#{subject.base_url}foo",
               format: :json,
@@ -154,7 +154,7 @@ describe Dnsimple::Client do
     end
 
     it "handles non application/json content types" do
-      expect(HTTParty).to receive(:post)
+      allow(HTTParty).to receive(:post)
           .with(
               "#{subject.base_url}foo",
               format: :json,
@@ -168,7 +168,7 @@ describe Dnsimple::Client do
     end
 
     it "includes options for proxy support" do
-      expect(HTTParty).to receive(:get)
+      allow(HTTParty).to receive(:get)
           .with(
               "#{subject.base_url}test",
               format: :json,
@@ -183,7 +183,7 @@ describe Dnsimple::Client do
     end
 
     it "supports custom user agent" do
-      expect(HTTParty).to receive(:get)
+      allow(HTTParty).to receive(:get)
           .with(
               "#{subject.base_url}test",
               format: :json,
