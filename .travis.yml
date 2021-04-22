@@ -2,18 +2,13 @@ dist: focal
 
 language: ruby
 
-before_install:
-  - gem update --system
-  - gem --version
-  - rvm get stable
-
 rvm:
   - 2.6
   - 2.7
   - 3.0
   - ruby-head
 
-jobs:
+matrix:
   allow_failures:
     - rvm: ruby-head
 
