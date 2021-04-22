@@ -18,10 +18,6 @@ AllCops:
 Lint/Loop:
   Enabled: false
 
-# It doesn't seem to work as expected.
-Style/IfUnlessModifier:
-  Enabled: false
-
 # This rule conflicts with our specs codebase using Ruby 2.x and 3.x
 Lint/NonDeterministicRequireOrder:
   Enabled: false
