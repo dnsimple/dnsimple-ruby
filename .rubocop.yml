@@ -22,11 +22,6 @@ Lint/Loop:
 Style/IfUnlessModifier:
   Enabled: false
 
-# This rule suggest to use safe navigation (&.) operator which was introduced
-# with Ruby 2.3. Because we are supporting Ruby 2.0+ we can't use this operator.
-Style/SafeNavigation:
-  Enabled: false
-
 # This rule conflicts with our specs codebase using Ruby 2.x and 3.x
 Lint/NonDeterministicRequireOrder:
   Enabled: false
