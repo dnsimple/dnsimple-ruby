@@ -98,14 +98,15 @@ module Dnsimple
         options = args.pop
         response = nil
 
-        begin
+        loop do
           current_page += 1
           query = Extra.deep_merge(options, query: { page: current_page, per_page: 100 })
 
           response = send(method, *(args + [query]))
           total_pages ||= response.total_pages
           collection.concat(response.data)
-        end while current_page < total_pages
+          break unless current_page < total_pages
+        end
 
         CollectionResponse.new(response.http_response, collection)
       end

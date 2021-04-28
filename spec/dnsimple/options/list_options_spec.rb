@@ -14,14 +14,14 @@ RSpec.describe Dnsimple::Options::ListOptions do
       expect(options.to_h).to eq({})
     end
 
-    context 'query' do
+    describe 'query' do
       it 'adds "query" key if given options are filled' do
         options = described_class.new(a: 1)
         expect(options.to_h).to have_key(:query)
       end
     end
 
-    context 'pagination' do
+    describe 'pagination' do
       it 'adds "page" to "query"' do
         raw      = { page: '23' }
         expected = { query: raw }
@@ -47,7 +47,7 @@ RSpec.describe Dnsimple::Options::ListOptions do
       end
     end
 
-    context 'sorting' do
+    describe 'sorting' do
       it 'adds sorting policy to "query"' do
         raw      = { sort: 'name:desc' }
         expected = { query: raw }
@@ -73,7 +73,7 @@ RSpec.describe Dnsimple::Options::ListOptions do
       end
     end
 
-    context 'filtering' do
+    describe 'filtering' do
       it 'adds filtering policy to "query"' do
         raw      = { filter: { name_like: 'example' } }
         expected = { query: raw.fetch(:filter) }

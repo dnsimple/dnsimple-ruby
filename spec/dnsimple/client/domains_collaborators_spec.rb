@@ -63,7 +63,7 @@ describe Dnsimple::Client, ".domains" do
     let(:account_id) { 1010 }
     let(:domain_id)  { "example.com" }
 
-    context "invite user already registered on DNSimple" do
+    context "when inviting a user already registered on DNSimple" do
       before do
         stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators$})
             .to_return(read_http_fixture("addCollaborator/success.http"))
@@ -93,7 +93,7 @@ describe Dnsimple::Client, ".domains" do
       end
     end
 
-    context "invite not registered on DNSimple" do
+    context "when inviting a user not registered on DNSimple" do
       before do
         stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/collaborators$})
             .to_return(read_http_fixture("addCollaborator/invite-success.http"))
