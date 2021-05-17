@@ -8,9 +8,11 @@ require:
   - rubocop-rspec
 
 AllCops:
+  TargetRubyVersion: 2.6
   Exclude:
     - '*.gemspec'
     - 'Rakefile'
+    - 'vendor/**/*'
 
 # This rule conflicts with our specs codebase using Ruby 2.x and 3.x
 Lint/NonDeterministicRequireOrder:

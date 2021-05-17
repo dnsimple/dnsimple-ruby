@@ -9,7 +9,9 @@ rvm:
   - ruby-head
   - truffleruby-head
 
-matrix:
+cache: bundler
+
+jobs:
   allow_failures:
     - rvm: ruby-head
     - rvm: truffleruby-head
