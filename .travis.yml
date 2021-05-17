@@ -16,6 +16,9 @@ jobs:
     - rvm: ruby-head
     - rvm: truffleruby-head
 
+env:
+  - COVERALL=1
+
 notifications:
   email: false
   slack:
