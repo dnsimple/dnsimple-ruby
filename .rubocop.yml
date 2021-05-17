@@ -12,6 +12,7 @@ AllCops:
   Exclude:
     - '*.gemspec'
     - 'Rakefile'
+    - 'vendor/**/*'
 
 # This rule conflicts with our specs codebase using Ruby 2.x and 3.x
 Lint/NonDeterministicRequireOrder:
