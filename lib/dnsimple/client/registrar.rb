@@ -42,6 +42,8 @@ module Dnsimple
       # @return [Struct::DomainPremiumPrice]
       #
       # @raise  [RequestError] When the request fails.
+      #
+      # @deprecated Use {#get_domain_prices} instead of this one as it will soon be removed from the API.
       def domain_premium_price(account_id, domain_name, options = {})
         endpoint = Client.versioned("/%s/registrar/domains/%s/premium_price" % [account_id, domain_name])
         options[:query] = { action: options.delete(:action) } if options.key?(:action)
