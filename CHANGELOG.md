@@ -4,7 +4,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
-## 0.7.0
+## 7.0.0
 
 - CHANGED: Minimum Ruby version is now 2.6
 - CHANGED: Deprecates `registrar.getDomainPremiumPrice` in favour of `registrar.getDomainPrices`
