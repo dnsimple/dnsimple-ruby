@@ -9,7 +9,7 @@ module Dnsimple
     BASE_URL = "https://api.dnsimple.com/"
 
     # Default User Agent header
-    USER_AGENT = "dnsimple-ruby/#{VERSION}"
+    USER_AGENT = "dnsimple-ruby/#{VERSION}".freeze
 
     class << self
 
