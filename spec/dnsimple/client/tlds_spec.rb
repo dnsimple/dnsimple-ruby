@@ -107,6 +107,7 @@ describe Dnsimple::Client, ".tlds" do
       expect(result.registration_enabled).to be(true)
       expect(result.renewal_enabled).to be(true)
       expect(result.transfer_enabled).to be(true)
+      expect(result.dnssec_interface_type).to eq("ds")
     end
   end
 

@@ -30,6 +30,9 @@ module Dnsimple
 
       # @return [Boolean] True if DNSimple supports inbound transfers for this TLD.
       attr_accessor :transfer_enabled
+
+      # @return [String | nil] Type of data interface required for DNSSEC for this TLD.
+      attr_accessor :dnssec_interface_type
     end
 
   end
