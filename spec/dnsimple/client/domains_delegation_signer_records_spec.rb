@@ -155,6 +155,7 @@ describe Dnsimple::Client, ".domains" do
       expect(result.digest).to eq("C1F6E04A5A61FBF65BF9DC8294C363CF11C89E802D926BDAB79C55D27BEFA94F")
       expect(result.digest_type).to eq("2")
       expect(result.keytag).to eq("44620")
+      expect(result.public_key).to be_nil
       expect(result.created_at).to eq("2017-03-03T13:49:58Z")
       expect(result.updated_at).to eq("2017-03-03T13:49:58Z")
     end
