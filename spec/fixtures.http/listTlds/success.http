@@ -17,4 +17,4 @@ X-Permitted-Cross-Domain-Policies: none
 X-XSS-Protection: 1; mode=block
 Strict-Transport-Security: max-age=31536000
 
-{"data":[{"tld":"ac","tld_type":2,"whois_privacy":false,"auto_renew_only":true,"idn":false,"minimum_registration":1,"registration_enabled":true,"renewal_enabled":true,"transfer_enabled":false},{"tld":"academy","tld_type":3,"whois_privacy":true,"auto_renew_only":false,"idn":true,"minimum_registration":1,"registration_enabled":true,"renewal_enabled":true,"transfer_enabled":true}],"pagination":{"current_page":1,"per_page":2,"total_entries":195,"total_pages":98}}
+{"data":[{"tld":"ac","tld_type":2,"whois_privacy":false,"auto_renew_only":true,"idn":false,"minimum_registration":1,"registration_enabled":true,"renewal_enabled":true,"transfer_enabled":false,"dnssec_interface_type":"ds"},{"tld":"academy","tld_type":3,"whois_privacy":true,"auto_renew_only":false,"idn":true,"minimum_registration":1,"registration_enabled":true,"renewal_enabled":true,"transfer_enabled":true,"dnssec_interface_type":"key"}],"pagination":{"current_page":1,"per_page":2,"total_entries":195,"total_pages":98}}

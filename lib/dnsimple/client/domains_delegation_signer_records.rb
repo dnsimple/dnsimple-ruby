@@ -67,15 +67,16 @@ module Dnsimple
       # @param  [#to_s] domain_id The domain ID or domain name
       # @param  [Hash] attributes
       # @option attributes [Integer] :algorithm DNSSEC algorithm as number (required)
-      # @option attributes [String] :digest The hexidecimal representation of the digest of the corresponding DNSKEY record (required)
-      # @option attributes [Integer] :digest_type DNSSEC digest type (required)
-      # @option attributes [String] :keytag A keytag that references the corresponding DNSKEY record (required)
+      # @option attributes [String] :digest The hexidecimal representation of the digest of the corresponding DNSKEY record (required if TLD requires DS data)
+      # @option attributes [Integer] :digest_type DNSSEC digest type (required if TLD requires DS data)
+      # @option attributes [String] :keytag A keytag that references the corresponding DNSKEY record (required if TLD requires DS data)
+      # @option attributes [String] :public_key A public key that references the corresponding DNSKEY record (required if TLD requires KEY data)
       # @param  [Hash] options
       # @return [Dnsimple::Response<Dnsimple::Struct::DelegationSignerRecord>]
       #
       # @raise  [Dnsimple::RequestError]
       def create_delegation_signer_record(account_id, domain_id, attributes, options = {})
-        Extra.validate_mandatory_attributes(attributes, [:algorithm, :digest, :digest_type, :keytag])
+        Extra.validate_mandatory_attributes(attributes, [:algorithm])
         response = client.post(Client.versioned("/%s/domains/%s/ds_records" % [account_id, domain_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::DelegationSignerRecord.new(response["data"]))
