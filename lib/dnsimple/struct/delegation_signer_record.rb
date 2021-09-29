@@ -30,7 +30,6 @@ module Dnsimple
 
       # @return [String] When the delegation signing record was last updated in DNSimple.
       attr_accessor :updated_at
-
     end
 
   end
