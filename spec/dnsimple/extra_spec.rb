@@ -26,7 +26,7 @@ describe Dnsimple::Extra do
   describe ".validate_mandatory_attributes" do
     let(:mandatory_attributes) { %i(name email) }
 
-    it "raises an error if a mandatory attribute is not present " do
+    it "raises an error if a mandatory attribute is not present" do
       expect {
         described_class.validate_mandatory_attributes({ name: "foo" }, mandatory_attributes)
       }.to raise_error(ArgumentError, ":email is required")
