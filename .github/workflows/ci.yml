@@ -1,0 +1,58 @@
+---
+name: ci
+
+"on":
+  pull_request:
+  push:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  markdownlint-cli:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Run markdownlint-cli
+        uses: nosborn/github-action-markdown-cli@v2.0.0
+        with:
+          files: .
+          config_file: ".markdownlint.yaml"
+
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Run YAML Lint
+        uses: actionshub/yamllint@main
+
+  build:
+    needs: [markdownlint-cli, yamllint]
+    runs-on: ubuntu-latest
+    name: Ruby ${{ matrix.ruby-version }}
+    strategy:
+      matrix:
+        ruby-version: ['2.6', '2.7', '3.0']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+      - run: bundle exec rake
+
+  slack-workflow-status:
+    if: always()
+    name: Post Workflow Status To Slack
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Slack Workflow Notification
+        uses: Gamesight/slack-workflow-status@master
+        with:
+          repo_token: ${{secrets.GITHUB_TOKEN}}
+          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL_DEVELOPMENT}}
