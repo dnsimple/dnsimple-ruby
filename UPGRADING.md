@@ -7,8 +7,7 @@ and take advantage of Ruby 1.9.3 and Ruby 2.0.
 
 If you are upgrading your code from v1.x, here's the major changes you should be aware of.
 
-
-1.  The client is now an instance.
+1. The client is now an instance.
 
     All the API calls are performed within the scope of an instance, rather than a class,
     making it possible to pass the client around, write thread-safe code and create multiple client instances
@@ -25,7 +24,7 @@ If you are upgrading your code from v1.x, here's the major changes you should be
     domain = client.domains.domain("example.com")
     ```
 
-1.  API call responses are now simple struct-like objects, rather Model-like objects.
+1. API call responses are now simple struct-like objects, rather Model-like objects.
 
     ```ruby
     domain = client.domains.domain("example.com")
@@ -35,7 +34,7 @@ If you are upgrading your code from v1.x, here's the major changes you should be
     A struct-like object is designed to be a simple container of key/value attributes,
     as opposite to a fully-features instance you can interact with.
 
-1.  API methods are now defined as methods of the client instance.
+1. API methods are now defined as methods of the client instance.
 
     This is a consequence (or the cause, depending on the POV) of the previous point. It is no longer possible to call
     persistence methods on an object returned from the API, as it was in v1.

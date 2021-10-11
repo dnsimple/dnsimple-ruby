@@ -2,7 +2,7 @@
 
 ## Getting started
 
-#### 1. Clone the repository
+### 1. Clone the repository
 
 Clone the repository and move into it:
 
@@ -11,18 +11,17 @@ git clone git@github.com:dnsimple/dnsimple-ruby.git
 cd dnsimple-ruby
 ```
 
-#### 2. Install the dependencies
+### 2. Install the dependencies
 
 Install the dependencies using [Bundler](http://bundler.io/):
 
-```
+```shell
 bundle
 ```
 
-#### 3. Build and test
+### 3. Build and test
 
 [Run the test suite](#testing) to check everything works as expected.
-
 
 ## Releasing
 
@@ -66,15 +65,13 @@ The following instructions uses `$VERSION` as a placeholder, where `$VERSION` is
     gem push pkg/<filename>
     ```
 
-
 ## Testing
 
 To run the test suite:
 
-```
+```shell
 rake
 ```
-
 
 ## Tests
 
