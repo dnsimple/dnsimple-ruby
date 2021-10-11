@@ -34,7 +34,12 @@ jobs:
     name: Ruby ${{ matrix.ruby-version }}
     strategy:
       matrix:
-        ruby-version: ['2.6', '2.7', '3.0']
+        ruby-version:
+          - '2.6'
+          - '2.7'
+          - '3.0'
+          - 'ruby-head'
+          - 'truffleruby-head'
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby
