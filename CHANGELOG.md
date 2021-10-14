@@ -3,6 +3,7 @@
 This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
+
 - CHANGED: Updated DNSSEC-related structs and entrypoints to support DS record key-data interface. (dnsimple/dnsimple-ruby#252)
 
 ## 7.0.0
@@ -13,8 +14,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 ## 6.0.0
 
 - NEW: Added `registrar.get_domain_prices` to retrieve whether a domain is premium and the prices to register, transfer, and renew. (dnsimple/dnsimple-ruby#230)
-- REMOVED: `domain.reset_domain_token` endpoint no longer exists and the client method is removed.
-  (dnsimple/dnsimple-ruby#231)
+- REMOVED: `domain.reset_domain_token` endpoint no longer exists and the client method is removed. (dnsimple/dnsimple-ruby#231)
 - REMOVED: The deprecated `Domain.expires_on` is removed. (dnsimple/dnsimple-ruby#232)
 - REMOVED: The deprecated `Certificate.expires_on` is removed. (dnsimple/dnsimple-ruby#232)
 
@@ -38,7 +38,6 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - NEW: Added WHOIS privacy renewal (GH-171)
 
-
 ## 4.5.0
 
 - NEW: Added zone distribution and zone record distribution (GH-160)
@@ -49,13 +48,11 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - REMOVED: Removed extra alias (GH-168). You should use `dnsimple.foo.list_foo` instead of `dnsimple.foo.list`. Same for create/update. The change ensures consistency across the various clients. We prefer fully qualified methods.
 
-
 ## 4.4.0
 
 - NEW: Added Let's Encrypt certificate methods (GH-159)
 
 - REMOVED: Removed premium_price attribute from registrar order responses (GH-163). Please do not rely on that attribute, as it returned an incorrect value. The attribute is going to be removed, and the API now returns a null value.
-
 
 ## 4.3.0
 
@@ -63,11 +60,9 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Updated registrar URLs (dnsimple/dnsimple-ruby#153)
 
-
 ## 4.2.0
 
 - NEW: Added DNSSEC support support (dnsimple/dnsimple-ruby#152)
-
 
 ## 4.1.0
 
@@ -75,7 +70,6 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 - CHANGED: Updated registration, transfer, renewal response payload (dnsimple/dnsimple-developer#111, dnsimple/dnsimple-ruby#140).
 - CHANGED: Normalize unique string identifiers to SID (dnsimple/dnsimple-ruby#141)
-
 
 ## 4.0.0
 
@@ -93,7 +87,6 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 - CHANGED: Updated Tld payload (GH-133, GH-129).
 - CHANGED: Renamed registrar `auth_info` into `auth_code` (GH-136).
 
-
 ## 3.1.0
 
 - NEW: Added accounts support (GH-113).
@@ -106,7 +99,6 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 - CHANGED: Updated client to use Contact#email (GH-108).
 
 - REMOVED: Removed support for wildcard accounts (GH-107).
-
 
 ## 3.0.0
 
@@ -150,7 +142,7 @@ Internal changes were made to match conventions adopted in other clients, such a
 
 ## 2.0.0
 
-**2.0.0.alpha**
+### 2.0.0.alpha
 
 2.0 is a complete client redesign.
 
@@ -168,7 +160,7 @@ Internal changes were made to match conventions adopted in other clients, such a
 
 - REMOVED: The library no longer provides built-in support for loading the credentials from a config file.
 
-**2.0**
+### 2.0
 
 - FIXED: Fixed a bug where API token environment variables were not properly detected (GH-59, GH-62). Thanks @oguzbilgic and @rupurt.
 
