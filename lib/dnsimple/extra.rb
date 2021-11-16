@@ -37,7 +37,7 @@ module Dnsimple
           deep_merge(this_value, other_value, &block)
         else
           if block && key?(current_key)
-            block.call(current_key, this_value, other_value)
+            yield(current_key, this_value, other_value)
           else
             other_value
           end
