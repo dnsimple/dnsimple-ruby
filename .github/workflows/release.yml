@@ -1,0 +1,25 @@
+---
+name: release
+
+on:
+  push:
+      tags:
+        - v*.*.*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+      -name: Publish Package
+        run: gradle publish
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSH_TOKEN }}
