@@ -53,18 +53,6 @@ The following instructions uses `$VERSION` as a placeholder, where `$VERSION` is
     git push origin --tags
     ```
 
-1. Build the package.
-
-    ```shell
-    rake build
-    ```
-
-1. Release to RubyGems.
-
-    ```shell
-    gem push pkg/<filename>
-    ```
-
 ## Testing
 
 To run the test suite:
