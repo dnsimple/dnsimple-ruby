@@ -16,4 +16,4 @@ jobs:
         uses: cadwallion/publish-rubygems-action@master
         env:
           RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
-          RELEASE_COMMAND: rake build
+          RELEASE_COMMAND: rake release
