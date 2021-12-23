@@ -8,27 +8,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  markdownlint-cli:
+  markdown-lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-      - name: Run markdownlint-cli
+      - name: Lint Markdown
         uses: nosborn/github-action-markdown-cli@v2.0.0
         with:
           files: .
           config_file: ".markdownlint.yaml"
 
-  yamllint:
+  yaml-lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-      - name: Run YAML Lint
-        uses: actionshub/yamllint@main
+      - name: Lint YAML
+        uses: ibiqlik/action-yamllint@v3
 
   build:
-    needs: [markdownlint-cli, yamllint]
+    needs: [markdown-lint, yaml-lint]
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby-version }}
     strategy:
