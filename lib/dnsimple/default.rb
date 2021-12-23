@@ -30,7 +30,7 @@ module Dnsimple
       # Configuration options
       # @return [Hash]
       def options
-        keys.map { |key| [key, send(key)] }.to_h
+        keys.to_h { |key| [key, send(key)] }
       end
 
       # Default API endpoint from ENV or {BASE_URL}
