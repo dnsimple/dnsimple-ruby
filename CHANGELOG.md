@@ -4,6 +4,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+- NEW: Added Ruby version 3.1
+
 ## 7.1.0
 
 - CHANGED: Updated DNSSEC-related structs and entrypoints to support DS record key-data interface. (dnsimple/dnsimple-ruby#252)
