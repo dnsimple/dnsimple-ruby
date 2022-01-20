@@ -14,7 +14,7 @@ jobs:
 
       - name: Release Gem
         # v1.0.0
-        uses: cadwallion/publish-rubygems-action@9493635
+        uses: cadwallion/publish-rubygems-action@8f9e0538302643309e4e43bf48cd34173ca48cfc
         env:
           RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
           RELEASE_COMMAND: rake release
