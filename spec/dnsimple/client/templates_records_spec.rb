@@ -65,7 +65,7 @@ describe Dnsimple::Client, ".templates" do
     let(:template_id) { "alpha" }
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:records, account_id, template_id, option: "value")
+      expect(subject).to receive(:paginate).with(:records, account_id, template_id, { option: "value" })
       subject.all_records(account_id, template_id, option: "value")
     end
 

@@ -49,36 +49,36 @@ describe Dnsimple::Client do
 
   describe "#get" do
     it "delegates to #request" do
-      allow(subject).to receive(:execute).with(:get, "path", nil, foo: "bar").and_return(:returned)
-      expect(subject.get("path", foo: "bar")).to eq(:returned)
+      allow(subject).to receive(:execute).with(:get, "path", nil, { foo: "bar" }).and_return(:returned)
+      expect(subject.get("path", { foo: "bar" })).to eq(:returned)
     end
   end
 
   describe "#post" do
     it "delegates to #request" do
       allow(subject).to receive(:execute).with(:post, "path", { foo: "bar" }, {}).and_return(:returned)
-      expect(subject.post("path", foo: "bar")).to eq(:returned)
+      expect(subject.post("path", { foo: "bar" })).to eq(:returned)
     end
   end
 
   describe "#put" do
     it "delegates to #request" do
       allow(subject).to receive(:execute).with(:put, "path", { foo: "bar" }, {}).and_return(:returned)
-      expect(subject.put("path", foo: "bar")).to eq(:returned)
+      expect(subject.put("path", { foo: "bar" })).to eq(:returned)
     end
   end
 
   describe "#patch" do
     it "delegates to #request" do
       allow(subject).to receive(:execute).with(:patch, "path", { foo: "bar" }, {}).and_return(:returned)
-      expect(subject.patch("path", foo: "bar")).to eq(:returned)
+      expect(subject.patch("path", { foo: "bar" })).to eq(:returned)
     end
   end
 
   describe "#delete" do
     it "delegates to #request" do
       allow(subject).to receive(:execute).with(:delete, "path", { foo: "bar" }, {}).and_return(:returned)
-      expect(subject.delete("path", foo: "bar")).to eq(:returned)
+      expect(subject.delete("path", { foo: "bar" })).to eq(:returned)
     end
   end
 
@@ -128,10 +128,11 @@ describe Dnsimple::Client do
 
       allow(HTTParty).to receive(:get)
           .with(
-              "#{subject.base_url}foo",
-              format: :json,
-              basic_auth: { username: "user", password: "pass" },
-              headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
+              "#{subject.base_url}foo", {
+                format: :json,
+                basic_auth: { username: "user", password: "pass" },
+                headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT },
+              }
             )
           .and_return(instance_double('response', code: 200))
 
@@ -141,12 +142,13 @@ describe Dnsimple::Client do
     it "properly extracts processes options and encodes data" do
       allow(HTTParty).to receive(:put)
           .with(
-              "#{subject.base_url}foo",
-              format: :json,
-              body: JSON.dump(something: "else"),
-              query: { foo: "bar" },
-              basic_auth: { username: "user", password: "pass" },
-              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT, "Custom" => "Header" }
+              "#{subject.base_url}foo", {
+                format: :json,
+                body: JSON.dump(something: "else"),
+                query: { foo: "bar" },
+                basic_auth: { username: "user", password: "pass" },
+                headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT, "Custom" => "Header" },
+              }
             )
           .and_return(instance_double('response', code: 200))
 
@@ -156,11 +158,12 @@ describe Dnsimple::Client do
     it "handles non application/json content types" do
       allow(HTTParty).to receive(:post)
           .with(
-              "#{subject.base_url}foo",
-              format: :json,
-              body: { something: "else" },
-              basic_auth: { username: "user", password: "pass" },
-              headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => Dnsimple::Default::USER_AGENT }
+              "#{subject.base_url}foo", {
+                format: :json,
+                body: { something: "else" },
+                basic_auth: { username: "user", password: "pass" },
+                headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => Dnsimple::Default::USER_AGENT },
+              }
             )
           .and_return(instance_double('response', code: 200))
 
@@ -170,11 +173,12 @@ describe Dnsimple::Client do
     it "includes options for proxy support" do
       allow(HTTParty).to receive(:get)
           .with(
-              "#{subject.base_url}test",
-              format: :json,
-              http_proxyaddr: "example-proxy.com",
-              http_proxyport: "4321",
-              headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT }
+              "#{subject.base_url}test", {
+                format: :json,
+                http_proxyaddr: "example-proxy.com",
+                http_proxyport: "4321",
+                headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT },
+              }
             )
           .and_return(instance_double('response', code: 200))
 
@@ -186,8 +190,8 @@ describe Dnsimple::Client do
       allow(HTTParty).to receive(:get)
           .with(
               "#{subject.base_url}test",
-              format: :json,
-              headers: hash_including("User-Agent" => "customAgent #{Dnsimple::Default::USER_AGENT}")
+              { format: :json,
+                headers: hash_including("User-Agent" => "customAgent #{Dnsimple::Default::USER_AGENT}"), }
             )
           .and_return(instance_double("response", code: 200))
 

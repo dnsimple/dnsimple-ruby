@@ -93,8 +93,8 @@ describe Dnsimple::Client, ".zones" do
     let(:zone_id) { "example.com" }
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:list_zone_records, account_id, zone_id, foo: "bar")
-      subject.all_zone_records(account_id, zone_id, foo: "bar")
+      expect(subject).to receive(:paginate).with(:list_zone_records, account_id, zone_id, { foo: "bar" })
+      subject.all_zone_records(account_id, zone_id, { foo: "bar" })
     end
 
     it "supports sorting" do

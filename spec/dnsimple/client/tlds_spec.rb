@@ -68,7 +68,7 @@ describe Dnsimple::Client, ".tlds" do
     end
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:list_tlds, foo: "bar")
+      expect(subject).to receive(:paginate).with(:list_tlds, { foo: "bar" })
       subject.all_tlds(foo: "bar")
     end
 

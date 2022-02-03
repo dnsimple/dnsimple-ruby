@@ -61,7 +61,7 @@ describe Dnsimple::Client, ".services" do
     end
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:services, foo: "bar")
+      expect(subject).to receive(:paginate).with(:services, { foo: "bar" })
       subject.all_services(foo: "bar")
     end
 
