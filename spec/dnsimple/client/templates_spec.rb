@@ -64,8 +64,8 @@ describe Dnsimple::Client, ".templates" do
     let(:account_id) { 1010 }
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:templates, account_id, foo: "bar")
-      subject.all_templates(account_id, foo: "bar")
+      expect(subject).to receive(:paginate).with(:templates, account_id, { foo: "bar" })
+      subject.all_templates(account_id, { foo: "bar" })
     end
 
     it "supports sorting" do

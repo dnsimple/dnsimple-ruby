@@ -73,8 +73,8 @@ describe Dnsimple::Client, ".contacts" do
     let(:account_id) { 1010 }
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:contacts, account_id, foo: "bar")
-      subject.all_contacts(account_id, foo: "bar")
+      expect(subject).to receive(:paginate).with(:contacts, account_id, { foo: "bar" })
+      subject.all_contacts(account_id, { foo: "bar" })
     end
 
     it "supports sorting" do

@@ -68,8 +68,8 @@ describe Dnsimple::Client, ".certificates" do
     let(:domain_id) { "dnsimple.us" }
 
     it "delegates to client.paginate" do
-      expect(subject).to receive(:paginate).with(:certificates, account_id, domain_id, foo: "bar")
-      subject.all_certificates(account_id, domain_id, foo: "bar")
+      expect(subject).to receive(:paginate).with(:certificates, account_id, domain_id, { foo: "bar" })
+      subject.all_certificates(account_id, domain_id, { foo: "bar" })
     end
 
     it "supports sorting" do
