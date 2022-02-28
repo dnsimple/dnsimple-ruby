@@ -4,6 +4,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+- FIXED: Remove stale reference to Client::DomainServicesService (dnsimple/dnsimple-ruby#267)
+
 ## 7.1.1
 
 - CHANGED: Bumped up dependencies
