@@ -317,7 +317,7 @@ describe Dnsimple::Client, ".registrar" do
       expect(result.state).to eq("transferring")
       expect(result.auto_renew).to be(false)
       expect(result.whois_privacy).to be(false)
-      expect(result.status_description).to eq(nil)
+      expect(result.status_description).to be_nil
       expect(result.created_at).to eq("2020-06-05T18:08:00Z")
       expect(result.updated_at).to eq("2020-06-05T18:08:04Z")
     end

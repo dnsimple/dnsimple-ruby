@@ -179,7 +179,7 @@ describe Dnsimple::Client, ".zones" do
       expect(result).to be_a(Dnsimple::Struct::ZoneRecord)
       expect(result.id).to eq(record_id)
       expect(result.zone_id).to eq("example.com")
-      expect(result.parent_id).to eq(nil)
+      expect(result.parent_id).to be_nil
       expect(result.type).to eq("MX")
       expect(result.name).to eq("")
       expect(result.content).to eq("mxa.example.com")
