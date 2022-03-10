@@ -116,8 +116,8 @@ describe Dnsimple::Client, ".domains" do
         result = response.data
         expect(result).to be_a(Dnsimple::Struct::Collaborator)
         expect(result.id).to          be_a(Integer)
-        expect(result.user_id).to     be(nil)
-        expect(result.accepted_at).to be(nil)
+        expect(result.user_id).to     be_nil
+        expect(result.accepted_at).to be_nil
         expect(result.user_email).to  eq(attributes.fetch(:email))
         expect(result.invitation).to  be(true)
       end
