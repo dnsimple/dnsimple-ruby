@@ -311,7 +311,7 @@ describe Dnsimple::Client, ".certificates" do
       expect(result.common_name).to eq("www.bingo.pizza")
       expect(result.alternate_names).to eq([])
       expect(result.years).to eq(1)
-      expect(result.csr).to be(nil)
+      expect(result.csr).to be_nil
       expect(result.state).to eq("requesting")
       expect(result.authority_identifier).to eq("letsencrypt")
       expect(result.auto_renew).to be(false)
@@ -421,7 +421,7 @@ describe Dnsimple::Client, ".certificates" do
       expect(result.common_name).to eq("www.bingo.pizza")
       expect(result.alternate_names).to eq([])
       expect(result.years).to eq(1)
-      expect(result.csr).to be(nil)
+      expect(result.csr).to be_nil
       expect(result.state).to eq("requesting")
       expect(result.authority_identifier).to eq("letsencrypt")
       expect(result.auto_renew).to be(false)
