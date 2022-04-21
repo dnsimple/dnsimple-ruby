@@ -36,43 +36,43 @@ module Dnsimple
       # Default API endpoint from ENV or {BASE_URL}
       # @return [String]
       def base_url
-        ENV['DNSIMPLE_BASE_URL'] || BASE_URL
+        ENV.fetch('DNSIMPLE_BASE_URL', BASE_URL)
       end
 
       # Default DNSimple username for Basic Auth from ENV
       # @return [String]
       def username
-        ENV['DNSIMPLE_USERNAME']
+        ENV.fetch('DNSIMPLE_USERNAME', nil)
       end
 
       # Default DNSimple password for Basic Auth from ENV
       # @return [String]
       def password
-        ENV['DNSIMPLE_PASSWORD']
+        ENV.fetch('DNSIMPLE_PASSWORD', nil)
       end
 
       # Default DNSimple access token for OAuth authentication from ENV
       # @return [String]
       def access_token
-        ENV['DNSIMPLE_ACCESS_TOKEN']
+        ENV.fetch('DNSIMPLE_ACCESS_TOKEN', nil)
       end
 
       # Default DNSimple Domain API Token for Token Auth from ENV
       # @return [String]
       def domain_api_token
-        ENV['DNSIMPLE_API_DOMAIN_TOKEN']
+        ENV.fetch('DNSIMPLE_API_DOMAIN_TOKEN', nil)
       end
 
       # Default User-Agent header string from ENV
       # @return [String]
       def user_agent
-        ENV['DNSIMPLE_USER_AGENT']
+        ENV.fetch('DNSIMPLE_USER_AGENT', nil)
       end
 
       # Default Proxy address:port from ENV
       # @return [String]
       def proxy
-        ENV['DNSIMPLE_PROXY']
+        ENV.fetch('DNSIMPLE_PROXY', nil)
       end
 
     end
