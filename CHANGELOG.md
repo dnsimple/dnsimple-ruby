@@ -4,6 +4,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+- CHANGED: Deprecate Certificate's `contact_id` (dnsimple/dnsimple-ruby#276)
 - FIXED: Remove stale reference to Client::DomainServicesService (dnsimple/dnsimple-ruby#267)
 
 ## 7.1.1
