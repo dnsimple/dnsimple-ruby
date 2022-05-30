@@ -232,7 +232,6 @@ describe Dnsimple::Client, ".certificates" do
   describe "#purchase_letsencrypt_certificate" do
     let(:account_id) { 1010 }
     let(:domain_id)  { "bingo.pizza" }
-    let(:contact_id) { 100 }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt})
@@ -240,7 +239,7 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     it "builds the correct request" do
-      attributes = { contact_id: contact_id }
+      attributes = {}
       subject.purchase_letsencrypt_certificate(account_id, domain_id, attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt")
@@ -249,7 +248,7 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     it "passes extra attributes" do
-      attributes = { contact_id: contact_id, name: "www", auto_renew: true, alternate_names: ["api.example.com"] }
+      attributes = { name: "www", auto_renew: true, alternate_names: ["api.example.com"] }
       subject.purchase_letsencrypt_certificate(account_id, domain_id, attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt")
@@ -258,7 +257,7 @@ describe Dnsimple::Client, ".certificates" do
     end
 
     it "returns the certificate purchase" do
-      response = subject.purchase_letsencrypt_certificate(account_id, domain_id, contact_id: contact_id)
+      response = subject.purchase_letsencrypt_certificate(account_id, domain_id)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -276,7 +275,7 @@ describe Dnsimple::Client, ".certificates" do
             .to_return(read_http_fixture("notfound-domain.http"))
 
         expect {
-          subject.purchase_letsencrypt_certificate(account_id, domain_id, contact_id: contact_id)
+          subject.purchase_letsencrypt_certificate(account_id, domain_id)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
