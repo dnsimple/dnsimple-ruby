@@ -14,7 +14,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Run markdownlint-cli
-        uses: nosborn/github-action-markdown-cli@v2.0.0
+        uses: nosborn/github-action-markdown-cli@v3.1.0
         with:
           files: .
           config_file: ".markdownlint.yaml"
