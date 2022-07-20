@@ -1,5 +1,4 @@
----
-name: release
+name: Release
 
 on:
   push:
@@ -7,9 +6,19 @@ on:
       - v*.*.*
 jobs:
   publish:
+    name: Release to RubyGems
     runs-on: ubuntu-latest
 
     steps:
+      - name: Wait for tests to succeed
+        uses: lewagon/wait-on-check-action@v1.0.0
+        with:
+          ref: 'refs/heads/main'
+          running-workflow-name: 'Release to RubyGems'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          wait-interval: 10
+          allowed-conclusions: success
+
       - uses: actions/checkout@v3
 
       - name: Release Gem
