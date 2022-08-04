@@ -140,7 +140,7 @@ Style/BarePercentLiterals:
 # braces_for_chaining seems a good fit of what we've been doing so far.
 Style/BlockDelimiters:
   EnforcedStyle: braces_for_chaining
-  IgnoredMethods:
+  AllowedMethods:
     - expect
 
 # Warn on empty else.
