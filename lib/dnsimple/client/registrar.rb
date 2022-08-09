@@ -24,35 +24,6 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::DomainCheck.new(response["data"]))
       end
 
-      # Checks the premium price for a domain
-      #
-      # @see https://developer.dnsimple.com/v2/registrar/#premium-price
-      #
-      # @example Check the ruby.codes premium price:
-      #   client.registrar.domain_premium_price(1010, "ruby.codes")
-      #
-      # @example Check the ruby.codes premium price for transfer:
-      #   client.registrar.domain_premium_price(1010, "ruby.codes", action: "transfer")
-      #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to check
-      # @param  [Hash] options
-      # @option options [String] :action Optional action between "registration",
-      #   "renewal", and "transfer". If omitted, it defaults to "registration".
-      # @return [Struct::DomainPremiumPrice]
-      #
-      # @raise  [RequestError] When the request fails.
-      #
-      # @deprecated Use {#get_domain_prices} instead of this one as it will soon be removed from the API.
-      def domain_premium_price(account_id, domain_name, options = {})
-        Dnsimple.deprecate("Use {#get_domain_prices} instead of this one as it will soon be removed from the API.")
-        endpoint = Client.versioned("/%s/registrar/domains/%s/premium_price" % [account_id, domain_name])
-        options[:query] = { action: options.delete(:action) } if options.key?(:action)
-        response = client.get(endpoint, options)
-
-        Dnsimple::Response.new(response, Struct::DomainPremiumPrice.new(response["data"]))
-      end
-
       # Get prices for a domain.
       # @see https://developer.dnsimple.com/v2/registrar/#getDomainPrices
       #
