@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = 'The DNSimple API client for Ruby'
   s.description = 'The DNSimple API client for Ruby.'
 
-  s.required_ruby_version = ">= 2.6"
+  s.required_ruby_version = ">= 2.7"
 
   s.require_paths    = ['lib']
   s.files            = `git ls-files`.split("\n")
