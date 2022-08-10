@@ -4,6 +4,10 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 8.0.0
+
+- CHANGED: Minimum Ruby version is now 2.7
+- REMOVED: `registrar.getDomainPremiumPrice` in favour of `registrar.getDomainPrices`
 - CHANGED: Deprecate Certificate's `contact_id` (dnsimple/dnsimple-ruby#276)
 - FIXED: Remove stale reference to Client::DomainServicesService (dnsimple/dnsimple-ruby#267)
 
