@@ -34,54 +34,6 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
-  describe "#domain_premium_price" do
-    let(:account_id) { 1010 }
-
-    context "when premium price" do
-      before do
-        stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/premium_price[?action]*})
-            .to_return(read_http_fixture("getDomainPremiumPrice/success.http"))
-      end
-
-      it "builds the correct request" do
-        subject.domain_premium_price(account_id, domain_name = "ruby.codes")
-
-        expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/premium_price")
-            .with(headers: { "Accept" => "application/json" })
-      end
-
-      it "returns the premium price" do
-        response = subject.domain_premium_price(account_id, "ruby.codes")
-        expect(response).to be_a(Dnsimple::Response)
-
-        result = response.data
-        expect(result).to be_a(Dnsimple::Struct::DomainPremiumPrice)
-        expect(result.premium_price).to eq("109.00")
-        expect(result.action).to        eq("registration")
-      end
-
-      it "builds the correct request when action is passed" do
-        subject.domain_premium_price(account_id, domain_name = "ruby.codes", action: "registration")
-
-        expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/premium_price?action=registration")
-            .with(headers: { "Accept" => "application/json" })
-      end
-    end
-
-    context "when not premium price" do
-      before do
-        stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/premium_price$})
-            .to_return(read_http_fixture("getDomainPremiumPrice/failure.http"))
-      end
-
-      it "raises error" do
-        expect {
-          subject.domain_premium_price(account_id, "example.com")
-        }.to raise_error(Dnsimple::RequestError, "`example.com` is not a premium domain for registration")
-      end
-    end
-  end
-
   describe "#get_domain_prices" do
     let(:account_id) { 1010 }
 
