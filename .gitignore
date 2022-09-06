@@ -1,3 +1,6 @@
+# ASDF
+.tool-versions
+
 # Bundler
 .bundle
 pkg/*
@@ -7,6 +10,3 @@ Gemfile.lock
 .yardoc
 yardoc/
 doc/
-
-#ASDF
-.tool-versions
