@@ -126,7 +126,7 @@ describe Dnsimple::Client do
     it "delegates to HTTParty" do
       stub_request(:get, %r{/foo})
 
-      allow(HTTParty).to receive(:get)
+      expect(HTTParty).to receive(:get)
           .with(
               "#{subject.base_url}foo", {
                 format: :json,
@@ -150,7 +150,9 @@ describe Dnsimple::Client do
               }
             )
 
-      subject.request(:put, 'foo', { something: "else" }, { query: { foo: "bar" }, headers: { "Custom" => "Header" } })
+      expect {
+        subject.request(:put, 'foo', { something: "else" }, { query: { foo: "bar" }, headers: { "Custom" => "Header" } })
+      }.not_to raise_error
     end
 
     it "handles non application/json content types" do
@@ -164,7 +166,9 @@ describe Dnsimple::Client do
               }
             )
 
-      subject.request(:post, 'foo', { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
+      expect {
+        subject.request(:post, 'foo', { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
+      }.not_to raise_error
     end
 
     it "includes options for proxy support" do
@@ -178,8 +182,10 @@ describe Dnsimple::Client do
               }
             )
 
-      subject = described_class.new(proxy: "example-proxy.com:4321")
-      subject.request(:get, "test", nil, {})
+      expect {
+        subject = described_class.new(proxy: "example-proxy.com:4321")
+        subject.request(:get, "test", nil, {})
+      }.not_to raise_error
     end
 
     it "supports custom user agent" do
@@ -190,8 +196,10 @@ describe Dnsimple::Client do
                 headers: hash_including("User-Agent" => "customAgent #{Dnsimple::Default::USER_AGENT}"), }
             )
 
-      subject = described_class.new(user_agent: "customAgent")
-      subject.request(:get, "test", nil)
+      expect {
+        subject = described_class.new(user_agent: "customAgent")
+        subject.request(:get, "test", nil)
+      }.not_to raise_error
     end
   end
 
