@@ -93,6 +93,19 @@ describe Dnsimple::Client do
       }.to raise_error(Dnsimple::RequestError, "The domain google.com is already in DNSimple and cannot be added")
     end
 
+    it "raises a Request error in case of an error with a JSON response with attribute errors" do
+      stub_request(:post, %r{/foo}).to_return(read_http_fixture("validation-error.http"))
+
+      expect {
+        subject.execute(:post, "foo", {})
+      }.to raise_error(Dnsimple::RequestError, "Validation failed") do |exception|
+        expect(exception).to respond_to(:errors)
+        expect(exception.errors).to be_kind_of(Hash)
+        expect(exception.errors["email"]).to eq(["can't be blank", "is an invalid email address"])
+        expect(exception.errors["address1"]).to eq(["can't be blank"])
+      end
+    end
+
     it "raises RequestError in case of error with an HTML response" do
       stub_request(:get, %r{/foo}).to_return(read_http_fixture("badgateway.http"))
 
