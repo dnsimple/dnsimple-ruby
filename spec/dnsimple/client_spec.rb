@@ -100,7 +100,7 @@ describe Dnsimple::Client do
         subject.execute(:post, "foo", {})
       }.to raise_error(Dnsimple::RequestError, "Validation failed") do |exception|
         expect(exception).to respond_to(:errors)
-        expect(exception.errors).to be_kind_of(Hash)
+        expect(exception.errors).to be_a(Hash)
         expect(exception.errors["email"]).to eq(["can't be blank", "is an invalid email address"])
         expect(exception.errors["address1"]).to eq(["can't be blank"])
       end
