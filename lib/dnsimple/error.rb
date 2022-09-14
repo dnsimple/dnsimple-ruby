@@ -18,22 +18,23 @@ module Dnsimple
     private
 
     def errors_from(http_response)
-      content_type = http_response.headers["Content-Type"]
-      if content_type&.start_with?("application/json")
-        http_response.parsed_response["errors"]
-      else
-        nil
-      end
+      return unless is_json_response?(http_response)
+
+      http_response.parsed_response["errors"]
     end
 
     def message_from(http_response)
-      content_type = http_response.headers["Content-Type"]
-      if content_type&.start_with?("application/json")
+      if is_json_response?(http_response)
         http_response.parsed_response["message"]
       else
         net_http_response = http_response.response
         "#{net_http_response.code} #{net_http_response.message}"
       end
+    end
+
+    def is_json_response?(http_response)
+      content_type = http_response.headers["Content-Type"]
+      content_type&.start_with?("application/json")
     end
 
   end
