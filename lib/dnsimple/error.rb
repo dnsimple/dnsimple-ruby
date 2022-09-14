@@ -22,7 +22,7 @@ module Dnsimple
       if content_type&.start_with?("application/json")
         http_response.parsed_response["errors"]
       else
-        {}
+        nil
       end
     end
 

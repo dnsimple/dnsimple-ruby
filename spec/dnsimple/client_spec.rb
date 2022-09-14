@@ -90,7 +90,9 @@ describe Dnsimple::Client do
 
       expect {
         subject.execute(:post, "foo", {})
-      }.to raise_error(Dnsimple::RequestError, "The domain google.com is already in DNSimple and cannot be added")
+      }.to raise_error(Dnsimple::RequestError, "The domain google.com is already in DNSimple and cannot be added") do |exception|
+        expect(exception.errors).to be_nil
+      end
     end
 
     it "raises a Request error in case of an error with a JSON response with attribute errors" do
@@ -111,7 +113,9 @@ describe Dnsimple::Client do
 
       expect {
         subject.execute(:get, "foo", {})
-      }.to raise_error(Dnsimple::RequestError, "502 Bad Gateway")
+      }.to raise_error(Dnsimple::RequestError, "502 Bad Gateway") do |exception|
+        expect(exception.errors).to be_nil
+      end
     end
 
     it "raises RequestError in absence of content types" do
@@ -119,7 +123,9 @@ describe Dnsimple::Client do
 
       expect {
         subject.execute(:put, "foo", {})
-      }.to raise_error(Dnsimple::RequestError, "405 Method Not Allowed")
+      }.to raise_error(Dnsimple::RequestError, "405 Method Not Allowed") do |exception|
+        expect(exception.errors).to be_nil
+      end
     end
   end
 
