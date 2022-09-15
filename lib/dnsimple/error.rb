@@ -7,17 +7,17 @@ module Dnsimple
 
   # RequestError is raised when an API request fails for an client, a server error or invalid request information.
   class RequestError < Error
-    attr_reader :http_response, :errors
+    attr_reader :http_response, :attribute_errors
 
     def initialize(http_response)
       @http_response = http_response
-      @errors = errors_from(http_response)
+      @attribute_errors = attribute_errors_from(http_response)
       super(message_from(http_response))
     end
 
     private
 
-    def errors_from(http_response)
+    def attribute_errors_from(http_response)
       return unless is_json_response?(http_response)
 
       http_response.parsed_response["errors"]
