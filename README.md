@@ -29,6 +29,7 @@ gem 'dnsimple', '~> 6.0'
 ## Documentation
 
 ### Relevant links
+
 - [`dnsimple-ruby` RDocs](https://www.rubydoc.info/gems/dnsimple/).
 - [DNSimple API documentation](https://developer.dnsimple.com).
 - [DNSimple API examples repository](https://github.com/dnsimple/dnsimple-api-examples).
@@ -50,7 +51,7 @@ You will need to ensure that you are using an access token created in the sandbo
 
 Be sure to require the gem before trying any of the examples:
 
-```
+```ruby
 require 'dnsimple'
 ```
 
@@ -65,7 +66,6 @@ client = Dnsimple::Client.new(user_agent: "my-app/1.0")
 The value you provide will be prepended to the default `User-Agent` the client uses. For example, if you use `my-app/1.0`, the final header value will be `my-app/1.0 dnsimple-ruby/0.14.0` (note that it will vary depending on the client version).
 
 We recommend to customize the user agent. If you are building a library or integration on top of the official client, customizing the client will help us to understand what is this client used for, and allow to contribute back or get in touch.
-
 
 #### Authentication
 
@@ -95,12 +95,14 @@ puts client.domains.all_domains(account_id).data                       # => all 
 ```
 
 #### Create a domain
+
 ```ruby
 response = client.domains.create_domain(account_id, name: "example.com")
 puts response.data
 ```
 
 #### Get a domain
+
 ```ruby
 response = client.domains.domain(account_id, "example.com")
 puts response.data
