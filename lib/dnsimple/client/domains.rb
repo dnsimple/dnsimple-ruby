@@ -6,20 +6,20 @@ module Dnsimple
 
       # Lists the domains in the account.
       #
-      # @see https://developer.dnsimple.com/v2/domains/#list
+      # @see https://developer.dnsimple.com/v2/domains/#listDomains
       # @see #all_domains
       #
       # @example List domains in the first page
-      #   client.domains.list(1010)
+      #   client.domains.domains(1010)
       #
       # @example List domains, provide a specific page
-      #   client.domains.list(1010, page: 2)
+      #   client.domains.domains(1010, page: 2)
       #
       # @example List domains, provide a sorting policy
-      #   client.domains.list(1010, sort: "expiration:asc")
+      #   client.domains.domains(1010, sort: "expiration:asc")
       #
       # @example List domains, provide a filtering policy
-      #   client.domains.list(1010, filter: { name_like: "example" })
+      #   client.domains.domains(1010, filter: { name_like: "example" })
       #
       # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering and sorting options
@@ -45,7 +45,7 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/domains/#list
+      # @see https://developer.dnsimple.com/v2/domains/#listDomains
       # @see #domains
       #
       # @param  [Integer] account_id the account ID
@@ -63,7 +63,10 @@ module Dnsimple
 
       # Creates a domain in the account.
       #
-      # @see https://developer.dnsimple.com/v2/domains/#create
+      # @see https://developer.dnsimple.com/v2/domains/#createDomain
+      #
+      # @example Creating a domain in a specific account. Does not register the domain
+      #   client.domains.create_domain(1010, name: "example.com")
       #
       # @param  [Integer] account_id the account ID
       # @param  [Hash] attributes
@@ -81,7 +84,13 @@ module Dnsimple
 
       # Gets a domain from the account.
       #
-      # @see https://developer.dnsimple.com/v2/domains/#get
+      # @see https://developer.dnsimple.com/v2/domains/#getDomain
+      #
+      #
+      # @example Getting a domain in a specific account, by domain id
+      #   client.domains.domain(1010, 12345)
+      # @example Getting a domain in a specific account, by domain name
+      #   client.domains.domain(1010, "example.com")
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
@@ -100,7 +109,12 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see https://developer.dnsimple.com/v2/domains/#delete
+      # @see https://developer.dnsimple.com/v2/domains/#deleteDomain
+      #
+      # @example Deleting a domain in a specific account, by domain id
+      #   client.domains.delete_domain(1010, 12345)
+      # @example Deleting a domain in a specific account, by domain name
+      #   client.domains.delete_domain(1010, "example.com")
       #
       # @param  [Integer] account_id the account ID
       # @param  [#to_s] domain_id The domain ID or domain name
