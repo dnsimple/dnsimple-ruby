@@ -4,6 +4,7 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+- CHANGED: Fixed and updated documentation for domain endpoints (dnsimple/dnsimple-ruby#300)
 - CHANGED: Expose all information available in error responses (dnsimple/dnsimple-ruby#298)
 
 ## 8.0.0
