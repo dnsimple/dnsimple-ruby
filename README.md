@@ -8,6 +8,10 @@ A Ruby client for the [DNSimple API v2](https://developer.dnsimple.com/v2/).
 [DNSimple](https://dnsimple.com/) provides DNS hosting and domain registration that is simple and friendly.
 We provide a full API and an easy-to-use web interface so you can get your domain registered and set up with a minimal amount of effort.
 
+## Requirements
+
+- Ruby: MRI > 2.7+
+
 ## Installation
 
 You can install the gem manually:
