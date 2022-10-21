@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Wait for tests to succeed
-        uses: lewagon/wait-on-check-action@v1.1.2
+        uses: lewagon/wait-on-check-action@v1.2.0
         with:
           ref: 'refs/heads/main'
           running-workflow-name: 'Release to RubyGems'
