@@ -110,6 +110,28 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::DomainRenewal.new(response["data"]))
       end
 
+      # Retrieve the details of an existing domain renewal.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#getDomainRenewal
+      #
+      # @example Retrieve the renewal 42 for example.com:
+      #   client.registrar.get_domain_renewal(1010, "example.com", 42)
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_name the domain name
+      # @param  [Integer] domain_renewal_id the domain renewal ID
+      # @param  [Hash] options
+      # @return [Struct::DomainRenewal]
+      #
+      # @raise  [NotFoundError] When record is not found.
+      # @raise  [RequestError]  When the request fails.
+      def get_domain_renewal(account_id, domain_name, domain_renewal_id, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/renewals/%s" % [account_id, domain_name, domain_renewal_id])
+        response = client.get(endpoint, options)
+
+        Dnsimple::Response.new(response, Struct::DomainRenewal.new(response["data"]))
+      end
+
       # Starts the transfer of a domain to DNSimple.
       #
       # @see https://developer.dnsimple.com/v2/registrar/#transfer
