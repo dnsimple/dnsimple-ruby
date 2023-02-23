@@ -124,6 +124,7 @@ module Dnsimple
       # @option attributes [String] :name the certificate name (optional)
       # @option attributes [Array<String>] :alternate_names the certificate alternate names (optional)
       # @option attributes [TrueClass,FalseClass] :auto_renew enable certificate auto renew (optional)
+      # @option attributes [String] :signature_algorithm the signature algorithm used to sign the certificate (optional)
       # @param  options[Hash]
       #
       # @return [Dnsimple::Response<Dnsimple::Struct::CertificatPurchase>]
@@ -166,6 +167,15 @@ module Dnsimple
       #   certificate.common_name     # => "www.example.com"
       #   certificate.alternate_names # => []
       #   certificate.auto_renew      # => true
+      #
+      # @example Signature Algorithm
+      #   response    = client.certificates.purchase_letsencrypt_certificate(1010, "example.com", signature_algorithm: "RSA")
+      #   certificate = response.data
+      #
+      #   certificate.id              # => 100
+      #   certificate.common_name     # => "www.example.com"
+      #   certificate.alternate_names # => []
+      #   certificate.auto_renew      # => false
       def purchase_letsencrypt_certificate(account_id, domain_id, attributes = {}, options = {})
         response = client.post(Client.versioned("/%s/domains/%s/certificates/letsencrypt" % [account_id, domain_id]), attributes, options)
 
@@ -209,6 +219,7 @@ module Dnsimple
       # @param  certificate_id [Integer] the certificate ID
       # @param  attributes [Hash]
       # @option attributes [TrueClass,FalseClass] :auto_renew enable certificate auto renew (optional)
+      # @option attributes [String] :signature_algorithm the signature algorithm used to sign the certificate (optional)
       # @param  options [Hash]
       #
       # @return [Dnsimple::Response<Dnsimple::Struct::CertificateRenewal>]
@@ -226,6 +237,14 @@ module Dnsimple
       #
       # @example Auto renew
       #   response            = client.certificates.purchase_letsencrypt_certificate_renewal(1010, "example.com", 200, auto_renew: true)
+      #   certificate_renewal = response.data
+      #
+      #   certificate_renewal.id                 # => 999
+      #   certificate_renewal.old_certificate_id # => 200
+      #   certificate_renewal.new_certificate_id # => 300
+      #
+      # @example Signature Algorithm
+      #   response            = client.certificates.purchase_letsencrypt_certificate_renewal(1010, "example.com", 200, signature_algorithm: "RSA")
       #   certificate_renewal = response.data
       #
       #   certificate_renewal.id                 # => 999
