@@ -112,6 +112,32 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
+  describe "#get_domain_registration" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/registrations/.+$})
+          .to_return(read_http_fixture("getDomainRegistration/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.get_domain_registration(account_id, domain_name = "example.com", registration_id = 361)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/registrations/#{registration_id}")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the domain transfer" do
+      response = subject.get_domain_registration(account_id, "example.com", 361)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::DomainRegistration)
+      expect(result.id).to be_a(Integer)
+      expect(result.domain_id).to be_a(Integer)
+    end
+  end
+
   describe "#renew_domain" do
     let(:account_id) { 1010 }
     let(:attributes) { { period: "3" } }
