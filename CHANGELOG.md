@@ -4,6 +4,11 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 8.2.0
+
+- NEW: Added getDomainRenewal and getDomainRegistration endpoints (dnsimple/dnsimple-ruby#332)
+- NEW: Documented the new `signature_algorithm` parameter for the Lets Encrypt certificate purchase endpoint (dnsimple/dnsimple-ruby#331)
+
 ## 8.1.0
 
 - CHANGED: Fixed and updated documentation for domain endpoints (dnsimple/dnsimple-ruby#300)
