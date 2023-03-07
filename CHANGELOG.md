@@ -4,6 +4,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+- CHANGED: Wrap 400 errors on the OAuth endpoint in `Dnsimple::OAuthInvalidRequestError` (dnsimple/dnsimple-ruby#336)
+
 ## 8.2.0
 
 - NEW: Added getDomainRenewal and getDomainRegistration endpoints (dnsimple/dnsimple-ruby#332)
