@@ -48,4 +48,21 @@ module Dnsimple
   class AuthenticationFailed < AuthenticationError
   end
 
+  class OAuthInvalidRequestError < Error
+    attr_reader :http_response, :error, :error_description
+
+    def initialize(http_response)
+      @http_response = http_response
+      @error = http_response.parsed_response["error"]
+      @error_description = http_response.parsed_response["error_description"]
+      super(message)
+    end
+
+    private
+
+    def message
+      "#{error}: #{error_description}"
+    end
+  end
+
 end

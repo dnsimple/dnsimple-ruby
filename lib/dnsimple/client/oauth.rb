@@ -19,6 +19,11 @@ module Dnsimple
         attributes[:redirect_uri] = options.delete(:redirect_uri) if options.key?(:redirect_uri)
         response = client.post(Client.versioned("/oauth/access_token"), attributes, options)
         Struct::OauthToken.new(response)
+
+      rescue Dnsimple::RequestError => exception
+        raise exception unless exception.http_response.code == 400
+
+        raise Dnsimple::OAuthInvalidRequestError, exception.http_response
       end
 
       # Gets the URL to authorize an user for an application via the OAuth2 flow.
