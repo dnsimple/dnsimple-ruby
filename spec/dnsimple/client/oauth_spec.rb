@@ -46,6 +46,25 @@ describe Dnsimple::Client, ".oauth" do
             .with(headers: { 'Accept' => 'application/json' })
       end
     end
+
+    context "when the request fails with 400" do
+      before do
+        stub_request(:post, %r{/v2/oauth/access_token$})
+            .to_return(read_http_fixture("oauthAccessToken/error-invalid-request.http"))
+      end
+
+      it "raises OAuthInvalidRequestError" do
+        expect {
+          subject.exchange_authorization_for_token(code, client_id, client_secret, state: state)
+        }.to raise_error(Dnsimple::OAuthInvalidRequestError) do |e|
+          error = "invalid_request"
+          error_description = "Invalid \"state\": value doesn't match the \"state\" in the authorization request"
+          expect(e.error).to eq(error)
+          expect(e.error_description).to eq(error_description)
+          expect(e.to_s).to eq("#{error}: #{error_description}")
+        end
+      end
+    end
   end
 
   describe "#authorize_url" do
