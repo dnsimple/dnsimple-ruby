@@ -4,6 +4,10 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 8.3.1
+
+- FIXED: Our release process had failed to push correctly `8.2.0` and `8.3.0` to RubyGems resulting in empty gem releases. This releases fixes the issue and contains the same changes of `8.2.0` and `8.3.0`.
+
 ## 8.3.0
 
 - CHANGED: Wrap 400 errors on the OAuth endpoint in `Dnsimple::OAuthInvalidRequestError` (dnsimple/dnsimple-ruby#336)
