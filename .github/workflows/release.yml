@@ -21,12 +21,9 @@ jobs:
 
       - uses: actions/checkout@v3
 
-      - name: Setup workspace as trusted directory
-        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
-
       - name: Release Gem
         uses: simplyqio/publish-rubygems-action@2.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
-          RELEASE_COMMAND: "rake build"
+          RELEASE_COMMAND: "rake build && gem push pkg/*.gem"
