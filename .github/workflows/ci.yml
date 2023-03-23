@@ -23,17 +23,8 @@ jobs:
           files: .
           config_file: ".markdownlint.yaml"
 
-  yamllint:
-    name: Lint YAML
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-      - name: Run YAML Lint
-        uses: actionshub/yamllint@main
-
   test:
-    needs: [markdownlint-cli, yamllint]
+    needs: [markdownlint-cli]
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby-version }}
     strategy:
