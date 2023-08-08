@@ -4,6 +4,12 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 8.4.0 (Unreleased)
+
+FEATURES:
+
+- Added `Dnsimple::Client::Zones` `#activate_dns` and `#deactivate_dns` methods to activate and deactivate DNS services for a zone. (dnsimple/dnsimple-ruby#354)
+
 ## 8.3.1
 
 - FIXED: Our release process had failed to push correctly `8.2.0` and `8.3.0` to RubyGems resulting in empty gem releases. This releases fixes the issue and contains the same changes of `8.2.0` and `8.3.0`.
