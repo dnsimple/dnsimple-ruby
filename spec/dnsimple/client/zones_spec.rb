@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 describe Dnsimple::Client, ".zones" do
-
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").zones }
 
 
@@ -173,4 +172,85 @@ describe Dnsimple::Client, ".zones" do
     end
   end
 
+  describe "#activate_dns" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:put, %r{/v2/#{account_id}/zones/.+/activation})
+          .to_return(read_http_fixture("activateZoneService/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.activate_dns(account_id, zone = "example.com")
+
+      expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}/activation")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the zone" do
+      response = subject.activate_dns(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Zone)
+      expect(result.id).to eq(1)
+      expect(result.account_id).to eq(1010)
+      expect(result.name).to eq("example.com")
+      expect(result.reverse).to be(false)
+      expect(result.created_at).to eq("2022-09-28T04:45:24Z")
+      expect(result.updated_at).to eq("2023-07-06T11:19:48Z")
+    end
+
+    context "when the zone does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:put, %r{/v2})
+            .to_return(read_http_fixture("notfound-zone.http"))
+
+        expect {
+          subject.activate_dns(account_id, "example.com")
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
+  describe "#deactivate_dns" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:delete, %r{/v2/#{account_id}/zones/.+/activation})
+          .to_return(read_http_fixture("deactivateZoneService/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.deactivate_dns(account_id, zone = "example.com")
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}/activation")
+          .with(headers: { 'Accept' => 'application/json' })
+    end
+
+    it "returns the zone" do
+      response = subject.deactivate_dns(account_id, "example.com")
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::Zone)
+      expect(result.id).to eq(1)
+      expect(result.account_id).to eq(1010)
+      expect(result.name).to eq("example.com")
+      expect(result.reverse).to be(false)
+      expect(result.created_at).to eq("2022-09-28T04:45:24Z")
+      expect(result.updated_at).to eq("2023-08-08T04:19:52Z")
+    end
+
+    context "when the zone does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:delete, %r{/v2})
+            .to_return(read_http_fixture("notfound-zone.http"))
+
+        expect {
+          subject.deactivate_dns(account_id, "example.com")
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
 end

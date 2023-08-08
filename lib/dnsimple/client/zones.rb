@@ -95,6 +95,40 @@ module Dnsimple
         Dnsimple::Response.new(response, Struct::ZoneFile.new(response["data"]))
       end
 
+      # Activate DNS resolution for the zone in the account.
+      #
+      # @see https://developer.dnsimple.com/v2/zones/#activateZoneService
+      #
+      # @param  [#to_s] account_id the account ID
+      # @param  [#to_s] zone_id the zone name
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Zone>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def activate_dns(account_id, zone_id, options = {})
+        response = client.put(Client.versioned("/%s/zones/%s/activation" % [account_id, zone_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Zone.new(response["data"]))
+      end
+
+      # Deactivate DNS resolution for the zone in the account.
+      #
+      # @see https://developer.dnsimple.com/v2/zones/#deactivateZoneService
+      #
+      # @param  [#to_s] account_id the account ID
+      # @param  [#to_s] zone_id the zone name
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::Zone>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def deactivate_dns(account_id, zone_id, options = {})
+        response = client.delete(Client.versioned("/%s/zones/%s/activation" % [account_id, zone_id]), options)
+
+        Dnsimple::Response.new(response, Struct::Zone.new(response["data"]))
+      end
+
     end
   end
 end
