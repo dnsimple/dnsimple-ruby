@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Dnsimple
-  VERSION = "8.3.1"
+  VERSION = "8.4.0"
 end

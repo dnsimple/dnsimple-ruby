@@ -4,11 +4,12 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
-## 8.4.0 (Unreleased)
+## 8.4.0
 
 FEATURES:
 
-- Added `Dnsimple::Client::Zones` `#activate_dns` and `#deactivate_dns` methods to activate and deactivate DNS services for a zone. (dnsimple/dnsimple-ruby#354)
+- NEW: Added `Dnsimple::Client::Zones#activate_dns` to activate DNS services (resolution) for a zone. (dnsimple/dnsimple-ruby#354)
+- NEW: Added `Dnsimple::Client::Zones#deactivate_dns` to deactivate DNS services (resolution) for a zone. (dnsimple/dnsimple-ruby#354)
 
 ## 8.3.1
 

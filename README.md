@@ -23,7 +23,7 @@ gem install dnsimple
 Or use Bundler and define it as a dependency in your Gemfile:
 
 ```ruby
-gem 'dnsimple', '~> 6.0'
+gem 'dnsimple', '~> 8.0'
 ```
 
 ## Documentation
@@ -110,4 +110,4 @@ puts response.data
 
 ## License
 
-Copyright (c) 2010-2022 DNSimple Corporation. This is Free Software distributed under the MIT license.
+Copyright (c) 2010-2023 DNSimple Corporation. This is Free Software distributed under the MIT license.
