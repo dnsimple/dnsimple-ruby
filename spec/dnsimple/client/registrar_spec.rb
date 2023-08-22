@@ -3,7 +3,6 @@
 require 'spec_helper'
 
 describe Dnsimple::Client, ".registrar" do
-
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar }
 
 
@@ -283,7 +282,7 @@ describe Dnsimple::Client, ".registrar" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::DomainTransfer)
       expect(result.id).to eq(361)
-      expect(result.domain_id).to eq(182245)
+      expect(result.domain_id).to eq(182_245)
       expect(result.registrant_id).to eq(2715)
       expect(result.state).to eq("cancelled")
       expect(result.auto_renew).to be(false)
@@ -316,7 +315,7 @@ describe Dnsimple::Client, ".registrar" do
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::DomainTransfer)
       expect(result.id).to eq(361)
-      expect(result.domain_id).to eq(182245)
+      expect(result.domain_id).to eq(182_245)
       expect(result.registrant_id).to eq(2715)
       expect(result.state).to eq("transferring")
       expect(result.auto_renew).to be(false)
@@ -352,4 +351,224 @@ describe Dnsimple::Client, ".registrar" do
     end
   end
 
+  describe "#check_registrant_change" do
+    let(:account_id) { 1010 }
+    let(:attributes) { { domain_id: "example.com", contact_id: 1234 } }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/registrar/registrant_changes/check$})
+          .to_return(read_http_fixture("checkRegistrantChange/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.check_registrant_change(account_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/registrant_changes/check")
+          .with(headers: { "Accept" => "application/json" })
+          .with(body: attributes)
+    end
+
+    it "returns the registrant change check" do
+      response = subject.check_registrant_change(account_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::RegistrantChangeCheck)
+      expect(result.contact_id).to eq(101)
+      expect(result.domain_id).to eq(101)
+      expect(result.extended_attributes).to be_a(Array)
+      expect(result.extended_attributes).to be_empty
+      expect(result.registry_owner_change).to be(true)
+    end
+
+    context "when the attributes are incomplete" do
+      it "raises ArgumentError" do
+        expect { subject.check_registrant_change(account_id, domain_id: "example.com") }.to raise_error(ArgumentError)
+      end
+    end
+
+    context "when the domain is not found" do
+      it "raises a NotFoundError" do
+        stub_request(:post, %r{/v2/#{account_id}/registrar/registrant_changes/check$})
+            .to_return(read_http_fixture("checkRegistrantChange/error-domainnotfound.http"))
+
+        expect {
+          subject.check_registrant_change(account_id, attributes)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+
+    context "when the contact is not found" do
+      it "raises a NotFoundError" do
+        stub_request(:post, %r{/v2/#{account_id}/registrar/registrant_changes/check$})
+            .to_return(read_http_fixture("checkRegistrantChange/error-contactnotfound.http"))
+
+        expect {
+          subject.check_registrant_change(account_id, attributes)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
+  describe "#get_registrant_change" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/registrar/registrant_changes/.+$})
+          .to_return(read_http_fixture("getRegistrantChange/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.get_registrant_change(account_id, registrant_change_id = 42)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/registrant_changes/#{registrant_change_id}")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the registrant change" do
+      response = subject.get_registrant_change(account_id, 42)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::RegistrantChange)
+      expect(result.id).to eq(101)
+      expect(result.account_id).to eq(101)
+      expect(result.contact_id).to eq(101)
+      expect(result.domain_id).to eq(101)
+      expect(result.state).to eq("new")
+      expect(result.extended_attributes).to be_a(Hash)
+      expect(result.extended_attributes).to be_empty
+      expect(result.registry_owner_change).to be(true)
+      expect(result.irt_lock_lifted_by).to be_nil
+      expect(result.created_at).to eq("2017-02-03T17:43:22Z")
+      expect(result.updated_at).to eq("2017-02-03T17:43:22Z")
+    end
+  end
+
+  describe "#create_registrant_change" do
+    let(:account_id) { 1010 }
+    let(:attributes) { { domain_id: "example.com", contact_id: 1234, extended_attributes: { "x-fi-registrant-idnumber" => "1234" } } }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/registrar/registrant_changes$})
+          .to_return(read_http_fixture("createRegistrantChange/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.create_registrant_change(account_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/registrant_changes")
+          .with(headers: { "Accept" => "application/json" })
+          .with(body: attributes)
+    end
+
+    it "returns the registrant change" do
+      response = subject.create_registrant_change(account_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::RegistrantChange)
+      expect(result.id).to eq(101)
+      expect(result.account_id).to eq(101)
+      expect(result.contact_id).to eq(101)
+      expect(result.domain_id).to eq(101)
+      expect(result.state).to eq("new")
+      expect(result.extended_attributes).to be_a(Hash)
+      expect(result.extended_attributes).to be_empty
+      expect(result.registry_owner_change).to be(true)
+      expect(result.irt_lock_lifted_by).to be_nil
+      expect(result.created_at).to eq("2017-02-03T17:43:22Z")
+      expect(result.updated_at).to eq("2017-02-03T17:43:22Z")
+    end
+
+    context "when the attributes are incomplete" do
+      it "raises ArgumentError" do
+        expect { subject.create_registrant_change(account_id, domain_id: "example.com") }.to raise_error(ArgumentError)
+      end
+    end
+
+    context "when the domain is not found" do
+      it "raises a NotFoundError" do
+        stub_request(:post, %r{/v2/#{account_id}/registrar/registrant_changes$})
+            .to_return(read_http_fixture("checkRegistrantChange/error-domainnotfound.http"))
+
+        expect {
+          subject.create_registrant_change(account_id, attributes)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+
+    context "when the contact is not found" do
+      it "raises a NotFoundError" do
+        stub_request(:post, %r{/v2/#{account_id}/registrar/registrant_changes$})
+            .to_return(read_http_fixture("checkRegistrantChange/error-contactnotfound.http"))
+
+        expect {
+          subject.create_registrant_change(account_id, attributes)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
+  describe "#list_registrant_changes" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/registrar/registrant_changes$})
+          .to_return(read_http_fixture("listRegistrantChanges/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.list_registrant_changes(account_id)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/registrant_changes")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the registrant changes" do
+      response = subject.list_registrant_changes(account_id)
+      expect(response).to be_a(Dnsimple::PaginatedResponse)
+
+      results = response.data
+
+      results.each do |result|
+        expect(result).to be_a(Dnsimple::Struct::RegistrantChange)
+        expect(result.id).to be_a(Integer)
+        expect(result.account_id).to be_a(Integer)
+        expect(result.contact_id).to be_a(Integer)
+        expect(result.domain_id).to be_a(Integer)
+        expect(result.state).to be_a(String)
+        expect(result.extended_attributes).to be_a(Hash)
+        expect(result.extended_attributes).to be_empty
+        expect(result.registry_owner_change).to be(true).or be(false)
+        expect(result.irt_lock_lifted_by).to be_nil
+        expect(result.created_at).to be_a(String)
+        expect(result.updated_at).to be_a(String)
+      end
+    end
+  end
+
+  describe "#delete_registrant_change" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:delete, %r{/v2/#{account_id}/registrar/registrant_changes/.+$})
+          .to_return(read_http_fixture("deleteRegistrantChange/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.delete_registrant_change(account_id, registrant_change_id = 42)
+
+      expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/registrant_changes/#{registrant_change_id}")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns nothing" do
+      response = subject.delete_registrant_change(account_id, 42)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_nil
+    end
+  end
 end

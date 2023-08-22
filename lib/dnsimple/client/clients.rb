@@ -160,17 +160,18 @@ module Dnsimple
       include Client::Oauth
     end
 
-
     require_relative 'registrar'
     require_relative 'registrar_auto_renewal'
     require_relative 'registrar_whois_privacy'
+    require_relative 'registrar_registrant_changes'
     require_relative 'registrar_delegation'
 
     class RegistrarService < ClientService
       include Client::Registrar
       include Client::RegistrarAutoRenewal
-      include Client::RegistrarWhoisPrivacy
       include Client::RegistrarDelegation
+      include Client::RegistrarRegistrantChanges
+      include Client::RegistrarWhoisPrivacy
     end
 
 
