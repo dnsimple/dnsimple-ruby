@@ -4,6 +4,16 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 8.5.0 (unreleased)
+
+FEATURES:
+
+- NEW: Added `Dnsimple::Client::Registrar#check_registrant_change` to retrieves the requirements of a registrant change. (dnsimple/dnsimple-ruby#355)
+- NEW: Added `Dnsimple::Client::Registrar#get_registrant_change` to retrieves the details of an existing registrant change. (dnsimple/dnsimple-ruby#355)
+- NEW: Added `Dnsimple::Client::Registrar#create_registrant_change` to start registrant change. (dnsimple/dnsimple-ruby#355)
+- NEW: Added `Dnsimple::Client::Registrar#list_registrant_changes` to lists the registrant changes for a domain. (dnsimple/dnsimple-ruby#355)
+- NEW: Added `Dnsimple::Client::Registrar#delete_registrant_change` to cancel an ongoing registrant change from the account. (dnsimple/dnsimple-ruby#355)
+
 ## 8.4.0
 
 FEATURES:
