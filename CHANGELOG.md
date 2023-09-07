@@ -4,6 +4,14 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 8.6.0 (unreleased)
+
+FEATURES:
+
+- NEW: Added `Dnsimple::Client::Registrar#get_domain_transfer_lock` to retrieves the transfer lock status of a registered domain. (dnsimple/dnsimple-ruby#356)
+- NEW: Added `Dnsimple::Client::Registrar#enable_domain_transfer_lock` to enable the transfer lock for a registered domain. (dnsimple/dnsimple-ruby#356)
+- NEW: Added `Dnsimple::Client::Registrar#disable_domain_transfer_lock` to disable the transfer lock for a registered domain. (dnsimple/dnsimple-ruby#356)
+
 ## 8.5.0
 
 FEATURES:

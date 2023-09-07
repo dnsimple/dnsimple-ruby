@@ -164,6 +164,7 @@ module Dnsimple
     require_relative 'registrar_auto_renewal'
     require_relative 'registrar_whois_privacy'
     require_relative 'registrar_registrant_changes'
+    require_relative 'registrar_transfer_lock'
     require_relative 'registrar_delegation'
 
     class RegistrarService < ClientService
@@ -171,6 +172,7 @@ module Dnsimple
       include Client::RegistrarAutoRenewal
       include Client::RegistrarDelegation
       include Client::RegistrarRegistrantChanges
+      include Client::RegistrarTransferLock
       include Client::RegistrarWhoisPrivacy
     end
 
