@@ -2,6 +2,8 @@
 
 require 'spec_helper'
 
+require 'bigdecimal/util'
+
 describe Dnsimple::Client, ".billing" do
 
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").billing }
@@ -40,16 +42,16 @@ describe Dnsimple::Client, ".billing" do
 
       response.data.each do |result|
         expect(result).to be_a(Dnsimple::Struct::Charge)
-        expect(result.balance_amount).to be_a(Float)
+        expect(result.balance_amount).to be_a(BigDecimal)
         expect(result.reference).to be_a(String)
         expect(result.items).to be_a(Array)
         expect(result.items[0]).to be_a(Dnsimple::Struct::Charge::ChargeItem)
       end
 
-      expect(response.data[0].total_amount).to be_a(Float)
-      expect(response.data[0].total_amount).to equal(14.5)
-      expect(response.data[0].items[0].amount).to be_a(Float)
-      expect(response.data[0].items[0].amount).to equal(14.5)
+      expect(response.data[0].total_amount).to be_a(BigDecimal)
+      expect(response.data[0].total_amount.to_s("F")).to eq("14.5")
+      expect(response.data[0].items[0].amount).to be_a(BigDecimal)
+      expect(response.data[0].items[0].amount.to_s("F")).to eq("14.5")
     end
 
     it "supports filters" do

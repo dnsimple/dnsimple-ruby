@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bigdecimal'
+
 module Dnsimple
   module Struct
     class Charge < Base
@@ -25,7 +27,7 @@ module Dnsimple
         # @param  [String] amount
         # @return [void]
         def amount=(amount)
-          @amount = amount.to_f
+          @amount = BigDecimal(amount)
         end
       end
 
@@ -67,7 +69,7 @@ module Dnsimple
       # @param  [String] balance_amount
       # @return [void]
       def balance_amount=(balance_amount)
-        @balance_amount = balance_amount.to_f
+        @balance_amount = BigDecimal(balance_amount)
       end
 
       # Converts total_amount to a Float and sets it.
@@ -75,7 +77,7 @@ module Dnsimple
       # @param  [String] total_amount
       # @return [void]
       def total_amount=(total_amount)
-        @total_amount = total_amount.to_f
+        @total_amount = BigDecimal(total_amount)
       end
     end
 
