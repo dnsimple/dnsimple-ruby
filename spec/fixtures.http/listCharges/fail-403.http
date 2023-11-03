@@ -1,0 +1,14 @@
+HTTP/1.1 403 Forbidden
+Date: Tue, 24 Oct 2023 09:49:29 GMT
+Connection: close
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2398
+X-RateLimit-Reset: 1698143967
+Content-Type: application/json; charset=utf-8
+X-WORK-WITH-US: Love automation? So do we! https://dnsimple.com/jobs
+Cache-Control: no-cache
+X-Request-Id: 5554e2d3-2652-4ca7-8c5e-92b4c35f28d6
+X-Runtime: 0.035309
+Transfer-Encoding: chunked
+
+{"message":"Permission Denied. Required Scope: billing:*:read"}
