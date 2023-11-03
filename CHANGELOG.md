@@ -4,6 +4,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 8.7.0
+
 FEATURES:
 
 - NEW: Added `Dnsimple::Client::Billing#charges` to retrieve the list of billing charges for an account. (dnsimple/dnsimple-ruby#365)
