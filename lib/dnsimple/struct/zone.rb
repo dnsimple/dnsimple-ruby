@@ -16,6 +16,15 @@ module Dnsimple
       # @return [Boolean] True if the zone is a reverse zone.
       attr_accessor :reverse
 
+      # @return [Boolean] True if the zone is a secondary zone.
+      attr_accessor :secondary
+
+      # @return [String] When the zone was last transferred from another provider.
+      attr_accessor :last_transferred_at
+
+      # @return [Boolean] True if DNS services are active for the zone. False when DNS services are disabled and DNS records will not be resolved
+      attr_accessor :active
+
       # @return [String] When the zone was created in DNSimple.
       attr_accessor :created_at
 
