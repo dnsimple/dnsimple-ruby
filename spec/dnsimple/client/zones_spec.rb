@@ -120,6 +120,9 @@ describe Dnsimple::Client, ".zones" do
       expect(result.account_id).to eq(1010)
       expect(result.name).to eq("example-alpha.com")
       expect(result.reverse).to be(false)
+      expect(result.secondary).to be(false)
+      expect(result.last_transferred_at).to be_nil
+      expect(result.active).to be(true)
       expect(result.created_at).to eq("2015-04-23T07:40:03Z")
       expect(result.updated_at).to eq("2015-04-23T07:40:03Z")
     end
@@ -197,6 +200,7 @@ describe Dnsimple::Client, ".zones" do
       expect(result.account_id).to eq(1010)
       expect(result.name).to eq("example.com")
       expect(result.reverse).to be(false)
+      expect(result.active).to be(true)
       expect(result.created_at).to eq("2022-09-28T04:45:24Z")
       expect(result.updated_at).to eq("2023-07-06T11:19:48Z")
     end
@@ -238,6 +242,7 @@ describe Dnsimple::Client, ".zones" do
       expect(result.account_id).to eq(1010)
       expect(result.name).to eq("example.com")
       expect(result.reverse).to be(false)
+      expect(result.active).to be(false)
       expect(result.created_at).to eq("2022-09-28T04:45:24Z")
       expect(result.updated_at).to eq("2023-08-08T04:19:52Z")
     end

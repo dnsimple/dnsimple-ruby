@@ -4,6 +4,10 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+ENHANCEMENTS:
+
+- NEW: Added `#secondary`, `#last_transferred_at`, `#active` to `Dnsimple::Struct::Zone` (dnsimple/dnsimple-ruby)
+
 ## 8.7.0
 
 FEATURES:

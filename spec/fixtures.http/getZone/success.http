@@ -13,4 +13,4 @@ X-Request-Id: 93182033-a215-484e-a107-5235fa48001c
 X-Runtime: 0.177942
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"id":1,"account_id":1010,"name":"example-alpha.com","reverse":false,"created_at":"2015-04-23T07:40:03Z","updated_at":"2015-04-23T07:40:03Z"}}
+{"data":{"id":1,"account_id":1010,"name":"example-alpha.com","reverse":false,"secondary":false,"last_transferred_at":null,"active":true,"created_at":"2015-04-23T07:40:03Z","updated_at":"2015-04-23T07:40:03Z"}}
