@@ -3,6 +3,7 @@
 module Dnsimple
   class Client
     module Billing
+
       # List the billing charges for the account.
       #
       # @see https://developer.dnsimple.com/v2/billing/#listCharges
@@ -30,6 +31,7 @@ module Dnsimple
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Charge.new(r) })
       end
       alias list_charges charges
+
     end
   end
 end

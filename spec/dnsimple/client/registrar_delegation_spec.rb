@@ -25,13 +25,13 @@ describe Dnsimple::Client, ".registrar" do
       response = subject.domain_delegation(account_id, "example.com")
       expect(response).to be_a(Dnsimple::Response)
 
-      expect(response.data).to match_array(%w(ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com))
+      expect(response.data).to match_array(%w[ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com])
     end
   end
 
   describe "#change_domain_delegation" do
     let(:account_id) { 1010 }
-    let(:attributes) { %w(ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com) }
+    let(:attributes) { %w[ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com] }
 
     before do
       stub_request(:put, %r{/v2/#{account_id}/registrar/domains/.+/delegation$})
@@ -51,13 +51,13 @@ describe Dnsimple::Client, ".registrar" do
       response = subject.change_domain_delegation(account_id, "example.com", attributes)
       expect(response).to be_a(Dnsimple::Response)
 
-      expect(response.data).to match_array(%w(ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com))
+      expect(response.data).to match_array(%w[ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com])
     end
   end
 
   describe "#change_domain_delegation_to_vanity" do
     let(:account_id) { 1010 }
-    let(:attributes) { %w(ns1.example.com ns2.example.com) }
+    let(:attributes) { %w[ns1.example.com ns2.example.com] }
 
     before do
       stub_request(:put, %r{/v2/#{account_id}/registrar/domains/.+/delegation/vanity$})

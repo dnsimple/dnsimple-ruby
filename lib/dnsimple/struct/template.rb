@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class Template < Base
+
       # @return [Integer] The template ID in DNSimple.
       attr_accessor :id
 
@@ -18,7 +18,7 @@ module Dnsimple
 
       # @return [String] The template description.
       attr_accessor :description
-    end
 
+    end
   end
 end

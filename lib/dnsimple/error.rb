@@ -7,7 +7,9 @@ module Dnsimple
 
   # RequestError is raised when an API request fails for an client, a server error or invalid request information.
   class RequestError < Error
-    attr_reader :http_response, :attribute_errors
+
+    attr_reader :http_response
+    attr_reader :attribute_errors
 
     def initialize(http_response)
       @http_response = http_response
@@ -49,7 +51,10 @@ module Dnsimple
   end
 
   class OAuthInvalidRequestError < Error
-    attr_reader :http_response, :error, :error_description
+
+    attr_reader :http_response
+    attr_reader :error
+    attr_reader :error_description
 
     def initialize(http_response)
       @http_response = http_response
@@ -63,6 +68,7 @@ module Dnsimple
     def message
       "#{error}: #{error_description}"
     end
+
   end
 
 end

@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class Zone < Base
+
       # @return [Integer] The zone ID in DNSimple.
       attr_accessor :id
 
@@ -30,7 +30,7 @@ module Dnsimple
 
       # @return [String] When the zone was last updated in DNSimple.
       attr_accessor :updated_at
-    end
 
+    end
   end
 end

@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class DelegationSignerRecord < Base
+
       # @return [Integer] The ID of the delegation signer record in DNSimple.
       attr_accessor :id
 
@@ -30,7 +30,7 @@ module Dnsimple
 
       # @return [String] When the delegation signing record was last updated in DNSimple.
       attr_accessor :updated_at
-    end
 
+    end
   end
 end

@@ -54,6 +54,7 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Dnssec.new(response["data"]))
       end
+
     end
   end
 end

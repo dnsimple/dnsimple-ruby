@@ -1,4 +1,3 @@
----
 # Defaults https://github.com/bbatsov/rubocop/blob/master/config/default.yml
 #
 # References:
@@ -25,8 +24,8 @@ Layout/AccessModifierIndentation:
 Layout/BlockEndNewline:
   Enabled: false
 
-# Generally, the keyword style uses a lot of space. This is particularly true
-# when you use case/if statements, in combination with a long-name variable.
+# Generally, the keyword style uses a lot of space. This is particularly true when
+# you use case/if statements, in combination with a long-name variable.
 #
 #   invoice_error_message = case error
 #                           when 1 == 1
@@ -123,10 +122,9 @@ Naming/RescuedExceptionsVariableName:
 Naming/MethodParameterName:
   Enabled: false
 
-# This cop returns false positive violations (as of rubocop 0.57.0)
-# https://github.com/rubocop-hq/rubocop/issues/5953
-Style/AccessModifierDeclarations:
-  Enabled: false
+Style/AccessorGrouping:
+  Enabled: true
+  EnforcedStyle: separated
 
 # Do not use "and" or "or" in conditionals, but for readability we can use it
 # to chain executions. Just beware of operator order.
@@ -137,7 +135,7 @@ Style/AndOr:
 Style/BarePercentLiterals:
   EnforcedStyle: percent_q
 
-# braces_for_chaining seems a good fit of what we've been doing so far.
+# Pick one option for consistency.
 Style/BlockDelimiters:
   EnforcedStyle: braces_for_chaining
   AllowedMethods:
@@ -147,11 +145,9 @@ Style/BlockDelimiters:
 Style/EmptyElse:
   EnforcedStyle: empty
 
-# There is no specific preference for empty methods.
-# One-line methods are not exceptionally nice in Ruby.
-# Just ignore this cop for now.
+# Pick one option for consistency.
 Style/EmptyMethod:
-  Enabled: false
+  EnforcedStyle: expanded
 
 # We don't care about the format style.
 # In most cases we use %, but not at the point we want to enforce it
@@ -159,10 +155,8 @@ Style/EmptyMethod:
 Style/FormatString:
   Enabled: false
 
-# Annotated tokens (like %<foo>s) are a good thing,
-# but in most cases we don't need them.
-# %s is a simpler and straightforward version that works in almost all cases.
-# So don't complain.
+# Annotated tokens (like %<foo>s) are a good thing, but in most cases we don't need them.
+# %s is a simpler and straightforward version that works in almost all cases. So don't complain.
 Style/FormatStringToken:
   Enabled: false
 
@@ -173,21 +167,6 @@ Style/HashSyntax:
     #   :default => :test
     # that looks nicer with the old rocket syntax.
     - 'Rakefile'
-
-# Enforces usage of Hash#each_key and Hash#each_value (vs. Hash#keys.each
-# and Hash#values.each).
-Style/HashEachMethods:
-  Enabled: true
-
-# Enforce the use of Hash#TransformKeys introduced in Ruby 2.5 to transform
-# Hash keys.
-Style/HashTransformKeys:
-  Enabled: true
-
-# Enforce the use of Hash#TransformValues introduced in Ruby 2.5 to transform
-# Hash values.
-Style/HashTransformValues:
-  Enabled: true
 
 # We want to be able to decide when to use one-line if/unless modifiers.
 Style/IfUnlessModifier:
@@ -220,11 +199,6 @@ Style/NumericLiterals:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
-# For years, %w() has been the de-facto standard.
-# A lot of libraries are using (). Switching to [] would be a nightmare.
-Style/PercentLiteralDelimiters:
-  Enabled: false
-
 # Enable but only for multiple returns value.
 #
 #   return foo, bar
@@ -236,17 +210,7 @@ Style/PercentLiteralDelimiters:
 Style/RedundantReturn:
   AllowMultipleReturnValues: true
 
-# Do we care?
-Style/RegexpLiteral:
-  Enabled: false
-
-# There are cases were the inline rescue is ok. We can either downgrade
-# the severity, or rely on the developer judgement on a case-by-case basis.
-Style/RescueModifier:
-  Enabled: false
-
-# This is quite annoying, especially in cases where we don't control it
-# (e.g. schema.rb).
+# This is quite annoying, especially in cases where we don't control it (e.g. schema.rb).
 Style/SymbolArray:
   Enabled: false
 
@@ -261,9 +225,8 @@ Style/StringLiterals:
   Enabled: false
   EnforcedStyle: double_quotes
 
-# As before.
+# Pick one option for consistency.
 Style/StringLiteralsInInterpolation:
-  Enabled: false
   EnforcedStyle: double_quotes
 
 # It's nice to be consistent. The trailing comma also allows easy reordering,
@@ -290,20 +253,8 @@ Style/WordArray:
   EnforcedStyle: percent
   MinSize: 3
 
-# Forces the order of comparison arguments.
-#
-# According to this cop, the following statement is bad:
-#
-#   "https" == uri.scheme
-#
-# Whereas the following is considered good:
-#
-#   uri.scheme == "https"
-Style/YodaCondition:
-  Enabled: false
-
-# For the same reason of EndAlignment, aligning with the case may have
-# a bad impact on a case after a very long variable.
+# For the same reason of EndAlignment, aligning with the case may have a bad impact
+# on a case after a very long variable.
 #
 #   invoice_error_message = case error
 #                           when 1 == 1
@@ -325,32 +276,24 @@ Layout/DotPosition:
 Layout/EmptyLines:
   Enabled: false
 
-# This is buggy. It detects as a style violation a few `class`
-# and `module` definitions
-Layout/EmptyLinesAroundArguments:
-  Enabled: false
-
 Layout/EmptyLinesAroundBlockBody:
   Exclude:
     # RSpec is all made of blocks. Disable this config in RSpec
-    # to be consistent with EmptyLinesAroundClassBody
-    # and EmptyLinesAroundModuleBody
+    # to be consistent with EmptyLinesAroundClassBody and EmptyLinesAroundModuleBody
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
-# In most cases, a space is nice. Sometimes, it's not.
-# Just be consistent with the rest of the surrounding code.
+# Pick one option for consistency. beginning+ending is the most used approach.
 Layout/EmptyLinesAroundClassBody:
-  Enabled: false
+  EnforcedStyle: empty_lines_except_namespace
 
 # We're ok with it. We use it quite often for method-level rescue statements.
 Layout/EmptyLinesAroundExceptionHandlingKeywords:
   Enabled: false
 
-# In most cases, a space is nice. Sometimes, it's not.
-# Just be consistent with the rest of the surrounding code.
+# Pick one option for consistency. beginning+ending is the most used approach.
 Layout/EmptyLinesAroundModuleBody:
-  Enabled: false
+  EnforcedStyle: empty_lines_except_namespace
 
 # This is quite buggy, as it doesn't recognize double lines.
 Layout/EmptyLineBetweenDefs:

@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class CertificatePurchase < Base
+
       # @return [Integer] The certificate purchase ID in DNSimple.
       attr_accessor :id
 
@@ -21,7 +21,7 @@ module Dnsimple
 
       # @return [String] When the certificate renewal was last updated in DNSimple.
       attr_accessor :updated_at
-    end
 
+    end
   end
 end

@@ -7,7 +7,6 @@ require 'dnsimple/response'
 require 'dnsimple/client/clients'
 
 module Dnsimple
-
   # Client for the DNSimple API
   #
   # @see https://developer.dnsimple.com/

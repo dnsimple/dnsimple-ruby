@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class DomainCheck < Base
+
       # @return [String] The domain name that was checked.
       attr_accessor :domain
 
@@ -12,7 +12,7 @@ module Dnsimple
 
       # @return [Boolean] Whether the domain name is premium.
       attr_accessor :premium
-    end
 
+    end
   end
 end

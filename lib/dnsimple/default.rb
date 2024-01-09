@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Dnsimple
-
   # Default configuration options for {Client}
   module Default
 
@@ -76,6 +75,6 @@ module Dnsimple
       end
 
     end
-  end
 
+  end
 end

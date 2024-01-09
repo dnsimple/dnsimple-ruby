@@ -19,6 +19,7 @@ module Dnsimple
 
 
       module StaticHelpers
+
         # Calls {Identity#whoami} and directly returns the response data.
         #
         # @see https://developer.dnsimple.com/v2/identity/#whoami
@@ -30,6 +31,7 @@ module Dnsimple
         def whoami(client, *args)
           client.identity.whoami(*args).data
         end
+
       end
 
     end

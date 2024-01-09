@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class Contact < Base
+
       # @return [Integer] The contact ID in DNSimple.
       attr_accessor :id
 
@@ -57,7 +57,7 @@ module Dnsimple
 
       # @return [String] When the contact was last updated in DNSimple.
       attr_accessor :updated_at
-    end
 
+    end
   end
 end

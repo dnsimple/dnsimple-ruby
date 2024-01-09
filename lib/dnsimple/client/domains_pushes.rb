@@ -94,6 +94,5 @@ module Dnsimple
       end
 
     end
-
   end
 end

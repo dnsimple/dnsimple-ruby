@@ -26,7 +26,7 @@ describe Dnsimple::Client, ".vanity_name_servers" do
       expect(response).to be_a(Dnsimple::Response)
 
       vanity_name_servers = response.data.map { |ns| ns["name"] }
-      expect(vanity_name_servers).to match_array(%w(ns1.example.com ns2.example.com ns3.example.com ns4.example.com))
+      expect(vanity_name_servers).to match_array(%w[ns1.example.com ns2.example.com ns3.example.com ns4.example.com])
     end
   end
 

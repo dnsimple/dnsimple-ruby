@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class RegistrantChange < Base
+
       # @return [Integer] The registrant change ID in DNSimple.
       attr_accessor :id
 
@@ -33,6 +33,7 @@ module Dnsimple
 
       # @return [String] When the registrant change was last updated in DNSimple.
       attr_accessor :updated_at
+
     end
   end
 end

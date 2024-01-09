@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class OauthToken < Base
+
       # @return [String] The token you can use to authenticate.
       attr_accessor :access_token
 
@@ -15,7 +15,7 @@ module Dnsimple
 
       # @return [Integer] The account ID in DNSimple this token belongs to.
       attr_accessor :account_id
-    end
 
+    end
   end
 end
