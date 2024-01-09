@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class Domain < Base
+
       # @return [Integer] The domain ID in DNSimple.
       attr_accessor :id
 
@@ -36,6 +36,7 @@ module Dnsimple
 
       # @return [String] When the domain was last updated in DNSimple.
       attr_accessor :updated_at
+
     end
   end
 end

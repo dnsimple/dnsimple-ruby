@@ -75,6 +75,7 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Service.new(response["data"]))
       end
+
     end
   end
 end

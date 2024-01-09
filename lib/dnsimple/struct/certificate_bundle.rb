@@ -2,7 +2,6 @@
 
 module Dnsimple
   module Struct
-
     class CertificateBundle < Base
 
       # @return [String] The certificate private key
@@ -24,6 +23,5 @@ module Dnsimple
       alias intermediate_certificates chain
 
     end
-
   end
 end

@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class DomainPush < Base
+
       # @return [Integer] The domain push ID in DNSimple.
       attr_accessor :id
 
@@ -24,7 +24,7 @@ module Dnsimple
 
       # @return [String] When the domain push was accepted in DNSimple.
       attr_accessor :accepted_at
-    end
 
+    end
   end
 end

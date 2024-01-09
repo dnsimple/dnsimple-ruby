@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class Certificate < Base
+
       # @return [Integer] The certificate ID in DNSimple.
       attr_accessor :id
 
@@ -42,7 +42,7 @@ module Dnsimple
 
       # @return [String] The timestamp when the certificate will expire.
       attr_accessor :expires_at
-    end
 
+    end
   end
 end

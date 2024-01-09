@@ -2,8 +2,8 @@
 
 module Dnsimple
   module Struct
-
     class EmailForward < Base
+
       # @return [Integer] The email forward ID in DNSimple.
       attr_accessor :id
 
@@ -21,6 +21,7 @@ module Dnsimple
 
       # @return [String] Then the email forward was last updated in DNSimple.
       attr_accessor :updated_at
+
     end
   end
 end

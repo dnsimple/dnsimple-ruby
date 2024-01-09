@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Dnsimple
+
   class Client
 
     # @return [Dnsimple::Client::AccountsService] The account-related API proxy.
@@ -117,26 +118,34 @@ module Dnsimple
     require_relative 'accounts'
 
     class AccountsService < ClientService
+
       include Client::Accounts
+
     end
 
     require_relative 'billing'
 
     class BillingService < ClientService
+
       include Client::Billing
+
     end
 
     require_relative 'certificates'
 
     class CertificatesService < ClientService
+
       include Client::Certificates
+
     end
 
 
     require_relative 'contacts'
 
     class ContactsService < ClientService
+
       include Client::Contacts
+
     end
 
 
@@ -148,26 +157,32 @@ module Dnsimple
     require_relative 'domains_collaborators'
 
     class DomainsService < ClientService
+
       include Client::Domains
       include Client::DomainsDelegationSignerRecords
       include Client::DomainsDnssec
       include Client::DomainsEmailForwards
       include Client::DomainsPushes
       include Client::DomainsCollaborators
+
     end
 
 
     require_relative 'identity'
 
     class IdentityService < ClientService
+
       include Client::Identity
+
     end
 
 
     require_relative 'oauth'
 
     class OauthService < ClientService
+
       include Client::Oauth
+
     end
 
     require_relative 'registrar'
@@ -178,12 +193,14 @@ module Dnsimple
     require_relative 'registrar_delegation'
 
     class RegistrarService < ClientService
+
       include Client::Registrar
       include Client::RegistrarAutoRenewal
       include Client::RegistrarDelegation
       include Client::RegistrarRegistrantChanges
       include Client::RegistrarTransferLock
       include Client::RegistrarWhoisPrivacy
+
     end
 
 
@@ -191,8 +208,10 @@ module Dnsimple
     require_relative 'services_domains'
 
     class ServicesService < ClientService
+
       include Client::Services
       include Client::ServicesDomains
+
     end
 
 
@@ -201,23 +220,29 @@ module Dnsimple
     require_relative 'templates_records'
 
     class TemplatesService < ClientService
+
       include Client::Templates
       include Client::TemplatesDomains
       include Client::TemplatesRecords
+
     end
 
 
     require_relative 'tlds'
 
     class TldsService < ClientService
+
       include Client::Tlds
+
     end
 
 
     require_relative 'vanity_name_servers'
 
     class VanityNameServersService < ClientService
+
       include Client::VanityNameServers
+
     end
 
 
@@ -226,16 +251,20 @@ module Dnsimple
     require_relative 'zones_distributions'
 
     class ZonesService < ClientService
+
       include Client::Zones
       include Client::ZonesRecords
       include Client::ZonesDistributions
+
     end
 
 
     require_relative 'webhooks'
 
     class WebhooksService < ClientService
+
       include Client::Webhooks
+
     end
 
   end
@@ -246,6 +275,9 @@ module Dnsimple
   # these static methods return directly the underlying data objects.
   # Therefore, it's not possible to access response metadata such as throttling or pagination info.
   module V2
+
     extend Client::Identity::StaticHelpers
+
   end
+
 end

@@ -7,6 +7,7 @@ module Dnsimple
     class Charge < Base
 
       class ChargeItem < Base
+
         # @return [String] The description of the charge item.
         attr_accessor :description
 
@@ -29,6 +30,7 @@ module Dnsimple
         def amount=(amount)
           @amount = BigDecimal(amount)
         end
+
       end
 
       # @return [String] The reference number of the invoice.
@@ -79,7 +81,7 @@ module Dnsimple
       def total_amount=(total_amount)
         @total_amount = BigDecimal(total_amount)
       end
-    end
 
+    end
   end
 end

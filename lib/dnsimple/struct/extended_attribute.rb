@@ -2,10 +2,10 @@
 
 module Dnsimple
   module Struct
-
     class ExtendedAttribute < Base
 
       class Option < Base
+
         # The option name
         attr_accessor :title
 
@@ -14,6 +14,7 @@ module Dnsimple
 
         # A long description of the option
         attr_accessor :description
+
       end
 
       # The extended attribute name
@@ -40,6 +41,5 @@ module Dnsimple
       end
 
     end
-
   end
 end

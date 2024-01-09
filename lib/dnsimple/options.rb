@@ -4,6 +4,7 @@ module Dnsimple
   module Options
 
     class Base
+
       def initialize(options)
         @options = (options || {}).dup
       end
@@ -11,9 +12,11 @@ module Dnsimple
       def to_h
         @options
       end
+
     end
 
     class ListOptions < Base
+
       def initialize(options)
         super
         _prepare_query
@@ -49,6 +52,7 @@ module Dnsimple
       def _merge(hash)
         @options[:query].merge!(hash)
       end
+
     end
 
   end

@@ -112,7 +112,7 @@ describe Dnsimple::Client, ".zones" do
 
   describe "#create_zone_record" do
     let(:account_id) { 1010 }
-    let(:attributes) { { type: "A", name: "www", content: "127.0.0.1", regions: %w(global) } }
+    let(:attributes) { { type: "A", name: "www", content: "127.0.0.1", regions: %w[global] } }
     let(:zone_id) { "example.com" }
 
     before do
@@ -186,7 +186,7 @@ describe Dnsimple::Client, ".zones" do
       expect(result.ttl).to eq(600)
       expect(result.priority).to eq(10)
       expect(result.system_record).to be(false)
-      expect(result.regions).to eq(%w(SV1 IAD))
+      expect(result.regions).to eq(%w[SV1 IAD])
       expect(result.created_at).to eq("2016-10-05T09:51:35Z")
       expect(result.updated_at).to eq("2016-10-05T09:51:35Z")
     end

@@ -132,6 +132,7 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
+
     end
   end
 end
