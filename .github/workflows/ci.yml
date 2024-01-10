@@ -45,16 +45,3 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
       - run: bundle exec rake
-
-  slack-workflow-status:
-    if: always()
-    name: Post Workflow Status To Slack
-    needs:
-      - test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Slack Workflow Notification
-        uses: Gamesight/slack-workflow-status@master
-        with:
-          repo_token: ${{secrets.GITHUB_TOKEN}}
-          slack_webhook_url: ${{secrets.SLACK_WEBHOOK_URL_DEVELOPMENT}}
