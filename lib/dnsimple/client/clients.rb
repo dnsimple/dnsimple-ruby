@@ -174,7 +174,9 @@ module Dnsimple
     require_relative 'dns_analytics'
 
     class DnsAnalyticsService < ClientService
+
       include Client::DnsAnalytics
+
     end
 
 

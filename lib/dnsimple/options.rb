@@ -49,7 +49,7 @@ module Dnsimple
         @filter = @options.delete(:filter)
         _merge(@filter) unless @filter.nil?
       end
-      
+
       def _prepare_groupings
         @groupings = @options.delete(:groupings)
         _merge(@groupings) unless @groupings.nil?
