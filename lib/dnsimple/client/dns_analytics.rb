@@ -15,7 +15,7 @@ module Dnsimple
       # @option options [String] :sort sorting policy
       # @option options [Hash] :filter filtering policy
       # @option options [String] :groupings groupings policy
-      # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::DnsAnalytics>]
+      # @return [Dnsimple::PaginatedResponseWithQuery<Dnsimple::Struct::DnsAnalytics>]
       #
       # @raise  [Dnsimple::RequestError]
       def query(account_id, options = {})
