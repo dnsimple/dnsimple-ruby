@@ -13,17 +13,6 @@ module Dnsimple
       # @return [String] The zone name
       attr_accessor :zone
 
-      def self.from(attributes)
-        attributes.each do |key, value|
-          if key == 'data'
-            # cocotero
-          else
-            m = :"#{key}="
-            send(m, value) if respond_to?(m)
-          end
-        end
-      end
-
     end
   end
 end
