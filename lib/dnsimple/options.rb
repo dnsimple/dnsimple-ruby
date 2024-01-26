@@ -51,8 +51,8 @@ module Dnsimple
       end
 
       def _prepare_groupings
-        @groupings = @options.delete(:groupings)
-        _merge(@groupings) unless @groupings.nil?
+        groupings = @options.delete(:groupings)
+        _merge({ groupings: groupings }) unless groupings.nil?
       end
 
       def _merge(hash)

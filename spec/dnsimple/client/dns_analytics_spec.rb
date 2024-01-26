@@ -7,40 +7,45 @@ describe Dnsimple::Client, ".dns_analytics" do
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").dns_analytics }
 
   describe "#query" do
-    let(:account_id) { 1010 }
-
     before do
-      stub_request(:get, %r{/v2/#{account_id}/dns_analytics})
+      stub_request(:get, %r{/v2/1/dns_analytics})
           .to_return(read_http_fixture("dnsAnalytics/success.http"))
     end
 
     it "builds the correct request" do
-      subject.query(account_id)
+      subject.query(1)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/dns_analytics")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics")
           .with(headers: { 'Accept' => 'application/json' })
     end
 
     it "supports pagination" do
-      subject.query(account_id, page: 2)
+      subject.query(1, page: 2, per_page: 200)
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/dns_analytics?page=2")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?page=2&per_page=200")
     end
 
     it "supports sorting" do
-      subject.query(account_id, sort: "date:asc")
+      subject.query(1, sort: "date:asc")
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/dns_analytics?sort=date:asc")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?sort=date:asc")
     end
 
     it "supports filtering" do
-      subject.query(account_id, filter: { date_from: '2024-08-01', date_to: '2024-09-01' })
+      subject.query(1, filter: { date_from: '2024-08-01', date_to: '2024-09-01' })
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/dns_analytics?date_from=2024-08-01&date_to=2024-09-01")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?date_from=2024-08-01&date_to=2024-09-01")
     end
 
+    it "supports groupings" do
+      subject.query(1, groupings: 'date,zone')
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?groupings=date,zone")
+    end
+
+
     it "returns a list of DNS Analytics entries" do
-      response = subject.query(account_id)
+      response = subject.query(1)
 
       expect(response).to be_a(Dnsimple::PaginatedResponseWithQuery)
       expect(response.data).to be_a(Array)
@@ -53,7 +58,7 @@ describe Dnsimple::Client, ".dns_analytics" do
     end
 
     it "exposes the pagination information" do
-      response = subject.query(account_id)
+      response = subject.query(1)
 
       expect(response.respond_to?(:page)).to be(true)
       expect(response.page).to eq(0)
@@ -63,7 +68,7 @@ describe Dnsimple::Client, ".dns_analytics" do
     end
 
     it "exposes the query parameters applied to produce the results" do
-      response = subject.query(account_id)
+      response = subject.query(1)
 
       expect(response.respond_to?(:query)).to be(true)
       query = response.query
