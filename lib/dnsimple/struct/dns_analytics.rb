@@ -11,7 +11,7 @@ module Dnsimple
       attr_accessor :date
 
       # @return [String] The zone name
-      attr_accessor :zone
+      attr_accessor :zone_name
 
     end
   end

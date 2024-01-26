@@ -38,9 +38,9 @@ describe Dnsimple::Client, ".dns_analytics" do
     end
 
     it "supports groupings" do
-      subject.query(1, groupings: 'date,zone')
+      subject.query(1, groupings: 'date,zone_name')
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?groupings=date,zone")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?groupings=date,zone_name")
     end
 
 
@@ -53,7 +53,7 @@ describe Dnsimple::Client, ".dns_analytics" do
 
       expect(response.data.all?(Dnsimple::Struct::DnsAnalytics)).to be(true)
       expect(response.data[0].date).to eq('2023-12-08')
-      expect(response.data[0].zone).to eq('bar.com')
+      expect(response.data[0].zone_name).to eq('bar.com')
       expect(response.data[0].volume).to eq(1200)
     end
 
@@ -75,8 +75,8 @@ describe Dnsimple::Client, ".dns_analytics" do
       expect(query["account_id"]).to eq(1)
       expect(query["start_date"]).to eq('2023-12-08')
       expect(query["end_date"]).to eq('2024-01-08')
-      expect(query["sort"]).to eq("zone:asc,date:asc")
-      expect(query["groupings"]).to eq("zone,date")
+      expect(query["sort"]).to eq("zone_name:asc,date:asc")
+      expect(query["groupings"]).to eq("zone_name,date")
       expect(query["page"]).to eq(0)
       expect(query["per_page"]).to eq(100)
     end
