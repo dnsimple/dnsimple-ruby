@@ -77,4 +77,16 @@ module Dnsimple
 
   end
 
+  class PaginatedResponseWithQuery < PaginatedResponse
+
+    # @return [Hash] A hash containing the query parameters that produced the results in this response
+    attr_reader :query
+
+    def initialize(http_response, collection)
+      super
+      @query = http_response["query"]
+    end
+
+  end
+
 end
