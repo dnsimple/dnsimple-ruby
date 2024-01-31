@@ -32,9 +32,9 @@ describe Dnsimple::Client, ".dns_analytics" do
     end
 
     it "supports filtering" do
-      subject.query(1, filter: { date_from: '2024-08-01', date_to: '2024-09-01' })
+      subject.query(1, filter: { start_date: '2024-08-01', end_date: '2024-09-01' })
 
-      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?date_from=2024-08-01&date_to=2024-09-01")
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?start_date=2024-08-01&end_date=2024-09-01")
     end
 
     it "supports groupings" do
