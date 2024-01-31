@@ -29,6 +29,7 @@ module Dnsimple
       @services[:domains] ||= Client::DomainsService.new(self)
     end
 
+    # @return [Dnsimple::Client::DnsAnalyticsService] The DNS Analytics API proxy.
     def dns_analytics
       @services[:dns_analytics] ||= Client::DnsAnalyticsService.new(self)
     end
