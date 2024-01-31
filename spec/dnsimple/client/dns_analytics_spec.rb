@@ -72,7 +72,7 @@ describe Dnsimple::Client, ".dns_analytics" do
 
       expect(response.respond_to?(:query)).to be(true)
       query = response.query
-      expect(query["account_id"]).to eq(1)
+      expect(query["account_id"]).to eq("1")
       expect(query["start_date"]).to eq('2023-12-08')
       expect(query["end_date"]).to eq('2024-01-08')
       expect(query["sort"]).to eq("zone_name:asc,date:asc")
