@@ -23,6 +23,7 @@ module Dnsimple
         _prepare_pagination
         _prepare_sort
         _prepare_filter
+        _prepare_groupings
       end
 
       private
@@ -47,6 +48,11 @@ module Dnsimple
       def _prepare_filter
         @filter = @options.delete(:filter)
         _merge(@filter) unless @filter.nil?
+      end
+
+      def _prepare_groupings
+        groupings = @options.delete(:groupings)
+        _merge({ groupings: groupings }) unless groupings.nil?
       end
 
       def _merge(hash)

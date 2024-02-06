@@ -29,6 +29,11 @@ module Dnsimple
       @services[:domains] ||= Client::DomainsService.new(self)
     end
 
+    # @return [Dnsimple::Client::DnsAnalyticsService] The DNS Analytics API proxy.
+    def dns_analytics
+      @services[:dns_analytics] ||= Client::DnsAnalyticsService.new(self)
+    end
+
     # @return [Dnsimple::Client::IdentityService] The identity-related API proxy.
     def identity
       @services[:auth] ||= Client::IdentityService.new(self)
@@ -164,6 +169,14 @@ module Dnsimple
       include Client::DomainsEmailForwards
       include Client::DomainsPushes
       include Client::DomainsCollaborators
+
+    end
+
+    require_relative 'dns_analytics'
+
+    class DnsAnalyticsService < ClientService
+
+      include Client::DnsAnalytics
 
     end
 
