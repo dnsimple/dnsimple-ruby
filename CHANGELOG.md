@@ -4,6 +4,10 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 8.8.0
+
+- NEW: Added `Dnsimple::Client::DnsAnalytics#query` to query and pull data from the DNS Analytics API endpoint(dnsimple/dnsimple-ruby#375)
+
 ## 8.7.1
 
 ENHANCEMENTS:
