@@ -571,4 +571,57 @@ describe Dnsimple::Client, ".registrar" do
       expect(result).to be_nil
     end
   end
+
+  describe "#restore_domain" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/.+/restores$})
+          .to_return(read_http_fixture("restoreDomain/success.http"))
+    end
+
+
+    it "builds the correct request" do
+      subject.restore_domain(account_id, domain_name = "example.com", {})
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/restores")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the domain" do
+      response = subject.restore_domain(account_id, "example.com", {})
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::DomainRestore)
+      expect(result.id).to be_a(Integer)
+      expect(result.domain_id).to be_a(Integer)
+    end
+  end
+
+  describe "#get_domain_restore" do
+    let(:account_id) { 1010 }
+
+    before do
+      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/.+/restores/.+$})
+          .to_return(read_http_fixture("getDomainRestore/success.http"))
+    end
+
+    it "builds the correct request" do
+      subject.get_domain_restore(account_id, domain_name = "example.com", restore_id = 361)
+
+      expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_name}/restores/#{restore_id}")
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the domain restore" do
+      response = subject.get_domain_restore(account_id, "example.com", 361)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::DomainRestore)
+      expect(result.id).to be_a(Integer)
+      expect(result.domain_id).to be_a(Integer)
+    end
+  end
 end
