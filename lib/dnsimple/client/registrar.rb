@@ -226,7 +226,7 @@ module Dnsimple
       #   client.registrar.restore_domain(1010, "example.com", {})
       #
       # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to renew
+      # @param  [#to_s] domain_name the domain name to restore
       # @param  [Hash] attributes
       # @param  [Hash] options
       # @return [Struct::DomainRestore]
