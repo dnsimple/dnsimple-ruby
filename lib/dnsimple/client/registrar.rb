@@ -218,6 +218,49 @@ module Dnsimple
         Dnsimple::Response.new(response, nil)
       end
 
+      # Restores a domain.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#restore
+      #
+      # @example Restore example.com:
+      #   client.registrar.restore_domain(1010, "example.com", {})
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_name the domain name to restore
+      # @param  [Hash] attributes
+      # @param  [Hash] options
+      # @return [Struct::DomainRestore]
+      #
+      # @raise  [RequestError] When the request fails.
+      def restore_domain(account_id, domain_name, attributes = nil, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/restores" % [account_id, domain_name])
+        response = client.post(endpoint, attributes, options)
+
+        Dnsimple::Response.new(response, Struct::DomainRestore.new(response["data"]))
+      end
+
+      # Retrieve the details of an existing domain restore.
+      #
+      # @see https://developer.dnsimple.com/v2/registrar/#getDomainRestore
+      #
+      # @example Retrieve the restore 42 for example.com:
+      #   client.registrar.get_domain_restore(1010, "example.com", 42)
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [#to_s] domain_name the domain name
+      # @param  [Integer] domain_restore_id the domain restore ID
+      # @param  [Hash] options
+      # @return [Struct::DomainRestore]
+      #
+      # @raise  [NotFoundError] When record is not found.
+      # @raise  [RequestError]  When the request fails.
+      def get_domain_restore(account_id, domain_name, domain_restore_id, options = {})
+        endpoint = Client.versioned("/%s/registrar/domains/%s/restores/%s" % [account_id, domain_name, domain_restore_id])
+        response = client.get(endpoint, options)
+
+        Dnsimple::Response.new(response, Struct::DomainRestore.new(response["data"]))
+      end
+
     end
   end
 end
