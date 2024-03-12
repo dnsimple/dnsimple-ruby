@@ -10,7 +10,7 @@ We provide a full API and an easy-to-use web interface so you can get your domai
 
 ## Requirements
 
-- Ruby: MRI > 2.7+
+- Ruby: MRI > 3.1+
 
 ## Installation
 

@@ -4,6 +4,8 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+- CHANGED: Minimum Ruby version is now 3.1
+
 ## 8.9.0
 
 - NEW: Added `Dnsimple::Client::Registrar#restore_domain` to restore a domain. (dnsimple/dnsimple-ruby#379)
