@@ -46,7 +46,7 @@ describe Dnsimple::Client, ".domains" do
 
       expect(response).to be_a(Dnsimple::PaginatedResponse)
       expect(response.data).to be_a(Array)
-      expect(response.data.size).to eq(2)
+      expect(response.data.size).to eq(1)
 
       response.data.each do |result|
         expect(result).to be_a(Dnsimple::Struct::EmailForward)
