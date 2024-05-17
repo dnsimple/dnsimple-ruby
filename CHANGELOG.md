@@ -4,6 +4,9 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+- NEW: Added `alias_email` and `destination_email` to `EmailForward`
+- CHANGED: Deprecated `from` and `to` fields in `EmailForward`
+
 ## 9.0.0
 
 - CHANGED: Minimum Ruby version is now 3.1
