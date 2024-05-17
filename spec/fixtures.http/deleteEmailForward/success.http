@@ -15,4 +15,3 @@ X-Download-Options: noopen
 X-Permitted-Cross-Domain-Policies: none
 Content-Security-Policy: frame-ancestors 'none'
 Strict-Transport-Security: max-age=31536000
-

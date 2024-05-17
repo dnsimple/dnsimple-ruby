@@ -16,6 +16,12 @@ module Dnsimple
       # @return [String] The full email address to forward to.
       attr_accessor :to
 
+      # @return [String] The receiving email recipient.
+      attr_accessor :alias_email
+
+      # @return [String] The email recipient the messages are delivered to.
+      attr_accessor :destination_email
+
       # @return [String] When the email forward was created in DNSimple.
       attr_accessor :created_at
 
