@@ -46,7 +46,7 @@ describe Dnsimple::Client, ".domains" do
 
       expect(response).to be_a(Dnsimple::PaginatedResponse)
       expect(response.data).to be_a(Array)
-      expect(response.data.size).to eq(2)
+      expect(response.data.size).to eq(1)
 
       response.data.each do |result|
         expect(result).to be_a(Dnsimple::Struct::EmailForward)
@@ -153,6 +153,8 @@ describe Dnsimple::Client, ".domains" do
       expect(result.domain_id).to eq(235146)
       expect(result.from).to eq("example@dnsimple.xyz")
       expect(result.to).to eq("example@example.com")
+      expect(result.alias_email).to eq("example@dnsimple.xyz")
+      expect(result.destination_email).to eq("example@example.com")
       expect(result.created_at).to eq("2021-01-25T13:54:40Z")
       expect(result.updated_at).to eq("2021-01-25T13:54:40Z")
     end

@@ -11,15 +11,23 @@ module Dnsimple
       attr_accessor :domain_id
 
       # @return [String] The "local part" of the originating email address. Anything to the left of the @ symbol.
+      # @deprecated use {#alias_email} instead
       attr_accessor :from
 
       # @return [String] The full email address to forward to.
+      # @deprecated use {#destination_email} instead
       attr_accessor :to
+
+      # @return [String] The receiving email recipient.
+      attr_accessor :alias_email
+
+      # @return [String] The email recipient the messages are delivered to.
+      attr_accessor :destination_email
+      # @return [String] Then the email forward was last updated in DNSimple.
 
       # @return [String] When the email forward was created in DNSimple.
       attr_accessor :created_at
 
-      # @return [String] Then the email forward was last updated in DNSimple.
       attr_accessor :updated_at
 
     end
