@@ -6,7 +6,7 @@ module Dnsimple
 
       # Queries DNS Analytics data for the provided account
       #
-      # @see https://developer.dnsimple.com/v2/dns-analytics#query
+      # @see https://developer.dnsimple.com/v2/dns-analytics#queryDnsAnalytics
       #
       # @param  [Integer] account_id the account ID
       # @param  [Hash] options the filtering, sorting, and grouping options
