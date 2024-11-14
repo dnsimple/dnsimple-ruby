@@ -6,7 +6,7 @@ gemspec
 
 gem 'coveralls', require: false
 gem 'rubocop', '1.68.0', require: false
-gem 'rubocop-performance', '1.20.2', require: false
+gem 'rubocop-performance', '1.22.1', require: false
 gem 'rubocop-rake', '0.6.0', require: false
 gem 'rubocop-rspec', '2.27.1', require: false
 gem "base64", "~> 0.2.0"
