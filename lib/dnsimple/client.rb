@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'httparty'
+require 'uri'
+require 'uri/https'
 require 'dnsimple/extra'
 require 'dnsimple/struct'
 require 'dnsimple/response'
@@ -68,6 +70,10 @@ module Dnsimple
 
 
     def initialize(options = {})
+      options = options.clone.tap do |options|
+        options[:base_url] = normalized_base_url_option(options[:base_url])
+      end
+
       defaults = Dnsimple::Default.options
 
       Dnsimple::Default.keys.each do |key| # rubocop:disable Style/HashEachMethods
@@ -201,6 +207,16 @@ module Dnsimple
 
 
     private
+
+    def normalized_base_url_option(base_url)
+      if base_url.nil? || base_url == ""
+        nil
+      elsif URI.parse(base_url).scheme.nil?
+        URI::HTTPS.build(host: base_url).to_s
+      else
+        base_url
+      end
+    end
 
     def request_options(custom_options = {})
       base_options.tap do |options|

@@ -20,9 +20,24 @@ describe Dnsimple::Client do
       expect(subject.base_url).to eq("https://api.example.com/missing/slash/")
     end
 
-    it "defaults :base_url to production API" do
+    it "defaults :base_url to production API when option omitted" do
       subject = described_class.new
       expect(subject.base_url).to eq("https://api.dnsimple.com/")
+    end
+
+    it "defaults :base_url to production API on nil" do
+      subject = described_class.new(base_url: nil)
+      expect(subject.base_url).to eq("https://api.dnsimple.com/")
+    end
+
+    it "defaults :base_url to production API on empty string" do
+      subject = described_class.new(base_url: "")
+      expect(subject.base_url).to eq("https://api.dnsimple.com/")
+    end
+
+    it "normalizes :base_url to use https when scheme missing" do
+      subject = described_class.new(base_url: 'api.example.com')
+      expect(subject.base_url).to eq("https://api.example.com/")
     end
   end
 
