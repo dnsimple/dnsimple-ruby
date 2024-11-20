@@ -23,11 +23,11 @@ module Dnsimple
 
       # @return [String] The email recipient the messages are delivered to.
       attr_accessor :destination_email
-      # @return [String] Then the email forward was last updated in DNSimple.
 
       # @return [String] When the email forward was created in DNSimple.
       attr_accessor :created_at
 
+      # @return [String] When the email forward was last updated in DNSimple.
       attr_accessor :updated_at
 
     end
