@@ -24,6 +24,9 @@ module Dnsimple
       # @return [String] The email recipient the messages are delivered to.
       attr_accessor :destination_email
 
+      # @return [Boolean] True if the email forward is active, false otherwise.
+      attr_accessor :active
+
       # @return [String] When the email forward was created in DNSimple.
       attr_accessor :created_at
 
