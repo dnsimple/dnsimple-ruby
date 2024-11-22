@@ -46,12 +46,18 @@ describe Dnsimple::Client, ".domains" do
 
       expect(response).to be_a(Dnsimple::PaginatedResponse)
       expect(response.data).to be_a(Array)
-      expect(response.data.size).to eq(1)
+      expect(response.data.size).to eq(2)
 
-      response.data.each do |result|
-        expect(result).to be_a(Dnsimple::Struct::EmailForward)
-        expect(result.id).to be_a(Integer)
-      end
+      expect(response.data[0].id).to eq(24809)
+      expect(response.data[0].domain_id).to eq(235146)
+      expect(response.data[0].alias_email).to eq("foo@a-domain.com")
+      expect(response.data[0].destination_email).to eq("jane.smith@example.com")
+      expect(response.data[0].active).to be(true)
+      expect(response.data[1].id).to eq(24810)
+      expect(response.data[1].domain_id).to eq(235146)
+      expect(response.data[1].alias_email).to eq("bar@a-domain.com")
+      expect(response.data[1].destination_email).to eq("john.doe@example.com")
+      expect(response.data[1].active).to be(false)
     end
 
     it "exposes the pagination information" do
