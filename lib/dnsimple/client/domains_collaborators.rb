@@ -20,9 +20,12 @@ module Dnsimple
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Collaborator>]
+      # @deprecated `DomainCollaborators` have been deprecated and will be removed in the next major version. Please use our Domain Access Control feature.
       #
       # @raise  [Dnsimple::RequestError]
       def collaborators(account_id, domain_id, options = {})
+        Dnsimple.deprecate('`DomainCollaborators` have been deprecated and will be removed in the next major version. Please use our Domain Access Control feature.')
+
         response = client.get(Client.versioned("/%s/domains/%s/collaborators" % [account_id, domain_id]), Options::ListOptions.new(options))
 
         Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Struct::Collaborator.new(r) })
@@ -41,9 +44,12 @@ module Dnsimple
       # @option attributes [String] :email user email (mandatory)
       # @param  [Hash] options request options
       # @return [Dnsimple::PaginatedResponse<Dnsimple::Struct::Collaborator>]
+      # @deprecated `DomainCollaborators` have been deprecated and will be removed in the next major version. Please use our Domain Access Control feature.
       #
       # @raise  [Dnsimple::RequestError]
       def add_collaborator(account_id, domain_id, attributes, options = {})
+        Dnsimple.deprecate('`DomainCollaborators` have been deprecated and will be removed in the next major version. Please use our Domain Access Control feature.')
+
         Extra.validate_mandatory_attributes(attributes, [:email])
         response = client.post(Client.versioned("/%s/domains/%s/collaborators" % [account_id, domain_id]), attributes, options)
 
@@ -65,9 +71,12 @@ module Dnsimple
       # @param  [Hash] options request options
       # @return [Dnsimple::Response<nil>]
       #
+      # @deprecated `DomainCollaborators` have been deprecated and will be removed in the next major version. Please use our Domain Access Control feature.
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
       def remove_collaborator(account_id, domain_id, contact_id, options = {})
+        Dnsimple.deprecate('`DomainCollaborators` have been deprecated and will be removed in the next major version. Please use our Domain Access Control feature.')
+
         response = client.delete(Client.versioned("/%s/domains/%s/collaborators/%s" % [account_id, domain_id, contact_id]), options)
 
         Dnsimple::Response.new(response, nil)
