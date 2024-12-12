@@ -110,4 +110,4 @@ puts response.data
 
 ## License
 
-Copyright (c) 2010-2023 DNSimple Corporation. This is Free Software distributed under the MIT license.
+Copyright (c) 2010-2024 DNSimple Corporation. This is Free Software distributed under the MIT license.
