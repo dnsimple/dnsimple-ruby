@@ -10,7 +10,7 @@ We provide a full API and an easy-to-use web interface so you can get your domai
 
 ## Requirements
 
-- Ruby: MRI > 3.1+
+- Ruby: MRI > 3.2+
 
 ## Installation
 
@@ -110,4 +110,4 @@ puts response.data
 
 ## License
 
-Copyright (c) 2010-2024 DNSimple Corporation. This is Free Software distributed under the MIT license.
+Copyright (c) 2010-2025 DNSimple Corporation. This is Free Software distributed under the MIT license.
