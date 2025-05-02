@@ -2,6 +2,6 @@
 
 module Dnsimple
 
-  VERSION = "9.0.1"
+  VERSION = "10.0.0"
 
 end
