@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".dns_analytics" do
 
@@ -16,7 +16,7 @@ describe Dnsimple::Client, ".dns_analytics" do
       subject.query(1)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -32,13 +32,13 @@ describe Dnsimple::Client, ".dns_analytics" do
     end
 
     it "supports filtering" do
-      subject.query(1, filter: { start_date: '2024-08-01', end_date: '2024-09-01' })
+      subject.query(1, filter: { start_date: "2024-08-01", end_date: "2024-09-01" })
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?start_date=2024-08-01&end_date=2024-09-01")
     end
 
     it "supports groupings" do
-      subject.query(1, groupings: 'date,zone_name')
+      subject.query(1, groupings: "date,zone_name")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?groupings=date,zone_name")
     end
@@ -52,8 +52,8 @@ describe Dnsimple::Client, ".dns_analytics" do
       expect(response.data.size).to eq(12)
 
       expect(response.data.all?(Dnsimple::Struct::DnsAnalytics)).to be(true)
-      expect(response.data[0].date).to eq('2023-12-08')
-      expect(response.data[0].zone_name).to eq('bar.com')
+      expect(response.data[0].date).to eq("2023-12-08")
+      expect(response.data[0].zone_name).to eq("bar.com")
       expect(response.data[0].volume).to eq(1200)
     end
 
@@ -73,8 +73,8 @@ describe Dnsimple::Client, ".dns_analytics" do
       expect(response.respond_to?(:query)).to be(true)
       query = response.query
       expect(query["account_id"]).to eq("1")
-      expect(query["start_date"]).to eq('2023-12-08')
-      expect(query["end_date"]).to eq('2024-01-08')
+      expect(query["start_date"]).to eq("2023-12-08")
+      expect(query["end_date"]).to eq("2024-01-08")
       expect(query["sort"]).to eq("zone_name:asc,date:asc")
       expect(query["groupings"]).to eq("zone_name,date")
       expect(query["page"]).to eq(0)

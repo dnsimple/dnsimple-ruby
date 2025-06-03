@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".domains" do
 
@@ -20,7 +20,7 @@ describe Dnsimple::Client, ".domains" do
       subject.email_forwards(account_id, domain_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -119,7 +119,7 @@ describe Dnsimple::Client, ".domains" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the email forward" do
@@ -146,7 +146,7 @@ describe Dnsimple::Client, ".domains" do
       subject.email_forward(account_id, domain_id, email_forward_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the email forward" do
@@ -191,7 +191,7 @@ describe Dnsimple::Client, ".domains" do
       subject.delete_email_forward(account_id, domain_id, email_forward_id)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do

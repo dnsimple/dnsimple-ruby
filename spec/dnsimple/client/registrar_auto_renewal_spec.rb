@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".registrar" do
 
@@ -20,7 +20,7 @@ describe Dnsimple::Client, ".registrar" do
       subject.enable_auto_renewal(account_id, domain_id)
 
       expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/auto_renewal")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do
@@ -57,7 +57,7 @@ describe Dnsimple::Client, ".registrar" do
       subject.disable_auto_renewal(account_id, domain_id)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/auto_renewal")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do

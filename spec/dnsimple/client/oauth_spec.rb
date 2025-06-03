@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".oauth" do
 
@@ -23,7 +23,7 @@ describe Dnsimple::Client, ".oauth" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token")
           .with(body: { client_id: client_id, client_secret: client_secret, code: code, state: state, grant_type: "authorization_code" })
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns oauth token" do
@@ -43,7 +43,7 @@ describe Dnsimple::Client, ".oauth" do
 
         expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token")
             .with(body: { client_id: client_id, client_secret: client_secret, code: code, state: state, redirect_uri: redirect_uri, grant_type: "authorization_code" })
-            .with(headers: { 'Accept' => 'application/json' })
+            .with(headers: { "Accept" => "application/json" })
       end
     end
 

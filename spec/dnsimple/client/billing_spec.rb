@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
-require 'bigdecimal/util'
+require "bigdecimal/util"
 
 describe Dnsimple::Client, ".billing" do
 
@@ -20,7 +20,7 @@ describe Dnsimple::Client, ".billing" do
       subject.charges(account_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/billing/charges")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "exposes the pagination information" do

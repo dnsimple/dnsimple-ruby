@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".domains" do
 
@@ -22,7 +22,7 @@ describe Dnsimple::Client, ".domains" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/pushes")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the domain push" do
@@ -47,7 +47,7 @@ describe Dnsimple::Client, ".domains" do
       subject.pushes(account_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -102,7 +102,7 @@ describe Dnsimple::Client, ".domains" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do
@@ -138,7 +138,7 @@ describe Dnsimple::Client, ".domains" do
       subject.reject_push(account_id, push_id)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do

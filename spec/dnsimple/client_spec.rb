@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client do
 
@@ -135,11 +135,11 @@ describe Dnsimple::Client do
     it "performs a request" do
       stub_request(:get, %r{/foo})
 
-      subject.request(:get, 'foo', {})
+      subject.request(:get, "foo", {})
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.com/foo")
           .with(basic_auth: %w[user pass],
-                headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT })
+                headers: { "Accept" => "application/json", "User-Agent" => Dnsimple::Default::USER_AGENT })
     end
 
     it "delegates to HTTParty" do
@@ -150,11 +150,11 @@ describe Dnsimple::Client do
               "#{subject.base_url}foo", {
                 format: :json,
                 basic_auth: { username: "user", password: "pass" },
-                headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT },
+                headers: { "Accept" => "application/json", "User-Agent" => Dnsimple::Default::USER_AGENT },
               }
             )
 
-      subject.request(:get, 'foo')
+      subject.request(:get, "foo")
     end
 
     it "properly extracts processes options and encodes data" do
@@ -165,12 +165,12 @@ describe Dnsimple::Client do
                 body: JSON.dump(something: "else"),
                 query: { foo: "bar" },
                 basic_auth: { username: "user", password: "pass" },
-                headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT, "Custom" => "Header" },
+                headers: { "Accept" => "application/json", "Content-Type" => "application/json", "User-Agent" => Dnsimple::Default::USER_AGENT, "Custom" => "Header" },
               }
             )
 
       expect {
-        subject.request(:put, 'foo', { something: "else" }, { query: { foo: "bar" }, headers: { "Custom" => "Header" } })
+        subject.request(:put, "foo", { something: "else" }, { query: { foo: "bar" }, headers: { "Custom" => "Header" } })
       }.not_to raise_error
     end
 
@@ -181,12 +181,12 @@ describe Dnsimple::Client do
                 format: :json,
                 body: { something: "else" },
                 basic_auth: { username: "user", password: "pass" },
-                headers: { 'Accept' => 'application/json', 'Content-Type' => 'application/x-www-form-urlencoded', 'User-Agent' => Dnsimple::Default::USER_AGENT },
+                headers: { "Accept" => "application/json", "Content-Type" => "application/x-www-form-urlencoded", "User-Agent" => Dnsimple::Default::USER_AGENT },
               }
             )
 
       expect {
-        subject.request(:post, 'foo', { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
+        subject.request(:post, "foo", { something: "else" }, { headers: { "Content-Type" => "application/x-www-form-urlencoded" } })
       }.not_to raise_error
     end
 
@@ -197,7 +197,7 @@ describe Dnsimple::Client do
                 format: :json,
                 http_proxyaddr: "example-proxy.com",
                 http_proxyport: "4321",
-                headers: { 'Accept' => 'application/json', 'User-Agent' => Dnsimple::Default::USER_AGENT },
+                headers: { "Accept" => "application/json", "User-Agent" => Dnsimple::Default::USER_AGENT },
               }
             )
 
