@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".tlds" do
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").tlds }
@@ -15,7 +15,7 @@ describe Dnsimple::Client, ".tlds" do
       subject.list_tlds
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -89,7 +89,7 @@ describe Dnsimple::Client, ".tlds" do
       subject.tld(tld = "com")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the tld" do
@@ -98,7 +98,7 @@ describe Dnsimple::Client, ".tlds" do
 
       result = response.data
       expect(result).to be_a(Dnsimple::Struct::Tld)
-      expect(result.tld).to eq('com')
+      expect(result.tld).to eq("com")
       expect(result.tld_type).to eq(1)
       expect(result.whois_privacy).to be(true)
       expect(result.auto_renew_only).to be(false)
@@ -121,7 +121,7 @@ describe Dnsimple::Client, ".tlds" do
       subject.tld_extended_attributes(tld = "uk")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}/extended_attributes")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the extended attributes" do

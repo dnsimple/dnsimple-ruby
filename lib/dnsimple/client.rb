@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'httparty'
-require 'dnsimple/extra'
-require 'dnsimple/struct'
-require 'dnsimple/response'
-require 'dnsimple/client/clients'
+require "httparty"
+require "dnsimple/extra"
+require "dnsimple/struct"
+require "dnsimple/response"
+require "dnsimple/client/clients"
 
 module Dnsimple
   # Client for the DNSimple API

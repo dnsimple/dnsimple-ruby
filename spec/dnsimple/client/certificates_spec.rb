@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".certificates" do
 
@@ -19,7 +19,7 @@ describe Dnsimple::Client, ".certificates" do
       subject.certificates(account_id, domain_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -93,7 +93,7 @@ describe Dnsimple::Client, ".certificates" do
       subject.certificate(account_id, domain_id, certificate_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports extra request options" do
@@ -149,7 +149,7 @@ describe Dnsimple::Client, ".certificates" do
       subject.download_certificate(account_id, domain_id, certificate_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/download")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports extra request options" do
@@ -196,7 +196,7 @@ describe Dnsimple::Client, ".certificates" do
       subject.certificate_private_key(account_id, domain_id, certificate_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports extra request options" do
@@ -244,7 +244,7 @@ describe Dnsimple::Client, ".certificates" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "passes extra attributes" do
@@ -253,7 +253,7 @@ describe Dnsimple::Client, ".certificates" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the certificate purchase" do
@@ -295,7 +295,7 @@ describe Dnsimple::Client, ".certificates" do
       subject.issue_letsencrypt_certificate(account_id, domain_id, certificate_id)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/issue")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the certificate" do
@@ -353,7 +353,7 @@ describe Dnsimple::Client, ".certificates" do
       subject.purchase_letsencrypt_certificate_renewal(account_id, domain_id, certificate_id)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "passes extra attributes" do
@@ -362,7 +362,7 @@ describe Dnsimple::Client, ".certificates" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the certificate renew" do
@@ -405,7 +405,7 @@ describe Dnsimple::Client, ".certificates" do
       subject.issue_letsencrypt_certificate_renewal(account_id, domain_id, certificate_id, certificate_renewal_id)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals/#{certificate_renewal_id}/issue")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the certificate" do

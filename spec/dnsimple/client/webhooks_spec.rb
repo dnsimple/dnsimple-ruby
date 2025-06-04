@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".webhooks" do
 
@@ -18,7 +18,7 @@ describe Dnsimple::Client, ".webhooks" do
       subject.webhooks(account_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports extra request options" do
@@ -62,7 +62,7 @@ describe Dnsimple::Client, ".webhooks" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/webhooks")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the webhook" do
@@ -87,7 +87,7 @@ describe Dnsimple::Client, ".webhooks" do
       subject.webhook(account_id, webhook_id = "1")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/webhooks/#{webhook_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the webhook" do
@@ -124,7 +124,7 @@ describe Dnsimple::Client, ".webhooks" do
       subject.delete_webhook(account_id, webhook_id = "1")
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/webhooks/#{webhook_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do

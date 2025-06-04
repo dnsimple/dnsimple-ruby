@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".services" do
 
@@ -9,7 +9,7 @@ describe Dnsimple::Client, ".services" do
 
   describe "#applied_services" do
     let(:account_id) { 1010 }
-    let(:domain_id)  { 'example.com' }
+    let(:domain_id)  { "example.com" }
 
     before do
       stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/services})
@@ -74,7 +74,7 @@ describe Dnsimple::Client, ".services" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}")
           .with(body: settings)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns empty response" do
@@ -100,7 +100,7 @@ describe Dnsimple::Client, ".services" do
       subject.unapply_service(account_id, service_id, domain_id)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/services/#{service_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns empty response" do

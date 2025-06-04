@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".zones" do
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").zones }
@@ -18,7 +18,7 @@ describe Dnsimple::Client, ".zones" do
       subject.zones(account_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -107,7 +107,7 @@ describe Dnsimple::Client, ".zones" do
       subject.zone(account_id, zone = "example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the zone" do
@@ -151,7 +151,7 @@ describe Dnsimple::Client, ".zones" do
       subject.zone_file(account_id, zone = "example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}/file")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the zone id" do
@@ -187,7 +187,7 @@ describe Dnsimple::Client, ".zones" do
       subject.activate_dns(account_id, zone = "example.com")
 
       expect(WebMock).to have_requested(:put, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}/activation")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the zone" do
@@ -229,7 +229,7 @@ describe Dnsimple::Client, ".zones" do
       subject.deactivate_dns(account_id, zone = "example.com")
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}/activation")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the zone" do

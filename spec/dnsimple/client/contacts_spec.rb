@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".contacts" do
 
@@ -19,7 +19,7 @@ describe Dnsimple::Client, ".contacts" do
       subject.contacts(account_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/contacts")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -99,7 +99,7 @@ describe Dnsimple::Client, ".contacts" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/contacts")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the contact" do
@@ -124,7 +124,7 @@ describe Dnsimple::Client, ".contacts" do
       subject.contact(account_id, contact = 1)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/contacts/#{contact}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the contact" do
@@ -166,7 +166,7 @@ describe Dnsimple::Client, ".contacts" do
 
       expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/contacts/#{contact_id}")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the contact" do
@@ -202,7 +202,7 @@ describe Dnsimple::Client, ".contacts" do
       subject.delete_contact(account_id, domain = "example.com")
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/contacts/#{domain}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do

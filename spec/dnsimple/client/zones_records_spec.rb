@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".zones" do
 
@@ -20,7 +20,7 @@ describe Dnsimple::Client, ".zones" do
       subject.list_zone_records(account_id, zone_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -126,7 +126,7 @@ describe Dnsimple::Client, ".zones" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the record" do
@@ -168,7 +168,7 @@ describe Dnsimple::Client, ".zones" do
       subject.zone_record(account_id, zone_id, record_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the record" do
@@ -216,7 +216,7 @@ describe Dnsimple::Client, ".zones" do
 
   describe "#update_zone_record" do
     let(:account_id) { 1010 }
-    let(:attributes) { { content: "mxb.example.com", priority: "20", regions: ['global'] } }
+    let(:attributes) { { content: "mxb.example.com", priority: "20", regions: ["global"] } }
     let(:zone_id) { "example.com" }
     let(:record_id) { 5 }
 
@@ -231,7 +231,7 @@ describe Dnsimple::Client, ".zones" do
 
       expect(WebMock).to have_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the record" do
@@ -282,7 +282,7 @@ describe Dnsimple::Client, ".zones" do
       subject.delete_zone_record(account_id, zone_id, record_id = 2)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do

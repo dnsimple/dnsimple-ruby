@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".templates" do
 
@@ -194,7 +194,7 @@ describe Dnsimple::Client, ".templates" do
   describe "#apply_template" do
     let(:account_id)  { 1010 }
     let(:template_id) { 5410 }
-    let(:domain_id)   { 'example.com' }
+    let(:domain_id)   { "example.com" }
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}$})

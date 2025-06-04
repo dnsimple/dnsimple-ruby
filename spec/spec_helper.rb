@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'rspec'
+require "rspec"
 
-if ENV['COVERALL']
-  require 'coveralls'
+if ENV["COVERALL"]
+  require "coveralls"
   Coveralls.wear!
 end
 
 $:.unshift("#{File.dirname(__FILE__)}/lib")
-require 'dnsimple'
+require "dnsimple"
 
 unless defined?(SPEC_ROOT)
   SPEC_ROOT = File.expand_path(__dir__)

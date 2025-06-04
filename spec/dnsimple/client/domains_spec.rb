@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".domains" do
 
@@ -19,7 +19,7 @@ describe Dnsimple::Client, ".domains" do
       subject.domains(account_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -41,7 +41,7 @@ describe Dnsimple::Client, ".domains" do
     end
 
     it "supports filtering" do
-      subject.domains(account_id, filter: { name_like: 'example' })
+      subject.domains(account_id, filter: { name_like: "example" })
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains?name_like=example")
     end
@@ -111,7 +111,7 @@ describe Dnsimple::Client, ".domains" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the domain" do
@@ -136,7 +136,7 @@ describe Dnsimple::Client, ".domains" do
       subject.domain(account_id, domain = "example-alpha.com")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the domain" do
@@ -181,7 +181,7 @@ describe Dnsimple::Client, ".domains" do
       subject.delete_domain(account_id, domain = "example.com")
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do

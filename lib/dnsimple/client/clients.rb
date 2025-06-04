@@ -120,7 +120,7 @@ module Dnsimple
     end
 
 
-    require_relative 'accounts'
+    require_relative "accounts"
 
     class AccountsService < ClientService
 
@@ -128,7 +128,7 @@ module Dnsimple
 
     end
 
-    require_relative 'billing'
+    require_relative "billing"
 
     class BillingService < ClientService
 
@@ -136,7 +136,7 @@ module Dnsimple
 
     end
 
-    require_relative 'certificates'
+    require_relative "certificates"
 
     class CertificatesService < ClientService
 
@@ -145,7 +145,7 @@ module Dnsimple
     end
 
 
-    require_relative 'contacts'
+    require_relative "contacts"
 
     class ContactsService < ClientService
 
@@ -154,12 +154,12 @@ module Dnsimple
     end
 
 
-    require_relative 'domains'
-    require_relative 'domains_delegation_signer_records'
-    require_relative 'domains_dnssec'
-    require_relative 'domains_email_forwards'
-    require_relative 'domains_pushes'
-    require_relative 'domains_collaborators'
+    require_relative "domains"
+    require_relative "domains_delegation_signer_records"
+    require_relative "domains_dnssec"
+    require_relative "domains_email_forwards"
+    require_relative "domains_pushes"
+    require_relative "domains_collaborators"
 
     class DomainsService < ClientService
 
@@ -172,7 +172,7 @@ module Dnsimple
 
     end
 
-    require_relative 'dns_analytics'
+    require_relative "dns_analytics"
 
     class DnsAnalyticsService < ClientService
 
@@ -181,7 +181,7 @@ module Dnsimple
     end
 
 
-    require_relative 'identity'
+    require_relative "identity"
 
     class IdentityService < ClientService
 
@@ -190,7 +190,7 @@ module Dnsimple
     end
 
 
-    require_relative 'oauth'
+    require_relative "oauth"
 
     class OauthService < ClientService
 
@@ -198,12 +198,12 @@ module Dnsimple
 
     end
 
-    require_relative 'registrar'
-    require_relative 'registrar_auto_renewal'
-    require_relative 'registrar_whois_privacy'
-    require_relative 'registrar_registrant_changes'
-    require_relative 'registrar_transfer_lock'
-    require_relative 'registrar_delegation'
+    require_relative "registrar"
+    require_relative "registrar_auto_renewal"
+    require_relative "registrar_whois_privacy"
+    require_relative "registrar_registrant_changes"
+    require_relative "registrar_transfer_lock"
+    require_relative "registrar_delegation"
 
     class RegistrarService < ClientService
 
@@ -217,8 +217,8 @@ module Dnsimple
     end
 
 
-    require_relative 'services'
-    require_relative 'services_domains'
+    require_relative "services"
+    require_relative "services_domains"
 
     class ServicesService < ClientService
 
@@ -228,9 +228,9 @@ module Dnsimple
     end
 
 
-    require_relative 'templates'
-    require_relative 'templates_domains'
-    require_relative 'templates_records'
+    require_relative "templates"
+    require_relative "templates_domains"
+    require_relative "templates_records"
 
     class TemplatesService < ClientService
 
@@ -241,7 +241,7 @@ module Dnsimple
     end
 
 
-    require_relative 'tlds'
+    require_relative "tlds"
 
     class TldsService < ClientService
 
@@ -250,7 +250,7 @@ module Dnsimple
     end
 
 
-    require_relative 'vanity_name_servers'
+    require_relative "vanity_name_servers"
 
     class VanityNameServersService < ClientService
 
@@ -259,9 +259,9 @@ module Dnsimple
     end
 
 
-    require_relative 'zones'
-    require_relative 'zones_records'
-    require_relative 'zones_distributions'
+    require_relative "zones"
+    require_relative "zones_records"
+    require_relative "zones_distributions"
 
     class ZonesService < ClientService
 
@@ -272,7 +272,7 @@ module Dnsimple
     end
 
 
-    require_relative 'webhooks'
+    require_relative "webhooks"
 
     class WebhooksService < ClientService
 

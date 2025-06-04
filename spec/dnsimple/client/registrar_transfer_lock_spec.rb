@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".registrar" do
   subject { described_class.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar }
@@ -18,7 +18,7 @@ describe Dnsimple::Client, ".registrar" do
       subject.get_domain_transfer_lock(account_id, domain_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/transfer_lock")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the transfer lock state" do
@@ -55,7 +55,7 @@ describe Dnsimple::Client, ".registrar" do
       subject.enable_domain_transfer_lock(account_id, domain_id)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/transfer_lock")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the transfer lock state" do
@@ -92,7 +92,7 @@ describe Dnsimple::Client, ".registrar" do
       subject.disable_domain_transfer_lock(account_id, domain_id)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/transfer_lock")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the transfer lock state" do
