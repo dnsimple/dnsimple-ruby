@@ -32,9 +32,9 @@ module Dnsimple
       @http_response = http_response
       @data = data
 
-      @rate_limit = http_response.headers['X-RateLimit-Limit'].to_i
-      @rate_limit_remaining = http_response.headers['X-RateLimit-Remaining'].to_i
-      @rate_limit_reset = Time.at(http_response.headers['X-RateLimit-Reset'].to_i)
+      @rate_limit = http_response.headers["X-RateLimit-Limit"].to_i
+      @rate_limit_remaining = http_response.headers["X-RateLimit-Remaining"].to_i
+      @rate_limit_reset = Time.at(http_response.headers["X-RateLimit-Reset"].to_i)
     end
 
   end

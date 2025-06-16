@@ -1,28 +1,19 @@
-# Defaults https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+# This file serves as a template for RuboCop configuration. The primary template is maintained in the engineering repository.
+# Please ensure that any changes made here are also reflected in the engineering file to maintain consistency.
 #
-# References:
-#  * https://github.com/bbatsov/ruby-style-guide
-#  * https://rubocop.readthedocs.io/
+# DNSimple Ruby engineering template: https://github.com/dnsimple/dnsimple-engineering/blob/main/templates/ruby/rubocop_dnsimple.yml
+#
+# For default configurations, refer to: https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+#
+# Additional References:
+#  * Ruby Style Guide: https://github.com/bbatsov/ruby-style-guide
+#  * RuboCop Documentation: https://rubocop.readthedocs.io/
 
 AllCops:
   Exclude:
     # Exclude .gemspec files because they are generally auto-generated
     - '*.gemspec'
   NewCops: enable
-
-# In most cases, Gems are sorted alphabetically.
-# However, in some few cases the order is relevant due to dependencies.
-Bundler/OrderedGems:
-  Enabled: false
-
-# This cop requires odd code indentations (as of rubocop 0.57.0)
-# https://github.com/rubocop-hq/rubocop/issues/5956
-Layout/AccessModifierIndentation:
-  Enabled: false
-
-# It causes weird aligments, especially for specs.
-Layout/BlockEndNewline:
-  Enabled: false
 
 # Generally, the keyword style uses a lot of space. This is particularly true when
 # you use case/if statements, in combination with a long-name variable.
@@ -110,7 +101,7 @@ Naming/MemoizedInstanceVariableName:
 Naming/PredicateName:
   Enabled: false
 
-# The team agreed decided to use exception
+# The team agreed decided to use exception.
 Naming/RescuedExceptionsVariableName:
   PreferredName: 'exception'
 
@@ -160,8 +151,10 @@ Style/FormatString:
 Style/FormatStringToken:
   Enabled: false
 
-# Prefer the latest Hash syntax
+# always - forces use of the 3.1 syntax (e.g. foo:)
+# https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Style/HashSyntax
 Style/HashSyntax:
+  EnforcedShorthandSyntax: always
   Exclude:
     # Rakefiles generally have definitions like
     #   :default => :test
@@ -191,7 +184,7 @@ Style/MultilineBlockChain:
 Style/NegatedIf:
   Enabled: false
 
-# Magic numbers are not welcomed
+# Magic numbers are not welcomed.
 Style/NumericLiterals:
   Exclude:
     # however tests can use numeric literals for method calls,
@@ -219,13 +212,9 @@ Style/SpecialGlobalVars:
   Enabled: false
   EnforcedStyle: use_perl_names
 
-# We generally use double quotes, sometimes single quotes.
-# Should we enforce it at code level?
 Style/StringLiterals:
-  Enabled: false
   EnforcedStyle: double_quotes
 
-# Pick one option for consistency.
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 
@@ -265,11 +254,6 @@ Style/WordArray:
 #
 Layout/CaseIndentation:
   EnforcedStyle: end
-
-# I was a big fan of leading, but trailing seems to be more commonly adopted.
-# At least at the time being.
-Layout/DotPosition:
-  EnforcedStyle: leading
 
 # Double empty lines are useful to separate conceptually different methods
 # in the same class or module.

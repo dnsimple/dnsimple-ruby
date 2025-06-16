@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".zones" do
 
@@ -18,7 +18,7 @@ describe Dnsimple::Client, ".zones" do
       subject.zone_distribution(account_id, zone = "example.com")
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone}/distribution")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the zone distribution check with true when the zone is fully distributed" do
@@ -78,7 +78,7 @@ describe Dnsimple::Client, ".zones" do
       subject.zone_record_distribution(account_id, zone_id, record_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/records/#{record_id}/distribution")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the zone record distribution check with true when the zone is fully distributed" do

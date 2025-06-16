@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".identity" do
 
@@ -17,7 +17,7 @@ describe Dnsimple::Client, ".identity" do
       subject.whoami
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/whoami")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the whoami" do

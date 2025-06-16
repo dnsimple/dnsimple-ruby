@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".templates" do
 
@@ -92,7 +92,7 @@ describe Dnsimple::Client, ".templates" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the record" do
@@ -157,7 +157,7 @@ describe Dnsimple::Client, ".templates" do
       subject.record(account_id, template_id, record_id = 301)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records/#{record_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the record" do
@@ -191,7 +191,7 @@ describe Dnsimple::Client, ".templates" do
       subject.delete_record(account_id, template_id, record_id = 301)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records/#{record_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do

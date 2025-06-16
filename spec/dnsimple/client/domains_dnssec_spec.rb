@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".domains" do
 
@@ -20,7 +20,7 @@ describe Dnsimple::Client, ".domains" do
       subject.enable_dnssec(account_id, domain_id)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the dnssec status" do
@@ -59,7 +59,7 @@ describe Dnsimple::Client, ".domains" do
       subject.disable_dnssec(account_id, domain_id)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do
@@ -96,7 +96,7 @@ describe Dnsimple::Client, ".domains" do
       subject.get_dnssec(account_id, domain_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the dnssec status" do

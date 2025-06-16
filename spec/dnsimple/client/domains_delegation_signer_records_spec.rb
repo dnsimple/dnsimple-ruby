@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require "spec_helper"
 
 describe Dnsimple::Client, ".domains" do
 
@@ -20,7 +20,7 @@ describe Dnsimple::Client, ".domains" do
       subject.delegation_signer_records(account_id, domain_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/ds_records")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "supports pagination" do
@@ -113,7 +113,7 @@ describe Dnsimple::Client, ".domains" do
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/ds_records")
           .with(body: attributes)
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the delegation signer record" do
@@ -140,7 +140,7 @@ describe Dnsimple::Client, ".domains" do
       subject.delegation_signer_record(account_id, domain_id, ds_record_id)
 
       expect(WebMock).to have_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/ds_records/#{ds_record_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns the delegation signer record" do
@@ -186,7 +186,7 @@ describe Dnsimple::Client, ".domains" do
       subject.delete_delegation_signer_record(account_id, domain_id, ds_record_id)
 
       expect(WebMock).to have_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/ds_records/#{ds_record_id}")
-          .with(headers: { 'Accept' => 'application/json' })
+          .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns nothing" do

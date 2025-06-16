@@ -16,8 +16,8 @@ module Dnsimple
 
 end
 
-require 'dnsimple/version'
-require 'dnsimple/default'
-require 'dnsimple/client'
-require 'dnsimple/error'
-require 'dnsimple/options'
+require "dnsimple/version"
+require "dnsimple/default"
+require "dnsimple/client"
+require "dnsimple/error"
+require "dnsimple/options"
