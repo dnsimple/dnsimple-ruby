@@ -24,9 +24,9 @@ jobs:
             | tar -xz -C "$TMP_DIR"
           pwd
           ls -al $TMP_DIR
-          ls -al "$TMP_DIR/dnsimple-developer-*/fixtures/v2/"
+          ls -al "$TMP_DIR/dnsimple-developer-main/"
           ls -al spec/fixtures.http/
-          rsync -a --delete "$TMP_DIR/dnsimple-developer-*/fixtures/v2/" spec/fixtures.http/
+          rsync -a --delete "$TMP_DIR/dnsimple-developer-main/fixtures/v2/" spec/fixtures.http/
           ls -al spec/fixtures.http/
       - name: Run tests
         run: bundle exec rake
