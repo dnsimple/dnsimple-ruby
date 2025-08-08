@@ -30,3 +30,25 @@ jobs:
           ls -al spec/fixtures.http/
       - name: Run tests
         run: bundle exec rake
+      - name: Commit synced fixtures
+        run: |
+          # Configure Git identity for the workflow
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          # Create and switch to a new branch
+          BRANCH="chore/sync-fixtures-${GITHUB_RUN_ID}"
+          git checkout -b "$BRANCH"
+
+          # Stage changes
+          git add spec/fixtures.http
+
+          # Commit if there are staged changes
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: sync test fixtures"
+            git push -u origin "$BRANCH"
+          else
+            echo "No fixture changes to commit."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
