@@ -26,7 +26,7 @@ jobs:
           ls -al $TMP_DIR
           ls -al "$TMP_DIR/dnsimple-developer-main/"
           ls -al spec/fixtures.http/
-          rsync -a --delete "$TMP_DIR/dnsimple-developer-main/fixtures/v2/" spec/fixtures.http/
+          rsync -a --delete "$TMP_DIR/dnsimple-developer-main/fixtures/v2/api" spec/fixtures.http/
           ls -al spec/fixtures.http/
       - name: Run tests
         run: bundle exec rake
