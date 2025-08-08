@@ -21,7 +21,7 @@ jobs:
         run: |
           TMP_DIR=$(mktemp -d)
           curl -fsSL "https://codeload.github.com/dnsimple/dnsimple-developer/tar.gz/refs/heads/main" \
-            | tar -xz -C "$tmp"
+            | tar -xz -C "$TMP_DIR"
           rsync -a --delete "$TMP_DIR"/dnsimple-developer-*/fixtures/v2/ spec/fixtures.http/
       - name: Run tests
         run: bundle exec rake
