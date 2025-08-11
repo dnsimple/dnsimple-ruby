@@ -19,7 +19,7 @@ jobs:
           wait-interval: 10
           allowed-conclusions: success
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Release Gem
         uses: simplyqio/publish-rubygems-action@2.0.0
