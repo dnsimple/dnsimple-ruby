@@ -37,7 +37,7 @@ jobs:
 
           # Create and switch to a new branch
           BRANCH="chore/sync-fixtures-${GITHUB_RUN_ID}"
-          NOW="$(date +'%Y-%m-%d %H:%M:%S')""
+          NOW="$(date +'%Y-%m-%d %H:%M:%S')"
           git checkout -b "$BRANCH"
 
           # Stage changes
@@ -49,7 +49,7 @@ jobs:
             git push -u origin "$BRANCH"
             gh pr create \
               --title "chore: Sync fixtures as of $NOW" \
-              --body "This PR replaces the fixtures in this repository with those from dnsimple-developer" \
+              --body "This PR replaces the fixtures in this repository with those from github.com/dnsimple/dnsimple-developer" \
               --base main \
               --head "$BRANCH"
           else
