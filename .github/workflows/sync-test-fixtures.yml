@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "spike/pull-fixtures"
+  workflow_dispatch:
 
 jobs:
   sync_fixtures:
@@ -17,6 +18,7 @@ jobs:
         with:
           ruby-version: '3.4'
           bundler-cache: true
+      - uses: actions/setup-gh@v4
       - name: Sync fixtures
         run: |
           TMP_DIR=$(mktemp -d)
@@ -28,9 +30,7 @@ jobs:
           ls -al spec/fixtures.http/
           rsync -a --delete "$TMP_DIR/dnsimple-developer-main/fixtures/v2/api/" spec/fixtures.http/
           ls -al spec/fixtures.http/
-      - name: Run tests
-        run: bundle exec rake
-      - name: Commit synced fixtures
+      - name: Create a PR to sync fixtures if there are changes
         run: |
           # Configure Git identity for the workflow
           git config --global user.name "github-actions"
@@ -38,6 +38,7 @@ jobs:
 
           # Create and switch to a new branch
           BRANCH="chore/sync-fixtures-${GITHUB_RUN_ID}"
+          NOW="$(date +'%Y-%m-%d %H:%M:%S')""
           git checkout -b "$BRANCH"
 
           # Stage changes
@@ -45,10 +46,15 @@ jobs:
 
           # Commit if there are staged changes
           if ! git diff --cached --quiet; then
-            git commit -m "chore: sync test fixtures"
+            git commit -m "chore: sync test fixtures as of $NOW"
             git push -u origin "$BRANCH"
+            gh pr create \
+              --title "chore: Sync fixtures as of $NOW" \
+              --body "This PR replaces the fixtures in this repository with those from https://github.com/dnsimple/dnsimple-developer" \
+              --base main \
+              --head "$BRANCH"
           else
-            echo "No fixture changes to commit."
+            echo "No fixture detected; nothing to do"
           fi
         env:
           GITHUB_TOKEN: ${{ github.token }}
