@@ -49,7 +49,7 @@ jobs:
             git push -u origin "$BRANCH"
             gh pr create \
               --title "chore: Sync fixtures as of $NOW" \
-              --body "This PR replaces the fixtures in this repository with those from https://github.com/dnsimple/dnsimple-developer" \
+              --body "This PR replaces the fixtures in this repository with those from dnsimple-developer" \
               --base main \
               --head "$BRANCH"
           else
