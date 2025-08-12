@@ -18,7 +18,6 @@ jobs:
         with:
           ruby-version: '3.4'
           bundler-cache: true
-      - uses: actions/setup-gh@v4
       - name: Sync fixtures
         run: |
           TMP_DIR=$(mktemp -d)
