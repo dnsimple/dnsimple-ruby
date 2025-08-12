@@ -20,12 +20,7 @@ jobs:
           TMP_DIR=$(mktemp -d)
           curl -fsSL "https://codeload.github.com/dnsimple/dnsimple-developer/tar.gz/refs/heads/main" \
             | tar -xz -C "$TMP_DIR"
-          pwd
-          ls -al $TMP_DIR
-          ls -al "$TMP_DIR/dnsimple-developer-main/"
-          ls -al spec/fixtures.http/
           rsync -a --delete "$TMP_DIR/dnsimple-developer-main/fixtures/v2/api/" spec/fixtures.http/
-          ls -al spec/fixtures.http/
       - name: Create a PR to sync fixtures if there are changes
         run: |
           # Configure Git identity for the workflow
