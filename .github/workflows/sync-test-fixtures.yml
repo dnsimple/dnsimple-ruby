@@ -1,9 +1,6 @@
 name: Sync test fixtures
 
 on:
-  push:
-    branches:
-      - "spike/pull-fixtures"
   workflow_dispatch:
 
 jobs:
