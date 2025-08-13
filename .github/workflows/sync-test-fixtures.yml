@@ -38,7 +38,7 @@ jobs:
             git commit -m "chore: sync test fixtures as of $NOW"
             git push -u origin "$BRANCH"
 
-            cat > pr_body.md <<'MD'
+            cat <<'MD' > pr_body.md
             This PR replaces the fixtures in this repository with those from https://github.com/dnsimple/dnsimple-developer/"
 
             ## Checklist
