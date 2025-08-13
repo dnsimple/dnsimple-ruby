@@ -1,4 +1,4 @@
-HTTP/1.1 200 
+HTTP/1.1 200
 server: nginx
 date: Tue, 22 Aug 2023 11:13:58 GMT
 content-type: application/json; charset=utf-8
