@@ -21,6 +21,14 @@ jobs:
           rsync -a --delete "$TMP_DIR/dnsimple-developer-main/fixtures/v2/api/" spec/fixtures.http/
       - name: Create a PR to sync fixtures if there are changes
         run: |
+          cat <<'MD' > pr_body.md
+          This PR replaces the fixtures in this repository with those from https://github.com/dnsimple/dnsimple-developer/"
+
+          ## Checklist
+          - [ ] Close and re-open this PR to trigger the CI workflow (it does not run automatically)
+          - [ ] Ensure the CI workflow passes before merging
+          MD
+
           # Configure Git identity for the workflow
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
@@ -37,14 +45,6 @@ jobs:
           if ! git diff --cached --quiet; then
             git commit -m "chore: sync test fixtures as of $NOW"
             git push -u origin "$BRANCH"
-
-            cat <<-'MD' > pr_body.md
-            This PR replaces the fixtures in this repository with those from https://github.com/dnsimple/dnsimple-developer/"
-
-            ## Checklist
-            - [ ] Close and re-open this PR to trigger the CI workflow (it does not run automatically)
-            - [ ] Ensure the CI workflow passes before merging
-            MD
 
             gh pr create \
               --title "chore: Sync fixtures as of $NOW" \
