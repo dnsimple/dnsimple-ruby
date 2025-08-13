@@ -1,9 +1,6 @@
 name: Sync test fixtures
 
 on:
-  push:
-    branches:
-      - "spike/pull-fixtures"
   workflow_dispatch:
 
 jobs:
@@ -22,7 +19,7 @@ jobs:
       - name: Create a PR to sync fixtures if there are changes
         run: |
           cat <<'MD' > pr_body.md
-          This PR replaces the fixtures in this repository with those from https://github.com/dnsimple/dnsimple-developer/"
+          This PR replaces the fixtures in this repository with those from https://github.com/dnsimple/dnsimple-developer/
 
           ## Checklist
           - [ ] Close and re-open this PR to trigger the CI workflow (it does not run automatically)
