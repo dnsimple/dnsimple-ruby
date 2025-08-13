@@ -1,0 +1,55 @@
+name: Sync test fixtures
+
+on:
+  workflow_dispatch:
+
+jobs:
+  sync_fixtures:
+    name: Sync test fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Sync fixtures
+        run: |
+          TMP_DIR=$(mktemp -d)
+          curl -fsSL "https://codeload.github.com/dnsimple/dnsimple-developer/tar.gz/refs/heads/main" \
+            | tar -xz -C "$TMP_DIR"
+          rsync -a --delete "$TMP_DIR/dnsimple-developer-main/fixtures/v2/api/" spec/fixtures.http/
+      - name: Create a PR to sync fixtures if there are changes
+        run: |
+          cat <<'MD' > pr_body.md
+          This PR replaces the fixtures in this repository with those from https://github.com/dnsimple/dnsimple-developer/
+
+          ## Checklist
+          - [ ] Close and re-open this PR to trigger the CI workflow (it does not run automatically)
+          - [ ] Ensure the CI workflow passes before merging
+          MD
+
+          # Configure Git identity for the workflow
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          # Create and switch to a new branch
+          BRANCH="chore/sync-fixtures-${GITHUB_RUN_ID}"
+          NOW="$(date +'%Y-%m-%d %H:%M:%S')"
+          git checkout -b "$BRANCH"
+
+          # Stage changes
+          git add spec/fixtures.http
+
+          # Commit if there are staged changes
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: sync test fixtures as of $NOW"
+            git push -u origin "$BRANCH"
+
+            gh pr create \
+              --title "chore: Sync fixtures as of $NOW" \
+              --body-file pr_body.md \
+              --base main \
+              --head "$BRANCH"
+          else
+            echo "No fixture detected; nothing to do"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
