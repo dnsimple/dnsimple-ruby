@@ -1,0 +1,14 @@
+HTTP/1.1 202
+server: nginx
+date: Tue, 22 Aug 2023 11:11:00 GMT
+content-type: application/json; charset=utf-8
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2394
+x-ratelimit-reset: 1692705339
+x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
+cache-control: no-cache
+x-request-id: 26bf7ff9-2075-42b0-9431-1778c825b6b0
+x-runtime: 3.408950
+strict-transport-security: max-age=63072000
+
+{"data":{"id":101,"account_id":101,"domain_id":101,"contact_id":101,"state":"cancelling","extended_attributes":{},"registry_owner_change":true,"irt_lock_lifted_by":null,"created_at":"2017-02-03T17:43:22Z","updated_at":"2017-02-03T17:43:22Z"}}
