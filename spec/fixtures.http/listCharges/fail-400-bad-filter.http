@@ -1,6 +1,5 @@
 HTTP/1.1 400 Bad Request
 Date: Tue, 24 Oct 2023 08:13:01 GMT
-Connection: close
 X-RateLimit-Limit: 2400
 X-RateLimit-Remaining: 2392
 X-RateLimit-Reset: 1698136677
@@ -9,6 +8,5 @@ X-WORK-WITH-US: Love automation? So do we! https://dnsimple.com/jobs
 Cache-Control: no-cache
 X-Request-Id: bdfbf3a7-d9dc-4018-9732-61502be989a3
 X-Runtime: 0.455303
-Transfer-Encoding: chunked
 
 {"message":"Invalid date format must be ISO8601 (YYYY-MM-DD)"}

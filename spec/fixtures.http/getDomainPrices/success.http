@@ -18,4 +18,4 @@ X-Permitted-Cross-Domain-Policies: none
 Content-Security-Policy: frame-ancestors 'none'
 Strict-Transport-Security: max-age=31536000
 
-{"data":{"domain":"bingo.pizza","premium":true,"registration_price":20.0,"renewal_price":20.0,"transfer_price":20.0}}
+{"data":{"domain":"bingo.pizza","premium":true,"registration_price":20.0,"renewal_price":20.0,"transfer_price":20.0,"restore_price":20.0}}

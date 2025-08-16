@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Wed, 23 Nov 2022 18:05:39 GMT
+Content-Type: application/json; charset=utf-8
+Connection: keep-alive
+Status: 200 OK
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2391
+X-RateLimit-Reset: 1458821048
+ETag: W/"cb540984f806b12ac437cc1f76092f90"
+Cache-Control: max-age=0, private, must-revalidate
+X-Request-Id: e53ac7b5-0d26-45bc-9226-09c2d34be293
+X-Runtime: 0.192986
+Strict-Transport-Security: max-age=31536000
+
+{"data":[{"id":1927,"zone_id":"example.com","parent_id":null,"name":"","content":"ns1.example.com","ttl":3600,"priority":null,"type":"NS","regions":["global"],"system_record":true,"created_at":"2022-11-23T18:05:39Z","updated_at":"2022-11-23T18:05:39Z"},{"id":1928,"zone_id":"example.com","parent_id":null,"name":"","content":"ns2.example.com","ttl":3600,"priority":null,"type":"NS","regions":["global"],"system_record":true,"created_at":"2022-11-23T18:05:39Z","updated_at":"2022-11-23T18:05:39Z"},{"id":1929,"zone_id":"example.com","parent_id":null,"name":"","content":"ns1.foo.bar","ttl":3600,"priority":null,"type":"NS","regions":["global"],"system_record":true,"created_at":"2022-11-23T18:05:39Z","updated_at":"2022-11-23T18:05:39Z"},{"id":1930,"zone_id":"example.com","parent_id":null,"name":"","content":"ns2.foo.bar","ttl":3600,"priority":null,"type":"NS","regions":["global"],"system_record":true,"created_at":"2022-11-23T18:05:39Z","updated_at":"2022-11-23T18:05:39Z"}]}
