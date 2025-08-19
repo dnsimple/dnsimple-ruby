@@ -4,6 +4,9 @@ Date: Sun, 18 Feb 2024 10:46:17 GMT
 Content-Type: application/json
 Content-Length: 120
 Connection: keep-alive
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2398
+X-RateLimit-Reset: 1547125899
 X-WORK-WITH-US: Love automation? So do we! https://dnsimple.com/jobs
 Cache-Control: no-cache
 X-Request-Id: 3bf33ae7-22f2-473c-8e39-8738d2bcce89
