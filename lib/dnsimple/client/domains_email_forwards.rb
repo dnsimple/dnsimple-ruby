@@ -69,7 +69,7 @@ module Dnsimple
       #
       # @raise  [Dnsimple::RequestError]
       def create_email_forward(account_id, domain_id, attributes, options = {})
-        Extra.validate_mandatory_attributes(attributes, [:from, :to])
+        Extra.validate_mandatory_attributes(attributes, [:alias_name, :destination_email])
         response = client.post(Client.versioned("/%s/domains/%s/email_forwards" % [account_id, domain_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::EmailForward.new(response["data"]))

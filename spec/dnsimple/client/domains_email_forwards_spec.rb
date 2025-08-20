@@ -100,7 +100,7 @@ describe Dnsimple::Client, ".domains" do
 
   describe "#create_email_forward" do
     let(:account_id) { 1010 }
-    let(:attributes) { { from: "jim", to: "jim@another.com" } }
+    let(:attributes) { { alias_name: "jim", destination_email: "jim@another.com" } }
     let(:domain_id) { "example.com" }
 
     before do
@@ -152,8 +152,6 @@ describe Dnsimple::Client, ".domains" do
       expect(result).to be_a(Dnsimple::Struct::EmailForward)
       expect(result.id).to eq(41872)
       expect(result.domain_id).to eq(235146)
-      expect(result.from).to eq("example@dnsimple.xyz")
-      expect(result.to).to eq("example@example.com")
       expect(result.alias_email).to eq("example@dnsimple.xyz")
       expect(result.destination_email).to eq("example@example.com")
       expect(result.created_at).to eq("2021-01-25T13:54:40Z")

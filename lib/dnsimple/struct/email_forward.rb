@@ -10,14 +10,6 @@ module Dnsimple
       # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
-      # @return [String] The "local part" of the originating email address. Anything to the left of the @ symbol.
-      # @deprecated use {#alias_email} instead
-      attr_accessor :from
-
-      # @return [String] The full email address to forward to.
-      # @deprecated use {#destination_email} instead
-      attr_accessor :to
-
       # @return [String] The receiving email recipient.
       attr_accessor :alias_email
 
