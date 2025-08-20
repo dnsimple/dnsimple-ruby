@@ -4,6 +4,11 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 11.0.0
+
+- CHANGED: Removed `from` and `to` fields in `EmailForward`
+- CHANGED: Removed `DomainCollaborators`
+
 ## 10.0.0
 
 - CHANGED: Minimum Ruby version is now 3.2
