@@ -163,7 +163,7 @@ describe Dnsimple::Client, ".domains" do
     context "when the delegation signer record does not exist" do
       it "raises NotFoundError" do
         stub_request(:get, %r{/v2})
-            .to_return(read_http_fixture("notfound-delegationsignerrecord.http"))
+            .to_return(read_http_fixture("notfound-delegationSignerRecord.http"))
 
         expect {
           subject.delegation_signer_record(account_id, domain_id, ds_record_id)
@@ -200,7 +200,7 @@ describe Dnsimple::Client, ".domains" do
     context "when the delegation signer record does not exist" do
       it "raises NotFoundError" do
         stub_request(:delete, %r{/v2})
-            .to_return(read_http_fixture("notfound-delegationsignerrecord.http"))
+            .to_return(read_http_fixture("notfound-delegationSignerRecord.http"))
 
         expect {
           subject.delete_delegation_signer_record(account_id, domain_id, ds_record_id)
