@@ -1,0 +1,15 @@
+HTTP/2 400
+server: nginx
+date: Fri, 05 Sep 2025 06:52:30 GMT
+content-type: application/json; charset=utf-8
+content-length: 107
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2388
+x-ratelimit-reset: 1757058040
+x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
+cache-control: no-cache
+x-request-id: e042a192-69de-46b5-9ea0-add647a9b20a
+x-runtime: 0.170298
+strict-transport-security: max-age=63072000
+
+{"message":"Validation failed","errors":{"updates":[{"index":0,"message":"Record not found ID=99999999"}]}}
