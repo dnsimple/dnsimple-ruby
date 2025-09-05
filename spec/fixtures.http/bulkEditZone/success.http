@@ -1,0 +1,16 @@
+HTTP/2 200
+server: nginx
+date: Fri, 05 Sep 2025 05:25:01 GMT
+content-type: application/json; charset=utf-8
+content-length: 1082
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2399
+x-ratelimit-reset: 1757053501
+x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
+etag: W/"0d9f98e87eccabb6c8045c7fd0b61e5e"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: f331c43b-7f06-4b1f-90a1-e88efee10c1c
+x-runtime: 0.334890
+strict-transport-security: max-age=63072000
+
+{"data":{"creates":[{"id":67623409,"zone_id":"example.com","parent_id":null,"name":"ab","content":"3.2.3.4","ttl":3600,"priority":null,"type":"A","regions":["global"],"system_record":false,"created_at":"2025-09-05T05:25:00Z","updated_at":"2025-09-05T05:25:00Z"},{"id":67623410,"zone_id":"example.com","parent_id":null,"name":"ab","content":"4.2.3.4","ttl":3600,"priority":null,"type":"A","regions":["global"],"system_record":false,"created_at":"2025-09-05T05:25:00Z","updated_at":"2025-09-05T05:25:00Z"}],"updates":[{"id":67622534,"zone_id":"example.com","parent_id":null,"name":"update1-1757049890","content":"3.2.3.40","ttl":3600,"priority":null,"type":"A","regions":["global"],"system_record":false,"created_at":"2025-09-05T04:40:15Z","updated_at":"2025-09-05T05:25:00Z"},{"id":67622537,"zone_id":"example.com","parent_id":null,"name":"update2-1757049890","content":"5.2.3.40","ttl":3600,"priority":null,"type":"A","regions":["global"],"system_record":false,"created_at":"2025-09-05T04:40:22Z","updated_at":"2025-09-05T05:25:00Z"}],"deletes":[{"id":67622509},{"id":67622527}]}}
