@@ -316,4 +316,56 @@ describe Dnsimple::Client, ".zones" do
     end
   end
 
+  describe "#bulk_edit_zone" do
+    let(:account_id) { 1010 }
+    let(:attributes) { { creates: [{ type: "A", content: "3.2.3.4", name: "ab" }, { type: "A", content: "4.2.3.4", name: "ab" }], updates: [{ id: 67622534, content: "3.2.3.40", name: "update1-1757049890" }, { id: 67622537, content: "5.2.3.40", name: "update2-1757049890" }], deletes: [{ id: 67622509 }, { id: 67622527 }] } }
+    let(:zone_id) { "example.com" }
+
+    before do
+      stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/batch$})
+          .to_return(read_http_fixture("bulkEditZone/success.http"))
+    end
+
+
+    it "builds the correct request" do
+      subject.bulk_edit_zone(account_id, zone_id, attributes)
+
+      expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/batch")
+          .with(body: attributes)
+          .with(headers: { "Accept" => "application/json" })
+    end
+
+    it "returns the result" do
+      response = subject.bulk_edit_zone(account_id, zone_id, attributes)
+      expect(response).to be_a(Dnsimple::Response)
+
+      result = response.data
+      expect(result).to be_a(Dnsimple::Struct::ZoneBulkEdit)
+      expect(result.creates[0].id).to eq(67623409)
+      expect(result.creates[0].type).to eq(attributes.fetch(:creates)[0].fetch(:type))
+      expect(result.creates[0].name).to eq(attributes.fetch(:creates)[0].fetch(:name))
+      expect(result.creates[0].content).to eq(attributes.fetch(:creates)[0].fetch(:content))
+      expect(result.creates[0].regions).to eq(["global"])
+      expect(result.creates[1].id).to eq(67623410)
+      expect(result.updates[0].id).to eq(67622534)
+      expect(result.updates[0].type).to eq("A")
+      expect(result.updates[0].name).to eq(attributes.fetch(:updates)[0].fetch(:name))
+      expect(result.updates[0].content).to eq(attributes.fetch(:updates)[0].fetch(:content))
+      expect(result.updates[1].id).to eq(67622537)
+      expect(result.deletes[0].id).to eq(67622509)
+      expect(result.deletes[1].id).to eq(67622527)
+    end
+
+    context "when the zone does not exist" do
+      it "raises NotFoundError" do
+        stub_request(:post, %r{/v2})
+            .to_return(read_http_fixture("notfound-zone.http"))
+
+        expect {
+          subject.bulk_edit_zone(account_id, zone_id, attributes)
+        }.to raise_error(Dnsimple::NotFoundError)
+      end
+    end
+  end
+
 end

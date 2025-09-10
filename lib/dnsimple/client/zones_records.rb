@@ -156,6 +156,21 @@ module Dnsimple
         Dnsimple::Response.new(response, nil)
       end
 
+      def bulk_edit_zone(account_id, zone_id, attributes, options = {})
+        response = client.post(Client.versioned("/%s/zones/%s/batch" % [account_id, zone_id]), attributes, options)
+
+        creates, updates, deletes = []
+        if response["data"]
+          creates_data = response["data"]["creates"] || []
+          creates = creates_data.map { |r| Struct::ZoneRecord.new(r) }
+          updates_data = response["data"]["updates"] || []
+          updates = updates_data.map { |r| Struct::ZoneRecord.new(r) }
+          deletes_data = response["data"]["deletes"] || []
+          deletes = deletes_data.map { |r| Struct::ZoneRecordId.new(r) }
+        end
+        Dnsimple::Response.new(response, Struct::ZoneBulkEdit.new({creates:, updates:, deletes:}))
+      end
+
     end
   end
 end
