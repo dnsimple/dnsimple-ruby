@@ -356,6 +356,48 @@ describe Dnsimple::Client, ".zones" do
       expect(result.deletes[1].id).to eq(67622527)
     end
 
+    context "when there are errors with creation" do
+      it "raises RequestError" do
+        stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/batch$})
+            .to_return(read_http_fixture("bulkEditZone/error_400_create_validation_failed.http"))
+
+        expect {
+          subject.bulk_edit_zone(account_id, zone_id, attributes)
+        }.to raise_error(Dnsimple::RequestError, "Validation failed") do |exception|
+          expect(exception.attribute_errors["creates"][0]["message"]).to eq("The SPF record type has been discontinued")
+          expect(exception.attribute_errors["creates"][0]["index"]).to eq(1)
+        end
+      end
+    end
+
+    context "when there are errors with updates" do
+      it "raises RequestError" do
+        stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/batch$})
+            .to_return(read_http_fixture("bulkEditZone/error_400_update_validation_failed.http"))
+
+        expect {
+          subject.bulk_edit_zone(account_id, zone_id, attributes)
+        }.to raise_error(Dnsimple::RequestError, "Validation failed") do |exception|
+          expect(exception.attribute_errors["updates"][0]["message"]).to eq("Record not found ID=99999999")
+          expect(exception.attribute_errors["updates"][0]["index"]).to eq(0)
+        end
+      end
+    end
+
+    context "when there are errors with deletes" do
+      it "raises RequestError" do
+        stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/batch$})
+            .to_return(read_http_fixture("bulkEditZone/error_400_delete_validation_failed.http"))
+
+        expect {
+          subject.bulk_edit_zone(account_id, zone_id, attributes)
+        }.to raise_error(Dnsimple::RequestError, "Validation failed") do |exception|
+          expect(exception.attribute_errors["deletes"][0]["message"]).to eq("Record not found ID=67622509")
+          expect(exception.attribute_errors["deletes"][0]["index"]).to eq(0)
+        end
+      end
+    end
+
     context "when the zone does not exist" do
       it "raises NotFoundError" do
         stub_request(:post, %r{/v2})
