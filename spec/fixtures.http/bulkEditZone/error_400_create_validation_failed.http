@@ -1,4 +1,4 @@
-HTTP/2 400
+HTTP/1.1 400 Bad Request
 server: nginx
 date: Fri, 05 Sep 2025 06:58:03 GMT
 content-type: application/json; charset=utf-8
