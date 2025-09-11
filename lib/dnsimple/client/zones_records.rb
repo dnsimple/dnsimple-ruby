@@ -158,7 +158,7 @@ module Dnsimple
 
       # Updates a zone with a set of records (records to be created, edited or deleted), as an atomic batch operation.
       #
-      # @see https://developer.dnsimple.com/v2/zones/records/#bulkEdit
+      # @see https://developer.dnsimple.com/v2/zones/records/#bulkEditZone
       #
       # @example Create 2 A records in zone "example.com", update 1 record and delete 1 record.
       #   client.zones.bulk_edit_zone(1010, "example.com", { creates: [{ type: "A", content: "1.2.3.4", name: "ab" }, { type: "A", content: "2.3.4.5", name: "ab" }], updates: [{ id: 67622534, content: "3.2.3.40", name: "www" } }, deletes: [{ id: 67622509 })
