@@ -323,7 +323,7 @@ describe Dnsimple::Client, ".zones" do
 
     before do
       stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/batch$})
-          .to_return(read_http_fixture("bulkEditZone/success.http"))
+          .to_return(read_http_fixture("batchChangeZoneRecords/success.http"))
     end
 
 
@@ -359,7 +359,7 @@ describe Dnsimple::Client, ".zones" do
     context "when there are errors with creation" do
       it "raises RequestError" do
         stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/batch$})
-            .to_return(read_http_fixture("bulkEditZone/error_400_create_validation_failed.http"))
+            .to_return(read_http_fixture("batchChangeZoneRecords/error_400_create_validation_failed.http"))
 
         expect {
           subject.batch_change_zone_records(account_id, zone_id, attributes)
@@ -373,7 +373,7 @@ describe Dnsimple::Client, ".zones" do
     context "when there are errors with updates" do
       it "raises RequestError" do
         stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/batch$})
-            .to_return(read_http_fixture("bulkEditZone/error_400_update_validation_failed.http"))
+            .to_return(read_http_fixture("batchChangeZoneRecords/error_400_update_validation_failed.http"))
 
         expect {
           subject.batch_change_zone_records(account_id, zone_id, attributes)
@@ -387,7 +387,7 @@ describe Dnsimple::Client, ".zones" do
     context "when there are errors with deletes" do
       it "raises RequestError" do
         stub_request(:post, %r{/v2/#{account_id}/zones/#{zone_id}/batch$})
-            .to_return(read_http_fixture("bulkEditZone/error_400_delete_validation_failed.http"))
+            .to_return(read_http_fixture("batchChangeZoneRecords/error_400_delete_validation_failed.http"))
 
         expect {
           subject.batch_change_zone_records(account_id, zone_id, attributes)
