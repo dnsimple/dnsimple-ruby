@@ -156,6 +156,39 @@ module Dnsimple
         Dnsimple::Response.new(response, nil)
       end
 
+      # Updates a zone with a set of records (records to be created, edited or deleted), as an atomic batch operation.
+      #
+      # @see https://developer.dnsimple.com/v2/zones/records/batchChangeZoneRecords
+      #
+      # @example Create 2 A records in zone "example.com", update 1 record and delete 1 record.
+      #   client.zones.batch_change_zone_records(1010, "example.com", { creates: [{ type: "A", content: "1.2.3.4", name: "ab" }, { type: "A", content: "2.3.4.5", name: "ab" }], updates: [{ id: 67622534, content: "3.2.3.40", name: "www" } }, deletes: [{ id: 67622509 })
+      #
+      # @param  [Integer] account_id the account ID
+      # @param  [String] zone_id the zone name
+      # @param  attributes [Hash] Specifies the record creations and/or updates and/or deletions that should be performed as an atomic batch operation in the zone
+      # @option attributes [Array<Hash>] :creates (optional)
+      # @option attributes [Array<Hash>] :updates (optional)
+      # @option attributes [Array<Hash>] :deletes (optional)
+      # @param  [Hash] options
+      # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecordsBatchChange>]
+      #
+      # @raise  [Dnsimple::NotFoundError]
+      # @raise  [Dnsimple::RequestError]
+      def batch_change_zone_records(account_id, zone_id, attributes, options = {})
+        response = client.post(Client.versioned("/%s/zones/%s/batch" % [account_id, zone_id]), attributes, options)
+
+        creates, updates, deletes = []
+        if response["data"]
+          creates_data = response["data"]["creates"] || []
+          creates = creates_data.map { |r| Struct::ZoneRecord.new(r) }
+          updates_data = response["data"]["updates"] || []
+          updates = updates_data.map { |r| Struct::ZoneRecord.new(r) }
+          deletes_data = response["data"]["deletes"] || []
+          deletes = deletes_data.map { |r| Struct::ZoneRecordId.new(r) }
+        end
+        Dnsimple::Response.new(response, Struct::ZoneRecordsBatchChange.new({ creates: creates, updates: updates, deletes: deletes }))
+      end
+
     end
   end
 end
