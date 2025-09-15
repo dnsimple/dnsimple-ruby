@@ -161,7 +161,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/zones/records/#bulkEditZone
       #
       # @example Create 2 A records in zone "example.com", update 1 record and delete 1 record.
-      #   client.zones.bulk_edit_zone(1010, "example.com", { creates: [{ type: "A", content: "1.2.3.4", name: "ab" }, { type: "A", content: "2.3.4.5", name: "ab" }], updates: [{ id: 67622534, content: "3.2.3.40", name: "www" } }, deletes: [{ id: 67622509 })
+      #   client.zones.batch_change_zone_records(1010, "example.com", { creates: [{ type: "A", content: "1.2.3.4", name: "ab" }, { type: "A", content: "2.3.4.5", name: "ab" }], updates: [{ id: 67622534, content: "3.2.3.40", name: "www" } }, deletes: [{ id: 67622509 })
       #
       # @param  [Integer] account_id the account ID
       # @param  [String] zone_id the zone name
@@ -174,7 +174,7 @@ module Dnsimple
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
-      def bulk_edit_zone(account_id, zone_id, attributes, options = {})
+      def batch_change_zone_records(account_id, zone_id, attributes, options = {})
         response = client.post(Client.versioned("/%s/zones/%s/batch" % [account_id, zone_id]), attributes, options)
 
         creates, updates, deletes = []

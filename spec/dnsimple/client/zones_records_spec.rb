@@ -316,7 +316,7 @@ describe Dnsimple::Client, ".zones" do
     end
   end
 
-  describe "#bulk_edit_zone" do
+  describe "#batch_change_zone_records" do
     let(:account_id) { 1010 }
     let(:attributes) { { creates: [{ type: "A", content: "3.2.3.4", name: "ab" }, { type: "A", content: "4.2.3.4", name: "ab" }], updates: [{ id: 67622534, content: "3.2.3.40", name: "update1-1757049890" }, { id: 67622537, content: "5.2.3.40", name: "update2-1757049890" }], deletes: [{ id: 67622509 }, { id: 67622527 }] } }
     let(:zone_id) { "example.com" }
@@ -328,7 +328,7 @@ describe Dnsimple::Client, ".zones" do
 
 
     it "builds the correct request" do
-      subject.bulk_edit_zone(account_id, zone_id, attributes)
+      subject.batch_change_zone_records(account_id, zone_id, attributes)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/zones/#{zone_id}/batch")
           .with(body: attributes)
@@ -336,7 +336,7 @@ describe Dnsimple::Client, ".zones" do
     end
 
     it "returns the result" do
-      response = subject.bulk_edit_zone(account_id, zone_id, attributes)
+      response = subject.batch_change_zone_records(account_id, zone_id, attributes)
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
@@ -362,7 +362,7 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("bulkEditZone/error_400_create_validation_failed.http"))
 
         expect {
-          subject.bulk_edit_zone(account_id, zone_id, attributes)
+          subject.batch_change_zone_records(account_id, zone_id, attributes)
         }.to raise_error(Dnsimple::RequestError, "Validation failed") do |exception|
           expect(exception.attribute_errors["creates"][0]["message"]).to eq("The SPF record type has been discontinued")
           expect(exception.attribute_errors["creates"][0]["index"]).to eq(1)
@@ -376,7 +376,7 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("bulkEditZone/error_400_update_validation_failed.http"))
 
         expect {
-          subject.bulk_edit_zone(account_id, zone_id, attributes)
+          subject.batch_change_zone_records(account_id, zone_id, attributes)
         }.to raise_error(Dnsimple::RequestError, "Validation failed") do |exception|
           expect(exception.attribute_errors["updates"][0]["message"]).to eq("Record not found ID=99999999")
           expect(exception.attribute_errors["updates"][0]["index"]).to eq(0)
@@ -390,7 +390,7 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("bulkEditZone/error_400_delete_validation_failed.http"))
 
         expect {
-          subject.bulk_edit_zone(account_id, zone_id, attributes)
+          subject.batch_change_zone_records(account_id, zone_id, attributes)
         }.to raise_error(Dnsimple::RequestError, "Validation failed") do |exception|
           expect(exception.attribute_errors["deletes"][0]["message"]).to eq("Record not found ID=67622509")
           expect(exception.attribute_errors["deletes"][0]["index"]).to eq(0)
@@ -404,7 +404,7 @@ describe Dnsimple::Client, ".zones" do
             .to_return(read_http_fixture("notfound-zone.http"))
 
         expect {
-          subject.bulk_edit_zone(account_id, zone_id, attributes)
+          subject.batch_change_zone_records(account_id, zone_id, attributes)
         }.to raise_error(Dnsimple::NotFoundError)
       end
     end
