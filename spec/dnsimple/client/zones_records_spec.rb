@@ -340,7 +340,7 @@ describe Dnsimple::Client, ".zones" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::ZoneBulkEdit)
+      expect(result).to be_a(Dnsimple::Struct::ZoneRecordsBatchChange)
       expect(result.creates[0].id).to eq(67623409)
       expect(result.creates[0].type).to eq(attributes.fetch(:creates)[0].fetch(:type))
       expect(result.creates[0].name).to eq(attributes.fetch(:creates)[0].fetch(:name))

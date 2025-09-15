@@ -2,7 +2,7 @@
 
 module Dnsimple
   module Struct
-    class ZoneBulkEdit < Base
+    class ZoneRecordsBatchChange < Base
 
       # @return [Array<ZoneRecord>]
       attr_accessor :creates

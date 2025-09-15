@@ -170,7 +170,7 @@ module Dnsimple
       # @option attributes [Array<Hash>] :updates (optional)
       # @option attributes [Array<Hash>] :deletes (optional)
       # @param  [Hash] options
-      # @return [Dnsimple::Response<Dnsimple::Struct::ZoneBulkEdit>]
+      # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecordsBatchChange>]
       #
       # @raise  [Dnsimple::NotFoundError]
       # @raise  [Dnsimple::RequestError]
@@ -186,7 +186,7 @@ module Dnsimple
           deletes_data = response["data"]["deletes"] || []
           deletes = deletes_data.map { |r| Struct::ZoneRecordId.new(r) }
         end
-        Dnsimple::Response.new(response, Struct::ZoneBulkEdit.new({ creates: creates, updates: updates, deletes: deletes }))
+        Dnsimple::Response.new(response, Struct::ZoneRecordsBatchChange.new({ creates: creates, updates: updates, deletes: deletes }))
       end
 
     end
