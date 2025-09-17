@@ -3,9 +3,9 @@ server: nginx
 date: Fri, 05 Sep 2025 06:52:30 GMT
 content-type: application/json; charset=utf-8
 content-length: 107
-x-ratelimit-limit: 2400
-x-ratelimit-remaining: 2388
-x-ratelimit-reset: 1757058040
+X-RateLimit-Limit: 2400
+X-RateLimit-Remaining: 2388
+X-RateLimit-Reset: 1757058040
 x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
 cache-control: no-cache
 x-request-id: e042a192-69de-46b5-9ea0-add647a9b20a
