@@ -364,8 +364,9 @@ describe Dnsimple::Client, ".zones" do
         expect {
           subject.batch_change_zone_records(account_id, zone_id, attributes)
         }.to raise_error(Dnsimple::RequestError, "Validation failed") do |exception|
-          expect(exception.attribute_errors["creates"][0]["message"]).to eq("The SPF record type has been discontinued")
-          expect(exception.attribute_errors["creates"][0]["index"]).to eq(1)
+          expect(exception.attribute_errors["creates"][0]["message"]).to eq("Validation failed")
+          expect(exception.attribute_errors["creates"][0]["index"]).to eq(0)
+          expect(exception.attribute_errors["creates"][0]["errors"]).to eq({ "record_type" => ["unsupported"] })
         end
       end
     end
