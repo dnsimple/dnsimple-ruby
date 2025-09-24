@@ -98,7 +98,7 @@ Naming/MemoizedInstanceVariableName:
 # to use simple ? methods.
 # Moreover, it's actually more efficient to not-use predicates:
 # https://github.com/bbatsov/rubocop/issues/3633
-Naming/PredicateName:
+Naming/PredicatePrefix:
   Enabled: false
 
 # The team agreed decided to use exception.
