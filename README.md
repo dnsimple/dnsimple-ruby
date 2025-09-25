@@ -23,7 +23,7 @@ gem install dnsimple
 Or use Bundler and define it as a dependency in your Gemfile:
 
 ```ruby
-gem 'dnsimple', '~> 10.0'
+gem 'dnsimple', '~> 11.0'
 ```
 
 ## Documentation
