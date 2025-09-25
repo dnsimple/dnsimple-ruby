@@ -4,6 +4,10 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 11.1.0
+
+- NEW: Added `Dnsimple::Client::ZonesRecords#batch_change_zone_records` to make changes to zone records in a batch. (dnsimple/dnsimple-ruby#434)
+
 ## 11.0.0
 
 - CHANGED: Removed `from` and `to` fields in `EmailForward`
