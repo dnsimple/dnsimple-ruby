@@ -1,24 +1,55 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - v*.*.*
+  workflow_run:
+    workflows:
+      - "CI"
+    types:
+      - completed
 jobs:
+  validate-tag:
+    name: Check tag
+    runs-on: ubuntu-latest
+    outputs:
+      valid_tag: ${{ steps.validation.outputs.valid_tag }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && startsWith(github.event.workflow_run.head_branch, 'v') }}
+    steps:
+      - name: Check out the repository including tags
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+          fetch-tags: true
+      - name: Validate tag
+        id: validation
+        run: |
+          # Validation is necessary in the unlikely case that a branch matching the tag naming pattern is pushed
+          # and the CI workflow in that branch is modified to run upon a push to that branch
+          REF='${{ github.event.workflow_run.head_branch }}' # This can be a branch or tag name
+          if [[ "$REF" != v*.*.* ]]; then
+            echo "valid_tag=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          # Validate that the tag exists
+          if ! git rev-parse -q --verify "refs/tags/$REF" >/dev/null; then
+            echo "There is no tag matching $REF - $REF is a branch"
+            echo "valid_tag=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          # Validate that the tag is for the same commit that was pushed
+          TAG_SHA="$(git rev-parse "$REF^{commit}")"
+          COMMIT_SHA="${{ github.event.workflow_run.head_sha }}"
+          if [ "$TAG_SHA" != "$COMMIT_SHA" ]; then
+            echo "Tag SHA $TAG_SHA does not match pushed commit SHA $COMMIT_SHA"
+            echo "valid_tag=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          echo "Tag $REF exists and is valid. Tag $TAG_SHA matches the pushed commit $COMMIT_SHA."
+          echo "valid_tag=true"  >> "$GITHUB_OUTPUT"
   publish:
     name: Release to RubyGems
+    needs: validate-tag
     runs-on: ubuntu-latest
+    if: ${{ needs.validate-tag.outputs.valid_tag == 'true' && github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-      - name: Wait for tests to succeed
-        uses: lewagon/wait-on-check-action@v1.4.1
-        with:
-          ref: 'refs/heads/main'
-          running-workflow-name: 'Release to RubyGems'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 10
-          allowed-conclusions: success
-
       - uses: actions/checkout@v5
 
       - name: Release Gem
