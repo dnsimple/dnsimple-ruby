@@ -1,13 +1,12 @@
-# This file serves as a template for RuboCop configuration. The primary template is maintained in the engineering repository.
-# Please ensure that any changes made here are also reflected in the engineering file to maintain consistency.
+# This is the DNSimple organization-wide RuboCop configuration.
+# It defines our unified linting and coding standards for all Ruby projects,
+# in accordance with our Ruby development practices and guidelines.
 #
-# DNSimple Ruby engineering template: https://github.com/dnsimple/dnsimple-engineering/blob/main/templates/ruby/rubocop_dnsimple.yml
+# This template is maintained centrally in the infra-github repository:
+# https://github.com/dnsimple/infra-github/blob/main/workspace/templates/ruby/rubocop_dnsimple.yml
 #
-# For default configurations, refer to: https://github.com/bbatsov/rubocop/blob/master/config/default.yml
-#
-# Additional References:
-#  * Ruby Style Guide: https://github.com/bbatsov/ruby-style-guide
-#  * RuboCop Documentation: https://rubocop.readthedocs.io/
+# For details on RuboCop itself and its configuration options, refer to:
+# https://docs.rubocop.org/rubocop/
 
 AllCops:
   Exclude:
@@ -28,24 +27,16 @@ AllCops:
 Layout/EndAlignment:
   EnforcedStyleAlignWith: variable
 
-# [codesmell]
 Layout/LineLength:
   Enabled: false
-  Exclude:
-    - 'spec/**/*_spec.rb'
-    - 'test/**/*_test.rb'
   Max: 100
 
 # [codesmell]
 Lint/SuppressedException:
   Enabled: false
 
-# [codesmell]
 Metrics/AbcSize:
   Enabled: false
-  Exclude:
-    - 'spec/**/*_spec.rb'
-    - 'test/**/*_test.rb'
 
 # [codesmell]
 Metrics/BlockLength:
@@ -58,20 +49,11 @@ Metrics/CyclomaticComplexity:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
-# [codesmell]
 Metrics/ClassLength:
   Enabled: false
-  Exclude:
-    - 'spec/**/*_spec.rb'
-    - 'test/**/*_test.rb'
 
-# [codesmell]
 Metrics/MethodLength:
   Enabled: false
-  Exclude:
-    - 'spec/**/*_spec.rb'
-    - 'test/**/*_test.rb'
-  Max: 10
 
 # [codesmell]
 Metrics/ModuleLength:
@@ -218,12 +200,12 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 
-# It's nice to be consistent. The trailing comma also allows easy reordering,
+# Be consistent. The trailing comma also allows easy reordering,
 # and doesn't cause a diff in Git when you add a line to the bottom.
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: consistent_comma
 
-# It's nice to be consistent. The trailing comma also allows easy reordering,
+# Be consistent. The trailing comma also allows easy reordering,
 # and doesn't cause a diff in Git when you add a line to the bottom.
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: consistent_comma
@@ -255,10 +237,12 @@ Style/WordArray:
 Layout/CaseIndentation:
   EnforcedStyle: end
 
-# Double empty lines are useful to separate conceptually different methods
-# in the same class or module.
+# This is quite buggy, as it doesn't recognize double lines.
 Layout/EmptyLines:
   Enabled: false
+
+Layout/EmptyLineBetweenDefs:
+  NumberOfEmptyLines: [1, 2]
 
 Layout/EmptyLinesAroundBlockBody:
   Exclude:
@@ -267,20 +251,8 @@ Layout/EmptyLinesAroundBlockBody:
     - 'spec/**/*_spec.rb'
     - 'test/**/*_test.rb'
 
-# Pick one option for consistency. beginning+ending is the most used approach.
-Layout/EmptyLinesAroundClassBody:
-  EnforcedStyle: empty_lines_except_namespace
-
 # We're ok with it. We use it quite often for method-level rescue statements.
 Layout/EmptyLinesAroundExceptionHandlingKeywords:
-  Enabled: false
-
-# Pick one option for consistency. beginning+ending is the most used approach.
-Layout/EmptyLinesAroundModuleBody:
-  EnforcedStyle: empty_lines_except_namespace
-
-# This is quite buggy, as it doesn't recognize double lines.
-Layout/EmptyLineBetweenDefs:
   Enabled: false
 
 # Multi-line differs from standard indentation, they are indented twice.
