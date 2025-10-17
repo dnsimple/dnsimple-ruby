@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Accounts
-
       # Lists the accounts the authenticated entity has access to.
       #
       # @see https://developer.dnsimple.com/v2/accounts
@@ -21,7 +20,6 @@ module Dnsimple
         Dnsimple::Response.new(response, response["data"].map { |r| Struct::Account.new(r) })
       end
       alias list_accounts accounts
-
     end
   end
 end

@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class Whoami < Base
-
       # @return [Account] The account, if present.
       attr_reader :account
 
@@ -26,7 +25,6 @@ module Dnsimple
       def user=(user)
         @user = user ? Struct::User.new(user) : user
       end
-
     end
   end
 end

@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class CertificateBundle < Base
-
       # @return [String] The certificate private key
       attr_accessor :private_key
 
@@ -21,7 +20,6 @@ module Dnsimple
       attr_accessor :chain
 
       alias intermediate_certificates chain
-
     end
   end
 end

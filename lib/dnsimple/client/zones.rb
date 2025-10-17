@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Zones
-
       # Lists the zones in the account.
       #
       # @see https://developer.dnsimple.com/v2/zones/#list
@@ -128,7 +127,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Zone.new(response["data"]))
       end
-
     end
   end
 end

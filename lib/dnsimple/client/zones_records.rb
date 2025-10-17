@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module ZonesRecords
-
       # Lists the zone records in the account.
       #
       # @see https://developer.dnsimple.com/v2/zones/records/#listZoneRecords
@@ -188,7 +187,6 @@ module Dnsimple
         end
         Dnsimple::Response.new(response, Struct::ZoneRecordsBatchChange.new({ creates: creates, updates: updates, deletes: deletes }))
       end
-
     end
   end
 end

@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class DomainPrice < Base
-
       # @return [String] The domain name
       attr_accessor :domain
 
@@ -18,7 +17,6 @@ module Dnsimple
 
       # @return [Float] The price for transfer
       attr_accessor :transfer_price
-
     end
   end
 end

@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module RegistrarRegistrantChanges
-
       # Retrieves the requirements of a registrant change
       #
       # @example Check the requirements to change the contact for example.com to contact 1234:
@@ -104,7 +103,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

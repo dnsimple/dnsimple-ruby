@@ -3,7 +3,6 @@
 module Dnsimple
   # Default configuration options for {Client}
   module Default
-
     # Default API endpoint
     BASE_URL = "https://api.dnsimple.com/"
 
@@ -11,7 +10,6 @@ module Dnsimple
     USER_AGENT = "dnsimple-ruby/#{VERSION}".freeze
 
     class << self
-
       # List of configurable keys for {Client}
       # @return [Array] of option keys
       def keys
@@ -73,8 +71,6 @@ module Dnsimple
       def proxy
         ENV.fetch("DNSIMPLE_PROXY", nil)
       end
-
     end
-
   end
 end

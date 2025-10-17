@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module ServicesDomains
-
       # Lists the one-click services applied to the domain.
       #
       # @see https://developer.dnsimple.com/v2/services/domains/#applied
@@ -78,7 +77,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

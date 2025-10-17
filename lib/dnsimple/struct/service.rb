@@ -3,9 +3,7 @@
 module Dnsimple
   module Struct
     class Service < Base
-
       class Setting < Base
-
         # @return [String] The setting name.
         attr_accessor :name
 
@@ -23,7 +21,6 @@ module Dnsimple
 
         # @return [Boolean] Whether the setting requires a password.
         attr_accessor :password
-
       end
 
       # @return [Integer] The service ID in DNSimple.
@@ -60,7 +57,6 @@ module Dnsimple
           Setting.new(setting)
         end
       end
-
     end
   end
 end

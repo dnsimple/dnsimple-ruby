@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class WhoisPrivacy < Base
-
       # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
@@ -18,7 +17,6 @@ module Dnsimple
 
       # @return [String] When the whois privacy was last updated in DNSimple.
       attr_accessor :updated_at
-
     end
   end
 end

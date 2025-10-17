@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module RegistrarTransferLock
-
       # Gets the transfer lock for the domain.
       #
       # @example Get the transfer lock for "example.com":
@@ -55,7 +54,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::TransferLock.new(response["data"]))
       end
-
     end
   end
 end

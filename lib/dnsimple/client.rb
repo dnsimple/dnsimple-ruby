@@ -23,7 +23,6 @@ module Dnsimple
   #
   #   client = Dnsimple::Client.new(base_url: "https://api.sandbox.dnsimple.com", access_token: "abc")
   class Client
-
     HEADER_AUTHORIZATION = "Authorization"
 
     # @return [String] The current API version.
@@ -262,6 +261,5 @@ module Dnsimple
     def content_data(headers, data)
       headers["Content-Type"] == "application/json" ? JSON.dump(data) : data
     end
-
   end
 end

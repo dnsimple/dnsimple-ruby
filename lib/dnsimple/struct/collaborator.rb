@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class Collaborator < Base
-
       # @return [Integer] The collaborator ID in DNSimple.
       attr_accessor :id
 
@@ -30,7 +29,6 @@ module Dnsimple
 
       # @return [String,NilClass] When the collaborator has accepted the invitation.
       attr_accessor :accepted_at
-
     end
   end
 end

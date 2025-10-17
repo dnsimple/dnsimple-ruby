@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module ZonesDistributions
-
       # Checks if a zone change is fully distributed to all DNSimple name
       # servers across the globe.
       #
@@ -43,7 +42,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::ZoneDistribution.new(response["data"]))
       end
-
     end
   end
 end

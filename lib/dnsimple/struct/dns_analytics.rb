@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class DnsAnalytics < Base
-
       # @return [Integer] The recorded volume
       attr_accessor :volume
 
@@ -12,7 +11,6 @@ module Dnsimple
 
       # @return [String] The zone name
       attr_accessor :zone_name
-
     end
   end
 end

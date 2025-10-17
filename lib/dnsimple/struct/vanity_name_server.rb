@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class VanityNameServer < Base
-
       # @return [Integer] The vanity name server ID in DNSimple.
       attr_accessor :id
 
@@ -21,7 +20,6 @@ module Dnsimple
 
       # @return [String] When the vanity name server was last updated in DNSimple.
       attr_accessor :updated_at
-
     end
   end
 end

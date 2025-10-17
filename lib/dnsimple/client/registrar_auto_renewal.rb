@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module RegistrarAutoRenewal
-
       # Enable auto renewal for the domain in the account.
       #
       # @see https://developer.dnsimple.com/v2/registrar/auto-renewal/
@@ -37,7 +36,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

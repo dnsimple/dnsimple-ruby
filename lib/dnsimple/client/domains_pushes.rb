@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module DomainsPushes
-
       # Initiate a push for the domain.
       #
       # @see https://developer.dnsimple.com/v2/domains/pushes/#initiate
@@ -92,7 +91,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end
