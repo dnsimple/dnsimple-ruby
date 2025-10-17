@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Oauth
-
       # Exchange the short-lived authorization code for an access token
       # you can use to authenticate your API calls.
       #
@@ -45,7 +44,6 @@ module Dnsimple
         end
         url.to_s
       end
-
     end
   end
 end

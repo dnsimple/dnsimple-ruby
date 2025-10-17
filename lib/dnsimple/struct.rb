@@ -3,14 +3,12 @@
 module Dnsimple
   module Struct
     class Base
-
       def initialize(attributes = {})
         attributes.each do |key, value|
           m = :"#{key}="
           send(m, value) if respond_to?(m)
         end
       end
-
     end
   end
 end

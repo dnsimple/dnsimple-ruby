@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Domains
-
       # Lists the domains in the account.
       #
       # @see https://developer.dnsimple.com/v2/domains/#listDomains
@@ -128,7 +127,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

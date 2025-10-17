@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module RegistrarDelegation
-
       # Lists name servers the domain is delegating to.
       #
       # @see https://developer.dnsimple.com/v2/registrar/delegation/#list
@@ -87,7 +86,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

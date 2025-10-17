@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Contacts
-
       # Lists the contacts in the account.
       #
       # @see https://developer.dnsimple.com/v2/contacts/#list
@@ -125,7 +124,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

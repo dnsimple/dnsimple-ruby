@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module VanityNameServers
-
       # Enable vanity name servers for the domain.
       #
       # @see https://developer.dnsimple.com/v2/vanity/#enableVanityNameServers
@@ -43,7 +42,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, response["data"])
       end
-
     end
   end
 end

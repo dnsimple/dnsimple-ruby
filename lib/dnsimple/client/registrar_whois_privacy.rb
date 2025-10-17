@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module RegistrarWhoisPrivacy
-
       # Gets the whois privacy for the domain.
       #
       # @see https://developer.dnsimple.com/v2/registrar/whois-privacy/#get
@@ -90,7 +89,6 @@ module Dnsimple
       def whois_privacy_endpoint(account_id, domain_name)
         Client.versioned("/%s/registrar/domains/%s/whois_privacy" % [account_id, domain_name])
       end
-
     end
   end
 end

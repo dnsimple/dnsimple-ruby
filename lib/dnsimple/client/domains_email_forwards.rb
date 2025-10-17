@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module DomainsEmailForwards
-
       # Lists the email forwards for the domain.
       #
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#list
@@ -112,7 +111,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module DomainsDnssec
-
       # Enable DNSSEC for the domain in the account.
       #
       # @see https://developer.dnsimple.com/v2/dnssec/#enable
@@ -54,7 +53,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Dnssec.new(response["data"]))
       end
-
     end
   end
 end

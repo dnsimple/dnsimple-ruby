@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 module Dnsimple
-
   class Error < StandardError
   end
 
   # RequestError is raised when an API request fails for an client, a server error or invalid request information.
   class RequestError < Error
-
     attr_reader :http_response
     attr_reader :attribute_errors
 
@@ -38,7 +36,6 @@ module Dnsimple
       content_type = http_response.headers["Content-Type"]
       content_type&.start_with?("application/json")
     end
-
   end
 
   class NotFoundError < RequestError
@@ -51,7 +48,6 @@ module Dnsimple
   end
 
   class OAuthInvalidRequestError < Error
-
     attr_reader :http_response
     attr_reader :error
     attr_reader :error_description
@@ -68,7 +64,5 @@ module Dnsimple
     def message
       "#{error}: #{error_description}"
     end
-
   end
-
 end

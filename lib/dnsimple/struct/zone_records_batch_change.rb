@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class ZoneRecordsBatchChange < Base
-
       # @return [Array<ZoneRecord>]
       attr_accessor :creates
 
@@ -12,7 +11,6 @@ module Dnsimple
 
       # @return [Array<ZoneRecordId>]
       attr_accessor :deletes
-
     end
   end
 end

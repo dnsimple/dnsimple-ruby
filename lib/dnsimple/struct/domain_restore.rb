@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class DomainRestore < Base
-
       # @return [Integer] The domain restore ID in DNSimple.
       attr_accessor :id
 
@@ -18,7 +17,6 @@ module Dnsimple
 
       # @return [String] When the domain restore was last updated in DNSimple.
       attr_accessor :updated_at
-
     end
   end
 end

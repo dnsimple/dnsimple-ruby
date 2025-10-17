@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 module Dnsimple
-
   # The Response represents a response returned by a client request.
   #
   # It wraps the content of the response data, as well other response metadata such as rate-limiting information.
   class Response
-
     # @return [HTTParty::Response]
     attr_reader :http_response
 
@@ -36,17 +34,14 @@ module Dnsimple
       @rate_limit_remaining = http_response.headers["X-RateLimit-Remaining"].to_i
       @rate_limit_reset = Time.at(http_response.headers["X-RateLimit-Reset"].to_i)
     end
-
   end
 
   # The CollectionResponse is a specific type of Response where the data is a collection of enumerable objects.
   class CollectionResponse < Response
-
   end
 
   # The PaginatedResponse is a specific type of Response that also exposes pagination metadata.
   class PaginatedResponse < CollectionResponse
-
     # @return [Integer] The current page.
     attr_reader :page
 
@@ -74,11 +69,9 @@ module Dnsimple
       @total_entries = pagination["total_entries"]
       @total_pages = pagination["total_pages"]
     end
-
   end
 
   class PaginatedResponseWithQuery < PaginatedResponse
-
     # @return [Hash] A hash containing the query parameters that produced the results in this response
     attr_reader :query
 
@@ -86,7 +79,5 @@ module Dnsimple
       super
       @query = http_response["query"]
     end
-
   end
-
 end

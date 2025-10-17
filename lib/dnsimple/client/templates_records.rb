@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module TemplatesRecords
-
       # Lists the records in the template.
       #
       # @see https://developer.dnsimple.com/v2/templates/records/#list
@@ -132,7 +131,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

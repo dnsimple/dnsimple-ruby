@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class DomainTransfer < Base
-
       # @return [Integer] The domain registration ID in DNSimple.
       attr_accessor :id
 
@@ -30,7 +29,6 @@ module Dnsimple
 
       # @return [String] When the domain renewal was last updated in DNSimple.
       attr_accessor :updated_at
-
     end
   end
 end

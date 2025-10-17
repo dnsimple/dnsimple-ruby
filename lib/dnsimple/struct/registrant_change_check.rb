@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class RegistrantChangeCheck < Base
-
       # @return [Integer] The associated contact ID.
       attr_accessor :contact_id
 
@@ -15,7 +14,6 @@ module Dnsimple
 
       # # @return [Boolean] True if the registrant change is a registry owner change.
       attr_accessor :registry_owner_change
-
     end
   end
 end

@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Tlds
-
       # Lists the TLDs available for registration
       #
       # @see https://developer.dnsimple.com/v2/tlds/#listTlds
@@ -92,7 +91,6 @@ module Dnsimple
 
         Dnsimple::CollectionResponse.new(response, response["data"].map { |r| Struct::ExtendedAttribute.new(r) })
       end
-
     end
   end
 end

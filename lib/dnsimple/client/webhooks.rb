@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Webhooks
-
       # Lists ALL the webhooks in the account.
       #
       # @see https://developer.dnsimple.com/v2/webhooks/#list
@@ -84,7 +83,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

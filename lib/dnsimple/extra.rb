@@ -2,7 +2,6 @@
 
 module Dnsimple
   module Extra
-
     # Joins two pieces of URI with a /.
     #
     # @return [String] The joined string.
@@ -58,6 +57,5 @@ module Dnsimple
         attributes&.key?(name) or raise(ArgumentError, ":#{name} is required")
       end
     end
-
   end
 end

@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module DomainsDelegationSignerRecords
-
       # Lists the delegation signer records for the domain.
       #
       # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-list
@@ -119,7 +118,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, nil)
       end
-
     end
   end
 end

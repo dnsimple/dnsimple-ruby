@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Certificates
-
       # List the certificates for the domain in the account.
       #
       # @see https://developer.dnsimple.com/v2/certificates/#listCertificates
@@ -284,7 +283,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Certificate.new(response["data"]))
       end
-
     end
   end
 end

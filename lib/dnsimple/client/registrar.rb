@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Registrar
-
       # Checks whether a domain is available to be registered.
       #
       # @see https://developer.dnsimple.com/v2/registrar/#check
@@ -260,7 +259,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::DomainRestore.new(response["data"]))
       end
-
     end
   end
 end

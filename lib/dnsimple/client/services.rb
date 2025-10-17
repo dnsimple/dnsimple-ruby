@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module Services
-
       # Lists the available one-click services.
       #
       # @see https://developer.dnsimple.com/v2/services/#list
@@ -75,7 +74,6 @@ module Dnsimple
 
         Dnsimple::Response.new(response, Struct::Service.new(response["data"]))
       end
-
     end
   end
 end

@@ -3,7 +3,6 @@
 module Dnsimple
   module Struct
     class Tld < Base
-
       # @return [String] The TLD in DNSimple.
       attr_accessor :tld
 
@@ -33,7 +32,6 @@ module Dnsimple
 
       # @return [String, nil] Type of data interface required for DNSSEC for this TLD.
       attr_accessor :dnssec_interface_type
-
     end
   end
 end

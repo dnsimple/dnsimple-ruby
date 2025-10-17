@@ -3,7 +3,6 @@
 module Dnsimple
   class Client
     module DnsAnalytics
-
       # Queries DNS Analytics data for the provided account
       #
       # @see https://developer.dnsimple.com/v2/dns-analytics#queryDnsAnalytics
@@ -24,7 +23,6 @@ module Dnsimple
 
         Dnsimple::PaginatedResponseWithQuery.new(response, response["data"]["rows"].map { |row| Struct::DnsAnalytics.new(response["data"]["headers"].zip(row)) })
       end
-
     end
   end
 end
