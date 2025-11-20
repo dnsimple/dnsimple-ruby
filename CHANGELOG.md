@@ -4,6 +4,12 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+## 11.1.1
+
+- CHANGED: Updated RuboCop DNSimple configuration (dnsimple/dnsimple-ruby#442)
+- CHANGED: Added CI workflow dispatch for releases (dnsimple/dnsimple-ruby#441)
+- CHANGED: Updated documentation (dnsimple/dnsimple-ruby#440)
+
 ## 11.1.0
 
 - NEW: Added `Dnsimple::Client::ZonesRecords#batch_change_zone_records` to make changes to zone records in a batch. (dnsimple/dnsimple-ruby#434)
