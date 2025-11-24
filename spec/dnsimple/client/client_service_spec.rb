@@ -5,20 +5,22 @@ require "spec_helper"
 describe Dnsimple::Client::ClientService do
 
   describe "#paginate" do
-    service_class = Class.new(Dnsimple::Client::ClientService) do
-      Item = Class.new(Dnsimple::Struct::Base) do # rubocop:disable Lint/ConstantDefinitionInBlock
-        attr_accessor :id
-      end
-
-      def list(account_id, options = {})
-        response = client.get(Dnsimple::Client.versioned("/%s/list" % [account_id]), options)
-        Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Item.new(r) })
-      end
-    end
 
     subject { service_class.new(Dnsimple::Client.new(base_url: "https://api.example.com/", access_token: "a1b2c3")) }
 
     let(:account_id) { 1010 }
+    let(:service_class) do
+      Class.new(Dnsimple::Client::ClientService) do
+        Item = Class.new(Dnsimple::Struct::Base) do # rubocop:disable Lint/ConstantDefinitionInBlock
+          attr_accessor :id
+        end
+
+        def list(account_id, options = {})
+          response = client.get(Dnsimple::Client.versioned("/%s/list" % [account_id]), options)
+          Dnsimple::PaginatedResponse.new(response, response["data"].map { |r| Item.new(r) })
+        end
+      end
+    end
 
     before do
       stub_request(:get, %r{/v2/#{account_id}/list\?page=1&per_page=100})
