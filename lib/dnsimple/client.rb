@@ -229,7 +229,7 @@ module Dnsimple
 
     def add_auth_options!(options)
       if password
-        options[:basic_auth] = { username: username, password: password }
+        options[:basic_auth] = { username:, password: }
       elsif access_token
         options[:headers][HEADER_AUTHORIZATION] = "Bearer #{access_token}"
       end

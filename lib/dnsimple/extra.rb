@@ -23,8 +23,8 @@ module Dnsimple
     #   h2 = { b: 250, c: { c1: 200 } }
     #   Extra.deep_merge(h1, h2) { |key, this_val, other_val| this_val + other_val }
     #   # => { a: 100, b: 450, c: { c1: 300 } }
-    def self.deep_merge(this, other, &block)
-      deep_merge!(this.dup, other, &block)
+    def self.deep_merge(this, other, &)
+      deep_merge!(this.dup, other, &)
     end
 
     # Same as +deep_merge+, but modifies +this+ instead of returning a new hash.
