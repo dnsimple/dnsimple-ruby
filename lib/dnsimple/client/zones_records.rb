@@ -185,7 +185,7 @@ module Dnsimple
           deletes_data = response["data"]["deletes"] || []
           deletes = deletes_data.map { |r| Struct::ZoneRecordId.new(r) }
         end
-        Dnsimple::Response.new(response, Struct::ZoneRecordsBatchChange.new({ creates: creates, updates: updates, deletes: deletes }))
+        Dnsimple::Response.new(response, Struct::ZoneRecordsBatchChange.new({ creates:, updates:, deletes: }))
       end
     end
   end

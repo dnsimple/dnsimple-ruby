@@ -26,8 +26,8 @@ module Dnsimple
         # @param  [Array] args the args for the {Identity#whoami} call
         # @return [Hash]
         # @raise  [Dnsimple::RequestError]
-        def whoami(client, *args)
-          client.identity.whoami(*args).data
+        def whoami(client, *)
+          client.identity.whoami(*).data
         end
       end
     end

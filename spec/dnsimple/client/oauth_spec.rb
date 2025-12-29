@@ -19,15 +19,15 @@ describe Dnsimple::Client, ".oauth" do
     end
 
     it "builds the correct request" do
-      subject.exchange_authorization_for_token(code, client_id, client_secret, state: state)
+      subject.exchange_authorization_for_token(code, client_id, client_secret, state:)
 
       expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token")
-          .with(body: { client_id: client_id, client_secret: client_secret, code: code, state: state, grant_type: "authorization_code" })
+          .with(body: { client_id:, client_secret:, code:, state:, grant_type: "authorization_code" })
           .with(headers: { "Accept" => "application/json" })
     end
 
     it "returns oauth token" do
-      result = subject.exchange_authorization_for_token(code, client_id, client_secret, state: state)
+      result = subject.exchange_authorization_for_token(code, client_id, client_secret, state:)
 
       expect(result).to be_a(Dnsimple::Struct::OauthToken)
       expect(result.access_token).to eq("zKQ7OLqF5N1gylcJweA9WodA000BUNJD")
@@ -39,10 +39,10 @@ describe Dnsimple::Client, ".oauth" do
       let(:redirect_uri) { "super-redirect-uri" }
 
       it "builds the correct request" do
-        subject.exchange_authorization_for_token(code, client_id, client_secret, state: state, redirect_uri: redirect_uri)
+        subject.exchange_authorization_for_token(code, client_id, client_secret, state:, redirect_uri:)
 
         expect(WebMock).to have_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token")
-            .with(body: { client_id: client_id, client_secret: client_secret, code: code, state: state, redirect_uri: redirect_uri, grant_type: "authorization_code" })
+            .with(body: { client_id:, client_secret:, code:, state:, redirect_uri:, grant_type: "authorization_code" })
             .with(headers: { "Accept" => "application/json" })
       end
     end
@@ -55,7 +55,7 @@ describe Dnsimple::Client, ".oauth" do
 
       it "raises OAuthInvalidRequestError" do
         expect {
-          subject.exchange_authorization_for_token(code, client_id, client_secret, state: state)
+          subject.exchange_authorization_for_token(code, client_id, client_secret, state:)
         }.to raise_error(Dnsimple::OAuthInvalidRequestError) do |e|
           error = "invalid_request"
           error_description = "Invalid \"state\": value doesn't match the \"state\" in the authorization request"
