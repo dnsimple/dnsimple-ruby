@@ -5,7 +5,7 @@ source "https://rubygems.org"
 gemspec
 
 gem "base64", "~> 0.3.0"
-gem "bigdecimal", "~> 3.1"
+gem "bigdecimal", "~> 4.0"
 gem "coveralls", "~> 0.8", require: false
 gem "csv", "~> 3.2"
 gem "rubocop", "~> 1.75", require: false
