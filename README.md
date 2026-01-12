@@ -108,6 +108,14 @@ response = client.domains.domain(account_id, "example.com")
 puts response.data
 ```
 
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues and pull requests. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for details.
+
 ## License
 
 Copyright (c) 2010-2025 DNSimple Corporation. This is Free Software distributed under the MIT license.

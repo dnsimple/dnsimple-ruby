@@ -264,23 +264,23 @@ Internal changes were made to match conventions adopted in other clients, such a
 
 - FIXED: Fixed a bug where API token environment variables were not properly detected (GH-59, GH-62). Thanks @oguzbilgic and @rupurt.
 
-## Release 1.7.1
+## 1.7.1
 
 - FIXED: Updated Certificate to match the serialized attributes (GH-53).
 
-## Release 1.7.0
+## 1.7.0
 
 - NEW: Add support for Domain-based authentication (GH-40, GH-46). Thanks @dwradcliffe and @samsonasu.
 
-## Release 1.6.0
+## 1.6.0
 
 - NEW: Add support for 2FA (GH-44)
 
-## Release 1.5.5
+## 1.5.5
 
 - NEW: Add notice about the CLI moving to a new location
 
-## Release 1.5.4
+## 1.5.4
 
 - NEW: Added domain#expires_on attribute (GH-34). Thanks @alkema
 
@@ -290,23 +290,23 @@ Internal changes were made to match conventions adopted in other clients, such a
 
 - CHANGED: User.me now uses the correct patch for API v1.
 
-## Release 1.5.3
+## 1.5.3
 
 - FIXED: In some cases the client crashed with NoMethodError VERSION (GH-35).
 
-## Release 1.5.2
+## 1.5.2
 
 - NEW: Provide a meaningful user-agent.
 
-## Release 1.5.1
+## 1.5.1
 
 - FIXED: Invalid base URI.
 
-## Release 1.5.0
+## 1.5.0
 
 - CHANGED: Added support for versioned API (GH-33)
 
-## Release 1.4.0
+## 1.4.0
 
 - CHANGED: Normalized exception handling. No more RuntimeError.
   In case of request error, the client raises RequestError, RecordExists or RecodNotFound
