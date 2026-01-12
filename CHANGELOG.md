@@ -6,227 +6,308 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## 11.1.0 - 2025-09-25
 
-- NEW: Added `Dnsimple::Client::ZonesRecords#batch_change_zone_records` to make changes to zone records in a batch. (dnsimple/dnsimple-ruby#434)
+### Added
+
+- Added `Dnsimple::Client::ZonesRecords#batch_change_zone_records` to make changes to zone records in a batch. (#434)
 
 ## 11.0.0 - 2025-08-20
 
-- CHANGED: Removed `from` and `to` fields in `EmailForward`
-- CHANGED: Removed `DomainCollaborators`
+### Removed
+
+- Removed `from` and `to` fields in `EmailForward`
+- Removed `DomainCollaborators`
 
 ## 10.0.0 - 2025-05-02
 
-- CHANGED: Minimum Ruby version is now 3.2
+### Changed
+
+- Minimum Ruby version is now 3.2
 
 ## 9.0.1 - 2024-12-12
 
-- NEW: Added `alias_email` and `destination_email` to `EmailForward`
-- CHANGED: Deprecated `from` and `to` fields in `EmailForward`
-- CHANGED: `DomainCollaborators` have been deprecated and will be removed in the next major version. Please use our Domain Access Control feature.
+### Added
+
+- Added `alias_email` and `destination_email` to `EmailForward`
+
+### Deprecated
+
+- Deprecated `from` and `to` fields in `EmailForward`
+- `DomainCollaborators` have been deprecated and will be removed in the next major version. Please use our Domain Access Control feature.
 
 ## 9.0.0 - 2024-03-12
 
-- CHANGED: Minimum Ruby version is now 3.1
+### Changed
+
+- Minimum Ruby version is now 3.1
 
 ## 8.9.0 - 2024-02-29
 
-- NEW: Added `Dnsimple::Client::Registrar#restore_domain` to restore a domain. (dnsimple/dnsimple-ruby#379)
-- NEW: Added `Dnsimple::Client::Registrar#get_domain_restore` to retrieve the details of an existing dommain restore. (dnsimple/dnsimple-ruby#379)
+### Added
+
+- Added `Dnsimple::Client::Registrar#restore_domain` to restore a domain. (#379)
+- Added `Dnsimple::Client::Registrar#get_domain_restore` to retrieve the details of an existing dommain restore. (#379)
 
 ## 8.8.0 - 2024-02-06
 
-- NEW: Added `Dnsimple::Client::DnsAnalytics#query` to query and pull data from the DNS Analytics API endpoint(dnsimple/dnsimple-ruby#375)
+### Added
+
+- Added `Dnsimple::Client::DnsAnalytics#query` to query and pull data from the DNS Analytics API endpoint(#375)
 
 ## 8.7.1 - 2023-11-22
 
-ENHANCEMENTS:
+### Added
 
-- NEW: Added `#secondary`, `#last_transferred_at`, `#active` to `Dnsimple::Struct::Zone` (dnsimple/dnsimple-ruby)
+- Added `#secondary`, `#last_transferred_at`, `#active` to `Dnsimple::Struct::Zone`
 
 ## 8.7.0 - 2023-11-03
 
-FEATURES:
+### Added
 
-- NEW: Added `Dnsimple::Client::Billing#charges` to retrieve the list of billing charges for an account. (dnsimple/dnsimple-ruby#365)
+- Added `Dnsimple::Client::Billing#charges` to retrieve the list of billing charges for an account. (#365)
 
 ## 8.6.0 - 2023-09-08
 
-FEATURES:
+### Added
 
-- NEW: Added `Dnsimple::Client::Registrar#get_domain_transfer_lock` to retrieves the transfer lock status of a registered domain. (dnsimple/dnsimple-ruby#356)
-- NEW: Added `Dnsimple::Client::Registrar#enable_domain_transfer_lock` to enable the transfer lock for a registered domain. (dnsimple/dnsimple-ruby#356)
-- NEW: Added `Dnsimple::Client::Registrar#disable_domain_transfer_lock` to disable the transfer lock for a registered domain. (dnsimple/dnsimple-ruby#356)
+- Added `Dnsimple::Client::Registrar#get_domain_transfer_lock` to retrieves the transfer lock status of a registered domain. (#356)
+- Added `Dnsimple::Client::Registrar#enable_domain_transfer_lock` to enable the transfer lock for a registered domain. (#356)
+- Added `Dnsimple::Client::Registrar#disable_domain_transfer_lock` to disable the transfer lock for a registered domain. (#356)
 
 ## 8.5.0 - 2023-08-24
 
-FEATURES:
+### Added
 
-- NEW: Added `Dnsimple::Client::Registrar#check_registrant_change` to retrieves the requirements of a registrant change. (dnsimple/dnsimple-ruby#355)
-- NEW: Added `Dnsimple::Client::Registrar#get_registrant_change` to retrieves the details of an existing registrant change. (dnsimple/dnsimple-ruby#355)
-- NEW: Added `Dnsimple::Client::Registrar#create_registrant_change` to start registrant change. (dnsimple/dnsimple-ruby#355)
-- NEW: Added `Dnsimple::Client::Registrar#list_registrant_changes` to lists the registrant changes for a domain. (dnsimple/dnsimple-ruby#355)
-- NEW: Added `Dnsimple::Client::Registrar#delete_registrant_change` to cancel an ongoing registrant change from the account. (dnsimple/dnsimple-ruby#355)
+- Added `Dnsimple::Client::Registrar#check_registrant_change` to retrieves the requirements of a registrant change. (#355)
+- Added `Dnsimple::Client::Registrar#get_registrant_change` to retrieves the details of an existing registrant change. (#355)
+- Added `Dnsimple::Client::Registrar#create_registrant_change` to start registrant change. (#355)
+- Added `Dnsimple::Client::Registrar#list_registrant_changes` to lists the registrant changes for a domain. (#355)
+- Added `Dnsimple::Client::Registrar#delete_registrant_change` to cancel an ongoing registrant change from the account. (#355)
 
 ## 8.4.0 - 2023-08-10
 
-FEATURES:
+### Added
 
-- NEW: Added `Dnsimple::Client::Zones#activate_dns` to activate DNS services (resolution) for a zone. (dnsimple/dnsimple-ruby#354)
-- NEW: Added `Dnsimple::Client::Zones#deactivate_dns` to deactivate DNS services (resolution) for a zone. (dnsimple/dnsimple-ruby#354)
+- Added `Dnsimple::Client::Zones#activate_dns` to activate DNS services (resolution) for a zone. (#354)
+- Added `Dnsimple::Client::Zones#deactivate_dns` to deactivate DNS services (resolution) for a zone. (#354)
 
 ## 8.3.1 - 2023-03-10
 
-- FIXED: Our release process had failed to push correctly `8.2.0` and `8.3.0` to RubyGems resulting in empty gem releases. This releases fixes the issue and contains the same changes of `8.2.0` and `8.3.0`.
+### Fixed
+
+- Our release process had failed to push correctly `8.2.0` and `8.3.0` to RubyGems resulting in empty gem releases. This releases fixes the issue and contains the same changes of `8.2.0` and `8.3.0`.
 
 ## 8.3.0 - 2023-03-09
 
-- CHANGED: Wrap 400 errors on the OAuth endpoint in `Dnsimple::OAuthInvalidRequestError` (dnsimple/dnsimple-ruby#336)
+### Changed
+
+- Wrap 400 errors on the OAuth endpoint in `Dnsimple::OAuthInvalidRequestError` (#336)
 
 ## 8.2.0 - 2023-03-02
 
-- NEW: Added getDomainRenewal and getDomainRegistration endpoints (dnsimple/dnsimple-ruby#332)
-- NEW: Documented the new `signature_algorithm` parameter for the Lets Encrypt certificate purchase endpoint (dnsimple/dnsimple-ruby#331)
+### Added
+
+- Added getDomainRenewal and getDomainRegistration endpoints (#332)
+- Documented the new `signature_algorithm` parameter for the Lets Encrypt certificate purchase endpoint (#331)
 
 ## 8.1.0 - 2022-09-19
 
-- CHANGED: Fixed and updated documentation for domain endpoints (dnsimple/dnsimple-ruby#300)
-- CHANGED: Expose all information available in error responses (dnsimple/dnsimple-ruby#298)
+### Changed
+
+- Fixed and updated documentation for domain endpoints (#300)
+- Expose all information available in error responses (#298)
 
 ## 8.0.0 - 2022-08-10
 
-- CHANGED: Minimum Ruby version is now 2.7
-- REMOVED: `registrar.getDomainPremiumPrice` in favour of `registrar.getDomainPrices`
-- CHANGED: Deprecate Certificate's `contact_id` (dnsimple/dnsimple-ruby#276)
-- FIXED: Remove stale reference to Client::DomainServicesService (dnsimple/dnsimple-ruby#267)
+### Changed
+
+- Minimum Ruby version is now 2.7
+- Deprecate Certificate's `contact_id` (#276)
+
+### Removed
+
+- `registrar.getDomainPremiumPrice` in favour of `registrar.getDomainPrices`
+
+### Fixed
+
+- Remove stale reference to Client::DomainServicesService (#267)
 
 ## 7.1.1 - 2022-01-20
 
-- CHANGED: Bumped up dependencies
+### Changed
+
+- Bumped up dependencies
 
 ## 7.1.0 - 2021-10-19
 
-- CHANGED: Updated DNSSEC-related structs and entrypoints to support DS record key-data interface. (dnsimple/dnsimple-ruby#252)
+### Changed
+
+- Updated DNSSEC-related structs and entrypoints to support DS record key-data interface. (#252)
 
 ## 7.0.0 - 2021-06-16
 
-- CHANGED: Minimum Ruby version is now 2.6
-- CHANGED: Deprecates `registrar.getDomainPremiumPrice` in favour of `registrar.getDomainPrices`
+### Changed
+
+- Minimum Ruby version is now 2.6
+
+### Deprecated
+
+- Deprecates `registrar.getDomainPremiumPrice` in favour of `registrar.getDomainPrices`
 
 ## 6.0.0 - 2021-04-20
 
-- NEW: Added `registrar.get_domain_prices` to retrieve whether a domain is premium and the prices to register, transfer, and renew. (dnsimple/dnsimple-ruby#230)
-- REMOVED: `domain.reset_domain_token` endpoint no longer exists and the client method is removed. (dnsimple/dnsimple-ruby#231)
-- REMOVED: The deprecated `Domain.expires_on` is removed. (dnsimple/dnsimple-ruby#232)
-- REMOVED: The deprecated `Certificate.expires_on` is removed. (dnsimple/dnsimple-ruby#232)
+### Added
+
+- Added `registrar.get_domain_prices` to retrieve whether a domain is premium and the prices to register, transfer, and renew. (#230)
+
+### Removed
+
+- `domain.reset_domain_token` endpoint no longer exists and the client method is removed. (#231)
+- The deprecated `Domain.expires_on` is removed. (#232)
+- The deprecated `Certificate.expires_on` is removed. (#232)
 
 ## 5.2.0 - 2020-06-22
 
-- CHANGED: `Certificate#expires_on` (date only) is deprecated in favor of `Certificate#expires_at` (timestamp). (dnsimple/dnsimple-ruby#190)
+### Deprecated
+
+- `Certificate#expires_on` (date only) is deprecated in favor of `Certificate#expires_at` (timestamp). (#190)
 
 ## 5.1.0 - 2020-06-10
 
-- CHANGED: `Domain#expires_on` (date only) is deprecated in favor of `Domain#expires_at` (timestamp). (dnsimple/dnsimple-ruby#186)
+### Deprecated
+
+- `Domain#expires_on` (date only) is deprecated in favor of `Domain#expires_at` (timestamp). (#186)
 
 ## 5.0.0 - 2020-05-21
 
-- CHANGED: Minimum Ruby version is now 2.4
-- CHANGED: User-agent format has been changed to prepend custom token before default token.
-- NEW: Added `registrar.get_domain_transfer` to retrieve a domain transfer. (dnsimple/dnsimple-ruby#180)
-- NEW: Added `registrar.cancel_domain_transfer` to cancel an in progress domain transfer. (dnsimple/dnsimple-ruby#180)
-- NEW: Added `DomainTransfer#status_description` attribute to identify the failure reason of a transfer. (dnsimple/dnsimple-ruby#180).
+### Added
+
+- Added `registrar.get_domain_transfer` to retrieve a domain transfer. (#180)
+- Added `registrar.cancel_domain_transfer` to cancel an in progress domain transfer. (#180)
+- Added `DomainTransfer#status_description` attribute to identify the failure reason of a transfer. (#180).
+
+### Changed
+
+- Minimum Ruby version is now 2.4
+- User-agent format has been changed to prepend custom token before default token.
 
 ## 4.6.0 - 2019-02-01
 
-- NEW: Added WHOIS privacy renewal (GH-171)
+### Added
+
+- Added WHOIS privacy renewal (#171)
 
 ## 4.5.0 - 2018-10-16
 
-- NEW: Added zone distribution and zone record distribution (GH-160)
+### Added
 
-- CHANGED: Bump minimum Ruby requirement to 2.1
-- CHANGED: Introduce Dnsimple::Struct::VanityNameServer (GH-144)
-- CHANGED: Fix name inconsistency of the Collaborator module (GH-154)
+- Added zone distribution and zone record distribution (#160)
 
-- REMOVED: Removed extra alias (GH-168). You should use `dnsimple.foo.list_foo` instead of `dnsimple.foo.list`. Same for create/update. The change ensures consistency across the various clients. We prefer fully qualified methods.
+### Changed
+
+- Bump minimum Ruby requirement to 2.1
+- Introduce Dnsimple::Struct::VanityNameServer (#144)
+- Fix name inconsistency of the Collaborator module (#154)
+
+### Removed
+
+- Removed extra alias (#168). You should use `dnsimple.foo.list_foo` instead of `dnsimple.foo.list`. Same for create/update. The change ensures consistency across the various clients. We prefer fully qualified methods.
 
 ## 4.4.0 - 2018-01-23
 
-- NEW: Added Let's Encrypt certificate methods (GH-159)
+### Added
 
-- REMOVED: Removed premium_price attribute from registrar order responses (GH-163). Please do not rely on that attribute, as it returned an incorrect value. The attribute is going to be removed, and the API now returns a null value.
+- Added Let's Encrypt certificate methods (#159)
+
+### Removed
+
+- Removed premium_price attribute from registrar order responses (#163). Please do not rely on that attribute, as it returned an incorrect value. The attribute is going to be removed, and the API now returns a null value.
 
 ## 4.3.0 - 2017-06-20
 
-- NEW: Added `certificates.all_certificates` (dnsimple/dnsimple-ruby#155)
+### Added
 
-- CHANGED: Updated registrar URLs (dnsimple/dnsimple-ruby#153)
+- Added `certificates.all_certificates` (#155)
+
+### Changed
+
+- Updated registrar URLs (#153)
 
 ## 4.2.0 - 2017-03-07
 
-- NEW: Added DNSSEC support support (dnsimple/dnsimple-ruby#152)
+### Added
+
+- Added DNSSEC support support (#152)
 
 ## 4.1.0 - 2016-12-12
 
-- NEW: Added domain premium price support (dnsimple/dnsimple-ruby#143)
+### Added
 
-- CHANGED: Updated registration, transfer, renewal response payload (dnsimple/dnsimple-developer#111, dnsimple/dnsimple-ruby#140).
-- CHANGED: Normalize unique string identifiers to SID (dnsimple/dnsimple-ruby#141)
+- Added domain premium price support (#143)
+
+### Changed
+
+- Updated registration, transfer, renewal response payload (dnsimple/dnsimple-developer#111, #140).
+- Normalize unique string identifiers to SID (#141)
 
 ## 4.0.0 - 2016-11-25
 
-- NEW: Added domain collaborators support (GH-137).
-- NEW: Added regions support for zone records (GH-135, GH-139).
-- NEW: Added domain services support (GH-122).
-- NEW: Added domain templates support (GH-125).
-- NEW: Added zone file support (GH-124).
-- NEW: Added certificate support (GH-123).
-- NEW: Added domain delegation support (GH-120).
-- NEW: Added domain push support (GH-127).
-- NEW: Added vanity name server support (GH-121).
+### Added
 
-- CHANGED: Record struct renamed to ZoneRecord (GH-117).
-- CHANGED: Updated Tld payload (GH-133, GH-129).
-- CHANGED: Renamed registrar `auth_info` into `auth_code` (GH-136).
+- Added domain collaborators support (#137).
+- Added regions support for zone records (#135, #139).
+- Added domain services support (#122).
+- Added domain templates support (#125).
+- Added zone file support (#124).
+- Added certificate support (#123).
+- Added domain delegation support (#120).
+- Added domain push support (#127).
+- Added vanity name server support (#121).
+
+### Changed
+
+- Record struct renamed to ZoneRecord (#117).
+- Updated Tld payload (#133, #129).
+- Renamed registrar `auth_info` into `auth_code` (#136).
 
 ## 3.1.0 - 2016-06-21
 
-- NEW: Added accounts support (GH-113).
-- NEW: Added sorting and filtering support (GH-112).
-- NEW: Added template record support (GH-104).
+### Added
 
-- CHANGED: Pagination params must be passed as top level options. Previously they were passed inside `:query` options (GH-116).
-- CHANGED: Authentication credentials presence is no longer validated on the client as it was causing an error getting the access token (GH-74 and GH-102).
-- CHANGED: Setting a custom user-agent no longer overrides the original user-agent (GH-105).
-- CHANGED: Updated client to use Contact#email (GH-108).
+- Added accounts support (#113).
+- Added sorting and filtering support (#112).
+- Added template record support (#104).
 
-- REMOVED: Removed support for wildcard accounts (GH-107).
+### Changed
+
+- Pagination params must be passed as top level options. Previously they were passed inside `:query` options (#116).
+- Authentication credentials presence is no longer validated on the client as it was causing an error getting the access token (#74 and #102).
+- Setting a custom user-agent no longer overrides the original user-agent (#105).
+- Updated client to use Contact#email (#108).
+
+### Removed
+
+- Removed support for wildcard accounts (#107).
 
 ## 3.0.0 - 2016-04-19
 
-### stable
+### Added
 
-- FIXED: The client was using the wrong key to store the ContactsService which could cause conflicts with the DomainsService.
+- Added registrar delegation support (#98).
+- Added template support (#99).
+- Added service support (#101).
 
-- FIXED: `renewDomain` used a wrong path (GH-96).
+### Changed
 
-- NEW: Added registrar delegation support (GH-98).
+- Minimum Ruby version >= 2
+- Renamed `api_endpoint` to `base_url` to match the other clients.
+- Error detection is now smarter. If the error is deserializable and contains a message, the message is attached to the exception (#94, #95, #100).
 
-- NEW: Added template support (GH-99).
+### Fixed
 
-- NEW: Added service support (GH-101).
-
-- CHANGED: Error detection is now smarter. If the error is deserializable and contains a message, the message is attached to the exception (GH-94, GH-95, GH-100).
-
-### beta2
-
-- FIXED: `state` and `redirect_uri` are not properly passed in the request to exchang the code for an access token (GH-89, GH-90).
-
-- FIXED: Request body is not properly serialized to JSON, and the "Content-Type" header was omissed (GH-91).
-
-### beta1
-
-- CHANGED: Minimum Ruby version >= 2
-
-- CHANGED: Renamed `api_endpoint` to `base_url` to match the other clients.
+- The client was using the wrong key to store the ContactsService which could cause conflicts with the DomainsService.
+- `renewDomain` used a wrong path (#96).
+- `state` and `redirect_uri` are not properly passed in the request to exchang the code for an access token (#89, #90).
+- Request body is not properly serialized to JSON, and the "Content-Type" header was omissed (#91).
 
 The client has been completely redesigned to support the [API v2](https://developer.dnsimple.com/v2). Overall, the client behaves like the previous version, however it has been rewritten to leverage the API v2 features specifically.
 
@@ -234,93 +315,109 @@ Internal changes were made to match conventions adopted in other clients, such a
 
 ## 2.1.1 - 2015-11-30
 
-- FIXED: Paths may mistakenly be generated use \ on windows.
+### Fixed
+
+- Paths may mistakenly be generated use \ on windows.
 
 ## 2.1.0 - 2015-09-04
 
-- NEW: Add the ability to set headers and pass extra connection params in each API method (GH-64)
+### Added
+
+- Add the ability to set headers and pass extra connection params in each API method (#64)
 
 ## 2.0.0 - 2015-06-25
 
-### 2.0.0.alpha
+### Added
 
-2.0 is a complete client redesign.
+- Add support changing name servers (#52). Thanks @rosscooperman
+- Add support for all DNSimple API methods.
 
-- NEW: Add support changing name servers (GH-52). Thanks @rosscooperman
+### Changed
 
-- NEW: Add support for all DNSimple API methods.
+- Drop 1.8.7, 1.9.2 support. Required Ruby >= 1.9.3.
+- This package no longer provides a CLI. The CLI has been extracted to [dnsimple-ruby-cli](https://github.com/dnsimple/dnsimple-ruby-cli)
+- Renamed the Gem from "dnsimple-ruby" to "dnsimple" (#23).
+- Renamed the namespace from DNSimple to Dnsimple.
 
-- CHANGED: Drop 1.8.7, 1.9.2 support. Required Ruby >= 1.9.3.
+### Removed
 
-- CHANGED: This package no longer provides a CLI. The CLI has been extracted to [dnsimple-ruby-cli](https://github.com/dnsimple/dnsimple-ruby-cli)
+- The library no longer provides built-in support for loading the credentials from a config file.
 
-- CHANGED: Renamed the Gem from "dnsimple-ruby" to "dnsimple" (GH-23).
+### Fixed
 
-- CHANGED: Renamed the namespace from DNSimple to Dnsimple.
-
-- REMOVED: The library no longer provides built-in support for loading the credentials from a config file.
-
-### 2.0
-
-- FIXED: Fixed a bug where API token environment variables were not properly detected (GH-59, GH-62). Thanks @oguzbilgic and @rupurt.
+- Fixed a bug where API token environment variables were not properly detected (#59, #62). Thanks @oguzbilgic and @rupurt.
 
 ## 1.7.1 - 2014-12-13
 
-- FIXED: Updated Certificate to match the serialized attributes (GH-53).
+### Fixed
+
+- Updated Certificate to match the serialized attributes (#53).
 
 ## 1.7.0 - 2014-09-29
 
-- NEW: Add support for Domain-based authentication (GH-40, GH-46). Thanks @dwradcliffe and @samsonasu.
+### Added
+
+- Add support for Domain-based authentication (#40, #46). Thanks @dwradcliffe and @samsonasu.
 
 ## 1.6.0 - 2014-09-20
 
-- NEW: Add support for 2FA (GH-44)
+### Added
+
+- Add support for 2FA (#44)
 
 ## 1.5.5 - 2014-09-05
 
-- NEW: Add notice about the CLI moving to a new location
+### Added
+
+- Add notice about the CLI moving to a new location
 
 ## 1.5.4 - 2014-07-01
 
-- NEW: Added domain#expires_on attribute (GH-34). Thanks @alkema
+### Added
 
-- NEW: Add various missing domain attributes (GH-38). Thanks @nickhammond
+- Added domain#expires_on attribute (#34). Thanks @alkema
+- Add various missing domain attributes (#38). Thanks @nickhammond
+- Added support for auto-renewal (#36). Thanks @mzuneska
 
-- NEW: Added support for auto-renewal (GH-36). Thanks @mzuneska
+### Changed
 
-- CHANGED: User.me now uses the correct patch for API v1.
+- User.me now uses the correct patch for API v1.
 
 ## 1.5.3 - 2014-01-26
 
-- FIXED: In some cases the client crashed with NoMethodError VERSION (GH-35).
+### Fixed
+
+- In some cases the client crashed with NoMethodError VERSION (#35).
 
 ## 1.5.2 - 2014-01-15
 
-- NEW: Provide a meaningful user-agent.
+### Added
+
+- Provide a meaningful user-agent.
 
 ## 1.5.1 - 2014-01-14
 
-- FIXED: Invalid base URI.
+### Fixed
+
+- Invalid base URI.
 
 ## 1.5.0 - 2014-01-14
 
-- CHANGED: Added support for versioned API (GH-33)
+### Changed
+
+- Added support for versioned API (#33)
 
 ## 1.4.0 - 2013-04-18
 
-- CHANGED: Normalized exception handling. No more RuntimeError.
-  In case of request error, the client raises RequestError, RecordExists or RecodNotFound
-  depending on the called method.
+### Changed
 
-- CHANGED: Use Accept header to determine the request type instead of the .json suffix in the URL.
+- Normalized exception handling. No more RuntimeError. In case of request error, the client raises RequestError, RecordExists or RecodNotFound depending on the called method.
+- Use Accept header to determine the request type instead of the .json suffix in the URL.
+- Renamed commands to the ObjectAction scheme (e.g. CreateDomain became DomainCreate).
+- Removed DomainError, UserNotFound, CertificateNotFound, CertificateExists error classes. See Error and RequestError.
+- Removed DNSimple::Command base class.
 
-- CHANGED: Renamed commands to the ObjectAction scheme (e.g. CreateDomain became DomainCreate).
+### Fixed
 
-- CHANGED: Removed DomainError, UserNotFound, CertificateNotFound, CertificateExists error classes.
-  See Error and RequestError.
-
-- CHANGED: Removed DNSimple::Command base class.
-
-- FIXED: Cucumber was trying to execute steps on dnsimple.com main website instead of given site.
-
-- FIXED: We're no longer accepting route format. Use the correct header.
+- Cucumber was trying to execute steps on dnsimple.com main website instead of given site.
+- We're no longer accepting route format. Use the correct header.
