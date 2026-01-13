@@ -4,6 +4,11 @@ This project uses [Semantic Versioning 2.0.0](http://semver.org/).
 
 ## main
 
+### Removed
+
+- Removed `Dnsimple::Client::Registrar#whois_privacy` (dnsimple/dnsimple-developer#919)
+- Removed `Dnsimple::Client::Registrar#renew_whois_privacy` (dnsimple/dnsimple-developer#919)
+
 ## 11.1.0 - 2025-09-25
 
 ### Added
