@@ -3,7 +3,6 @@
 require "test_helper"
 
 class WebhooksTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").webhooks
     @account_id = 1010
@@ -71,9 +70,11 @@ class WebhooksTest < Minitest::Test
 
     attributes = { url: "https://webhook.test" }
     response = @subject.create_webhook(@account_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Webhook, result)
     assert_kind_of(Integer, result.id)
   end
@@ -94,9 +95,11 @@ class WebhooksTest < Minitest::Test
         .to_return(read_http_fixture("getWebhook/success.http"))
 
     response = @subject.webhook(@account_id, 1)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Webhook, result)
     assert_equal(1, result.id)
     assert_equal("https://webhook.test", result.url)
@@ -127,9 +130,11 @@ class WebhooksTest < Minitest::Test
         .to_return(read_http_fixture("deleteWebhook/success.http"))
 
     response = @subject.delete_webhook(@account_id, 1)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -141,5 +146,4 @@ class WebhooksTest < Minitest::Test
       @subject.delete_webhook(@account_id, 0)
     end
   end
-
 end

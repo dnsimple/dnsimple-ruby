@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ZonesDistributionsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").zones
     @account_id = 1010
@@ -27,11 +26,13 @@ class ZonesDistributionsTest < Minitest::Test
         .to_return(read_http_fixture("checkZoneDistribution/success.http"))
 
     response = @subject.zone_distribution(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::ZoneDistribution, result)
-    assert_equal(true, result.distributed)
+    assert(result.distributed)
   end
 
   def test_zone_distribution_returns_false_when_not_fully_distributed
@@ -39,11 +40,13 @@ class ZonesDistributionsTest < Minitest::Test
         .to_return(read_http_fixture("checkZoneDistribution/failure.http"))
 
     response = @subject.zone_distribution(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::ZoneDistribution, result)
-    assert_equal(false, result.distributed)
+    refute(result.distributed)
   end
 
   def test_zone_distribution_raises_error_when_check_fails
@@ -80,11 +83,13 @@ class ZonesDistributionsTest < Minitest::Test
         .to_return(read_http_fixture("checkZoneRecordDistribution/success.http"))
 
     response = @subject.zone_record_distribution(@account_id, @zone_id, @record_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::ZoneDistribution, result)
-    assert_equal(true, result.distributed)
+    assert(result.distributed)
   end
 
   def test_zone_record_distribution_returns_false_when_not_fully_distributed
@@ -92,11 +97,13 @@ class ZonesDistributionsTest < Minitest::Test
         .to_return(read_http_fixture("checkZoneRecordDistribution/failure.http"))
 
     response = @subject.zone_record_distribution(@account_id, @zone_id, @record_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::ZoneDistribution, result)
-    assert_equal(false, result.distributed)
+    refute(result.distributed)
   end
 
   def test_zone_record_distribution_raises_error_when_check_fails
@@ -126,5 +133,4 @@ class ZonesDistributionsTest < Minitest::Test
       @subject.zone_record_distribution(@account_id, @zone_id, "0")
     end
   end
-
 end

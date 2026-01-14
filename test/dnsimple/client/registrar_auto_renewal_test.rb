@@ -3,7 +3,6 @@
 require "test_helper"
 
 class RegistrarAutoRenewalTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar
     @account_id = 1010
@@ -26,9 +25,11 @@ class RegistrarAutoRenewalTest < Minitest::Test
         .to_return(read_http_fixture("enableDomainAutoRenewal/success.http"))
 
     response = @subject.enable_auto_renewal(@account_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -57,9 +58,11 @@ class RegistrarAutoRenewalTest < Minitest::Test
         .to_return(read_http_fixture("disableDomainAutoRenewal/success.http"))
 
     response = @subject.disable_auto_renewal(@account_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -71,5 +74,4 @@ class RegistrarAutoRenewalTest < Minitest::Test
       @subject.disable_auto_renewal(@account_id, @domain_id)
     end
   end
-
 end

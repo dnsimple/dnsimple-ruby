@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ServicesDomainsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").services
     @account_id = 1010
@@ -53,6 +52,7 @@ class ServicesDomainsTest < Minitest::Test
         .to_return(read_http_fixture("appliedServices/success.http"))
 
     response = @subject.applied_services(@account_id, @domain_id)
+
     assert_kind_of(Dnsimple::CollectionResponse, response)
 
     response.data.each do |service|
@@ -86,9 +86,11 @@ class ServicesDomainsTest < Minitest::Test
 
     settings = { app: "foo" }
     response = @subject.apply_service(@account_id, @service_id, @domain_id, settings)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -107,10 +109,11 @@ class ServicesDomainsTest < Minitest::Test
         .to_return(read_http_fixture("unapplyService/success.http"))
 
     response = @subject.unapply_service(@account_id, @service_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
-
 end

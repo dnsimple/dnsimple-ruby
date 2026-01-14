@@ -3,7 +3,6 @@
 require "test_helper"
 
 class TldsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").tlds
   end
@@ -112,19 +111,21 @@ class TldsTest < Minitest::Test
         .to_return(read_http_fixture("getTld/success.http"))
 
     response = @subject.tld("com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Tld, result)
     assert_equal("com", result.tld)
     assert_equal(1, result.tld_type)
-    assert_equal(true, result.whois_privacy)
-    assert_equal(false, result.auto_renew_only)
-    assert_equal(true, result.idn)
+    assert(result.whois_privacy)
+    refute(result.auto_renew_only)
+    assert(result.idn)
     assert_equal(1, result.minimum_registration)
-    assert_equal(true, result.registration_enabled)
-    assert_equal(true, result.renewal_enabled)
-    assert_equal(true, result.transfer_enabled)
+    assert(result.registration_enabled)
+    assert(result.renewal_enabled)
+    assert(result.transfer_enabled)
     assert_equal("ds", result.dnssec_interface_type)
   end
 
@@ -144,6 +145,7 @@ class TldsTest < Minitest::Test
         .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
 
     response = @subject.tld_extended_attributes("uk")
+
     assert_kind_of(Dnsimple::CollectionResponse, response)
 
     response.data.each do |result|
@@ -168,10 +170,11 @@ class TldsTest < Minitest::Test
         .to_return(read_http_fixture("getTldExtendedAttributes/success-noattributes.http"))
 
     response = @subject.tld_extended_attributes("com")
+
     assert_kind_of(Dnsimple::CollectionResponse, response)
 
     result = response.data
+
     assert_empty(result)
   end
-
 end

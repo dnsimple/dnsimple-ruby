@@ -3,7 +3,6 @@
 require "test_helper"
 
 class TemplatesTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").templates
     @account_id = 1010
@@ -51,6 +50,7 @@ class TemplatesTest < Minitest::Test
         .to_return(read_http_fixture("listTemplates/success.http"))
 
     response = @subject.list_templates(@account_id)
+
     assert_kind_of(Dnsimple::CollectionResponse, response)
 
     response.data.each do |result|
@@ -101,9 +101,11 @@ class TemplatesTest < Minitest::Test
 
     attributes = { name: "Beta", short_name: "beta", description: "A beta template." }
     response = @subject.create_template(@account_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     template = response.data
+
     assert_kind_of(Dnsimple::Struct::Template, template)
     assert_equal(1, template.id)
     assert_equal(1010, template.account_id)
@@ -129,9 +131,11 @@ class TemplatesTest < Minitest::Test
 
     template_id = 1
     response = @subject.template(@account_id, template_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     template = response.data
+
     assert_kind_of(Dnsimple::Struct::Template, template)
     assert_equal(1, template.id)
     assert_equal(1010, template.account_id)
@@ -159,9 +163,11 @@ class TemplatesTest < Minitest::Test
     attributes = { name: "Alpha", short_name: "alpha", description: "An alpha template." }
     template_id = 1
     response = @subject.update_template(@account_id, template_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     template = response.data
+
     assert_kind_of(Dnsimple::Struct::Template, template)
     assert_equal(1, template.id)
     assert_equal(1010, template.account_id)
@@ -187,6 +193,7 @@ class TemplatesTest < Minitest::Test
 
     template_id = 5410
     response = @subject.delete_template(@account_id, template_id)
+
     assert_kind_of(Dnsimple::Response, response)
     assert_nil(response.data)
   end
@@ -210,8 +217,8 @@ class TemplatesTest < Minitest::Test
     template_id = 5410
     domain_id = "example.com"
     response = @subject.apply_template(@account_id, template_id, domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
     assert_nil(response.data)
   end
-
 end

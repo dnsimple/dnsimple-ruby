@@ -3,7 +3,6 @@
 require "test_helper"
 
 class TemplatesRecordsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").templates
     @account_id = 1010
@@ -52,6 +51,7 @@ class TemplatesRecordsTest < Minitest::Test
         .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
     response = @subject.records(@account_id, @template_id)
+
     assert_kind_of(Dnsimple::PaginatedResponse, response)
 
     response.data.each do |result|
@@ -102,9 +102,11 @@ class TemplatesRecordsTest < Minitest::Test
 
     attributes = { type: "MX", name: "", content: "mx.example.com", priority: 10, ttl: 600 }
     response = @subject.create_record(@account_id, @template_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::TemplateRecord, result)
     assert_equal(300, result.id)
     assert_equal(268, result.template_id)
@@ -172,9 +174,11 @@ class TemplatesRecordsTest < Minitest::Test
 
     template_id = "alpha.com"
     response = @subject.record(@account_id, template_id, 301)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::TemplateRecord, result)
     assert_equal(301, result.id)
     assert_equal(268, result.template_id)
@@ -205,9 +209,11 @@ class TemplatesRecordsTest < Minitest::Test
 
     template_id = "example.com"
     response = @subject.delete_record(@account_id, template_id, 301)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -230,5 +236,4 @@ class TemplatesRecordsTest < Minitest::Test
       @subject.delete_record(@account_id, template_id, 0)
     end
   end
-
 end

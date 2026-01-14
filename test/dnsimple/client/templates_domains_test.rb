@@ -3,7 +3,6 @@
 require "test_helper"
 
 class TemplatesDomainsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").templates
     @account_id = 1010
@@ -26,8 +25,8 @@ class TemplatesDomainsTest < Minitest::Test
         .to_return(read_http_fixture("applyTemplate/success.http"))
 
     response = @subject.apply_template(@account_id, @template_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
     assert_nil(response.data)
   end
-
 end

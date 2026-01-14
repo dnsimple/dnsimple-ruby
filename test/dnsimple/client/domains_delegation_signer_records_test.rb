@@ -3,7 +3,6 @@
 require "test_helper"
 
 class DomainsDelegationSignerRecordsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains
     @account_id = 1010
@@ -124,9 +123,11 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
 
     attributes = { algorithm: "13", digest: "ABC123", digest_type: "2", keytag: "1111" }
     response = @subject.create_delegation_signer_record(@account_id, @domain_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DelegationSignerRecord, result)
     assert_kind_of(Integer, result.id)
   end
@@ -148,9 +149,11 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
 
     ds_record_id = 24
     response = @subject.delegation_signer_record(@account_id, @domain_id, ds_record_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DelegationSignerRecord, result)
     assert_equal(24, result.id)
     assert_equal(1010, result.domain_id)
@@ -190,9 +193,11 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
 
     ds_record_id = 1
     response = @subject.delete_delegation_signer_record(@account_id, @domain_id, ds_record_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -205,5 +210,4 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
       @subject.delete_delegation_signer_record(@account_id, @domain_id, ds_record_id)
     end
   end
-
 end

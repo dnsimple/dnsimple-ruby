@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ClientServiceTest < Minitest::Test
-
   def test_paginate_loops_all_the_pages
     account_id = 1010
     item_class = Class.new(Dnsimple::Struct::Base) do
@@ -26,8 +25,8 @@ class ClientServiceTest < Minitest::Test
         .to_return(read_http_fixture("pages-3of3.http"))
 
     results = subject.paginate(:list, account_id, {})
+
     assert_equal(5, results.data.size)
     assert_equal([1, 2, 3, 4, 5], results.data.map(&:id))
   end
-
 end

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ZonesRecordsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").zones
     @account_id = 1010
@@ -143,9 +142,11 @@ class ZonesRecordsTest < Minitest::Test
 
     attributes = { type: "A", name: "www", content: "127.0.0.1", regions: %w[global] }
     response = @subject.create_zone_record(@account_id, @zone_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::ZoneRecord, result)
     assert_equal(1, result.id)
     assert_equal(attributes.fetch(:type), result.type)
@@ -181,9 +182,11 @@ class ZonesRecordsTest < Minitest::Test
 
     record_id = 5
     response = @subject.zone_record(@account_id, @zone_id, record_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::ZoneRecord, result)
     assert_equal(record_id, result.id)
     assert_equal("example.com", result.zone_id)
@@ -193,7 +196,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_equal("mxa.example.com", result.content)
     assert_equal(600, result.ttl)
     assert_equal(10, result.priority)
-    assert_equal(false, result.system_record)
+    refute(result.system_record)
     assert_equal(%w[SV1 IAD], result.regions)
     assert_equal("2016-10-05T09:51:35Z", result.created_at)
     assert_equal("2016-10-05T09:51:35Z", result.updated_at)
@@ -237,9 +240,11 @@ class ZonesRecordsTest < Minitest::Test
     attributes = { content: "mxb.example.com", priority: "20", regions: ["global"] }
     record_id = 5
     response = @subject.update_zone_record(@account_id, @zone_id, record_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::ZoneRecord, result)
     assert_equal(record_id, result.id)
     assert_equal(attributes.fetch(:content), result.content)
@@ -281,9 +286,11 @@ class ZonesRecordsTest < Minitest::Test
         .to_return(read_http_fixture("deleteZoneRecord/success.http"))
 
     response = @subject.delete_zone_record(@account_id, @zone_id, 2)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -323,9 +330,11 @@ class ZonesRecordsTest < Minitest::Test
 
     attributes = { creates: [{ type: "A", content: "3.2.3.4", name: "ab" }, { type: "A", content: "4.2.3.4", name: "ab" }], updates: [{ id: 67622534, content: "3.2.3.40", name: "update1-1757049890" }, { id: 67622537, content: "5.2.3.40", name: "update2-1757049890" }], deletes: [{ id: 67622509 }, { id: 67622527 }] }
     response = @subject.batch_change_zone_records(@account_id, @zone_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::ZoneRecordsBatchChange, result)
     assert_equal(67623409, result.creates[0].id)
     assert_equal(attributes.fetch(:creates)[0].fetch(:type), result.creates[0].type)
@@ -391,5 +400,4 @@ class ZonesRecordsTest < Minitest::Test
       @subject.batch_change_zone_records(@account_id, @zone_id, attributes)
     end
   end
-
 end

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class DomainsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains
     @account_id = 1010
@@ -135,9 +134,11 @@ class DomainsTest < Minitest::Test
 
     attributes = { name: "example.com" }
     response = @subject.create_domain(@account_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Domain, result)
     assert_kind_of(Integer, result.id)
   end
@@ -158,17 +159,19 @@ class DomainsTest < Minitest::Test
         .to_return(read_http_fixture("getDomain/success.http"))
 
     response = @subject.domain(@account_id, "example-alpha.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Domain, result)
     assert_equal(181984, result.id)
     assert_equal(1385, result.account_id)
     assert_equal(2715, result.registrant_id)
     assert_equal("example-alpha.com", result.name)
     assert_equal("registered", result.state)
-    assert_equal(false, result.auto_renew)
-    assert_equal(false, result.private_whois)
+    refute(result.auto_renew)
+    refute(result.private_whois)
     assert_equal("2021-06-05T02:15:00Z", result.expires_at)
     assert_equal("2020-06-04T19:15:14Z", result.created_at)
     assert_equal("2020-06-04T19:15:21Z", result.updated_at)
@@ -199,9 +202,11 @@ class DomainsTest < Minitest::Test
         .to_return(read_http_fixture("deleteDomain/success.http"))
 
     response = @subject.delete_domain(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -213,5 +218,4 @@ class DomainsTest < Minitest::Test
       @subject.delete_domain(@account_id, "example.com")
     end
   end
-
 end

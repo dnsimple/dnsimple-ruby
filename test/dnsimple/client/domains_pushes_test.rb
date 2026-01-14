@@ -3,7 +3,6 @@
 require "test_helper"
 
 class DomainsPushesTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains
     @account_id = 1010
@@ -28,9 +27,11 @@ class DomainsPushesTest < Minitest::Test
 
     attributes = { new_account_email: "admin@target-account.test" }
     response = @subject.initiate_push(@account_id, @domain_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainPush, result)
     assert_kind_of(Integer, result.id)
   end
@@ -119,9 +120,11 @@ class DomainsPushesTest < Minitest::Test
     push_id = 1
     attributes = { contact_id: 2 }
     response = @subject.accept_push(account_id, push_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -156,9 +159,11 @@ class DomainsPushesTest < Minitest::Test
     account_id = 2020
     push_id = 1
     response = @subject.reject_push(account_id, push_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -172,5 +177,4 @@ class DomainsPushesTest < Minitest::Test
       @subject.reject_push(account_id, push_id)
     end
   end
-
 end

@@ -3,14 +3,14 @@
 require "test_helper"
 
 class OptionsBaseTest < Minitest::Test
-
   def test_initialize_accepts_a_hash
     hash = { a: 1 }
+
     assert_equal hash, Dnsimple::Options::Base.new(hash).to_h
   end
 
   def test_initialize_accepts_nil
-    assert_equal({}, Dnsimple::Options::Base.new(nil).to_h)
+    assert_empty(Dnsimple::Options::Base.new(nil).to_h)
   end
 
   def test_initialize_duplicates_given_hash
@@ -20,5 +20,4 @@ class OptionsBaseTest < Minitest::Test
 
     assert_equal hash, base.to_h
   end
-
 end

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class RegistrarTransferLockTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar
     @account_id = 1010
@@ -26,11 +25,13 @@ class RegistrarTransferLockTest < Minitest::Test
         .to_return(read_http_fixture("getDomainTransferLock/success.http"))
 
     response = @subject.get_domain_transfer_lock(@account_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::TransferLock, result)
-    assert_equal(true, result.enabled)
+    assert(result.enabled)
   end
 
   def test_get_domain_transfer_lock_when_domain_does_not_exist_raises_not_found_error
@@ -58,11 +59,13 @@ class RegistrarTransferLockTest < Minitest::Test
         .to_return(read_http_fixture("enableDomainTransferLock/success.http"))
 
     response = @subject.enable_domain_transfer_lock(@account_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::TransferLock, result)
-    assert_equal(true, result.enabled)
+    assert(result.enabled)
   end
 
   def test_enable_domain_transfer_lock_when_domain_does_not_exist_raises_not_found_error
@@ -90,11 +93,13 @@ class RegistrarTransferLockTest < Minitest::Test
         .to_return(read_http_fixture("disableDomainTransferLock/success.http"))
 
     response = @subject.disable_domain_transfer_lock(@account_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::TransferLock, result)
-    assert_equal(false, result.enabled)
+    refute(result.enabled)
   end
 
   def test_disable_domain_transfer_lock_when_domain_does_not_exist_raises_not_found_error
@@ -105,5 +110,4 @@ class RegistrarTransferLockTest < Minitest::Test
       @subject.disable_domain_transfer_lock(@account_id, @domain_id)
     end
   end
-
 end

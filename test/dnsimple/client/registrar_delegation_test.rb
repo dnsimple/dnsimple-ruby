@@ -3,7 +3,6 @@
 require "test_helper"
 
 class RegistrarDelegationTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar
     @account_id = 1010
@@ -25,6 +24,7 @@ class RegistrarDelegationTest < Minitest::Test
         .to_return(read_http_fixture("getDomainDelegation/success.http"))
 
     response = @subject.domain_delegation(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     assert_equal(%w[ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com].sort, response.data.sort)
@@ -49,6 +49,7 @@ class RegistrarDelegationTest < Minitest::Test
 
     attributes = %w[ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com]
     response = @subject.change_domain_delegation(@account_id, "example.com", attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     assert_equal(%w[ns1.dnsimple.com ns2.dnsimple.com ns3.dnsimple.com ns4.dnsimple.com].sort, response.data.sort)
@@ -73,9 +74,11 @@ class RegistrarDelegationTest < Minitest::Test
 
     attributes = %w[ns1.example.com ns2.example.com]
     response = @subject.change_domain_delegation_to_vanity(@account_id, "example.com", attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     vanity_name_server = response.data.first
+
     assert_kind_of(Dnsimple::Struct::VanityNameServer, vanity_name_server)
     assert_equal("ns1.example.com", vanity_name_server.name)
   end
@@ -96,10 +99,11 @@ class RegistrarDelegationTest < Minitest::Test
         .to_return(read_http_fixture("changeDomainDelegationFromVanity/success.http"))
 
     response = @subject.change_domain_delegation_from_vanity(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
-
 end

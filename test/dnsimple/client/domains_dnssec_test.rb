@@ -3,7 +3,6 @@
 require "test_helper"
 
 class DomainsDnssecTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains
     @account_id = 1010
@@ -25,11 +24,13 @@ class DomainsDnssecTest < Minitest::Test
         .to_return(read_http_fixture("enableDnssec/success.http"))
 
     response = @subject.enable_dnssec(@account_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Dnssec, result)
-    assert_equal(true, result.enabled)
+    assert(result.enabled)
   end
 
   def test_enable_dnssec_when_domain_not_found_raises_not_found_error
@@ -56,9 +57,11 @@ class DomainsDnssecTest < Minitest::Test
         .to_return(read_http_fixture("disableDnssec/success.http"))
 
     response = @subject.disable_dnssec(@account_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -86,11 +89,13 @@ class DomainsDnssecTest < Minitest::Test
         .to_return(read_http_fixture("getDnssec/success.http"))
 
     response = @subject.get_dnssec(@account_id, @domain_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Dnssec, result)
-    assert_equal(true, result.enabled)
+    assert(result.enabled)
   end
 
   def test_get_dnssec_when_domain_not_found_raises_not_found_error
@@ -101,5 +106,4 @@ class DomainsDnssecTest < Minitest::Test
       @subject.get_dnssec(@account_id, @domain_id)
     end
   end
-
 end

@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ZonesTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").zones
     @account_id = 1010
@@ -130,17 +129,19 @@ class ZonesTest < Minitest::Test
         .to_return(read_http_fixture("getZone/success.http"))
 
     response = @subject.zone(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Zone, result)
     assert_equal(1, result.id)
     assert_equal(1010, result.account_id)
     assert_equal("example-alpha.com", result.name)
-    assert_equal(false, result.reverse)
-    assert_equal(false, result.secondary)
+    refute(result.reverse)
+    refute(result.secondary)
     assert_nil(result.last_transferred_at)
-    assert_equal(true, result.active)
+    assert(result.active)
     assert_equal("2015-04-23T07:40:03Z", result.created_at)
     assert_equal("2015-04-23T07:40:03Z", result.updated_at)
   end
@@ -170,9 +171,11 @@ class ZonesTest < Minitest::Test
         .to_return(read_http_fixture("getZoneFile/success.http"))
 
     response = @subject.zone_file(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::ZoneFile, result)
     assert_equal("$ORIGIN example.com.\n$TTL 1h\nexample.com. 3600 IN SOA ns1.dnsimple.com. admin.dnsimple.com. 1453132552 86400 7200 604800 300\nexample.com. 3600 IN NS ns1.dnsimple.com.\nexample.com. 3600 IN NS ns2.dnsimple.com.\nexample.com. 3600 IN NS ns3.dnsimple.com.\nexample.com. 3600 IN NS ns4.dnsimple.com.\n", result.zone)
   end
@@ -202,15 +205,17 @@ class ZonesTest < Minitest::Test
         .to_return(read_http_fixture("activateZoneService/success.http"))
 
     response = @subject.activate_dns(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Zone, result)
     assert_equal(1, result.id)
     assert_equal(1010, result.account_id)
     assert_equal("example.com", result.name)
-    assert_equal(false, result.reverse)
-    assert_equal(true, result.active)
+    refute(result.reverse)
+    assert(result.active)
     assert_equal("2022-09-28T04:45:24Z", result.created_at)
     assert_equal("2023-07-06T11:19:48Z", result.updated_at)
   end
@@ -240,15 +245,17 @@ class ZonesTest < Minitest::Test
         .to_return(read_http_fixture("deactivateZoneService/success.http"))
 
     response = @subject.deactivate_dns(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Zone, result)
     assert_equal(1, result.id)
     assert_equal(1010, result.account_id)
     assert_equal("example.com", result.name)
-    assert_equal(false, result.reverse)
-    assert_equal(false, result.active)
+    refute(result.reverse)
+    refute(result.active)
     assert_equal("2022-09-28T04:45:24Z", result.created_at)
     assert_equal("2023-08-08T04:19:52Z", result.updated_at)
   end
@@ -261,5 +268,4 @@ class ZonesTest < Minitest::Test
       @subject.deactivate_dns(@account_id, "example.com")
     end
   end
-
 end

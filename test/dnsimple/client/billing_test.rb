@@ -5,7 +5,6 @@ require "test_helper"
 require "bigdecimal/util"
 
 class BillingTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").billing
     @account_id = 1010
@@ -104,5 +103,4 @@ class BillingTest < Minitest::Test
     end
     assert_equal("Permission Denied. Required Scope: billing:*:read", error.message)
   end
-
 end

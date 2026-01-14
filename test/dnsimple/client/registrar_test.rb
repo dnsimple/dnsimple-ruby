@@ -3,7 +3,6 @@
 require "test_helper"
 
 class RegistrarTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar
     @account_id = 1010
@@ -25,13 +24,15 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("checkDomain/success.http"))
 
     response = @subject.check_domain(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainCheck, result)
     assert_equal("ruby.codes", result.domain)
-    assert_equal(true, result.available)
-    assert_equal(true, result.premium)
+    assert(result.available)
+    assert(result.premium)
   end
 
 
@@ -50,16 +51,17 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("getDomainPrices/success.http"))
 
     response = @subject.get_domain_prices(@account_id, "bingo.pizza")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
 
     assert_kind_of(Dnsimple::Struct::DomainPrice, result)
     assert_equal("bingo.pizza", result.domain)
-    assert_equal(true, result.premium)
-    assert_equal(20.0, result.registration_price)
-    assert_equal(20.0, result.renewal_price)
-    assert_equal(20.0, result.transfer_price)
+    assert(result.premium)
+    assert_in_delta(20.0, result.registration_price)
+    assert_in_delta(20.0, result.renewal_price)
+    assert_in_delta(20.0, result.transfer_price)
   end
 
   def test_get_domain_prices_when_tld_is_not_supported_raises_error
@@ -90,9 +92,11 @@ class RegistrarTest < Minitest::Test
 
     attributes = { registrant_id: "10" }
     response = @subject.register_domain(@account_id, "example.com", attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainRegistration, result)
     assert_kind_of(Integer, result.id)
     assert_kind_of(Integer, result.domain_id)
@@ -120,9 +124,11 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("getDomainRegistration/success.http"))
 
     response = @subject.get_domain_registration(@account_id, "example.com", 361)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainRegistration, result)
     assert_kind_of(Integer, result.id)
     assert_kind_of(Integer, result.domain_id)
@@ -147,9 +153,11 @@ class RegistrarTest < Minitest::Test
 
     attributes = { period: "3" }
     response = @subject.renew_domain(@account_id, "example.com", attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainRenewal, result)
     assert_kind_of(Integer, result.id)
     assert_kind_of(Integer, result.domain_id)
@@ -181,9 +189,11 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("getDomainRenewal/success.http"))
 
     response = @subject.get_domain_renewal(@account_id, "example.com", 361)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainRenewal, result)
     assert_kind_of(Integer, result.id)
     assert_kind_of(Integer, result.domain_id)
@@ -208,9 +218,11 @@ class RegistrarTest < Minitest::Test
 
     attributes = { registrant_id: "10", auth_code: "x1y2z3" }
     response = @subject.transfer_domain(@account_id, "example.com", attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainTransfer, result)
     assert_kind_of(Integer, result.id)
     assert_kind_of(Integer, result.domain_id)
@@ -257,16 +269,18 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("getDomainTransfer/success.http"))
 
     response = @subject.get_domain_transfer(@account_id, "example.com", 361)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainTransfer, result)
     assert_equal(361, result.id)
     assert_equal(182_245, result.domain_id)
     assert_equal(2715, result.registrant_id)
     assert_equal("cancelled", result.state)
-    assert_equal(false, result.auto_renew)
-    assert_equal(false, result.whois_privacy)
+    refute(result.auto_renew)
+    refute(result.whois_privacy)
     assert_equal("Canceled by customer", result.status_description)
     assert_equal("2020-06-05T18:08:00Z", result.created_at)
     assert_equal("2020-06-05T18:10:01Z", result.updated_at)
@@ -288,16 +302,18 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("cancelDomainTransfer/success.http"))
 
     response = @subject.cancel_domain_transfer(@account_id, "example.com", 361)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainTransfer, result)
     assert_equal(361, result.id)
     assert_equal(182_245, result.domain_id)
     assert_equal(2715, result.registrant_id)
     assert_equal("transferring", result.state)
-    assert_equal(false, result.auto_renew)
-    assert_equal(false, result.whois_privacy)
+    refute(result.auto_renew)
+    refute(result.whois_privacy)
     assert_nil(result.status_description)
     assert_equal("2020-06-05T18:08:00Z", result.created_at)
     assert_equal("2020-06-05T18:08:04Z", result.updated_at)
@@ -319,9 +335,11 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("authorizeDomainTransferOut/success.http"))
 
     response = @subject.transfer_domain_out(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -344,15 +362,17 @@ class RegistrarTest < Minitest::Test
 
     attributes = { domain_id: "example.com", contact_id: 1234 }
     response = @subject.check_registrant_change(@account_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::RegistrantChangeCheck, result)
     assert_equal(101, result.contact_id)
     assert_equal(101, result.domain_id)
     assert_kind_of(Array, result.extended_attributes)
     assert_empty(result.extended_attributes)
-    assert_equal(true, result.registry_owner_change)
+    assert(result.registry_owner_change)
   end
 
   def test_check_registrant_change_when_attributes_are_incomplete_raises_argument_error
@@ -397,9 +417,11 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("getRegistrantChange/success.http"))
 
     response = @subject.get_registrant_change(@account_id, 42)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::RegistrantChange, result)
     assert_equal(101, result.id)
     assert_equal(101, result.account_id)
@@ -408,7 +430,7 @@ class RegistrarTest < Minitest::Test
     assert_equal("new", result.state)
     assert_kind_of(Hash, result.extended_attributes)
     assert_empty(result.extended_attributes)
-    assert_equal(true, result.registry_owner_change)
+    assert(result.registry_owner_change)
     assert_nil(result.irt_lock_lifted_by)
     assert_equal("2017-02-03T17:43:22Z", result.created_at)
     assert_equal("2017-02-03T17:43:22Z", result.updated_at)
@@ -433,9 +455,11 @@ class RegistrarTest < Minitest::Test
 
     attributes = { domain_id: "example.com", contact_id: 1234, extended_attributes: { "x-fi-registrant-idnumber" => "1234" } }
     response = @subject.create_registrant_change(@account_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::RegistrantChange, result)
     assert_equal(101, result.id)
     assert_equal(101, result.account_id)
@@ -444,7 +468,7 @@ class RegistrarTest < Minitest::Test
     assert_equal("new", result.state)
     assert_kind_of(Hash, result.extended_attributes)
     assert_empty(result.extended_attributes)
-    assert_equal(true, result.registry_owner_change)
+    assert(result.registry_owner_change)
     assert_nil(result.irt_lock_lifted_by)
     assert_equal("2017-02-03T17:43:22Z", result.created_at)
     assert_equal("2017-02-03T17:43:22Z", result.updated_at)
@@ -492,6 +516,7 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("listRegistrantChanges/success.http"))
 
     response = @subject.list_registrant_changes(@account_id)
+
     assert_kind_of(Dnsimple::PaginatedResponse, response)
 
     results = response.data
@@ -528,9 +553,11 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("deleteRegistrantChange/success.http"))
 
     response = @subject.delete_registrant_change(@account_id, 42)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -550,9 +577,11 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("restoreDomain/success.http"))
 
     response = @subject.restore_domain(@account_id, "example.com", {})
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainRestore, result)
     assert_kind_of(Integer, result.id)
     assert_kind_of(Integer, result.domain_id)
@@ -574,12 +603,13 @@ class RegistrarTest < Minitest::Test
         .to_return(read_http_fixture("getDomainRestore/success.http"))
 
     response = @subject.get_domain_restore(@account_id, "example.com", 361)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::DomainRestore, result)
     assert_kind_of(Integer, result.id)
     assert_kind_of(Integer, result.domain_id)
   end
-
 end

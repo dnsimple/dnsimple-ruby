@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ExtraTest < Minitest::Test
-
   def test_join_uri_joins_two_or_more_strings
     assert_equal "foo", Dnsimple::Extra.join_uri("foo")
     assert_equal "foo/bar", Dnsimple::Extra.join_uri("foo", "bar")
@@ -36,5 +35,4 @@ class ExtraTest < Minitest::Test
       Dnsimple::Extra.validate_mandatory_attributes(nil, %i[name email])
     end
   end
-
 end

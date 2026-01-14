@@ -3,19 +3,21 @@
 require "test_helper"
 
 class ListOptionsTest < Minitest::Test
-
   def test_to_h_returns_empty_hash_if_given_options_equal_to_nil
     options = Dnsimple::Options::ListOptions.new(nil)
-    assert_equal({}, options.to_h)
+
+    assert_empty(options.to_h)
   end
 
   def test_to_h_returns_empty_hash_if_given_options_are_empty
     options = Dnsimple::Options::ListOptions.new({})
-    assert_equal({}, options.to_h)
+
+    assert_empty(options.to_h)
   end
 
   def test_to_h_adds_query_key_if_given_options_are_filled
     options = Dnsimple::Options::ListOptions.new(a: 1)
+
     assert_includes options.to_h, :query
   end
 
@@ -90,5 +92,4 @@ class ListOptionsTest < Minitest::Test
 
     assert_equal expected, options.to_h
   end
-
 end

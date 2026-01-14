@@ -3,7 +3,6 @@
 require "test_helper"
 
 class OauthTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test").oauth
     @client_id = "super-client"
@@ -40,10 +39,10 @@ class OauthTest < Minitest::Test
         .to_return(read_http_fixture("oauthAccessToken/success.http"))
 
     redirect_uri = "super-redirect-uri"
-    @subject.exchange_authorization_for_token(@code, @client_id, @client_secret, state: @state, redirect_uri: redirect_uri)
+    @subject.exchange_authorization_for_token(@code, @client_id, @client_secret, state: @state, redirect_uri:)
 
     assert_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token",
-                     body: { client_id: @client_id, client_secret: @client_secret, code: @code, state: @state, redirect_uri: redirect_uri, grant_type: "authorization_code" },
+                     body: { client_id: @client_id, client_secret: @client_secret, code: @code, state: @state, redirect_uri:, grant_type: "authorization_code" },
                      headers: { "Accept" => "application/json" })
   end
 
@@ -60,12 +59,13 @@ class OauthTest < Minitest::Test
 
   def test_authorize_url_builds_correct_url
     url = @subject.authorize_url("great-app")
+
     assert_equal("https://dnsimple.test/oauth/authorize?client_id=great-app&response_type=code", url)
   end
 
   def test_authorize_url_exposes_options_in_query_string
     url = @subject.authorize_url("great-app", secret: "1", redirect_uri: "http://example.com")
+
     assert_equal("https://dnsimple.test/oauth/authorize?client_id=great-app&secret=1&redirect_uri=http://example.com&response_type=code", url)
   end
-
 end

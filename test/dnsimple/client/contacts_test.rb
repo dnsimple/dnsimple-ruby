@@ -3,7 +3,6 @@
 require "test_helper"
 
 class ContactsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").contacts
     @account_id = 1010
@@ -114,9 +113,11 @@ class ContactsTest < Minitest::Test
 
     attributes = { first_name: "Simone", last_name: "Carletti", address1: "Italian Street", city: "Rome", state_province: "RM", postal_code: "00171", country: "IT", email: "example@example.com", phone: "+393391234567" }
     response = @subject.create_contact(@account_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Contact, result)
     assert_kind_of(Integer, result.id)
   end
@@ -137,9 +138,11 @@ class ContactsTest < Minitest::Test
         .to_return(read_http_fixture("getContact/success.http"))
 
     response = @subject.contact(@account_id, 0)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Contact, result)
     assert_equal(1, result.id)
     assert_equal(1010, result.account_id)
@@ -175,9 +178,11 @@ class ContactsTest < Minitest::Test
 
     attributes = { first_name: "Updated" }
     response = @subject.update_contact(@account_id, 1, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::Contact, result)
     assert_equal(1, result.id)
   end
@@ -207,9 +212,11 @@ class ContactsTest < Minitest::Test
         .to_return(read_http_fixture("deleteContact/success.http"))
 
     response = @subject.delete_contact(@account_id, 1)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -221,5 +228,4 @@ class ContactsTest < Minitest::Test
       @subject.delete_contact(@account_id, 0)
     end
   end
-
 end

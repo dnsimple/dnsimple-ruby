@@ -3,24 +3,27 @@
 require "test_helper"
 
 class ClientTest < Minitest::Test
-
   def test_initialization_accepts_base_url_option
     subject = Dnsimple::Client.new(base_url: "https://api.example.com/")
+
     assert_equal "https://api.example.com/", subject.base_url
   end
 
   def test_initialization_accepts_access_token_option
     subject = Dnsimple::Client.new(access_token: "token")
+
     assert_equal "token", subject.access_token
   end
 
   def test_initialization_normalizes_base_url_trailing_slash
     subject = Dnsimple::Client.new(base_url: "https://api.example.com/missing/slash")
+
     assert_equal "https://api.example.com/missing/slash/", subject.base_url
   end
 
   def test_initialization_defaults_base_url_to_production_api
     subject = Dnsimple::Client.new
+
     assert_equal "https://api.dnsimple.com/", subject.base_url
   end
 
@@ -46,6 +49,7 @@ class ClientTest < Minitest::Test
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:get, "path", nil, { foo: "bar" }])
+
     subject.stub(:execute, mock) do
       assert_equal :returned, subject.get("path", { foo: "bar" })
     end
@@ -56,6 +60,7 @@ class ClientTest < Minitest::Test
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:post, "path", { foo: "bar" }, {}])
+
     subject.stub(:execute, mock) do
       assert_equal :returned, subject.post("path", { foo: "bar" })
     end
@@ -66,6 +71,7 @@ class ClientTest < Minitest::Test
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:put, "path", { foo: "bar" }, {}])
+
     subject.stub(:execute, mock) do
       assert_equal :returned, subject.put("path", { foo: "bar" })
     end
@@ -76,6 +82,7 @@ class ClientTest < Minitest::Test
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:patch, "path", { foo: "bar" }, {}])
+
     subject.stub(:execute, mock) do
       assert_equal :returned, subject.patch("path", { foo: "bar" })
     end
@@ -86,6 +93,7 @@ class ClientTest < Minitest::Test
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:delete, "path", { foo: "bar" }, {}])
+
     subject.stub(:execute, mock) do
       assert_equal :returned, subject.delete("path", { foo: "bar" })
     end
@@ -199,5 +207,4 @@ class ClientTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.com/test",
                      headers: { "User-Agent" => "customAgent #{Dnsimple::Default::USER_AGENT}" })
   end
-
 end

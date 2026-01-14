@@ -3,7 +3,6 @@
 require "test_helper"
 
 class RegistrarWhoisPrivacyTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar
     @account_id = 1010
@@ -25,13 +24,15 @@ class RegistrarWhoisPrivacyTest < Minitest::Test
         .to_return(read_http_fixture("enableWhoisPrivacy/success.http"))
 
     response = @subject.enable_whois_privacy(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
     assert_equal(200, response.http_response.code)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::WhoisPrivacy, result)
     assert_kind_of(Integer, result.domain_id)
-    assert_equal(true, result.enabled)
+    assert(result.enabled)
     assert_kind_of(String, result.expires_on)
   end
 
@@ -50,10 +51,12 @@ class RegistrarWhoisPrivacyTest < Minitest::Test
         .to_return(read_http_fixture("enableWhoisPrivacy/created.http"))
 
     response = @subject.enable_whois_privacy(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
     assert_equal(201, response.http_response.code)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::WhoisPrivacy, result)
     assert_kind_of(Integer, result.domain_id)
     assert_nil(result.enabled)
@@ -76,13 +79,14 @@ class RegistrarWhoisPrivacyTest < Minitest::Test
         .to_return(read_http_fixture("disableWhoisPrivacy/success.http"))
 
     response = @subject.disable_whois_privacy(@account_id, "example.com")
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::WhoisPrivacy, result)
     assert_kind_of(Integer, result.domain_id)
-    assert_equal(false, result.enabled)
+    refute(result.enabled)
     assert_kind_of(String, result.expires_on)
   end
-
 end

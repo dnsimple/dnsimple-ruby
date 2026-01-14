@@ -3,7 +3,6 @@
 require "test_helper"
 
 class DomainsEmailForwardsTest < Minitest::Test
-
   def setup
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains
     @account_id = 1010
@@ -61,7 +60,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert_equal(235146, response.data[0].domain_id)
     assert_equal(".*@a-domain.com", response.data[0].alias_email)
     assert_equal("jane.smith@example.com", response.data[0].destination_email)
-    assert_equal(true, response.data[0].active)
+    assert(response.data[0].active)
   end
 
   def test_email_forwards_exposes_pagination_information
@@ -125,9 +124,11 @@ class DomainsEmailForwardsTest < Minitest::Test
 
     attributes = { alias_name: "jim", destination_email: "jim@another.com" }
     response = @subject.create_email_forward(@account_id, @domain_id, attributes)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::EmailForward, result)
     assert_kind_of(Integer, result.id)
   end
@@ -149,9 +150,11 @@ class DomainsEmailForwardsTest < Minitest::Test
 
     email_forward_id = 41872
     response = @subject.email_forward(@account_id, @domain_id, email_forward_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_kind_of(Dnsimple::Struct::EmailForward, result)
     assert_equal(41872, result.id)
     assert_equal(235146, result.domain_id)
@@ -187,9 +190,11 @@ class DomainsEmailForwardsTest < Minitest::Test
 
     email_forward_id = 1
     response = @subject.delete_email_forward(@account_id, @domain_id, email_forward_id)
+
     assert_kind_of(Dnsimple::Response, response)
 
     result = response.data
+
     assert_nil(result)
   end
 
@@ -201,5 +206,4 @@ class DomainsEmailForwardsTest < Minitest::Test
       @subject.delete_email_forward(@account_id, @domain_id, 1)
     end
   end
-
 end
