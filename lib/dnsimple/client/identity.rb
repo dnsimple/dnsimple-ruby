@@ -23,7 +23,6 @@ module Dnsimple
         # @see https://developer.dnsimple.com/v2/identity/#whoami
         #
         # @param  client [Dnsimple::Client] the DNSimple client instance to use
-        # @param  args [Array] the args for the {Identity#whoami} call
         # @return [Hash]
         # @raise  [Dnsimple::RequestError]
         def whoami(client, *)
