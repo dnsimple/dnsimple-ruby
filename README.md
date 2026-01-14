@@ -104,7 +104,7 @@ We recommend to customize the user agent. If you are building a library or integ
 
 ## Documentation
 
-- [`dnsimple-ruby` RDocs](https://www.rubydoc.info/gems/dnsimple/).
+- [dnsimple-ruby RDocs](https://www.rubydoc.info/gems/dnsimple/).
 - [DNSimple API documentation](https://developer.dnsimple.com).
 - [DNSimple API examples repository](https://github.com/dnsimple/dnsimple-api-examples).
 - [DNSimple support documentation](https://support.dnsimple.com).

@@ -40,14 +40,14 @@ module Dnsimple
 
       # Lists ALL the zone records in the account.
       #
-      # This method is similar to {#records}, but instead of returning the results of a specific page
+      # This method is similar to {#zone_records}, but instead of returning the results of a specific page
       # it iterates all the pages and returns the entire collection.
       #
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
       # @see https://developer.dnsimple.com/v2/zones/records/#listZoneRecords
-      # @see #records
+      # @see #zone_records
       #
       # @example List all records for the zone "example.com"
       #   client.zones.all_zone_records(1010, "example.com")
