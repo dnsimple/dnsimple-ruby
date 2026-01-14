@@ -2,212 +2,203 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".domains" do
+class DomainsEmailForwardsTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains }
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains
+    @account_id = 1010
+    @domain_id = "example.com"
+  end
 
+  def test_email_forwards_builds_correct_request
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
+        .to_return(read_http_fixture("listEmailForwards/success.http"))
 
-  describe "#email_forwards" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
+    @subject.email_forwards(@account_id, @domain_id)
 
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards})
-          .to_return(read_http_fixture("listEmailForwards/success.http"))
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards",
+                     headers: { "Accept" => "application/json" })
+  end
 
-    it "builds the correct request" do
-      subject.email_forwards(account_id, domain_id)
+  def test_email_forwards_supports_pagination
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
+        .to_return(read_http_fixture("listEmailForwards/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards",
-                       headers: { "Accept" => "application/json" })
-    end
+    @subject.email_forwards(@account_id, @domain_id, page: 2)
 
-    it "supports pagination" do
-      subject.email_forwards(account_id, domain_id, page: 2)
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards?page=2")
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards?page=2")
-    end
+  def test_email_forwards_supports_extra_request_options
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
+        .to_return(read_http_fixture("listEmailForwards/success.http"))
 
-    it "supports extra request options" do
-      subject.email_forwards(account_id, domain_id, query: { foo: "bar" })
+    @subject.email_forwards(@account_id, @domain_id, query: { foo: "bar" })
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards?foo=bar")
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards?foo=bar")
+  end
 
-    it "supports sorting" do
-      subject.email_forwards(account_id, domain_id, sort: "id:asc,from:desc")
+  def test_email_forwards_supports_sorting
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
+        .to_return(read_http_fixture("listEmailForwards/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards?sort=id:asc,from:desc")
-    end
+    @subject.email_forwards(@account_id, @domain_id, sort: "id:asc,from:desc")
 
-    it "returns the email forwards" do
-      response = subject.email_forwards(account_id, domain_id)
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards?sort=id:asc,from:desc")
+  end
 
-      _(response).must_be_kind_of(Dnsimple::PaginatedResponse)
-      _(response.data).must_be_kind_of(Array)
-      _(response.data.size).must_equal(1)
+  def test_email_forwards_returns_the_email_forwards
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
+        .to_return(read_http_fixture("listEmailForwards/success.http"))
 
-      _(response.data[0].id).must_equal(24809)
-      _(response.data[0].domain_id).must_equal(235146)
-      _(response.data[0].alias_email).must_equal(".*@a-domain.com")
-      _(response.data[0].destination_email).must_equal("jane.smith@example.com")
-      _(response.data[0].active).must_equal(true)
-    end
+    response = @subject.email_forwards(@account_id, @domain_id)
 
-    it "exposes the pagination information" do
-      response = subject.email_forwards(account_id, domain_id)
+    assert_kind_of(Dnsimple::PaginatedResponse, response)
+    assert_kind_of(Array, response.data)
+    assert_equal(1, response.data.size)
 
-      _(response).must_respond_to(:page)
-      _(response.page).must_equal(1)
-      _(response.per_page).must_be_kind_of(Integer)
-      _(response.total_entries).must_be_kind_of(Integer)
-      _(response.total_pages).must_be_kind_of(Integer)
-    end
+    assert_equal(24809, response.data[0].id)
+    assert_equal(235146, response.data[0].domain_id)
+    assert_equal(".*@a-domain.com", response.data[0].alias_email)
+    assert_equal("jane.smith@example.com", response.data[0].destination_email)
+    assert_equal(true, response.data[0].active)
+  end
 
-    describe "when the domain does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:get, %r{/v2})
-            .to_return(read_http_fixture("notfound-domain.http"))
+  def test_email_forwards_exposes_pagination_information
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
+        .to_return(read_http_fixture("listEmailForwards/success.http"))
 
-        _ {
-          subject.email_forwards(account_id, domain_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
+    response = @subject.email_forwards(@account_id, @domain_id)
+
+    assert_respond_to(response, :page)
+    assert_equal(1, response.page)
+    assert_kind_of(Integer, response.per_page)
+    assert_kind_of(Integer, response.total_entries)
+    assert_kind_of(Integer, response.total_pages)
+  end
+
+  def test_email_forwards_when_domain_not_found_raises_not_found_error
+    stub_request(:get, %r{/v2})
+        .to_return(read_http_fixture("notfound-domain.http"))
+
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.email_forwards(@account_id, @domain_id)
     end
   end
 
-  describe "#all_email_forwards" do
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards})
-          .to_return(read_http_fixture("listEmailForwards/success.http"))
+  def test_all_email_forwards_delegates_to_paginate
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
+        .to_return(read_http_fixture("listEmailForwards/success.http"))
+
+    mock = Minitest::Mock.new
+    mock.expect(:call, nil, [:email_forwards, @account_id, @domain_id, { foo: "bar" }])
+    @subject.stub(:paginate, mock) do
+      @subject.all_email_forwards(@account_id, @domain_id, { foo: "bar" })
     end
+    mock.verify
+  end
 
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
+  def test_all_email_forwards_supports_sorting
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
+        .to_return(read_http_fixture("listEmailForwards/success.http"))
 
-    it "delegates to client.paginate" do
-      mock = Minitest::Mock.new
-      mock.expect(:call, nil, [:email_forwards, account_id, domain_id, { foo: "bar" }])
-      subject.stub(:paginate, mock) do
-        subject.all_email_forwards(account_id, domain_id, { foo: "bar" })
-      end
-      mock.verify
-    end
+    @subject.all_email_forwards(@account_id, @domain_id, sort: "id:asc,from:desc")
 
-    it "supports sorting" do
-      subject.all_email_forwards(account_id, domain_id, sort: "id:asc,from:desc")
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards?page=1&per_page=100&sort=id:asc,from:desc")
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards?page=1&per_page=100&sort=id:asc,from:desc")
+  def test_create_email_forward_builds_correct_request
+    stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards$})
+        .to_return(read_http_fixture("createEmailForward/created.http"))
+
+    attributes = { alias_name: "jim", destination_email: "jim@another.com" }
+    @subject.create_email_forward(@account_id, @domain_id, attributes)
+
+    assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards",
+                     body: attributes,
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_create_email_forward_returns_the_email_forward
+    stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards$})
+        .to_return(read_http_fixture("createEmailForward/created.http"))
+
+    attributes = { alias_name: "jim", destination_email: "jim@another.com" }
+    response = @subject.create_email_forward(@account_id, @domain_id, attributes)
+    assert_kind_of(Dnsimple::Response, response)
+
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::EmailForward, result)
+    assert_kind_of(Integer, result.id)
+  end
+
+  def test_email_forward_builds_correct_request
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards.+$})
+        .to_return(read_http_fixture("getEmailForward/success.http"))
+
+    email_forward_id = 41872
+    @subject.email_forward(@account_id, @domain_id, email_forward_id)
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards/#{email_forward_id}",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_email_forward_returns_the_email_forward
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards.+$})
+        .to_return(read_http_fixture("getEmailForward/success.http"))
+
+    email_forward_id = 41872
+    response = @subject.email_forward(@account_id, @domain_id, email_forward_id)
+    assert_kind_of(Dnsimple::Response, response)
+
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::EmailForward, result)
+    assert_equal(41872, result.id)
+    assert_equal(235146, result.domain_id)
+    assert_equal("example@dnsimple.xyz", result.alias_email)
+    assert_equal("example@example.com", result.destination_email)
+    assert_equal("2021-01-25T13:54:40Z", result.created_at)
+    assert_equal("2021-01-25T13:54:40Z", result.updated_at)
+  end
+
+  def test_email_forward_when_not_found_raises_not_found_error
+    stub_request(:get, %r{/v2})
+        .to_return(read_http_fixture("notfound-emailforward.http"))
+
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.email_forward(@account_id, @domain_id, 41872)
     end
   end
 
-  describe "#create_email_forward" do
-    let(:account_id) { 1010 }
-    let(:attributes) { { alias_name: "jim", destination_email: "jim@another.com" } }
-    let(:domain_id) { "example.com" }
+  def test_delete_email_forward_builds_correct_request
+    stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards/1$})
+        .to_return(read_http_fixture("deleteEmailForward/success.http"))
 
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards$})
-          .to_return(read_http_fixture("createEmailForward/created.http"))
-    end
+    email_forward_id = 1
+    @subject.delete_email_forward(@account_id, @domain_id, email_forward_id)
 
-
-    it "builds the correct request" do
-      subject.create_email_forward(account_id, domain_id, attributes)
-
-      assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards",
-                       body: attributes,
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the email forward" do
-      response = subject.create_email_forward(account_id, domain_id, attributes)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::EmailForward)
-      _(result.id).must_be_kind_of(Integer)
-    end
+    assert_requested(:delete, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards/#{email_forward_id}",
+                     headers: { "Accept" => "application/json" })
   end
 
-  describe "#email_forward" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
-    let(:email_forward_id) { 41872 }
+  def test_delete_email_forward_returns_nothing
+    stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards/1$})
+        .to_return(read_http_fixture("deleteEmailForward/success.http"))
 
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards.+$})
-          .to_return(read_http_fixture("getEmailForward/success.http"))
-    end
+    email_forward_id = 1
+    response = @subject.delete_email_forward(@account_id, @domain_id, email_forward_id)
+    assert_kind_of(Dnsimple::Response, response)
 
-    it "builds the correct request" do
-      subject.email_forward(account_id, domain_id, email_forward_id)
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the email forward" do
-      response = subject.email_forward(account_id, domain_id, email_forward_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::EmailForward)
-      _(result.id).must_equal(41872)
-      _(result.domain_id).must_equal(235146)
-      _(result.alias_email).must_equal("example@dnsimple.xyz")
-      _(result.destination_email).must_equal("example@example.com")
-      _(result.created_at).must_equal("2021-01-25T13:54:40Z")
-      _(result.updated_at).must_equal("2021-01-25T13:54:40Z")
-    end
-
-    describe "when the email forward does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:get, %r{/v2})
-            .to_return(read_http_fixture("notfound-emailforward.http"))
-
-        _ {
-          subject.email_forward(account_id, domain_id, email_forward_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
-    end
+    result = response.data
+    assert_nil(result)
   end
 
-  describe "#delete_email_forward" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
-    let(:email_forward_id) { 1 }
+  def test_delete_email_forward_when_not_found_raises_not_found_error
+    stub_request(:delete, %r{/v2})
+        .to_return(read_http_fixture("notfound-emailforward.http"))
 
-    before do
-      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}$})
-          .to_return(read_http_fixture("deleteEmailForward/success.http"))
-    end
-
-    it "builds the correct request" do
-      subject.delete_email_forward(account_id, domain_id, email_forward_id)
-
-      assert_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/email_forwards/#{email_forward_id}",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns nothing" do
-      response = subject.delete_email_forward(account_id, domain_id, email_forward_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_nil
-    end
-
-    describe "when the email forward does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2})
-            .to_return(read_http_fixture("notfound-emailforward.http"))
-
-        _ {
-          subject.delete_email_forward(account_id, domain_id, email_forward_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.delete_email_forward(@account_id, @domain_id, 1)
     end
   end
 

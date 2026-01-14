@@ -2,123 +2,104 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".domains" do
+class DomainsDnssecTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains }
-
-  describe "#enable_dnssec" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
-
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec})
-          .to_return(read_http_fixture("enableDnssec/success.http"))
-    end
-
-
-    it "builds the correct request" do
-      subject.enable_dnssec(account_id, domain_id)
-
-      assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the dnssec status" do
-      response = subject.enable_dnssec(account_id, domain_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::Dnssec)
-      _(result.enabled).must_equal(true)
-    end
-
-    describe "when the domain does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:post, %r{/v2})
-            .to_return(read_http_fixture("notfound-domain.http"))
-
-        _ {
-          subject.enable_dnssec(account_id, domain_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
-    end
-
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains
+    @account_id = 1010
+    @domain_id = "example.com"
   end
 
-  describe "#disable_dnssec" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
+  def test_enable_dnssec_builds_correct_request
+    stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
+        .to_return(read_http_fixture("enableDnssec/success.http"))
 
-    before do
-      stub_request(:delete, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec})
-          .to_return(read_http_fixture("disableDnssec/success.http"))
-    end
+    @subject.enable_dnssec(@account_id, @domain_id)
 
+    assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/dnssec",
+                     headers: { "Accept" => "application/json" })
+  end
 
-    it "builds the correct request" do
-      subject.disable_dnssec(account_id, domain_id)
+  def test_enable_dnssec_returns_the_dnssec_status
+    stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
+        .to_return(read_http_fixture("enableDnssec/success.http"))
 
-      assert_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec",
-                       headers: { "Accept" => "application/json" })
-    end
+    response = @subject.enable_dnssec(@account_id, @domain_id)
+    assert_kind_of(Dnsimple::Response, response)
 
-    it "returns nothing" do
-      response = subject.disable_dnssec(account_id, domain_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::Dnssec, result)
+    assert_equal(true, result.enabled)
+  end
 
-      result = response.data
-      _(result).must_be_nil
-    end
+  def test_enable_dnssec_when_domain_not_found_raises_not_found_error
+    stub_request(:post, %r{/v2})
+        .to_return(read_http_fixture("notfound-domain.http"))
 
-    describe "when the domain does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2})
-            .to_return(read_http_fixture("notfound-domain.http"))
-
-        _ {
-          subject.disable_dnssec(account_id, domain_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.enable_dnssec(@account_id, @domain_id)
     end
   end
 
-  describe "#get_dnssec" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
+  def test_disable_dnssec_builds_correct_request
+    stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
+        .to_return(read_http_fixture("disableDnssec/success.http"))
 
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/domains/#{domain_id}/dnssec})
-          .to_return(read_http_fixture("getDnssec/success.http"))
+    @subject.disable_dnssec(@account_id, @domain_id)
+
+    assert_requested(:delete, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/dnssec",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_disable_dnssec_returns_nothing
+    stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
+        .to_return(read_http_fixture("disableDnssec/success.http"))
+
+    response = @subject.disable_dnssec(@account_id, @domain_id)
+    assert_kind_of(Dnsimple::Response, response)
+
+    result = response.data
+    assert_nil(result)
+  end
+
+  def test_disable_dnssec_when_domain_not_found_raises_not_found_error
+    stub_request(:delete, %r{/v2})
+        .to_return(read_http_fixture("notfound-domain.http"))
+
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.disable_dnssec(@account_id, @domain_id)
     end
+  end
 
+  def test_get_dnssec_builds_correct_request
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
+        .to_return(read_http_fixture("getDnssec/success.http"))
 
-    it "builds the correct request" do
-      subject.get_dnssec(account_id, domain_id)
+    @subject.get_dnssec(@account_id, @domain_id)
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/dnssec",
-                       headers: { "Accept" => "application/json" })
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/dnssec",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_get_dnssec_returns_the_dnssec_status
+    stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
+        .to_return(read_http_fixture("getDnssec/success.http"))
+
+    response = @subject.get_dnssec(@account_id, @domain_id)
+    assert_kind_of(Dnsimple::Response, response)
+
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::Dnssec, result)
+    assert_equal(true, result.enabled)
+  end
+
+  def test_get_dnssec_when_domain_not_found_raises_not_found_error
+    stub_request(:get, %r{/v2})
+        .to_return(read_http_fixture("notfound-domain.http"))
+
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.get_dnssec(@account_id, @domain_id)
     end
-
-    it "returns the dnssec status" do
-      response = subject.get_dnssec(account_id, domain_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::Dnssec)
-      _(result.enabled).must_equal(true)
-    end
-
-    describe "when the domain does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:get, %r{/v2})
-            .to_return(read_http_fixture("notfound-domain.http"))
-
-        _ {
-          subject.get_dnssec(account_id, domain_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
-    end
-
   end
 
 end

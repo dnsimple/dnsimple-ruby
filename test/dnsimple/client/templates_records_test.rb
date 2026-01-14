@@ -2,230 +2,232 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".templates" do
+class TemplatesRecordsTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").templates }
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").templates
+    @account_id = 1010
+    @template_id = "alpha"
+  end
 
+  def test_list_records_builds_correct_request
+    stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
+        .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
-  describe "#list_records" do
-    let(:account_id) { 1010 }
-    let(:template_id) { "alpha" }
+    @subject.records(@account_id, @template_id)
 
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}/records})
-          .to_return(read_http_fixture("listTemplateRecords/success.http"))
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records",
+                     headers: { "Accept" => "application/json" })
+  end
 
-    it "builds the correct request" do
-      subject.records(account_id, template_id)
+  def test_list_records_supports_pagination
+    stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
+        .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records",
-                       headers: { "Accept" => "application/json" })
-    end
+    @subject.records(@account_id, @template_id, page: 2)
 
-    it "supports pagination" do
-      subject.records(account_id, template_id, page: 2)
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records?page=2")
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records?page=2")
-    end
+  def test_list_records_supports_extra_request_options
+    stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
+        .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
-    it "supports extra request options" do
-      subject.records(account_id, template_id, query: { foo: "bar" })
+    @subject.records(@account_id, @template_id, query: { foo: "bar" })
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records?foo=bar")
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records?foo=bar")
+  end
 
-    it "supports sorting" do
-      subject.records(account_id, template_id, sort: "type:asc")
+  def test_list_records_supports_sorting
+    stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
+        .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records?sort=type:asc")
-    end
+    @subject.records(@account_id, @template_id, sort: "type:asc")
 
-    it "returns the list of template's records" do
-      response = subject.records(account_id, template_id)
-      _(response).must_be_kind_of(Dnsimple::PaginatedResponse)
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records?sort=type:asc")
+  end
 
-      response.data.each do |result|
-        _(result).must_be_kind_of(Dnsimple::Struct::TemplateRecord)
-        _(result.id).must_be_kind_of(Integer)
-        _(result.type).must_be_kind_of(String)
-        _(result.name).must_be_kind_of(String)
-        _(result.content).must_be_kind_of(String)
-      end
+  def test_list_records_returns_the_list_of_template_records
+    stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
+        .to_return(read_http_fixture("listTemplateRecords/success.http"))
+
+    response = @subject.records(@account_id, @template_id)
+    assert_kind_of(Dnsimple::PaginatedResponse, response)
+
+    response.data.each do |result|
+      assert_kind_of(Dnsimple::Struct::TemplateRecord, result)
+      assert_kind_of(Integer, result.id)
+      assert_kind_of(String, result.type)
+      assert_kind_of(String, result.name)
+      assert_kind_of(String, result.content)
     end
   end
 
-  describe "#all_templates" do
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}/records})
-          .to_return(read_http_fixture("listTemplateRecords/success.http"))
+  def test_all_records_delegates_to_paginate
+    stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
+        .to_return(read_http_fixture("listTemplateRecords/success.http"))
+
+    mock = Minitest::Mock.new
+    mock.expect(:call, nil, [:records, @account_id, @template_id, { option: "value" }])
+    @subject.stub(:paginate, mock) do
+      @subject.all_records(@account_id, @template_id, option: "value")
     end
+    mock.verify
+  end
 
-    let(:account_id) { 1010 }
-    let(:template_id) { "alpha" }
+  def test_all_records_supports_sorting
+    stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
+        .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
-    it "delegates to client.paginate" do
-      mock = Minitest::Mock.new
-      mock.expect(:call, nil, [:records, account_id, template_id, { option: "value" }])
-      subject.stub(:paginate, mock) do
-        subject.all_records(account_id, template_id, option: "value")
-      end
-      mock.verify
-    end
+    @subject.all_records(@account_id, @template_id, sort: "type:asc")
 
-    it "supports sorting" do
-      subject.all_records(account_id, template_id, sort: "type:asc")
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records?page=1&per_page=100&sort=type:asc")
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records?page=1&per_page=100&sort=type:asc")
+  def test_create_record_builds_correct_request
+    stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
+        .to_return(read_http_fixture("createTemplateRecord/created.http"))
+
+    attributes = { type: "MX", name: "", content: "mx.example.com", priority: 10, ttl: 600 }
+    @subject.create_record(@account_id, @template_id, attributes)
+
+    assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records",
+                     body: attributes,
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_create_record_returns_the_record
+    stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
+        .to_return(read_http_fixture("createTemplateRecord/created.http"))
+
+    attributes = { type: "MX", name: "", content: "mx.example.com", priority: 10, ttl: 600 }
+    response = @subject.create_record(@account_id, @template_id, attributes)
+    assert_kind_of(Dnsimple::Response, response)
+
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::TemplateRecord, result)
+    assert_equal(300, result.id)
+    assert_equal(268, result.template_id)
+    assert_equal("", result.name)
+    assert_equal("MX", result.type)
+    assert_equal("mx.example.com", result.content)
+    assert_equal(600, result.ttl)
+    assert_equal(10, result.priority)
+    assert_equal("2016-05-03T07:51:33Z", result.created_at)
+    assert_equal("2016-05-03T07:51:33Z", result.updated_at)
+  end
+
+  def test_create_record_raises_error_when_type_is_missing
+    stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
+        .to_return(read_http_fixture("createTemplateRecord/created.http"))
+
+    assert_raises(ArgumentError) do
+      @subject.create_record(@account_id, @template_id, name: "", content: "192.168.1.1")
     end
   end
 
-  describe "#create_record" do
-    let(:account_id) { 1010 }
-    let(:attributes) { { type: "MX", name: "", content: "mx.example.com", priority: 10, ttl: 600 } }
-    let(:template_id) { "alpha" }
+  def test_create_record_raises_error_when_name_is_missing
+    stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
+        .to_return(read_http_fixture("createTemplateRecord/created.http"))
 
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/templates/#{template_id}/records$})
-          .to_return(read_http_fixture("createTemplateRecord/created.http"))
-    end
-
-
-    it "builds the correct request" do
-      subject.create_record(account_id, template_id, attributes)
-
-      assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records",
-                       body: attributes,
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the record" do
-      response = subject.create_record(account_id, template_id, attributes)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::TemplateRecord)
-      _(result.id).must_equal(300)
-      _(result.template_id).must_equal(268)
-      _(result.name).must_equal("")
-      _(result.type).must_equal("MX")
-      _(result.content).must_equal("mx.example.com")
-      _(result.ttl).must_equal(600)
-      _(result.priority).must_equal(10)
-      _(result.created_at).must_equal("2016-05-03T07:51:33Z")
-      _(result.updated_at).must_equal("2016-05-03T07:51:33Z")
-    end
-
-    describe "with missing data" do
-      it "raises an error when the type is missing" do
-        _ {
-          subject.create_record(account_id, template_id, name: "", content: "192.168.1.1")
-        }.must_raise(ArgumentError)
-      end
-
-      it "raises an error when the name is missing" do
-        _ {
-          subject.create_record(account_id, template_id, type: "A", content: "192.168.1.1")
-        }.must_raise(ArgumentError)
-      end
-
-      it "raises an error when the content is missing" do
-        _ {
-          subject.create_record(account_id, template_id, type: "A", name: "")
-        }.must_raise(ArgumentError)
-      end
-    end
-
-    describe "when the template does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:post, %r{/v2})
-            .to_return(read_http_fixture("notfound-template.http"))
-
-        _ {
-          subject.create_record(account_id, template_id, attributes)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
+    assert_raises(ArgumentError) do
+      @subject.create_record(@account_id, @template_id, type: "A", content: "192.168.1.1")
     end
   end
 
-  describe "#record" do
-    let(:account_id) { 1010 }
-    let(:template_id) { "alpha.com" }
+  def test_create_record_raises_error_when_content_is_missing
+    stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
+        .to_return(read_http_fixture("createTemplateRecord/created.http"))
 
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}/records/.+$})
-          .to_return(read_http_fixture("getTemplateRecord/success.http"))
-    end
-
-    it "builds the correct request" do
-      subject.record(account_id, template_id, record_id = 301)
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records/#{record_id}",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the record" do
-      response = subject.record(account_id, template_id, 301)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::TemplateRecord)
-      _(result.id).must_equal(301)
-      _(result.template_id).must_equal(268)
-      _(result.type).must_equal("MX")
-      _(result.name).must_equal("")
-      _(result.content).must_equal("mx.example.com")
-      _(result.ttl).must_equal(600)
-      _(result.priority).must_equal(10)
-      _(result.created_at).must_equal("2016-05-03T08:03:26Z")
-      _(result.updated_at).must_equal("2016-05-03T08:03:26Z")
+    assert_raises(ArgumentError) do
+      @subject.create_record(@account_id, @template_id, type: "A", name: "")
     end
   end
 
-  describe "#delete_record" do
-    let(:account_id) { 1010 }
-    let(:template_id) { "example.com" }
+  def test_create_record_when_template_not_found_raises_not_found_error
+    stub_request(:post, %r{/v2})
+        .to_return(read_http_fixture("notfound-template.http"))
 
-    before do
-      stub_request(:delete, %r{/v2/#{account_id}/templates/#{template_id}/records/.+$})
-          .to_return(read_http_fixture("deleteTemplateRecord/success.http"))
+    attributes = { type: "MX", name: "", content: "mx.example.com", priority: 10, ttl: 600 }
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.create_record(@account_id, @template_id, attributes)
     end
+  end
 
-    it "builds the correct request" do
-      subject.delete_record(account_id, template_id, record_id = 301)
+  def test_record_builds_correct_request
+    stub_request(:get, %r{/v2/#{@account_id}/templates/alpha.com/records/.+$})
+        .to_return(read_http_fixture("getTemplateRecord/success.http"))
 
-      assert_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}/records/#{record_id}",
-                       headers: { "Accept" => "application/json" })
+    template_id = "alpha.com"
+    record_id = 301
+    @subject.record(@account_id, template_id, record_id)
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{template_id}/records/#{record_id}",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_record_returns_the_record
+    stub_request(:get, %r{/v2/#{@account_id}/templates/alpha.com/records/.+$})
+        .to_return(read_http_fixture("getTemplateRecord/success.http"))
+
+    template_id = "alpha.com"
+    response = @subject.record(@account_id, template_id, 301)
+    assert_kind_of(Dnsimple::Response, response)
+
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::TemplateRecord, result)
+    assert_equal(301, result.id)
+    assert_equal(268, result.template_id)
+    assert_equal("MX", result.type)
+    assert_equal("", result.name)
+    assert_equal("mx.example.com", result.content)
+    assert_equal(600, result.ttl)
+    assert_equal(10, result.priority)
+    assert_equal("2016-05-03T08:03:26Z", result.created_at)
+    assert_equal("2016-05-03T08:03:26Z", result.updated_at)
+  end
+
+  def test_delete_record_builds_correct_request
+    stub_request(:delete, %r{/v2/#{@account_id}/templates/example.com/records/.+$})
+        .to_return(read_http_fixture("deleteTemplateRecord/success.http"))
+
+    template_id = "example.com"
+    record_id = 301
+    @subject.delete_record(@account_id, template_id, record_id)
+
+    assert_requested(:delete, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{template_id}/records/#{record_id}",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_delete_record_returns_nothing
+    stub_request(:delete, %r{/v2/#{@account_id}/templates/example.com/records/.+$})
+        .to_return(read_http_fixture("deleteTemplateRecord/success.http"))
+
+    template_id = "example.com"
+    response = @subject.delete_record(@account_id, template_id, 301)
+    assert_kind_of(Dnsimple::Response, response)
+
+    result = response.data
+    assert_nil(result)
+  end
+
+  def test_delete_record_when_template_not_found_raises_not_found_error
+    stub_request(:delete, %r{/v2})
+        .to_return(read_http_fixture("notfound-template.http"))
+
+    template_id = "example.com"
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.delete_record(@account_id, template_id, 0)
     end
+  end
 
-    it "returns nothing" do
-      response = subject.delete_record(account_id, template_id, 301)
-      _(response).must_be_kind_of(Dnsimple::Response)
+  def test_delete_record_when_record_not_found_raises_not_found_error
+    stub_request(:delete, %r{/v2})
+        .to_return(read_http_fixture("notfound-record.http"))
 
-      result = response.data
-      _(result).must_be_nil
-    end
-
-    describe "when the template does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2})
-            .to_return(read_http_fixture("notfound-template.http"))
-
-        _ {
-          subject.delete_record(account_id, template_id, 0)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
-    end
-
-    describe "when the record does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2})
-            .to_return(read_http_fixture("notfound-record.http"))
-
-        _ {
-          subject.delete_record(account_id, template_id, 0)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
+    template_id = "example.com"
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.delete_record(@account_id, template_id, 0)
     end
   end
 

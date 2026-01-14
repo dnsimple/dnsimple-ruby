@@ -2,117 +2,108 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".registrar" do
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar }
+class RegistrarTransferLockTest < Minitest::Test
 
-  describe "#get_domain_transfer_lock" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").registrar
+    @account_id = 1010
+    @domain_id = "example.com"
+  end
 
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/registrar/domains/#{domain_id}/transfer_lock})
-          .to_return(read_http_fixture("getDomainTransferLock/success.http"))
-    end
 
-    it "builds the correct request" do
-      subject.get_domain_transfer_lock(account_id, domain_id)
+  def test_get_domain_transfer_lock_builds_correct_request
+    stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock})
+        .to_return(read_http_fixture("getDomainTransferLock/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/transfer_lock",
-                       headers: { "Accept" => "application/json" })
-    end
+    @subject.get_domain_transfer_lock(@account_id, @domain_id)
 
-    it "returns the transfer lock state" do
-      response = subject.get_domain_transfer_lock(account_id, domain_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock",
+                     headers: { "Accept" => "application/json" })
+  end
 
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::TransferLock)
-      _(result.enabled).must_equal(true)
-    end
+  def test_get_domain_transfer_lock_returns_the_transfer_lock_state
+    stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock})
+        .to_return(read_http_fixture("getDomainTransferLock/success.http"))
 
-    describe "when the domain does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:get, %r{/v2})
-            .to_return(read_http_fixture("notfound-domain.http"))
+    response = @subject.get_domain_transfer_lock(@account_id, @domain_id)
+    assert_kind_of(Dnsimple::Response, response)
 
-        _ {
-          subject.get_domain_transfer_lock(account_id, domain_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::TransferLock, result)
+    assert_equal(true, result.enabled)
+  end
+
+  def test_get_domain_transfer_lock_when_domain_does_not_exist_raises_not_found_error
+    stub_request(:get, %r{/v2})
+        .to_return(read_http_fixture("notfound-domain.http"))
+
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.get_domain_transfer_lock(@account_id, @domain_id)
     end
   end
 
-  describe "#enable_domain_transfer_lock" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
 
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/registrar/domains/#{domain_id}/transfer_lock})
-          .to_return(read_http_fixture("enableDomainTransferLock/success.http"))
-    end
+  def test_enable_domain_transfer_lock_builds_correct_request
+    stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock})
+        .to_return(read_http_fixture("enableDomainTransferLock/success.http"))
 
-    it "builds the correct request" do
-      subject.enable_domain_transfer_lock(account_id, domain_id)
+    @subject.enable_domain_transfer_lock(@account_id, @domain_id)
 
-      assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/transfer_lock",
-                       headers: { "Accept" => "application/json" })
-    end
+    assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock",
+                     headers: { "Accept" => "application/json" })
+  end
 
-    it "returns the transfer lock state" do
-      response = subject.enable_domain_transfer_lock(account_id, domain_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
+  def test_enable_domain_transfer_lock_returns_the_transfer_lock_state
+    stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock})
+        .to_return(read_http_fixture("enableDomainTransferLock/success.http"))
 
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::TransferLock)
-      _(result.enabled).must_equal(true)
-    end
+    response = @subject.enable_domain_transfer_lock(@account_id, @domain_id)
+    assert_kind_of(Dnsimple::Response, response)
 
-    describe "when the domain does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:post, %r{/v2})
-            .to_return(read_http_fixture("notfound-domain.http"))
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::TransferLock, result)
+    assert_equal(true, result.enabled)
+  end
 
-        _ {
-          subject.enable_domain_transfer_lock(account_id, domain_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
+  def test_enable_domain_transfer_lock_when_domain_does_not_exist_raises_not_found_error
+    stub_request(:post, %r{/v2})
+        .to_return(read_http_fixture("notfound-domain.http"))
+
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.enable_domain_transfer_lock(@account_id, @domain_id)
     end
   end
 
-  describe "#disable_domain_transfer_lock" do
-    let(:account_id) { 1010 }
-    let(:domain_id) { "example.com" }
 
-    before do
-      stub_request(:delete, %r{/v2/#{account_id}/registrar/domains/#{domain_id}})
-          .to_return(read_http_fixture("disableDomainTransferLock/success.http"))
-    end
+  def test_disable_domain_transfer_lock_builds_correct_request
+    stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}})
+        .to_return(read_http_fixture("disableDomainTransferLock/success.http"))
 
-    it "builds the correct request" do
-      subject.disable_domain_transfer_lock(account_id, domain_id)
+    @subject.disable_domain_transfer_lock(@account_id, @domain_id)
 
-      assert_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/registrar/domains/#{domain_id}/transfer_lock",
-                       headers: { "Accept" => "application/json" })
-    end
+    assert_requested(:delete, "https://api.dnsimple.test/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock",
+                     headers: { "Accept" => "application/json" })
+  end
 
-    it "returns the transfer lock state" do
-      response = subject.disable_domain_transfer_lock(account_id, domain_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
+  def test_disable_domain_transfer_lock_returns_the_transfer_lock_state
+    stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}})
+        .to_return(read_http_fixture("disableDomainTransferLock/success.http"))
 
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::TransferLock)
-      _(result.enabled).must_equal(false)
-    end
+    response = @subject.disable_domain_transfer_lock(@account_id, @domain_id)
+    assert_kind_of(Dnsimple::Response, response)
 
-    describe "when the domain does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2})
-            .to_return(read_http_fixture("notfound-domain.http"))
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::TransferLock, result)
+    assert_equal(false, result.enabled)
+  end
 
-        _ {
-          subject.disable_domain_transfer_lock(account_id, domain_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
+  def test_disable_domain_transfer_lock_when_domain_does_not_exist_raises_not_found_error
+    stub_request(:delete, %r{/v2})
+        .to_return(read_http_fixture("notfound-domain.http"))
+
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.disable_domain_transfer_lock(@account_id, @domain_id)
     end
   end
+
 end

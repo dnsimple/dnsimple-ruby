@@ -2,77 +2,70 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".oauth" do
+class OauthTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test").oauth }
-
-
-  describe "#exchange_authorization_for_token" do
-    let(:client_id) { "super-client" }
-    let(:client_secret) { "super-secret" }
-    let(:code) { "super-code" }
-    let(:state) { "super-state" }
-
-    before do
-      stub_request(:post, %r{/v2/oauth/access_token$})
-          .to_return(read_http_fixture("oauthAccessToken/success.http"))
-    end
-
-    it "builds the correct request" do
-      subject.exchange_authorization_for_token(code, client_id, client_secret, state:)
-
-      assert_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token",
-                       body: { client_id:, client_secret:, code:, state:, grant_type: "authorization_code" },
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns oauth token" do
-      result = subject.exchange_authorization_for_token(code, client_id, client_secret, state:)
-
-      _(result).must_be_kind_of(Dnsimple::Struct::OauthToken)
-      _(result.access_token).must_equal("zKQ7OLqF5N1gylcJweA9WodA000BUNJD")
-      _(result.token_type).must_equal("Bearer")
-      _(result.account_id).must_equal(1)
-    end
-
-    describe "when state and redirect_uri are provided" do
-      let(:redirect_uri) { "super-redirect-uri" }
-
-      it "builds the correct request" do
-        subject.exchange_authorization_for_token(code, client_id, client_secret, state:, redirect_uri:)
-
-        assert_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token",
-                         body: { client_id:, client_secret:, code:, state:, redirect_uri:, grant_type: "authorization_code" },
-                         headers: { "Accept" => "application/json" })
-      end
-    end
-
-    describe "when the request fails with 400" do
-      before do
-        stub_request(:post, %r{/v2/oauth/access_token$})
-            .to_return(read_http_fixture("oauthAccessToken/error-invalid-request.http"))
-      end
-
-      it "raises OAuthInvalidRequestError" do
-        error = _ {
-          subject.exchange_authorization_for_token(code, client_id, client_secret, state:)
-        }.must_raise(Dnsimple::OAuthInvalidRequestError)
-        _(error.error).must_equal("invalid_request")
-        _(error.error_description).must_equal("Invalid \"state\": value doesn't match the \"state\" in the authorization request")
-      end
-    end
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test").oauth
+    @client_id = "super-client"
+    @client_secret = "super-secret"
+    @code = "super-code"
+    @state = "super-state"
   end
 
-  describe "#authorize_url" do
-    it "builds the correct url" do
-      url = subject.authorize_url("great-app")
-      _(url).must_equal("https://dnsimple.test/oauth/authorize?client_id=great-app&response_type=code")
-    end
+  def test_exchange_authorization_for_token_builds_correct_request
+    stub_request(:post, %r{/v2/oauth/access_token$})
+        .to_return(read_http_fixture("oauthAccessToken/success.http"))
 
-    it "exposes the options in the query string" do
-      url = subject.authorize_url("great-app", secret: "1", redirect_uri: "http://example.com")
-      _(url).must_equal("https://dnsimple.test/oauth/authorize?client_id=great-app&secret=1&redirect_uri=http://example.com&response_type=code")
+    @subject.exchange_authorization_for_token(@code, @client_id, @client_secret, state: @state)
+
+    assert_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token",
+                     body: { client_id: @client_id, client_secret: @client_secret, code: @code, state: @state, grant_type: "authorization_code" },
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_exchange_authorization_for_token_returns_oauth_token
+    stub_request(:post, %r{/v2/oauth/access_token$})
+        .to_return(read_http_fixture("oauthAccessToken/success.http"))
+
+    result = @subject.exchange_authorization_for_token(@code, @client_id, @client_secret, state: @state)
+
+    assert_kind_of(Dnsimple::Struct::OauthToken, result)
+    assert_equal("zKQ7OLqF5N1gylcJweA9WodA000BUNJD", result.access_token)
+    assert_equal("Bearer", result.token_type)
+    assert_equal(1, result.account_id)
+  end
+
+  def test_exchange_authorization_for_token_with_state_and_redirect_uri_builds_correct_request
+    stub_request(:post, %r{/v2/oauth/access_token$})
+        .to_return(read_http_fixture("oauthAccessToken/success.http"))
+
+    redirect_uri = "super-redirect-uri"
+    @subject.exchange_authorization_for_token(@code, @client_id, @client_secret, state: @state, redirect_uri: redirect_uri)
+
+    assert_requested(:post, "https://api.dnsimple.test/v2/oauth/access_token",
+                     body: { client_id: @client_id, client_secret: @client_secret, code: @code, state: @state, redirect_uri: redirect_uri, grant_type: "authorization_code" },
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_exchange_authorization_for_token_when_request_fails_with_400_raises_oauth_invalid_request_error
+    stub_request(:post, %r{/v2/oauth/access_token$})
+        .to_return(read_http_fixture("oauthAccessToken/error-invalid-request.http"))
+
+    error = assert_raises(Dnsimple::OAuthInvalidRequestError) do
+      @subject.exchange_authorization_for_token(@code, @client_id, @client_secret, state: @state)
     end
+    assert_equal("invalid_request", error.error)
+    assert_equal("Invalid \"state\": value doesn't match the \"state\" in the authorization request", error.error_description)
+  end
+
+  def test_authorize_url_builds_correct_url
+    url = @subject.authorize_url("great-app")
+    assert_equal("https://dnsimple.test/oauth/authorize?client_id=great-app&response_type=code", url)
+  end
+
+  def test_authorize_url_exposes_options_in_query_string
+    url = @subject.authorize_url("great-app", secret: "1", redirect_uri: "http://example.com")
+    assert_equal("https://dnsimple.test/oauth/authorize?client_id=great-app&secret=1&redirect_uri=http://example.com&response_type=code", url)
   end
 
 end

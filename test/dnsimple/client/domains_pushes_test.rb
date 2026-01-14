@@ -2,162 +2,174 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".domains" do
+class DomainsPushesTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains }
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").domains
+    @account_id = 1010
+    @domain_id = "example.com"
+  end
 
-  describe "#initiate_push" do
-    let(:account_id) { 1010 }
-    let(:attributes) { { new_account_email: "admin@target-account.test" } }
-    let(:domain_id) { "example.com" }
+  def test_initiate_push_builds_correct_request
+    stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/pushes$})
+        .to_return(read_http_fixture("initiatePush/success.http"))
 
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/pushes$})
-          .to_return(read_http_fixture("initiatePush/success.http"))
-    end
+    attributes = { new_account_email: "admin@target-account.test" }
+    @subject.initiate_push(@account_id, @domain_id, attributes)
 
+    assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/pushes",
+                     body: attributes,
+                     headers: { "Accept" => "application/json" })
+  end
 
-    it "builds the correct request" do
-      subject.initiate_push(account_id, domain_id, attributes)
+  def test_initiate_push_returns_the_domain_push
+    stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/pushes$})
+        .to_return(read_http_fixture("initiatePush/success.http"))
 
-      assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/pushes",
-                       body: attributes,
-                       headers: { "Accept" => "application/json" })
-    end
+    attributes = { new_account_email: "admin@target-account.test" }
+    response = @subject.initiate_push(@account_id, @domain_id, attributes)
+    assert_kind_of(Dnsimple::Response, response)
 
-    it "returns the domain push" do
-      response = subject.initiate_push(account_id, domain_id, attributes)
-      _(response).must_be_kind_of(Dnsimple::Response)
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::DomainPush, result)
+    assert_kind_of(Integer, result.id)
+  end
 
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::DomainPush)
-      _(result.id).must_be_kind_of(Integer)
+  def test_pushes_builds_correct_request
+    stub_request(:get, %r{/v2/2020/pushes})
+        .to_return(read_http_fixture("listPushes/success.http"))
+
+    account_id = 2020
+    @subject.pushes(account_id)
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_pushes_supports_pagination
+    stub_request(:get, %r{/v2/2020/pushes})
+        .to_return(read_http_fixture("listPushes/success.http"))
+
+    account_id = 2020
+    @subject.pushes(account_id, page: 2)
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes?page=2")
+  end
+
+  def test_pushes_supports_extra_request_options
+    stub_request(:get, %r{/v2/2020/pushes})
+        .to_return(read_http_fixture("listPushes/success.http"))
+
+    account_id = 2020
+    @subject.pushes(account_id, query: { foo: "bar" })
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes?foo=bar")
+  end
+
+  def test_pushes_returns_list_of_domain_pushes
+    stub_request(:get, %r{/v2/2020/pushes})
+        .to_return(read_http_fixture("listPushes/success.http"))
+
+    account_id = 2020
+    response = @subject.pushes(account_id)
+
+    assert_kind_of(Dnsimple::PaginatedResponse, response)
+    assert_kind_of(Array, response.data)
+    assert_equal(2, response.data.size)
+
+    response.data.each do |result|
+      assert_kind_of(Dnsimple::Struct::DomainPush, result)
+      assert_kind_of(Integer, result.id)
     end
   end
 
-  describe "#pushes" do
-    let(:account_id) { 2020 }
+  def test_pushes_exposes_pagination_information
+    stub_request(:get, %r{/v2/2020/pushes})
+        .to_return(read_http_fixture("listPushes/success.http"))
 
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/pushes})
-          .to_return(read_http_fixture("listPushes/success.http"))
-    end
+    account_id = 2020
+    response = @subject.pushes(account_id)
 
-    it "builds the correct request" do
-      subject.pushes(account_id)
+    assert_respond_to(response, :page)
+    assert_equal(1, response.page)
+    assert_kind_of(Integer, response.per_page)
+    assert_kind_of(Integer, response.total_entries)
+    assert_kind_of(Integer, response.total_pages)
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes",
-                       headers: { "Accept" => "application/json" })
-    end
+  def test_accept_push_builds_correct_request
+    stub_request(:post, %r{/v2/2020/pushes/1$})
+        .to_return(read_http_fixture("acceptPush/success.http"))
 
-    it "supports pagination" do
-      subject.pushes(account_id, page: 2)
+    account_id = 2020
+    push_id = 1
+    attributes = { contact_id: 2 }
+    @subject.accept_push(account_id, push_id, attributes)
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes?page=2")
-    end
+    assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}",
+                     body: attributes,
+                     headers: { "Accept" => "application/json" })
+  end
 
-    it "supports extra request options" do
-      subject.pushes(account_id, query: { foo: "bar" })
+  def test_accept_push_returns_nothing
+    stub_request(:post, %r{/v2/2020/pushes/1$})
+        .to_return(read_http_fixture("acceptPush/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes?foo=bar")
-    end
+    account_id = 2020
+    push_id = 1
+    attributes = { contact_id: 2 }
+    response = @subject.accept_push(account_id, push_id, attributes)
+    assert_kind_of(Dnsimple::Response, response)
 
-    it "returns a list of domain pushes" do
-      response = subject.pushes(account_id)
+    result = response.data
+    assert_nil(result)
+  end
 
-      _(response).must_be_kind_of(Dnsimple::PaginatedResponse)
-      _(response.data).must_be_kind_of(Array)
-      _(response.data.size).must_equal(2)
+  def test_accept_push_when_not_found_raises_not_found_error
+    stub_request(:post, %r{/v2})
+        .to_return(read_http_fixture("notfound-domainpush.http"))
 
-      response.data.each do |result|
-        _(result).must_be_kind_of(Dnsimple::Struct::DomainPush)
-        _(result.id).must_be_kind_of(Integer)
-      end
-    end
-
-    it "exposes the pagination information" do
-      response = subject.pushes(account_id)
-
-      _(response).must_respond_to(:page)
-      _(response.page).must_equal(1)
-      _(response.per_page).must_be_kind_of(Integer)
-      _(response.total_entries).must_be_kind_of(Integer)
-      _(response.total_pages).must_be_kind_of(Integer)
+    account_id = 2020
+    push_id = 1
+    attributes = { contact_id: 2 }
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.accept_push(account_id, push_id, attributes)
     end
   end
 
-  describe "#accept_push" do
-    let(:account_id) { 2020 }
-    let(:attributes) { { contact_id: 2 } }
-    let(:push_id) { 1 }
+  def test_reject_push_builds_correct_request
+    stub_request(:delete, %r{/v2/2020/pushes/1$})
+        .to_return(read_http_fixture("rejectPush/success.http"))
 
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/pushes/#{push_id}$})
-          .to_return(read_http_fixture("acceptPush/success.http"))
-    end
+    account_id = 2020
+    push_id = 1
+    @subject.reject_push(account_id, push_id)
 
-
-    it "builds the correct request" do
-      subject.accept_push(account_id, push_id, attributes)
-
-      assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}",
-                       body: attributes,
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns nothing" do
-      response = subject.accept_push(account_id, push_id, attributes)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_nil
-    end
-
-    describe "when the domain push does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:post, %r{/v2})
-            .to_return(read_http_fixture("notfound-domainpush.http"))
-
-        _ {
-          subject.accept_push(account_id, push_id, attributes)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
-    end
+    assert_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}",
+                     headers: { "Accept" => "application/json" })
   end
 
-  describe "#reject_push" do
-    let(:account_id) { 2020 }
-    let(:push_id) { 1 }
+  def test_reject_push_returns_nothing
+    stub_request(:delete, %r{/v2/2020/pushes/1$})
+        .to_return(read_http_fixture("rejectPush/success.http"))
 
-    before do
-      stub_request(:delete, %r{/v2/#{account_id}/pushes/#{push_id}$})
-          .to_return(read_http_fixture("rejectPush/success.http"))
-    end
+    account_id = 2020
+    push_id = 1
+    response = @subject.reject_push(account_id, push_id)
+    assert_kind_of(Dnsimple::Response, response)
 
-    it "builds the correct request" do
-      subject.reject_push(account_id, push_id)
+    result = response.data
+    assert_nil(result)
+  end
 
-      assert_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/pushes/#{push_id}",
-                       headers: { "Accept" => "application/json" })
-    end
+  def test_reject_push_when_not_found_raises_not_found_error
+    stub_request(:delete, %r{/v2})
+        .to_return(read_http_fixture("notfound-domainpush.http"))
 
-    it "returns nothing" do
-      response = subject.reject_push(account_id, push_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_nil
-    end
-
-    describe "when the domain push does not exist" do
-      it "raises NotFoundError" do
-        stub_request(:delete, %r{/v2})
-            .to_return(read_http_fixture("notfound-domainpush.http"))
-
-        _ {
-          subject.reject_push(account_id, push_id)
-        }.must_raise(Dnsimple::NotFoundError)
-      end
+    account_id = 2020
+    push_id = 1
+    assert_raises(Dnsimple::NotFoundError) do
+      @subject.reject_push(account_id, push_id)
     end
   end
 

@@ -2,221 +2,216 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".templates" do
+class TemplatesTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").templates }
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").templates
+    @account_id = 1010
+  end
 
+  def test_list_templates_builds_correct_request
+    stub_request(:get, %r{/v2/#{@account_id}/templates})
+        .to_return(read_http_fixture("listTemplates/success.http"))
 
-  describe "#list_templates" do
-    let(:account_id) { 1010 }
+    @subject.list_templates(@account_id)
 
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/templates})
-          .to_return(read_http_fixture("listTemplates/success.http"))
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates",
+                     headers: { "Accept" => "application/json" })
+  end
 
-    it "builds the correct request" do
-      subject.list_templates(account_id)
+  def test_list_templates_supports_pagination
+    stub_request(:get, %r{/v2/#{@account_id}/templates})
+        .to_return(read_http_fixture("listTemplates/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates",
-                       headers: { "Accept" => "application/json" })
-    end
+    @subject.templates(@account_id, page: 2)
 
-    it "supports pagination" do
-      subject.templates(account_id, page: 2)
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates?page=2")
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?page=2")
-    end
+  def test_list_templates_supports_extra_request_options
+    stub_request(:get, %r{/v2/#{@account_id}/templates})
+        .to_return(read_http_fixture("listTemplates/success.http"))
 
-    it "supports extra request options" do
-      subject.templates(account_id, query: { foo: "bar" })
+    @subject.templates(@account_id, query: { foo: "bar" })
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?foo=bar")
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates?foo=bar")
+  end
 
-    it "supports sorting" do
-      subject.templates(account_id, sort: "short_name:desc")
+  def test_list_templates_supports_sorting
+    stub_request(:get, %r{/v2/#{@account_id}/templates})
+        .to_return(read_http_fixture("listTemplates/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?sort=short_name:desc")
-    end
+    @subject.templates(@account_id, sort: "short_name:desc")
 
-    it "returns the list of templates" do
-      response = subject.list_templates(account_id)
-      _(response).must_be_kind_of(Dnsimple::CollectionResponse)
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates?sort=short_name:desc")
+  end
 
-      response.data.each do |result|
-        _(result).must_be_kind_of(Dnsimple::Struct::Template)
-        _(result.id).must_be_kind_of(Numeric)
-        _(result.account_id).must_be_kind_of(Numeric)
-        _(result.name).must_be_kind_of(String)
-        _(result.sid).must_be_kind_of(String)
-        _(result.description).must_be_kind_of(String)
-      end
+  def test_list_templates_returns_the_list_of_templates
+    stub_request(:get, %r{/v2/#{@account_id}/templates})
+        .to_return(read_http_fixture("listTemplates/success.http"))
+
+    response = @subject.list_templates(@account_id)
+    assert_kind_of(Dnsimple::CollectionResponse, response)
+
+    response.data.each do |result|
+      assert_kind_of(Dnsimple::Struct::Template, result)
+      assert_kind_of(Numeric, result.id)
+      assert_kind_of(Numeric, result.account_id)
+      assert_kind_of(String, result.name)
+      assert_kind_of(String, result.sid)
+      assert_kind_of(String, result.description)
     end
   end
 
-  describe "#all_templates" do
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/templates})
-          .to_return(read_http_fixture("listTemplates/success.http"))
+  def test_all_templates_delegates_to_paginate
+    stub_request(:get, %r{/v2/#{@account_id}/templates})
+        .to_return(read_http_fixture("listTemplates/success.http"))
+
+    mock = Minitest::Mock.new
+    mock.expect(:call, nil, [:templates, @account_id, { foo: "bar" }])
+    @subject.stub(:paginate, mock) do
+      @subject.all_templates(@account_id, { foo: "bar" })
     end
-
-    let(:account_id) { 1010 }
-
-    it "delegates to client.paginate" do
-      mock = Minitest::Mock.new
-      mock.expect(:call, nil, [:templates, account_id, { foo: "bar" }])
-      subject.stub(:paginate, mock) do
-        subject.all_templates(account_id, { foo: "bar" })
-      end
-      mock.verify
-    end
-
-    it "supports sorting" do
-      subject.all_templates(account_id, sort: "short_name:desc")
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates?page=1&per_page=100&sort=short_name:desc")
-    end
+    mock.verify
   end
 
-  describe "#create_template" do
-    let(:account_id) { 1010 }
-    let(:attributes) { { name: "Beta", short_name: "beta", description: "A beta template." } }
+  def test_all_templates_supports_sorting
+    stub_request(:get, %r{/v2/#{@account_id}/templates})
+        .to_return(read_http_fixture("listTemplates/success.http"))
 
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/templates$})
-          .to_return(read_http_fixture("createTemplate/created.http"))
-    end
+    @subject.all_templates(@account_id, sort: "short_name:desc")
 
-
-    it "builds the correct request" do
-      subject.create_template(account_id, attributes)
-
-      assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/templates",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the list of templates" do
-      response = subject.create_template(account_id, attributes)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      template = response.data
-      _(template).must_be_kind_of(Dnsimple::Struct::Template)
-      _(template.id).must_equal(1)
-      _(template.account_id).must_equal(1010)
-      _(template.name).must_equal("Beta")
-      _(template.sid).must_equal("beta")
-      _(template.description).must_equal("A beta template.")
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates?page=1&per_page=100&sort=short_name:desc")
   end
 
-  describe "#template" do
-    let(:account_id) { 1010 }
-    let(:template_id) { 1 }
+  def test_create_template_builds_correct_request
+    stub_request(:post, %r{/v2/#{@account_id}/templates$})
+        .to_return(read_http_fixture("createTemplate/created.http"))
 
-    before do
-      stub_request(:get, %r{/v2/#{account_id}/templates/#{template_id}$})
-          .to_return(read_http_fixture("getTemplate/success.http"))
-    end
+    attributes = { name: "Beta", short_name: "beta", description: "A beta template." }
+    @subject.create_template(@account_id, attributes)
 
-    it "builds the correct request" do
-      subject.template(account_id, template_id)
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the list of templates" do
-      response = subject.template(account_id, template_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      template = response.data
-      _(template).must_be_kind_of(Dnsimple::Struct::Template)
-      _(template.id).must_equal(1)
-      _(template.account_id).must_equal(1010)
-      _(template.name).must_equal("Alpha")
-      _(template.sid).must_equal("alpha")
-      _(template.description).must_equal("An alpha template.")
-    end
+    assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/templates",
+                     headers: { "Accept" => "application/json" })
   end
 
-  describe "#update_template" do
-    let(:account_id) { 1010 }
-    let(:attributes) { { name: "Alpha", short_name: "alpha", description: "An alpha template." } }
-    let(:template_id) { 1 }
+  def test_create_template_returns_the_template
+    stub_request(:post, %r{/v2/#{@account_id}/templates$})
+        .to_return(read_http_fixture("createTemplate/created.http"))
 
-    before do
-      stub_request(:patch, %r{/v2/#{account_id}/templates/#{template_id}$})
-          .to_return(read_http_fixture("updateTemplate/success.http"))
-    end
+    attributes = { name: "Beta", short_name: "beta", description: "A beta template." }
+    response = @subject.create_template(@account_id, attributes)
+    assert_kind_of(Dnsimple::Response, response)
 
-
-    it "builds the correct request" do
-      subject.update_template(account_id, template_id, attributes)
-
-      assert_requested(:patch, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the list of templates" do
-      response = subject.update_template(account_id, template_id, attributes)
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      template = response.data
-      _(template).must_be_kind_of(Dnsimple::Struct::Template)
-      _(template.id).must_equal(1)
-      _(template.account_id).must_equal(1010)
-      _(template.name).must_equal("Alpha")
-      _(template.sid).must_equal("alpha")
-      _(template.description).must_equal("An alpha template.")
-    end
+    template = response.data
+    assert_kind_of(Dnsimple::Struct::Template, template)
+    assert_equal(1, template.id)
+    assert_equal(1010, template.account_id)
+    assert_equal("Beta", template.name)
+    assert_equal("beta", template.sid)
+    assert_equal("A beta template.", template.description)
   end
 
-  describe "#delete_template" do
-    let(:account_id) { 1010 }
-    let(:template_id) { 5410 }
+  def test_template_builds_correct_request
+    stub_request(:get, %r{/v2/#{@account_id}/templates/1$})
+        .to_return(read_http_fixture("getTemplate/success.http"))
 
-    before do
-      stub_request(:delete, %r{/v2/#{account_id}/templates/#{template_id}$})
-          .to_return(read_http_fixture("deleteTemplate/success.http"))
-    end
+    template_id = 1
+    @subject.template(@account_id, template_id)
 
-    it "builds the correct request" do
-      subject.delete_template(account_id, template_id)
-
-      assert_requested(:delete, "https://api.dnsimple.test/v2/#{account_id}/templates/#{template_id}",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns nil" do
-      response = subject.delete_template(account_id, template_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
-      _(response.data).must_be_nil
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{template_id}",
+                     headers: { "Accept" => "application/json" })
   end
 
-  describe "#apply_template" do
-    let(:account_id)  { 1010 }
-    let(:template_id) { 5410 }
-    let(:domain_id)   { "example.com" }
+  def test_template_returns_the_template
+    stub_request(:get, %r{/v2/#{@account_id}/templates/1$})
+        .to_return(read_http_fixture("getTemplate/success.http"))
 
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}$})
-          .to_return(read_http_fixture("applyTemplate/success.http"))
-    end
+    template_id = 1
+    response = @subject.template(@account_id, template_id)
+    assert_kind_of(Dnsimple::Response, response)
 
-    it "builds the correct request" do
-      subject.apply_template(account_id, template_id, domain_id)
+    template = response.data
+    assert_kind_of(Dnsimple::Struct::Template, template)
+    assert_equal(1, template.id)
+    assert_equal(1010, template.account_id)
+    assert_equal("Alpha", template.name)
+    assert_equal("alpha", template.sid)
+    assert_equal("An alpha template.", template.description)
+  end
 
-      assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}",
-                       headers: { "Accept" => "application/json" })
-    end
+  def test_update_template_builds_correct_request
+    stub_request(:patch, %r{/v2/#{@account_id}/templates/1$})
+        .to_return(read_http_fixture("updateTemplate/success.http"))
 
-    it "returns nil" do
-      response = subject.apply_template(account_id, template_id, domain_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
-      _(response.data).must_be_nil
-    end
+    attributes = { name: "Alpha", short_name: "alpha", description: "An alpha template." }
+    template_id = 1
+    @subject.update_template(@account_id, template_id, attributes)
+
+    assert_requested(:patch, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{template_id}",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_update_template_returns_the_template
+    stub_request(:patch, %r{/v2/#{@account_id}/templates/1$})
+        .to_return(read_http_fixture("updateTemplate/success.http"))
+
+    attributes = { name: "Alpha", short_name: "alpha", description: "An alpha template." }
+    template_id = 1
+    response = @subject.update_template(@account_id, template_id, attributes)
+    assert_kind_of(Dnsimple::Response, response)
+
+    template = response.data
+    assert_kind_of(Dnsimple::Struct::Template, template)
+    assert_equal(1, template.id)
+    assert_equal(1010, template.account_id)
+    assert_equal("Alpha", template.name)
+    assert_equal("alpha", template.sid)
+    assert_equal("An alpha template.", template.description)
+  end
+
+  def test_delete_template_builds_correct_request
+    stub_request(:delete, %r{/v2/#{@account_id}/templates/5410$})
+        .to_return(read_http_fixture("deleteTemplate/success.http"))
+
+    template_id = 5410
+    @subject.delete_template(@account_id, template_id)
+
+    assert_requested(:delete, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{template_id}",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_delete_template_returns_nil
+    stub_request(:delete, %r{/v2/#{@account_id}/templates/5410$})
+        .to_return(read_http_fixture("deleteTemplate/success.http"))
+
+    template_id = 5410
+    response = @subject.delete_template(@account_id, template_id)
+    assert_kind_of(Dnsimple::Response, response)
+    assert_nil(response.data)
+  end
+
+  def test_apply_template_builds_correct_request
+    stub_request(:post, %r{/v2/#{@account_id}/domains/example.com/templates/5410$})
+        .to_return(read_http_fixture("applyTemplate/success.http"))
+
+    template_id = 5410
+    domain_id = "example.com"
+    @subject.apply_template(@account_id, template_id, domain_id)
+
+    assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{domain_id}/templates/#{template_id}",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_apply_template_returns_nil
+    stub_request(:post, %r{/v2/#{@account_id}/domains/example.com/templates/5410$})
+        .to_return(read_http_fixture("applyTemplate/success.http"))
+
+    template_id = 5410
+    domain_id = "example.com"
+    response = @subject.apply_template(@account_id, template_id, domain_id)
+    assert_kind_of(Dnsimple::Response, response)
+    assert_nil(response.data)
   end
 
 end

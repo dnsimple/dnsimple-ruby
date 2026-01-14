@@ -2,33 +2,32 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".templates" do
+class TemplatesDomainsTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").templates }
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").templates
+    @account_id = 1010
+    @template_id = 5410
+    @domain_id = "example.com"
+  end
 
+  def test_apply_template_builds_correct_request
+    stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/templates/#{@template_id}$})
+        .to_return(read_http_fixture("applyTemplate/success.http"))
 
-  describe "#apply_template" do
-    let(:account_id)  { 1010 }
-    let(:template_id) { 5410 }
-    let(:domain_id)   { "example.com" }
+    @subject.apply_template(@account_id, @template_id, @domain_id)
 
-    before do
-      stub_request(:post, %r{/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}$})
-          .to_return(read_http_fixture("applyTemplate/success.http"))
-    end
+    assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/templates/#{@template_id}",
+                     headers: { "Accept" => "application/json" })
+  end
 
-    it "builds the correct request" do
-      subject.apply_template(account_id, template_id, domain_id)
+  def test_apply_template_returns_nil
+    stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/templates/#{@template_id}$})
+        .to_return(read_http_fixture("applyTemplate/success.http"))
 
-      assert_requested(:post, "https://api.dnsimple.test/v2/#{account_id}/domains/#{domain_id}/templates/#{template_id}",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns nil" do
-      response = subject.apply_template(account_id, template_id, domain_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
-      _(response.data).must_be_nil
-    end
+    response = @subject.apply_template(@account_id, @template_id, @domain_id)
+    assert_kind_of(Dnsimple::Response, response)
+    assert_nil(response.data)
   end
 
 end

@@ -2,32 +2,32 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".accounts" do
+class AccountsTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").accounts }
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").accounts
+  end
 
+  def test_accounts_builds_correct_request
+    stub_request(:get, %r{/v2/accounts$})
+        .to_return(read_http_fixture("listAccounts/success-user.http"))
 
-  describe "#accounts" do
-    before do
-      stub_request(:get, %r{/v2/accounts$})
-          .to_return(read_http_fixture("listAccounts/success-user.http"))
-    end
+    @subject.accounts
 
-    it "builds the correct request" do
-      subject.accounts
+    assert_requested(:get, "https://api.dnsimple.test/v2/accounts",
+                     headers: { "Accept" => "application/json" })
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/accounts",
-                       headers: { "Accept" => "application/json" })
-    end
+  def test_accounts_returns_the_accounts
+    stub_request(:get, %r{/v2/accounts$})
+        .to_return(read_http_fixture("listAccounts/success-user.http"))
 
-    it "returns the accounts" do
-      response = subject.accounts
-      _(response).must_be_kind_of(Dnsimple::Response)
+    response = @subject.accounts
+    assert_kind_of(Dnsimple::Response, response)
 
-      result = response.data
-      _(result.first).must_be_kind_of(Dnsimple::Struct::Account)
-      _(result.last).must_be_kind_of(Dnsimple::Struct::Account)
-    end
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::Account, result.first)
+    assert_kind_of(Dnsimple::Struct::Account, result.last)
   end
 
 end

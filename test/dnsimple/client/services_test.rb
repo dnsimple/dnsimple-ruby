@@ -2,116 +2,123 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".services" do
+class ServicesTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").services }
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").services
+  end
 
+  def test_list_services_builds_correct_request
+    stub_request(:get, %r{/v2/services})
+        .to_return(read_http_fixture("listServices/success.http"))
 
-  describe "#list_services" do
-    before do
-      stub_request(:get, %r{/v2/services})
-          .to_return(read_http_fixture("listServices/success.http"))
-    end
+    @subject.list_services
 
-    it "builds the correct request" do
-      subject.list_services
+    assert_requested(:get, "https://api.dnsimple.test/v2/services",
+                     headers: { "Accept" => "application/json" })
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/services",
-                       headers: { "Accept" => "application/json" })
-    end
+  def test_list_services_supports_pagination
+    stub_request(:get, %r{/v2/services})
+        .to_return(read_http_fixture("listServices/success.http"))
 
-    it "supports pagination" do
-      subject.services(page: 2)
+    @subject.services(page: 2)
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/services?page=2")
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/services?page=2")
+  end
 
-    it "supports extra request options" do
-      subject.services(query: { foo: "bar" })
+  def test_list_services_supports_extra_request_options
+    stub_request(:get, %r{/v2/services})
+        .to_return(read_http_fixture("listServices/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/services?foo=bar")
-    end
+    @subject.services(query: { foo: "bar" })
 
-    it "supports sorting" do
-      subject.services(sort: "short_name:asc")
+    assert_requested(:get, "https://api.dnsimple.test/v2/services?foo=bar")
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/services?sort=short_name:asc")
-    end
+  def test_list_services_supports_sorting
+    stub_request(:get, %r{/v2/services})
+        .to_return(read_http_fixture("listServices/success.http"))
 
-    it "returns the list of available services" do
-      response = subject.list_services
-      _(response).must_be_kind_of(Dnsimple::CollectionResponse)
+    @subject.services(sort: "short_name:asc")
 
-      response.data.each do |service|
-        _(service).must_be_kind_of(Dnsimple::Struct::Service)
-        _(service.id).must_be_kind_of(Integer)
-        _(service.name).must_be_kind_of(String)
-        _(service.sid).must_be_kind_of(String)
-        _(service.description).must_be_kind_of(String)
+    assert_requested(:get, "https://api.dnsimple.test/v2/services?sort=short_name:asc")
+  end
 
-        service.settings.each do |setting|
-          _(setting).must_be_kind_of(Dnsimple::Struct::Service::Setting)
-        end
+  def test_list_services_returns_the_list_of_available_services
+    stub_request(:get, %r{/v2/services})
+        .to_return(read_http_fixture("listServices/success.http"))
+
+    response = @subject.list_services
+    assert_kind_of(Dnsimple::CollectionResponse, response)
+
+    response.data.each do |service|
+      assert_kind_of(Dnsimple::Struct::Service, service)
+      assert_kind_of(Integer, service.id)
+      assert_kind_of(String, service.name)
+      assert_kind_of(String, service.sid)
+      assert_kind_of(String, service.description)
+
+      service.settings.each do |setting|
+        assert_kind_of(Dnsimple::Struct::Service::Setting, setting)
       end
     end
   end
 
-  describe "#all_services" do
-    before do
-      stub_request(:get, %r{/v2/services})
-          .to_return(read_http_fixture("listServices/success.http"))
-    end
+  def test_all_services_delegates_to_paginate
+    stub_request(:get, %r{/v2/services})
+        .to_return(read_http_fixture("listServices/success.http"))
 
-    it "delegates to client.paginate" do
-      mock = Minitest::Mock.new
-      mock.expect(:call, nil, [:services, { foo: "bar" }])
-      subject.stub(:paginate, mock) do
-        subject.all_services(foo: "bar")
-      end
-      mock.verify
+    mock = Minitest::Mock.new
+    mock.expect(:call, nil, [:services, { foo: "bar" }])
+    @subject.stub(:paginate, mock) do
+      @subject.all_services(foo: "bar")
     end
-
-    it "supports sorting" do
-      subject.all_services(sort: "short_name:asc")
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/services?page=1&per_page=100&sort=short_name:asc")
-    end
+    mock.verify
   end
 
-  describe "#service" do
-    let(:service_id) { 1 }
+  def test_all_services_supports_sorting
+    stub_request(:get, %r{/v2/services})
+        .to_return(read_http_fixture("listServices/success.http"))
 
-    before do
-      stub_request(:get, %r{/v2/services/#{service_id}$})
-          .to_return(read_http_fixture("getService/success.http"))
-    end
+    @subject.all_services(sort: "short_name:asc")
 
-    it "builds the correct request" do
-      subject.service(service_id)
+    assert_requested(:get, "https://api.dnsimple.test/v2/services?page=1&per_page=100&sort=short_name:asc")
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/services/#{service_id}",
-                       headers: { "Accept" => "application/json" })
-    end
+  def test_service_builds_correct_request
+    stub_request(:get, %r{/v2/services/1$})
+        .to_return(read_http_fixture("getService/success.http"))
 
-    it "returns the service" do
-      response = subject.service(service_id)
-      _(response).must_be_kind_of(Dnsimple::Response)
+    service_id = 1
+    @subject.service(service_id)
 
-      service = response.data
-      _(service).must_be_kind_of(Dnsimple::Struct::Service)
-      _(service.id).must_equal(1)
-      _(service.name).must_equal("Service 1")
-      _(service.sid).must_equal("service1")
-      _(service.description).must_equal("First service example.")
-      _(service.setup_description).must_be_nil
-      _(service.requires_setup).must_equal(true)
-      _(service.default_subdomain).must_be_nil
+    assert_requested(:get, "https://api.dnsimple.test/v2/services/#{service_id}",
+                     headers: { "Accept" => "application/json" })
+  end
 
-      settings = service.settings
-      _(settings).must_be_kind_of(Array)
-      _(settings.size).must_equal(1)
-      _(settings[0].name).must_equal("username")
-    end
+  def test_service_returns_the_service
+    stub_request(:get, %r{/v2/services/1$})
+        .to_return(read_http_fixture("getService/success.http"))
+
+    service_id = 1
+    response = @subject.service(service_id)
+    assert_kind_of(Dnsimple::Response, response)
+
+    service = response.data
+    assert_kind_of(Dnsimple::Struct::Service, service)
+    assert_equal(1, service.id)
+    assert_equal("Service 1", service.name)
+    assert_equal("service1", service.sid)
+    assert_equal("First service example.", service.description)
+    assert_nil(service.setup_description)
+    assert_equal(true, service.requires_setup)
+    assert_nil(service.default_subdomain)
+
+    settings = service.settings
+    assert_kind_of(Array, settings)
+    assert_equal(1, settings.size)
+    assert_equal("username", settings[0].name)
   end
 
 end

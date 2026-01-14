@@ -2,44 +2,38 @@
 
 require "test_helper"
 
-describe Dnsimple::Extra do
+class ExtraTest < Minitest::Test
 
-  describe ".join_uri" do
-    it "joins two or more strings" do
-      _(Dnsimple::Extra.join_uri("foo")).must_equal("foo")
-      _(Dnsimple::Extra.join_uri("foo", "bar")).must_equal("foo/bar")
-      _(Dnsimple::Extra.join_uri("foo", "bar", "baz")).must_equal("foo/bar/baz")
-    end
+  def test_join_uri_joins_two_or_more_strings
+    assert_equal "foo", Dnsimple::Extra.join_uri("foo")
+    assert_equal "foo/bar", Dnsimple::Extra.join_uri("foo", "bar")
+    assert_equal "foo/bar/baz", Dnsimple::Extra.join_uri("foo", "bar", "baz")
+  end
 
-    it "removes multiple trailing /" do
-      _(Dnsimple::Extra.join_uri("foo", "bar")).must_equal("foo/bar")
-      _(Dnsimple::Extra.join_uri("foo", "bar/")).must_equal("foo/bar")
-      _(Dnsimple::Extra.join_uri("foo/", "bar")).must_equal("foo/bar")
-      _(Dnsimple::Extra.join_uri("foo/", "bar/")).must_equal("foo/bar")
-    end
+  def test_join_uri_removes_multiple_trailing_slashes
+    assert_equal "foo/bar", Dnsimple::Extra.join_uri("foo", "bar")
+    assert_equal "foo/bar", Dnsimple::Extra.join_uri("foo", "bar/")
+    assert_equal "foo/bar", Dnsimple::Extra.join_uri("foo/", "bar")
+    assert_equal "foo/bar", Dnsimple::Extra.join_uri("foo/", "bar/")
+  end
 
-    it "does not strip protocols" do
-      _(Dnsimple::Extra.join_uri("https://dnsimple.com", "path")).must_equal("https://dnsimple.com/path")
+  def test_join_uri_does_not_strip_protocols
+    assert_equal "https://dnsimple.com/path", Dnsimple::Extra.join_uri("https://dnsimple.com", "path")
+  end
+
+  def test_validate_mandatory_attributes_raises_error_if_mandatory_attribute_not_present
+    assert_raises(ArgumentError) do
+      Dnsimple::Extra.validate_mandatory_attributes({ name: "foo" }, %i[name email])
     end
   end
 
-  describe ".validate_mandatory_attributes" do
-    let(:mandatory_attributes) { %i[name email] }
+  def test_validate_mandatory_attributes_does_not_raise_if_all_attributes_present
+    Dnsimple::Extra.validate_mandatory_attributes({ name: "foo", email: "bar" }, %i[name email])
+  end
 
-    it "raises an error if a mandatory attribute is not present" do
-      _ {
-        Dnsimple::Extra.validate_mandatory_attributes({ name: "foo" }, mandatory_attributes)
-      }.must_raise(ArgumentError)
-    end
-
-    it "does not raise an error if all attributes are present" do
-      Dnsimple::Extra.validate_mandatory_attributes({ name: "foo", email: "bar" }, mandatory_attributes)
-    end
-
-    it "handles nil as attributes value" do
-      _ {
-        Dnsimple::Extra.validate_mandatory_attributes(nil, mandatory_attributes)
-      }.must_raise(ArgumentError)
+  def test_validate_mandatory_attributes_handles_nil_as_attributes_value
+    assert_raises(ArgumentError) do
+      Dnsimple::Extra.validate_mandatory_attributes(nil, %i[name email])
     end
   end
 

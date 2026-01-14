@@ -2,83 +2,102 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".dns_analytics" do
+class DnsAnalyticsTest < Minitest::Test
 
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").dns_analytics }
-
-  describe "#query" do
-    before do
-      stub_request(:get, %r{/v2/1/dns_analytics})
-          .to_return(read_http_fixture("dnsAnalytics/success.http"))
-    end
-
-    it "builds the correct request" do
-      subject.query(1)
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "supports pagination" do
-      subject.query(1, page: 2, per_page: 200)
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?page=2&per_page=200")
-    end
-
-    it "supports sorting" do
-      subject.query(1, sort: "date:asc")
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?sort=date:asc")
-    end
-
-    it "supports filtering" do
-      subject.query(1, filter: { start_date: "2024-08-01", end_date: "2024-09-01" })
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?start_date=2024-08-01&end_date=2024-09-01")
-    end
-
-    it "supports groupings" do
-      subject.query(1, groupings: "date,zone_name")
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?groupings=date,zone_name")
-    end
-
-
-    it "returns a list of DNS Analytics entries" do
-      response = subject.query(1)
-
-      _(response).must_be_kind_of(Dnsimple::PaginatedResponseWithQuery)
-      _(response.data).must_be_kind_of(Array)
-      _(response.data.size).must_equal(12)
-
-      _(response.data.all?(Dnsimple::Struct::DnsAnalytics)).must_equal(true)
-      _(response.data[0].date).must_equal("2023-12-08")
-      _(response.data[0].zone_name).must_equal("bar.com")
-      _(response.data[0].volume).must_equal(1200)
-    end
-
-    it "exposes the pagination information" do
-      response = subject.query(1)
-
-      _(response).must_respond_to(:page)
-      _(response.page).must_equal(0)
-      _(response.per_page).must_equal(100)
-      _(response.total_entries).must_equal(93)
-      _(response.total_pages).must_equal(1)
-    end
-
-    it "exposes the query parameters applied to produce the results" do
-      response = subject.query(1)
-
-      _(response).must_respond_to(:query)
-      query = response.query
-      _(query["account_id"]).must_equal(1)
-      _(query["start_date"]).must_equal("2023-12-08")
-      _(query["end_date"]).must_equal("2024-01-08")
-      _(query["sort"]).must_equal("zone_name:asc,date:asc")
-      _(query["groupings"]).must_equal("zone_name,date")
-      _(query["page"]).must_equal(0)
-      _(query["per_page"]).must_equal(100)
-    end
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").dns_analytics
   end
+
+  def test_query_builds_correct_request
+    stub_request(:get, %r{/v2/1/dns_analytics})
+        .to_return(read_http_fixture("dnsAnalytics/success.http"))
+
+    @subject.query(1)
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_query_supports_pagination
+    stub_request(:get, %r{/v2/1/dns_analytics})
+        .to_return(read_http_fixture("dnsAnalytics/success.http"))
+
+    @subject.query(1, page: 2, per_page: 200)
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?page=2&per_page=200")
+  end
+
+  def test_query_supports_sorting
+    stub_request(:get, %r{/v2/1/dns_analytics})
+        .to_return(read_http_fixture("dnsAnalytics/success.http"))
+
+    @subject.query(1, sort: "date:asc")
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?sort=date:asc")
+  end
+
+  def test_query_supports_filtering
+    stub_request(:get, %r{/v2/1/dns_analytics})
+        .to_return(read_http_fixture("dnsAnalytics/success.http"))
+
+    @subject.query(1, filter: { start_date: "2024-08-01", end_date: "2024-09-01" })
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?start_date=2024-08-01&end_date=2024-09-01")
+  end
+
+  def test_query_supports_groupings
+    stub_request(:get, %r{/v2/1/dns_analytics})
+        .to_return(read_http_fixture("dnsAnalytics/success.http"))
+
+    @subject.query(1, groupings: "date,zone_name")
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?groupings=date,zone_name")
+  end
+
+  def test_query_returns_dns_analytics_entries
+    stub_request(:get, %r{/v2/1/dns_analytics})
+        .to_return(read_http_fixture("dnsAnalytics/success.http"))
+
+    response = @subject.query(1)
+
+    assert_kind_of(Dnsimple::PaginatedResponseWithQuery, response)
+    assert_kind_of(Array, response.data)
+    assert_equal(12, response.data.size)
+
+    assert_equal(true, response.data.all?(Dnsimple::Struct::DnsAnalytics))
+    assert_equal("2023-12-08", response.data[0].date)
+    assert_equal("bar.com", response.data[0].zone_name)
+    assert_equal(1200, response.data[0].volume)
+  end
+
+  def test_query_exposes_pagination_information
+    stub_request(:get, %r{/v2/1/dns_analytics})
+        .to_return(read_http_fixture("dnsAnalytics/success.http"))
+
+    response = @subject.query(1)
+
+    assert_respond_to(response, :page)
+    assert_equal(0, response.page)
+    assert_equal(100, response.per_page)
+    assert_equal(93, response.total_entries)
+    assert_equal(1, response.total_pages)
+  end
+
+  def test_query_exposes_query_parameters
+    stub_request(:get, %r{/v2/1/dns_analytics})
+        .to_return(read_http_fixture("dnsAnalytics/success.http"))
+
+    response = @subject.query(1)
+
+    assert_respond_to(response, :query)
+    query = response.query
+    assert_equal(1, query["account_id"])
+    assert_equal("2023-12-08", query["start_date"])
+    assert_equal("2024-01-08", query["end_date"])
+    assert_equal("zone_name:asc,date:asc", query["sort"])
+    assert_equal("zone_name,date", query["groupings"])
+    assert_equal(0, query["page"])
+    assert_equal(100, query["per_page"])
+  end
+
 end

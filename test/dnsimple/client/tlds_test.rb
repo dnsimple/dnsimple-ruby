@@ -2,166 +2,176 @@
 
 require "test_helper"
 
-describe Dnsimple::Client, ".tlds" do
-  let(:subject) { Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").tlds }
+class TldsTest < Minitest::Test
 
-  describe "#list_tlds" do
-    before do
-      stub_request(:get, %r{/v2/tlds})
-          .to_return(read_http_fixture("listTlds/success.http"))
-    end
+  def setup
+    @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").tlds
+  end
 
-    it "builds the correct request" do
-      subject.list_tlds
+  def test_list_tlds_builds_correct_request
+    stub_request(:get, %r{/v2/tlds})
+        .to_return(read_http_fixture("listTlds/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/tlds",
-                       headers: { "Accept" => "application/json" })
-    end
+    @subject.list_tlds
 
-    it "supports pagination" do
-      subject.list_tlds(page: 2)
+    assert_requested(:get, "https://api.dnsimple.test/v2/tlds",
+                     headers: { "Accept" => "application/json" })
+  end
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/tlds?page=2")
-    end
+  def test_list_tlds_supports_pagination
+    stub_request(:get, %r{/v2/tlds})
+        .to_return(read_http_fixture("listTlds/success.http"))
 
-    it "supports additional options" do
-      subject.list_tlds(query: { foo: "bar" })
+    @subject.list_tlds(page: 2)
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/tlds?foo=bar")
-    end
+    assert_requested(:get, "https://api.dnsimple.test/v2/tlds?page=2")
+  end
 
-    it "supports sorting" do
-      subject.list_tlds(sort: "tld:asc")
+  def test_list_tlds_supports_additional_options
+    stub_request(:get, %r{/v2/tlds})
+        .to_return(read_http_fixture("listTlds/success.http"))
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/tlds?sort=tld:asc")
-    end
+    @subject.list_tlds(query: { foo: "bar" })
 
-    it "returns the tlds" do
-      response = subject.list_tlds
+    assert_requested(:get, "https://api.dnsimple.test/v2/tlds?foo=bar")
+  end
 
-      _(response).must_be_kind_of(Dnsimple::PaginatedResponse)
-      _(response.data).must_be_kind_of(Array)
-      _(response.data.size).must_equal(2)
+  def test_list_tlds_supports_sorting
+    stub_request(:get, %r{/v2/tlds})
+        .to_return(read_http_fixture("listTlds/success.http"))
 
-      response.data.each do |result|
-        _(result).must_be_kind_of(Dnsimple::Struct::Tld)
-        _(result.tld_type).must_be_kind_of(Integer)
-        _(result.tld).must_be_kind_of(String)
-      end
-    end
+    @subject.list_tlds(sort: "tld:asc")
 
-    it "exposes the pagination information" do
-      response = subject.list_tlds
+    assert_requested(:get, "https://api.dnsimple.test/v2/tlds?sort=tld:asc")
+  end
 
-      _(response).must_respond_to(:page)
-      _(response.page).must_equal(1)
-      _(response.per_page).must_be_kind_of(Integer)
-      _(response.total_entries).must_be_kind_of(Integer)
-      _(response.total_pages).must_be_kind_of(Integer)
+  def test_list_tlds_returns_the_tlds
+    stub_request(:get, %r{/v2/tlds})
+        .to_return(read_http_fixture("listTlds/success.http"))
+
+    response = @subject.list_tlds
+
+    assert_kind_of(Dnsimple::PaginatedResponse, response)
+    assert_kind_of(Array, response.data)
+    assert_equal(2, response.data.size)
+
+    response.data.each do |result|
+      assert_kind_of(Dnsimple::Struct::Tld, result)
+      assert_kind_of(Integer, result.tld_type)
+      assert_kind_of(String, result.tld)
     end
   end
 
-  describe "#all_tlds" do
-    before do
-      stub_request(:get, %r{/v2/tlds})
-          .to_return(read_http_fixture("listTlds/success.http"))
-    end
+  def test_list_tlds_exposes_pagination_information
+    stub_request(:get, %r{/v2/tlds})
+        .to_return(read_http_fixture("listTlds/success.http"))
 
-    it "delegates to client.paginate" do
-      mock = Minitest::Mock.new
-      mock.expect(:call, nil, [:list_tlds, { foo: "bar" }])
-      subject.stub(:paginate, mock) do
-        subject.all_tlds(foo: "bar")
+    response = @subject.list_tlds
+
+    assert_respond_to(response, :page)
+    assert_equal(1, response.page)
+    assert_kind_of(Integer, response.per_page)
+    assert_kind_of(Integer, response.total_entries)
+    assert_kind_of(Integer, response.total_pages)
+  end
+
+  def test_all_tlds_delegates_to_paginate
+    stub_request(:get, %r{/v2/tlds})
+        .to_return(read_http_fixture("listTlds/success.http"))
+
+    mock = Minitest::Mock.new
+    mock.expect(:call, nil, [:list_tlds, { foo: "bar" }])
+    @subject.stub(:paginate, mock) do
+      @subject.all_tlds(foo: "bar")
+    end
+    mock.verify
+  end
+
+  def test_all_tlds_supports_sorting
+    stub_request(:get, %r{/v2/tlds})
+        .to_return(read_http_fixture("listTlds/success.http"))
+
+    @subject.all_tlds(sort: "tld:asc")
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/tlds?page=1&per_page=100&sort=tld:asc")
+  end
+
+  def test_tld_builds_correct_request
+    stub_request(:get, %r{/v2/tlds/.+$})
+        .to_return(read_http_fixture("getTld/success.http"))
+
+    tld = "com"
+    @subject.tld(tld)
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_tld_returns_the_tld
+    stub_request(:get, %r{/v2/tlds/.+$})
+        .to_return(read_http_fixture("getTld/success.http"))
+
+    response = @subject.tld("com")
+    assert_kind_of(Dnsimple::Response, response)
+
+    result = response.data
+    assert_kind_of(Dnsimple::Struct::Tld, result)
+    assert_equal("com", result.tld)
+    assert_equal(1, result.tld_type)
+    assert_equal(true, result.whois_privacy)
+    assert_equal(false, result.auto_renew_only)
+    assert_equal(true, result.idn)
+    assert_equal(1, result.minimum_registration)
+    assert_equal(true, result.registration_enabled)
+    assert_equal(true, result.renewal_enabled)
+    assert_equal(true, result.transfer_enabled)
+    assert_equal("ds", result.dnssec_interface_type)
+  end
+
+  def test_tld_extended_attributes_builds_correct_request
+    stub_request(:get, %r{/v2/tlds/uk/extended_attributes$})
+        .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
+
+    tld = "uk"
+    @subject.tld_extended_attributes(tld)
+
+    assert_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}/extended_attributes",
+                     headers: { "Accept" => "application/json" })
+  end
+
+  def test_tld_extended_attributes_returns_the_extended_attributes
+    stub_request(:get, %r{/v2/tlds/uk/extended_attributes$})
+        .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
+
+    response = @subject.tld_extended_attributes("uk")
+    assert_kind_of(Dnsimple::CollectionResponse, response)
+
+    response.data.each do |result|
+      assert_kind_of(Dnsimple::Struct::ExtendedAttribute, result)
+      assert_kind_of(String, result.name)
+      assert_kind_of(String, result.description)
+      assert_respond_to(result, :required)
+
+      next if result.options.empty?
+
+      result.options.each do |option|
+        assert_kind_of(Dnsimple::Struct::ExtendedAttribute::Option, option)
+        assert_kind_of(String, option.title)
+        assert_kind_of(String, option.value)
+        assert_kind_of(String, option.description)
       end
-      mock.verify
-    end
-
-    it "supports sorting" do
-      subject.all_tlds(sort: "tld:asc")
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/tlds?page=1&per_page=100&sort=tld:asc")
     end
   end
 
-  describe "#tld" do
-    before do
-      stub_request(:get, %r{/v2/tlds/.+$})
-          .to_return(read_http_fixture("getTld/success.http"))
-    end
+  def test_tld_extended_attributes_when_no_attributes_returns_empty_collection
+    stub_request(:get, %r{/v2/tlds/com/extended_attributes$})
+        .to_return(read_http_fixture("getTldExtendedAttributes/success-noattributes.http"))
 
-    it "builds the correct request" do
-      subject.tld(tld = "com")
+    response = @subject.tld_extended_attributes("com")
+    assert_kind_of(Dnsimple::CollectionResponse, response)
 
-      assert_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the tld" do
-      response = subject.tld("com")
-      _(response).must_be_kind_of(Dnsimple::Response)
-
-      result = response.data
-      _(result).must_be_kind_of(Dnsimple::Struct::Tld)
-      _(result.tld).must_equal("com")
-      _(result.tld_type).must_equal(1)
-      _(result.whois_privacy).must_equal(true)
-      _(result.auto_renew_only).must_equal(false)
-      _(result.idn).must_equal(true)
-      _(result.minimum_registration).must_equal(1)
-      _(result.registration_enabled).must_equal(true)
-      _(result.renewal_enabled).must_equal(true)
-      _(result.transfer_enabled).must_equal(true)
-      _(result.dnssec_interface_type).must_equal("ds")
-    end
+    result = response.data
+    assert_empty(result)
   end
 
-  describe "#tld_extended_attributes" do
-    before do
-      stub_request(:get, %r{/v2/tlds/uk/extended_attributes$})
-          .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
-    end
-
-    it "builds the correct request" do
-      subject.tld_extended_attributes(tld = "uk")
-
-      assert_requested(:get, "https://api.dnsimple.test/v2/tlds/#{tld}/extended_attributes",
-                       headers: { "Accept" => "application/json" })
-    end
-
-    it "returns the extended attributes" do
-      response = subject.tld_extended_attributes("uk")
-      _(response).must_be_kind_of(Dnsimple::CollectionResponse)
-
-      response.data.each do |result|
-        _(result).must_be_kind_of(Dnsimple::Struct::ExtendedAttribute)
-        _(result.name).must_be_kind_of(String)
-        _(result.description).must_be_kind_of(String)
-        _(result).must_respond_to(:required)
-
-        next if result.options.empty?
-
-        result.options.each do |option|
-          _(option).must_be_kind_of(Dnsimple::Struct::ExtendedAttribute::Option)
-          _(option.title).must_be_kind_of(String)
-          _(option.value).must_be_kind_of(String)
-          _(option.description).must_be_kind_of(String)
-        end
-      end
-    end
-
-    describe "when there are no extended attributes for a TLD" do
-      before do
-        stub_request(:get, %r{/v2/tlds/com/extended_attributes$})
-            .to_return(read_http_fixture("getTldExtendedAttributes/success-noattributes.http"))
-      end
-
-      it "returns an empty CollectionResponse" do
-        response = subject.tld_extended_attributes("com")
-        _(response).must_be_kind_of(Dnsimple::CollectionResponse)
-
-        result = response.data
-        _(result).must_be_empty
-      end
-    end
-  end
 end
