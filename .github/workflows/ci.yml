@@ -2,7 +2,8 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     tags:
       - v*.*.*
   pull_request:
@@ -13,7 +14,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  markdownlint-cli:
+  markdown-lint:
     name: Lint markdown
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +27,8 @@ jobs:
           config_file: ".markdownlint.yaml"
 
   test:
-    needs: [markdownlint-cli]
+    needs:
+      - markdown-lint
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby-version }}
     strategy:
