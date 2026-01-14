@@ -11,4 +11,4 @@ gem "csv", "~> 3.2"
 gem "rubocop", "~> 1.75", require: false
 gem "rubocop-performance", "~> 1.25", require: false
 gem "rubocop-rake", "~> 0.7", require: false
-gem "rubocop-rspec", "~> 3.6", require: false
+gem "rubocop-minitest", "~> 0.36", require: false
