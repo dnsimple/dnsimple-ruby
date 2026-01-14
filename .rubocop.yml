@@ -6,7 +6,6 @@ inherit_from:
 plugins:
   - rubocop-performance
   - rubocop-rake
-  - rubocop-rspec
 
 AllCops:
   TargetRubyVersion: 3.2

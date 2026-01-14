@@ -28,6 +28,6 @@ module TestHelpers
   end
 end
 
-class Minitest::Spec
+class Minitest::Spec # rubocop:disable Style/ClassAndModuleChildren
   include TestHelpers
 end
