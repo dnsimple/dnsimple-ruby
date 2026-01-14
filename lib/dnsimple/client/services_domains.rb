@@ -16,9 +16,9 @@ module Dnsimple
       # @example List applied one-click services for example.com, provide a sorting policy:
       #   client.services.applied_services(1010, "example.com", sort: "short_name:asc")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id the domain name
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] the domain name
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -42,11 +42,11 @@ module Dnsimple
       # @example Apply one-click service service1 to example.com, provide optional settings:
       #   client.domain_services.applied_services(1010, "example.com", "service1", app: "foo")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] service_id the service name (or ID)
-      # @param  [#to_s] domain_id the domain name
-      # @param  [Hash] settings optional settings to apply the one-click service
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  service_id [#to_s] the service name (or ID)
+      # @param  domain_id [#to_s] the domain name
+      # @param  settings [Hash] optional settings to apply the one-click service
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.
@@ -64,10 +64,10 @@ module Dnsimple
       # @example Unapply one-click service service1 from example.com:
       #   client.domain_services.applied_services(1010, "example.com", "service1")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] service_id the service name (or ID)
-      # @param  [#to_s] domain_id the domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  service_id [#to_s] the service name (or ID)
+      # @param  domain_id [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.

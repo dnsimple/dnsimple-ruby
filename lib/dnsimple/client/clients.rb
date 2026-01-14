@@ -91,8 +91,8 @@ module Dnsimple
       #
       # @api private
       #
-      # @param  [Symbol] method The client method to execute
-      # @param  [Array] args The args to call the method with
+      # @param  method [Symbol] The client method to execute
+      # @param  args [Array] The args to call the method with
       # @return [Dnsimple::CollectionResponse]
       def paginate(method, *args)
         current_page = 0

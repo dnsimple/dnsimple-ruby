@@ -20,8 +20,8 @@ module Dnsimple
       # @example List zones, provide filtering policy
       #   client.zones.list(1010, "example.com", filter: { name_like: "example" })
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -47,8 +47,8 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/zones/#list
       # @see #zones
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -64,9 +64,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/zones/#get
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] zone_id the zone name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [#to_s] the zone name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Zone>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -81,9 +81,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/zones/#get-file
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] zone_name the zone name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_name [#to_s] the zone name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::ZoneFile>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -98,9 +98,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/zones/#activateZoneService
       #
-      # @param  [#to_s] account_id the account ID
-      # @param  [#to_s] zone_id the zone name
-      # @param  [Hash] options
+      # @param  account_id [#to_s] the account ID
+      # @param  zone_id [#to_s] the zone name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Zone>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -115,9 +115,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/zones/#deactivateZoneService
       #
-      # @param  [#to_s] account_id the account ID
-      # @param  [#to_s] zone_id the zone name
-      # @param  [Hash] options
+      # @param  account_id [#to_s] the account ID
+      # @param  zone_id [#to_s] the zone name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Zone>]
       #
       # @raise  [Dnsimple::NotFoundError]

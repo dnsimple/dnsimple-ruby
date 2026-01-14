@@ -102,8 +102,8 @@ module Dnsimple
 
     # Make a HTTP GET request.
     #
-    # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] options The query and header params for the request
+    # @param  path [String] The path, relative to {#base_url}
+    # @param  options [Hash] The query and header params for the request
     # @return [HTTParty::Response]
     def get(path, options = {})
       execute :get, path, nil, options.to_h
@@ -111,9 +111,9 @@ module Dnsimple
 
     # Make a HTTP POST request.
     #
-    # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body for the request
-    # @param  [Hash] options The query and header params for the request
+    # @param  path [String] The path, relative to {#base_url}
+    # @param  data [Hash] The body for the request
+    # @param  options [Hash] The query and header params for the request
     # @return [HTTParty::Response]
     def post(path, data = nil, options = {})
       execute :post, path, data, options
@@ -121,9 +121,9 @@ module Dnsimple
 
     # Make a HTTP PUT request.
     #
-    # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body for the request
-    # @param  [Hash] options The query and header params for the request
+    # @param  path [String] The path, relative to {#base_url}
+    # @param  data [Hash] The body for the request
+    # @param  options [Hash] The query and header params for the request
     # @return [HTTParty::Response]
     def put(path, data = nil, options = {})
       execute :put, path, data, options
@@ -131,9 +131,9 @@ module Dnsimple
 
     # Make a HTTP PATCH request.
     #
-    # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body for the request
-    # @param  [Hash] options The query and header params for the request
+    # @param  path [String] The path, relative to {#base_url}
+    # @param  data [Hash] The body for the request
+    # @param  options [Hash] The query and header params for the request
     # @return [HTTParty::Response]
     def patch(path, data = nil, options = {})
       execute :patch, path, data, options
@@ -141,8 +141,8 @@ module Dnsimple
 
     # Make a HTTP DELETE request.
     #
-    # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] options The query and header params for the request
+    # @param  path [String] The path, relative to {#base_url}
+    # @param  options [Hash] The query and header params for the request
     # @return [HTTParty::Response]
     def delete(path, data = nil, options = {})
       execute :delete, path, data, options
@@ -150,10 +150,10 @@ module Dnsimple
 
     # Executes a request, validates and returns the response.
     #
-    # @param  [String] method The HTTP method
-    # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body for the request
-    # @param  [Hash] options The query and header params for the request
+    # @param  method [String] The HTTP method
+    # @param  path [String] The path, relative to {#base_url}
+    # @param  data [Hash] The body for the request
+    # @param  options [Hash] The query and header params for the request
     # @return [HTTParty::Response]
     # @raise  [RequestError]
     # @raise  [NotFoundError]
@@ -182,10 +182,10 @@ module Dnsimple
     #
     # Therefore, it's up to the caller to properly handle and validate the response.
     #
-    # @param  [String] method The HTTP method
-    # @param  [String] path The path, relative to {#base_url}
-    # @param  [Hash] data The body for the request
-    # @param  [Hash] options The query and header params for the request
+    # @param  method [String] The HTTP method
+    # @param  path [String] The path, relative to {#base_url}
+    # @param  data [Hash] The body for the request
+    # @param  options [Hash] The query and header params for the request
     # @return [HTTParty::Response]
     def request(method, path, data = nil, options = {})
       request_options = request_options(options)

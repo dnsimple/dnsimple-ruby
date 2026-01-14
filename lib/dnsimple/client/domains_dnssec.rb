@@ -7,9 +7,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/dnssec/#enable
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Dnssec>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -24,9 +24,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/dnssec/#disable
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -41,9 +41,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/dnssec/#get
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Dnssec>]
       #
       # @raise  [Dnsimple::NotFoundError]

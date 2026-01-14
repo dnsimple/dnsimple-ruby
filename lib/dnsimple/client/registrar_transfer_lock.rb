@@ -8,9 +8,9 @@ module Dnsimple
       # @example Get the transfer lock for "example.com":
       #   client.registrar.get_domain_transfer_lock(1010, "example.com")
       #
-      # @param  [#to_s] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options
+      # @param  account_id [#to_s] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Struct::TransferLock]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -25,9 +25,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/registrar/#enableDomainTransferLock
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Struct::TransferLock]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -42,9 +42,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/registrar/#disableDomainTransferLock
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Struct::TransferLock]
       #
       # @raise  [Dnsimple::NotFoundError]

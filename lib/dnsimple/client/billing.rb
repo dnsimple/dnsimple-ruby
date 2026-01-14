@@ -16,8 +16,8 @@ module Dnsimple
       # @example List charges, provide a sorting policy
       #   client.charges.list(1010, sort: "invoiced:asc")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy

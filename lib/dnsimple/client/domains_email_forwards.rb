@@ -16,9 +16,9 @@ module Dnsimple
       # @example List email forwards, provide a sorting policy
       #   client.domains.email_forwards(1010, "example.com", sort: "from:asc")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -43,9 +43,9 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#list
       # @see #email_forwards
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] options the filtering and sorting option
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  options [Hash] the filtering and sorting option
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -60,10 +60,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#create
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::EmailForward>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -78,10 +78,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#get
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [#to_s] email_forward_id The email forward ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  email_forward_id [#to_s] The email forward ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::EmailForward>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -98,10 +98,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/email-forwards/#delete
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [#to_s] email_forward_id The email forward ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  email_forward_id [#to_s] The email forward ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [Dnsimple::NotFoundError]

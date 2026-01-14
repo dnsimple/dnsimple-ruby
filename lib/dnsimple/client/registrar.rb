@@ -10,9 +10,9 @@ module Dnsimple
       # @example Check whether example.com is available:
       #   client.registrar.check_domain(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to check
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to check
+      # @param  options [Hash]
       # @return [Struct::DomainCheck]
       #
       # @raise  [RequestError] When the request fails.
@@ -29,9 +29,9 @@ module Dnsimple
       # @example Check prices for example.com:
       #   client.registrar.get_domain_prices(1010, "example.com")
       #
-      # @param [Integer] account_id the Account id
-      # @param [String] domain_name the domain name to find the prices
-      # @param [Hash] options
+      # @param  account_id [Integer] the Account id
+      # @param  domain_name [String] the domain name to find the prices
+      # @param  options [Hash]
       #
       # @return [Struct::DomainPrice]
       #
@@ -51,10 +51,10 @@ module Dnsimple
       #   including WHOIS privacy for the domain and enabling auto renewal:
       #   client.registrar.register_domain(1010, "example.com", registrant_id: 1234, private_whois: true, auto_renew: true)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to register
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to register
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Struct::DomainRegistration]
       #
       # @raise  [RequestError] When the request fails.
@@ -73,10 +73,10 @@ module Dnsimple
       # @example Retrieve the registration 42 for example.com:
       #   client.registrar.get_domain_registration(1010, "example.com", 42)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Integer] domain_registration_id the domain registration ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  domain_registration_id [Integer] the domain registration ID
+      # @param  options [Hash]
       # @return [Struct::DomainRegistration]
       #
       # @raise  [NotFoundError] When record is not found.
@@ -95,10 +95,10 @@ module Dnsimple
       # @example Renew example.com for 3 years:
       #   client.registrar.renew_domain(1010, "example.com", period: 3)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to renew
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to renew
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Struct::DomainRenewal]
       #
       # @raise  [RequestError] When the request fails.
@@ -116,10 +116,10 @@ module Dnsimple
       # @example Retrieve the renewal 42 for example.com:
       #   client.registrar.get_domain_renewal(1010, "example.com", 42)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Integer] domain_renewal_id the domain renewal ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  domain_renewal_id [Integer] the domain renewal ID
+      # @param  options [Hash]
       # @return [Struct::DomainRenewal]
       #
       # @raise  [NotFoundError] When record is not found.
@@ -138,10 +138,10 @@ module Dnsimple
       # @example Initiate the transfer for example.com using the contact 1234 as registrant:
       #   client.registrar.transfer_domain(1010, "example.com", registrant_id: 1234, auth_code: "x1y2z3")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to transfer
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to transfer
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Struct::DomainTransfer]
       #
       # @raise  [RequestError] When the request fails.
@@ -160,10 +160,10 @@ module Dnsimple
       # @example Retrieve the transfer 42 for example.com:
       #   client.registrar.get_domain_transfer(1010, "example.com", 42)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Integer] domain_transfer_id the domain transfer ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  domain_transfer_id [Integer] the domain transfer ID
+      # @param  options [Hash]
       # @return [Struct::DomainTransfer]
       #
       # @raise  [NotFoundError] When record is not found.
@@ -182,10 +182,10 @@ module Dnsimple
       # @example Cancel the transfer 42 for example.com:
       #   client.registrar.cancel_domain_transfer(1010, "example.com", 42)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Integer] domain_transfer_id the domain transfer ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  domain_transfer_id [Integer] the domain transfer ID
+      # @param  options [Hash]
       # @return [Struct::DomainTransfer]
       #
       # @raise  [NotFoundError] When record is not found.
@@ -204,9 +204,9 @@ module Dnsimple
       # @example Request to transfer of example.com out of DNSimple:
       #   client.registrar.transfer_domain_out(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to transfer out
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to transfer out
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.
@@ -224,10 +224,10 @@ module Dnsimple
       # @example Restore example.com:
       #   client.registrar.restore_domain(1010, "example.com", {})
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to restore
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to restore
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Struct::DomainRestore]
       #
       # @raise  [RequestError] When the request fails.
@@ -245,10 +245,10 @@ module Dnsimple
       # @example Retrieve the restore 42 for example.com:
       #   client.registrar.get_domain_restore(1010, "example.com", 42)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Integer] domain_restore_id the domain restore ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  domain_restore_id [Integer] the domain restore ID
+      # @param  options [Hash]
       # @return [Struct::DomainRestore]
       #
       # @raise  [NotFoundError] When record is not found.

@@ -16,7 +16,7 @@ module Dnsimple
       # @example List one-click services, provide a sorting policy:
       #   client.services.list_services(sort: "short_name:asc")
       #
-      # @param  [Hash] options the filtering and sorting options
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -45,7 +45,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/services/#list
       # @see #services
       #
-      # @param  [Hash] options the filtering and sorting options
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -63,8 +63,8 @@ module Dnsimple
       # @example Get service 43:
       #   client.services.service(43)
       #
-      # @param  [#to_s] service_id The service ID
-      # @param  [Hash] options
+      # @param  service_id [#to_s] The service ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Service>]
       #
       # @raise  [RequestError] When the request fails.

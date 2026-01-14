@@ -29,10 +29,10 @@ module Dnsimple
       # @example Get record 123 in zone "example.com"
       #   client.zones.zone_record_distribution(1010, "example.com", 123)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [String] zone_id the zone name
-      # @param  [Integer] record_id the record ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [String] the zone name
+      # @param  record_id [Integer] the record ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::ZoneDistribution>]
       #
       # @raise  [Dnsimple::NotFoundError]

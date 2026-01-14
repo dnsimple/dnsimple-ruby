@@ -16,9 +16,9 @@ module Dnsimple
       # @example List delegation signer records, provide a sorting policy
       #   client.domains.delegation_signer_records(1010, "example.com", sort: "from:asc")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -43,9 +43,9 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-list
       # @see #email_forwards
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] options the filtering and sorting option
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  options [Hash] the filtering and sorting option
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -62,15 +62,15 @@ module Dnsimple
       # @see http://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xhtml
       # @see http://www.iana.org/assignments/ds-rr-types/ds-rr-types.xhtml
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] attributes
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  attributes [Hash]
       # @option attributes [Integer] :algorithm DNSSEC algorithm as number (required)
       # @option attributes [String] :digest The hexidecimal representation of the digest of the corresponding DNSKEY record (required if TLD requires DS data)
       # @option attributes [Integer] :digest_type DNSSEC digest type (required if TLD requires DS data)
       # @option attributes [String] :keytag A keytag that references the corresponding DNSKEY record (required if TLD requires DS data)
       # @option attributes [String] :public_key A public key that references the corresponding DNSKEY record (required if TLD requires KEY data)
-      # @param  [Hash] options
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::DelegationSignerRecord>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -85,10 +85,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-get
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [#to_s] ds_record_id The delegation signer record ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  ds_record_id [#to_s] The delegation signer record ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::DelegationSignerRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -105,10 +105,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-delete
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [#to_s] ds_record_id The delegation signer record ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  ds_record_id [#to_s] The delegation signer record ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [Dnsimple::NotFoundError]

@@ -7,7 +7,7 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/identity/#whoami
       #
-      # @param  [Hash] options
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Whoami>]
       # @raise  [Dnsimple::RequestError]
       def whoami(options = {})
@@ -22,8 +22,8 @@ module Dnsimple
         #
         # @see https://developer.dnsimple.com/v2/identity/#whoami
         #
-        # @param  [Dnsimple::Client] client the DNSimple client instance to use
-        # @param  [Array] args the args for the {Identity#whoami} call
+        # @param  client [Dnsimple::Client] the DNSimple client instance to use
+        # @param  args [Array] the args for the {Identity#whoami} call
         # @return [Hash]
         # @raise  [Dnsimple::RequestError]
         def whoami(client, *)

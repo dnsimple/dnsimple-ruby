@@ -10,9 +10,9 @@ module Dnsimple
       # @example List the name servers example.com is delegating to:
       #   client.registrar.domain_delegation(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to check
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to check
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Array>]
       #
       # @raise  [RequestError] When the request fails.
@@ -31,10 +31,10 @@ module Dnsimple
       #   client.registrar.change_domain_delegation(1010, "example.com",
       #       ["ns1.dnsimple.com", "ns2.dnsimple.com", "ns3.dnsimple.com", "ns4.dnsimple.com"])
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to check
-      # @param  [Array] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to check
+      # @param  attributes [Array]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Array>]
       #
       # @raise  [RequestError] When the request fails.
@@ -53,10 +53,10 @@ module Dnsimple
       #   client.registrar.change_domain_delegation_to_vanity(1010, "example.com",
       #       ["ns1.example.com", "ns2.example.com", "ns3.example.com", "ns4.example.com"])
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to check
-      # @param  [Array] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to check
+      # @param  attributes [Array]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Array<Dnsimple::Struct::VanityNameServer>>]
       #
       # @raise  [RequestError] When the request fails.
@@ -74,9 +74,9 @@ module Dnsimple
       # @example Disable vanity name servers for example.com:
       #   client.registrar.change_domain_delegation_from_vanity(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name to check
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name to check
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [RequestError] When the request fails.

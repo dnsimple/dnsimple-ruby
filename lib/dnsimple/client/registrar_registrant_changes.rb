@@ -8,11 +8,11 @@ module Dnsimple
       # @example Check the requirements to change the contact for example.com to contact 1234:
       #   client.registrar.check_registrant_change(1010, { domain_id: "example.com", contact_id: 1234 })
       #
-      # @param  [Integer] account_id the account ID
-      # @param [Hash] attributes the attributes to check the registrant change
+      # @param  account_id [Integer] the account ID
+      # @param  attributes [Hash] the attributes to check the registrant change
       # @option attributes [String, Integer] :domain_id the domain ID to check
       # @option attributes [Integer] :contact_id the contact ID to check against
-      # @param  [Hash] options
+      # @param  options [Hash]
       # @return [Struct::RegistrantChangeCheck]
       #
       # @raise  [RequestError] When the request fails.
@@ -29,9 +29,9 @@ module Dnsimple
       # @example Retrieve the registrant change 42:
       #   client.registrar.get_registrant_change(1010, 42)
       #
-      # @param [Integer] account_id the Account id
-      # @param [#to_s] registrant_change_id the registrant change id
-      # @param [Hash] options
+      # @param  account_id [Integer] the Account id
+      # @param  registrant_change_id [#to_s] the registrant change id
+      # @param  options [Hash]
       #
       # @return [Struct::RegistrantChange]
       #
@@ -50,12 +50,12 @@ module Dnsimple
       #   including WHOIS privacy for the domain and enabling auto renewal:
       #   client.registrar.create_registrant_change(1010, { domain_id: "example.com", contact_id: 1234, extended_attributes: { "x-fi-registrant-idnumber" => "1234" } })
       #
-      # @param  [Integer] account_id the account ID
-      # @param [Hash] attributes the attributes to start a registrant change
+      # @param  account_id [Integer] the account ID
+      # @param  attributes [Hash] the attributes to start a registrant change
       # @option attributes [String, Integer] :domain_id the domain ID
       # @option attributes [Integer] :contact_id the contact ID to change to
       # @option attributes [Array<Hash>, nil] :extended_attributes the extended attributes to pass to the registry
-      # @param  [Hash] options
+      # @param  options [Hash]
       # @return [Struct::RegistrantChange]
       #
       # @raise  [RequestError] When the request fails.
@@ -72,8 +72,8 @@ module Dnsimple
       # @example List registrant changes for the account:
       #   client.registrar.list_registrant_changes(1010)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash]
       # @return [Dnsimple::PaginatedResponse<Struct::DomainRegistration>]
       #
       # @raise  [NotFoundError] When record is not found.
@@ -90,9 +90,9 @@ module Dnsimple
       # @example Cancel a registrant change 42:
       #   client.registrar.delete_registrant_change(1010, 42)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] registrant_change_id the registrant change ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  registrant_change_id [#to_s] the registrant change ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [NotFoundError] When record is not found.

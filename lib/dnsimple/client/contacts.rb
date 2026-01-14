@@ -17,8 +17,8 @@ module Dnsimple
       # @example List contacts, provide a sorting policy
       #   client.contacts.list(1010, sort: "email:asc")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -43,8 +43,8 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/contacts/#list
       # @see #contacts
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -59,9 +59,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#create
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -76,9 +76,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#get
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] contact_id the contact ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  contact_id [#to_s] the contact ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -93,10 +93,10 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#update
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] contact_id the contact ID
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  contact_id [#to_s] the contact ID
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Contact>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -112,9 +112,9 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/contacts/#delete
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] contact_id the contact ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  contact_id [#to_s] the contact ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [Dnsimple::NotFoundError]

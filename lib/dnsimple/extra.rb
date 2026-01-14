@@ -48,8 +48,8 @@ module Dnsimple
 
     # Validates the presence of mandatory attributes.
     #
-    # @param  [Hash] attributes
-    # @param  [Array<Symbol>] required
+    # @param  attributes [Hash]
+    # @param  required [Array<Symbol>]
     # @return [void]
     # @raise  [ArgumentError]
     def self.validate_mandatory_attributes(attributes, required)

@@ -16,7 +16,7 @@ module Dnsimple
       # @example List TLDs, providing sorting policy
       #   client.tlds.list_tlds(sort: "tld:asc")
       #
-      # @param  [Hash] options the filtering and sorting options
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -43,7 +43,7 @@ module Dnsimple
       # @example List all TLDs in DNSimple
       #     client.tlds.all
       #
-      # @param  [Hash] options the filtering and sorting options
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -61,8 +61,8 @@ module Dnsimple
       # @example Get information on a specific TLD
       #     client.tlds.tld('com')
       #
-      # @param  [#to_s] tld The TLD name.
-      # @param  [Hash] options
+      # @param  tld [#to_s] The TLD name.
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Tld>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -80,8 +80,8 @@ module Dnsimple
       # @example Get extended attributes for a specific TLD
       #     client.tlds.tld_extended_attributes('uk')
       #
-      # @param  [#to_s] tld The TLD name.
-      # @param  [Hash] options
+      # @param  tld [#to_s] The TLD name.
+      # @param  options [Hash]
       # @return [Dnsimple::CollectionResponse<Dnsimple::Struct::ExtendedAttribute>]
       #
       # @raise  [Dnsimple::NotFoundError]

@@ -10,9 +10,9 @@ module Dnsimple
       # @example Enable whois privacy for "example.com":
       #   client.registrar.enable_whois_privacy(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name the domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] the domain name
+      # @param  options [Hash]
       # @return [Struct::WhoisPrivacy]
       #
       # @raise  [RequestError] When the request fails.
@@ -30,9 +30,9 @@ module Dnsimple
       # @example Disable whois privacy for "example.com":
       #   client.registrar.disable_whois_privacy(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_name The domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_name [#to_s] The domain name
+      # @param  options [Hash]
       # @return [Struct::WhoisPrivacy]
       #
       # @raise  [RequestError] When the request fails.

@@ -16,8 +16,8 @@ module Dnsimple
       # @example List the templates for account 1010, provide sorting policy:
       #   client.templates.list_templates(1010, sort: "short_name:asc")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -46,8 +46,8 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/templates/#list
       # @see #templates
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -65,9 +65,9 @@ module Dnsimple
       # @example Creating a template:
       #   client.templates.create_template(1010, name: "Pi", short_name: "pi", description: "Pi template")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -85,9 +85,9 @@ module Dnsimple
       # @example Get template 5401 in account 1010:
       #   client.templates.template(1010, 5401)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] template_id The template ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  template_id [#to_s] The template ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
       #
       # @raise  [RequestError] When the request fails.
@@ -105,10 +105,10 @@ module Dnsimple
       # @example Change the name of template 1 in account 1010:
       #   client.templates.update_template(1010, 1, name: "New name")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] template_id The template ID
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  template_id [#to_s] The template ID
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Template>]
       #
       # @raise  [RequestError] When the request fails.
@@ -128,9 +128,9 @@ module Dnsimple
       # @example Delete template 5401 in account 1010:
       #   client.templates.delete_template(1010, 5401)
       #
-      # @param  [Integer] account_id The account ID
-      # @param  [#to_s] template_id The template ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] The account ID
+      # @param  template_id [#to_s] The template ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [Dnsimple::NotFoundError]

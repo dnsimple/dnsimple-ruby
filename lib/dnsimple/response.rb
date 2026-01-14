@@ -24,8 +24,8 @@ module Dnsimple
     attr_reader :rate_limit_reset
 
 
-    # @param  [HTTParty::Response] http_response the HTTP response
-    # @param  [Object] data the response data
+    # @param  http_response [HTTParty::Response] the HTTP response
+    # @param  data [Object] the response data
     def initialize(http_response, data)
       @http_response = http_response
       @data = data
@@ -58,8 +58,8 @@ module Dnsimple
     # Initializes a new paginated response from the response metadata,
     # and with given collection.
     #
-    # @param  [Hash] http_response the HTTP response
-    # @param  [Array] collection the enumerable collection of records returned in the response data
+    # @param  http_response [Hash] the HTTP response
+    # @param  collection [Array] the enumerable collection of records returned in the response data
     def initialize(http_response, collection)
       super
 

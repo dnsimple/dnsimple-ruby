@@ -10,7 +10,7 @@ module Dnsimple
       # @example List the accounts:
       #   client.accounts.list
       #
-      # @param  [Hash] options
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Account>]
       #
       # @raise  [Dnsimple::RequestError]

@@ -20,9 +20,9 @@ module Dnsimple
       # @example List records for the zone "example.com", filtering by 'A' record type
       #   client.zones.list_zone_records(1010, "example.com", filter: { type: 'A' })
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [String] zone_id the zone name
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [String] the zone name
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -52,9 +52,9 @@ module Dnsimple
       # @example List all records for the zone "example.com"
       #   client.zones.all_zone_records(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [String] zone_id the zone name
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [String] the zone name
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -74,10 +74,10 @@ module Dnsimple
       # @example Create a URL record in zone "example.com"
       #   client.zones.create_zone_record(1010, "example.com", name: "www", type: "url", content: "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [String] zone_id the zone name
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [String] the zone name
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -96,10 +96,10 @@ module Dnsimple
       # @example Get record 123 in zone "example.com"
       #   client.zones.zone_record(1010, "example.com", 123)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [String] zone_id the zone name
-      # @param  [Integer] record_id the record ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [String] the zone name
+      # @param  record_id [Integer] the record ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -117,11 +117,11 @@ module Dnsimple
       # @example Update the TTL to 600 of record 123 in zone "example.com"
       #   client.zones.update_zone_record(1010, "example.com", 123, ttl: 600)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [String] zone_id the zone name
-      # @param  [Integer] record_id the record ID
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [String] the zone name
+      # @param  record_id [Integer] the record ID
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecord>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -141,10 +141,10 @@ module Dnsimple
       # @example Delete record 123 in zone "example.com"
       #   client.zones.delete_zone_record(1010, "example.com", 123)
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [String] zone_id the zone name
-      # @param  [Integer] record_id the record ID
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [String] the zone name
+      # @param  record_id [Integer] the record ID
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -162,13 +162,13 @@ module Dnsimple
       # @example Create 2 A records in zone "example.com", update 1 record and delete 1 record.
       #   client.zones.batch_change_zone_records(1010, "example.com", { creates: [{ type: "A", content: "1.2.3.4", name: "ab" }, { type: "A", content: "2.3.4.5", name: "ab" }], updates: [{ id: 67622534, content: "3.2.3.40", name: "www" } }, deletes: [{ id: 67622509 })
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [String] zone_id the zone name
+      # @param  account_id [Integer] the account ID
+      # @param  zone_id [String] the zone name
       # @param  attributes [Hash] Specifies the record creations and/or updates and/or deletions that should be performed as an atomic batch operation in the zone
       # @option attributes [Array<Hash>] :creates (optional)
       # @option attributes [Array<Hash>] :updates (optional)
       # @option attributes [Array<Hash>] :deletes (optional)
-      # @param  [Hash] options
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::ZoneRecordsBatchChange>]
       #
       # @raise  [Dnsimple::NotFoundError]

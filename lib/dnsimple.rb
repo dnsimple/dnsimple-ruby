@@ -3,7 +3,7 @@
 module Dnsimple
   # Echoes a deprecation warning message.
   #
-  # @param  [String] message The message to display.
+  # @param  message [String] The message to display.
   # @return [void]
   #
   # @api internal

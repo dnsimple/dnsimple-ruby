@@ -20,8 +20,8 @@ module Dnsimple
       # @example List domains, provide a filtering policy
       #   client.domains.domains(1010, filter: { name_like: "example" })
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering and sorting options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering and sorting options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -47,8 +47,8 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/#listDomains
       # @see #domains
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering and sorting option
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering and sorting option
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
@@ -67,9 +67,9 @@ module Dnsimple
       # @example Creating a domain in a specific account. Does not register the domain
       #   client.domains.create_domain(1010, name: "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] attributes
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  attributes [Hash]
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
       #
       # @raise  [Dnsimple::RequestError]
@@ -91,9 +91,9 @@ module Dnsimple
       # @example Getting a domain in a specific account, by domain name
       #   client.domains.domain(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::Domain>]
       #
       # @raise  [Dnsimple::NotFoundError]
@@ -115,9 +115,9 @@ module Dnsimple
       # @example Deleting a domain in a specific account, by domain name
       #   client.domains.delete_domain(1010, "example.com")
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [#to_s] domain_id The domain ID or domain name
-      # @param  [Hash] options
+      # @param  account_id [Integer] the account ID
+      # @param  domain_id [#to_s] The domain ID or domain name
+      # @param  options [Hash]
       # @return [Dnsimple::Response<nil>]
       #
       # @raise  [Dnsimple::NotFoundError]

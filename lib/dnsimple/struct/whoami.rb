@@ -12,7 +12,7 @@ module Dnsimple
 
       # Converts account to a Struct::Account and sets it.
       #
-      # @param  [Hash, nil] account
+      # @param  account [Hash, nil]
       # @return [void]
       def account=(account)
         @account = account ? Struct::Account.new(account) : account
@@ -20,7 +20,7 @@ module Dnsimple
 
       # Converts user to a Struct::User and sets it.
       #
-      # @param  [Hash, nil] user
+      # @param  user [Hash, nil]
       # @return [void]
       def user=(user)
         @user = user ? Struct::User.new(user) : user

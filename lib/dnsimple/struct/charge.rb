@@ -23,7 +23,7 @@ module Dnsimple
 
         # Converts amount to a Float and sets it.
         #
-        # @param  [String] amount
+        # @param  amount [String]
         # @return [void]
         def amount=(amount)
           @amount = BigDecimal(amount)
@@ -55,7 +55,7 @@ module Dnsimple
 
       # Converts items to an Array<Struct::Charge::ChargeItem> and sets it.
       #
-      # @param  [Array<Hash>] charge_items
+      # @param  charge_items [Array<Hash>]
       # @return [void]
       def items=(charge_items)
         @items = charge_items.map do |charge_item|
@@ -65,7 +65,7 @@ module Dnsimple
 
       # Converts balance_amount to a Float and sets it.
       #
-      # @param  [String] balance_amount
+      # @param  balance_amount [String]
       # @return [void]
       def balance_amount=(balance_amount)
         @balance_amount = BigDecimal(balance_amount)
@@ -73,7 +73,7 @@ module Dnsimple
 
       # Converts total_amount to a Float and sets it.
       #
-      # @param  [String] total_amount
+      # @param  total_amount [String]
       # @return [void]
       def total_amount=(total_amount)
         @total_amount = BigDecimal(total_amount)

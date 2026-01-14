@@ -7,8 +7,8 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/dns-analytics#queryDnsAnalytics
       #
-      # @param  [Integer] account_id the account ID
-      # @param  [Hash] options the filtering, sorting, and grouping options
+      # @param  account_id [Integer] the account ID
+      # @param  options [Hash] the filtering, sorting, and grouping options
       # @option options [Integer] :page current page (pagination)
       # @option options [Integer] :per_page number of entries to return (pagination)
       # @option options [String] :sort sorting policy
