@@ -14,3 +14,6 @@ AllCops:
     - '*.gemspec'
     - 'Rakefile'
     - 'vendor/**/*'
+
+Style/Documentation:
+  Enabled: false
