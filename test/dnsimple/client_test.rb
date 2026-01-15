@@ -3,31 +3,31 @@
 require "test_helper"
 
 class ClientTest < Minitest::Test
-  def test_initialization_accepts_base_url_option
+  test "initialization accepts base url option" do
     subject = Dnsimple::Client.new(base_url: "https://api.example.com/")
 
     assert_equal "https://api.example.com/", subject.base_url
   end
 
-  def test_initialization_accepts_access_token_option
+  test "initialization accepts access token option" do
     subject = Dnsimple::Client.new(access_token: "token")
 
     assert_equal "token", subject.access_token
   end
 
-  def test_initialization_normalizes_base_url_trailing_slash
+  test "initialization normalizes base url trailing slash" do
     subject = Dnsimple::Client.new(base_url: "https://api.example.com/missing/slash")
 
     assert_equal "https://api.example.com/missing/slash/", subject.base_url
   end
 
-  def test_initialization_defaults_base_url_to_production_api
+  test "initialization defaults base url to production api" do
     subject = Dnsimple::Client.new
 
     assert_equal "https://api.dnsimple.com/", subject.base_url
   end
 
-  def test_authentication_uses_http_authentication_if_password_provided
+  test "authentication uses http authentication if password provided" do
     stub_request(:any, %r{/test})
 
     subject = Dnsimple::Client.new(username: "user", password: "pass")
@@ -36,7 +36,7 @@ class ClientTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.com/test", basic_auth: %w[user pass])
   end
 
-  def test_authentication_uses_access_token_if_provided
+  test "authentication uses access token if provided" do
     stub_request(:any, %r{/test})
 
     subject = Dnsimple::Client.new(access_token: "access-token")
@@ -45,7 +45,7 @@ class ClientTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.com/test") { |req| req.headers["Authorization"] == "Bearer access-token" }
   end
 
-  def test_get_delegates_to_execute
+  test "get delegates to execute" do
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:get, "path", nil, { foo: "bar" }])
@@ -56,7 +56,7 @@ class ClientTest < Minitest::Test
     mock.verify
   end
 
-  def test_post_delegates_to_execute
+  test "post delegates to execute" do
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:post, "path", { foo: "bar" }, {}])
@@ -67,7 +67,7 @@ class ClientTest < Minitest::Test
     mock.verify
   end
 
-  def test_put_delegates_to_execute
+  test "put delegates to execute" do
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:put, "path", { foo: "bar" }, {}])
@@ -78,7 +78,7 @@ class ClientTest < Minitest::Test
     mock.verify
   end
 
-  def test_patch_delegates_to_execute
+  test "patch delegates to execute" do
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:patch, "path", { foo: "bar" }, {}])
@@ -89,7 +89,7 @@ class ClientTest < Minitest::Test
     mock.verify
   end
 
-  def test_delete_delegates_to_execute
+  test "delete delegates to execute" do
     subject = Dnsimple::Client.new
     mock = Minitest::Mock.new
     mock.expect(:call, :returned, [:delete, "path", { foo: "bar" }, {}])
@@ -100,7 +100,7 @@ class ClientTest < Minitest::Test
     mock.verify
   end
 
-  def test_execute_raises_request_error_for_json_error_response
+  test "execute raises request error for json error response" do
     stub_request(:post, %r{/foo}).to_return(read_http_fixture("transferDomain/error-indnsimple.http"))
 
     subject = Dnsimple::Client.new(username: "user", password: "pass")
@@ -111,7 +111,7 @@ class ClientTest < Minitest::Test
     assert_nil error.attribute_errors
   end
 
-  def test_execute_raises_request_error_with_attribute_errors
+  test "execute raises request error with attribute errors" do
     stub_request(:post, %r{/foo}).to_return(read_http_fixture("validation-error.http"))
 
     subject = Dnsimple::Client.new(username: "user", password: "pass")
@@ -125,7 +125,7 @@ class ClientTest < Minitest::Test
     assert_equal ["can't be blank"], error.attribute_errors["address1"]
   end
 
-  def test_execute_raises_request_error_for_html_error_response
+  test "execute raises request error for html error response" do
     stub_request(:get, %r{/foo}).to_return(read_http_fixture("badgateway.http"))
 
     subject = Dnsimple::Client.new(username: "user", password: "pass")
@@ -136,7 +136,7 @@ class ClientTest < Minitest::Test
     assert_nil error.attribute_errors
   end
 
-  def test_execute_raises_request_error_in_absence_of_content_types
+  test "execute raises request error in absence of content types" do
     stub_request(:put, %r{/foo}).to_return(read_http_fixture("method-not-allowed.http"))
 
     subject = Dnsimple::Client.new(username: "user", password: "pass")
@@ -147,7 +147,7 @@ class ClientTest < Minitest::Test
     assert_nil error.attribute_errors
   end
 
-  def test_request_performs_a_request
+  test "request performs a request" do
     stub_request(:get, %r{/foo})
 
     subject = Dnsimple::Client.new(username: "user", password: "pass")
@@ -158,7 +158,7 @@ class ClientTest < Minitest::Test
                      basic_auth: %w[user pass])
   end
 
-  def test_request_delegates_to_httparty
+  test "request delegates to httparty" do
     stub_request(:get, %r{/foo})
 
     subject = Dnsimple::Client.new(username: "user", password: "pass")
@@ -167,7 +167,7 @@ class ClientTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.com/foo")
   end
 
-  def test_request_extracts_options_and_encodes_data
+  test "request extracts options and encodes data" do
     stub_request(:put, %r{/foo})
 
     subject = Dnsimple::Client.new(username: "user", password: "pass")
@@ -178,7 +178,7 @@ class ClientTest < Minitest::Test
                      headers: { "Accept" => "application/json", "Content-Type" => "application/json", "User-Agent" => Dnsimple::Default::USER_AGENT, "Custom" => "Header" })
   end
 
-  def test_request_handles_non_json_content_types
+  test "request handles non json content types" do
     stub_request(:post, %r{/foo})
 
     subject = Dnsimple::Client.new(username: "user", password: "pass")
@@ -189,7 +189,7 @@ class ClientTest < Minitest::Test
                      headers: { "Accept" => "application/json", "Content-Type" => "application/x-www-form-urlencoded", "User-Agent" => Dnsimple::Default::USER_AGENT })
   end
 
-  def test_request_includes_options_for_proxy_support
+  test "request includes options for proxy support" do
     stub_request(:get, %r{/test})
 
     subject = Dnsimple::Client.new(proxy: "example-proxy.com:4321")
@@ -198,7 +198,7 @@ class ClientTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.com/test")
   end
 
-  def test_request_supports_custom_user_agent
+  test "request supports custom user agent" do
     stub_request(:get, %r{/test})
 
     subject = Dnsimple::Client.new(user_agent: "customAgent")

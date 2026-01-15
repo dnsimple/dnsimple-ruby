@@ -9,7 +9,7 @@ class DomainsPushesTest < Minitest::Test
     @domain_id = "example.com"
   end
 
-  def test_initiate_push_builds_correct_request
+  test "initiate push builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/pushes$})
         .to_return(read_http_fixture("initiatePush/success.http"))
 
@@ -21,7 +21,7 @@ class DomainsPushesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_initiate_push_returns_the_domain_push
+  test "initiate push returns the domain push" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/pushes$})
         .to_return(read_http_fixture("initiatePush/success.http"))
 
@@ -36,7 +36,7 @@ class DomainsPushesTest < Minitest::Test
     assert_kind_of(Integer, result.id)
   end
 
-  def test_pushes_builds_correct_request
+  test "pushes builds correct request" do
     stub_request(:get, %r{/v2/2020/pushes})
         .to_return(read_http_fixture("listPushes/success.http"))
 
@@ -47,7 +47,7 @@ class DomainsPushesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_pushes_supports_pagination
+  test "pushes supports pagination" do
     stub_request(:get, %r{/v2/2020/pushes})
         .to_return(read_http_fixture("listPushes/success.http"))
 
@@ -57,7 +57,7 @@ class DomainsPushesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes?page=2")
   end
 
-  def test_pushes_supports_extra_request_options
+  test "pushes supports extra request options" do
     stub_request(:get, %r{/v2/2020/pushes})
         .to_return(read_http_fixture("listPushes/success.http"))
 
@@ -67,7 +67,7 @@ class DomainsPushesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{account_id}/pushes?foo=bar")
   end
 
-  def test_pushes_returns_list_of_domain_pushes
+  test "pushes returns list of domain pushes" do
     stub_request(:get, %r{/v2/2020/pushes})
         .to_return(read_http_fixture("listPushes/success.http"))
 
@@ -84,7 +84,7 @@ class DomainsPushesTest < Minitest::Test
     end
   end
 
-  def test_pushes_exposes_pagination_information
+  test "pushes exposes pagination information" do
     stub_request(:get, %r{/v2/2020/pushes})
         .to_return(read_http_fixture("listPushes/success.http"))
 
@@ -98,7 +98,7 @@ class DomainsPushesTest < Minitest::Test
     assert_kind_of(Integer, response.total_pages)
   end
 
-  def test_accept_push_builds_correct_request
+  test "accept push builds correct request" do
     stub_request(:post, %r{/v2/2020/pushes/1$})
         .to_return(read_http_fixture("acceptPush/success.http"))
 
@@ -112,7 +112,7 @@ class DomainsPushesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_accept_push_returns_nothing
+  test "accept push returns nothing" do
     stub_request(:post, %r{/v2/2020/pushes/1$})
         .to_return(read_http_fixture("acceptPush/success.http"))
 
@@ -128,7 +128,7 @@ class DomainsPushesTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_accept_push_when_not_found_raises_not_found_error
+  test "accept push when not found raises not found error" do
     stub_request(:post, %r{/v2})
         .to_return(read_http_fixture("notfound-domainpush.http"))
 
@@ -140,7 +140,7 @@ class DomainsPushesTest < Minitest::Test
     end
   end
 
-  def test_reject_push_builds_correct_request
+  test "reject push builds correct request" do
     stub_request(:delete, %r{/v2/2020/pushes/1$})
         .to_return(read_http_fixture("rejectPush/success.http"))
 
@@ -152,7 +152,7 @@ class DomainsPushesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_reject_push_returns_nothing
+  test "reject push returns nothing" do
     stub_request(:delete, %r{/v2/2020/pushes/1$})
         .to_return(read_http_fixture("rejectPush/success.http"))
 
@@ -167,7 +167,7 @@ class DomainsPushesTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_reject_push_when_not_found_raises_not_found_error
+  test "reject push when not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-domainpush.http"))
 

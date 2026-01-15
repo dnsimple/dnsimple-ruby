@@ -10,7 +10,7 @@ class BillingTest < Minitest::Test
     @account_id = 1010
   end
 
-  def test_charges_builds_correct_request
+  test "builds the correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/billing/charges})
         .to_return(read_http_fixture("listCharges/success.http"))
 
@@ -20,7 +20,7 @@ class BillingTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_charges_exposes_pagination_information
+  test "exposes the pagination information" do
     stub_request(:get, %r{/v2/#{@account_id}/billing/charges})
         .to_return(read_http_fixture("listCharges/success.http"))
 
@@ -33,7 +33,7 @@ class BillingTest < Minitest::Test
     assert_kind_of(Integer, response.total_pages)
   end
 
-  def test_charges_returns_the_charges
+  test "returns the charges" do
     stub_request(:get, %r{/v2/#{@account_id}/billing/charges})
         .to_return(read_http_fixture("listCharges/success.http"))
 
@@ -57,7 +57,7 @@ class BillingTest < Minitest::Test
     assert_equal("14.5", response.data[0].items[0].amount.to_s("F"))
   end
 
-  def test_charges_supports_filters
+  test "supports filters" do
     stub_request(:get, %r{/v2/#{@account_id}/billing/charges})
         .to_return(read_http_fixture("listCharges/success.http"))
 
@@ -66,7 +66,7 @@ class BillingTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/billing/charges?start_date=2023-01-01&end_date=2023-08-31")
   end
 
-  def test_charges_supports_pagination
+  test "supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/billing/charges})
         .to_return(read_http_fixture("listCharges/success.http"))
 
@@ -75,7 +75,7 @@ class BillingTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/billing/charges?page=2")
   end
 
-  def test_charges_supports_sorting
+  test "supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/billing/charges})
         .to_return(read_http_fixture("listCharges/success.http"))
 
@@ -84,7 +84,7 @@ class BillingTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/billing/charges?sort=invoiced:asc")
   end
 
-  def test_charges_with_bad_filter_raises_error
+  test "raises error when using a bad filter" do
     stub_request(:get, %r{/v2/#{@account_id}/billing/charges})
         .to_return(read_http_fixture("listCharges/fail-400-bad-filter.http"))
 
@@ -94,7 +94,7 @@ class BillingTest < Minitest::Test
     assert_equal("Invalid date format must be ISO8601 (YYYY-MM-DD)", error.message)
   end
 
-  def test_charges_when_account_not_authorized_raises_error
+  test "raises error when account is not authorized" do
     stub_request(:get, %r{/v2/#{@account_id}/billing/charges})
         .to_return(read_http_fixture("listCharges/fail-403.http"))
 

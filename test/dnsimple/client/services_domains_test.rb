@@ -10,7 +10,7 @@ class ServicesDomainsTest < Minitest::Test
     @service_id = "service1"
   end
 
-  def test_applied_services_builds_correct_request
+  test "applied services builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/services})
         .to_return(read_http_fixture("appliedServices/success.http"))
 
@@ -20,7 +20,7 @@ class ServicesDomainsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_applied_services_supports_pagination
+  test "applied services supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/services})
         .to_return(read_http_fixture("appliedServices/success.http"))
 
@@ -29,7 +29,7 @@ class ServicesDomainsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/services?page=2")
   end
 
-  def test_applied_services_supports_extra_request_options
+  test "applied services supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/services})
         .to_return(read_http_fixture("appliedServices/success.http"))
 
@@ -38,7 +38,7 @@ class ServicesDomainsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/services?foo=bar")
   end
 
-  def test_applied_services_supports_sorting
+  test "applied services supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/services})
         .to_return(read_http_fixture("appliedServices/success.http"))
 
@@ -47,7 +47,7 @@ class ServicesDomainsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/services?sort=short_name:asc")
   end
 
-  def test_applied_services_returns_the_list_of_available_services
+  test "applied services returns the list of available services" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/services})
         .to_return(read_http_fixture("appliedServices/success.http"))
 
@@ -68,7 +68,7 @@ class ServicesDomainsTest < Minitest::Test
     end
   end
 
-  def test_apply_service_builds_correct_request
+  test "apply service builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/services/#{@service_id}$})
         .to_return(read_http_fixture("applyService/success.http"))
 
@@ -80,7 +80,7 @@ class ServicesDomainsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_apply_service_returns_empty_response
+  test "apply service returns empty response" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/services/#{@service_id}$})
         .to_return(read_http_fixture("applyService/success.http"))
 
@@ -94,7 +94,7 @@ class ServicesDomainsTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_unapply_service_builds_correct_request
+  test "unapply service builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/services/#{@service_id}$})
         .to_return(read_http_fixture("unapplyService/success.http"))
 
@@ -104,7 +104,7 @@ class ServicesDomainsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_unapply_service_returns_empty_response
+  test "unapply service returns empty response" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/services/#{@service_id}$})
         .to_return(read_http_fixture("unapplyService/success.http"))
 

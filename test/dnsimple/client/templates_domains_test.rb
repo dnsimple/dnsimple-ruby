@@ -10,7 +10,7 @@ class TemplatesDomainsTest < Minitest::Test
     @domain_id = "example.com"
   end
 
-  def test_apply_template_builds_correct_request
+  test "apply template builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/templates/#{@template_id}$})
         .to_return(read_http_fixture("applyTemplate/success.http"))
 
@@ -20,7 +20,7 @@ class TemplatesDomainsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_apply_template_returns_nil
+  test "apply template returns nil" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/templates/#{@template_id}$})
         .to_return(read_http_fixture("applyTemplate/success.http"))
 

@@ -9,7 +9,7 @@ class RegistrarDelegationTest < Minitest::Test
   end
 
 
-  def test_domain_delegation_builds_correct_request
+  test "domain delegation builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/delegation$})
         .to_return(read_http_fixture("getDomainDelegation/success.http"))
 
@@ -19,7 +19,7 @@ class RegistrarDelegationTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_domain_delegation_returns_the_name_servers_of_the_domain
+  test "domain delegation returns the name servers of the domain" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/delegation$})
         .to_return(read_http_fixture("getDomainDelegation/success.http"))
 
@@ -31,7 +31,7 @@ class RegistrarDelegationTest < Minitest::Test
   end
 
 
-  def test_change_domain_delegation_builds_correct_request
+  test "change domain delegation builds correct request" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/.+/delegation$})
         .to_return(read_http_fixture("changeDomainDelegation/success.http"))
 
@@ -43,7 +43,7 @@ class RegistrarDelegationTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_change_domain_delegation_returns_the_name_servers_of_the_domain
+  test "change domain delegation returns the name servers of the domain" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/.+/delegation$})
         .to_return(read_http_fixture("changeDomainDelegation/success.http"))
 
@@ -56,7 +56,7 @@ class RegistrarDelegationTest < Minitest::Test
   end
 
 
-  def test_change_domain_delegation_to_vanity_builds_correct_request
+  test "change domain delegation to vanity builds correct request" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/.+/delegation/vanity$})
         .to_return(read_http_fixture("changeDomainDelegationToVanity/success.http"))
 
@@ -68,7 +68,7 @@ class RegistrarDelegationTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_change_domain_delegation_to_vanity_returns_vanity_name_servers_of_the_domain
+  test "change domain delegation to vanity returns vanity name servers of the domain" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/.+/delegation/vanity$})
         .to_return(read_http_fixture("changeDomainDelegationToVanity/success.http"))
 
@@ -84,7 +84,7 @@ class RegistrarDelegationTest < Minitest::Test
   end
 
 
-  def test_change_domain_delegation_from_vanity_builds_correct_request
+  test "change domain delegation from vanity builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/.+/delegation/vanity$})
         .to_return(read_http_fixture("changeDomainDelegationFromVanity/success.http"))
 
@@ -94,7 +94,7 @@ class RegistrarDelegationTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_change_domain_delegation_from_vanity_returns_empty_response
+  test "change domain delegation from vanity returns empty response" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/.+/delegation/vanity$})
         .to_return(read_http_fixture("changeDomainDelegationFromVanity/success.http"))
 

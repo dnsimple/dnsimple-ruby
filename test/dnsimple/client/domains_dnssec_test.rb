@@ -9,7 +9,7 @@ class DomainsDnssecTest < Minitest::Test
     @domain_id = "example.com"
   end
 
-  def test_enable_dnssec_builds_correct_request
+  test "enable dnssec builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
         .to_return(read_http_fixture("enableDnssec/success.http"))
 
@@ -19,7 +19,7 @@ class DomainsDnssecTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_enable_dnssec_returns_the_dnssec_status
+  test "enable dnssec returns the dnssec status" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
         .to_return(read_http_fixture("enableDnssec/success.http"))
 
@@ -33,7 +33,7 @@ class DomainsDnssecTest < Minitest::Test
     assert(result.enabled)
   end
 
-  def test_enable_dnssec_when_domain_not_found_raises_not_found_error
+  test "enable dnssec when domain not found raises not found error" do
     stub_request(:post, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 
@@ -42,7 +42,7 @@ class DomainsDnssecTest < Minitest::Test
     end
   end
 
-  def test_disable_dnssec_builds_correct_request
+  test "disable dnssec builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
         .to_return(read_http_fixture("disableDnssec/success.http"))
 
@@ -52,7 +52,7 @@ class DomainsDnssecTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_disable_dnssec_returns_nothing
+  test "disable dnssec returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
         .to_return(read_http_fixture("disableDnssec/success.http"))
 
@@ -65,7 +65,7 @@ class DomainsDnssecTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_disable_dnssec_when_domain_not_found_raises_not_found_error
+  test "disable dnssec when domain not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 
@@ -74,7 +74,7 @@ class DomainsDnssecTest < Minitest::Test
     end
   end
 
-  def test_get_dnssec_builds_correct_request
+  test "get dnssec builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
         .to_return(read_http_fixture("getDnssec/success.http"))
 
@@ -84,7 +84,7 @@ class DomainsDnssecTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_get_dnssec_returns_the_dnssec_status
+  test "get dnssec returns the dnssec status" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/dnssec})
         .to_return(read_http_fixture("getDnssec/success.http"))
 
@@ -98,7 +98,7 @@ class DomainsDnssecTest < Minitest::Test
     assert(result.enabled)
   end
 
-  def test_get_dnssec_when_domain_not_found_raises_not_found_error
+  test "get dnssec when domain not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 

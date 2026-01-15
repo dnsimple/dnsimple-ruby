@@ -7,7 +7,7 @@ class IdentityTest < Minitest::Test
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").identity
   end
 
-  def test_whoami_builds_correct_request
+  test "whoami builds correct request" do
     stub_request(:get, %r{/v2/whoami$})
         .to_return(read_http_fixture("whoami/success.http"))
 
@@ -17,7 +17,7 @@ class IdentityTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_whoami_returns_the_whoami
+  test "whoami returns the whoami" do
     stub_request(:get, %r{/v2/whoami$})
         .to_return(read_http_fixture("whoami/success.http"))
 
@@ -30,7 +30,7 @@ class IdentityTest < Minitest::Test
     assert_kind_of(Dnsimple::Struct::Whoami, result)
   end
 
-  def test_whoami_when_authenticated_as_account_sets_the_account
+  test "whoami when authenticated as account sets the account" do
     stub_request(:get, %r{/v2/whoami$})
         .to_return(read_http_fixture("whoami/success-account.http"))
 
@@ -40,7 +40,7 @@ class IdentityTest < Minitest::Test
     assert_nil(result.user)
   end
 
-  def test_whoami_when_authenticated_as_user_sets_the_user
+  test "whoami when authenticated as user sets the user" do
     stub_request(:get, %r{/v2/whoami$})
         .to_return(read_http_fixture("whoami/success-user.http"))
 

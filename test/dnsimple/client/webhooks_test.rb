@@ -8,7 +8,7 @@ class WebhooksTest < Minitest::Test
     @account_id = 1010
   end
 
-  def test_webhooks_builds_correct_request
+  test "webhooks builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/webhooks})
         .to_return(read_http_fixture("listWebhooks/success.http"))
 
@@ -18,7 +18,7 @@ class WebhooksTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_webhooks_supports_extra_request_options
+  test "webhooks supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/webhooks})
         .to_return(read_http_fixture("listWebhooks/success.http"))
 
@@ -27,7 +27,7 @@ class WebhooksTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/webhooks?foo=bar")
   end
 
-  def test_webhooks_supports_sorting
+  test "webhooks supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/webhooks})
         .to_return(read_http_fixture("listWebhooks/success.http"))
 
@@ -36,7 +36,7 @@ class WebhooksTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/webhooks?sort=id:asc")
   end
 
-  def test_webhooks_returns_the_webhooks
+  test "webhooks returns the webhooks" do
     stub_request(:get, %r{/v2/#{@account_id}/webhooks})
         .to_return(read_http_fixture("listWebhooks/success.http"))
 
@@ -52,7 +52,7 @@ class WebhooksTest < Minitest::Test
     end
   end
 
-  def test_create_webhook_builds_correct_request
+  test "create webhook builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/webhooks$})
         .to_return(read_http_fixture("createWebhook/created.http"))
 
@@ -64,7 +64,7 @@ class WebhooksTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_create_webhook_returns_the_webhook
+  test "create webhook returns the webhook" do
     stub_request(:post, %r{/v2/#{@account_id}/webhooks$})
         .to_return(read_http_fixture("createWebhook/created.http"))
 
@@ -79,7 +79,7 @@ class WebhooksTest < Minitest::Test
     assert_kind_of(Integer, result.id)
   end
 
-  def test_webhook_builds_correct_request
+  test "webhook builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/webhooks/.+$})
         .to_return(read_http_fixture("getWebhook/success.http"))
 
@@ -90,7 +90,7 @@ class WebhooksTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_webhook_returns_the_webhook
+  test "webhook returns the webhook" do
     stub_request(:get, %r{/v2/#{@account_id}/webhooks/.+$})
         .to_return(read_http_fixture("getWebhook/success.http"))
 
@@ -105,7 +105,7 @@ class WebhooksTest < Minitest::Test
     assert_equal("https://webhook.test", result.url)
   end
 
-  def test_webhook_when_not_found_raises_not_found_error
+  test "webhook when not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-webhook.http"))
 
@@ -114,7 +114,7 @@ class WebhooksTest < Minitest::Test
     end
   end
 
-  def test_delete_webhook_builds_correct_request
+  test "delete webhook builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/webhooks/.+$})
         .to_return(read_http_fixture("deleteWebhook/success.http"))
 
@@ -125,7 +125,7 @@ class WebhooksTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delete_webhook_returns_nothing
+  test "delete webhook returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/webhooks/.+$})
         .to_return(read_http_fixture("deleteWebhook/success.http"))
 
@@ -138,7 +138,7 @@ class WebhooksTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_delete_webhook_when_not_found_raises_not_found_error
+  test "delete webhook when not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-webhook.http"))
 

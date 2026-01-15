@@ -7,7 +7,7 @@ class ServicesTest < Minitest::Test
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").services
   end
 
-  def test_list_services_builds_correct_request
+  test "list services builds correct request" do
     stub_request(:get, %r{/v2/services})
         .to_return(read_http_fixture("listServices/success.http"))
 
@@ -17,7 +17,7 @@ class ServicesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_list_services_supports_pagination
+  test "list services supports pagination" do
     stub_request(:get, %r{/v2/services})
         .to_return(read_http_fixture("listServices/success.http"))
 
@@ -26,7 +26,7 @@ class ServicesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/services?page=2")
   end
 
-  def test_list_services_supports_extra_request_options
+  test "list services supports extra request options" do
     stub_request(:get, %r{/v2/services})
         .to_return(read_http_fixture("listServices/success.http"))
 
@@ -35,7 +35,7 @@ class ServicesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/services?foo=bar")
   end
 
-  def test_list_services_supports_sorting
+  test "list services supports sorting" do
     stub_request(:get, %r{/v2/services})
         .to_return(read_http_fixture("listServices/success.http"))
 
@@ -44,7 +44,7 @@ class ServicesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/services?sort=short_name:asc")
   end
 
-  def test_list_services_returns_the_list_of_available_services
+  test "list services returns the list of available services" do
     stub_request(:get, %r{/v2/services})
         .to_return(read_http_fixture("listServices/success.http"))
 
@@ -65,7 +65,7 @@ class ServicesTest < Minitest::Test
     end
   end
 
-  def test_all_services_delegates_to_paginate
+  test "all services delegates to paginate" do
     stub_request(:get, %r{/v2/services})
         .to_return(read_http_fixture("listServices/success.http"))
 
@@ -77,7 +77,7 @@ class ServicesTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_services_supports_sorting
+  test "all services supports sorting" do
     stub_request(:get, %r{/v2/services})
         .to_return(read_http_fixture("listServices/success.http"))
 
@@ -86,7 +86,7 @@ class ServicesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/services?page=1&per_page=100&sort=short_name:asc")
   end
 
-  def test_service_builds_correct_request
+  test "service builds correct request" do
     stub_request(:get, %r{/v2/services/1$})
         .to_return(read_http_fixture("getService/success.http"))
 
@@ -97,7 +97,7 @@ class ServicesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_service_returns_the_service
+  test "service returns the service" do
     stub_request(:get, %r{/v2/services/1$})
         .to_return(read_http_fixture("getService/success.http"))
 

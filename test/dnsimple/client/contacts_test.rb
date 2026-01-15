@@ -8,7 +8,7 @@ class ContactsTest < Minitest::Test
     @account_id = 1010
   end
 
-  def test_contacts_builds_correct_request
+  test "builds the correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts})
         .to_return(read_http_fixture("listContacts/success.http"))
 
@@ -18,7 +18,7 @@ class ContactsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_contacts_supports_pagination
+  test "supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts})
         .to_return(read_http_fixture("listContacts/success.http"))
 
@@ -27,7 +27,7 @@ class ContactsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/contacts?page=2")
   end
 
-  def test_contacts_supports_extra_request_options
+  test "supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts})
         .to_return(read_http_fixture("listContacts/success.http"))
 
@@ -36,7 +36,7 @@ class ContactsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/contacts?foo=bar")
   end
 
-  def test_contacts_supports_sorting
+  test "supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts})
         .to_return(read_http_fixture("listContacts/success.http"))
 
@@ -45,7 +45,7 @@ class ContactsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/contacts?sort=label:desc")
   end
 
-  def test_contacts_returns_the_contacts
+  test "returns the contacts" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts})
         .to_return(read_http_fixture("listContacts/success.http"))
 
@@ -61,7 +61,7 @@ class ContactsTest < Minitest::Test
     end
   end
 
-  def test_contacts_exposes_pagination_information
+  test "exposes the pagination information" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts})
         .to_return(read_http_fixture("listContacts/success.http"))
 
@@ -74,7 +74,7 @@ class ContactsTest < Minitest::Test
     assert_kind_of(Integer, response.total_pages)
   end
 
-  def test_all_contacts_delegates_to_paginate
+  test "delegates to client.paginate" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts})
         .to_return(read_http_fixture("listContacts/success.http"))
 
@@ -86,7 +86,7 @@ class ContactsTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_contacts_supports_sorting
+  test "all_contacts supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts})
         .to_return(read_http_fixture("listContacts/success.http"))
 
@@ -95,7 +95,7 @@ class ContactsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/contacts?page=1&per_page=100&sort=label:desc")
   end
 
-  def test_create_contact_builds_correct_request
+  test "create_contact builds the correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/contacts$})
         .to_return(read_http_fixture("createContact/created.http"))
 
@@ -107,7 +107,7 @@ class ContactsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_create_contact_returns_the_contact
+  test "create_contact returns the contact" do
     stub_request(:post, %r{/v2/#{@account_id}/contacts$})
         .to_return(read_http_fixture("createContact/created.http"))
 
@@ -122,7 +122,7 @@ class ContactsTest < Minitest::Test
     assert_kind_of(Integer, result.id)
   end
 
-  def test_contact_builds_correct_request
+  test "contact builds the correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts/.+$})
         .to_return(read_http_fixture("getContact/success.http"))
 
@@ -133,7 +133,7 @@ class ContactsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_contact_returns_the_contact
+  test "contact returns the contact" do
     stub_request(:get, %r{/v2/#{@account_id}/contacts/.+$})
         .to_return(read_http_fixture("getContact/success.http"))
 
@@ -150,7 +150,7 @@ class ContactsTest < Minitest::Test
     assert_equal("2016-01-19T20:50:26Z", result.updated_at)
   end
 
-  def test_contact_when_not_found_raises_not_found_error
+  test "contact raises NotFoundError when the contact does not exist" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-contact.http"))
 
@@ -159,7 +159,7 @@ class ContactsTest < Minitest::Test
     end
   end
 
-  def test_update_contact_builds_correct_request
+  test "update_contact builds the correct request" do
     stub_request(:patch, %r{/v2/#{@account_id}/contacts/.+$})
         .to_return(read_http_fixture("updateContact/success.http"))
 
@@ -172,7 +172,7 @@ class ContactsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_update_contact_returns_the_contact
+  test "update_contact returns the contact" do
     stub_request(:patch, %r{/v2/#{@account_id}/contacts/.+$})
         .to_return(read_http_fixture("updateContact/success.http"))
 
@@ -187,7 +187,7 @@ class ContactsTest < Minitest::Test
     assert_equal(1, result.id)
   end
 
-  def test_update_contact_when_not_found_raises_not_found_error
+  test "update_contact raises NotFoundError when the contact does not exist" do
     stub_request(:patch, %r{/v2})
         .to_return(read_http_fixture("notfound-contact.http"))
 
@@ -196,7 +196,7 @@ class ContactsTest < Minitest::Test
     end
   end
 
-  def test_delete_contact_builds_correct_request
+  test "delete_contact builds the correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/contacts/.+$})
         .to_return(read_http_fixture("deleteContact/success.http"))
 
@@ -207,7 +207,7 @@ class ContactsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delete_contact_returns_nothing
+  test "delete_contact returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/contacts/.+$})
         .to_return(read_http_fixture("deleteContact/success.http"))
 
@@ -220,7 +220,7 @@ class ContactsTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_delete_contact_when_not_found_raises_not_found_error
+  test "delete_contact raises NotFoundError when the contact does not exist" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-contact.http"))
 

@@ -8,7 +8,7 @@ class VanityNameServersTest < Minitest::Test
     @account_id = 1010
   end
 
-  def test_enable_vanity_name_servers_builds_correct_request
+  test "enable vanity name servers builds correct request" do
     stub_request(:put, %r{/v2/#{@account_id}/vanity/.+$})
         .to_return(read_http_fixture("enableVanityNameServers/success.http"))
 
@@ -19,7 +19,7 @@ class VanityNameServersTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_enable_vanity_name_servers_returns_vanity_name_servers
+  test "enable vanity name servers returns vanity name servers" do
     stub_request(:put, %r{/v2/#{@account_id}/vanity/.+$})
         .to_return(read_http_fixture("enableVanityNameServers/success.http"))
 
@@ -32,7 +32,7 @@ class VanityNameServersTest < Minitest::Test
     assert_equal(%w[ns1.example.com ns2.example.com ns3.example.com ns4.example.com].sort, vanity_name_servers.sort)
   end
 
-  def test_disable_vanity_name_servers_builds_correct_request
+  test "disable vanity name servers builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/vanity/.+$})
         .to_return(read_http_fixture("disableVanityNameServers/success.http"))
 
@@ -43,7 +43,7 @@ class VanityNameServersTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_disable_vanity_name_servers_returns_empty_response
+  test "disable vanity name servers returns empty response" do
     stub_request(:delete, %r{/v2/#{@account_id}/vanity/.+$})
         .to_return(read_http_fixture("disableVanityNameServers/success.http"))
 

@@ -9,7 +9,7 @@ class TemplatesRecordsTest < Minitest::Test
     @template_id = "alpha"
   end
 
-  def test_list_records_builds_correct_request
+  test "list records builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
         .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
@@ -19,7 +19,7 @@ class TemplatesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_list_records_supports_pagination
+  test "list records supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
         .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
@@ -28,7 +28,7 @@ class TemplatesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records?page=2")
   end
 
-  def test_list_records_supports_extra_request_options
+  test "list records supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
         .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
@@ -37,7 +37,7 @@ class TemplatesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records?foo=bar")
   end
 
-  def test_list_records_supports_sorting
+  test "list records supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
         .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
@@ -46,7 +46,7 @@ class TemplatesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records?sort=type:asc")
   end
 
-  def test_list_records_returns_the_list_of_template_records
+  test "list records returns the list of template records" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
         .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
@@ -63,7 +63,7 @@ class TemplatesRecordsTest < Minitest::Test
     end
   end
 
-  def test_all_records_delegates_to_paginate
+  test "all records delegates to paginate" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
         .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
@@ -75,7 +75,7 @@ class TemplatesRecordsTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_records_supports_sorting
+  test "all records supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/#{@template_id}/records})
         .to_return(read_http_fixture("listTemplateRecords/success.http"))
 
@@ -84,7 +84,7 @@ class TemplatesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates/#{@template_id}/records?page=1&per_page=100&sort=type:asc")
   end
 
-  def test_create_record_builds_correct_request
+  test "create record builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
         .to_return(read_http_fixture("createTemplateRecord/created.http"))
 
@@ -96,7 +96,7 @@ class TemplatesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_create_record_returns_the_record
+  test "create record returns the record" do
     stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
         .to_return(read_http_fixture("createTemplateRecord/created.http"))
 
@@ -119,7 +119,7 @@ class TemplatesRecordsTest < Minitest::Test
     assert_equal("2016-05-03T07:51:33Z", result.updated_at)
   end
 
-  def test_create_record_raises_error_when_type_is_missing
+  test "create record raises error when type is missing" do
     stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
         .to_return(read_http_fixture("createTemplateRecord/created.http"))
 
@@ -128,7 +128,7 @@ class TemplatesRecordsTest < Minitest::Test
     end
   end
 
-  def test_create_record_raises_error_when_name_is_missing
+  test "create record raises error when name is missing" do
     stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
         .to_return(read_http_fixture("createTemplateRecord/created.http"))
 
@@ -137,7 +137,7 @@ class TemplatesRecordsTest < Minitest::Test
     end
   end
 
-  def test_create_record_raises_error_when_content_is_missing
+  test "create record raises error when content is missing" do
     stub_request(:post, %r{/v2/#{@account_id}/templates/#{@template_id}/records$})
         .to_return(read_http_fixture("createTemplateRecord/created.http"))
 
@@ -146,7 +146,7 @@ class TemplatesRecordsTest < Minitest::Test
     end
   end
 
-  def test_create_record_when_template_not_found_raises_not_found_error
+  test "create record when template not found raises not found error" do
     stub_request(:post, %r{/v2})
         .to_return(read_http_fixture("notfound-template.http"))
 
@@ -156,7 +156,7 @@ class TemplatesRecordsTest < Minitest::Test
     end
   end
 
-  def test_record_builds_correct_request
+  test "record builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/alpha.com/records/.+$})
         .to_return(read_http_fixture("getTemplateRecord/success.http"))
 
@@ -168,7 +168,7 @@ class TemplatesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_record_returns_the_record
+  test "record returns the record" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/alpha.com/records/.+$})
         .to_return(read_http_fixture("getTemplateRecord/success.http"))
 
@@ -191,7 +191,7 @@ class TemplatesRecordsTest < Minitest::Test
     assert_equal("2016-05-03T08:03:26Z", result.updated_at)
   end
 
-  def test_delete_record_builds_correct_request
+  test "delete record builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/templates/example.com/records/.+$})
         .to_return(read_http_fixture("deleteTemplateRecord/success.http"))
 
@@ -203,7 +203,7 @@ class TemplatesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delete_record_returns_nothing
+  test "delete record returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/templates/example.com/records/.+$})
         .to_return(read_http_fixture("deleteTemplateRecord/success.http"))
 
@@ -217,7 +217,7 @@ class TemplatesRecordsTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_delete_record_when_template_not_found_raises_not_found_error
+  test "delete record when template not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-template.http"))
 
@@ -227,7 +227,7 @@ class TemplatesRecordsTest < Minitest::Test
     end
   end
 
-  def test_delete_record_when_record_not_found_raises_not_found_error
+  test "delete record when record not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-record.http"))
 

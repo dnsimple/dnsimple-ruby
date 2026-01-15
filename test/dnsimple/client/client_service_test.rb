@@ -3,7 +3,7 @@
 require "test_helper"
 
 class ClientServiceTest < Minitest::Test
-  def test_paginate_loops_all_the_pages
+  test "loops all the pages" do
     account_id = 1010
     item_class = Class.new(Dnsimple::Struct::Base) do
       attr_accessor :id

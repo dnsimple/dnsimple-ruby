@@ -7,7 +7,7 @@ class DnsAnalyticsTest < Minitest::Test
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").dns_analytics
   end
 
-  def test_query_builds_correct_request
+  test "query builds correct request" do
     stub_request(:get, %r{/v2/1/dns_analytics})
         .to_return(read_http_fixture("dnsAnalytics/success.http"))
 
@@ -17,7 +17,7 @@ class DnsAnalyticsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_query_supports_pagination
+  test "query supports pagination" do
     stub_request(:get, %r{/v2/1/dns_analytics})
         .to_return(read_http_fixture("dnsAnalytics/success.http"))
 
@@ -26,7 +26,7 @@ class DnsAnalyticsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?page=2&per_page=200")
   end
 
-  def test_query_supports_sorting
+  test "query supports sorting" do
     stub_request(:get, %r{/v2/1/dns_analytics})
         .to_return(read_http_fixture("dnsAnalytics/success.http"))
 
@@ -35,7 +35,7 @@ class DnsAnalyticsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?sort=date:asc")
   end
 
-  def test_query_supports_filtering
+  test "query supports filtering" do
     stub_request(:get, %r{/v2/1/dns_analytics})
         .to_return(read_http_fixture("dnsAnalytics/success.http"))
 
@@ -44,7 +44,7 @@ class DnsAnalyticsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?start_date=2024-08-01&end_date=2024-09-01")
   end
 
-  def test_query_supports_groupings
+  test "query supports groupings" do
     stub_request(:get, %r{/v2/1/dns_analytics})
         .to_return(read_http_fixture("dnsAnalytics/success.http"))
 
@@ -53,7 +53,7 @@ class DnsAnalyticsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/1/dns_analytics?groupings=date,zone_name")
   end
 
-  def test_query_returns_dns_analytics_entries
+  test "query returns dns analytics entries" do
     stub_request(:get, %r{/v2/1/dns_analytics})
         .to_return(read_http_fixture("dnsAnalytics/success.http"))
 
@@ -69,7 +69,7 @@ class DnsAnalyticsTest < Minitest::Test
     assert_equal(1200, response.data[0].volume)
   end
 
-  def test_query_exposes_pagination_information
+  test "query exposes pagination information" do
     stub_request(:get, %r{/v2/1/dns_analytics})
         .to_return(read_http_fixture("dnsAnalytics/success.http"))
 
@@ -82,7 +82,7 @@ class DnsAnalyticsTest < Minitest::Test
     assert_equal(1, response.total_pages)
   end
 
-  def test_query_exposes_query_parameters
+  test "query exposes query parameters" do
     stub_request(:get, %r{/v2/1/dns_analytics})
         .to_return(read_http_fixture("dnsAnalytics/success.http"))
 

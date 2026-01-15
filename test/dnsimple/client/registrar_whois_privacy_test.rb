@@ -9,7 +9,7 @@ class RegistrarWhoisPrivacyTest < Minitest::Test
   end
 
 
-  def test_enable_whois_privacy_when_already_purchased_builds_correct_request
+  test "enable whois privacy when already purchased builds correct request" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/.+/whois_privacy$})
         .to_return(read_http_fixture("enableWhoisPrivacy/success.http"))
 
@@ -19,7 +19,7 @@ class RegistrarWhoisPrivacyTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_enable_whois_privacy_when_already_purchased_returns_the_whois_privacy
+  test "enable whois privacy when already purchased returns the whois privacy" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/.+/whois_privacy$})
         .to_return(read_http_fixture("enableWhoisPrivacy/success.http"))
 
@@ -36,7 +36,7 @@ class RegistrarWhoisPrivacyTest < Minitest::Test
     assert_kind_of(String, result.expires_on)
   end
 
-  def test_enable_whois_privacy_when_newly_purchased_builds_correct_request
+  test "enable whois privacy when newly purchased builds correct request" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/.+/whois_privacy$})
         .to_return(read_http_fixture("enableWhoisPrivacy/created.http"))
 
@@ -46,7 +46,7 @@ class RegistrarWhoisPrivacyTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_enable_whois_privacy_when_newly_purchased_returns_the_whois_privacy
+  test "enable whois privacy when newly purchased returns the whois privacy" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/.+/whois_privacy$})
         .to_return(read_http_fixture("enableWhoisPrivacy/created.http"))
 
@@ -64,7 +64,7 @@ class RegistrarWhoisPrivacyTest < Minitest::Test
   end
 
 
-  def test_disable_whois_privacy_builds_correct_request
+  test "disable whois privacy builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/.+/whois_privacy$})
         .to_return(read_http_fixture("disableWhoisPrivacy/success.http"))
 
@@ -74,7 +74,7 @@ class RegistrarWhoisPrivacyTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_disable_whois_privacy_returns_the_whois_privacy
+  test "disable whois privacy returns the whois privacy" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/.+/whois_privacy$})
         .to_return(read_http_fixture("disableWhoisPrivacy/success.http"))
 

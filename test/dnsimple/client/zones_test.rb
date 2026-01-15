@@ -8,7 +8,7 @@ class ZonesTest < Minitest::Test
     @account_id = 1010
   end
 
-  def test_zones_builds_correct_request
+  test "zones builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -18,7 +18,7 @@ class ZonesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_zones_supports_pagination
+  test "zones supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -27,7 +27,7 @@ class ZonesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones?page=2")
   end
 
-  def test_zones_supports_extra_request_options
+  test "zones supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -36,7 +36,7 @@ class ZonesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones?foo=bar")
   end
 
-  def test_zones_supports_sorting
+  test "zones supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -45,7 +45,7 @@ class ZonesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones?sort=name:desc")
   end
 
-  def test_zones_supports_filtering
+  test "zones supports filtering" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -54,7 +54,7 @@ class ZonesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones?name_like=example")
   end
 
-  def test_zones_returns_the_zones
+  test "zones returns the zones" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -70,7 +70,7 @@ class ZonesTest < Minitest::Test
     end
   end
 
-  def test_zones_exposes_pagination_information
+  test "zones exposes pagination information" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -83,7 +83,7 @@ class ZonesTest < Minitest::Test
     assert_kind_of(Integer, response.total_pages)
   end
 
-  def test_all_zones_delegates_to_paginate
+  test "all zones delegates to paginate" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -95,7 +95,7 @@ class ZonesTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_zones_supports_sorting
+  test "all zones supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -104,7 +104,7 @@ class ZonesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones?page=1&per_page=100&sort=name:desc")
   end
 
-  def test_all_zones_supports_filtering
+  test "all zones supports filtering" do
     stub_request(:get, %r{/v2/#{@account_id}/zones})
         .to_return(read_http_fixture("listZones/success.http"))
 
@@ -113,7 +113,7 @@ class ZonesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones?page=1&per_page=100&name_like=zone.test")
   end
 
-  def test_zone_builds_correct_request
+  test "zone builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/.+$})
         .to_return(read_http_fixture("getZone/success.http"))
 
@@ -124,7 +124,7 @@ class ZonesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_zone_returns_the_zone
+  test "zone returns the zone" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/.+$})
         .to_return(read_http_fixture("getZone/success.http"))
 
@@ -146,7 +146,7 @@ class ZonesTest < Minitest::Test
     assert_equal("2015-04-23T07:40:03Z", result.updated_at)
   end
 
-  def test_zone_when_not_found_raises_not_found_error
+  test "zone when not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -155,7 +155,7 @@ class ZonesTest < Minitest::Test
     end
   end
 
-  def test_zone_file_builds_correct_request
+  test "zone file builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/.+$})
         .to_return(read_http_fixture("getZoneFile/success.http"))
 
@@ -166,7 +166,7 @@ class ZonesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_zone_file_returns_the_zone_file
+  test "zone file returns the zone file" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/.+$})
         .to_return(read_http_fixture("getZoneFile/success.http"))
 
@@ -180,7 +180,7 @@ class ZonesTest < Minitest::Test
     assert_equal("$ORIGIN example.com.\n$TTL 1h\nexample.com. 3600 IN SOA ns1.dnsimple.com. admin.dnsimple.com. 1453132552 86400 7200 604800 300\nexample.com. 3600 IN NS ns1.dnsimple.com.\nexample.com. 3600 IN NS ns2.dnsimple.com.\nexample.com. 3600 IN NS ns3.dnsimple.com.\nexample.com. 3600 IN NS ns4.dnsimple.com.\n", result.zone)
   end
 
-  def test_zone_file_when_not_found_raises_not_found_error
+  test "zone file when not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -189,7 +189,7 @@ class ZonesTest < Minitest::Test
     end
   end
 
-  def test_activate_dns_builds_correct_request
+  test "activate dns builds correct request" do
     stub_request(:put, %r{/v2/#{@account_id}/zones/.+/activation})
         .to_return(read_http_fixture("activateZoneService/success.http"))
 
@@ -200,7 +200,7 @@ class ZonesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_activate_dns_returns_the_zone
+  test "activate dns returns the zone" do
     stub_request(:put, %r{/v2/#{@account_id}/zones/.+/activation})
         .to_return(read_http_fixture("activateZoneService/success.http"))
 
@@ -220,7 +220,7 @@ class ZonesTest < Minitest::Test
     assert_equal("2023-07-06T11:19:48Z", result.updated_at)
   end
 
-  def test_activate_dns_when_not_found_raises_not_found_error
+  test "activate dns when not found raises not found error" do
     stub_request(:put, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -229,7 +229,7 @@ class ZonesTest < Minitest::Test
     end
   end
 
-  def test_deactivate_dns_builds_correct_request
+  test "deactivate dns builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/zones/.+/activation})
         .to_return(read_http_fixture("deactivateZoneService/success.http"))
 
@@ -240,7 +240,7 @@ class ZonesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_deactivate_dns_returns_the_zone
+  test "deactivate dns returns the zone" do
     stub_request(:delete, %r{/v2/#{@account_id}/zones/.+/activation})
         .to_return(read_http_fixture("deactivateZoneService/success.http"))
 
@@ -260,7 +260,7 @@ class ZonesTest < Minitest::Test
     assert_equal("2023-08-08T04:19:52Z", result.updated_at)
   end
 
-  def test_deactivate_dns_when_not_found_raises_not_found_error
+  test "deactivate dns when not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 

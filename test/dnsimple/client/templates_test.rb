@@ -8,7 +8,7 @@ class TemplatesTest < Minitest::Test
     @account_id = 1010
   end
 
-  def test_list_templates_builds_correct_request
+  test "list templates builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/templates})
         .to_return(read_http_fixture("listTemplates/success.http"))
 
@@ -18,7 +18,7 @@ class TemplatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_list_templates_supports_pagination
+  test "list templates supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/templates})
         .to_return(read_http_fixture("listTemplates/success.http"))
 
@@ -27,7 +27,7 @@ class TemplatesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates?page=2")
   end
 
-  def test_list_templates_supports_extra_request_options
+  test "list templates supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/templates})
         .to_return(read_http_fixture("listTemplates/success.http"))
 
@@ -36,7 +36,7 @@ class TemplatesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates?foo=bar")
   end
 
-  def test_list_templates_supports_sorting
+  test "list templates supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/templates})
         .to_return(read_http_fixture("listTemplates/success.http"))
 
@@ -45,7 +45,7 @@ class TemplatesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates?sort=short_name:desc")
   end
 
-  def test_list_templates_returns_the_list_of_templates
+  test "list templates returns the list of templates" do
     stub_request(:get, %r{/v2/#{@account_id}/templates})
         .to_return(read_http_fixture("listTemplates/success.http"))
 
@@ -63,7 +63,7 @@ class TemplatesTest < Minitest::Test
     end
   end
 
-  def test_all_templates_delegates_to_paginate
+  test "all templates delegates to paginate" do
     stub_request(:get, %r{/v2/#{@account_id}/templates})
         .to_return(read_http_fixture("listTemplates/success.http"))
 
@@ -75,7 +75,7 @@ class TemplatesTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_templates_supports_sorting
+  test "all templates supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/templates})
         .to_return(read_http_fixture("listTemplates/success.http"))
 
@@ -84,7 +84,7 @@ class TemplatesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/templates?page=1&per_page=100&sort=short_name:desc")
   end
 
-  def test_create_template_builds_correct_request
+  test "create template builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/templates$})
         .to_return(read_http_fixture("createTemplate/created.http"))
 
@@ -95,7 +95,7 @@ class TemplatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_create_template_returns_the_template
+  test "create template returns the template" do
     stub_request(:post, %r{/v2/#{@account_id}/templates$})
         .to_return(read_http_fixture("createTemplate/created.http"))
 
@@ -114,7 +114,7 @@ class TemplatesTest < Minitest::Test
     assert_equal("A beta template.", template.description)
   end
 
-  def test_template_builds_correct_request
+  test "template builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/1$})
         .to_return(read_http_fixture("getTemplate/success.http"))
 
@@ -125,7 +125,7 @@ class TemplatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_template_returns_the_template
+  test "template returns the template" do
     stub_request(:get, %r{/v2/#{@account_id}/templates/1$})
         .to_return(read_http_fixture("getTemplate/success.http"))
 
@@ -144,7 +144,7 @@ class TemplatesTest < Minitest::Test
     assert_equal("An alpha template.", template.description)
   end
 
-  def test_update_template_builds_correct_request
+  test "update template builds correct request" do
     stub_request(:patch, %r{/v2/#{@account_id}/templates/1$})
         .to_return(read_http_fixture("updateTemplate/success.http"))
 
@@ -156,7 +156,7 @@ class TemplatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_update_template_returns_the_template
+  test "update template returns the template" do
     stub_request(:patch, %r{/v2/#{@account_id}/templates/1$})
         .to_return(read_http_fixture("updateTemplate/success.http"))
 
@@ -176,7 +176,7 @@ class TemplatesTest < Minitest::Test
     assert_equal("An alpha template.", template.description)
   end
 
-  def test_delete_template_builds_correct_request
+  test "delete template builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/templates/5410$})
         .to_return(read_http_fixture("deleteTemplate/success.http"))
 
@@ -187,7 +187,7 @@ class TemplatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delete_template_returns_nil
+  test "delete template returns nil" do
     stub_request(:delete, %r{/v2/#{@account_id}/templates/5410$})
         .to_return(read_http_fixture("deleteTemplate/success.http"))
 
@@ -198,7 +198,7 @@ class TemplatesTest < Minitest::Test
     assert_nil(response.data)
   end
 
-  def test_apply_template_builds_correct_request
+  test "apply template builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/example.com/templates/5410$})
         .to_return(read_http_fixture("applyTemplate/success.http"))
 
@@ -210,7 +210,7 @@ class TemplatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_apply_template_returns_nil
+  test "apply template returns nil" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/example.com/templates/5410$})
         .to_return(read_http_fixture("applyTemplate/success.http"))
 

@@ -9,7 +9,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     @domain_id = "example.com"
   end
 
-  def test_email_forwards_builds_correct_request
+  test "email forwards builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
         .to_return(read_http_fixture("listEmailForwards/success.http"))
 
@@ -19,7 +19,7 @@ class DomainsEmailForwardsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_email_forwards_supports_pagination
+  test "email forwards supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
         .to_return(read_http_fixture("listEmailForwards/success.http"))
 
@@ -28,7 +28,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards?page=2")
   end
 
-  def test_email_forwards_supports_extra_request_options
+  test "email forwards supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
         .to_return(read_http_fixture("listEmailForwards/success.http"))
 
@@ -37,7 +37,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards?foo=bar")
   end
 
-  def test_email_forwards_supports_sorting
+  test "email forwards supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
         .to_return(read_http_fixture("listEmailForwards/success.http"))
 
@@ -46,7 +46,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards?sort=id:asc,from:desc")
   end
 
-  def test_email_forwards_returns_the_email_forwards
+  test "email forwards returns the email forwards" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
         .to_return(read_http_fixture("listEmailForwards/success.http"))
 
@@ -63,7 +63,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert(response.data[0].active)
   end
 
-  def test_email_forwards_exposes_pagination_information
+  test "email forwards exposes pagination information" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
         .to_return(read_http_fixture("listEmailForwards/success.http"))
 
@@ -76,7 +76,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert_kind_of(Integer, response.total_pages)
   end
 
-  def test_email_forwards_when_domain_not_found_raises_not_found_error
+  test "email forwards when domain not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 
@@ -85,7 +85,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     end
   end
 
-  def test_all_email_forwards_delegates_to_paginate
+  test "all email forwards delegates to paginate" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
         .to_return(read_http_fixture("listEmailForwards/success.http"))
 
@@ -97,7 +97,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_email_forwards_supports_sorting
+  test "all email forwards supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards})
         .to_return(read_http_fixture("listEmailForwards/success.http"))
 
@@ -106,7 +106,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/email_forwards?page=1&per_page=100&sort=id:asc,from:desc")
   end
 
-  def test_create_email_forward_builds_correct_request
+  test "create email forward builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards$})
         .to_return(read_http_fixture("createEmailForward/created.http"))
 
@@ -118,7 +118,7 @@ class DomainsEmailForwardsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_create_email_forward_returns_the_email_forward
+  test "create email forward returns the email forward" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards$})
         .to_return(read_http_fixture("createEmailForward/created.http"))
 
@@ -133,7 +133,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert_kind_of(Integer, result.id)
   end
 
-  def test_email_forward_builds_correct_request
+  test "email forward builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards.+$})
         .to_return(read_http_fixture("getEmailForward/success.http"))
 
@@ -144,7 +144,7 @@ class DomainsEmailForwardsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_email_forward_returns_the_email_forward
+  test "email forward returns the email forward" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards.+$})
         .to_return(read_http_fixture("getEmailForward/success.http"))
 
@@ -164,7 +164,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert_equal("2021-01-25T13:54:40Z", result.updated_at)
   end
 
-  def test_email_forward_when_not_found_raises_not_found_error
+  test "email forward when not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-emailforward.http"))
 
@@ -173,7 +173,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     end
   end
 
-  def test_delete_email_forward_builds_correct_request
+  test "delete email forward builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards/1$})
         .to_return(read_http_fixture("deleteEmailForward/success.http"))
 
@@ -184,7 +184,7 @@ class DomainsEmailForwardsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delete_email_forward_returns_nothing
+  test "delete email forward returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/email_forwards/1$})
         .to_return(read_http_fixture("deleteEmailForward/success.http"))
 
@@ -198,7 +198,7 @@ class DomainsEmailForwardsTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_delete_email_forward_when_not_found_raises_not_found_error
+  test "delete email forward when not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-emailforward.http"))
 

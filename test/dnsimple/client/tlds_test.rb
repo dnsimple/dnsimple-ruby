@@ -7,7 +7,7 @@ class TldsTest < Minitest::Test
     @subject = Dnsimple::Client.new(base_url: "https://api.dnsimple.test", access_token: "a1b2c3").tlds
   end
 
-  def test_list_tlds_builds_correct_request
+  test "list tlds builds correct request" do
     stub_request(:get, %r{/v2/tlds})
         .to_return(read_http_fixture("listTlds/success.http"))
 
@@ -17,7 +17,7 @@ class TldsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_list_tlds_supports_pagination
+  test "list tlds supports pagination" do
     stub_request(:get, %r{/v2/tlds})
         .to_return(read_http_fixture("listTlds/success.http"))
 
@@ -26,7 +26,7 @@ class TldsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/tlds?page=2")
   end
 
-  def test_list_tlds_supports_additional_options
+  test "list tlds supports additional options" do
     stub_request(:get, %r{/v2/tlds})
         .to_return(read_http_fixture("listTlds/success.http"))
 
@@ -35,7 +35,7 @@ class TldsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/tlds?foo=bar")
   end
 
-  def test_list_tlds_supports_sorting
+  test "list tlds supports sorting" do
     stub_request(:get, %r{/v2/tlds})
         .to_return(read_http_fixture("listTlds/success.http"))
 
@@ -44,7 +44,7 @@ class TldsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/tlds?sort=tld:asc")
   end
 
-  def test_list_tlds_returns_the_tlds
+  test "list tlds returns the tlds" do
     stub_request(:get, %r{/v2/tlds})
         .to_return(read_http_fixture("listTlds/success.http"))
 
@@ -61,7 +61,7 @@ class TldsTest < Minitest::Test
     end
   end
 
-  def test_list_tlds_exposes_pagination_information
+  test "list tlds exposes pagination information" do
     stub_request(:get, %r{/v2/tlds})
         .to_return(read_http_fixture("listTlds/success.http"))
 
@@ -74,7 +74,7 @@ class TldsTest < Minitest::Test
     assert_kind_of(Integer, response.total_pages)
   end
 
-  def test_all_tlds_delegates_to_paginate
+  test "all tlds delegates to paginate" do
     stub_request(:get, %r{/v2/tlds})
         .to_return(read_http_fixture("listTlds/success.http"))
 
@@ -86,7 +86,7 @@ class TldsTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_tlds_supports_sorting
+  test "all tlds supports sorting" do
     stub_request(:get, %r{/v2/tlds})
         .to_return(read_http_fixture("listTlds/success.http"))
 
@@ -95,7 +95,7 @@ class TldsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/tlds?page=1&per_page=100&sort=tld:asc")
   end
 
-  def test_tld_builds_correct_request
+  test "tld builds correct request" do
     stub_request(:get, %r{/v2/tlds/.+$})
         .to_return(read_http_fixture("getTld/success.http"))
 
@@ -106,7 +106,7 @@ class TldsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_tld_returns_the_tld
+  test "tld returns the tld" do
     stub_request(:get, %r{/v2/tlds/.+$})
         .to_return(read_http_fixture("getTld/success.http"))
 
@@ -129,7 +129,7 @@ class TldsTest < Minitest::Test
     assert_equal("ds", result.dnssec_interface_type)
   end
 
-  def test_tld_extended_attributes_builds_correct_request
+  test "tld extended attributes builds correct request" do
     stub_request(:get, %r{/v2/tlds/uk/extended_attributes$})
         .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
 
@@ -140,7 +140,7 @@ class TldsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_tld_extended_attributes_returns_the_extended_attributes
+  test "tld extended attributes returns the extended attributes" do
     stub_request(:get, %r{/v2/tlds/uk/extended_attributes$})
         .to_return(read_http_fixture("getTldExtendedAttributes/success.http"))
 
@@ -165,7 +165,7 @@ class TldsTest < Minitest::Test
     end
   end
 
-  def test_tld_extended_attributes_when_no_attributes_returns_empty_collection
+  test "tld extended attributes when no attributes returns empty collection" do
     stub_request(:get, %r{/v2/tlds/com/extended_attributes$})
         .to_return(read_http_fixture("getTldExtendedAttributes/success-noattributes.http"))
 

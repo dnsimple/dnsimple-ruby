@@ -30,4 +30,10 @@ end
 
 class Minitest::Test # rubocop:disable Style/ClassAndModuleChildren
   include TestHelpers
+
+  def self.test(name, &block)
+    define_method("test_#{name.gsub(/\s+/, "_")}") do
+      instance_eval(&block)
+    end
+  end
 end

@@ -9,7 +9,7 @@ class ZonesRecordsTest < Minitest::Test
     @zone_id = "example.com"
   end
 
-  def test_list_zone_records_builds_correct_request
+  test "list zone records builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -19,7 +19,7 @@ class ZonesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_list_zone_records_supports_pagination
+  test "list zone records supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -28,7 +28,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones/#{@zone_id}/records?page=2")
   end
 
-  def test_list_zone_records_supports_extra_request_options
+  test "list zone records supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -37,7 +37,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones/#{@zone_id}/records?foo=bar")
   end
 
-  def test_list_zone_records_supports_sorting
+  test "list zone records supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -46,7 +46,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones/#{@zone_id}/records?sort=type:asc")
   end
 
-  def test_list_zone_records_supports_filtering
+  test "list zone records supports filtering" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -55,7 +55,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones/#{@zone_id}/records?type=A")
   end
 
-  def test_list_zone_records_returns_the_records
+  test "list zone records returns the records" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -72,7 +72,7 @@ class ZonesRecordsTest < Minitest::Test
     end
   end
 
-  def test_list_zone_records_exposes_pagination_information
+  test "list zone records exposes pagination information" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -85,7 +85,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_kind_of(Integer, response.total_pages)
   end
 
-  def test_list_zone_records_when_zone_not_found_raises_not_found_error
+  test "list zone records when zone not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -94,7 +94,7 @@ class ZonesRecordsTest < Minitest::Test
     end
   end
 
-  def test_all_zone_records_delegates_to_paginate
+  test "all zone records delegates to paginate" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -106,7 +106,7 @@ class ZonesRecordsTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_zone_records_supports_sorting
+  test "all zone records supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -115,7 +115,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones/#{@zone_id}/records?page=1&per_page=100&sort=type:asc")
   end
 
-  def test_all_zone_records_supports_filtering
+  test "all zone records supports filtering" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records})
         .to_return(read_http_fixture("listZoneRecords/success.http"))
 
@@ -124,7 +124,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/zones/#{@zone_id}/records?page=1&per_page=100&name=foo&type=AAAA")
   end
 
-  def test_create_zone_record_builds_correct_request
+  test "create zone record builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/zones/#{@zone_id}/records$})
         .to_return(read_http_fixture("createZoneRecord/created.http"))
 
@@ -136,7 +136,7 @@ class ZonesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_create_zone_record_returns_the_record
+  test "create zone record returns the record" do
     stub_request(:post, %r{/v2/#{@account_id}/zones/#{@zone_id}/records$})
         .to_return(read_http_fixture("createZoneRecord/created.http"))
 
@@ -155,7 +155,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_equal(attributes.fetch(:regions), result.regions)
   end
 
-  def test_create_zone_record_when_zone_not_found_raises_not_found_error
+  test "create zone record when zone not found raises not found error" do
     stub_request(:post, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -165,7 +165,7 @@ class ZonesRecordsTest < Minitest::Test
     end
   end
 
-  def test_zone_record_builds_correct_request
+  test "zone record builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/.+$})
         .to_return(read_http_fixture("getZoneRecord/success.http"))
 
@@ -176,7 +176,7 @@ class ZonesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_zone_record_returns_the_record
+  test "zone record returns the record" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/.+$})
         .to_return(read_http_fixture("getZoneRecord/success.http"))
 
@@ -202,7 +202,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_equal("2016-10-05T09:51:35Z", result.updated_at)
   end
 
-  def test_zone_record_when_zone_not_found_raises_not_found_error
+  test "zone record when zone not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -211,7 +211,7 @@ class ZonesRecordsTest < Minitest::Test
     end
   end
 
-  def test_zone_record_when_record_not_found_raises_not_found_error
+  test "zone record when record not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-record.http"))
 
@@ -220,7 +220,7 @@ class ZonesRecordsTest < Minitest::Test
     end
   end
 
-  def test_update_zone_record_builds_correct_request
+  test "update zone record builds correct request" do
     stub_request(:patch, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/.+$})
         .to_return(read_http_fixture("updateZoneRecord/success.http"))
 
@@ -233,7 +233,7 @@ class ZonesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_update_zone_record_returns_the_record
+  test "update zone record returns the record" do
     stub_request(:patch, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/.+$})
         .to_return(read_http_fixture("updateZoneRecord/success.http"))
 
@@ -252,7 +252,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_equal(attributes.fetch(:regions), result.regions)
   end
 
-  def test_update_zone_record_when_zone_not_found_raises_not_found_error
+  test "update zone record when zone not found raises not found error" do
     stub_request(:patch, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -261,7 +261,7 @@ class ZonesRecordsTest < Minitest::Test
     end
   end
 
-  def test_update_zone_record_when_record_not_found_raises_not_found_error
+  test "update zone record when record not found raises not found error" do
     stub_request(:patch, %r{/v2})
         .to_return(read_http_fixture("notfound-record.http"))
 
@@ -270,7 +270,7 @@ class ZonesRecordsTest < Minitest::Test
     end
   end
 
-  def test_delete_zone_record_builds_correct_request
+  test "delete zone record builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/.+$})
         .to_return(read_http_fixture("deleteZoneRecord/success.http"))
 
@@ -281,7 +281,7 @@ class ZonesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delete_zone_record_returns_nothing
+  test "delete zone record returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/.+$})
         .to_return(read_http_fixture("deleteZoneRecord/success.http"))
 
@@ -294,7 +294,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_delete_zone_record_when_zone_not_found_raises_not_found_error
+  test "delete zone record when zone not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -303,7 +303,7 @@ class ZonesRecordsTest < Minitest::Test
     end
   end
 
-  def test_delete_zone_record_when_record_not_found_raises_not_found_error
+  test "delete zone record when record not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-record.http"))
 
@@ -312,7 +312,7 @@ class ZonesRecordsTest < Minitest::Test
     end
   end
 
-  def test_batch_change_zone_records_builds_correct_request
+  test "batch change zone records builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/zones/#{@zone_id}/batch$})
         .to_return(read_http_fixture("batchChangeZoneRecords/success.http"))
 
@@ -324,7 +324,7 @@ class ZonesRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_batch_change_zone_records_returns_the_result
+  test "batch change zone records returns the result" do
     stub_request(:post, %r{/v2/#{@account_id}/zones/#{@zone_id}/batch$})
         .to_return(read_http_fixture("batchChangeZoneRecords/success.http"))
 
@@ -351,7 +351,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_equal(67622527, result.deletes[1].id)
   end
 
-  def test_batch_change_zone_records_with_create_errors_raises_request_error
+  test "batch change zone records with create errors raises request error" do
     stub_request(:post, %r{/v2/#{@account_id}/zones/#{@zone_id}/batch$})
         .to_return(read_http_fixture("batchChangeZoneRecords/error_400_create_validation_failed.http"))
 
@@ -365,7 +365,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_equal({ "record_type" => ["unsupported"] }, error.attribute_errors["creates"][0]["errors"])
   end
 
-  def test_batch_change_zone_records_with_update_errors_raises_request_error
+  test "batch change zone records with update errors raises request error" do
     stub_request(:post, %r{/v2/#{@account_id}/zones/#{@zone_id}/batch$})
         .to_return(read_http_fixture("batchChangeZoneRecords/error_400_update_validation_failed.http"))
 
@@ -378,7 +378,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_equal(0, error.attribute_errors["updates"][0]["index"])
   end
 
-  def test_batch_change_zone_records_with_delete_errors_raises_request_error
+  test "batch change zone records with delete errors raises request error" do
     stub_request(:post, %r{/v2/#{@account_id}/zones/#{@zone_id}/batch$})
         .to_return(read_http_fixture("batchChangeZoneRecords/error_400_delete_validation_failed.http"))
 
@@ -391,7 +391,7 @@ class ZonesRecordsTest < Minitest::Test
     assert_equal(0, error.attribute_errors["deletes"][0]["index"])
   end
 
-  def test_batch_change_zone_records_when_zone_not_found_raises_not_found_error
+  test "batch change zone records when zone not found raises not found error" do
     stub_request(:post, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 

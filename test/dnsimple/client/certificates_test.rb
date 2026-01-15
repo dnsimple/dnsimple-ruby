@@ -9,7 +9,7 @@ class CertificatesTest < Minitest::Test
   end
 
 
-  def test_certificates_builds_correct_request
+  test "certificates builds the correct request" do
     domain_id = "example.com"
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates})
         .to_return(read_http_fixture("listCertificates/success.http"))
@@ -20,7 +20,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_certificates_supports_pagination
+  test "certificates supports pagination" do
     domain_id = "example.com"
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates})
         .to_return(read_http_fixture("listCertificates/success.http"))
@@ -30,7 +30,7 @@ class CertificatesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{domain_id}/certificates?page=2")
   end
 
-  def test_certificates_supports_extra_request_options
+  test "certificates supports extra request options" do
     domain_id = "example.com"
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates})
         .to_return(read_http_fixture("listCertificates/success.http"))
@@ -40,7 +40,7 @@ class CertificatesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{domain_id}/certificates?foo=bar")
   end
 
-  def test_certificates_returns_the_certificates
+  test "certificates returns the certificates" do
     domain_id = "example.com"
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates})
         .to_return(read_http_fixture("listCertificates/success.http"))
@@ -57,7 +57,7 @@ class CertificatesTest < Minitest::Test
     end
   end
 
-  def test_certificates_exposes_the_pagination_information
+  test "certificates exposes the pagination information" do
     domain_id = "example.com"
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates})
         .to_return(read_http_fixture("listCertificates/success.http"))
@@ -72,7 +72,7 @@ class CertificatesTest < Minitest::Test
   end
 
 
-  def test_all_certificates_delegates_to_client_paginate
+  test "all_certificates delegates to client.paginate" do
     domain_id = "dnsimple.us"
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates})
         .to_return(read_http_fixture("listCertificates/success.http"))
@@ -85,7 +85,7 @@ class CertificatesTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_certificates_supports_sorting
+  test "all_certificates supports sorting" do
     domain_id = "dnsimple.us"
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates})
         .to_return(read_http_fixture("listCertificates/success.http"))
@@ -96,7 +96,7 @@ class CertificatesTest < Minitest::Test
   end
 
 
-  def test_certificate_builds_correct_request
+  test "certificate builds the correct request" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}})
@@ -108,7 +108,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_certificate_supports_extra_request_options
+  test "certificate supports extra request options" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}})
@@ -119,7 +119,7 @@ class CertificatesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}?foo=bar")
   end
 
-  def test_certificate_returns_the_certificate
+  test "certificate returns the certificate" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}})
@@ -147,7 +147,7 @@ class CertificatesTest < Minitest::Test
     assert_equal("2020-09-16T18:10:13Z", result.expires_at)
   end
 
-  def test_certificate_when_certificate_does_not_exist_raises_not_found_error
+  test "certificate raises NotFoundError when the certificate does not exist" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:get, %r{/v2})
@@ -159,7 +159,7 @@ class CertificatesTest < Minitest::Test
   end
 
 
-  def test_download_certificate_builds_correct_request
+  test "download_certificate builds the correct request" do
     domain_id = "weppos.net"
     certificate_id = 1
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}/download})
@@ -171,7 +171,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_download_certificate_supports_extra_request_options
+  test "download_certificate supports extra request options" do
     domain_id = "weppos.net"
     certificate_id = 1
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}/download})
@@ -182,7 +182,7 @@ class CertificatesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}/download?foo=bar")
   end
 
-  def test_download_certificate_returns_the_certificate_bundle
+  test "download_certificate returns the certificate bundle" do
     domain_id = "weppos.net"
     certificate_id = 1
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}/download})
@@ -201,7 +201,7 @@ class CertificatesTest < Minitest::Test
     assert_equal(["-----BEGIN CERTIFICATE-----\nMIIEqzCCApOgAwIBAgIRAIvhKg5ZRO08VGQx8JdhT+UwDQYJKoZIhvcNAQELBQAw\nGjEYMBYGA1UEAwwPRmFrZSBMRSBSb290IFgxMB4XDTE2MDUyMzIyMDc1OVoXDTM2\nMDUyMzIyMDc1OVowIjEgMB4GA1UEAwwXRmFrZSBMRSBJbnRlcm1lZGlhdGUgWDEw\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDtWKySDn7rWZc5ggjz3ZB0\n8jO4xti3uzINfD5sQ7Lj7hzetUT+wQob+iXSZkhnvx+IvdbXF5/yt8aWPpUKnPym\noLxsYiI5gQBLxNDzIec0OIaflWqAr29m7J8+NNtApEN8nZFnf3bhehZW7AxmS1m0\nZnSsdHw0Fw+bgixPg2MQ9k9oefFeqa+7Kqdlz5bbrUYV2volxhDFtnI4Mh8BiWCN\nxDH1Hizq+GKCcHsinDZWurCqder/afJBnQs+SBSL6MVApHt+d35zjBD92fO2Je56\ndhMfzCgOKXeJ340WhW3TjD1zqLZXeaCyUNRnfOmWZV8nEhtHOFbUCU7r/KkjMZO9\nAgMBAAGjgeMwgeAwDgYDVR0PAQH/BAQDAgGGMBIGA1UdEwEB/wQIMAYBAf8CAQAw\nHQYDVR0OBBYEFMDMA0a5WCDMXHJw8+EuyyCm9Wg6MHoGCCsGAQUFBwEBBG4wbDA0\nBggrBgEFBQcwAYYoaHR0cDovL29jc3Auc3RnLXJvb3QteDEubGV0c2VuY3J5cHQu\nb3JnLzA0BggrBgEFBQcwAoYoaHR0cDovL2NlcnQuc3RnLXJvb3QteDEubGV0c2Vu\nY3J5cHQub3JnLzAfBgNVHSMEGDAWgBTBJnSkikSg5vogKNhcI5pFiBh54DANBgkq\nhkiG9w0BAQsFAAOCAgEABYSu4Il+fI0MYU42OTmEj+1HqQ5DvyAeyCA6sGuZdwjF\nUGeVOv3NnLyfofuUOjEbY5irFCDtnv+0ckukUZN9lz4Q2YjWGUpW4TTu3ieTsaC9\nAFvCSgNHJyWSVtWvB5XDxsqawl1KzHzzwr132bF2rtGtazSqVqK9E07sGHMCf+zp\nDQVDVVGtqZPHwX3KqUtefE621b8RI6VCl4oD30Olf8pjuzG4JKBFRFclzLRjo/h7\nIkkfjZ8wDa7faOjVXx6n+eUQ29cIMCzr8/rNWHS9pYGGQKJiY2xmVC9h12H99Xyf\nzWE9vb5zKP3MVG6neX1hSdo7PEAb9fqRhHkqVsqUvJlIRmvXvVKTwNCP3eCjRCCI\nPTAvjV+4ni786iXwwFYNz8l3PmPLCyQXWGohnJ8iBm+5nk7O2ynaPVW0U2W+pt2w\nSVuvdDM5zGv2f9ltNWUiYZHJ1mmO97jSY/6YfdOUH66iRtQtDkHBRdkNBsMbD+Em\n2TgBldtHNSJBfB3pm9FblgOcJ0FSWcUDWJ7vO0+NTXlgrRofRT6pVywzxVo6dND0\nWzYlTWeUVsO40xJqhgUQRER9YLOLxJ0O6C8i0xFxAMKOtSdodMB3RIwt7RFQ0uyt\nn5Z5MqkYhlMI3J1tPRTp1nEt9fyGspBOO05gi148Qasp+3N+svqKomoQglNoAxU=\n-----END CERTIFICATE-----"], result.intermediate_certificates)
   end
 
-  def test_download_certificate_when_certificate_does_not_exist_raises_not_found_error
+  test "download_certificate raises NotFoundError when the certificate does not exist" do
     domain_id = "weppos.net"
     certificate_id = 1
     stub_request(:get, %r{/v2})
@@ -213,7 +213,7 @@ class CertificatesTest < Minitest::Test
   end
 
 
-  def test_certificate_private_key_builds_correct_request
+  test "certificate_private_key builds the correct request" do
     domain_id = "weppos.net"
     certificate_id = 1
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key})
@@ -225,7 +225,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_certificate_private_key_supports_extra_request_options
+  test "certificate_private_key supports extra request options" do
     domain_id = "weppos.net"
     certificate_id = 1
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key})
@@ -236,7 +236,7 @@ class CertificatesTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key?foo=bar")
   end
 
-  def test_certificate_private_key_returns_the_certificate_bundle
+  test "certificate_private_key returns the certificate bundle" do
     domain_id = "weppos.net"
     certificate_id = 1
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/#{certificate_id}/private_key})
@@ -255,7 +255,7 @@ class CertificatesTest < Minitest::Test
     assert_nil(result.intermediate_certificates)
   end
 
-  def test_certificate_private_key_when_certificate_does_not_exist_raises_not_found_error
+  test "certificate_private_key raises NotFoundError when the certificate does not exist" do
     domain_id = "weppos.net"
     certificate_id = 1
     stub_request(:get, %r{/v2})
@@ -267,7 +267,7 @@ class CertificatesTest < Minitest::Test
   end
 
 
-  def test_purchase_letsencrypt_certificate_builds_correct_request
+  test "purchase_letsencrypt_certificate builds the correct request" do
     domain_id = "bingo.pizza"
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/letsencrypt})
         .to_return(read_http_fixture("purchaseLetsencryptCertificate/success.http"))
@@ -280,7 +280,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_purchase_letsencrypt_certificate_passes_extra_attributes
+  test "purchase_letsencrypt_certificate passes extra attributes" do
     domain_id = "bingo.pizza"
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/letsencrypt})
         .to_return(read_http_fixture("purchaseLetsencryptCertificate/success.http"))
@@ -293,7 +293,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_purchase_letsencrypt_certificate_returns_the_certificate_purchase
+  test "purchase_letsencrypt_certificate returns the certificate purchase" do
     domain_id = "bingo.pizza"
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/letsencrypt})
         .to_return(read_http_fixture("purchaseLetsencryptCertificate/success.http"))
@@ -312,7 +312,7 @@ class CertificatesTest < Minitest::Test
     refute(result.auto_renew)
   end
 
-  def test_purchase_letsencrypt_certificate_when_domain_does_not_exist_raises_not_found_error
+  test "purchase_letsencrypt_certificate raises NotFoundError when the domain does not exist" do
     domain_id = "bingo.pizza"
     stub_request(:post, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
@@ -323,7 +323,7 @@ class CertificatesTest < Minitest::Test
   end
 
 
-  def test_issue_letsencrypt_certificate_builds_correct_request
+  test "issue_letsencrypt_certificate builds the correct request" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/issue})
@@ -335,7 +335,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_issue_letsencrypt_certificate_returns_the_certificate
+  test "issue_letsencrypt_certificate returns the certificate" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/issue})
@@ -360,7 +360,7 @@ class CertificatesTest < Minitest::Test
     refute(result.auto_renew)
   end
 
-  def test_issue_letsencrypt_certificate_when_domain_does_not_exist_raises_not_found_error
+  test "issue_letsencrypt_certificate raises NotFoundError when the domain does not exist" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:post, %r{/v2})
@@ -371,7 +371,7 @@ class CertificatesTest < Minitest::Test
     end
   end
 
-  def test_issue_letsencrypt_certificate_when_certificate_does_not_exist_raises_not_found_error
+  test "issue_letsencrypt_certificate raises NotFoundError when the certificate does not exist" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:post, %r{/v2})
@@ -383,7 +383,7 @@ class CertificatesTest < Minitest::Test
   end
 
 
-  def test_purchase_letsencrypt_certificate_renewal_builds_correct_request
+  test "purchase_letsencrypt_certificate_renewal builds the correct request" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals})
@@ -395,7 +395,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_purchase_letsencrypt_certificate_renewal_passes_extra_attributes
+  test "purchase_letsencrypt_certificate_renewal passes extra attributes" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals})
@@ -409,7 +409,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_purchase_letsencrypt_certificate_renewal_returns_the_certificate_renew
+  test "purchase_letsencrypt_certificate_renewal returns the certificate renew" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{domain_id}/certificates/letsencrypt/#{certificate_id}/renewals})
@@ -429,7 +429,7 @@ class CertificatesTest < Minitest::Test
     assert_equal("new", result.state)
   end
 
-  def test_purchase_letsencrypt_certificate_renewal_when_domain_does_not_exist_raises_not_found_error
+  test "purchase_letsencrypt_certificate_renewal raises NotFoundError when the domain does not exist" do
     domain_id = "bingo.pizza"
     certificate_id = 101967
     stub_request(:post, %r{/v2})
@@ -441,7 +441,7 @@ class CertificatesTest < Minitest::Test
   end
 
 
-  def test_issue_letsencrypt_certificate_renewal_builds_correct_request
+  test "issue_letsencrypt_certificate_renewal builds the correct request" do
     domain_id = "bingo.pizza"
     certificate_id = 101972
     certificate_renewal_id = 65082
@@ -454,7 +454,7 @@ class CertificatesTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_issue_letsencrypt_certificate_renewal_returns_the_certificate
+  test "issue_letsencrypt_certificate_renewal returns the certificate" do
     domain_id = "bingo.pizza"
     certificate_id = 101972
     certificate_renewal_id = 65082
@@ -480,7 +480,7 @@ class CertificatesTest < Minitest::Test
     refute(result.auto_renew)
   end
 
-  def test_issue_letsencrypt_certificate_renewal_when_domain_does_not_exist_raises_not_found_error
+  test "issue_letsencrypt_certificate_renewal raises NotFoundError when the domain does not exist" do
     domain_id = "bingo.pizza"
     certificate_id = 101972
     certificate_renewal_id = 65082
@@ -492,7 +492,7 @@ class CertificatesTest < Minitest::Test
     end
   end
 
-  def test_issue_letsencrypt_certificate_renewal_when_certificate_does_not_exist_raises_not_found_error
+  test "issue_letsencrypt_certificate_renewal raises NotFoundError when the certificate does not exist" do
     domain_id = "bingo.pizza"
     certificate_id = 101972
     certificate_renewal_id = 65082

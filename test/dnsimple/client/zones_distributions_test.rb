@@ -10,7 +10,7 @@ class ZonesDistributionsTest < Minitest::Test
     @record_id = 5
   end
 
-  def test_zone_distribution_builds_correct_request
+  test "zone distribution builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/.+$})
         .to_return(read_http_fixture("checkZoneDistribution/success.http"))
 
@@ -21,7 +21,7 @@ class ZonesDistributionsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_zone_distribution_returns_true_when_fully_distributed
+  test "zone distribution returns true when fully distributed" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/.+$})
         .to_return(read_http_fixture("checkZoneDistribution/success.http"))
 
@@ -35,7 +35,7 @@ class ZonesDistributionsTest < Minitest::Test
     assert(result.distributed)
   end
 
-  def test_zone_distribution_returns_false_when_not_fully_distributed
+  test "zone distribution returns false when not fully distributed" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/.+$})
         .to_return(read_http_fixture("checkZoneDistribution/failure.http"))
 
@@ -49,7 +49,7 @@ class ZonesDistributionsTest < Minitest::Test
     refute(result.distributed)
   end
 
-  def test_zone_distribution_raises_error_when_check_fails
+  test "zone distribution raises error when check fails" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/.+$})
         .to_return(read_http_fixture("checkZoneDistribution/error.http"))
 
@@ -59,7 +59,7 @@ class ZonesDistributionsTest < Minitest::Test
     assert_equal("Could not query zone, connection timed out", error.message)
   end
 
-  def test_zone_distribution_when_zone_not_found_raises_not_found_error
+  test "zone distribution when zone not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -68,7 +68,7 @@ class ZonesDistributionsTest < Minitest::Test
     end
   end
 
-  def test_zone_record_distribution_builds_correct_request
+  test "zone record distribution builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/#{@record_id}/distribution$})
         .to_return(read_http_fixture("checkZoneRecordDistribution/success.http"))
 
@@ -78,7 +78,7 @@ class ZonesDistributionsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_zone_record_distribution_returns_true_when_fully_distributed
+  test "zone record distribution returns true when fully distributed" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/#{@record_id}/distribution$})
         .to_return(read_http_fixture("checkZoneRecordDistribution/success.http"))
 
@@ -92,7 +92,7 @@ class ZonesDistributionsTest < Minitest::Test
     assert(result.distributed)
   end
 
-  def test_zone_record_distribution_returns_false_when_not_fully_distributed
+  test "zone record distribution returns false when not fully distributed" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/#{@record_id}/distribution$})
         .to_return(read_http_fixture("checkZoneRecordDistribution/failure.http"))
 
@@ -106,7 +106,7 @@ class ZonesDistributionsTest < Minitest::Test
     refute(result.distributed)
   end
 
-  def test_zone_record_distribution_raises_error_when_check_fails
+  test "zone record distribution raises error when check fails" do
     stub_request(:get, %r{/v2/#{@account_id}/zones/#{@zone_id}/records/#{@record_id}/distribution$})
         .to_return(read_http_fixture("checkZoneRecordDistribution/error.http"))
 
@@ -116,7 +116,7 @@ class ZonesDistributionsTest < Minitest::Test
     assert_equal("Could not query zone, connection timed out", error.message)
   end
 
-  def test_zone_record_distribution_when_zone_not_found_raises_not_found_error
+  test "zone record distribution when zone not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-zone.http"))
 
@@ -125,7 +125,7 @@ class ZonesDistributionsTest < Minitest::Test
     end
   end
 
-  def test_zone_record_distribution_when_record_not_found_raises_not_found_error
+  test "zone record distribution when record not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-record.http"))
 

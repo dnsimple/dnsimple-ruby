@@ -10,7 +10,7 @@ class RegistrarTransferLockTest < Minitest::Test
   end
 
 
-  def test_get_domain_transfer_lock_builds_correct_request
+  test "get domain transfer lock builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock})
         .to_return(read_http_fixture("getDomainTransferLock/success.http"))
 
@@ -20,7 +20,7 @@ class RegistrarTransferLockTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_get_domain_transfer_lock_returns_the_transfer_lock_state
+  test "get domain transfer lock returns the transfer lock state" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock})
         .to_return(read_http_fixture("getDomainTransferLock/success.http"))
 
@@ -34,7 +34,7 @@ class RegistrarTransferLockTest < Minitest::Test
     assert(result.enabled)
   end
 
-  def test_get_domain_transfer_lock_when_domain_does_not_exist_raises_not_found_error
+  test "get domain transfer lock when domain does not exist raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 
@@ -44,7 +44,7 @@ class RegistrarTransferLockTest < Minitest::Test
   end
 
 
-  def test_enable_domain_transfer_lock_builds_correct_request
+  test "enable domain transfer lock builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock})
         .to_return(read_http_fixture("enableDomainTransferLock/success.http"))
 
@@ -54,7 +54,7 @@ class RegistrarTransferLockTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_enable_domain_transfer_lock_returns_the_transfer_lock_state
+  test "enable domain transfer lock returns the transfer lock state" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}/transfer_lock})
         .to_return(read_http_fixture("enableDomainTransferLock/success.http"))
 
@@ -68,7 +68,7 @@ class RegistrarTransferLockTest < Minitest::Test
     assert(result.enabled)
   end
 
-  def test_enable_domain_transfer_lock_when_domain_does_not_exist_raises_not_found_error
+  test "enable domain transfer lock when domain does not exist raises not found error" do
     stub_request(:post, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 
@@ -78,7 +78,7 @@ class RegistrarTransferLockTest < Minitest::Test
   end
 
 
-  def test_disable_domain_transfer_lock_builds_correct_request
+  test "disable domain transfer lock builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}})
         .to_return(read_http_fixture("disableDomainTransferLock/success.http"))
 
@@ -88,7 +88,7 @@ class RegistrarTransferLockTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_disable_domain_transfer_lock_returns_the_transfer_lock_state
+  test "disable domain transfer lock returns the transfer lock state" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}})
         .to_return(read_http_fixture("disableDomainTransferLock/success.http"))
 
@@ -102,7 +102,7 @@ class RegistrarTransferLockTest < Minitest::Test
     refute(result.enabled)
   end
 
-  def test_disable_domain_transfer_lock_when_domain_does_not_exist_raises_not_found_error
+  test "disable domain transfer lock when domain does not exist raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 

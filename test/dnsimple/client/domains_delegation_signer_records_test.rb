@@ -9,7 +9,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     @domain_id = "example.com"
   end
 
-  def test_delegation_signer_records_builds_correct_request
+  test "delegation signer records builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records})
         .to_return(read_http_fixture("listDelegationSignerRecords/success.http"))
 
@@ -19,7 +19,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delegation_signer_records_supports_pagination
+  test "delegation signer records supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records})
         .to_return(read_http_fixture("listDelegationSignerRecords/success.http"))
 
@@ -28,7 +28,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/ds_records?page=2")
   end
 
-  def test_delegation_signer_records_supports_extra_request_options
+  test "delegation signer records supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records})
         .to_return(read_http_fixture("listDelegationSignerRecords/success.http"))
 
@@ -37,7 +37,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/ds_records?foo=bar")
   end
 
-  def test_delegation_signer_records_supports_sorting
+  test "delegation signer records supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records})
         .to_return(read_http_fixture("listDelegationSignerRecords/success.http"))
 
@@ -46,7 +46,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/ds_records?sort=id:asc,from:desc")
   end
 
-  def test_delegation_signer_records_returns_the_records
+  test "delegation signer records returns the records" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records})
         .to_return(read_http_fixture("listDelegationSignerRecords/success.http"))
 
@@ -62,7 +62,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     end
   end
 
-  def test_delegation_signer_records_exposes_pagination_information
+  test "delegation signer records exposes pagination information" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records})
         .to_return(read_http_fixture("listDelegationSignerRecords/success.http"))
 
@@ -75,7 +75,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     assert_kind_of(Integer, response.total_pages)
   end
 
-  def test_delegation_signer_records_when_domain_not_found_raises_not_found_error
+  test "delegation signer records when domain not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 
@@ -84,7 +84,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     end
   end
 
-  def test_all_delegation_signer_records_delegates_to_paginate
+  test "all delegation signer records delegates to paginate" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records})
         .to_return(read_http_fixture("listDelegationSignerRecords/success.http"))
 
@@ -96,7 +96,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_delegation_signer_records_supports_sorting
+  test "all delegation signer records supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records})
         .to_return(read_http_fixture("listDelegationSignerRecords/success.http"))
 
@@ -105,7 +105,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/ds_records?page=1&per_page=100&sort=id:asc,from:desc")
   end
 
-  def test_create_delegation_signer_record_builds_correct_request
+  test "create delegation signer record builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records$})
         .to_return(read_http_fixture("createDelegationSignerRecord/created.http"))
 
@@ -117,7 +117,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_create_delegation_signer_record_returns_the_record
+  test "create delegation signer record returns the record" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records$})
         .to_return(read_http_fixture("createDelegationSignerRecord/created.http"))
 
@@ -132,7 +132,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     assert_kind_of(Integer, result.id)
   end
 
-  def test_delegation_signer_record_builds_correct_request
+  test "delegation signer record builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records.+$})
         .to_return(read_http_fixture("getDelegationSignerRecord/success.http"))
 
@@ -143,7 +143,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delegation_signer_record_returns_the_record
+  test "delegation signer record returns the record" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records.+$})
         .to_return(read_http_fixture("getDelegationSignerRecord/success.http"))
 
@@ -166,7 +166,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     assert_equal("2017-03-03T13:49:58Z", result.updated_at)
   end
 
-  def test_delegation_signer_record_when_not_found_raises_not_found_error
+  test "delegation signer record when not found raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-delegationSignerRecord.http"))
 
@@ -176,7 +176,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     end
   end
 
-  def test_delete_delegation_signer_record_builds_correct_request
+  test "delete delegation signer record builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records/1$})
         .to_return(read_http_fixture("deleteDelegationSignerRecord/success.http"))
 
@@ -187,7 +187,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delete_delegation_signer_record_returns_nothing
+  test "delete delegation signer record returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/#{@domain_id}/ds_records/1$})
         .to_return(read_http_fixture("deleteDelegationSignerRecord/success.http"))
 
@@ -201,7 +201,7 @@ class DomainsDelegationSignerRecordsTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_delete_delegation_signer_record_when_not_found_raises_not_found_error
+  test "delete delegation signer record when not found raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-delegationSignerRecord.http"))
 

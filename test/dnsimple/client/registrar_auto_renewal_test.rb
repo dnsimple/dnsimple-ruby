@@ -10,7 +10,7 @@ class RegistrarAutoRenewalTest < Minitest::Test
   end
 
 
-  def test_enable_auto_renewal_builds_correct_request
+  test "enable auto renewal builds correct request" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}})
         .to_return(read_http_fixture("enableDomainAutoRenewal/success.http"))
 
@@ -20,7 +20,7 @@ class RegistrarAutoRenewalTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_enable_auto_renewal_returns_nothing
+  test "enable auto renewal returns nothing" do
     stub_request(:put, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}})
         .to_return(read_http_fixture("enableDomainAutoRenewal/success.http"))
 
@@ -33,7 +33,7 @@ class RegistrarAutoRenewalTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_enable_auto_renewal_when_domain_does_not_exist_raises_not_found_error
+  test "enable auto renewal when domain does not exist raises not found error" do
     stub_request(:put, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 
@@ -43,7 +43,7 @@ class RegistrarAutoRenewalTest < Minitest::Test
   end
 
 
-  def test_disable_auto_renewal_builds_correct_request
+  test "disable auto renewal builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}})
         .to_return(read_http_fixture("disableDomainAutoRenewal/success.http"))
 
@@ -53,7 +53,7 @@ class RegistrarAutoRenewalTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_disable_auto_renewal_returns_nothing
+  test "disable auto renewal returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/#{@domain_id}})
         .to_return(read_http_fixture("disableDomainAutoRenewal/success.http"))
 
@@ -66,7 +66,7 @@ class RegistrarAutoRenewalTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_disable_auto_renewal_when_domain_does_not_exist_raises_not_found_error
+  test "disable auto renewal when domain does not exist raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 

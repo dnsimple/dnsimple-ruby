@@ -11,7 +11,7 @@ class OauthTest < Minitest::Test
     @state = "super-state"
   end
 
-  def test_exchange_authorization_for_token_builds_correct_request
+  test "exchange authorization for token builds correct request" do
     stub_request(:post, %r{/v2/oauth/access_token$})
         .to_return(read_http_fixture("oauthAccessToken/success.http"))
 
@@ -22,7 +22,7 @@ class OauthTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_exchange_authorization_for_token_returns_oauth_token
+  test "exchange authorization for token returns oauth token" do
     stub_request(:post, %r{/v2/oauth/access_token$})
         .to_return(read_http_fixture("oauthAccessToken/success.http"))
 
@@ -34,7 +34,7 @@ class OauthTest < Minitest::Test
     assert_equal(1, result.account_id)
   end
 
-  def test_exchange_authorization_for_token_with_state_and_redirect_uri_builds_correct_request
+  test "exchange authorization for token with state and redirect uri builds correct request" do
     stub_request(:post, %r{/v2/oauth/access_token$})
         .to_return(read_http_fixture("oauthAccessToken/success.http"))
 
@@ -46,7 +46,7 @@ class OauthTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_exchange_authorization_for_token_when_request_fails_with_400_raises_oauth_invalid_request_error
+  test "exchange authorization for token when request fails with 400 raises oauth invalid request error" do
     stub_request(:post, %r{/v2/oauth/access_token$})
         .to_return(read_http_fixture("oauthAccessToken/error-invalid-request.http"))
 
@@ -57,13 +57,13 @@ class OauthTest < Minitest::Test
     assert_equal("Invalid \"state\": value doesn't match the \"state\" in the authorization request", error.error_description)
   end
 
-  def test_authorize_url_builds_correct_url
+  test "authorize url builds correct url" do
     url = @subject.authorize_url("great-app")
 
     assert_equal("https://dnsimple.test/oauth/authorize?client_id=great-app&response_type=code", url)
   end
 
-  def test_authorize_url_exposes_options_in_query_string
+  test "authorize url exposes options in query string" do
     url = @subject.authorize_url("great-app", secret: "1", redirect_uri: "http://example.com")
 
     assert_equal("https://dnsimple.test/oauth/authorize?client_id=great-app&secret=1&redirect_uri=http://example.com&response_type=code", url)

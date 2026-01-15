@@ -9,7 +9,7 @@ class DomainsTest < Minitest::Test
   end
 
 
-  def test_domains_builds_correct_request
+  test "domains builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -19,7 +19,7 @@ class DomainsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_domains_supports_pagination
+  test "domains supports pagination" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -28,7 +28,7 @@ class DomainsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains?page=2")
   end
 
-  def test_domains_supports_extra_request_options
+  test "domains supports extra request options" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -37,7 +37,7 @@ class DomainsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains?foo=bar")
   end
 
-  def test_domains_supports_sorting
+  test "domains supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -46,7 +46,7 @@ class DomainsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains?sort=expiration:asc")
   end
 
-  def test_domains_supports_filtering
+  test "domains supports filtering" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -55,7 +55,7 @@ class DomainsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains?name_like=example")
   end
 
-  def test_domains_returns_the_domains
+  test "domains returns the domains" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -71,7 +71,7 @@ class DomainsTest < Minitest::Test
     end
   end
 
-  def test_domains_exposes_the_pagination_information
+  test "domains exposes the pagination information" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -85,7 +85,7 @@ class DomainsTest < Minitest::Test
   end
 
 
-  def test_all_domains_delegates_to_client_paginate
+  test "all domains delegates to client paginate" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -97,7 +97,7 @@ class DomainsTest < Minitest::Test
     mock.verify
   end
 
-  def test_all_domains_supports_sorting
+  test "all domains supports sorting" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -106,7 +106,7 @@ class DomainsTest < Minitest::Test
     assert_requested(:get, "https://api.dnsimple.test/v2/#{@account_id}/domains?page=1&per_page=100&sort=expiration:asc")
   end
 
-  def test_all_domains_supports_filtering
+  test "all domains supports filtering" do
     stub_request(:get, %r{/v2/#{@account_id}/domains})
         .to_return(read_http_fixture("listDomains/success.http"))
 
@@ -116,7 +116,7 @@ class DomainsTest < Minitest::Test
   end
 
 
-  def test_create_domain_builds_correct_request
+  test "create domain builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/domains$})
         .to_return(read_http_fixture("createDomain/created.http"))
 
@@ -128,7 +128,7 @@ class DomainsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_create_domain_returns_the_domain
+  test "create domain returns the domain" do
     stub_request(:post, %r{/v2/#{@account_id}/domains$})
         .to_return(read_http_fixture("createDomain/created.http"))
 
@@ -144,7 +144,7 @@ class DomainsTest < Minitest::Test
   end
 
 
-  def test_domain_builds_correct_request
+  test "domain builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/.+$})
         .to_return(read_http_fixture("getDomain/success.http"))
 
@@ -154,7 +154,7 @@ class DomainsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_domain_returns_the_domain
+  test "domain returns the domain" do
     stub_request(:get, %r{/v2/#{@account_id}/domains/.+$})
         .to_return(read_http_fixture("getDomain/success.http"))
 
@@ -177,7 +177,7 @@ class DomainsTest < Minitest::Test
     assert_equal("2020-06-04T19:15:21Z", result.updated_at)
   end
 
-  def test_domain_when_domain_does_not_exist_raises_not_found_error
+  test "domain when domain does not exist raises not found error" do
     stub_request(:get, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 
@@ -187,7 +187,7 @@ class DomainsTest < Minitest::Test
   end
 
 
-  def test_delete_domain_builds_correct_request
+  test "delete domain builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/.+$})
         .to_return(read_http_fixture("deleteDomain/success.http"))
 
@@ -197,7 +197,7 @@ class DomainsTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delete_domain_returns_nothing
+  test "delete domain returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/domains/.+$})
         .to_return(read_http_fixture("deleteDomain/success.http"))
 
@@ -210,7 +210,7 @@ class DomainsTest < Minitest::Test
     assert_nil(result)
   end
 
-  def test_delete_domain_when_domain_does_not_exist_raises_not_found_error
+  test "delete domain when domain does not exist raises not found error" do
     stub_request(:delete, %r{/v2})
         .to_return(read_http_fixture("notfound-domain.http"))
 

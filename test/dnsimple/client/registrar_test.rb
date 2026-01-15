@@ -9,7 +9,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_check_domain_builds_correct_request
+  test "check domain builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/check$})
         .to_return(read_http_fixture("checkDomain/success.http"))
 
@@ -19,7 +19,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_check_domain_returns_the_availability
+  test "check domain returns the availability" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/check$})
         .to_return(read_http_fixture("checkDomain/success.http"))
 
@@ -36,7 +36,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_get_domain_prices_builds_correct_request
+  test "get domain prices builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/bingo.pizza/prices$})
         .to_return(read_http_fixture("getDomainPrices/success.http"))
 
@@ -46,7 +46,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_get_domain_prices_returns_the_prices
+  test "get domain prices returns the prices" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/bingo.pizza/prices$})
         .to_return(read_http_fixture("getDomainPrices/success.http"))
 
@@ -64,7 +64,7 @@ class RegistrarTest < Minitest::Test
     assert_in_delta(20.0, result.transfer_price)
   end
 
-  def test_get_domain_prices_when_tld_is_not_supported_raises_error
+  test "get domain prices when tld is not supported raises error" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/bingo.pineapple/prices$})
         .to_return(read_http_fixture("getDomainPrices/failure.http"))
 
@@ -74,7 +74,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_register_domain_builds_correct_request
+  test "register domain builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/registrations$})
         .to_return(read_http_fixture("registerDomain/success.http"))
 
@@ -86,7 +86,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_register_domain_returns_the_domain
+  test "register domain returns the domain" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/registrations$})
         .to_return(read_http_fixture("registerDomain/success.http"))
 
@@ -102,14 +102,14 @@ class RegistrarTest < Minitest::Test
     assert_kind_of(Integer, result.domain_id)
   end
 
-  def test_register_domain_when_attributes_are_incomplete_raises_argument_error
+  test "register domain when attributes are incomplete raises argument error" do
     assert_raises(ArgumentError) do
       @subject.register_domain(@account_id, "example.com")
     end
   end
 
 
-  def test_get_domain_registration_builds_correct_request
+  test "get domain registration builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/registrations/.+$})
         .to_return(read_http_fixture("getDomainRegistration/success.http"))
 
@@ -119,7 +119,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_get_domain_registration_returns_the_domain_transfer
+  test "get domain registration returns the domain transfer" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/registrations/.+$})
         .to_return(read_http_fixture("getDomainRegistration/success.http"))
 
@@ -135,7 +135,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_renew_domain_builds_correct_request
+  test "renew domain builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/renewals$})
         .to_return(read_http_fixture("renewDomain/success.http"))
 
@@ -147,7 +147,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_renew_domain_returns_the_domain
+  test "renew domain returns the domain" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/renewals$})
         .to_return(read_http_fixture("renewDomain/success.http"))
 
@@ -163,7 +163,7 @@ class RegistrarTest < Minitest::Test
     assert_kind_of(Integer, result.domain_id)
   end
 
-  def test_renew_domain_when_too_soon_raises_bad_request_error
+  test "renew domain when too soon raises bad request error" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/renewals$})
         .to_return(read_http_fixture("renewDomain/error-tooearly.http"))
 
@@ -174,7 +174,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_get_domain_renewal_builds_correct_request
+  test "get domain renewal builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/renewals/.+$})
         .to_return(read_http_fixture("getDomainRenewal/success.http"))
 
@@ -184,7 +184,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_get_domain_renewal_returns_the_domain_renewal
+  test "get domain renewal returns the domain renewal" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/renewals/.+$})
         .to_return(read_http_fixture("getDomainRenewal/success.http"))
 
@@ -200,7 +200,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_transfer_domain_builds_correct_request
+  test "transfer domain builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/transfers$})
         .to_return(read_http_fixture("transferDomain/success.http"))
 
@@ -212,7 +212,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_transfer_domain_returns_the_domain
+  test "transfer domain returns the domain" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/transfers$})
         .to_return(read_http_fixture("transferDomain/success.http"))
 
@@ -228,13 +228,13 @@ class RegistrarTest < Minitest::Test
     assert_kind_of(Integer, result.domain_id)
   end
 
-  def test_transfer_domain_when_attributes_are_incomplete_raises_argument_error
+  test "transfer domain when attributes are incomplete raises argument error" do
     assert_raises(ArgumentError) do
       @subject.transfer_domain(@account_id, "example.com", auth_code: "x1y2z3")
     end
   end
 
-  def test_transfer_domain_when_domain_is_already_in_dnsimple_raises_bad_request_error
+  test "transfer domain when domain is already in dnsimple raises bad request error" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/transfers$})
         .to_return(read_http_fixture("transferDomain/error-indnsimple.http"))
 
@@ -244,7 +244,7 @@ class RegistrarTest < Minitest::Test
     end
   end
 
-  def test_transfer_domain_when_auth_code_missing_and_required_raises_bad_request_error
+  test "transfer domain when auth code missing and required raises bad request error" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/transfers$})
         .to_return(read_http_fixture("transferDomain/error-missing-authcode.http"))
 
@@ -254,7 +254,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_get_domain_transfer_builds_correct_request
+  test "get domain transfer builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/transfers/.+$})
         .to_return(read_http_fixture("getDomainTransfer/success.http"))
 
@@ -264,7 +264,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_get_domain_transfer_returns_the_domain_transfer
+  test "get domain transfer returns the domain transfer" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/transfers/.+$})
         .to_return(read_http_fixture("getDomainTransfer/success.http"))
 
@@ -287,7 +287,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_cancel_domain_transfer_builds_correct_request
+  test "cancel domain transfer builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/.+/transfers/.+$})
         .to_return(read_http_fixture("cancelDomainTransfer/success.http"))
 
@@ -297,7 +297,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_cancel_domain_transfer_returns_the_domain_transfer
+  test "cancel domain transfer returns the domain transfer" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/domains/.+/transfers/.+$})
         .to_return(read_http_fixture("cancelDomainTransfer/success.http"))
 
@@ -320,7 +320,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_transfer_domain_out_builds_correct_request
+  test "transfer domain out builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/authorize_transfer_out$})
         .to_return(read_http_fixture("authorizeDomainTransferOut/success.http"))
 
@@ -330,7 +330,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_transfer_domain_out_returns_nothing
+  test "transfer domain out returns nothing" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/authorize_transfer_out$})
         .to_return(read_http_fixture("authorizeDomainTransferOut/success.http"))
 
@@ -344,7 +344,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_check_registrant_change_builds_correct_request
+  test "check registrant change builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/registrant_changes/check$})
         .to_return(read_http_fixture("checkRegistrantChange/success.http"))
 
@@ -356,7 +356,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_check_registrant_change_returns_the_registrant_change_check
+  test "check registrant change returns the registrant change check" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/registrant_changes/check$})
         .to_return(read_http_fixture("checkRegistrantChange/success.http"))
 
@@ -375,13 +375,13 @@ class RegistrarTest < Minitest::Test
     assert(result.registry_owner_change)
   end
 
-  def test_check_registrant_change_when_attributes_are_incomplete_raises_argument_error
+  test "check registrant change when attributes are incomplete raises argument error" do
     assert_raises(ArgumentError) do
       @subject.check_registrant_change(@account_id, domain_id: "example.com")
     end
   end
 
-  def test_check_registrant_change_when_domain_not_found_raises_not_found_error
+  test "check registrant change when domain not found raises not found error" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/registrant_changes/check$})
         .to_return(read_http_fixture("checkRegistrantChange/error-domainnotfound.http"))
 
@@ -391,7 +391,7 @@ class RegistrarTest < Minitest::Test
     end
   end
 
-  def test_check_registrant_change_when_contact_not_found_raises_not_found_error
+  test "check registrant change when contact not found raises not found error" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/registrant_changes/check$})
         .to_return(read_http_fixture("checkRegistrantChange/error-contactnotfound.http"))
 
@@ -402,7 +402,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_get_registrant_change_builds_correct_request
+  test "get registrant change builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/registrant_changes/.+$})
         .to_return(read_http_fixture("getRegistrantChange/success.http"))
 
@@ -412,7 +412,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_get_registrant_change_returns_the_registrant_change
+  test "get registrant change returns the registrant change" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/registrant_changes/.+$})
         .to_return(read_http_fixture("getRegistrantChange/success.http"))
 
@@ -437,7 +437,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_create_registrant_change_builds_correct_request
+  test "create registrant change builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/registrant_changes$})
         .to_return(read_http_fixture("createRegistrantChange/success.http"))
 
@@ -449,7 +449,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_create_registrant_change_returns_the_registrant_change
+  test "create registrant change returns the registrant change" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/registrant_changes$})
         .to_return(read_http_fixture("createRegistrantChange/success.http"))
 
@@ -474,13 +474,13 @@ class RegistrarTest < Minitest::Test
     assert_equal("2017-02-03T17:43:22Z", result.updated_at)
   end
 
-  def test_create_registrant_change_when_attributes_are_incomplete_raises_argument_error
+  test "create registrant change when attributes are incomplete raises argument error" do
     assert_raises(ArgumentError) do
       @subject.create_registrant_change(@account_id, domain_id: "example.com")
     end
   end
 
-  def test_create_registrant_change_when_domain_not_found_raises_not_found_error
+  test "create registrant change when domain not found raises not found error" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/registrant_changes$})
         .to_return(read_http_fixture("checkRegistrantChange/error-domainnotfound.http"))
 
@@ -490,7 +490,7 @@ class RegistrarTest < Minitest::Test
     end
   end
 
-  def test_create_registrant_change_when_contact_not_found_raises_not_found_error
+  test "create registrant change when contact not found raises not found error" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/registrant_changes$})
         .to_return(read_http_fixture("checkRegistrantChange/error-contactnotfound.http"))
 
@@ -501,7 +501,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_list_registrant_changes_builds_correct_request
+  test "list registrant changes builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/registrant_changes$})
         .to_return(read_http_fixture("listRegistrantChanges/success.http"))
 
@@ -511,7 +511,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_list_registrant_changes_returns_the_registrant_changes
+  test "list registrant changes returns the registrant changes" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/registrant_changes$})
         .to_return(read_http_fixture("listRegistrantChanges/success.http"))
 
@@ -538,7 +538,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_delete_registrant_change_builds_correct_request
+  test "delete registrant change builds correct request" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/registrant_changes/.+$})
         .to_return(read_http_fixture("deleteRegistrantChange/success.http"))
 
@@ -548,7 +548,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_delete_registrant_change_returns_nothing
+  test "delete registrant change returns nothing" do
     stub_request(:delete, %r{/v2/#{@account_id}/registrar/registrant_changes/.+$})
         .to_return(read_http_fixture("deleteRegistrantChange/success.http"))
 
@@ -562,7 +562,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_restore_domain_builds_correct_request
+  test "restore domain builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/restores$})
         .to_return(read_http_fixture("restoreDomain/success.http"))
 
@@ -572,7 +572,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_restore_domain_returns_the_domain
+  test "restore domain returns the domain" do
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/restores$})
         .to_return(read_http_fixture("restoreDomain/success.http"))
 
@@ -588,7 +588,7 @@ class RegistrarTest < Minitest::Test
   end
 
 
-  def test_get_domain_restore_builds_correct_request
+  test "get domain restore builds correct request" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/restores/.+$})
         .to_return(read_http_fixture("getDomainRestore/success.http"))
 
@@ -598,7 +598,7 @@ class RegistrarTest < Minitest::Test
                      headers: { "Accept" => "application/json" })
   end
 
-  def test_get_domain_restore_returns_the_domain_restore
+  test "get domain restore returns the domain restore" do
     stub_request(:get, %r{/v2/#{@account_id}/registrar/domains/.+/restores/.+$})
         .to_return(read_http_fixture("getDomainRestore/success.http"))
 
