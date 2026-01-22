@@ -1,13 +1,13 @@
 HTTP/1.1 204 No Content
-Server: nginx
-Date: Fri, 18 Dec 2015 16:13:54 GMT
-Connection: keep-alive
-Strict-Transport-Security: max-age=31536000
-X-RateLimit-Limit: 4000
-X-RateLimit-Remaining: 3990
-X-RateLimit-Reset: 1450455233
-Cache-Control: no-cache
-X-Request-Id: a2924814-4aff-42cf-9785-9327ce097d0a
-X-Runtime: 0.241247
-Strict-Transport-Security: max-age=31536000
+server: nginx
+date: Fri, 18 Dec 2015 16:13:54 GMT
+connection: keep-alive
+strict-transport-security: max-age=31536000
+x-ratelimit-limit: 4000
+x-ratelimit-remaining: 3990
+x-ratelimit-reset: 1450455233
+cache-control: no-cache
+x-request-id: a2924814-4aff-42cf-9785-9327ce097d0a
+x-runtime: 0.241247
+strict-transport-security: max-age=31536000
 

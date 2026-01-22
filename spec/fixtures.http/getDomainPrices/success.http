@@ -1,21 +1,21 @@
 HTTP/1.1 200 OK
-Server: nginx
-Date: Mon, 08 Mar 2021 14:35:26 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2397
-X-RateLimit-Reset: 1615217645
-ETag: W/"2104f27f2877f429295359cfc409f9f7"
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: b0d9e000-58a6-4254-af43-8735d26e12d9
-X-Runtime: 9.129301
-X-Frame-Options: DENY
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 1; mode=block
-X-Download-Options: noopen
-X-Permitted-Cross-Domain-Policies: none
-Content-Security-Policy: frame-ancestors 'none'
-Strict-Transport-Security: max-age=31536000
+server: nginx
+date: Mon, 08 Mar 2021 14:35:26 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2397
+x-ratelimit-reset: 1615217645
+etag: W/"2104f27f2877f429295359cfc409f9f7"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: b0d9e000-58a6-4254-af43-8735d26e12d9
+x-runtime: 9.129301
+x-frame-options: DENY
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+content-security-policy: frame-ancestors 'none'
+strict-transport-security: max-age=31536000
 
 {"data":{"domain":"bingo.pizza","premium":true,"registration_price":20.0,"renewal_price":20.0,"transfer_price":20.0,"restore_price":20.0}}

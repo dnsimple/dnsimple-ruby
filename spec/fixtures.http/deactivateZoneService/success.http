@@ -1,16 +1,16 @@
 HTTP/1.1 200 OK
-Server: nginx
-Date: Tue, 08 Aug 2023 04:19:52 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2398
-X-RateLimit-Reset: 1691471962
-X-WORK-WITH-US: Love automation? So do we! https://dnsimple.com/jobs
-ETag: W/"5f30a37d01b99bb9e620ef1bbce9a014"
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: d2f7bba4-4c81-4818-81d2-c9bbe95f104e
-X-Runtime: 0.133278
-Strict-Transport-Security: max-age=63072000
+server: nginx
+date: Tue, 08 Aug 2023 04:19:52 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2398
+x-ratelimit-reset: 1691471962
+x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
+etag: W/"5f30a37d01b99bb9e620ef1bbce9a014"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: d2f7bba4-4c81-4818-81d2-c9bbe95f104e
+x-runtime: 0.133278
+strict-transport-security: max-age=63072000
 
 {"data":{"id":1,"account_id":1010,"name":"example.com","reverse":false,"secondary":false,"last_transferred_at":null,"active":false,"created_at":"2022-09-28T04:45:24Z","updated_at":"2023-08-08T04:19:52Z"}}

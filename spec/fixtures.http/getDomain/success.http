@@ -1,20 +1,20 @@
 HTTP/1.1 200 OK
-Server: nginx
-Date: Thu, 04 Jun 2020 19:37:22 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2379
-X-RateLimit-Reset: 1591300247
-ETag: W/"ff4a8463ecca39d4869695d66de60043"
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 2e8259ab-c933-487e-8f85-d23f1cdf62fa
-X-Runtime: 0.019482
-X-Frame-Options: DENY
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 1; mode=block
-X-Download-Options: noopen
-X-Permitted-Cross-Domain-Policies: none
-Strict-Transport-Security: max-age=31536000
+server: nginx
+date: Thu, 04 Jun 2020 19:37:22 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2379
+x-ratelimit-reset: 1591300247
+etag: W/"ff4a8463ecca39d4869695d66de60043"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: 2e8259ab-c933-487e-8f85-d23f1cdf62fa
+x-runtime: 0.019482
+x-frame-options: DENY
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+strict-transport-security: max-age=31536000
 
 {"data":{"id":181984,"account_id":1385,"registrant_id":2715,"name":"example-alpha.com","unicode_name":"example-alpha.com","state":"registered","auto_renew":false,"private_whois":false,"expires_on":"2021-06-05","expires_at":"2021-06-05T02:15:00Z","created_at":"2020-06-04T19:15:14Z","updated_at":"2020-06-04T19:15:21Z"}}

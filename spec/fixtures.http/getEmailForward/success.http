@@ -1,21 +1,21 @@
 HTTP/1.1 200 OK
-Server: nginx
-Date: Mon, 25 Jan 2021 13:56:24 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-X-RateLimit-Limit: 4800
-X-RateLimit-Remaining: 4766
-X-RateLimit-Reset: 1611583416
-ETag: W/"80ad3ad1e115a8123193447fa003f68a"
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 8f3a9517-f623-4d14-be2b-3f332a4d7873
-X-Runtime: 0.010653
-X-Frame-Options: DENY
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 1; mode=block
-X-Download-Options: noopen
-X-Permitted-Cross-Domain-Policies: none
-Content-Security-Policy: frame-ancestors 'none'
-Strict-Transport-Security: max-age=31536000
+server: nginx
+date: Mon, 25 Jan 2021 13:56:24 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+x-ratelimit-limit: 4800
+x-ratelimit-remaining: 4766
+x-ratelimit-reset: 1611583416
+etag: W/"80ad3ad1e115a8123193447fa003f68a"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: 8f3a9517-f623-4d14-be2b-3f332a4d7873
+x-runtime: 0.010653
+x-frame-options: DENY
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+content-security-policy: frame-ancestors 'none'
+strict-transport-security: max-age=31536000
 
 {"data":{"id":41872,"domain_id":235146,"alias_email":"example@dnsimple.xyz","destination_email":"example@example.com","created_at":"2021-01-25T13:54:40Z","updated_at":"2021-01-25T13:54:40Z","from":"example@dnsimple.xyz","to":"example@example.com","active":true}}
