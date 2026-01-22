@@ -2,9 +2,9 @@ HTTP/1.1 404
 server: nginx
 date: Tue, 22 Aug 2023 11:09:40 GMT
 content-type: application/json; charset=utf-8
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2395
-X-RateLimit-Reset: 1692705338
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2395
+x-ratelimit-reset: 1692705338
 x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
 etag: W/"cef1e7d85d0b9bfd25e81b812891d34f"
 cache-control: max-age=0, private, must-revalidate

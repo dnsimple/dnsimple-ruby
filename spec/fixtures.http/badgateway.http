@@ -1,9 +1,9 @@
 HTTP/1.1 502 Bad Gateway
-Server: nginx
-Date: Mon, 22 Dec 2014 14:16:12 GMT
-Content-Type: text/html
-Content-Length: 166
-Connection: close
+server: nginx
+date: Mon, 22 Dec 2014 14:16:12 GMT
+content-type: text/html
+content-length: 166
+connection: close
 
 <html>
 <head><title>502 Bad Gateway</title></head>

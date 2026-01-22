@@ -1,20 +1,20 @@
 HTTP/1.1 201 Created
-Server: nginx
-Date: Thu, 18 Jun 2020 19:56:20 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-X-RateLimit-Limit: 4800
-X-RateLimit-Remaining: 4799
-X-RateLimit-Reset: 1592513780
-ETag: W/"84dd908f85153590082766bd8d1f1056"
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: f43f4d80-a7eb-43d3-b1ec-95eba413894e
-X-Runtime: 0.091216
-X-Frame-Options: DENY
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 1; mode=block
-X-Download-Options: noopen
-X-Permitted-Cross-Domain-Policies: none
-Strict-Transport-Security: max-age=31536000
+server: nginx
+date: Thu, 18 Jun 2020 19:56:20 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+x-ratelimit-limit: 4800
+x-ratelimit-remaining: 4799
+x-ratelimit-reset: 1592513780
+etag: W/"84dd908f85153590082766bd8d1f1056"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: f43f4d80-a7eb-43d3-b1ec-95eba413894e
+x-runtime: 0.091216
+x-frame-options: DENY
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+strict-transport-security: max-age=31536000
 
 {"data":{"id":65082,"old_certificate_id":101967,"new_certificate_id":101972,"state":"new","auto_renew":false,"created_at":"2020-06-18T19:56:20Z","updated_at":"2020-06-18T19:56:20Z"}}

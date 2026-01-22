@@ -1,18 +1,18 @@
 HTTP/1.1 400 Bad Request
-Server: nginx
-Date: Wed, 23 Nov 2016 08:12:57 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2396
-X-RateLimit-Reset: 1479892333
-Cache-Control: no-cache
-X-Request-Id: 91dcf81b-5df4-4d45-b37e-446f0c422a27
-X-Runtime: 0.062556
-X-Content-Type-Options: nosniff
-X-Download-Options: noopen
-X-Frame-Options: DENY
-X-Permitted-Cross-Domain-Policies: none
-X-XSS-Protection: 1; mode=block
+server: nginx
+date: Wed, 23 Nov 2016 08:12:57 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2396
+x-ratelimit-reset: 1479892333
+cache-control: no-cache
+x-request-id: 91dcf81b-5df4-4d45-b37e-446f0c422a27
+x-runtime: 0.062556
+x-content-type-options: nosniff
+x-download-options: noopen
+x-frame-options: DENY
+x-permitted-cross-domain-policies: none
+x-xss-protection: 1; mode=block
 
 {"message":"Invalid extended attributes","errors":{"x-accept-ssl-requirement": "it's required", "x-id-number": "invalid number"}}

@@ -1,18 +1,18 @@
 HTTP/1.1 204 No Content
-Server: nginx
-Date: Mon, 25 Jan 2021 13:56:43 GMT
-Connection: keep-alive
-X-RateLimit-Limit: 4800
-X-RateLimit-Remaining: 4765
-X-RateLimit-Reset: 1611583416
-Cache-Control: no-cache
-X-Request-Id: bfaceb73-4fd3-4490-8528-472ec1df3526
-X-Runtime: 0.506670
-X-Frame-Options: DENY
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 1; mode=block
-X-Download-Options: noopen
-X-Permitted-Cross-Domain-Policies: none
-Content-Security-Policy: frame-ancestors 'none'
-Strict-Transport-Security: max-age=31536000
+server: nginx
+date: Mon, 25 Jan 2021 13:56:43 GMT
+connection: keep-alive
+x-ratelimit-limit: 4800
+x-ratelimit-remaining: 4765
+x-ratelimit-reset: 1611583416
+cache-control: no-cache
+x-request-id: bfaceb73-4fd3-4490-8528-472ec1df3526
+x-runtime: 0.506670
+x-frame-options: DENY
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+content-security-policy: frame-ancestors 'none'
+strict-transport-security: max-age=31536000
 
