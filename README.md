@@ -78,7 +78,7 @@ puts response.data
 
 ### Research a domain
 
-> **Note:** This endpoint is part of a Private Beta. During the beta period, changes to the endpoint may occur at any time. If interested in using this endpoint, reach out to support@dnsimple.com.
+> **Note:** This endpoint is part of a Private Beta. During the beta period, changes to the endpoint may occur at any time. If interested in using this endpoint, reach out to [DNSimple support](support@dnsimple.com).
 
 Research a domain name for availability and registration status information:
 
