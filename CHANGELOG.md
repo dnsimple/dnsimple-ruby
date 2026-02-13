@@ -2,6 +2,12 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/), the format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## 12.1.0 - 2026-02-13
+
+### Added
+
+- Added `Dnsimple::Client::Domains#domain_research_status` to research a domain name for availability and registration status information. This endpoint is part of a Private Beta.
+
 ## 12.0.0 - 2026-01-22
 
 ### Removed

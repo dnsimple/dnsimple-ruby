@@ -76,6 +76,21 @@ response = client.domains.domain(account_id, "example.com")
 puts response.data
 ```
 
+### Research a domain
+
+> **Note:** This endpoint is part of a Private Beta. During the beta period, changes to the endpoint may occur at any time. If interested in using this endpoint, reach out to support@dnsimple.com.
+
+Research a domain name for availability and registration status information:
+
+```ruby
+response = client.domains.domain_research_status(account_id, "example.com")
+research = response.data
+puts research.domain          # => "example.com"
+puts research.availability    # => "unavailable"
+puts research.request_id      # => "f453dabc-a27e-4bf1-a93e-f263577ffaae"
+puts research.errors          # => []
+```
+
 ## Configuration
 
 ### Sandbox Environment

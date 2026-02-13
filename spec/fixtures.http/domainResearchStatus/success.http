@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+server: nginx
+date: Fri, 13 Feb 2026 16:04:05 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+status: 200 OK
+x-ratelimit-limit: 4000
+x-ratelimit-remaining: 3999
+x-ratelimit-reset: 1456506245
+etag: W/"f3cf8499e935e48401aae26842f712c4"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: e3c6fac1-a36d-42c3-8a04-d68f127add18
+x-runtime: 0.605907
+strict-transport-security: max-age=31536000
+
+{"data":{"request_id":"f453dabc-a27e-4bf1-a93e-f263577ffaae","domain":"example.com","availability":"unavailable","errors":[]}}
