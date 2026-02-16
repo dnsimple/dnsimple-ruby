@@ -9,7 +9,7 @@ module Dnsimple
       # @return [String] The domain name that was researched.
       attr_accessor :domain
 
-      # @return [String] The availability status. Possible values: available, unavailable, unknown
+      # @return [String] The availability status. See https://developer.dnsimple.com/v2/domains/research/#getDomainsResearchStatus
       attr_accessor :availability
 
       # @return [Array<String>] Array of error messages if the domain cannot be researched.
