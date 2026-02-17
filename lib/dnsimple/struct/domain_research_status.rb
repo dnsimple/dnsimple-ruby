@@ -2,7 +2,7 @@
 
 module Dnsimple
   module Struct
-    class DomainResearch < Base
+    class DomainResearchStatus < Base
       # @return [String] UUID identifier for this research request.
       attr_accessor :request_id
 

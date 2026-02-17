@@ -28,7 +28,7 @@ describe Dnsimple::Client, ".domains" do
       expect(response).to be_a(Dnsimple::Response)
 
       result = response.data
-      expect(result).to be_a(Dnsimple::Struct::DomainResearch)
+      expect(result).to be_a(Dnsimple::Struct::DomainResearchStatus)
       expect(result.request_id).to eq("f453dabc-a27e-4bf1-a93e-f263577ffaae")
       expect(result.domain).to eq("example.com")
       expect(result.availability).to eq("unavailable")

@@ -13,7 +13,7 @@ module Dnsimple
       # @param  account_id [Integer] the account ID
       # @param  domain_name [#to_s] the domain name to research
       # @param  options [Hash]
-      # @return [Dnsimple::Response<Dnsimple::Struct::DomainResearch>]
+      # @return [Dnsimple::Response<Dnsimple::Struct::DomainResearchStatus>]
       #
       # @raise  [Dnsimple::RequestError] When the request fails.
       def domain_research_status(account_id, domain_name, options = {})
@@ -21,7 +21,7 @@ module Dnsimple
         options = options.merge(query: { domain: domain_name })
         response = client.get(endpoint, options)
 
-        Dnsimple::Response.new(response, Struct::DomainResearch.new(response["data"]))
+        Dnsimple::Response.new(response, Struct::DomainResearchStatus.new(response["data"]))
       end
     end
   end
