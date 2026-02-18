@@ -1,0 +1,16 @@
+HTTP/2 200 
+server: nginx
+date: Mon, 16 Feb 2026 11:44:31 GMT
+content-type: application/json; charset=utf-8
+content-length: 126
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2393
+x-ratelimit-reset: 1771244869
+x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
+etag: W/"95174d25b104c446b9516f4a3a6fc4f4"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: 275ba39a-88a5-4ca5-892a-7e991af4b31c
+x-runtime: 0.042963
+strict-transport-security: max-age=63072000
+
+{"data":{"request_id":"275ba39a-88a5-4ca5-892a-7e991af4b31c","domain":"available.com","availability":"available","errors":[]}}
