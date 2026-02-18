@@ -1,0 +1,16 @@
+HTTP/2 200 
+server: nginx
+date: Mon, 16 Feb 2026 11:29:59 GMT
+content-type: application/json; charset=utf-8
+content-length: 158
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2395
+x-ratelimit-reset: 1771244870
+x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
+etag: W/"9e0846a6b79a3ce70c53bcd660d5524f"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: 7f417577-eafb-41ff-ac21-51f7a5ca0170
+x-runtime: 0.031308
+strict-transport-security: max-age=63072000
+
+{"data":{"request_id":"7f417577-eafb-41ff-ac21-51f7a5ca0170","domain":"taken.co.fa","availability":"unknown","errors":["TLD not supported for registration"]}}
