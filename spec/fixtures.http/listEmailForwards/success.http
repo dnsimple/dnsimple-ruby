@@ -13,4 +13,4 @@ x-request-id: e42df983-a8a5-4123-8c74-fb89ab934aba
 x-runtime: 0.025456
 strict-transport-security: max-age=63072000
 
-{"data":[{"id":24809,"domain_id":235146,"alias_email":".*@a-domain.com","destination_email":"jane.smith@example.com","created_at":"2017-05-25T19:23:16Z","updated_at":"2017-05-25T19:23:16Z","from":".*@a-domain.com","to":"jane.smith@example.com","active":true}],"pagination":{"current_page":1,"per_page":30,"total_entries":1,"total_pages":1}}
+{"data":[{"id":24809,"domain_id":235146,"alias_email":".*@a-domain.com","destination_email":"jane.smith@example.com","created_at":"2017-05-25T19:23:16Z","updated_at":"2017-05-25T19:23:16Z","active":true}],"pagination":{"current_page":1,"per_page":30,"total_entries":1,"total_pages":1}}
