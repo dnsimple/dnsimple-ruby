@@ -1,16 +1,16 @@
 HTTP/1.1 400 Bad Request
-Server: nginx
-Date: Tue, 23 Sep 2025 10:21:06 GMT
-Content-Type: application/json; charset=utf-8
-Content-Length: 137
-Connection: keep-alive
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2397
-X-RateLimit-Reset: 1758626142
-X-WORK-WITH-US: Love automation? So do we! https://dnsimple.com/jobs
-Cache-Control: no-cache
-X-Request-Id: 22761da9-ad02-4970-add5-e26602b09bb5
-X-Runtime: 0.115194
-Strict-Transport-Security: max-age=63072000
+server: nginx
+date: Tue, 23 Sep 2025 10:21:06 GMT
+content-type: application/json; charset=utf-8
+content-length: 137
+connection: keep-alive
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2397
+x-ratelimit-reset: 1758626142
+x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
+cache-control: no-cache
+x-request-id: 22761da9-ad02-4970-add5-e26602b09bb5
+x-runtime: 0.115194
+strict-transport-security: max-age=63072000
 
 {"message":"Validation failed","errors":{"creates":[{"index":0,"message":"Validation failed","errors":{"record_type":["unsupported"]}}]}}

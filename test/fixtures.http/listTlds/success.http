@@ -1,20 +1,20 @@
 HTTP/1.1 200 OK
-Server: nginx
-Date: Fri, 23 Sep 2016 08:22:50 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2397
-X-RateLimit-Reset: 1474622397
-ETag: W/"06436132982cdf558bc1472b1e15a786"
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: c78c1f6c-2143-4646-9049-313ccd9e24bd
-X-Runtime: 0.012861
-X-Content-Type-Options: nosniff
-X-Download-Options: noopen
-X-Frame-Options: DENY
-X-Permitted-Cross-Domain-Policies: none
-X-XSS-Protection: 1; mode=block
-Strict-Transport-Security: max-age=31536000
+server: nginx
+date: Fri, 23 Sep 2016 08:22:50 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2397
+x-ratelimit-reset: 1474622397
+etag: W/"06436132982cdf558bc1472b1e15a786"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: c78c1f6c-2143-4646-9049-313ccd9e24bd
+x-runtime: 0.012861
+x-content-type-options: nosniff
+x-download-options: noopen
+x-frame-options: DENY
+x-permitted-cross-domain-policies: none
+x-xss-protection: 1; mode=block
+strict-transport-security: max-age=31536000
 
 {"data":[{"tld":"ac","tld_type":2,"whois_privacy":false,"auto_renew_only":true,"idn":false,"minimum_registration":1,"registration_enabled":true,"renewal_enabled":true,"transfer_enabled":false,"dnssec_interface_type":"ds","name_server_min":"2","name_server_max":"13"},{"tld":"academy","tld_type":3,"whois_privacy":true,"auto_renew_only":false,"idn":true,"minimum_registration":1,"registration_enabled":true,"renewal_enabled":true,"transfer_enabled":true,"dnssec_interface_type":"key","name_server_min":"2","name_server_max":"13"}],"pagination":{"current_page":1,"per_page":2,"total_entries":195,"total_pages":98}}

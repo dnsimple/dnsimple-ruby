@@ -1,8 +1,8 @@
 HTTP/1.1 200 OK
-Server: nginx
-Date: Mon, 22 Dec 2014 14:16:12 GMT
-Content-Type: text/html
-Connection: close
+server: nginx
+date: Mon, 22 Dec 2014 14:16:12 GMT
+content-type: text/html
+connection: close
 
 <html>
 <head><title>200 OK</title></head>

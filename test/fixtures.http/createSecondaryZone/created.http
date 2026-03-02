@@ -1,21 +1,21 @@
 HTTP/1.1 201 Created
-Server: nginx
-Date: Wed, 17 Mar 2021 23:44:27 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2398
-X-RateLimit-Reset: 1616028241
-ETag: W/"9726e9abb694bb7a61777076d14158fd"
-Cache-Control: max-age=0, private, must-revalidate
-X-Request-Id: 967ead79-85e7-4950-aa70-52da90f9abcc
-X-Runtime: 0.294142
-X-Frame-Options: DENY
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 1; mode=block
-X-Download-Options: noopen
-X-Permitted-Cross-Domain-Policies: none
-Content-Security-Policy: frame-ancestors 'none'
-Strict-Transport-Security: max-age=31536000
+server: nginx
+date: Wed, 17 Mar 2021 23:44:27 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2398
+x-ratelimit-reset: 1616028241
+etag: W/"9726e9abb694bb7a61777076d14158fd"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: 967ead79-85e7-4950-aa70-52da90f9abcc
+x-runtime: 0.294142
+x-frame-options: DENY
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+content-security-policy: frame-ancestors 'none'
+strict-transport-security: max-age=31536000
 
 {"data":{"id":734,"account_id":531,"name":"secondaryexample.com","reverse":false,"secondary":true,"last_transferred_at":null,"created_at":"2021-03-17T23:44:27Z","updated_at":"2021-03-17T23:44:27Z"}}

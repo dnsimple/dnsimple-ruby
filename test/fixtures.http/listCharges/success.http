@@ -1,12 +1,12 @@
 HTTP/1.1 200 OK
-Date: Tue, 24 Oct 2023 09:52:55 GMT
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2397
-X-RateLimit-Reset: 1698143967
-Content-Type: application/json; charset=utf-8
-X-WORK-WITH-US: Love automation? So do we! https://dnsimple.com/jobs
-Cache-Control: no-store, must-revalidate, private, max-age=0
-X-Request-Id: a57a87c8-626a-4361-9fb8-b55ca9be8e5d
-X-Runtime: 0.060526
+date: Tue, 24 Oct 2023 09:52:55 GMT
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2397
+x-ratelimit-reset: 1698143967
+content-type: application/json; charset=utf-8
+x-work-with-us: Love automation? So do we! https://dnsimple.com/jobs
+cache-control: no-store, must-revalidate, private, max-age=0
+x-request-id: a57a87c8-626a-4361-9fb8-b55ca9be8e5d
+x-runtime: 0.060526
 
 {"data":[{"invoiced_at":"2023-08-17T05:53:36Z","total_amount":"14.50","balance_amount":"0.00","reference":"1-2","state":"collected","items":[{"description":"Register bubble-registered.com","amount":"14.50","product_id":1,"product_type":"domain-registration","product_reference":"bubble-registered.com"}]},{"invoiced_at":"2023-08-17T05:57:53Z","total_amount":"14.50","balance_amount":"0.00","reference":"2-2","state":"refunded","items":[{"description":"Register example.com","amount":"14.50","product_id":2,"product_type":"domain-registration","product_reference":"example.com"}]},{"invoiced_at":"2023-10-24T07:49:05Z","total_amount":"1099999.99","balance_amount":"0.00","reference":"4-2","state":"collected","items":[{"description":"Test Line Item 1","amount":"99999.99","product_id":null,"product_type":"manual","product_reference":null},{"description":"Test Line Item 2","amount":"1000000.00","product_id":null,"product_type":"manual","product_reference":null}]}],"pagination":{"current_page":1,"per_page":30,"total_entries":3,"total_pages":1}}

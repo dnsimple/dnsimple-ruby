@@ -1,8 +1,14 @@
 # Changelog
 
-This project uses [Semantic Versioning 2.0.0](http://semver.org/).
+This project uses [Semantic Versioning 2.0.0](http://semver.org/), the format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## main
+## 12.1.0 - 2025-02-26
+
+### Added
+
+- Added `Dnsimple::Client::DomainsResearch#domain_research_status` to research a domain for availability and registration status. (#450)
+
+## 12.0.0 - 2026-01-22
 
 ### Removed
 

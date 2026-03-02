@@ -1,19 +1,19 @@
 HTTP/1.1 400 Bad Request
-Server: nginx
-Date: Mon, 08 Mar 2021 14:35:58 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-X-RateLimit-Limit: 2400
-X-RateLimit-Remaining: 2396
-X-RateLimit-Reset: 1615217645
-Cache-Control: no-cache
-X-Request-Id: e414a674-63bb-4e54-b714-db5b516bb190
-X-Runtime: 0.009579
-X-Frame-Options: DENY
-X-Content-Type-Options: nosniff
-X-XSS-Protection: 1; mode=block
-X-Download-Options: noopen
-X-Permitted-Cross-Domain-Policies: none
-Content-Security-Policy: frame-ancestors 'none'
+server: nginx
+date: Mon, 08 Mar 2021 14:35:58 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+x-ratelimit-limit: 2400
+x-ratelimit-remaining: 2396
+x-ratelimit-reset: 1615217645
+cache-control: no-cache
+x-request-id: e414a674-63bb-4e54-b714-db5b516bb190
+x-runtime: 0.009579
+x-frame-options: DENY
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+content-security-policy: frame-ancestors 'none'
 
 {"message":"TLD .PINEAPPLE is not supported"}

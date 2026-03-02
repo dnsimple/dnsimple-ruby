@@ -1,14 +1,14 @@
 HTTP/1.1 400 Bad Request
-Server: nginx
-Date: Sun, 21 Feb 2016 13:11:11 GMT
-Content-Type: application/json; charset=utf-8
-Connection: keep-alive
-Status: 400 Bad Request
-X-RateLimit-Limit: 4000
-X-RateLimit-Remaining: 3997
-X-RateLimit-Reset: 1456063540
-Cache-Control: no-cache
-X-Request-Id: d7a0eb63-77eb-4488-bc55-c129ed8fe192
-X-Runtime: 11.912567
+server: nginx
+date: Sun, 21 Feb 2016 13:11:11 GMT
+content-type: application/json; charset=utf-8
+connection: keep-alive
+status: 400 Bad Request
+x-ratelimit-limit: 4000
+x-ratelimit-remaining: 3997
+x-ratelimit-reset: 1456063540
+cache-control: no-cache
+x-request-id: d7a0eb63-77eb-4488-bc55-c129ed8fe192
+x-runtime: 11.912567
 
 {"message":"Validation failed","errors":{"base":["You must provide an authorization code for the domain"]}}
