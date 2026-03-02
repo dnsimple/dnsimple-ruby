@@ -26,13 +26,15 @@ class DomainsResearchTest < Minitest::Test
         .to_return(read_http_fixture("getDomainsResearchStatus/success-unavailable.http"))
 
     response = @subject.domain_research_status(@account_id, "taken.com")
+
     assert_instance_of Dnsimple::Response, response
 
     result = response.data
+
     assert_instance_of Dnsimple::Struct::DomainResearchStatus, result
     assert_equal "25dd77cb-2f71-48b9-b6be-1dacd2881418", result.request_id
     assert_equal "taken.com", result.domain
     assert_equal "unavailable", result.availability
-    assert_equal [], result.errors
+    assert_empty result.errors
   end
 end

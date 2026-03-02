@@ -18,7 +18,7 @@ end
 
 WebMock.disable_net_connect!
 
-module TestHelpers
+class Minitest::Test # rubocop:disable Style/ClassAndModuleChildren
   def http_fixture(*names)
     File.join(TEST_ROOT, "fixtures.http", *names)
   end
@@ -26,10 +26,6 @@ module TestHelpers
   def read_http_fixture(*names)
     File.read(http_fixture(*names))
   end
-end
-
-class Minitest::Test # rubocop:disable Style/ClassAndModuleChildren
-  include TestHelpers
 
   def self.test(name, &block)
     define_method("test_#{name.gsub(/\s+/, "_")}") do
