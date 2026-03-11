@@ -2,6 +2,12 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/), the format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## 12.1.1 - 2026-03-11
+
+### Changed
+
+- Migrated the test suite from RSpec to Minitest. This is an internal change with no public API impact. (#448)
+
 ## 12.1.0 - 2025-02-26
 
 ### Added
