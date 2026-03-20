@@ -17,4 +17,4 @@ x-download-options: noopen
 x-permitted-cross-domain-policies: none
 strict-transport-security: max-age=31536000
 
-{"data":{"id":361,"domain_id":104040,"registrant_id":2715,"period":1,"state":"registering","auto_renew":false,"whois_privacy":false,"created_at":"2023-01-27T17:44:32Z","updated_at":"2023-01-27T17:44:40Z"}}
+{"data":{"id":361,"domain_id":104040,"registrant_id":2715,"period":1,"state":"registering","auto_renew":false,"whois_privacy":false,"trustee_service":false,"created_at":"2023-01-27T17:44:32Z","updated_at":"2023-01-27T17:44:40Z"}}
