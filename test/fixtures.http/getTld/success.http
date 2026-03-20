@@ -17,4 +17,4 @@ x-permitted-cross-domain-policies: none
 x-xss-protection: 1; mode=block
 strict-transport-security: max-age=31536000
 
-{"data":{"tld":"com","tld_type":1,"whois_privacy":true,"auto_renew_only":false,"idn":true,"minimum_registration":1,"registration_enabled":true,"renewal_enabled":true,"transfer_enabled":true,"dnssec_interface_type":"ds","name_server_min":"2","name_server_max":"13"}}
+{"data":{"tld":"com","tld_type":1,"whois_privacy":true,"auto_renew_only":false,"idn":true,"minimum_registration":1,"registration_enabled":true,"renewal_enabled":true,"transfer_enabled":true,"dnssec_interface_type":"ds","name_server_min":"2","name_server_max":"13","trustee_service_enabled":false,"trustee_service_required":false}}
