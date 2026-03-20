@@ -21,6 +21,7 @@ jobs:
       - name: Create PR with synced fixtures
         uses: peter-evans/create-pull-request@v7
         with:
+          sign-commits: true
           add-paths: test/fixtures.http
           commit-message: "chore: sync test fixtures as of ${{ steps.sync.outputs.now }}"
           branch: "chore/sync-fixtures-${{ github.run_id }}"
