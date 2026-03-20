@@ -58,6 +58,8 @@ class TldsTest < Minitest::Test
       assert_kind_of(Dnsimple::Struct::Tld, result)
       assert_kind_of(Integer, result.tld_type)
       assert_kind_of(String, result.tld)
+      refute(result.trustee_service_enabled)
+      refute(result.trustee_service_required)
     end
   end
 
@@ -120,6 +122,8 @@ class TldsTest < Minitest::Test
     assert_equal("com", result.tld)
     assert_equal(1, result.tld_type)
     assert(result.whois_privacy)
+    refute(result.trustee_service_enabled)
+    refute(result.trustee_service_required)
     refute(result.auto_renew_only)
     assert(result.idn)
     assert_equal(1, result.minimum_registration)
