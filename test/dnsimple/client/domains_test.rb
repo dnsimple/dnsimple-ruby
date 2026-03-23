@@ -172,6 +172,7 @@ class DomainsTest < Minitest::Test
     assert_equal("registered", result.state)
     refute(result.auto_renew)
     refute(result.private_whois)
+    refute(result.trustee_service)
     assert_equal("2021-06-05T02:15:00Z", result.expires_at)
     assert_equal("2020-06-04T19:15:14Z", result.created_at)
     assert_equal("2020-06-04T19:15:21Z", result.updated_at)

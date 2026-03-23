@@ -30,6 +30,12 @@ module Dnsimple
       # @return [Boolean] True if DNSimple supports inbound transfers for this TLD.
       attr_accessor :transfer_enabled
 
+      # @return [Boolean] True if Trustee service is enabled for this TLD.
+      attr_accessor :trustee_service_enabled
+
+      # @return [Boolean] True if Trustee service is required for this TLD.
+      attr_accessor :trustee_service_required
+
       # @return [String, nil] Type of data interface required for DNSSEC for this TLD.
       attr_accessor :dnssec_interface_type
     end
