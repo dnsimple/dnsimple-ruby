@@ -19,7 +19,7 @@ jobs:
           rsync -a --delete "$TMP_DIR/dnsimple-developer-main/fixtures/v2/api/" test/fixtures.http/
           echo "now=$(date +'%Y-%m-%d %H:%M:%S')" >> "$GITHUB_OUTPUT"
       - name: Create PR with synced fixtures
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           sign-commits: true
           add-paths: test/fixtures.http
