@@ -30,4 +30,15 @@ class AccountsTest < Minitest::Test
     assert_kind_of(Dnsimple::Struct::Account, result.first)
     assert_kind_of(Dnsimple::Struct::Account, result.last)
   end
+
+  test "returns the account name" do
+    stub_request(:get, %r{/v2/accounts$})
+        .to_return(read_http_fixture("listAccounts/success-account.http"))
+
+    response = @subject.accounts
+
+    result = response.data.first
+
+    assert_equal("John", result.name)
+  end
 end
