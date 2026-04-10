@@ -211,7 +211,7 @@ class RegistrarTest < Minitest::Test
     stub_request(:post, %r{/v2/#{@account_id}/registrar/domains/.+/transfers$})
         .to_return(read_http_fixture("transferDomain/success.http"))
 
-    attributes = { registrant_id: "10", auth_code: "x1y2z3" }
+    attributes = { registrant_id: "10", auth_code: "x1y2z3", trustee_service: true }
     @subject.transfer_domain(@account_id, domain_name = "example.com", attributes)
 
     assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/registrar/domains/#{domain_name}/transfers",
@@ -233,6 +233,7 @@ class RegistrarTest < Minitest::Test
     assert_kind_of(Dnsimple::Struct::DomainTransfer, result)
     assert_kind_of(Integer, result.id)
     assert_kind_of(Integer, result.domain_id)
+    refute(result.trustee_service)
   end
 
   test "transfer domain when attributes are incomplete raises argument error" do
@@ -288,6 +289,7 @@ class RegistrarTest < Minitest::Test
     assert_equal("cancelled", result.state)
     refute(result.auto_renew)
     refute(result.whois_privacy)
+    refute(result.trustee_service)
     assert_equal("Canceled by customer", result.status_description)
     assert_equal("2020-06-05T18:08:00Z", result.created_at)
     assert_equal("2020-06-05T18:10:01Z", result.updated_at)
@@ -321,6 +323,7 @@ class RegistrarTest < Minitest::Test
     assert_equal("transferring", result.state)
     refute(result.auto_renew)
     refute(result.whois_privacy)
+    refute(result.trustee_service)
     assert_nil(result.status_description)
     assert_equal("2020-06-05T18:08:00Z", result.created_at)
     assert_equal("2020-06-05T18:08:04Z", result.updated_at)
