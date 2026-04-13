@@ -36,11 +36,11 @@ class DomainsPushesTest < Minitest::Test
     assert_kind_of(Integer, result.id)
   end
 
-  test "initiate push with domain push identifier builds correct request" do
+  test "initiate push with account identifier builds correct request" do
     stub_request(:post, %r{/v2/#{@account_id}/domains/#{@domain_id}/pushes$})
         .to_return(read_http_fixture("initiatePush/success.http"))
 
-    attributes = { new_domain_push_identifier: "abc123" }
+    attributes = { new_account_identifier: "abc123" }
     @subject.initiate_push(@account_id, @domain_id, attributes)
 
     assert_requested(:post, "https://api.dnsimple.test/v2/#{@account_id}/domains/#{@domain_id}/pushes",

@@ -8,7 +8,7 @@ module Dnsimple
       # @see https://developer.dnsimple.com/v2/domains/pushes/#initiate
       #
       # @example Initiate a domain push for example.com using a domain push identifier:
-      #   client.domains.initiate_push(1010, "example.com", new_domain_push_identifier: "abc123")
+      #   client.domains.initiate_push(1010, "example.com", new_account_identifier: "abc123")
       #
       # @example Initiate a domain push for example.com using an account email (deprecated):
       #   client.domains.initiate_push(1010, "example.com", new_account_email: "admin@target-account.test")
@@ -16,8 +16,8 @@ module Dnsimple
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] The domain ID or domain name
       # @param  attributes [Hash]
-      # @option attributes [String] :new_domain_push_identifier the target domain push identifier
-      # @option attributes [String] :new_account_email the target account email (deprecated, use :new_domain_push_identifier instead)
+      # @option attributes [String] :new_account_identifier the target account identifier
+      # @option attributes [String] :new_account_email the target account email (deprecated, use :new_account_identifier instead)
       # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::DomainPush>]
       #
