@@ -7,19 +7,22 @@ module Dnsimple
       #
       # @see https://developer.dnsimple.com/v2/domains/pushes/#initiate
       #
-      # @example Initiate a domain pushe for example.com:
+      # @example Initiate a domain push for example.com using a domain push identifier:
+      #   client.domains.initiate_push(1010, "example.com", new_account_identifier: "abc123")
+      #
+      # @example Initiate a domain push for example.com using an account email (deprecated):
       #   client.domains.initiate_push(1010, "example.com", new_account_email: "admin@target-account.test")
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] The domain ID or domain name
       # @param  attributes [Hash]
-      # @option attributes [String] :new_account_email the target account email (mandatory)
+      # @option attributes [String] :new_account_identifier the target account identifier
+      # @option attributes [String] :new_account_email the target account email (deprecated, use :new_account_identifier instead)
       # @param  options [Hash]
       # @return [Dnsimple::Response<Dnsimple::Struct::DomainPush>]
       #
       # @raise  [Dnsimple::RequestError]
       def initiate_push(account_id, domain_id, attributes, options = {})
-        Extra.validate_mandatory_attributes(attributes, [:new_account_email])
         response = client.post(Client.versioned("/%s/domains/%s/pushes" % [account_id, domain_id]), attributes, options)
 
         Dnsimple::Response.new(response, Struct::DomainPush.new(response["data"]))
