@@ -41,7 +41,7 @@ class BillingTest < Minitest::Test
 
     assert_kind_of(Dnsimple::PaginatedResponse, response)
     assert_kind_of(Array, response.data)
-    assert_equal(3, response.data.size)
+    assert_equal(4, response.data.size)
 
     response.data.each do |result|
       assert_kind_of(Dnsimple::Struct::Charge, result)
