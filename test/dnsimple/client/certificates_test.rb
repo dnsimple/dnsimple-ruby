@@ -134,7 +134,6 @@ class CertificatesTest < Minitest::Test
     assert_kind_of(Dnsimple::Struct::Certificate, result)
     assert_equal(101967, result.id)
     assert_equal(289333, result.domain_id)
-    assert_equal(2511, result.contact_id)
     assert_equal("www.bingo.pizza", result.common_name)
     assert_empty(result.alternate_names)
     assert_equal(1, result.years)

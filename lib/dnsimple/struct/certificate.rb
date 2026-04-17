@@ -9,9 +9,6 @@ module Dnsimple
       # @return [Integer] The associated domain ID.
       attr_accessor :domain_id
 
-      # @return [Integer] The associated contact ID.
-      attr_accessor :contact_id
-
       # @return [String] The certificate common name.
       attr_accessor :common_name
 

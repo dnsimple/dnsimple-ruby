@@ -2,6 +2,12 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/), the format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## main
+
+### Removed
+
+- **BREAKING**: Removed the deprecated `contact_id` attribute from the `Certificate` struct. The field was deprecated on 2022-05-17 and is no longer required for certificate operations.
+
 ## 12.3.0 - 2026-04-15
 
 ### Added
