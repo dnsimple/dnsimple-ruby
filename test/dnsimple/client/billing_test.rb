@@ -55,8 +55,15 @@ class BillingTest < Minitest::Test
     assert_equal("14.5", response.data[0].total_amount.to_s("F"))
     assert_kind_of(BigDecimal, response.data[0].items[0].amount)
     assert_equal("14.5", response.data[0].items[0].amount.to_s("F"))
+  end
 
+  test "returns certificate-purchase charges with string product reference" do
+    stub_request(:get, %r{/v2/#{@account_id}/billing/charges})
+        .to_return(read_http_fixture("listCharges/success.http"))
+
+    response = @subject.charges(@account_id)
     cert_charge = response.data[3]
+
     assert_equal("5-2", cert_charge.reference)
     assert_equal("certificate-purchase", cert_charge.items[0].product_type)
     assert_kind_of(String, cert_charge.items[0].product_reference)
