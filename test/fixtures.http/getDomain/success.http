@@ -17,4 +17,4 @@ x-download-options: noopen
 x-permitted-cross-domain-policies: none
 strict-transport-security: max-age=31536000
 
-{"data":{"id":181984,"account_id":1385,"registrant_id":2715,"name":"example-alpha.com","unicode_name":"example-alpha.com","state":"registered","auto_renew":false,"private_whois":false,"trustee_service":false,"expires_on":"2021-06-05","expires_at":"2021-06-05T02:15:00Z","created_at":"2020-06-04T19:15:14Z","updated_at":"2020-06-04T19:15:21Z"}}
+{"data":{"id":181984,"account_id":1385,"registrant_id":2715,"name":"example-alpha.com","unicode_name":"example-alpha.com","state":"registered","auto_renew":false,"private_whois":false,"trustee":false,"expires_on":"2021-06-05","expires_at":"2021-06-05T02:15:00Z","created_at":"2020-06-04T19:15:14Z","updated_at":"2020-06-04T19:15:21Z"}}
