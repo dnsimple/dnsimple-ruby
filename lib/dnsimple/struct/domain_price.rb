@@ -18,8 +18,8 @@ module Dnsimple
       # @return [Float] The price for transfer
       attr_accessor :transfer_price
 
-      # @return [Float] The Trustee service price
-      attr_accessor :trustee_service_price
+      # @return [Float] The trustee price
+      attr_accessor :trustee_price
     end
   end
 end
