@@ -21,8 +21,8 @@ module Dnsimple
       # @return [Bool] True if the domain WHOIS privacy was requested.
       attr_accessor :whois_privacy
 
-      # @return [Bool] True if the domain Trustee service was requested.
-      attr_accessor :trustee_service
+      # @return [Bool] True if trustee was requested.
+      attr_accessor :trustee
 
       # @return [String,nil] The reason if transfer failed.
       attr_accessor :status_description

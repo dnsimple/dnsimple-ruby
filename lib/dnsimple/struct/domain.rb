@@ -27,8 +27,8 @@ module Dnsimple
       # @return [Bool] True if the domain WHOIS privacy is enabled, false otherwise.
       attr_accessor :private_whois
 
-      # @return [Bool] True if the domain Trustee service is enabled, false otherwise.
-      attr_accessor :trustee_service
+      # @return [Bool] True if the domain trustee is enabled, false otherwise.
+      attr_accessor :trustee
 
       # @return [String] The timestamp when domain will expire.
       attr_accessor :expires_at
