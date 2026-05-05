@@ -2,15 +2,17 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/), the format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## main
+## 13.0.0 - 2026-05-05
 
 ### Changed
 
+- **BREAKING**: Renamed `trustee_service` to `trustee` in `Domain`, `DomainRegistration`, and `DomainTransfer`. (#472)
+- **BREAKING**: Renamed `trustee_service_price` to `trustee_price` in `DomainPrice`. (#472)
 - Updated the `listCharges` test fixture to include a certificate purchase entry demonstrating that `product_reference` is a string even when it represents a numeric ID. (#468)
 
 ### Removed
 
-- **BREAKING**: Removed the deprecated `contact_id` attribute from the `Certificate` struct. The field was deprecated on 2022-05-17 and is no longer required for certificate operations.
+- **BREAKING**: Removed the deprecated `contact_id` attribute from the `Certificate` struct. The field was deprecated on 2022-05-17 and is no longer required for certificate operations. (#465)
 
 ## 12.3.0 - 2026-04-15
 
