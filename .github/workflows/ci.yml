@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Run markdownlint-cli
         uses: nosborn/github-action-markdown-cli@v3.5.0
         with:
@@ -40,7 +40,7 @@ jobs:
           - 'ruby-head'
           - 'truffleruby-head'
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1.313.0
         with:
