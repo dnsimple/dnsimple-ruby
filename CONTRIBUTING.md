@@ -32,3 +32,5 @@ When you submit a PR, tests will also be run on the [continuous integration envi
 ## Changelog
 
 We follow the [Common Changelog](https://common-changelog.org/) format for changelog entries.
+
+Add new entries to the `## Unreleased` section at the top of `CHANGELOG.md`. When a change requires a major version, append `(requires major version)` to its entry, for example `- Drop support for Ruby < X.Y (requires major version)`. The release process uses this tag to select the next version.

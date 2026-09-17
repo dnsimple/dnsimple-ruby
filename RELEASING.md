@@ -21,6 +21,8 @@ This document describes the steps to release a new version of DNSimple/Ruby.
    - **MINOR** version for backwards-compatible functionality additions
    - **PATCH** version for backwards-compatible bug fixes
 
+   Check the `## Unreleased` section in `CHANGELOG.md` for entries tagged `(requires major version)`. Any such entry requires a **MAJOR** version, whatever the other entries are. Raising the minimum supported Ruby version is always a breaking change, so its changelog entry must carry this tag.
+
 2. **Update the version file** with the new version
 
    Edit `version.rb` and update the `VERSION` constant:
@@ -37,7 +39,7 @@ This document describes the steps to release a new version of DNSimple/Ruby.
 
 4. **Update the changelog** with the new version
 
-   Finalize the `## main` section in `CHANGELOG.md` assigning the version.
+   Finalize the `## Unreleased` section in `CHANGELOG.md` assigning the version.
 
 5. **Commit the new version**
 
