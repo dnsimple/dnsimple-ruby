@@ -10,6 +10,7 @@ module Dnsimple
       attr_accessor :zone_id
 
       # @return [Integer] The ID of the parent record, if this record is dependent on another record.
+      # @deprecated The value is always nil, and the attribute will be removed in the next major version.
       attr_accessor :parent_id
 
       # @return [String] The type of record, in uppercase.

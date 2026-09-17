@@ -2,6 +2,12 @@
 
 This project uses [Semantic Versioning 2.0.0](http://semver.org/), the format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## Unreleased
+
+### Deprecated
+
+- Deprecated `parent_id` in `Dnsimple::Struct::ZoneRecord`. The value is always `nil`, and the attribute will be removed in the next major version. (#485)
+
 ## 13.0.0 - 2026-05-05
 
 ### Changed
