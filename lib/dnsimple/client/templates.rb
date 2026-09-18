@@ -5,7 +5,7 @@ module Dnsimple
     module Templates
       # Lists the templates in the account.
       #
-      # @see https://developer.dnsimple.com/v2/templates/#list
+      # @see https://developer.dnsimple.com/v2/templates/#listTemplates
       #
       # @example List the templates for account 1010:
       #   client.templates.list_templates(1010)
@@ -43,7 +43,7 @@ module Dnsimple
       # @example List all the templates for account 1010:
       #   client.templates.all_templates(1010)
       #
-      # @see https://developer.dnsimple.com/v2/templates/#list
+      # @see https://developer.dnsimple.com/v2/templates/#listTemplates
       # @see #templates
       #
       # @param  account_id [Integer] the account ID
@@ -60,7 +60,7 @@ module Dnsimple
 
       # Creates a template in the account.
       #
-      # @see https://developer.dnsimple.com/v2/templates/#create
+      # @see https://developer.dnsimple.com/v2/templates/#createTemplate
       #
       # @example Creating a template:
       #   client.templates.create_template(1010, name: "Pi", short_name: "pi", description: "Pi template")
@@ -80,7 +80,7 @@ module Dnsimple
 
       # Gets the template with specified ID.
       #
-      # @see https://developer.dnsimple.com/v2/templates/#get
+      # @see https://developer.dnsimple.com/v2/templates/#getTemplate
       #
       # @example Get template 5401 in account 1010:
       #   client.templates.template(1010, 5401)
@@ -100,7 +100,7 @@ module Dnsimple
 
       # Updates template with specified ID with provided data.
       #
-      # @see https://developer.dnsimple.com/v2/templates/#update
+      # @see https://developer.dnsimple.com/v2/templates/#updateTemplate
       #
       # @example Change the name of template 1 in account 1010:
       #   client.templates.update_template(1010, 1, name: "New name")
@@ -123,7 +123,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see https://developer.dnsimple.com/v2/templates/#delete
+      # @see https://developer.dnsimple.com/v2/templates/#deleteTemplate
       #
       # @example Delete template 5401 in account 1010:
       #   client.templates.delete_template(1010, 5401)

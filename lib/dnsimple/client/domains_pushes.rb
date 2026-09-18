@@ -5,7 +5,7 @@ module Dnsimple
     module DomainsPushes
       # Initiate a push for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/pushes/#initiate
+      # @see https://developer.dnsimple.com/v2/domains/pushes/#initiateDomainPush
       #
       # @example Initiate a domain push for example.com using a domain push identifier:
       #   client.domains.initiate_push(1010, "example.com", new_account_identifier: "abc123")
@@ -30,7 +30,7 @@ module Dnsimple
 
       # Lists the pushes for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/pushes/#list
+      # @see https://developer.dnsimple.com/v2/domains/pushes/#listPushes
       #
       # @example List domain pushes in the first page
       #   client.domains.pushes(2020)
@@ -54,7 +54,7 @@ module Dnsimple
 
       # Accept a domain push.
       #
-      # @see https://developer.dnsimple.com/v2/domains/pushes/#accept
+      # @see https://developer.dnsimple.com/v2/domains/pushes/#acceptPush
       #
       # @example Accept a domain push in the target account:
       #   client.domains.accept_push(2020, 1, contact_id: 2)
@@ -77,7 +77,7 @@ module Dnsimple
 
       # Reject a domain push.
       #
-      # @see https://developer.dnsimple.com/v2/domains/pushes/#reject
+      # @see https://developer.dnsimple.com/v2/domains/pushes/#rejectPush
       #
       # @example Reject a domain push in the target account:
       #   client.domains.reject_push(2020, 1, contact_id: 2)

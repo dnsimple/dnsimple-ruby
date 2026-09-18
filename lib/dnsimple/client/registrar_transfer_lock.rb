@@ -23,7 +23,7 @@ module Dnsimple
 
       # Enable transfer lock for the domain in the account.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/#enableDomainTransferLock
+      # @see https://developer.dnsimple.com/v2/registrar/transfer-lock/#enableDomainTransferLock
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_name [#to_s] the domain name
@@ -40,7 +40,7 @@ module Dnsimple
 
       # Disable trasnfer lock for the domain in the account.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/#disableDomainTransferLock
+      # @see https://developer.dnsimple.com/v2/registrar/transfer-lock/#disableDomainTransferLock
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_name [#to_s] the domain name

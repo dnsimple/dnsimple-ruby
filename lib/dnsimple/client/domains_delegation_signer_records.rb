@@ -5,7 +5,7 @@ module Dnsimple
     module DomainsDelegationSignerRecords
       # Lists the delegation signer records for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-list
+      # @see https://developer.dnsimple.com/v2/domains/dnssec/#listDomainDelegationSignerRecords
       #
       # @example List delegation signer records in the first page
       #   client.domains.delegation_signer_records(1010, "example.com")
@@ -40,7 +40,7 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-list
+      # @see https://developer.dnsimple.com/v2/domains/dnssec/#listDomainDelegationSignerRecords
       # @see #email_forwards
       #
       # @param  account_id [Integer] the account ID
@@ -58,7 +58,7 @@ module Dnsimple
 
       # Creates a delegation signer record for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-create
+      # @see https://developer.dnsimple.com/v2/domains/dnssec/#createDomainDelegationSignerRecord
       # @see http://www.iana.org/assignments/dns-sec-alg-numbers/dns-sec-alg-numbers.xhtml
       # @see http://www.iana.org/assignments/ds-rr-types/ds-rr-types.xhtml
       #
@@ -83,7 +83,7 @@ module Dnsimple
 
       # Gets a delegation signer record for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-get
+      # @see https://developer.dnsimple.com/v2/domains/dnssec/#getDomainDelegationSignerRecord
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] The domain ID or domain name
@@ -103,7 +103,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see https://developer.dnsimple.com/v2/domains/dnssec/#ds-record-delete
+      # @see https://developer.dnsimple.com/v2/domains/dnssec/#deleteDomainDelegationSignerRecord
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] The domain ID or domain name

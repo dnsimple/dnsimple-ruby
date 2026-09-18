@@ -5,7 +5,7 @@ module Dnsimple
     module ServicesDomains
       # Lists the one-click services applied to the domain.
       #
-      # @see https://developer.dnsimple.com/v2/services/domains/#applied
+      # @see https://developer.dnsimple.com/v2/services/domains/#listDomainAppliedServices
       #
       # @example List applied one-click services for example.com:
       #   client.service.applied_services(1010, "example.com")
@@ -34,7 +34,7 @@ module Dnsimple
 
       # Apply a given one-click service to the domain.
       #
-      # @see https://developer.dnsimple.com/v2/services/domains/#apply
+      # @see https://developer.dnsimple.com/v2/services/domains/#applyServiceToDomain
       #
       # @example Apply one-click service service1 to example.com:
       #   client.domain_services.applied_services(1010, "example.com", "service1")
@@ -59,7 +59,7 @@ module Dnsimple
 
       # Unapply a given one-click service from the domain.
       #
-      # @see https://developer.dnsimple.com/v2/services/domains/#unapply
+      # @see https://developer.dnsimple.com/v2/services/domains/#unapplyServiceFromDomain
       #
       # @example Unapply one-click service service1 from example.com:
       #   client.domain_services.applied_services(1010, "example.com", "service1")

@@ -5,7 +5,7 @@ module Dnsimple
     module DomainsDnssec
       # Enable DNSSEC for the domain in the account.
       #
-      # @see https://developer.dnsimple.com/v2/dnssec/#enable
+      # @see https://developer.dnsimple.com/v2/domains/dnssec/#enableDomainDnssec
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_name [#to_s] the domain name
@@ -22,7 +22,7 @@ module Dnsimple
 
       # Disable DNSSEC for the domain in the account.
       #
-      # @see https://developer.dnsimple.com/v2/dnssec/#disable
+      # @see https://developer.dnsimple.com/v2/domains/dnssec/#disableDomainDnssec
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_name [#to_s] the domain name
@@ -39,7 +39,7 @@ module Dnsimple
 
       # Get the DNSSEC status for the domain in the account.
       #
-      # @see https://developer.dnsimple.com/v2/dnssec/#get
+      # @see https://developer.dnsimple.com/v2/domains/dnssec/#getDomainDnssec
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_name [#to_s] the domain name

@@ -5,7 +5,7 @@ module Dnsimple
     module Zones
       # Lists the zones in the account.
       #
-      # @see https://developer.dnsimple.com/v2/zones/#list
+      # @see https://developer.dnsimple.com/v2/zones/#listZones
       # @see #all_zones
       #
       # @example List zones in the first page
@@ -44,7 +44,7 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/zones/#list
+      # @see https://developer.dnsimple.com/v2/zones/#listZones
       # @see #zones
       #
       # @param  account_id [Integer] the account ID
@@ -62,7 +62,7 @@ module Dnsimple
 
       # Gets a zone from the account.
       #
-      # @see https://developer.dnsimple.com/v2/zones/#get
+      # @see https://developer.dnsimple.com/v2/zones/#getZone
       #
       # @param  account_id [Integer] the account ID
       # @param  zone_id [#to_s] the zone name
@@ -79,7 +79,7 @@ module Dnsimple
 
       # Gets a zone file from the account.
       #
-      # @see https://developer.dnsimple.com/v2/zones/#get-file
+      # @see https://developer.dnsimple.com/v2/zones/#getZoneFile
       #
       # @param  account_id [Integer] the account ID
       # @param  zone_name [#to_s] the zone name

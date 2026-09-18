@@ -5,7 +5,7 @@ module Dnsimple
     module TemplatesDomains
       # Applies a template to the domain.
       #
-      # @see https://developer.dnsimple.com/v2/templates/domains/#apply
+      # @see https://developer.dnsimple.com/v2/templates/domains/#applyTemplateToDomain
       #
       # @example Apply template 5401 for example.com in account 1010:
       #   client.templates.apply_template(1010, 5401, "example.com")

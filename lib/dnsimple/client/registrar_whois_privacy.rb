@@ -5,7 +5,7 @@ module Dnsimple
     module RegistrarWhoisPrivacy
       # Enables whois privacy for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/whois-privacy/#enable
+      # @see https://developer.dnsimple.com/v2/registrar/whois-privacy/#enableWhoisPrivacy
       #
       # @example Enable whois privacy for "example.com":
       #   client.registrar.enable_whois_privacy(1010, "example.com")
@@ -25,7 +25,7 @@ module Dnsimple
 
       # Disables whois privacy for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/whois-privacy/#disable
+      # @see https://developer.dnsimple.com/v2/registrar/whois-privacy/#disableWhoisPrivacy
       #
       # @example Disable whois privacy for "example.com":
       #   client.registrar.disable_whois_privacy(1010, "example.com")

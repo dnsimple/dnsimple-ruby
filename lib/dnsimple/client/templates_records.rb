@@ -5,7 +5,7 @@ module Dnsimple
     module TemplatesRecords
       # Lists the records in the template.
       #
-      # @see https://developer.dnsimple.com/v2/templates/records/#list
+      # @see https://developer.dnsimple.com/v2/templates/records/#listTemplateRecords
       # @see #all_records
       #
       # @example List the first page of records for the template "alpha"
@@ -43,7 +43,7 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/templates/records/#list
+      # @see https://developer.dnsimple.com/v2/templates/records/#listTemplateRecords
       # @see #all_records
       #
       # @example List all the records for "alpha template
@@ -65,7 +65,7 @@ module Dnsimple
 
       # Creates a record in the template.
       #
-      # @see https://developer.dnsimple.com/v2/templates/records/#create
+      # @see https://developer.dnsimple.com/v2/templates/records/#createTemplateRecord
       #
       # @example Create an A record for "alpha" template
       #   client.templates.create_record(1010, "alpha", name: "", type: "A", content: "192.168.1.1", ttl: 600)
@@ -88,7 +88,7 @@ module Dnsimple
 
       # Gets a record from the template.
       #
-      # @see https://developer.dnsimple.com/v2/templates/records/#get
+      # @see https://developer.dnsimple.com/v2/templates/records/#getTemplateRecord
       #
       # @example Get record 123 in "alpha template
       #   client.templates.record(1010, "alpha", 123)
@@ -112,7 +112,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see https://developer.dnsimple.com/v2/templates/records/#delete
+      # @see https://developer.dnsimple.com/v2/templates/records/#deleteTemplateRecord
       #
       # @example Delete record 123 in "alpha template
       #   client.templates.delete_record(1010, "alpha", 123)

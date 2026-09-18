@@ -5,7 +5,7 @@ module Dnsimple
     module DomainsEmailForwards
       # Lists the email forwards for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#list
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#listEmailForwards
       #
       # @example List email forwards in the first page
       #   client.domains.email_forwards(1010, "example.com")
@@ -40,7 +40,7 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#list
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#listEmailForwards
       # @see #email_forwards
       #
       # @param  account_id [Integer] the account ID
@@ -58,7 +58,7 @@ module Dnsimple
 
       # Creates an email forward for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#create
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#createEmailForward
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] The domain ID or domain name
@@ -76,7 +76,7 @@ module Dnsimple
 
       # Gets a email forward for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#get
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#getEmailForward
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] The domain ID or domain name
@@ -96,7 +96,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#delete
+      # @see https://developer.dnsimple.com/v2/domains/email-forwards/#deleteEmailForward
       #
       # @param  account_id [Integer] the account ID
       # @param  domain_id [#to_s] The domain ID or domain name
