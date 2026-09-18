@@ -5,7 +5,7 @@ module Dnsimple
     module RegistrarDelegation
       # Lists name servers the domain is delegating to.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/delegation/#list
+      # @see https://developer.dnsimple.com/v2/registrar/delegation/#getDomainDelegation
       #
       # @example List the name servers example.com is delegating to:
       #   client.registrar.domain_delegation(1010, "example.com")
@@ -25,7 +25,7 @@ module Dnsimple
 
       # Chagne name servers the domain is delegating to.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/delegation/#update
+      # @see https://developer.dnsimple.com/v2/registrar/delegation/#changeDomainDelegation
       #
       # @example Change the name servers example.com is delegating to:
       #   client.registrar.change_domain_delegation(1010, "example.com",
@@ -47,7 +47,7 @@ module Dnsimple
 
       # Enable vanity name servers for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/delegation/#delegateToVanity
+      # @see https://developer.dnsimple.com/v2/registrar/delegation/#changeDomainDelegationToVanity
       #
       # @example Enable vanity name servers for example.com:
       #   client.registrar.change_domain_delegation_to_vanity(1010, "example.com",
@@ -69,7 +69,7 @@ module Dnsimple
 
       # Disable vanity name servers for the domain.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/delegation/#dedelegateFromVanity
+      # @see https://developer.dnsimple.com/v2/registrar/delegation/#changeDomainDelegationFromVanity
       #
       # @example Disable vanity name servers for example.com:
       #   client.registrar.change_domain_delegation_from_vanity(1010, "example.com")

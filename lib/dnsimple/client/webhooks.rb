@@ -5,7 +5,7 @@ module Dnsimple
     module Webhooks
       # Lists ALL the webhooks in the account.
       #
-      # @see https://developer.dnsimple.com/v2/webhooks/#list
+      # @see https://developer.dnsimple.com/v2/webhooks/webhooks/#listWebhooks
       #
       # @example List all webhooks
       #   client.webhooks.list(1010)
@@ -33,7 +33,7 @@ module Dnsimple
 
       # Creates a webhook in the account.
       #
-      # @see https://developer.dnsimple.com/v2/webhooks/#create
+      # @see https://developer.dnsimple.com/v2/webhooks/webhooks/#createWebhook
       #
       # @param  account_id [Integer] the account ID
       # @param  attributes [Hash]
@@ -50,7 +50,7 @@ module Dnsimple
 
       # Gets a webhook from the account.
       #
-      # @see https://developer.dnsimple.com/v2/webhooks/#get
+      # @see https://developer.dnsimple.com/v2/webhooks/webhooks/#getWebhook
       #
       # @param  account_id [Integer] the account ID
       # @param  webhook_id [#to_s] The webhook ID
@@ -69,7 +69,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see https://developer.dnsimple.com/v2/webooks/#delete
+      # @see https://developer.dnsimple.com/v2/webhooks/webhooks/#deleteWebhook
       #
       # @param  account_id [Integer] the account ID
       # @param  webhook_id [#to_s] The webhook ID

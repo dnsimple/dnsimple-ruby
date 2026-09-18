@@ -5,7 +5,7 @@ module Dnsimple
     module Billing
       # List the billing charges for the account.
       #
-      # @see https://developer.dnsimple.com/v2/billing/#listCharges
+      # @see https://developer.dnsimple.com/v2/billing-charges/#listCharges
       #
       # @example List charges in the first page
       #   client.charges.list(1010)

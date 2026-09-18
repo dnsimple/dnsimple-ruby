@@ -5,7 +5,7 @@ module Dnsimple
     module Contacts
       # Lists the contacts in the account.
       #
-      # @see https://developer.dnsimple.com/v2/contacts/#list
+      # @see https://developer.dnsimple.com/v2/contacts/#listContacts
       # @see #all_contacts
       #
       # @example List contacts in the first page
@@ -40,7 +40,7 @@ module Dnsimple
       # Please use this method carefully, as fetching the entire collection will increase the number of requests
       # you send to the API server and you may eventually risk to hit the throttle limit.
       #
-      # @see https://developer.dnsimple.com/v2/contacts/#list
+      # @see https://developer.dnsimple.com/v2/contacts/#listContacts
       # @see #contacts
       #
       # @param  account_id [Integer] the account ID
@@ -57,7 +57,7 @@ module Dnsimple
 
       # Creates a contact in the account.
       #
-      # @see https://developer.dnsimple.com/v2/contacts/#create
+      # @see https://developer.dnsimple.com/v2/contacts/#createContact
       #
       # @param  account_id [Integer] the account ID
       # @param  attributes [Hash]
@@ -74,7 +74,7 @@ module Dnsimple
 
       # Gets a contact from the account.
       #
-      # @see https://developer.dnsimple.com/v2/contacts/#get
+      # @see https://developer.dnsimple.com/v2/contacts/#getContact
       #
       # @param  account_id [Integer] the account ID
       # @param  contact_id [#to_s] the contact ID
@@ -91,7 +91,7 @@ module Dnsimple
 
       # Updates a contact in the account.
       #
-      # @see https://developer.dnsimple.com/v2/contacts/#update
+      # @see https://developer.dnsimple.com/v2/contacts/#updateContact
       #
       # @param  account_id [Integer] the account ID
       # @param  contact_id [#to_s] the contact ID
@@ -110,7 +110,7 @@ module Dnsimple
       #
       # WARNING: this cannot be undone.
       #
-      # @see https://developer.dnsimple.com/v2/contacts/#delete
+      # @see https://developer.dnsimple.com/v2/contacts/#deleteContact
       #
       # @param  account_id [Integer] the account ID
       # @param  contact_id [#to_s] the contact ID

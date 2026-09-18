@@ -5,7 +5,7 @@ module Dnsimple
     module Services
       # Lists the available one-click services.
       #
-      # @see https://developer.dnsimple.com/v2/services/#list
+      # @see https://developer.dnsimple.com/v2/services/#listServices
       #
       # @example List one-click services:
       #   client.services.list_services
@@ -42,7 +42,7 @@ module Dnsimple
       # @example List all the one-click services:
       #   client.services.all_services
       #
-      # @see https://developer.dnsimple.com/v2/services/#list
+      # @see https://developer.dnsimple.com/v2/services/#listServices
       # @see #services
       #
       # @param  options [Hash] the filtering and sorting options
@@ -58,7 +58,7 @@ module Dnsimple
 
       # Gets the service with specified ID.
       #
-      # @see https://developer.dnsimple.com/v2/services/#get
+      # @see https://developer.dnsimple.com/v2/services/#getService
       #
       # @example Get service 43:
       #   client.services.service(43)

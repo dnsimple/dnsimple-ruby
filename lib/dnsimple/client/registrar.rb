@@ -5,7 +5,7 @@ module Dnsimple
     module Registrar
       # Checks whether a domain is available to be registered.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/#check
+      # @see https://developer.dnsimple.com/v2/registrar/#checkDomain
       #
       # @example Check whether example.com is available:
       #   client.registrar.check_domain(1010, "example.com")
@@ -45,7 +45,7 @@ module Dnsimple
 
       # Registers a domain.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/#register
+      # @see https://developer.dnsimple.com/v2/registrar/#registerDomain
       #
       # @example Initiate the registration of example.com using the contact 1234 as registrant
       #   including WHOIS privacy for the domain and enabling auto renewal:
@@ -90,7 +90,7 @@ module Dnsimple
 
       # Renews a domain.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/#renew
+      # @see https://developer.dnsimple.com/v2/registrar/#renewDomain
       #
       # @example Renew example.com for 3 years:
       #   client.registrar.renew_domain(1010, "example.com", period: 3)
@@ -133,7 +133,7 @@ module Dnsimple
 
       # Starts the transfer of a domain to DNSimple.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/#transfer
+      # @see https://developer.dnsimple.com/v2/registrar/#transferDomain
       #
       # @example Initiate the transfer for example.com using the contact 1234 as registrant:
       #   client.registrar.transfer_domain(1010, "example.com", registrant_id: 1234, auth_code: "x1y2z3")
@@ -199,7 +199,7 @@ module Dnsimple
 
       # Requests the transfer of a domain out of DNSimple.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/#transfer-out
+      # @see https://developer.dnsimple.com/v2/registrar/#authorizeDomainTransferOut
       #
       # @example Request to transfer of example.com out of DNSimple:
       #   client.registrar.transfer_domain_out(1010, "example.com")
@@ -219,7 +219,7 @@ module Dnsimple
 
       # Restores a domain.
       #
-      # @see https://developer.dnsimple.com/v2/registrar/#restore
+      # @see https://developer.dnsimple.com/v2/registrar/#restoreDomain
       #
       # @example Restore example.com:
       #   client.registrar.restore_domain(1010, "example.com", {})
